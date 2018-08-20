@@ -1,0 +1,45 @@
+.app-body {
+  text-align: center;
+}
+
+.app-intro {
+  background-color: #222;
+  height: 180px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.app-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.app-paragraph {
+  font-size: large;
+  margin: 20px 0;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fadein {
+  opacity: 0;
+  animation: fadein 0.25s ease-in forwards;
+  animation-delay: 0.25s;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

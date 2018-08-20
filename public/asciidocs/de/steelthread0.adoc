@@ -1,0 +1,10 @@
+[[steel-thread-zero]]
+=== Steel Thread Zero
+
+. Open the link:http://google.com[application launcher console].
+. From the *Create application* screen, add a name for your REST endpoint application and click *Continue*.
+. From the Target Environment screen, select "Code locally, Build and Deploy".
+. From the Mission list, select CRUD.
+. From the Runtime list, select Node.js and click the blue arrow to continue.
+. Authorize your GitHub provider and click the blue arrow to continue.
+. Review and click Set Up Application. You'll see a confirmation screen when setup is complete.

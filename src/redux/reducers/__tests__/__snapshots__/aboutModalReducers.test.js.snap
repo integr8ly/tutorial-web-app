@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmationModalReducers should handle all defined types: defined types 1`] = `
+Object {
+  "result": Object {
+    "show": true,
+    "type": "ABOUT_MODAL_SHOW",
+  },
+  "type": "ABOUT_MODAL_SHOW",
+}
+`;
+
+exports[`ConfirmationModalReducers should handle all defined types: defined types 2`] = `
+Object {
+  "result": Object {
+    "show": false,
+  },
+  "type": "ABOUT_MODAL_HIDE",
+}
+`;

@@ -1,0 +1,4 @@
+[[welcome-message]]
+=== Welcome Message
+
+This product template supports a variety of template formats and translations including Ascii Doc.

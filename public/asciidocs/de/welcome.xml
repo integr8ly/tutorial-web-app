@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Welcome Message</title>
+<date>2018-08-22</date>
+</info>
+<section xml:id="welcome-message">
+<title>Welcome Message</title>
+<simpara>This product template supports a variety of template formats and translations including Ascii Doc.</simpara>
+</section>
+</article>
