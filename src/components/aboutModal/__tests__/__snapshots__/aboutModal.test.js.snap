@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutModal Component should render a connected component with default props: connected 1`] = `
+<AboutModal
+  dispatch={[Function]}
+  onClose={null}
+  resetTimer={3000}
+  session={
+    Object {
+      "username": "test",
+    }
+  }
+  show={true}
+/>
+`;
+
+exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `
+<AboutModal
+  onClose={null}
+  resetTimer={3000}
+  session={
+    Object {
+      "username": null,
+    }
+  }
+  show={false}
+  user={
+    Object {
+      "session": Object {
+        "username": "test",
+      },
+    }
+  }
+>
+  <AboutModal
+    altLogo="PatternFly Enterprise Application"
+    className=""
+    logo="logo-alt.svg"
+    onHide={[Function]}
+    productTitle={
+      <img
+        alt="PatternFly Enterprise Application"
+        src="brand-alt.svg"
+      />
+    }
+    show={false}
+    trademarkText="Copyright (c) 2018 Red Hat Inc."
+  >
+    <Modal
+      animation={true}
+      autoFocus={true}
+      backdrop={true}
+      bsClass="modal"
+      className=""
+      contentClassName="about-modal-pf"
+      dialogComponentClass={[Function]}
+      enforceFocus={true}
+      keyboard={true}
+      manager={
+        ModalManager {
+          "add": [Function],
+          "containers": Array [],
+          "data": Array [],
+          "handleContainerOverflow": true,
+          "hideSiblingNodes": true,
+          "isTopModal": [Function],
+          "modals": Array [],
+          "remove": [Function],
+        }
+      }
+      onHide={[Function]}
+      renderBackdrop={[Function]}
+      restoreFocus={true}
+      show={false}
+    >
+      <Modal
+        autoFocus={true}
+        backdrop={true}
+        backdropClassName="modal-backdrop"
+        backdropTransition={[Function]}
+        containerClassName="modal-open"
+        enforceFocus={true}
+        keyboard={true}
+        manager={
+          ModalManager {
+            "add": [Function],
+            "containers": Array [],
+            "data": Array [],
+            "handleContainerOverflow": true,
+            "hideSiblingNodes": true,
+            "isTopModal": [Function],
+            "modals": Array [],
+            "remove": [Function],
+          }
+        }
+        onEntering={[Function]}
+        onExited={[Function]}
+        onHide={[Function]}
+        renderBackdrop={[Function]}
+        restoreFocus={true}
+        show={false}
+        transition={[Function]}
+      />
+    </Modal>
+  </AboutModal>
+</AboutModal>
+`;
+
+exports[`AboutModal Component should render a non-connected component: show modal 1`] = `
+<AboutModal
+  onClose={null}
+  resetTimer={3000}
+  session={
+    Object {
+      "username": null,
+    }
+  }
+  show={false}
+  user={
+    Object {
+      "session": Object {
+        "username": "test",
+      },
+    }
+  }
+>
+  <AboutModal
+    altLogo="PatternFly Enterprise Application"
+    className=""
+    logo="logo-alt.svg"
+    onHide={[Function]}
+    productTitle={
+      <img
+        alt="PatternFly Enterprise Application"
+        src="brand-alt.svg"
+      />
+    }
+    show={false}
+    trademarkText="Copyright (c) 2018 Red Hat Inc."
+  >
+    <Modal
+      animation={true}
+      autoFocus={true}
+      backdrop={true}
+      bsClass="modal"
+      className=""
+      contentClassName="about-modal-pf"
+      dialogComponentClass={[Function]}
+      enforceFocus={true}
+      keyboard={true}
+      manager={
+        ModalManager {
+          "add": [Function],
+          "containers": Array [],
+          "data": Array [],
+          "handleContainerOverflow": true,
+          "hideSiblingNodes": true,
+          "isTopModal": [Function],
+          "modals": Array [],
+          "remove": [Function],
+        }
+      }
+      onHide={[Function]}
+      renderBackdrop={[Function]}
+      restoreFocus={true}
+      show={false}
+    >
+      <Modal
+        autoFocus={true}
+        backdrop={true}
+        backdropClassName="modal-backdrop"
+        backdropTransition={[Function]}
+        containerClassName="modal-open"
+        enforceFocus={true}
+        keyboard={true}
+        manager={
+          ModalManager {
+            "add": [Function],
+            "containers": Array [],
+            "data": Array [],
+            "handleContainerOverflow": true,
+            "hideSiblingNodes": true,
+            "isTopModal": [Function],
+            "modals": Array [],
+            "remove": [Function],
+          }
+        }
+        onEntering={[Function]}
+        onExited={[Function]}
+        onHide={[Function]}
+        renderBackdrop={[Function]}
+        restoreFocus={true}
+        show={false}
+        transition={[Function]}
+      />
+    </Modal>
+  </AboutModal>
+</AboutModal>
+`;

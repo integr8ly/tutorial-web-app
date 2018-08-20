@@ -1,0 +1,572 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserReducers should handle all defined error types: rejected types 1`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": true,
+      "errorMessage": "MESSAGE",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_CREATE_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 2`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": true,
+      "errorMessage": "MESSAGE",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_DELETE_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 3`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_INFO_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 4`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": true,
+      "errorMessage": "MESSAGE",
+      "fulfilled": false,
+      "loginFailed": true,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGIN_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 5`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGOUT_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 6`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined error types: rejected types 7`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_REMOVE_REJECTED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 1`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": true,
+      "pending": false,
+      "userInfo": Object {
+        "test": "success",
+      },
+    },
+  },
+  "type": "USER_CREATE_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 2`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": true,
+      "pending": false,
+      "userInfo": Object {
+        "test": "success",
+      },
+    },
+  },
+  "type": "USER_DELETE_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 3`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_INFO_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 4`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": true,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": true,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGIN_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 5`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGOUT_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 6`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": true,
+      "storedEmail": undefined,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 7`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_REMOVE_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 1`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": true,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_CREATE_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 2`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": true,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_DELETE_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 3`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_INFO_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 4`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": true,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGIN_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 5`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_LOGOUT_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 6`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 7`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": false,
+      "email": null,
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": null,
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+    },
+  },
+  "type": "USER_STORED_DATA_REMOVE_PENDING",
+}
+`;
