@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import 'patternfly/dist/css/rcue.css';
 import 'patternfly/dist/css/rcue-additions.css';
 import './styles/.css/index.css';
@@ -12,9 +12,9 @@ import store from './redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={baseName}>
+    <Router basename={baseName}>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

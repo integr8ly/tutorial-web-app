@@ -2,6 +2,7 @@
 
 exports[`AboutModal Component should render a connected component with default props: connected 1`] = `
 <AboutModal
+  commitHash="3769cfc0cf392963157d3d8f73e01d8a48c336a7"
   dispatch={[Function]}
   onClose={null}
   resetTimer={3000}
@@ -16,6 +17,7 @@ exports[`AboutModal Component should render a connected component with default p
 
 exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `
 <AboutModal
+  commitHash="3769cfc0cf392963157d3d8f73e01d8a48c336a7"
   onClose={null}
   resetTimer={3000}
   session={
@@ -108,6 +110,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
 
 exports[`AboutModal Component should render a non-connected component: show modal 1`] = `
 <AboutModal
+  commitHash="3769cfc0cf392963157d3d8f73e01d8a48c336a7"
   onClose={null}
   resetTimer={3000}
   session={

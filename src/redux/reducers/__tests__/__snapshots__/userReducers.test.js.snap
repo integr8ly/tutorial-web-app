@@ -4,8 +4,8 @@ exports[`UserReducers should handle all defined error types: rejected types 1`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -13,7 +13,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": true,
@@ -31,8 +31,8 @@ exports[`UserReducers should handle all defined error types: rejected types 2`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -40,7 +40,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": true,
@@ -58,8 +58,8 @@ exports[`UserReducers should handle all defined error types: rejected types 3`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -67,7 +67,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -85,8 +85,8 @@ exports[`UserReducers should handle all defined error types: rejected types 4`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": true,
       "errorMessage": "MESSAGE",
       "fulfilled": false,
@@ -94,7 +94,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -112,8 +112,8 @@ exports[`UserReducers should handle all defined error types: rejected types 5`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -121,7 +121,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -139,8 +139,8 @@ exports[`UserReducers should handle all defined error types: rejected types 6`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -148,7 +148,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -166,8 +166,8 @@ exports[`UserReducers should handle all defined error types: rejected types 7`] 
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -175,7 +175,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -193,8 +193,8 @@ exports[`UserReducers should handle all defined fulfilled types: fulfilled types
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -202,7 +202,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -222,8 +222,8 @@ exports[`UserReducers should handle all defined fulfilled types: fulfilled types
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -231,7 +231,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -279,7 +279,7 @@ Object {
   "result": Object {
     "session": Object {
       "authorized": true,
-      "email": null,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": true,
@@ -287,7 +287,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -306,7 +306,7 @@ Object {
   "result": Object {
     "session": Object {
       "authorized": false,
-      "email": null,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -314,7 +314,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -332,8 +332,8 @@ exports[`UserReducers should handle all defined fulfilled types: fulfilled types
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -341,7 +341,7 @@ Object {
       "pending": false,
       "remember": true,
       "storedEmail": undefined,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -359,8 +359,8 @@ exports[`UserReducers should handle all defined fulfilled types: fulfilled types
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -368,7 +368,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -386,8 +386,8 @@ exports[`UserReducers should handle all defined pending types: pending types 1`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -395,7 +395,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -413,8 +413,8 @@ exports[`UserReducers should handle all defined pending types: pending types 2`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -422,7 +422,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -440,8 +440,8 @@ exports[`UserReducers should handle all defined pending types: pending types 3`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -449,7 +449,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -467,8 +467,8 @@ exports[`UserReducers should handle all defined pending types: pending types 4`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -476,7 +476,7 @@ Object {
       "pending": true,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -494,8 +494,8 @@ exports[`UserReducers should handle all defined pending types: pending types 5`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -503,7 +503,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -521,8 +521,8 @@ exports[`UserReducers should handle all defined pending types: pending types 6`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -530,7 +530,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
@@ -548,8 +548,8 @@ exports[`UserReducers should handle all defined pending types: pending types 7`]
 Object {
   "result": Object {
     "session": Object {
-      "authorized": false,
-      "email": null,
+      "authorized": true,
+      "email": "developer@redhat.com",
       "error": false,
       "errorMessage": "",
       "fulfilled": false,
@@ -557,7 +557,7 @@ Object {
       "pending": false,
       "remember": false,
       "storedEmail": null,
-      "username": null,
+      "username": "developer",
     },
     "user": Object {
       "error": false,
