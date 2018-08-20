@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage Component should render the home page component 1`] = `
+<Grid
+  bsClass="container"
+  componentClass="div"
+  fluid={true}
+>
+  <div
+    className="page-header"
+  >
+    <h2>
+      Welcome to PatternFly React Product Demo App!
+    </h2>
+  </div>
+  <div
+    className="app-body"
+  >
+    <Alert
+      className=""
+      onDismiss={[Function]}
+      type="success"
+    >
+      <span>
+        Well done! You've installed this demo correctly.
+      </span>
+    </Alert>
+    <div
+      className="app-intro"
+    >
+      <img
+        alt="logo"
+        className="app-logo"
+        src="logo.svg"
+      />
+      <h2>
+        Welcome to PatternFly React
+      </h2>
+    </div>
+    <p
+      className="app-paragraph"
+    >
+      To get started, edit 
+      <code>
+        src/app.js
+      </code>
+       and save to reload.
+    </p>
+  </div>
+</Grid>
+`;
