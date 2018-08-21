@@ -36,7 +36,7 @@ checkContainerRunning()
 devApi()
 {
   local CONTAINER="cdcabrera/apidoc-mock:1.0.2"
-  local NAME="patternfly-react-demo-dev"
+  local NAME="tutorial-web-app-apidoc"
   local PORT=$1
   local DIR=$2
   local UPDATE=$3
