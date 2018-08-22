@@ -1,0 +1,32 @@
+.app-landing-page-integr8ly-masthead {
+    background-color: #8b8d8f;
+    color: #fff;
+    height: 450px;
+}
+.app-landing-page-circle-placeholder {
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    margin: 0 auto;
+}
+
+.app-landing-page-white-text {
+    color: #fff;
+}
+.app-landing-page-dashboard {
+    align-items: center;
+}
+
+.app-landing-page-tutorial-dashboard-section {
+    margin-top: -10em;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .cards-pf {
+        background: transparent;
+        & .card-pf {
+            background: transparent;
+        }
+    }
+}
