@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Masthead Component should render a basic component: basic 1`] = `
+<Masthead
+  logoutUser={[Function]}
+  user={
+    Object {
+      "username": "Admin",
+    }
+  }
+/>
+`;
+
+exports[`Masthead Component should render a basic component: help dropdown 1`] = `
+<MastheadDropdown
+  className=""
+  id="app-help-dropdown"
+  noCaret={true}
+  title={
+    <span
+      aria-hidden={true}
+      className="pficon pficon-help"
+    />
+  }
+>
+  <MenuItem
+    bsClass="dropdown"
+    disabled={false}
+    divider={false}
+    eventKey="1"
+    header={false}
+    onClick={[Function]}
+  >
+    Help
+  </MenuItem>
+  <MenuItem
+    bsClass="dropdown"
+    disabled={false}
+    divider={false}
+    eventKey="2"
+    header={false}
+    onClick={[Function]}
+  >
+    About
+  </MenuItem>
+</MastheadDropdown>
+`;
+
+exports[`Masthead Component should render a basic component: user dropdown 1`] = `
+<MastheadDropdown
+  className=""
+  id="app-user-dropdown"
+  noCaret={false}
+  title={
+    <React.Fragment>
+      <Icon
+        name="user"
+        type="pf"
+      />
+       
+      <span
+        className="dropdown-title"
+      >
+        Admin
+         
+         
+      </span>
+    </React.Fragment>
+  }
+>
+  <MenuItem
+    bsClass="dropdown"
+    disabled={false}
+    divider={false}
+    header={false}
+    onClick={[Function]}
+  >
+    Logout
+  </MenuItem>
+</MastheadDropdown>
+`;
+
+exports[`Masthead Component should render mobile navigation: mobile-nav 1`] = `
+<div
+  aria-live="polite"
+  className="nav-pf-vertical nav-pf-vertical-with-sub-menus nav-pf-vertical-with-badges hidden show-mobile-nav"
+  role="menu"
+>
+  <ul
+    className="list-group"
+  >
+    <li
+      className="list-group-item"
+    >
+      <a
+        href="#about"
+        onClick={[Function]}
+        role="menuitem"
+      >
+        <span
+          className="list-group-item-value"
+        >
+          About
+        </span>
+      </a>
+    </li>
+    <li
+      className="list-group-item"
+    >
+      <a
+        className="hidden"
+        href="#help"
+        onClick={[Function]}
+        role="menuitem"
+      >
+        <span
+          className="list-group-item-value"
+        >
+          Help
+        </span>
+      </a>
+    </li>
+    <li
+      className="list-group-item"
+    >
+      <a
+        href="#logout"
+        onClick={[Function]}
+        role="menuitem"
+      >
+        <span
+          className="list-group-item-value"
+        >
+          Logout
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;

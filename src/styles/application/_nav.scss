@@ -1,0 +1,32 @@
+.navbar-header .navbar-brand img.navbar-brand-name {
+  height: auto;
+}
+
+// Setup for internal vertical scroll
+.app-content {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: $navbar-pf-vertical-height;
+  position: relative;
+
+  .collapsed-nav & {
+    left: $nav-pf-vertical-collapsed-width;
+  }
+  .hidden-nav & {
+    left: 0;
+  }
+}
+
+.layout-pf.hidden-nav-menu {
+  .nav-pf-vertical {
+    border: 0;
+    width: 0;
+  }
+  .container-pf-nav-pf-vertical {
+    margin-left: 0;
+  }
+  .navbar-toggle {
+    visibility: hidden;
+  }
+}
