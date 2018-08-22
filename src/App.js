@@ -7,7 +7,7 @@ import Authentication from './components/authentication/authenication';
 import Masthead from './components/masthead/masthead';
 
 class App extends React.Component {
-  state = { locale: 'de' };
+  state = { locale: 'en' };
 
   render() {
     return (

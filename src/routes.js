@@ -1,5 +1,5 @@
-import HomePage from './pages/home/home';
 import HelpPage from './pages/help/help';
+import LandingPage from './pages/landing/landingPage';
 
 /**
  * Return the application base directory.
@@ -14,10 +14,10 @@ const baseName = '/';
 const routes = () => [
   {
     iconClass: 'pficon pficon-orders',
-    title: 'Home',
-    to: '/home',
+    title: 'Landing',
+    to: '/',
     redirect: true,
-    component: HomePage,
+    component: LandingPage,
     exact: true
   },
   {
