@@ -2,14 +2,14 @@
 
 exports[`Router Component should render a basic component 1`] = `
 <div
-  className="app-content"
+  className="integr8ly-container"
 >
   <Switch>
     <Route
       component={[Function]}
       exact={true}
-      key="/home"
-      path="/home"
+      key="/"
+      path="/"
     />
     <Route
       component={[Function]}
@@ -17,10 +17,22 @@ exports[`Router Component should render a basic component 1`] = `
       key="/help"
       path="/help"
     />
+    <Route
+      component={[Function]}
+      exact={true}
+      key="/tutorial/:id"
+      path="/tutorial/:id"
+    />
+    <Route
+      component={[Function]}
+      exact={false}
+      key="/tutorial/:id/module/:module/:step?"
+      path="/tutorial/:id/module/:module/:step?"
+    />
     <Redirect
       from="/"
       push={false}
-      to="/home"
+      to="/"
     />
   </Switch>
 </div>

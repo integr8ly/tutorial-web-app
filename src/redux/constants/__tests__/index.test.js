@@ -1,4 +1,4 @@
-import { reduxTypes, aboutModalTypes, userTypes } from '..';
+import { reduxTypes, aboutModalTypes, userTypes, threadTypes } from '..';
 
 describe('ReduxTypes', () => {
   it('should return types that are defined', () => {
@@ -6,7 +6,8 @@ describe('ReduxTypes', () => {
   });
 
   it('should return types that match', () => {
-    expect(reduxTypes.aboutModal).toEqual(aboutModalTypes);
-    expect(reduxTypes.user).toEqual(userTypes);
+    expect(reduxTypes.aboutModalTypes).toEqual(aboutModalTypes);
+    expect(reduxTypes.userTypes).toEqual(userTypes);
+    expect(reduxTypes.threadTypes).toEqual(threadTypes);
   });
 });

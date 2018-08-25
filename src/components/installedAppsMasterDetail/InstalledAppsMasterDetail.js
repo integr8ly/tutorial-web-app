@@ -33,7 +33,7 @@
 //       </div>
 //     );
 //   };
-  
+
 // }
 
 // export default InstalledAppsView;

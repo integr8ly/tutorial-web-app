@@ -2,7 +2,7 @@
 
 exports[`AboutModal Component should render a connected component with default props: connected 1`] = `
 <AboutModal
-  commitHash="7cbc0b508d4def40520c374ecc2f30994d77556a"
+  commitHash="1"
   dispatch={[Function]}
   onClose={null}
   resetTimer={3000}
@@ -17,7 +17,7 @@ exports[`AboutModal Component should render a connected component with default p
 
 exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `
 <AboutModal
-  commitHash="7cbc0b508d4def40520c374ecc2f30994d77556a"
+  commitHash="1"
   onClose={null}
   resetTimer={3000}
   session={
@@ -26,7 +26,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     }
   }
   show={false}
-  user={
+  userReducers={
     Object {
       "session": Object {
         "username": "test",
@@ -110,7 +110,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
 
 exports[`AboutModal Component should render a non-connected component: show modal 1`] = `
 <AboutModal
-  commitHash="7cbc0b508d4def40520c374ecc2f30994d77556a"
+  commitHash="1"
   onClose={null}
   resetTimer={3000}
   session={
@@ -119,7 +119,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
     }
   }
   show={false}
-  user={
+  userReducers={
     Object {
       "session": Object {
         "username": "test",

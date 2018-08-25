@@ -1,0 +1,5 @@
+=== Use Eclipse Che to view and edit your REST endpoint
+
+. Open link:http://react-demo-app-tutorial-web-app.6923.rh-us-east-1.openshiftapps.com/#/tutorial/0/module/0/2[Eclipse Che]. You'll see the REST endpoint you just created.
+. Make your changes...
+. Click Create PR to commit your changes.

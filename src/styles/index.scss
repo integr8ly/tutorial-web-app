@@ -15,10 +15,16 @@ $icon-font-path: '~patternfly/dist/fonts/';
 @import 'patternfly/dist/sass/patternfly/mixins';
 
 // Application Overrides
-@import 'application/app';
+@import 'application/fonts';
+@import 'application/typography';
+@import 'application/layout';
+@import 'application/lists';
+@import 'application/breadcrumbs';
+@import 'application/overrides';
 @import 'application/aboutModal';
 @import 'application/landingPage';
 @import 'application/landingPageMastHead';
 @import 'application/login';
 @import 'application/nav';
 @import 'application/tutorialCard';
+@import 'application/modules';

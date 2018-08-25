@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import aboutModalReducers from './aboutModalReducers';
 import userReducers from './userReducers';
+import threadReducers from './threadReducers';
 
 const reducers = {
-  aboutModal: aboutModalReducers,
-  user: userReducers
+  aboutModalReducers,
+  threadReducers,
+  userReducers
 };
 
 const reduxReducers = combineReducers(reducers);
 
-export { reduxReducers as default, reduxReducers, aboutModalReducers, userReducers };
+export { reduxReducers as default, reduxReducers, aboutModalReducers, threadReducers, userReducers };

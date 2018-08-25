@@ -1,0 +1,16 @@
+.list-view-pf-integreatly-description {
+  flex: 1 !important; /* stylelint-disable-line declaration-no-important */
+}
+.module-list {
+  padding-left: 15px;
+  & > li {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    &:first-child {
+      margin-top: 20px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -7,7 +7,7 @@ describe('Masthead Component', () => {
   const generateEmptyStore = (obj = {}) => configureMockStore()(obj);
 
   it('should render a basic component', () => {
-    const store = generateEmptyStore({ user: { session: { username: 'Admin' } } });
+    const store = generateEmptyStore({ userReducers: { session: { username: 'Admin' } } });
     const component = shallow(<ConnectedMasthead />, { context: { store } });
 
     expect(component).toMatchSnapshot('basic');

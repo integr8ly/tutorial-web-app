@@ -7,7 +7,9 @@ describe('Authentication Component', () => {
   const generateEmptyStore = (obj = {}) => configureMockStore()(obj);
 
   it('should render a basic component with login form', () => {
-    const store = generateEmptyStore({ user: { session: { error: false, loginFailed: false, pending: false } } });
+    const store = generateEmptyStore({
+      userReducers: { session: { error: false, loginFailed: false, pending: false } }
+    });
     const component = shallow(
       <ConnectedAuthentication>
         <span className="test">lorem</span>

@@ -1,0 +1,10 @@
+=== Create your REST endpoint using Red Hat OpenShift Application Runtimes
+
+. Open the link:http://react-demo-app-tutorial-web-app.6923.rh-us-east-1.openshiftapps.com/#/tutorial/0/module/0/1[Application link] (_this will open in the right panel_).
+. To open the application launcher console, click *Launch Your Project*.
+. From the *Create application* screen, add a name for your REST endpoint application and click *Continue*.
+. From the *Target Environment* screen, select *"Code locally, Build and Deploy"*.
+. From the Mission list, select *Health Check*.
+. From the Runtime list, select *SpringBoot* and click the blue arrow to continue.
+. Authorize your GitHub provider and click the blue arrow to continue.
+. Review and click *Set Up Application*. You'll see a confirmation screen when setup is complete.

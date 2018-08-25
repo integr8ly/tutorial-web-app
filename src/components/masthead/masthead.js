@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
+import { aboutModalTypes } from '../../redux/constants';
 import iconImg from '../../img/logo-alt.svg';
 import titleImg from '../../img/brand-alt.svg';
-import reduxTypes from '../../redux/constants';
 
 class Masthead extends React.Component {
   state = {
@@ -15,7 +15,7 @@ class Masthead extends React.Component {
   onAbout = e => {
     e.preventDefault();
     store.dispatch({
-      type: reduxTypes.aboutModal.ABOUT_MODAL_SHOW
+      type: aboutModalTypes.ABOUT_MODAL_SHOW
     });
   };
 
@@ -137,11 +137,11 @@ Masthead.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(reduxActions.user.logoutUser())
+  logoutUser: () => dispatch(reduxActions.userActions.logoutUser())
 });
 
 const mapStateToProps = state => ({
-  user: state.user.session
+  user: state.userReducers.session
 });
 
 const ConnectedMasthead = connect(

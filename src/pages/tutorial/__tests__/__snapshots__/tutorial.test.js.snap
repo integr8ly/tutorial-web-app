@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TutorialPage Component should render the ConnectedTutorialPage component 1`] = `
+<Component
+  getThread={[Function]}
+  thread={
+    Object {
+      "pending": true,
+    }
+  }
+/>
+`;
+
+exports[`TutorialPage Component should render the TutorialPage component error state 1`] = `""`;
+
+exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
+<Fragment>
+  <withRouter() />
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={true}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={8}
+        xs={12}
+      >
+        <Component />
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="primary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          tutorial.getStarted
+        </Button>
+      </Col>
+      <Col
+        bsClass="col"
+        className="integr8ly-prerequisites"
+        componentClass="div"
+        sm={4}
+      >
+        <h3>
+          tutorial.prereq
+        </h3>
+        <Component />
+        <h3>
+          tutorial.roles
+        </h3>
+        <ul
+          className="list-unstyled"
+        >
+          <li
+            key="0"
+          >
+            <Icon
+              name="user"
+              style={
+                Object {
+                  "marginRight": 5,
+                }
+              }
+              type="pf"
+            />
+            <span>
+              Developer
+            </span>
+          </li>
+        </ul>
+        <h3>
+          tutorial.installedApplications
+        </h3>
+        <p>
+          <Badge
+            bsClass="badge"
+            key="0"
+            pullRight={false}
+          >
+            OpenShift
+          </Badge>
+        </p>
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={8}
+        xs={12}
+      >
+        <h2>
+          tutorial.modulesToComplete
+          <div
+            className="pull-right"
+          >
+            <Icon
+              name="clock-o"
+              type="fa"
+            />
+             
+            <span>
+               
+              tutorial.minutes
+            </span>
+          </div>
+        </h2>
+        <Component />
+      </Col>
+    </Row>
+  </Grid>
+</Fragment>
+`;
+
+exports[`TutorialPage Component should render the TutorialPage component pending state 1`] = `""`;

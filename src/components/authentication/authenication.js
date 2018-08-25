@@ -276,13 +276,13 @@ Authentication.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  checkUser: () => dispatch(reduxActions.user.checkUser()),
-  loginUser: data => dispatch(reduxActions.user.loginUser(data)),
-  storeData: data => dispatch(reduxActions.user.storeData(data)),
-  removeStoredData: () => dispatch(reduxActions.user.removeStoredData())
+  checkUser: () => dispatch(reduxActions.userActions.checkUser()),
+  loginUser: data => dispatch(reduxActions.userActions.loginUser(data)),
+  storeData: data => dispatch(reduxActions.userActions.storeData(data)),
+  removeStoredData: () => dispatch(reduxActions.userActions.removeStoredData())
 });
 
-const mapStateToProps = state => ({ session: state.user.session });
+const mapStateToProps = state => ({ session: state.userReducers.session });
 
 const ConnectedAuthentication = connect(
   mapStateToProps,

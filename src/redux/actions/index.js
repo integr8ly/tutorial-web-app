@@ -1,7 +1,9 @@
 import * as userActions from './userActions';
+import * as threadActions from './threadActions';
 
 const actions = {
-  user: userActions
+  userActions,
+  threadActions
 };
 
 const reduxActions = { ...actions };

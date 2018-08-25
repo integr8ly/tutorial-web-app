@@ -3,18 +3,19 @@
   "version": "0.3.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "detect-browser": "^3.0.0",
     "i18next": "^11.6.0",
     "i18next-xhr-backend": "^1.5.1",
     "js-cookie": "^2.2.0",
     "lodash.get": "^4.4.2",
-    "numeral": "^2.0.6",
     "patternfly-react": "^2.10.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-i18next": "^7.10.1",
+    "react-iframe": "^1.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -24,7 +25,6 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "axios": "^0.18.0",
     "babel-eslint": "^8.2.6",
     "enzyme": "^3.4.2",
     "enzyme-adapter-react-16": "^1.2.0",

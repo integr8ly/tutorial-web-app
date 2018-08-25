@@ -1,0 +1,3 @@
+== What will I accomplish?
+
+In this tutorial, you will build a simple REST-based integration that enables a new fruit type to be added to an inventory list for a fictional grocery store.

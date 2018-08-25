@@ -1,5 +1,7 @@
 import HelpPage from './pages/help/help';
 import LandingPage from './pages/landing/landingPage';
+import TutorialPage from './pages/tutorial/tutorial';
+import ModulePage from './pages/tutorial/module/module';
 
 /**
  * Return the application base directory.
@@ -26,6 +28,20 @@ const routes = () => [
     to: '/help',
     component: HelpPage,
     exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Learn More',
+    to: '/tutorial/:id',
+    component: TutorialPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Get Started',
+    to: '/tutorial/:id/module/:module/:step?',
+    component: ModulePage,
+    exact: false
   }
 ];
 

@@ -1,0 +1,8 @@
+===== *REST endpoint successfully built!*
+
+To better understand what was accomplished:
+
+. Go over link:http://react-demo-app-tutorial-web-app.6923.rh-us-east-1.openshiftapps.com/#/tutorial/0/module/3/1[Application name].
+. Click on the *menu > submenu menu*
+. Click on the *stuff tab*.
+. In the area marked *stuff*, you should see *the thing*

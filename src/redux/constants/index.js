@@ -1,9 +1,11 @@
 import * as aboutModalTypes from './aboutModalConstants';
 import * as userTypes from './userConstants';
+import * as threadTypes from './threadConstants';
 
 const reduxTypes = {
-  aboutModal: aboutModalTypes,
-  user: userTypes
+  aboutModalTypes,
+  userTypes,
+  threadTypes
 };
 
-export { reduxTypes as default, reduxTypes, aboutModalTypes, userTypes };
+export { reduxTypes as default, reduxTypes, aboutModalTypes, userTypes, threadTypes };

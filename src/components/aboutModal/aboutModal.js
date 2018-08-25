@@ -37,7 +37,7 @@ class AboutModal extends React.Component {
       onClose();
     } else {
       store.dispatch({
-        type: reduxTypes.aboutModal.ABOUT_MODAL_HIDE
+        type: reduxTypes.aboutModalTypes.ABOUT_MODAL_HIDE
       });
     }
   };
@@ -119,7 +119,7 @@ AboutModal.defaultProps = {
   onClose: null
 };
 
-const mapStateToProps = state => ({ ...state.aboutModal, session: state.user.session });
+const mapStateToProps = state => ({ ...state.aboutModalReducers, session: state.userReducers.session });
 
 const ConnectedAboutModal = connect(mapStateToProps)(AboutModal);
 

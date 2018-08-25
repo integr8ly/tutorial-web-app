@@ -5,13 +5,22 @@ import { translate } from 'react-i18next';
 class AsciiDocTemplate extends React.Component {
   state = { loaded: false, html: null };
 
+  constructor(props) {
+    super(props);
+    this.isUnmounted = false;
+  }
+
   componentDidMount() {
     const { i18n, template } = this.props;
     fetch(`asciidocs/${i18n.language}/${template}`)
       .then(res => res.text())
       .then(html => {
-        this.setState({ loaded: true, html });
+        !this.isUnmounted && this.setState({ loaded: true, html });
       });
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true;
   }
 
   render() {

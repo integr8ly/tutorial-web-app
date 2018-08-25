@@ -1,0 +1,15 @@
+=== *1. Build your REST endpoint*
+
+Create an HTTP endpoint that will receive requests from a Fuse Ignite integration and add new fruits types to the inventory. You will also customise the endpoint using Eclipse Che.
+
+=== *2. Create connections*
+
+Set up connections between your HTTP endpoint and your Enmasse messaging queue in Fuse Ignite.
+
+=== *3. Set up messaging*
+
+Provision the EnMasse messaging service.
+
+=== *4. Build integration*
+
+Invoke the integration to add a new fruit type to the inventory list.

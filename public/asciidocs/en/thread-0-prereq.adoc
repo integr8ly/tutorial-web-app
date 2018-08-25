@@ -1,0 +1,4 @@
+* GitHub account
+* OpenShift Online account
+* Existing code to import
+* Something to prove

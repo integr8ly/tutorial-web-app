@@ -7,7 +7,10 @@ describe('AboutModal Component', () => {
   const generateEmptyStore = (obj = {}) => configureMockStore()(obj);
 
   it('should render a connected component with default props', () => {
-    const store = generateEmptyStore({ aboutModal: { show: true }, user: { session: { username: 'test' } } });
+    const store = generateEmptyStore({
+      aboutModalReducers: { show: true },
+      userReducers: { session: { username: 'test' } }
+    });
     const component = shallow(<ConnectedAboutModal />, { context: { store } });
 
     expect(component).toMatchSnapshot('connected');
@@ -16,7 +19,7 @@ describe('AboutModal Component', () => {
   it('should render a non-connected component', () => {
     const props = {
       show: false,
-      user: { session: { username: 'test' } }
+      userReducers: { session: { username: 'test' } }
     };
 
     const component = mount(<AboutModal {...props} />);
