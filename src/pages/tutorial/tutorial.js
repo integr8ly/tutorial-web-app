@@ -71,9 +71,11 @@ class TutorialPage extends React.Component {
                 </ul>
                 <h3>{t('tutorial.installedApplications')}</h3>
                 <p>
-                  {thread.data.applications.map((application, i) => (
-                    <Badge key={i}>{application}</Badge>
-                  ))}
+                  <ul style={{ paddingLeft: 20 }}>
+                    {thread.data.applications.map((application, i) => (
+                      <li key={i}>{application}</li>
+                    ))}
+                  </ul>
                 </p>
               </Grid.Col>
             </Grid.Row>

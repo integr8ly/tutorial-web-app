@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Icon, Breadcrumb as PfBreadcrumb } from 'patternfly-react';
+import { Icon, Breadcrumb as PfBreadcrumb, Dropdown, ButtonGroup, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 
 class Breadcrumb extends React.Component {
@@ -23,6 +23,19 @@ class Breadcrumb extends React.Component {
               <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
             </React.Fragment>
           )}
+        <li className="applauncher-pf dropdown pull-right">
+          <Dropdown id="app-launcher" pullRight componentClass={ButtonGroup}>
+            <Dropdown.Toggle bsStyle="link" noCaret>
+              <Icon type="fa" className="fa-th" name="applauncher-pf-icon" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <MenuItem>Eclipse Che</MenuItem>
+              <MenuItem>EnMasse</MenuItem>
+              <MenuItem>Fuse Online</MenuItem>
+              <MenuItem>Red Hat OpenShift Application Runtimes</MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
+        </li>
       </PfBreadcrumb>
     );
   }
