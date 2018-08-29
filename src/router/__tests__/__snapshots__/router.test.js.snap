@@ -26,8 +26,8 @@ exports[`Router Component should render a basic component 1`] = `
     <Route
       component={[Function]}
       exact={false}
-      key="/tutorial/:id/module/:module/:step?"
-      path="/tutorial/:id/module/:module/:step?"
+      key="/tutorial/:id/task/:task/:step?"
+      path="/tutorial/:id/task/:task/:step?"
     />
     <Redirect
       from="/"

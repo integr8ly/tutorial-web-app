@@ -7,14 +7,14 @@
     "prereq": "Prerequisites",
     "roles": "Roles",
     "installedApplications": "Installed applications used in this tutorial",
-    "modulesToComplete": "Modules to complete",
+    "tasksToComplete": "Tasks to complete",
     "minutes": "minutes"
   },
-  "module": {
+  "task": {
     "whatsNext": "What's next?",
-    "completeModuleFirst": "You may still view the next module, but this module should be completed first.",
-    "nextModule": "Next Module",
-    "previousModule": "Previous Module",
+    "completeTaskFirst": "You may still view the next task, but this task should be completed first.",
+    "nextTask": "Next Task",
+    "previousTask": "Previous Task",
     "exitTutorial": "Exit Tutorial"
   }
 }

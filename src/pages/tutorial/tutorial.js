@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Badge, Button, Grid, Icon } from 'patternfly-react';
+import { noop, Badge, Button, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
@@ -14,20 +14,21 @@ class TutorialPage extends React.Component {
 
   loadThread() {
     const {
+      i18n,
       match: {
         params: { id }
       },
       getThread
     } = this.props;
     if (!Number.isNaN(id)) {
-      getThread(id);
+      getThread(i18n.language, id);
     }
   }
 
   getStarted(e, id) {
     e.preventDefault();
     const { history } = this.props;
-    history.push(`/tutorial/${id}/module/0`);
+    history.push(`/tutorial/${id}/task/0`);
   }
 
   render() {
@@ -47,16 +48,20 @@ class TutorialPage extends React.Component {
           <Grid fluid>
             <Grid.Row>
               <Grid.Col xs={12} sm={8}>
-                <AsciiDocTemplate template={thread.data.descriptionDoc} />
+                <AsciiDocTemplate adoc={thread.data.descriptionDoc} />
                 <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                   {t('tutorial.getStarted')}
                 </Button>
               </Grid.Col>
               <Grid.Col sm={4} className="integr8ly-prerequisites">
                 <h3>{t('tutorial.prereq')}</h3>
-                <AsciiDocTemplate template={thread.data.prerequistesDoc} />
+                <ul style={{ paddingLeft: 20 }}>
+                  {thread.data.prerequisites.map((req, i) => (
+                    <li key={i}>{req}</li>
+                  ))}
+                </ul>
                 <h3>{t('tutorial.roles')}</h3>
-                <ul className="list-unstyled">
+                <ul className="list-unstyled" style={{ paddingLeft: 0 }}>
                   {thread.data.roles.map((role, i) => (
                     <li key={i}>
                       <Icon style={{ marginRight: 5 }} type="pf" name="user" />
@@ -75,7 +80,7 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={8}>
                 <h2>
-                  {t('tutorial.modulesToComplete')}
+                  {t('tutorial.tasksToComplete')}
                   <div className="pull-right">
                     <Icon type="fa" name="clock-o" />{' '}
                     <span>
@@ -83,7 +88,25 @@ class TutorialPage extends React.Component {
                     </span>
                   </div>
                 </h2>
-                <AsciiDocTemplate template={thread.data.modulesDoc} />
+
+                <ListView className="list-view-pf-integreatly">
+                  {thread.data.tasks.map((task, i) => (
+                    <ListView.Item
+                      key={i}
+                      heading={`${i + 1}. ${task.title}`}
+                      description={task.description}
+                      actions={
+                        <div>
+                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                          <span>
+                            {task.estimatedTime} {t('tutorial.minutes')}
+                          </span>
+                        </div>
+                      }
+                      stacked
+                    />
+                  ))}
+                </ListView>
               </Grid.Col>
             </Grid.Row>
           </Grid>
@@ -95,6 +118,7 @@ class TutorialPage extends React.Component {
 }
 
 TutorialPage.propTypes = {
+  i18n: PropTypes.object,
   t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
@@ -107,6 +131,9 @@ TutorialPage.propTypes = {
 };
 
 TutorialPage.defaultProps = {
+  i18n: {
+    language: 'en'
+  },
   history: {
     push: noop
   },
@@ -118,7 +145,7 @@ TutorialPage.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: id => dispatch(reduxActions.threadActions.getThread(id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
 });
 
 const mapStateToProps = state => ({

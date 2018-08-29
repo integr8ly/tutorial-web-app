@@ -1,0 +1,35 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='creating-amqp-connection-in-fuse_{context}']
+= Creating AMQP connection in Fuse Ignite
+
+To receive messages from EnMasse, you must create a connection in Fuse Ignite:
+
+:fuse-url: https://eval.apps.pwright.openshiftworkshop.com/
+
+. Log in to the link:{fuse-url}[Fuse Ignite console, window="_blank"].
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. Select *AMQP* to configure an AMQP Message Broker connection.
++
+NOTE: Do not select the similarly named *AMQ* option.
+
+. Enter the following, using the values from the EnMasse secret:
++
+* Connection URI: `amqp://<messagingHost>:5672?amqp.saslMechanisms=PLAIN`
+* User Name: `<username>`
+* Password: `<password>`
+
+. Set the value of *Check Certificates* to `Disable`.
+
+. Select the *Validate* button to check that the values are valid.
+
+. Click *Next* and enter a name for the connection, for example, `enmasse`.
+
+. Click *Create*.

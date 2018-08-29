@@ -1,0 +1,31 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='setting-up-enmasse_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
+// TODO: figure out enmasse url
+// :enmasse-url: https://console-enmasse.apps.pwright.openshiftworkshop.com/console/my-example-space
+// or https://console-enmasse-my-example-space.apps.pwright.openshiftworkshop.com/#/dashboard
+
+= Creating an EnMasse space
+
+EnMasse simplifies running messaging infrastructure for your organization.
+You use it to provide messaging services from a Node.js app to a Spring Boot app.
+
+. Provison an EnMasse service by selecting *EnMasse (standard)* from the service catalog.
+
+.. Select the *unlimited-standard* option in the Plan step of the wizard.
+
+.. Enter `my-example-space` as the configuration name.
+
+.. Choose *Do not bind at this time*.
+
+// . Log into link:{enmasse-url}[EnMasse].

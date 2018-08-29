@@ -1,7 +1,8 @@
 import HelpPage from './pages/help/help';
-import LandingPage from './pages/landing/landingPage';
+// import LandingPage from './pages/landing/landingPage';
+import StaticLandingPage from './pages/staticLanding/staticLandingPage';
 import TutorialPage from './pages/tutorial/tutorial';
-import ModulePage from './pages/tutorial/module/module';
+import TaskPage from './pages/tutorial/task/task';
 
 /**
  * Return the application base directory.
@@ -19,7 +20,7 @@ const routes = () => [
     title: 'Landing',
     to: '/',
     redirect: true,
-    component: LandingPage,
+    component: StaticLandingPage,
     exact: true
   },
   {
@@ -39,8 +40,8 @@ const routes = () => [
   {
     iconClass: 'pficon pficon-orders',
     title: 'Get Started',
-    to: '/tutorial/:id/module/:module/:step?',
-    component: ModulePage,
+    to: '/tutorial/:id/task/:task/:step?',
+    component: TaskPage,
     exact: false
   }
 ];

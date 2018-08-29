@@ -1,0 +1,66 @@
+{
+  "id": 0,
+  "title": "Integrating two RESTful web services",
+  "descriptionDoc": "thread-0-description.adoc",
+  "prerequisites": [
+    "Access to an OpenShift instance with Integreatly components installed",
+    "A GitHub account configured with an OAuth App to use the Integreatly Launcher instance."
+  ],
+  "estimatedTime": 40,
+  "roles": ["Operator", "Developer"],
+  "applications": ["Red Hat OpenShift Application Runtimes", "Eclipse Che", "Fuse Ignite", "EnMasse"],
+  "tasks": [
+    {
+      "title": "Creating an EnMasse space",
+      "description": "EnMasse simplifies running messaging infrastructure for your organization. You use it to provide messaging services from a Node.js app to a Spring Boot app.",
+      "estimatedTime": 6,
+      "stepDoc": "setting-up-enmasse.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc"
+    },
+    {
+      "title": "Running a Node.js messaging app",
+      "description": "The Red Hat Developer Launcher enables you to build and deploy applications on OpenShift. In this procedure, you deploy an example Node.js application that is pre-configured to provide a REST API that returns a list of fruit.",
+      "estimatedTime": 5,
+      "stepDoc": "running-node-app.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc",
+      "attributes": {
+        "launcher-url": "http://launcher-launcher.apps.pwright.openshiftworkshop.com/"
+      }
+    },
+    {
+      "title": "Creating EnMasse Binding",
+      "description": "To use EnMasse, you must create an OpenShift binding.",
+      "estimatedTime": 6,
+      "stepDoc": "create-enmasse-binding.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc"
+    },
+    {
+      "title": "Creating addresses in EnMasse space",
+      "description": "You create two addresses in EnMasse to route messages to the Spring Boot app.",
+      "estimatedTime": 7,
+      "stepDoc": "creating-addresses.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc"
+    },
+    {
+      "title": "Creating AMQP connection in Fuse Ignite",
+      "description": "To receive messages from EnMasse, you must create a connection in Fuse Ignite.",
+      "estimatedTime": 5,
+      "stepDoc": "creating-amqp-connection-in-fuse.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc"
+    },
+    {
+      "title": "Creating HTTP connection in Fuse Ignite",
+      "description": "To send messages to the Spring Boot app, you must create a connection in Fuse Ignite.",
+      "estimatedTime": 6,
+      "stepDoc": "creating-http-connection-in-fuse.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc"
+    },
+    {
+      "title": "Creating Integration in Fuse Ignite",
+      "description": "To use the Fuse connections, you must create an integration in Fuse Ignite.",
+      "estimatedTime": 5,
+      "stepDoc": "creating-fuse-integration.adoc",
+      "stepDocSuccess": "thread-0-success.adoc"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='running-a-fruit-inventory-application_{context}']
+= Running a Node.js messaging app
+
+The Red Hat Developer Launcher enables you to build and deploy applications on OpenShift.
+In this procedure, you deploy an example Node.js application that is pre-configured to provide a REST API that returns a list of fruit.
+
+. Log in to the link:{launcher-url}[Red Hat Developer Launcher, window="_blank"].
+
+. Select the *LAUNCH YOUR PROJECT*.
+
+. Enter a name for your application, for example `my-node-app` and select *Continue*.
+
+. Select *Code Locally, Build and Deploy* to deploy the application on a hosted OpenShift instance. Click the blue down arrow to continue.
+
+. Select *Messaging Work Queue* from the list of missions and *Node.js* from the list of runtimes. Choose the *Integreatly* version of Node.js. Click the blue down arrow to continue.
+
+. Select the *Log in & Authorize Account* button and give OpenShift permissions to your GitHub account. Click the blue down arrow to continue.
+
+. Review your configuration and select *Set Up Application* to create an OpenShift deployment.
