@@ -1,15 +1,25 @@
 import * as React from 'react';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
+import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 
 const LandingPage = () => (
   <div>
     <LandingPageMastHead />
-    <section className="app-landing-page-tutorial-dashboard-section">
+    <section>
       <div className="container">
-        <h2 className="app-landing-page-white-text">Solve problems with tutorials</h2>
-        <TutorialDashboard className="app-landing-page-dashboard" />
+        < TutorialDashboard />
       </div>
+    </section>
+    <section>
+      <InstalledAppsView apps={[
+        {
+          appName: 'Red Hat OpenShift Application Runtimes',
+          appDescription: 'Description of Red Hat OpenShift Application Runtimes'
+        },
+        { appName: 'Fuse Online', appDescription: 'Description of Fuse Online' },
+        { appName: 'Eclipse Che', appDescription: 'Description of Eclipse Che' },
+        { appName: 'enmasse', appDescription: 'enmasse' }]} />
     </section>
   </div>
 );

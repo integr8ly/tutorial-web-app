@@ -4,28 +4,10 @@ import { Grid, Row, Col } from 'patternfly-react';
 const LandingPageMastHead = () => (
   <header className="app-landing-page-integr8ly-masthead">
     <div className="container">
-      <h1>Welcome to your Red Hat evaluation experience.</h1>
-      <h4>will be covering...</h4>
-      <Grid>
-        <Row>
-          <Col xs={12} md={3}>
-            <div className="app-landing-page-circle-placeholder" />
-            <h4 className="app-landing-page-mast-head-text-center">Your products together in one place.</h4>
-          </Col>
-          <Col xs={12} md={3}>
-            <div className="app-landing-page-circle-placeholder" />
-            <h4 className="app-landing-page-mast-head-text-center">Explore tutorials for easy set-up.</h4>
-          </Col>
-          <Col xs={12} md={3}>
-            <div className="app-landing-page-circle-placeholder" />
-            <h4 className="app-landing-page-mast-head-text-center">Support in the places you need them.</h4>
-          </Col>
-          <Col xs={12} md={3}>
-            <div className="app-landing-page-circle-placeholder" />
-            <h4 className="app-landing-page-mast-head-text-center">Detailed information.</h4>
-          </Col>
-        </Row>
-      </Grid>
+      <h2>Welcome to the <b>Red Hat evaluation enviornment</b></h2>
+      <p>The enviornment contains everything you need to explore common integration scenarios. Get started with an 
+        end-to-end tutorial or dig into any of the available application services on you own to create custom integrations.</p>
+      <p>Everything you build willl reside on the OpenShfit cluster assocated with this environment</p>
     </div>
   </header>
 );

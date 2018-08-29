@@ -1,3 +1,12 @@
-.app-landing-page-mast-head-text-center {
+.app-landing-page-integr8ly-masthead {
+  background-color: #8b8d8f;
+  color: #fff;
+  height: 200px;
   text-align: center;
+  & h2 {
+    margin-bottom: 15px
+  }
+  & p {
+    margin: 0px 20% 15px 20%
+  }
 }

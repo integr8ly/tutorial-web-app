@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 const TutorialCard = props => (
   <Card matchHeight>
     <CardTitle>
-      <div className="app-tutorial-card-rectangle" />
       <div> {props.title} </div>
     </CardTitle>
     <CardBody> {props.children} </CardBody>
-    <CardFooter className="app-tutorial-card-pf-footer">
+    <CardFooter>
       <a className="app-tutorial-card-get-started-btn" href="/#/tutorial/0">
         Get Started
       </a>
