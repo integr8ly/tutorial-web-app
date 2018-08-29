@@ -118,7 +118,7 @@ objects:
     postCommit: {}
     resources:
       limits:
-        memory: 1Gi
+        memory: 2Gi
     source:
       type: Image
       images:
