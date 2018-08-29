@@ -77,8 +77,8 @@ class TaskPage extends React.Component {
           <Breadcrumb
             threadName={thread.data.title}
             threadId={thread.data.id}
-            modulePosition={task + 1}
-            totalModules={totalTasks}
+            taskPosition={task + 1}
+            totalTasks={totalTasks}
           />
           <Grid fluid>
             <Grid.Row>

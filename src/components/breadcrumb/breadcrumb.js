@@ -9,18 +9,18 @@ class Breadcrumb extends React.Component {
     this.props.history.push('/home');
   };
   render() {
-    const { t, threadName, threadId, modulePosition, totalModules } = this.props;
+    const { t, threadName, threadId, taskPosition, totalTasks } = this.props;
     return (
       <PfBreadcrumb>
         <PfBreadcrumb.Item onClick={this.homeClicked}>
           <Icon className="fa-lg" type="pf" name="home" />
         </PfBreadcrumb.Item>
-        {threadName && !modulePosition && <PfBreadcrumb.Item active>{threadName}</PfBreadcrumb.Item>}
+        {threadName && !taskPosition && <PfBreadcrumb.Item active>{threadName}</PfBreadcrumb.Item>}
         {threadName &&
-          modulePosition && (
+          taskPosition && (
             <React.Fragment>
               <PfBreadcrumb.Item href={`#/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
-              <PfBreadcrumb.Item active>{t('breadcrumb.module', { modulePosition, totalModules })}</PfBreadcrumb.Item>
+              <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
             </React.Fragment>
           )}
       </PfBreadcrumb>
@@ -32,8 +32,8 @@ Breadcrumb.propTypes = {
   history: PropTypes.object,
   threadName: PropTypes.string,
   threadId: PropTypes.number,
-  modulePosition: PropTypes.number,
-  totalModules: PropTypes.number,
+  taskPosition: PropTypes.number,
+  totalTasks: PropTypes.number,
   t: PropTypes.func.isRequired
 };
 
@@ -41,8 +41,8 @@ Breadcrumb.defaultProps = {
   history: {},
   threadName: '',
   threadId: null,
-  modulePosition: null,
-  totalModules: null
+  taskPosition: null,
+  totalTasks: null
 };
 
 const RoutedBreadcrumb = withRouter(translate()(Breadcrumb));

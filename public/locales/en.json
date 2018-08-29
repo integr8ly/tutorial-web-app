@@ -1,6 +1,6 @@
 {
   "breadcrumb": {
-    "module": "Module {{modulePosition}} of {{totalModules}}"
+    "task": "Task {{taskPosition}} of {{totalTasks}}"
   },
   "tutorial": {
     "getStarted": "Get Started",
