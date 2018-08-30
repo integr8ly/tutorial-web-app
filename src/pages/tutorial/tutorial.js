@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Badge, Button, Grid, Icon, ListView } from 'patternfly-react';
+import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
@@ -54,12 +54,12 @@ class TutorialPage extends React.Component {
                 </Button>
               </Grid.Col>
               <Grid.Col sm={4} className="integr8ly-prerequisites">
-                <h3>{t('tutorial.prereq')}</h3>
+                {/* <h3>{t('tutorial.prereq')}</h3>
                 <ul style={{ paddingLeft: 20 }}>
                   {thread.data.prerequisites.map((req, i) => (
                     <li key={i}>{req}</li>
                   ))}
-                </ul>
+                </ul> */}
                 <h3>{t('tutorial.roles')}</h3>
                 <ul className="list-unstyled" style={{ paddingLeft: 0 }}>
                   {thread.data.roles.map((role, i) => (
@@ -92,6 +92,26 @@ class TutorialPage extends React.Component {
                 </h2>
 
                 <ListView className="list-view-pf-integreatly">
+                  {/* for UX testing only right now */}
+                  <ListView.Item
+                    heading="0. Completing prerequisites"
+                    description={
+                      <div>
+                        <ul style={{ paddingLeft: 20 }}>
+                          {thread.data.prerequisites.map((req, i) => (
+                            <li key={i}>{req}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    }
+                    actions={
+                      <div>
+                        <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                        <span>10 {t('tutorial.minutes')}</span>
+                      </div>
+                    }
+                    stacked
+                  />
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}

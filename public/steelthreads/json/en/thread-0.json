@@ -6,7 +6,7 @@
     "Access to an OpenShift instance with Integreatly components installed",
     "A GitHub account configured with an OAuth App to use the Integreatly Launcher instance."
   ],
-  "estimatedTime": 40,
+  "estimatedTime": 50,
   "roles": ["Operator", "Developer"],
   "applications": ["Red Hat OpenShift Application Runtimes", "Eclipse Che", "Fuse Ignite", "EnMasse"],
   "tasks": [
