@@ -5,15 +5,17 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 const TutorialDashboard = () => (
   <div className=" app-tutorial-dashboard panel panel-default">
     <div className="panel-heading panel-title">
-      <h2 className="pull-left">Solution Walkthroughs</h2>
+      <h2 className="pull-left" style={{ 'font-size': '18px' }}>
+        Solution Walkthroughs
+      </h2>
       <div className="pull-right">5 walkthroughs</div>
     </div>
     <div className="panel-content cards-pf">
-      <CardGrid matchHeight>
+      <CardGrid matchHeight style={{ 'max-width': '800px' }}>
         <Row style={{ marginBottom: '20px', marginTop: '20px' }}>
           <Col xs={6} sm={4} md={4}>
             <TutorialCard
-              title="Build a REST-based integration"
+              title="Integrating two RESTful web services"
               getStartedLink="/#/tutorial/0"
               users={[TutorialCard.users.OPERATOR, TutorialCard.users.DEVELOPER]}
               mins={40}
@@ -70,10 +72,7 @@ const TutorialDashboard = () => (
               users={[TutorialCard.users.OPERATOR]}
               mins={45}
             >
-              <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                laborum.
-              </p>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
             </TutorialCard>
           </Col>
         </Row>

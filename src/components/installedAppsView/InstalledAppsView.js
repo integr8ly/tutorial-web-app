@@ -30,7 +30,7 @@ class InstalledAppsView extends React.Component {
     return (
       <div className="panel panel-default app-installed-apps-view">
         <div className="panel-heading panel-title">
-          <h2 className="pull-left">Available Application Services</h2>
+          <h2 className="pull-left" style={{'font-size': '18px'}}>Available Application Services</h2>
           <div className="pull-right">{this.props.apps.length} services</div>
         </div>
         <div className="panel-content">{appList}</div>

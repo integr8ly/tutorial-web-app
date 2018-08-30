@@ -32,6 +32,7 @@ const TutorialCard = props => {
           <Icon type="fa" name="clock-o" /> {props.mins} <span>Minutes</span>
         </div>
         <a className="pull-left" href={props.getStartedLink}>
+          <Icon type="fa" name="arrow-circle-o-right" />
           <span>Get Started</span>
         </a>
       </CardFooter>
