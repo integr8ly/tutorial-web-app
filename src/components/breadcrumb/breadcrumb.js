@@ -29,10 +29,12 @@ class Breadcrumb extends React.Component {
               <span aria-hidden="true" className="fa fa-th applauncher-pf-icon" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              <MenuItem>Red Hat 3Scale API Management</MenuItem>
+              <MenuItem>Red Hat Fuse</MenuItem>
+              <MenuItem>Red Hat Fuse Online</MenuItem>
+              <MenuItem>Red Hat OpenShift Application Runtimes</MenuItem>
               <MenuItem>Eclipse Che</MenuItem>
               <MenuItem>EnMasse</MenuItem>
-              <MenuItem>Fuse Online</MenuItem>
-              <MenuItem>Red Hat OpenShift Application Runtimes</MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         </li>
