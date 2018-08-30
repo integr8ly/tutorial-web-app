@@ -76,7 +76,7 @@ objects:
     postCommit: {}
     resources:
       limits:
-        memory: 1Gi
+        memory: 1.5Gi
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
