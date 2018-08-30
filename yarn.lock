@@ -6226,6 +6226,10 @@ open@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
+openshift-resource-parser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/openshift-resource-parser/-/openshift-resource-parser-0.1.0.tgz#19da0583c96e90bbefab191b2b947915983606b1"
+
 opn@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.2.0.tgz#71fdf934d6827d676cecbea1531f95d354641225"
@@ -7206,10 +7210,6 @@ react-i18next@^7.10.1:
     hoist-non-react-statics "^2.3.1"
     html-parse-stringify2 "2.0.1"
     prop-types "^15.6.0"
-
-react-iframe@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-iframe/-/react-iframe-1.2.0.tgz#c5ce1f21595537f95ff7838288b60d830498b289"
 
 react-is@^16.3.2:
   version "16.4.1"
