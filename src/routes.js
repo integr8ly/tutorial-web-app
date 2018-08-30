@@ -1,6 +1,6 @@
 import HelpPage from './pages/help/help';
-// import LandingPage from './pages/landing/landingPage';
-import StaticLandingPage from './pages/staticLanding/staticLandingPage';
+import LandingPage from './pages/landing/landingPage';
+// import StaticLandingPage from './pages/staticLanding/staticLandingPage';
 import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
 
@@ -20,7 +20,7 @@ const routes = () => [
     title: 'Landing',
     to: '/',
     redirect: true,
-    component: StaticLandingPage,
+    component: LandingPage,
     exact: true
   },
   {
