@@ -1,3 +1,6 @@
+.app-tutorial-card {
+    min-width: 100px;
+}
 .app-tutorial-card-rectangle {
     background-color: #d8d8d8;
     width: 100%;
@@ -5,17 +8,14 @@
     margin-bottom: 20px;
 }
 
-.app-tutorial-card-get-started-btn {
-    float: right;
-    margin-bottom: 10px;
+.app-tutorial-card {
+    text-align: center;
 }
-
-.app-tutorial-card-learn-more-link {
-    float: left;
+.app-tutorial-card-footer-item {
     margin-bottom: 10px;
 }
 
 .app-tutorial-card-pf-footer {
-    background-color: #fff;
-    border-top: none;
+    position: absolute;
+    width: 100%;
 }

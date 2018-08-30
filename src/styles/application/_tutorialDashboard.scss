@@ -1,0 +1,12 @@
+.app-tutorial-dashboard {
+  background-color: #f5f5f5;
+  & .panel-title {
+    border: none;
+    & h2 {
+      margin-top: 5px;
+    }
+    & div {
+      margin-top: 5px;
+    }
+}
+}

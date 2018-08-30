@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid, Row, Col } from 'patternfly-react';
 import PropTypes from 'prop-types';
 
 class InstalledAppsView extends React.Component {
@@ -16,30 +15,25 @@ class InstalledAppsView extends React.Component {
   handleAppNameClicked(e) {
     this.setState({ currentApp: e.target.value });
   }
-  createMasterList(apps) {
+  static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
-      <li onClick={this.handleAppNameClicked} key={`${app.appName}_${index}`} value={index}>
-        {app.appName}
+      <li onClick={() => window.open(app.appLink, '_blank')} key={`${app.appName}_${index}`} value={index}>
+        <h3>{app.appName}</h3>
+        <p>{app.appDescription}</p>
       </li>
     ));
-    return <ul>{masterList}</ul>;
+    return <ul className="app-installed-apps-view-list">{masterList}</ul>;
   }
 
   render() {
-    const appNameList = this.createMasterList(this.props.apps);
+    const appList = InstalledAppsView.createMasterList(this.props.apps);
     return (
-      <div className="container">
-        <Grid>
-          <Row>
-            <Col xs={12} md={6}>
-              {appNameList}
-            </Col>
-            <Col xs={12} md={6}>
-              <h1>{this.props.apps[this.state.currentApp].appName}</h1>
-              <p>{this.props.apps[this.state.currentApp].appDescription}</p>
-            </Col>
-          </Row>
-        </Grid>
+      <div className="panel panel-default app-installed-apps-view">
+        <div className="panel-heading panel-title">
+          <h2 className="pull-left">Available Application Services</h2>
+          <div className="pull-right">{this.props.apps.length} services</div>
+        </div>
+        <div className="panel-content">{appList}</div>
       </div>
     );
   }

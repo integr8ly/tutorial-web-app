@@ -1,12 +1,17 @@
 .app-landing-page-integr8ly-masthead {
-  background-color: #8b8d8f;
+  background-image: url(../../img/landing-page-bck-img.jpg);
+  background-color: #252525;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: top;
   color: #fff;
   height: 200px;
   text-align: center;
-  & h2 {
-    margin-bottom: 15px
+  & .container {
+    position: relative;
+    top: 20%;
   }
   & p {
-    margin: 0px 20% 15px 20%
+    margin: 15px 30% 15px 30%;
   }
 }

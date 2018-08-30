@@ -26,7 +26,7 @@ class Breadcrumb extends React.Component {
         <li className="applauncher-pf dropdown pull-right">
           <Dropdown id="app-launcher" pullRight componentClass={ButtonGroup}>
             <Dropdown.Toggle bsStyle="link" noCaret>
-              <Icon type="fa" className="fa-th" name="applauncher-pf-icon" />
+              <span aria-hidden="true" className="fa fa-th applauncher-pf-icon" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <MenuItem>Eclipse Che</MenuItem>
