@@ -6,7 +6,7 @@
     "getStarted": "Get Started",
     "prereq": "Prerequisites",
     "roles": "Roles",
-    "installedApplications": "Installed applications used in this tutorial",
+    "installedApplications": "Installed applications used in this walkthrough",
     "tasksToComplete": "Tasks to complete",
     "minutes": "minutes"
   },
@@ -15,6 +15,6 @@
     "completeTaskFirst": "You may still view the next task, but this task should be completed first.",
     "nextTask": "Next Task",
     "previousTask": "Previous Task",
-    "exitTutorial": "Exit Tutorial"
+    "exitTutorial": "Exit Walkthrough"
   }
 }
