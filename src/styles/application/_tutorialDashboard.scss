@@ -1,3 +1,20 @@
+@media (max-width: 1091px) {
+  .app-tutorial-dashboard {
+    width: 100%;
+    .card-pf-body {
+      min-height: 200px;
+    }
+  }
+}
+@media (min-width: 1092px) {
+  .app-tutorial-dashboard {
+    width: 66.6%;
+    .card-pf-body {
+      min-height: 180px;
+    }
+  }
+}
+
 .app-tutorial-dashboard {
   background-color: #f5f5f5;
   & .panel-title {
@@ -8,5 +25,5 @@
     & div {
       margin-top: 5px;
     }
-}
+  }
 }

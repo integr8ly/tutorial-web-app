@@ -1,15 +1,12 @@
-@media(min-width: 992px) {
-    
 .app-landing-page-tutorial-dashboard-section {
-    display: flex;
-  }
+  display: flex;
+  flex-wrap: wrap;
 }
 
-
 .app-landing-page-tutorial-dashboard-section-left {
-  flex-basis: 67%;
+  flex-basis: 66.6%;
 }
 
 .app-landing-page-tutorial-dashboard-section-right {
-  flex-basis: 33%;
+  flex-basis: 33.3%;
 }

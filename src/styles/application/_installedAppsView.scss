@@ -1,3 +1,14 @@
+@media (max-width: 1091px) {
+  .app-installed-apps-view {
+    width: 100%;
+  }
+}
+@media (min-width: 1092px) {
+  .app-installed-apps-view {
+    width: 33.3%;
+  }
+}
+
 .app-installed-apps-view {
   & .panel-title {
     background-color: #fff;
