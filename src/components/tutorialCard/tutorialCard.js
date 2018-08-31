@@ -11,6 +11,7 @@ const users = {
 
 const TutorialCard = props => {
   let userList;
+  // eslint-disable-next-line array-callback-return
   props.users.map(user => {
     if (userList) {
       userList = `${userList}, ${user}`;

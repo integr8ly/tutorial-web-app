@@ -53,7 +53,7 @@ export default class OpenShiftResourceParser {
    * Saves the user to local storage for retrieval of the token later as needed
    * @param {User} user
    */
-  setUser(user) {
+  static setUser(user) {
     if (!user) {
       window.localStorage.setItem('OpenShiftUser', null);
       return;
@@ -98,8 +98,8 @@ export default class OpenShiftResourceParser {
     const openshiftAuth = this.getOauthClient();
 
     return openshiftAuth.token.getToken(window.location.href).then(user => {
-      this.setUser(user.data);
-      const then = this.getParameterByName('then');
+      OpenShiftResourceParser.setUser(user.data);
+      const then = OpenShiftResourceParser.getParameterByName('then');
       return {
         user,
         then
@@ -114,8 +114,8 @@ export default class OpenShiftResourceParser {
    * logout state change in your App by navigating elsewhere
    * or reloading your App.
    */
-  logout() {
-    this.setUser(null);
+  static logout() {
+    OpenShiftResourceParser.setUser(null);
   }
 
   /**
@@ -124,8 +124,9 @@ export default class OpenShiftResourceParser {
    * @param {string} url The full URL that includes the query string
    * @returns {string} The parameter value
    */
-  getParameterByName(name, url) {
+  static getParameterByName(name, url) {
     if (!url) url = window.location.href;
+    // eslint-disable-next-line no-useless-escape
     name = name.replace(/[\[\]]/g, '\\$&');
     const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
     const results = regex.exec(url);
