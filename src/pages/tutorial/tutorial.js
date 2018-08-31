@@ -6,9 +6,20 @@ import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
+import OpenShiftResourceParser from "openshift-resource-parser";
 
 class TutorialPage extends React.Component {
   componentDidMount() {
+    const resourceParser = new OpenShiftResourceParser(window.OPENSHIFT_CONFIG);
+
+    resourceParser.listProvisionedMWServices("evals")
+      .then(provisionedServiceList => resourceParser.getProvisionedMWService("evals", provisionedServiceList[0].name))
+      .then(provisionedService => {
+        console.log(provisionedService);
+      })
+      .catch(err => console.error(err));
+
+
     this.loadThread();
   }
 
