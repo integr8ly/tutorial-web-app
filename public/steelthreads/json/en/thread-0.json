@@ -18,28 +18,54 @@
       "stepDocInfo": "complete-before-proceeding.adoc"
     },
     {
+      "title": "Creating EnMasse Binding",
+      "description": "To use EnMasse, you must create an OpenShift binding.",
+      "estimatedTime": 5,
+      "stepDoc": "creating-enmasse-binding.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc",
+      "attributes": {
+        "launcher-url": "http://launcher-launcher.apps.city.openshiftworkshop.com/"
+      }
+    },
+    {
+      "title": "Creating addresses in EnMasse space",
+      "description": "You create two addresses in EnMasse to route messages to the Spring Boot app.",
+      "estimatedTime": 5,
+      "stepDoc": "creating-addresses.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc",
+      "attributes": {
+        "launcher-url": "http://launcher-launcher.apps.city.openshiftworkshop.com/"
+      }
+    },
+    {
       "title": "Running a Node.js messaging app",
       "description": "The Red Hat Developer Launcher enables you to build and deploy applications on OpenShift. In this procedure, you deploy an example Node.js application that is pre-configured to provide a REST API that returns a list of fruit.",
       "estimatedTime": 5,
       "stepDoc": "running-node-app.adoc",
       "stepDocInfo": "complete-before-proceeding.adoc",
       "attributes": {
-        "launcher-url": "http://launcher-launcher.apps.pwright.openshiftworkshop.com/"
+        "launcher-url": "http://launcher-launcher.apps.city.openshiftworkshop.com/"
       }
     },
     {
-      "title": "Creating EnMasse Binding",
-      "description": "To use EnMasse, you must create an OpenShift binding.",
-      "estimatedTime": 6,
-      "stepDoc": "create-enmasse-binding.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
+      "title": "Editing the Node.js messaging app",
+      "description": "Che allows you edit the source code for your Node.js app in the browser.",
+      "estimatedTime": 5,
+      "stepDoc": "editing-node-app-with-che.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc",
+      "attributes": {
+        "launcher-url": "http://launcher-launcher.apps.city.openshiftworkshop.com/"
+      }
     },
     {
-      "title": "Creating addresses in EnMasse space",
-      "description": "You create two addresses in EnMasse to route messages to the Spring Boot app.",
-      "estimatedTime": 7,
-      "stepDoc": "creating-addresses.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
+      "title": "Running a Spring Boot CRUD app",
+      "description": "In this procedure, you deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application.",
+      "estimatedTime": 5,
+      "stepDoc": "running-spring-app.adoc",
+      "stepDocInfo": "complete-before-proceeding.adoc",
+      "attributes": {
+        "launcher-url": "http://launcher-launcher.apps.city.openshiftworkshop.com/"
+      }
     },
     {
       "title": "Creating AMQP connection in Fuse Ignite",
@@ -60,6 +86,13 @@
       "description": "To use the Fuse connections, you must create an integration in Fuse Ignite.",
       "estimatedTime": 5,
       "stepDoc": "creating-fuse-integration.adoc",
+      "stepDocSuccess": "thread-0-success.adoc"
+    },
+    {
+      "title": "Using the application integration",
+      "description": "After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.",
+      "estimatedTime": 5,
+      "stepDoc": "using-integration.adoc",
       "stepDocSuccess": "thread-0-success.adoc"
     }
   ]

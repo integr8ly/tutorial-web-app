@@ -1,0 +1,31 @@
+// The master.adoc file for The Integreatly Guide
+
+include::shared/attributes.adoc[]
+
+:numbered:
+:chapter-label: 
+
+// Book Title
+= {steel-thread}
+
+include::introduction.adoc[leveloffset=1]
+
+include::setting-up-enmasse.adoc[leveloffset=1]
+
+include::creating-enmasse-binding.adoc[leveloffset=1]
+
+include::creating-addresses.adoc[leveloffset=1]
+
+include::running-node-app.adoc[leveloffset=1]
+
+include::editing-node-app-with-che.adoc[leveloffset=1]
+
+include::running-spring-app.adoc[leveloffset=1]
+
+include::creating-amqp-connection-in-fuse.adoc[leveloffset=1]
+
+include::creating-http-connection-in-fuse.adoc[leveloffset=1]
+
+include::creating-fuse-integration.adoc[leveloffset=1]
+
+include::using-integration.adoc[leveloffset=1]

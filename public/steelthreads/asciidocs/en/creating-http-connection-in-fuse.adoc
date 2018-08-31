@@ -4,14 +4,17 @@
 
 
 [id='creating-http-connection-in-fuse_{context}']
-= Creating HTTP connection in Fuse Ignite
+// tag::intro[]
+= Creating HTTP connection in Red Hat Fuse Online
 
-To send messages to the Spring Boot app, you must create a connection in Fuse Ignite:
+To send messages to the Spring Boot app, you must create a connection in Red Hat Fuse Online.
 
-:fuse-url: https://eval.apps.pwright.openshiftworkshop.com/
-:spring-boot-url: http://spring-boot-rest-http-crud-spring-app.apps.pwright.openshiftworkshop.com/
+// end::intro[]
 
-. Log in to the link:{fuse-url}[Fuse Ignite console, window="_blank"].
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
+:spring-boot-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online console].
 
 . Select *Connections* from the left hand menu.
 
@@ -28,3 +31,12 @@ To send messages to the Spring Boot app, you must create a connection in Fuse Ig
 . Click *Next* and enter a name for the connection, for example, `http`.
 
 . Click *Create*.
+
+
+[role="alert alert-info"]
+.Verification 
+
+[%interactive]
+
+* [ ] Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online console] to make sure the new connection exists.
+
