@@ -6,7 +6,7 @@ const TutorialDashboard = () => (
   <div className=" app-tutorial-dashboard panel panel-default">
     <div className="panel-heading panel-title">
       <h2 className="pull-left" style={{ 'font-size': '18px' }}>
-        Solution Walkthroughs
+        Start with a walkthrough
       </h2>
       <div className="pull-right">5 walkthroughs</div>
     </div>
