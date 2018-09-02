@@ -1,6 +1,0 @@
-To create a preview:
-
-----
-asciidoctor -s steel-thread.adoc
-asciidoctor -s splash.adoc
-----

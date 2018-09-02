@@ -1,0 +1,17 @@
+
+[id='introduction']
+
+.Introduction
+
+In this tutorial you create two apps using Launcher (a Node.js app and a Spring Boot app).
+Each app exposes a RESTful API that you connect so that they can share data without requiring coding or custom configuration.
+This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift, EnMasse and Fuse.
+
+.Prerequisites
+
+* [x] Access to an OpenShift instance with Integreatly components installed
+
+
+//https://github.com/integr8ly/installation/blob/master/README.md
+* [x] A GitHub account configured with an OAuth App to use the {integreatly} Launcher instance.
+// https://github.com/settings/developers
