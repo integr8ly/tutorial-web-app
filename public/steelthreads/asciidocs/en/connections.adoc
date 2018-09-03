@@ -1,0 +1,7 @@
+= Creating connections
+
+To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you must set up two connections in Red Hat Fuse Online.
+
+include::{adoc-location}/creating-amqp-connection-in-fuse.adoc[leveloffset=2]
+
+include::{adoc-location}/creating-http-connection-in-fuse.adoc[leveloffset=2]
