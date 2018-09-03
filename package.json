@@ -56,7 +56,7 @@
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
     "build:js": "react-scripts build",
     "start": "node server.js",
-    "start:dev": "OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" REDIRECT_HOST=http://localhost:3006/oauth/callback OPENSHIFT_HOST=localhost:8443 run-p -l watch:css start:local api:dev start:server",
+    "start:dev": "OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" REDIRECT_HOST=http://localhost:3006/oauth/callback run-p -l watch:css start:local api:dev start:server",
     "start:local": "react-scripts start",
     "start:server": "nodemon server.js",
     "commit:hash": "echo REACT_APP_UI_COMMIT_HASH=$(git rev-list -1 --all) > .env",
@@ -72,7 +72,8 @@
     "lint:locales": "node scripts/syncLocales --check",
     "docker:build": "docker build -t integreatly-web-app .",
     "preinstall": "node -v; npm -v;",
-    "postbuild": "[ \"$BUILD_ENV\" != OCP ] && exit 0; yarn install --production --ignore-scripts --prefer-offline;"
+    "postbuild": "[ \"$BUILD_ENV\" != OCP ] && exit 0; yarn install --production --ignore-scripts --prefer-offline;",
+    "oauthclient": "oc --server https://localhost:8443 get oauthclient/tutorial-web-app || oc --server https://localhost:8443 create -f ./oauthclient.yml"
   },
   "jest": {
     "collectCoverageFrom": [

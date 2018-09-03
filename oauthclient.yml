@@ -1,0 +1,7 @@
+apiVersion: v1
+grantMethod: auto
+kind: OAuthClient
+metadata:
+  name: tutorial-web-app
+redirectURIs:
+- http://localhost:3006

@@ -2,7 +2,30 @@
 
 This web application provides the front door into the Inetgreatly initiative. It houses the various Tutorials (aka Steel Threads) as well as a dashboard of installed products/services.
 
-# deployment
+# local development
+
+```
+yarn install;yarn start:dev
+```
+
+This will install dependencies & start the server.
+Mock data will be used for any calls to OpenShift.
+
+To configure local development with a running OpenShift cluster, do the following.
+
+Create an OAuthClient:
+
+```
+yarn run oauthclient
+```
+
+Start the server, specifying the OpenShift host (This will disable mock data).
+
+```
+OPENSHIFT_HOST=localhost:8443 yarn start:dev
+```
+
+# remote development
 
 ```
 oc new-project integreatly-web-app
