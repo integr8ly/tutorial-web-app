@@ -1,6 +1,6 @@
-import ProvisionedServiceClient from "./clients/provisioned-service-client";
-import MockProvisionedServiceClient from "./clients/mock-provisioned-service-client";
-import ClientOAuth2 from "client-oauth2"
+import ClientOAuth2 from 'client-oauth2';
+import ProvisionedServiceClient from './clients/provisioned-service-client';
+import MockProvisionedServiceClient from './clients/mock-provisioned-service-client';
 
 /**
  * Provides a set of functions for retrieving various OpenShift resources and
@@ -17,7 +17,7 @@ export default class OpenShiftResourceParser {
    * @param {redirectUri} config.redirectUri : Redirect URI for the OAuth Flow after retrieving a token
    * @param {scopes} config.scopes : User Scopes to request in the OAuth Flow
    * @param {masterUri} config.masterUri : OpenShift Master URI for making resource API calls
-    */
+   */
   constructor(config) {
     this.config = config;
     if (!this.config.mockData) {
@@ -45,16 +45,13 @@ export default class OpenShiftResourceParser {
 
     if (!user) {
       return this.startOAuth();
-    } else {
-      return new Promise((resolve, reject) => {
-        return resolve(user);
-      });
     }
+    return new Promise((resolve, reject) => resolve(user));
   }
 
   /**
    * Saves the user to local storage for retrieval of the token later as needed
-   * @param {User} user 
+   * @param {User} user
    */
   setUser(user) {
     if (!user) {
@@ -72,7 +69,7 @@ export default class OpenShiftResourceParser {
       clientId: this.config.clientId,
       accessTokenUri: this.config.accessTokenUri,
       authorizationUri: this.config.authorizationUri,
-      redirectUri: this.config.redirectUri + '?then=' + window.location.href,
+      redirectUri: `${this.config.redirectUri}?then=${window.location.href}`,
       scopes: this.config.scopes
     });
   }
@@ -80,13 +77,12 @@ export default class OpenShiftResourceParser {
   /**
    * Starts the OAuth flow, loading the configured authorize url.
    * Shouldn't need to be called manually.
-   * This is called automatically by the library internals if an 
+   * This is called automatically by the library internals if an
    * API call is attempted and there is no user details/access token.
    */
   startOAuth() {
-    var openshiftAuth = this.getOauthClient();
-
-    return window.location = openshiftAuth.token.getUri();
+    const openshiftAuth = this.getOauthClient();
+    window.location = openshiftAuth.token.getUri();
   }
 
   /**
@@ -99,14 +95,14 @@ export default class OpenShiftResourceParser {
    * @returns {Promise<AuthData>}
    */
   finishOAuth() {
-    var openshiftAuth = this.getOauthClient();
+    const openshiftAuth = this.getOauthClient();
 
-    return openshiftAuth.token.getToken(window.location.href).then(function (user) {
+    return openshiftAuth.token.getToken(window.location.href).then(user => {
       this.setUser(user.data);
       const then = this.getParameterByName('then');
       return {
-        user: user,
-        then: then
+        user,
+        then
       };
     });
   }
@@ -114,12 +110,12 @@ export default class OpenShiftResourceParser {
   /**
    * Removes the user session from local storage.
    * Doing this will trigger an oauth flow the next time
-   * the library is used. It is recommended to handle the 
+   * the library is used. It is recommended to handle the
    * logout state change in your App by navigating elsewhere
    * or reloading your App.
    */
   logout() {
-    this.setUser(null)
+    this.setUser(null);
   }
 
   /**
@@ -131,8 +127,8 @@ export default class OpenShiftResourceParser {
   getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -149,9 +145,9 @@ export default class OpenShiftResourceParser {
       return MockProvisionedServiceClient.getProvisionedService();
     }
 
-    this.withUser().then((user) => {
-      return this.provisionedServiceClient.getProvisionedService(user.access_token, namespace, serviceName);
-    });
+    return this.withUser().then(user =>
+      this.provisionedServiceClient.getProvisionedService(user.access_token, namespace, serviceName)
+    );
   }
 
   /**
@@ -164,8 +160,8 @@ export default class OpenShiftResourceParser {
       return MockProvisionedServiceClient.listProvisionedServices();
     }
 
-    return this.withUser().then((user) => {
-      return this.provisionedServiceClient.listProvisionedServices(user.access_token, namespace);
-    });
+    return this.withUser().then(user =>
+      this.provisionedServiceClient.listProvisionedServices(user.access_token, namespace)
+    );
   }
 }
