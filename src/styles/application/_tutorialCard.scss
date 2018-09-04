@@ -1,5 +1,9 @@
 .app-tutorial-card {
   min-width: 100px;
+  &:hover {
+    box-shadow: 0 1px 6px rgba(3,3,3,.35);
+    cursor: pointer;
+  }
 }
 .app-tutorial-card-rectangle {
   background-color: $color-pf-black-300;

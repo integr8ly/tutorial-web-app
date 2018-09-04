@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, CardTitle, Icon } from 'patternfly-react';
+import { Card, CardBody, CardFooter, CardTitle, Icon, noop } from 'patternfly-react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /** User enums for the users prop */
@@ -19,7 +20,14 @@ const TutorialCard = props => {
   });
 
   return (
-    <Card matchHeight className="app-tutorial-card">
+    <Card
+      matchHeight
+      className="app-tutorial-card"
+      onClick={e => {
+        e.preventDefault();
+        props.history.push(props.getStartedLink);
+      }}
+    >
       <CardTitle>
         <div> {props.title} </div>
       </CardTitle>
@@ -52,7 +60,17 @@ TutorialCard.propTypes = {
   /** Users that apply to this tutorial */
   users: PropTypes.arrayOf(PropTypes.oneOf(Object.keys(users))).isRequired,
   /** Mins to complete the tutorial */
-  mins: PropTypes.number.isRequired
+  mins: PropTypes.number.isRequired,
+  /** router history */
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
 };
 
-export default TutorialCard;
+TutorialCard.defaultProps = {
+  history: {
+    push: noop
+  }
+};
+
+export default withRouter(TutorialCard);

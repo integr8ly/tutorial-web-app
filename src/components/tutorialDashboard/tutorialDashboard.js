@@ -16,7 +16,7 @@ const TutorialDashboard = () => (
           <Col xs={12} sm={4}>
             <TutorialCard
               title="Integrating two RESTful web services"
-              getStartedLink="/#/tutorial/0"
+              getStartedLink="/tutorial/0"
               users={[TutorialCard.users.OPERATOR, TutorialCard.users.DEVELOPER]}
               mins={40}
             >
