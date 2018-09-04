@@ -2,10 +2,12 @@ div.olist ol.arabic {
   padding-left: 15px;
 }
 
-.list-view-pf-integreatly .list-view-pf-description {
-  flex: 1 !important;
-}
+.list-view-pf-integreatly {
+  .list-view-pf-description {
+    flex: 1 !important;
+  }
 
-.list-view-pf-integreatly .list-group-item:hover {
-  background-color: #fff;
+  .list-group-item:hover {
+    background-color: $color-pf-white;
+  }
 }

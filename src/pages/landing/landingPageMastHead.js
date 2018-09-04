@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 const LandingPageMastHead = () => (
-  <header className="app-landing-page-integr8ly-masthead">
-    <div className="container">
+  <header className="row app-landing-page-integr8ly-masthead">
+    <div className="container-fluid">
       <h2>
         Welcome to the <b>Red Hat evaluation environment</b>
       </h2>

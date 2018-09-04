@@ -11,13 +11,17 @@
 
 .app-installed-apps-view {
   & .panel-title {
-    background-color: #fff;
-    height: 60px;
+    background-color: $color-pf-white;
+  }
+  &-panel-title {
+    display: grid;
+    grid-template-columns: 70% 30%;
     & h2 {
       margin-top: 5px;
     }
     & div {
       margin-top: 5px;
+      text-align: right;
     }
   }
 }

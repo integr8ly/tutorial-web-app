@@ -5,15 +5,15 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 const TutorialDashboard = () => (
   <div className=" app-tutorial-dashboard panel panel-default">
     <div className="panel-heading panel-title">
-      <h2 className="pull-left" style={{ 'font-size': '18px' }}>
+      <h2 className="pull-left">
         Start with a walkthrough
       </h2>
       <div className="pull-right">5 walkthroughs</div>
     </div>
     <div className="panel-content cards-pf">
       <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>
-        <Row style={{ marginBottom: '20px', marginTop: '20px' }}>
-          <Col xs={12} sm={4} md={4}>
+        <Row>
+          <Col xs={12} sm={4}>
             <TutorialCard
               title="Integrating two RESTful web services"
               getStartedLink="/#/tutorial/0"
@@ -26,7 +26,7 @@ const TutorialDashboard = () => (
               </p>
             </TutorialCard>
           </Col>
-          <Col xs={12} sm={4} md={4}>
+          <Col xs={12} sm={4}>
             <TutorialCard
               title="Develop an API from beginning to end"
               getStartedLink="#"
@@ -39,7 +39,7 @@ const TutorialDashboard = () => (
               </p>
             </TutorialCard>
           </Col>
-          <Col xs={12} sm={4} md={4}>
+          <Col xs={12} sm={4}>
             <TutorialCard
               title="Create a greenfield-brownfield facade"
               getStartedLink="#"
@@ -52,7 +52,7 @@ const TutorialDashboard = () => (
               </p>
             </TutorialCard>
           </Col>
-          <Col xs={12} sm={4} md={4}>
+          <Col xs={12} sm={4}>
             <TutorialCard
               title="Build a microservice API gateway"
               getStartedLink="#"
@@ -65,7 +65,7 @@ const TutorialDashboard = () => (
               </p>
             </TutorialCard>
           </Col>
-          <Col xs={12} sm={4} md={4}>
+          <Col xs={12} sm={4}>
             <TutorialCard
               title="Create a REST facade to existing SOAP-based web service"
               getStartedLink="#"

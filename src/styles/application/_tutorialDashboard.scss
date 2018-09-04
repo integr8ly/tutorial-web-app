@@ -16,14 +16,17 @@
 }
 
 .app-tutorial-dashboard {
-  background-color: #f5f5f5;
+  background-color: $color-pf-black-150;
   & .panel-title {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border: none;
     & h2 {
       margin-top: 5px;
     }
     & div {
       margin-top: 5px;
+      text-align: right;
     }
   }
 }

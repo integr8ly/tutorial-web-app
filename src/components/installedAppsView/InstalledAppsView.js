@@ -29,11 +29,11 @@ class InstalledAppsView extends React.Component {
     const appList = InstalledAppsView.createMasterList(this.props.apps);
     return (
       <div className="panel panel-default app-installed-apps-view">
-        <div className="panel-heading panel-title">
-          <h2 className="pull-left" style={{ 'font-size': '18px' }}>
+        <div className="panel-heading panel-title app-installed-apps-view-panel-title">
+          <h2>
             Explore available application services
           </h2>
-          <div className="pull-right">{this.props.apps.length} services</div>
+          <div>{this.props.apps.length} services</div>
         </div>
         <div className="panel-content">{appList}</div>
       </div>

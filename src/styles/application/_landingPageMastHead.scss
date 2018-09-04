@@ -4,14 +4,10 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: top;
-  color: #fff;
+  background-size: cover;
+  color: $color-pf-white;
   height: 200px;
   text-align: center;
-  & .container {
-    position: relative;
-    top: 20%;
-  }
-  & p {
-    margin: 15px 30% 15px 30%;
-  }
+  display: grid;
+  margin: auto 0;
 }
