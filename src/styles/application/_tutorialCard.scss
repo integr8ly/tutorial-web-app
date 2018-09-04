@@ -20,4 +20,13 @@
   width: 100%;
   bottom: 0;
   padding-bottom: 20px;
+  display: flex;
+  &-get-started {
+    flex-basis: 50%;
+    text-align: left;
+  }
+  &-time-to-complete {
+    flex-basis: 50%;
+    text-align: right;
+  }
 }

@@ -28,13 +28,13 @@ const TutorialCard = props => {
         <Icon type="pf" name="user" /> {userList}
       </CardBody>
       <CardFooter className="app-tutorial-card-pf-footer">
-        <div className="pull-right">
-          <Icon type="fa" name="clock-o" /> {props.mins} <span>Minutes</span>
-        </div>
-        <a className="pull-left" href={props.getStartedLink}>
+        <a className="app-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
           <Icon type="fa" name="arrow-circle-o-right" />
           <span>Get Started</span>
         </a>
+        <div className="app-tutorial-card-pf-footer-time-to-complete">
+          <Icon type="fa" name="clock-o" /> {props.mins} <span>Minutes</span>
+        </div>
       </CardFooter>
     </Card>
   );
