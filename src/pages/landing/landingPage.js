@@ -2,16 +2,17 @@ import * as React from 'react';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
-import OpenShiftResourceParser from '../../components/openshiftResourceParser'
+import OpenShiftResourceParser from '../../components/openshiftResourceParser';
 
 class LandingPage extends React.Component {
   state = {
     apps: []
-  }
+  };
 
   componentDidMount() {
     const parser = new OpenShiftResourceParser({ mockData: true });
-    parser.listProvisionedMWServices("eval")
+    parser
+      .listProvisionedMWServices('eval')
       .then(provisionedServiceList => {
         this.setState({ apps: provisionedServiceList });
       })
@@ -24,10 +25,7 @@ class LandingPage extends React.Component {
         <LandingPageMastHead />
         <section className="app-landing-page-tutorial-dashboard-section">
           <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
-          <InstalledAppsView
-            className="app-landing-page-tutorial-dashboard-section-right"
-            apps={this.state.apps}
-          />
+          <InstalledAppsView className="app-landing-page-tutorial-dashboard-section-right" apps={this.state.apps} />
         </section>
       </div>
     );

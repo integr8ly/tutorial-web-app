@@ -16,8 +16,14 @@ export default class ClusterServiceClass {
    * @returns {boolean}
    */
   static isValidJSON(jsonData) {
-    return (jsonData && jsonData.metadata && jsonData.metadata.name
-      && jsonData.spec && jsonData.spec.externalMetadata && jsonData.spec.externalMetadata.displayName);
+    return (
+      jsonData &&
+      jsonData.metadata &&
+      jsonData.metadata.name &&
+      jsonData.spec &&
+      jsonData.spec.externalMetadata &&
+      jsonData.spec.externalMetadata.displayName
+    );
   }
 
   /**

@@ -1,4 +1,4 @@
-import ProvisionedService from "../types/provisioned-service";
+import ProvisionedService from '../types/provisioned-service';
 
 /**
  * Mock client for retrieving and parsing Provisioned Services.
@@ -26,8 +26,7 @@ export default class MockProvisionedServiceClient {
       },
       {
         appName: 'Red Hat Launcher',
-        appDescription:
-          'Continuous application delivery, built and deployed on OpenShift.',
+        appDescription: 'Continuous application delivery, built and deployed on OpenShift.',
         appLink: `${process.env.REACT_APP_LAUNCHER_URL}`
       },
       {
@@ -41,7 +40,6 @@ export default class MockProvisionedServiceClient {
         appLink: `${process.env.REACT_APP_ENMASSE_URL}`
       }
     ];
-    debugger
 
     return Promise.resolve(services);
   }
@@ -53,8 +51,11 @@ export default class MockProvisionedServiceClient {
    */
   static buildMockProvisionedService() {
     const identifier = MockProvisionedServiceClient.randomIdentifier();
-    return new ProvisionedService(`mock-service-${identifier}`,
-      `https://mock-service-${identifier}.com/`, `mock-service-${identifier}-name`);
+    return new ProvisionedService(
+      `mock-service-${identifier}`,
+      `https://mock-service-${identifier}.com/`,
+      `mock-service-${identifier}-name`
+    );
   }
 
   /**

@@ -1,6 +1,6 @@
-import ClusterServiceClass from "../types/cluster-service-class";
-import ServiceInstance from "../types/service-instance";
-import ProvisionedService from "../types/provisioned-service";
+import ClusterServiceClass from '../types/cluster-service-class';
+import ServiceInstance from '../types/service-instance';
+import ProvisionedService from '../types/provisioned-service';
 
 /**
  * Client for retrieving and parsing Provisioned Services.
@@ -24,15 +24,19 @@ export default class ProvisionedServiceClient {
    */
   getProvisionedService(authToken, namespace, name) {
     return this.listProvisionedServices(authToken, namespace)
-      .then((provisionedServices) => {
-        if (!provisionedServices || (provisionedServices.length === 0)) {
-          return Promise.reject(new Error(`Provisioned service with the name ${name} not found in namespace ${namespace}`));
+      .then(provisionedServices => {
+        if (!provisionedServices || provisionedServices.length === 0) {
+          return Promise.reject(
+            new Error(`Provisioned service with the name ${name} not found in namespace ${namespace}`)
+          );
         }
         return provisionedServices.find(provisionedService => provisionedService.name === name);
       })
-      .then((provisionedService) => {
+      .then(provisionedService => {
         if (!provisionedService) {
-          return Promise.reject(new Error(`Provisioned service with the name ${name} not found in namespace ${namespace}`));
+          return Promise.reject(
+            new Error(`Provisioned service with the name ${name} not found in namespace ${namespace}`)
+          );
         }
         return provisionedService;
       });
@@ -46,29 +50,29 @@ export default class ProvisionedServiceClient {
   listProvisionedServices(authToken, namespace) {
     return Promise.all([
       this.listClusterServiceClasses(this.openshiftURL, authToken),
-      this.listServiceInstances(this.openshiftURL, authToken, namespace)])
-      .then(([clusterServiceClasses, serviceInstances]) => {
-        if (!serviceInstances || (serviceInstances.length === 0)) {
-          return [];
-        }
-        return serviceInstances.map((serviceInstance) => {
-          const displayName = clusterServiceClasses.find(serviceClass => serviceClass.name === serviceInstance.clusterServiceClassId);
-          return new ProvisionedService(serviceInstance.name, serviceInstance.consoleURL, displayName);
-        });
+      this.listServiceInstances(this.openshiftURL, authToken, namespace)
+    ]).then(([clusterServiceClasses, serviceInstances]) => {
+      if (!serviceInstances || serviceInstances.length === 0) {
+        return [];
+      }
+      return serviceInstances.map(serviceInstance => {
+        const displayName = clusterServiceClasses.find(
+          serviceClass => serviceClass.name === serviceInstance.clusterServiceClassId
+        );
+        return new ProvisionedService(serviceInstance.name, serviceInstance.consoleURL, displayName);
       });
+    });
   }
 
   responseHandler(response) {
     if (response.ok) {
       return response.json();
     } else if (response.status === 401) {
-      this.unauthorizedHandler();
-      return;
-    } else {
-      var error = new Error(response.statusText)
-      error.response = response
-      throw error
+      return this.unauthorizedHandler();
     }
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
   }
 
   /**
@@ -81,11 +85,11 @@ export default class ProvisionedServiceClient {
    */
   listServiceInstances(openshiftURL, authToken, namespace) {
     if (!authToken) {
-      return Promise.reject(new Error("Auth token should not be null"));
+      return Promise.reject(new Error('Auth token should not be null'));
     }
 
     const headers = new Headers({
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`
     });
     return fetch(this.buildServiceInstanceListRoute(openshiftURL, namespace), { headers })
       .then(this.responseHandler.bind(this))
@@ -101,11 +105,11 @@ export default class ProvisionedServiceClient {
    */
   listClusterServiceClasses(openshiftURL, authToken) {
     if (!authToken) {
-      return Promise.reject(new Error("Auth token should not be null"));
+      return Promise.reject(new Error('Auth token should not be null'));
     }
 
     const headers = new Headers({
-      Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`
     });
     return fetch(this.buildClusterServiceClassListRoute(openshiftURL), { headers })
       .then(this.responseHandler.bind(this))
