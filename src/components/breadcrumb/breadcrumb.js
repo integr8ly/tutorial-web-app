@@ -23,21 +23,6 @@ class Breadcrumb extends React.Component {
               <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
             </React.Fragment>
           )}
-        <li className="applauncher-pf dropdown pull-right">
-          <Dropdown id="app-launcher" pullRight componentClass={ButtonGroup}>
-            <Dropdown.Toggle bsStyle="link" noCaret>
-              <span aria-hidden="true" className="fa fa-th applauncher-pf-icon" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <MenuItem>Red Hat 3Scale API Management</MenuItem>
-              <MenuItem>Red Hat Fuse</MenuItem>
-              <MenuItem>Red Hat Fuse Online</MenuItem>
-              <MenuItem>Red Hat OpenShift Application Runtimes</MenuItem>
-              <MenuItem>Eclipse Che</MenuItem>
-              <MenuItem>EnMasse</MenuItem>
-            </Dropdown.Menu>
-          </Dropdown>
-        </li>
       </PfBreadcrumb>
     );
   }
