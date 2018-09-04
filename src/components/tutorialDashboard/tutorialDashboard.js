@@ -5,10 +5,10 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 const TutorialDashboard = () => (
   <div className=" app-tutorial-dashboard panel panel-default">
     <div className="panel-heading panel-title">
-      <h2 className="pull-left">
+      <h2>
         Start with a walkthrough
       </h2>
-      <div className="pull-right">5 walkthroughs</div>
+      <div>5 walkthroughs</div>
     </div>
     <div className="panel-content cards-pf">
       <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>

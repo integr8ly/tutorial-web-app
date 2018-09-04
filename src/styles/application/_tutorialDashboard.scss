@@ -18,13 +18,14 @@
 .app-tutorial-dashboard {
   background-color: $color-pf-black-150;
   & .panel-title {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     border: none;
     & h2 {
+      flex-basis: 50%;
       margin-top: 5px;
     }
     & div {
+      flex-basis: 50%;
       margin-top: 5px;
       text-align: right;
     }

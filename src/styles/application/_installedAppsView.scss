@@ -14,12 +14,13 @@
     background-color: $color-pf-white;
   }
   &-panel-title {
-    display: grid;
-    grid-template-columns: 70% 30%;
+    display: flex;
     & h2 {
+      flex-basis: 70%;
       margin-top: 5px;
     }
     & div {
+      flex-basis: 30%;
       margin-top: 5px;
       text-align: right;
     }
@@ -35,7 +36,7 @@
     padding: 15px;
   }
   & li:hover {
-    background-color: #dff3fe;
+    background-color: $color-pf-blue-50;
     cursor: pointer;
   }
 }
