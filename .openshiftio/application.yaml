@@ -33,6 +33,26 @@ parameters:
     required: true
     from: '[a-zA-Z0-9]{40}'
     generate: expression
+  - name: REACT_APP_FUSE_URL
+    description: Fuse URL (used when mocking the services list)
+    displayName: Fuse URL (used when mocking the services list)
+    value: http://localhost:3006
+    required: false
+  - name: REACT_APP_LAUNCHER_URL
+    description: Launcher URL (used when mocking the services list)
+    displayName: Launcher URL (used when mocking the services list)
+    value: http://localhost:3006
+    required: false
+  - name: REACT_APP_CHE_URL
+    description: Che URL (used when mocking the services list)
+    displayName: Che URL (used when mocking the services list)
+    value: http://localhost:3006
+    required: false
+  - name: REACT_APP_ENMASSE_URL
+    description: EnMasse URL (used when mocking the services list)
+    displayName: EnMasse URL (used when mocking the services list)
+    value: http://localhost:3006
+    required: false
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -86,6 +106,14 @@ objects:
     strategy:
       sourceStrategy:
         env:
+          - name: REACT_APP_FUSE_URL
+            value: ${REACT_APP_FUSE_URL}
+          - name: REACT_APP_LAUNCHER_URL
+            value: ${REACT_APP_LAUNCHER_URL}
+          - name: REACT_APP_CHE_URL
+            value: ${REACT_APP_CHE_URL}
+          - name: REACT_APP_ENMASSE_URL
+            value: ${REACT_APP_ENMASSE_URL}
           - name: OUTPUT_DIR
             value: ${OUTPUT_DIR}
           - name: YARN_ENABLED
