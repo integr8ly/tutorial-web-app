@@ -1,15 +1,19 @@
 FROM bucharestgold/centos7-s2i-nodejs:10.x
 
-EXPOSE 8000
-
-USER root
-
-COPY . ./
-
-USER default
+EXPOSE 5001
 
 ENV BUILD_ENV=OCP
 
-RUN scl enable rh-nodejs8 "npm i -g yarn && yarn install && yarn build"
+USER default
+
+COPY . ./
+
+USER root
+
+RUN chmod -R g+w src/styles
+
+USER default
+
+RUN npm i -g yarn && yarn install && yarn build
 
 CMD ["npm", "start"]
