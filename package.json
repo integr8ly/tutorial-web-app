@@ -54,7 +54,7 @@
     "api:dev": "sh ./scripts/dev.sh -p 5000 -d \"$(pwd)/src/services\"",
     "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css",
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
-    "build:js": "react-scripts build",
+    "build:js": "CI=false react-scripts build",
     "start": "node server.js",
     "start:dev": "OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" REDIRECT_HOST=http://localhost:3006/oauth/callback OPENSHIFT_HOST=localhost:8443 run-p -l watch:css start:local api:dev start:server",
     "start:local": "react-scripts start",
