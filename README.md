@@ -2,12 +2,43 @@
 
 This web application provides the front door into the Inetgreatly initiative. It houses the various Tutorials (aka Steel Threads) as well as a dashboard of installed products/services.
 
-# deployment
+# Local Development
 
 ```
-oc new-project integreatly-web-app
-find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
-oc new-app --template react-demo-app -p SOURCE_REPOSITORY_URL=https://github.com/integr8ly/tutorial-web-app -p SOURCE_REPOSITORY_REF=architecture
+yarn install
+yarn run start:dev
+```
+
+The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
+When running locally, the available services list is mocked, and service urls set via env vars.
+
+# Deployment to OpenShift
+
+When deploying to OpenShift, services and their urls are retrived from the OpenShift cluster.
+
+To deploy, first export a variable set to the host of your OpenShift master.
+For example:
+
+```
+export OPENSHIFT_HOST=openshift.example.com:8443
+```
+
+Import the template and initialise it.
+
+```
+oc new-project tutorial-web-app
+oc apply -f deployment/openshift-template.yml
+oc new-app --template tutorial-web-app -p OPENSHIFT_HOST=$OPENSHIFT_HOST
+```
+
+For other parameters that you may want to change, check the template.
+
+You will also need to create an OAuthClient. This will require cluster-admin privileges.
+
+```
+export WEBAPP_HOST=`oc get route tutorial-web-app -n webapp --template '{{.spec.host}}'`
+oc create -f deployment/openshift-oauthclient.yml
+oc patch oauthclient tutorial-web-app -p "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
 ```
 
 # Ascii Doc Support

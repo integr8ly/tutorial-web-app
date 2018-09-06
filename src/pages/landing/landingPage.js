@@ -10,7 +10,7 @@ class LandingPage extends React.Component {
   };
 
   componentDidMount() {
-    const parser = new OpenShiftResourceParser({ mockData: true });
+    const parser = new OpenShiftResourceParser(window.OPENSHIFT_CONFIG);
     parser
       .listProvisionedMWServices('eval')
       .then(provisionedServiceList => {
