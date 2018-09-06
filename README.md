@@ -36,7 +36,7 @@ For other parameters that you may want to change, check the template.
 You will also need to create an OAuthClient. This will require cluster-admin privileges.
 
 ```
-export WEBAPP_HOST=`oc get route tutorial-web-app -n webapp --template '{{.spec.host}}'`
+export WEBAPP_HOST=`oc get route tutorial-web-app -n tutorial-web-app --template '{{.spec.host}}'`
 oc create -f deployment/openshift-oauthclient.yml
 oc patch oauthclient tutorial-web-app -p "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
 ```
