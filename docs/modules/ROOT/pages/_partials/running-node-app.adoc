@@ -5,9 +5,10 @@
 :launcher-name: Red Hat Developer Launcher
 
 [id='running-node-app_{context}']
-// tag::intro[]
+
 = Running a Node.js messaging app
 
+// tag::intro[]
 The {launcher-name} enables you to build and deploy applications on OpenShift.
 In this procedure, you deploy an example Node.js application that is pre-configured to allow you enter details of fruit stock.
 // end::intro[]

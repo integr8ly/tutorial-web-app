@@ -2,12 +2,16 @@
 //
 // <List assemblies here, each on a new line>
 
+:enmasse: Red Hat AMQ Online
 
 [id='creating-amqp-connection-in-fuse_{context}']
 
 = Creating AMQP connection in Red Hat Fuse Online
 
+// tag::intro[]
 To receive messages from EnMasse, you must create a connection in Red Hat Fuse Online.
+// end::intro[]
+
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
@@ -22,7 +26,7 @@ To receive messages from EnMasse, you must create a connection in Red Hat Fuse O
 +
 NOTE: Do not select the similarly named *AMQ* option.
 
-. Retrieve configuration values relating to EnMasse:
+. Retrieve configuration values relating to {enmasse}:
 
 ..  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
 
@@ -41,7 +45,7 @@ NOTE: Do not select the similarly named *AMQ* option.
 * *username*
 // user-d5515e3e-121c-4e11-acdb-321ba2c4c499
 
-. Enter the following, using the configuration values relating to EnMasse:
+. Enter the following, using the configuration values relating to {enmasse}:
 +
 * Connection URI: `amqp://<messagingHost>:5672?amqp.saslMechanisms=PLAIN`
 * User Name: `<username>`
