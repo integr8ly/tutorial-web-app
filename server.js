@@ -35,11 +35,17 @@ app.get('/config.js', (req, res) => {
       }
     };`);
   } else {
+    let redirectHost;
+    if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-host']) {
+      redirectHost = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`
+    } else {
+      redirectHost = `https://${req.headers.host}`
+    }
     res.send(`window.OPENSHIFT_CONFIG = {
       clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
       accessTokenUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/token',
       authorizationUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/authorize',
-      redirectUri: 'https://${req.headers.host}/oauth/callback',
+      redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
       masterUri: 'https://${process.env.OPENSHIFT_HOST}'
     };`)
