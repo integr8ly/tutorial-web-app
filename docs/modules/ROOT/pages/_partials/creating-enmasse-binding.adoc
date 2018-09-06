@@ -2,14 +2,14 @@
 //
 // <List assemblies here, each on a new line>
 
+:enmasse: Red Hat AMQ Online
 
 [id='creating-enmasse-binding_{context}']
 
+= Creating {enmasse} Binding
+
 // tag::intro[]
-= Creating EnMasse Binding
-
-To use EnMasse, you must create an OpenShift binding.
-
+To use {enmasse}, you must create an OpenShift binding.
 // end::intro[]
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview

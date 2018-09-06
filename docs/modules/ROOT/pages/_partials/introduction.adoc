@@ -1,11 +1,13 @@
 
 [id='introduction']
 
+:enmasse: Red Hat AMQ Online
+
 .Introduction
 
 In this tutorial you create two apps (a Node.js app and a Spring Boot app).
 Each app exposes a RESTful API that you connect so that they can share data without requiring coding or custom configuration.
-This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift, EnMasse and Fuse.
+This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift, {enmasse} and Fuse.
 
 .Prerequisites
 
