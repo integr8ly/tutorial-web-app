@@ -16,6 +16,7 @@ $icon-font-path: '~patternfly/dist/fonts/';
 
 // Application Overrides
 @import 'application/fonts';
+@import 'application/variables';
 @import 'application/typography';
 @import 'application/layout';
 @import 'application/lists';
