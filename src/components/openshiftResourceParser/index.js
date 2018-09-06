@@ -158,7 +158,7 @@ export default class OpenShiftResourceParser {
    */
   listProvisionedMWServices(namespace) {
     if (this.config.mockData) {
-      return MockProvisionedServiceClient.listProvisionedServices();
+      return MockProvisionedServiceClient.listProvisionedServices(this.config.mockData);
     }
 
     return this.withUser().then(user =>
