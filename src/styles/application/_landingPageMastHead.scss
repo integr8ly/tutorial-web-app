@@ -1,14 +1,22 @@
-.app-landing-page-integr8ly-masthead {
-  background-image: url(../../img/landing-page-bck-img.jpg);
-  background-color: $color-pf-black-900;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: top;
-  background-size: cover;
-  color: $color-pf-white;
-  margin: auto 0;
-  height: 200px;
-  text-align: center;
-  display: flex;
-  align-items: center;
+.app-landing-page-integr8ly{
+  &-masthead {
+    background-image: url(../../img/Web_RH_Banner.png);
+    background-color: $color-pf-black-900;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+    color: $color-pf-white;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
+    &:after {
+      background-image: url(../../img/RedHatLogo.png);
+      background-repeat: no-repeat;
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      height: 38px;
+      width: 115px;
+    }
+  }
 }
