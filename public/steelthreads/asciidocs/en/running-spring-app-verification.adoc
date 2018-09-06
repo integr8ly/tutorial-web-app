@@ -1,0 +1,40 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+:launcher-name: Red Hat Developer Launcher
+
+
+[id='running-spring-app_{context}']
+
+= Creating a REST API endpoint to receive messages
+
+// tag::intro[]
+In this procedure, you deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application.
+// end::intro[]
+
+:launcher-url: http://launcher-launcher.apps.city.openshiftworkshop.com/
+
+
+. Log in to the link:{launcher-url}[{launcher-name}, window="_blank"] console.
+
+. Select the *LAUNCH YOUR PROJECT*.
+
+. Enter a name for your application, for example, `my-spring-app` and select *Continue*.
+
+. Select *Code Locally, Build and Deploy* to deploy the application on a hosted OpenShift instance. Click the blue down arrow to continue.
+
+. Select *CRUD* from the list of missions and *Spring Boot* from the list of runtimes. Accept the default version of Spring Boot. Click the blue down arrow to continue.
+
+. Select the *Log in & Authorize Account* button and give OpenShift permissions to your GitHub account. Click the blue down arrow to continue.
+
+. Review your configuration and select *Set Up Application* to create an OpenShift deployment.
++
+NOTE: Creating this application automatically creates an OpenShift project of the same name.
+
+[role="alert alert-info"]
+.Verification
+
+[%interactive]
+
+* [ ] Check the *Overview* screen of the *my-spring-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.

@@ -1,0 +1,30 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+:enmasse: Red Hat AMQ Online
+
+[id='creating-enmasse-binding_{context}']
+
+= Creating {enmasse} Binding
+
+// tag::intro[]
+To use {enmasse}, you must create an OpenShift binding.
+// end::intro[]
+
+:openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
+
+. Log in to the link:{openshift-url}[OpenShift, window="_blank"] console.
+
+. Click the *Create Binding* option beside *EnMasse (standard)*.
+
+. Click *Next* and enable all the options (consoleAccess, consoleAdmin, and externalAccess).
+
+. Click *Bind* and wait for the binding to complete.
+
+[role="alert alert-info"]
+.Verification
+
+[%interactive]
+
+* [ ] Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a binding related to *EnMasse (standard)*.
