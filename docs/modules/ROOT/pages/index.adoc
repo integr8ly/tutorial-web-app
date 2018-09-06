@@ -1,0 +1,45 @@
+// The master.adoc file for The Integreatly Guide
+
+// include::{url}/shared/attributes.adoc[]
+
+:numbered:
+:chapter-label:
+
+:steel-thread: Integrating two RESTful web services
+
+:githost: https://raw.githubusercontent.com
+:org: finp
+:repo: tutorial-web-app
+:branch: docs-update
+:path: public/steelthreads/asciidocs/en
+
+:url: {githost}/{org}/{repo}/{branch}/{path}
+
+
+
+ifeval::["{location}" == "local"]
+:adoc-location: {partialsdir}
+endif::[]
+
+
+ifeval::["{location}" == "remote"]
+:adoc-location: {url}
+endif::[]
+
+
+// Book Title
+= {steel-thread}
+
+include::{adoc-location}/introduction.adoc[leveloffset=1]
+
+include::{partialsdir}/enmasse.adoc[leveloffset=1]
+
+include::{partialsdir}/node.adoc[leveloffset=1]
+
+include::{adoc-location}/running-spring-app.adoc[leveloffset=1]
+
+include::{partialsdir}/connections.adoc[leveloffset=1]
+
+include::{adoc-location}/creating-fuse-integration.adoc[leveloffset=1]
+
+include::{adoc-location}/using-integration.adoc[leveloffset=1]
