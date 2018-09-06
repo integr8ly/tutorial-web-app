@@ -6,7 +6,7 @@ This web application provides the front door into the Inetgreatly initiative. It
 
 ```
 yarn install
-yarn run start:dev
+yarn start:dev
 ```
 
 The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.

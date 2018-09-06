@@ -8,6 +8,15 @@ import store from './redux/store';
 import App from './App';
 
 // const store = createStore((state = []) => state);
+beforeAll(() => {
+  window.OPENSHIFT_CONFIG = {
+    mockData: {}
+  };
+});
+
+afterAll(() => {
+  delete window.OPENSHIFT_CONFIG;
+});
 
 it('renders without crashing', () => {
   // Would you like to debug Jest tests in Chrome? See the following note:
