@@ -3,6 +3,6 @@
 To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.
 
 
-include::{adoc-location}/running-node-app.adoc[leveloffset=2]
+include::{partialsdir}/running-node-app.adoc[leveloffset=2]
 
-include::{adoc-location}/editing-node-app-with-che.adoc[leveloffset=2]
+include::{partialsdir}/editing-node-app-with-che.adoc[leveloffset=2]
