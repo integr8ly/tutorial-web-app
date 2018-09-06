@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Icon, Breadcrumb as PfBreadcrumb, Dropdown, ButtonGroup, MenuItem } from 'patternfly-react';
+import { Icon, Breadcrumb as PfBreadcrumb } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 
 class Breadcrumb extends React.Component {

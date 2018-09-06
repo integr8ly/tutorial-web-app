@@ -50,22 +50,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={4}
       >
         <h3>
-          tutorial.prereq
-        </h3>
-        <ul
-          style={
-            Object {
-              "paddingLeft": 20,
-            }
-          }
-        >
-          <li
-            key="0"
-          >
-            Github account
-          </li>
-        </ul>
-        <h3>
           tutorial.roles
         </h3>
         <ul
@@ -97,13 +81,19 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           tutorial.installedApplications
         </h3>
         <p>
-          <Badge
-            bsClass="badge"
-            key="0"
-            pullRight={false}
+          <ul
+            style={
+              Object {
+                "paddingLeft": 20,
+              }
+            }
           >
-            OpenShift
-          </Badge>
+            <li
+              key="0"
+            >
+              OpenShift
+            </li>
+          </ul>
         </p>
       </Col>
     </Row>
@@ -136,6 +126,52 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <ListView
           className="list-view-pf-integreatly"
         >
+          <ListViewItem
+            actions={
+              <div>
+                <Icon
+                  name="clock-o"
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                  type="fa"
+                />
+                 
+                <span>
+                  10 
+                  tutorial.minutes
+                </span>
+              </div>
+            }
+            additionalInfo={null}
+            checkboxInput={null}
+            compoundExpand={false}
+            compoundExpanded={false}
+            description={
+              <div>
+                <ul
+                  style={
+                    Object {
+                      "paddingLeft": 20,
+                    }
+                  }
+                >
+                  <li>
+                    Github account
+                  </li>
+                </ul>
+              </div>
+            }
+            heading="0. Completing prerequisites"
+            hideCloseIcon={false}
+            leftContent={null}
+            onCloseCompoundExpand={[Function]}
+            onExpand={[Function]}
+            onExpandClose={[Function]}
+            stacked={true}
+          />
           <ListViewItem
             actions={
               <div>

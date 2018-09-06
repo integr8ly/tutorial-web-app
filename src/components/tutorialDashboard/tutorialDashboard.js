@@ -5,9 +5,7 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 const TutorialDashboard = () => (
   <div className=" app-tutorial-dashboard panel panel-default">
     <div className="panel-heading panel-title">
-      <h2>
-        Start with a walkthrough
-      </h2>
+      <h2>Start with a walkthrough</h2>
       <div>5 walkthroughs</div>
     </div>
     <div className="panel-content cards-pf">
