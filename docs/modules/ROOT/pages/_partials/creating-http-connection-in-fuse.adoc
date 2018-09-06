@@ -4,12 +4,10 @@
 
 
 [id='creating-http-connection-in-fuse_{context}']
-// tag::intro[]
 = Creating HTTP connection in Red Hat Fuse Online
 
 To send messages to the Spring Boot app, you must create a connection in Red Hat Fuse Online.
 
-// end::intro[]
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 :spring-boot-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
