@@ -1,10 +1,6 @@
 .integr8ly {
   &-module {
-    position: fixed;
-    top: 40px;
-    bottom: 0;
-    left: 0;
-    overflow-y: auto;
+    margin-top: 40px;
     &-column {
       &--status {
         background-color: $color-pf-black-100;
@@ -12,19 +8,31 @@
         border-bottom-color: $color-pf-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
+        &-next {
+          background-color: $color-pf-black-100;
+          border-top: 1px solid;
+          border-top-color: $color-pf-black-300;
+          margin: 0 -20px;
+          padding: 10px 20px 20px;
+        }
       }
       &--steps {
         margin-right: -20px;
+        margin-bottom: 56px;
         margin-left: -20px;
-        padding: 15px 20px 25px;
+        padding: 15px 20px 0;
         background-color: $color-pf-white;
       }
       &--footer {
         background-color: $color-pf-black-100;
         border-top: 1px solid;
         border-top-color: $color-pf-black-300;
-        margin: 0 -20px;
-        padding: 10px 20px 20px;
+        // margin: 0 -20px;
+        padding: 10px 20px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 67%;
       }
     }
   }
@@ -36,8 +44,11 @@
     overflow-y: auto;
     background-color: $color-pf-black-200;
   }
+  &-task-container {
+    margin-top: 40px;
+  }
   &-prerequisites {
-    position: absolute;
+    position: fixed;
     top: 38px;
     right: 0;
     bottom: 0;

@@ -100,10 +100,12 @@ class TaskPage extends React.Component {
                         <AsciiDocTemplate adoc={threadTask.stepDocSuccess} />
                       </Alert>
                     )}
+                    <div className="integr8ly-module-column--status-next">
+                      <h4>{t('task.whatsNext')}</h4>
+                      <p>{t('task.completeTaskFirst')}</p>
+                    </div>
                   </div>
                   <div className="integr8ly-module-column--footer">
-                    <h4>{t('task.whatsNext')}</h4>
-                    <p>{t('task.completeTaskFirst')}</p>
                     <div
                       className="btn-group btn-group-justified"
                       role="group"

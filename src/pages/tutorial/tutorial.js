@@ -47,7 +47,7 @@ class TutorialPage extends React.Component {
           <Breadcrumb threadName={thread.data.title} threadId={thread.data.id} />
           <Grid fluid>
             <Grid.Row>
-              <Grid.Col xs={12} sm={8}>
+              <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
                 <AsciiDocTemplate adoc={thread.data.descriptionDoc} />
                 <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                   {t('tutorial.getStarted')}
@@ -61,7 +61,7 @@ class TutorialPage extends React.Component {
                   ))}
                 </ul> */}
                 <h3>{t('tutorial.roles')}</h3>
-                <ul className="list-unstyled" style={{ paddingLeft: 0 }}>
+                <ul className="list-unstyled">
                   {thread.data.roles.map((role, i) => (
                     <li key={i}>
                       <Icon style={{ marginRight: 5 }} type="pf" name="user" />
@@ -71,9 +71,11 @@ class TutorialPage extends React.Component {
                 </ul>
                 <h3>{t('tutorial.installedApplications')}</h3>
                 <p>
-                  <ul style={{ paddingLeft: 20 }}>
+                  <ul className="list-unstyled">
                     {thread.data.applications.map((application, i) => (
-                      <li key={i}>{application}</li>
+                      <li key={i}>
+                        <i className="fa fa-circle" /> {application}
+                      </li>
                     ))}
                   </ul>
                 </p>
