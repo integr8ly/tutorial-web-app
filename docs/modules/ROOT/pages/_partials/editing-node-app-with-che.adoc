@@ -60,13 +60,11 @@ This automatically triggers a new build of the app in OpenShift.
 
 
 
+ifdef::location[]
+// tag::verification[]
 [role="alert alert-info"]
-.Verification 
+.Verification
 
-[%interactive]
-
-* [ ] Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
-
-
-
-
+Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
+// end::verification[]
+endif::location[]

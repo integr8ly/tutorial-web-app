@@ -22,9 +22,4 @@ To use {enmasse}, you must create an OpenShift binding.
 
 . Click *Bind* and wait for the binding to complete.
 
-[role="alert alert-info"]
-.Verification
 
-[%interactive]
-
-* [ ] Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a binding related to *EnMasse (standard)*.

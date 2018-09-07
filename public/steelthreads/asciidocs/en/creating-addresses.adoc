@@ -12,12 +12,15 @@
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
 // TODO: figure out enmasse url
-:enmasse-url: https://console-enmasse.apps.pwright.openshiftworkshop.com/console/my-example-space
-// https://console-enmasse-my-example-space.apps.pwright.openshiftworkshop.com/#/dashboard
+:enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
+// https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
+
 
 = Creating addresses in EnMasse space
 
+// tag::intro[]
 You create two addresses in EnMasse to route messages to the Spring Boot app.
+// end::intro[]
 
 . Log into link:{enmasse-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
 . Select the *Addresses* item from the left hand menu.
@@ -35,3 +38,4 @@ You create two addresses in EnMasse to route messages to the Spring Boot app.
 .. Select *multicast* as the type and click *Next*.
 .. Select *Standard* as the address plan and click *Next*.
 .. Select *Create* to complete the wizard.
+
