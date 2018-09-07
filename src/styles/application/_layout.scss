@@ -33,6 +33,9 @@
         bottom: 0;
         left: 0;
         width: 67%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
     }
   }
@@ -43,6 +46,9 @@
     bottom: 0;
     overflow-y: auto;
     background-color: $color-pf-black-200;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   &-task-container {
     margin-top: 40px;
