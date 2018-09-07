@@ -82,7 +82,7 @@ class TaskPage extends React.Component {
           />
           <Grid fluid>
             <Grid.Row>
-              <Grid.Col xs={12} sm={8} className="integr8ly-module">
+              <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
                   <div className="integr8ly-module-column--status">
                     <h4>{threadTask.title}</h4>
@@ -137,39 +137,33 @@ class TaskPage extends React.Component {
                   </div>
                 </div>
               </Grid.Col>
-              <Grid.Col sm={4} className="integr8ly-frame">
+              <Grid.Col sm={3} className="integr8ly-frame">
                 <h2>Helpful Links</h2>
                 <h3>OpenShift</h3>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://www.openshift.com/">OpenShift Link 1</a>
+                    <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
                   </li>
                   <li>
-                    <a href="https://www.openshift.com/">OpenShift Link 2</a>
-                  </li>
-                  <li>
-                    <a href="https://www.openshift.com/">OpenShift Link 3</a>
+                    <a href="https://blog.openshift.com/">OpenShift Blog</a>
                   </li>
                 </ul>
                 <h3>Fuse</h3>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://www.redhat.com/en/technologies/jboss-middleware/fuse">Fuse Link 1</a>
+                    <a href="https://developers.redhat.com/products/fuse/help/">Fuse Community Q&amp;A</a>
                   </li>
                   <li>
-                    <a href="https://www.redhat.com/en/technologies/jboss-middleware/fuse">Fuse Link 2</a>
-                  </li>
-                  <li>
-                    <a href="https://www.redhat.com/en/technologies/jboss-middleware/fuse">Fuse Link 3</a>
+                    <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
                   </li>
                 </ul>
-                <h3>EnMasse</h3>
+                <h3>AMQ</h3>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="http://enmasse.io/">EnMasse Link 1</a>
+                    <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>
                   </li>
                   <li>
-                    <a href="http://enmasse.io/">EnMasse Link 2</a>
+                    <a href="https://access.redhat.com/products/red-hat-amq">AMQ Videos</a>
                   </li>
                 </ul>
               </Grid.Col>
