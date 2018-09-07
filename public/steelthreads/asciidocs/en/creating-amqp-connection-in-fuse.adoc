@@ -2,15 +2,21 @@
 //
 // <List assemblies here, each on a new line>
 
+:enmasse: Red Hat AMQ Online
 
 [id='creating-amqp-connection-in-fuse_{context}']
-= Creating AMQP connection in Fuse Ignite
 
-To receive messages from EnMasse, you must create a connection in Fuse Ignite:
+= Creating AMQP connection in Red Hat Fuse Online
 
-:fuse-url: https://eval.apps.pwright.openshiftworkshop.com/
+// tag::intro[]
+To receive messages from EnMasse, you must create a connection in Red Hat Fuse Online.
+// end::intro[]
 
-. Log in to the link:{fuse-url}[Fuse Ignite console, window="_blank"].
+
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
+:openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 
 . Select *Connections* from the left hand menu.
 
@@ -20,7 +26,26 @@ To receive messages from EnMasse, you must create a connection in Fuse Ignite:
 +
 NOTE: Do not select the similarly named *AMQ* option.
 
-. Enter the following, using the values from the EnMasse secret:
+. Retrieve configuration values relating to {enmasse}:
+
+..  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
+
+.. Expand the *EnMasse (standard)* service by selecting the *>* button.
+
+.. Select *View Secret* to navigate to the EnMasse credentials page.
+
+.. Select *Reveal Secret* to show the values for all the items.
+
+.. Note the values of the following fields for later use:
++
+* *messagingHost*
+// messaging.enmasse-my-example-spac.svc
+* *password*
+// 8qP17U9qQ749PNsQOkLyVGP9BQrBmVOT+9MvfrpnH18=
+* *username*
+// user-d5515e3e-121c-4e11-acdb-321ba2c4c499
+
+. Enter the following, using the configuration values relating to {enmasse}:
 +
 * Connection URI: `amqp://<messagingHost>:5672?amqp.saslMechanisms=PLAIN`
 * User Name: `<username>`
@@ -33,3 +58,5 @@ NOTE: Do not select the similarly named *AMQ* option.
 . Click *Next* and enter a name for the connection, for example, `enmasse`.
 
 . Click *Create*.
+
+

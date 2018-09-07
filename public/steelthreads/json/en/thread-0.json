@@ -7,60 +7,152 @@
     "A GitHub account configured with an OAuth App to use the Integreatly Launcher instance."
   ],
   "estimatedTime": 50,
-  "roles": ["Operator", "Developer"],
-  "applications": ["Red Hat OpenShift Application Runtimes", "Eclipse Che", "Fuse Ignite", "EnMasse"],
+  "roles": [
+    "Operator",
+    "Developer"
+  ],
+  "applications": [
+    "Red Hat OpenShift Application Runtimes",
+    "Eclipse Che",
+    "Fuse Ignite",
+    "EnMasse"
+  ],
   "tasks": [
     {
-      "title": "Creating an EnMasse space",
-      "description": "EnMasse simplifies running messaging infrastructure for your organization. You use it to provide messaging services from a Node.js app to a Spring Boot app.",
+      "title": "Setting up a message queue",
+      "description": "To create and configure a message queue, you use {enmasse}, software for managed, self-service messaging on OpenShift.",
       "estimatedTime": 6,
-      "stepDoc": "setting-up-enmasse.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
+      "steps": [
+        {
+          "stepDoc": "setting-up-enmasse.adoc",
+          "infoVerifications": [
+            "setting-up-enmasse-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
+          }
+        },
+        {
+          "stepDoc": "creating-enmasse-binding.adoc",
+          "infoVerifications": [
+            "creating-enmasse-binding-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
+          }
+        },
+        {
+          "stepDoc": "creating-addresses.adoc",
+          "infoVerifications": [
+            "creating-addresses-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
+          }
+        }
+      ]
     },
     {
-      "title": "Running a Node.js messaging app",
-      "description": "The Red Hat Developer Launcher enables you to build and deploy applications on OpenShift. In this procedure, you deploy an example Node.js application that is pre-configured to provide a REST API that returns a list of fruit.",
+      "title": "Creating and editing a publishing endpoint",
+      "description": "To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.",
       "estimatedTime": 5,
-      "stepDoc": "running-node-app.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc",
-      "attributes": {
-        "launcher-url": "http://launcher-launcher.apps.pwright.openshiftworkshop.com/"
-      }
+      "steps": [
+        {
+          "stepDoc": "running-node-app.adoc",
+          "infoVerifications": [
+            "running-node-app-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        },
+        {
+          "stepDoc": "editing-node-app-with-che.adoc",
+          "infoVerifications": [
+            "editing-node-app-with-che-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
     },
     {
-      "title": "Creating EnMasse Binding",
-      "description": "To use EnMasse, you must create an OpenShift binding.",
-      "estimatedTime": 6,
-      "stepDoc": "create-enmasse-binding.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
-    },
-    {
-      "title": "Creating addresses in EnMasse space",
-      "description": "You create two addresses in EnMasse to route messages to the Spring Boot app.",
-      "estimatedTime": 7,
-      "stepDoc": "creating-addresses.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
-    },
-    {
-      "title": "Creating AMQP connection in Fuse Ignite",
-      "description": "To receive messages from EnMasse, you must create a connection in Fuse Ignite.",
+      "title": "Creating a REST API endpoint to receive messages",
+      "description": "In this procedure, you deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application.",
       "estimatedTime": 5,
-      "stepDoc": "creating-amqp-connection-in-fuse.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
+      "steps": [
+        {
+          "stepDoc": "running-spring-app.adoc",
+          "infoVerifications": [
+            "running-spring-app-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
     },
     {
-      "title": "Creating HTTP connection in Fuse Ignite",
-      "description": "To send messages to the Spring Boot app, you must create a connection in Fuse Ignite.",
-      "estimatedTime": 6,
-      "stepDoc": "creating-http-connection-in-fuse.adoc",
-      "stepDocInfo": "complete-before-proceeding.adoc"
-    },
-    {
-      "title": "Creating Integration in Fuse Ignite",
-      "description": "To use the Fuse connections, you must create an integration in Fuse Ignite.",
+      "title": "Creating connections",
+      "description": "To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you must set up two connections in Red Hat Fuse Online.",
       "estimatedTime": 5,
-      "stepDoc": "creating-fuse-integration.adoc",
-      "stepDocSuccess": "thread-0-success.adoc"
+      "steps": [
+        {
+          "stepDoc": "creating-amqp-connection-in-fuse.adoc",
+          "infoVerifications": [
+            "creating-amqp-connection-in-fuse-verification.adoc"
+          ],
+          "attributes": {
+            "openshift-url": "https://cluster-lfa3xlh.opentry.me",
+            "fuse-online-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        },
+        {
+          "stepDoc": "creating-http-connection-in-fuse.adoc",
+          "infoVerifications": [
+            "creating-http-connection-in-fuse-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-online-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Creating an integration",
+      "description": "To use the Fuse connections, you must create an integration in Red Hat Fuse Online.",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "creating-fuse-integration.adoc",
+          "infoVerifications": [
+            "creating-fuse-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-online-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Using the application integration",
+      "description": "After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "using-integration.adoc",
+          "successVerifications": [
+            "using-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-online-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
     }
   ]
 }

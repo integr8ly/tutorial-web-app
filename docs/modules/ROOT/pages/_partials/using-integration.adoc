@@ -28,15 +28,18 @@ After setting up the integration between the Node.js and Spring Boot application
 
 
 
+
+ifdef::location[]
+// tag::verification[]
 [role="alert alert-info"]
-.Verification 
+.Verification
 
-[%interactive]
-
-* [ ] View the activity log:
+View the activity log:
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 . Select *Integrations* from the left hand menu.
 . Select your integration.
 . Select the *Activity* tab.
 . Expand the log entry to display the steps performed.
+// end::verification[]
+endif::location[]

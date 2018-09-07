@@ -72,12 +72,11 @@ oc rollout latest nodejs-messaging-work-queue-frontend -n eval
 ----
 ====
 
-
+ifdef::location[]
+// tag::verification[]
 [role="alert alert-info"]
-.Verification 
+.Verification
 
-[%interactive]
-
-* [ ] Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
-
-
+Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
+// end::verification[]
+endif::location[]

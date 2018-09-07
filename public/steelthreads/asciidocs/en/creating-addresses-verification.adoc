@@ -1,47 +1,4 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// Base the file name and the ID on the module title. For example:
-// * file name: doing-procedure-a.adoc
-// * ID: [id='doing-procedure-a']
-// * Title: = Doing procedure A
-
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='creating-addresses_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
-
-// TODO: figure out enmasse url
-:enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
-// https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
-
-
-= Creating addresses in EnMasse space
-
-// tag::intro[]
-You create two addresses in EnMasse to route messages to the Spring Boot app.
-// end::intro[]
-
-. Log into link:{enmasse-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
-. Select the *Addresses* item from the left hand menu.
-
-. Create a *requests* address:
-.. Select the *Create* button to start the *Create new address* wizard.
-.. Enter `work-queue/requests` as the address name.
-.. Select *queue* as the type and click *Next*.
-.. Select *Pooled Queue* as the address plan and click *Next*.
-.. Select *Create* to complete the wizard.
-
-. Create a *updates* address:
-.. Select the *Create* button to start the *Create new address* wizard.
-.. Enter `work-queue/worker-updates` as the address name.
-.. Select *multicast* as the type and click *Next*.
-.. Select *Standard* as the address plan and click *Next*.
-.. Select *Create* to complete the wizard.
-
 [role="alert alert-info"]
 .Verification
 
-[%interactive]
-
-* [ ] Check the *Addresses* screen of the link:{enmasse-url}[EnMasse, window="_blank"] console to make sure the two addresses exist.
+Check the *Addresses* screen of the link:{enmasse-url}[EnMasse, window="_blank"] console to make sure the two addresses exist.

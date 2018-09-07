@@ -32,11 +32,12 @@ In this procedure, you deploy an example Spring Boot CRUD application that is pr
 +
 NOTE: Creating this application automatically creates an OpenShift project of the same name.
 
+
+ifdef::location[]
+// tag::verification[]
 [role="alert alert-info"]
-.Verification 
+.Verification
 
-[%interactive]
-
-* [ ] Check the *Overview* screen of the *my-spring-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
-
-
+Check the *Overview* screen of the *my-spring-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
+// end::verification[]
+endif::location[]

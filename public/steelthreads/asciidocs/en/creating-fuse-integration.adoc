@@ -4,13 +4,15 @@
 
 
 [id='creating-fuse-integration_{context}']
-= Creating Integration in Fuse Ignite
+= Creating an integration
 
-To use the Fuse connections, you must create an integration in Fuse Ignite:
+// tag::intro[]
+To use the Fuse connections, you must create an integration in Red Hat Fuse Online.
+// end::intro[]
 
-:fuse-url: https://eval.apps.pwright.openshiftworkshop.com/
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
 
-. Log in to the link:{fuse-url}[Fuse Ignite console, window="_blank"].
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 
 . Select *Integrations* from the left hand menu.
 
@@ -81,3 +83,5 @@ To use the Fuse connections, you must create an integration in Fuse Ignite:
 . Click *Done* to navigate back to the Integration screen.
 . Click *Publish*.
 . When prompted, enter a name, for example `steel-thread-0`.
+
+

@@ -1,39 +1,7 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-
-[id='using-integration_{context}']
-
-
-= Using the application integration
-
-// tag::intro[]
-After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.
-// end::intro[]
-
-:node-url: http://frontend-node-app.apps.city.openshiftworkshop.com/
-:spring-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
-:fuse-url: https://eval.apps.city.openshiftworkshop.com/
-
-. Navigate to the link:{node-url}[Node.js app, window="_blank"].
-
-. Enter values for *Fruit* and *Stock*, for example, `Banana` and `100`.
-
-. Click *Send Request*.
-
-. Navigate to the link:{spring-url}[Spring Boot app, window="_blank"].
-
-. Check that the entry from the Node.js app is displayed.
-
-
-
 [role="alert alert-info"]
 .Verification
 
-[%interactive]
-
-* [ ] View the activity log:
+View the activity log:
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 . Select *Integrations* from the left hand menu.
