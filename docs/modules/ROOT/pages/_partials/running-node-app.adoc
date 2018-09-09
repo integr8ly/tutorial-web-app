@@ -25,7 +25,7 @@ In this procedure, you deploy an example Node.js application that is pre-configu
 
 . Select *Code Locally, Build and Deploy* to deploy the application on a hosted OpenShift instance. Click the blue down arrow to continue.
 
-. Select *Messaging Work Queue* from the list of missions and *Node.js* from the list of runtimes.
+. Select *Messaging Work Queue* from the list of missions and *Node.js* from the list of runtimes. 
 +
 Choose the *Integreatly* version of Node.js. Click the blue down arrow to continue.
 
@@ -72,3 +72,11 @@ oc rollout latest nodejs-messaging-work-queue-frontend -n eval
 ----
 ====
 
+ifdef::location[]
+// tag::verification[]
+[role="alert alert-info"]
+.Verification
+
+Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
+// end::verification[]
+endif::location[]

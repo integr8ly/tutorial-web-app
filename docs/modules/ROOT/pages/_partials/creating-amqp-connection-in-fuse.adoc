@@ -60,3 +60,11 @@ NOTE: Do not select the similarly named *AMQ* option.
 . Click *Create*.
 
 
+ifdef::location[]
+// tag::verification[]
+[role="alert alert-info"]
+.Verification
+
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+// end::verification[]
+endif::location[]

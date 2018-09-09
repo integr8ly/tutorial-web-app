@@ -38,3 +38,11 @@ Provison an EnMasse service by selecting *EnMasse (standard)* from the service c
 . Choose *Do not bind at this time*.
 
 
+ifdef::location[]
+// tag::verification[]
+[role="alert alert-info"]
+.Verification
+
+Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a *Provisioned Service* named *EnMasse (standard)*.
+// end::verification[]
+endif::location[]
