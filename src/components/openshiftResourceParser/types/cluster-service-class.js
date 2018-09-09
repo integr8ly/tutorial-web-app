@@ -3,10 +3,12 @@ export default class ClusterServiceClass {
    * Construct a new {@link ClusterServiceClass}
    * @param {string} name The identifying name of the cluster service class
    * @param {string} displayName The human-friendly name of the cluster service class
+   * @param {string} description The class description
    */
-  constructor(name, displayName) {
+  constructor(name, displayName, description) {
     this.name = name;
     this.displayName = displayName;
+    this.description = description;
   }
 
   /**
@@ -22,7 +24,8 @@ export default class ClusterServiceClass {
       jsonData.metadata.name &&
       jsonData.spec &&
       jsonData.spec.externalMetadata &&
-      jsonData.spec.externalMetadata.displayName
+      jsonData.spec.externalMetadata.displayName &&
+      jsonData.spec.description
     );
   }
 
@@ -32,6 +35,10 @@ export default class ClusterServiceClass {
    * @returns {ClusterServiceClass}
    */
   static fromJSON(jsonData) {
-    return new ClusterServiceClass(jsonData.metadata.name, jsonData.spec.externalMetadata.displayName);
+    return new ClusterServiceClass(
+      jsonData.metadata.name,
+      jsonData.spec.externalMetadata.displayName,
+      jsonData.spec.description
+    );
   }
 }

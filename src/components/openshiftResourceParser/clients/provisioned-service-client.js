@@ -52,14 +52,21 @@ export default class ProvisionedServiceClient {
       this.listClusterServiceClasses(this.openshiftURL, authToken),
       this.listServiceInstances(this.openshiftURL, authToken, namespace)
     ]).then(([clusterServiceClasses, serviceInstances]) => {
+      // TODO: filter service instances by a whitelist
+      //       so only services involved in walkthroughs
+      //       are shown
       if (!serviceInstances || serviceInstances.length === 0) {
         return [];
       }
       return serviceInstances.map(serviceInstance => {
-        const displayName = clusterServiceClasses.find(
+        const clusterServiceClass = clusterServiceClasses.find(
           serviceClass => serviceClass.name === serviceInstance.clusterServiceClassId
         );
-        return new ProvisionedService(serviceInstance.name, serviceInstance.consoleURL, displayName);
+        return new ProvisionedService(
+          serviceInstance.clusterServiceClassExternalName,
+          serviceInstance.consoleURL,
+          clusterServiceClass
+        );
       });
     });
   }

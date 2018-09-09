@@ -21,7 +21,7 @@ export default class OpenShiftResourceParser {
   constructor(config) {
     this.config = config;
     if (!this.config.mockData) {
-      this.provisionedServiceClient = new ProvisionedServiceClient(this.config, this.startOAuth);
+      this.provisionedServiceClient = new ProvisionedServiceClient(this.config.masterUri, this.startOAuth.bind(this));
     }
   }
 
