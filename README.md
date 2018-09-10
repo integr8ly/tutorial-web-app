@@ -76,6 +76,7 @@ To do a release of the webapp, update the version in package.json
 
 ```
 npm version x.y.z
+git tag x.y.z
 ```
 
 Push the changes (including the version tag) to the repo
