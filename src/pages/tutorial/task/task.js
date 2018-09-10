@@ -89,7 +89,7 @@ class TaskPage extends React.Component {
     if (thread.fulfilled && thread.data) {
       const threadTask = thread.data.tasks[task];
       const totalTasks = thread.data.tasks.length;
-      const progess = Math.round((task / (totalTasks - 1)) * 100);
+      const progress = Math.round((task / (totalTasks - 1)) * 100);
 
       return (
         <React.Fragment>
@@ -105,7 +105,7 @@ class TaskPage extends React.Component {
                 <div className="integr8ly-module-column">
                   <div className="integr8ly-module-column--status">
                     <h4>{threadTask.title}</h4>
-                    <ProgressBar className="progress progress-sm" now={progess} />
+                    <ProgressBar className="progress progress-sm" now={progress} />
                   </div>
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
