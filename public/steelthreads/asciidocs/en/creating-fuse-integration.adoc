@@ -79,5 +79,9 @@
 .. Click and drag *type* from the *Source* column to *name* in the *Target* column.
 . Click *Done* to navigate back to the Integration screen.
 . Click *Publish*.
+<<<<<<< HEAD
 . When prompted, enter a name, for example `fruit-inventory`.
+=======
+. When prompted, enter a name, for example `steel-thread-0`.
+>>>>>>> update docs after running script
 
