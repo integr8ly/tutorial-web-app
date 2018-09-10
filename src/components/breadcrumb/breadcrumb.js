@@ -24,7 +24,7 @@ class Breadcrumb extends React.Component {
             </React.Fragment>
           )}
         <li className="pull-right text-dark integr8ly-breadcrumb-special">
-          <i className="fa fa-hourglass-half" /> 7 Days remaining
+          <Icon type="fa" name="hourglass-half" /> 7 Days remaining
         </li>
       </PfBreadcrumb>
     );
