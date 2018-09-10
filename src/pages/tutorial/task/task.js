@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Alert, Button, ButtonGroup, Grid, Icon, ProgressBar } from 'patternfly-react';
+import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 
 class TaskPage extends React.Component {
-  state = { task: 0 };
+  state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
@@ -37,9 +37,21 @@ class TaskPage extends React.Component {
       getThread
     } = this.props;
     if (!Number.isNaN(id)) {
-      getThread(i18n.language, id);
       const parsedTask = parseInt(task, 10);
       this.setState({ id, task: parsedTask });
+      getThread(i18n.language, id).then(thread => {
+        const verifications = {};
+        const threadTask = thread.value.data.tasks[parsedTask];
+        threadTask.steps.forEach(step => {
+          if (step.infoVerifications) {
+            step.infoVerifications.forEach(verification => {
+              verifications[verification] = false;
+            });
+          }
+        });
+        const hasVerifications = Object.keys(verifications).length > 0;
+        this.setState({ verifications, verificationsChecked: !hasVerifications });
+      });
     }
   }
 
@@ -56,9 +68,16 @@ class TaskPage extends React.Component {
     history.push(`/`);
   };
 
+  handleVerificationChanged = (e, verification) => {
+    const o = Object.assign({}, this.state.verifications);
+    o[verification] = !!e.target.checked;
+    const verificationsChecked = Object.values(o).every(v => v === true);
+    this.setState({ verifications: o, verificationsChecked });
+  };
+
   render() {
     const { t, thread } = this.props;
-    const { task } = this.state;
+    const { task, verifications, verificationsChecked } = this.state;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -89,23 +108,36 @@ class TaskPage extends React.Component {
                     <ProgressBar className="progress progress-sm" now={progess} />
                   </div>
                   <div className="integr8ly-module-column--steps">
-                    <AsciiDocTemplate adoc={threadTask.stepDoc} attributes={threadTask.attributes || {}} />
-                    {threadTask.stepDocInfo && (
-                      <Alert type="info">
-                        <AsciiDocTemplate adoc={threadTask.stepDocInfo} />
-                      </Alert>
-                    )}
-                    {threadTask.stepDocSuccess && (
-                      <Alert type="success">
-                        <AsciiDocTemplate adoc={threadTask.stepDocSuccess} />
-                      </Alert>
-                    )}
-                    <div className="integr8ly-module-column--status-next">
-                      <h4>{t('task.whatsNext')}</h4>
-                      <p>{t('task.completeTaskFirst')}</p>
-                    </div>
+                    {threadTask.steps.map((step, i) => (
+                      <React.Fragment key={i}>
+                        <AsciiDocTemplate adoc={step.stepDoc} attributes={step.attributes || {}} />
+                        {step.infoVerifications &&
+                          step.infoVerifications.map((verification, j) => (
+                            <Alert type="info" key={j}>
+                              <strong>Verification</strong>
+                              <Checkbox
+                                checked={verifications[verification] || false}
+                                onChange={e => {
+                                  this.handleVerificationChanged(e, verification);
+                                }}
+                              >
+                                <AsciiDocTemplate adoc={verification} attributes={step.attributes || {}} />
+                              </Checkbox>
+                            </Alert>
+                          ))}
+                        {step.successVerifications &&
+                          step.successVerifications.map((verification, k) => (
+                            <Alert type="success" key={k}>
+                              <strong>Verification</strong>
+                              <AsciiDocTemplate adoc={verification} attributes={step.attributes || {}} />
+                            </Alert>
+                          ))}
+                      </React.Fragment>
+                    ))}
                   </div>
                   <div className="integr8ly-module-column--footer">
+                    <h4>{t('task.whatsNext')}</h4>
+                    <p>{t('task.completeTaskFirst')}</p>
                     <div
                       className="btn-group btn-group-justified"
                       role="group"
@@ -121,7 +153,10 @@ class TaskPage extends React.Component {
                       )}
                       {task + 1 < totalTasks && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, task + 1)}>
+                          <Button
+                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                            onClick={e => this.goToTask(e, task + 1)}
+                          >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
                         </ButtonGroup>
