@@ -12,7 +12,7 @@ class I18nProvider extends React.Component {
       .use(reactI18nextModule)
       .init({
         backend: {
-          loadPath: `locales/${props.locale}.json`
+          loadPath: `/locales/${props.locale}.json`
         },
         fallbackLng: 'en',
         lng: props.locale,
