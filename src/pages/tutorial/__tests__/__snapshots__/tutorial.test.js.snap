@@ -27,6 +27,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     >
       <Col
         bsClass="col"
+        className="integr8ly-task-container"
         componentClass="div"
         sm={8}
         xs={12}
@@ -54,11 +55,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         </h3>
         <ul
           className="list-unstyled"
-          style={
-            Object {
-              "paddingLeft": 0,
-            }
-          }
         >
           <li
             key="0"
@@ -82,15 +78,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         </h3>
         <p>
           <ul
-            style={
-              Object {
-                "paddingLeft": 20,
-              }
-            }
+            className="list-unstyled"
           >
             <li
               key="0"
             >
+              <i
+                className="fa fa-circle"
+              />
+               
               OpenShift
             </li>
           </ul>
