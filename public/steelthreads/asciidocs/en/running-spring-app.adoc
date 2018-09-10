@@ -32,4 +32,3 @@ In this procedure, you deploy an example Spring Boot CRUD application that is pr
 +
 NOTE: Creating this application automatically creates an OpenShift project of the same name.
 
-

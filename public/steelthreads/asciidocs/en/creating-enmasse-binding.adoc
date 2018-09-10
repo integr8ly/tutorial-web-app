@@ -22,4 +22,3 @@ To use {enmasse}, you must create an OpenShift binding.
 
 . Click *Bind* and wait for the binding to complete.
 
-

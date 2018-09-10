@@ -59,4 +59,3 @@ NOTE: Do not select the similarly named *AMQ* option.
 
 . Click *Create*.
 
-

@@ -37,5 +37,3 @@ Provison an EnMasse service by selecting *EnMasse (standard)* from the service c
 
 . Choose *Do not bind at this time*.
 
-
-// . Log into link:{enmasse-url}[EnMasse].

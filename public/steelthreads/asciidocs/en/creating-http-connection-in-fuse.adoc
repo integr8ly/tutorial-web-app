@@ -31,4 +31,3 @@ To send messages to the Spring Boot app, you must create a connection in Red Hat
 
 . Click *Create*.
 
-

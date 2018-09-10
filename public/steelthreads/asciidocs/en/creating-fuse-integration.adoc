@@ -84,4 +84,3 @@ To use the Fuse connections, you must create an integration in Red Hat Fuse Onli
 . Click *Publish*.
 . When prompted, enter a name, for example `steel-thread-0`.
 
-
