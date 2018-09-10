@@ -40,11 +40,12 @@ const TutorialCard = props => {
       </CardBody>
       <CardFooter className="app-tutorial-card-pf-footer">
         <a className="app-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
-          <Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />
-          <span>Get Started</span>
+          {props.getStartedIcon}
+          <span>{props.getStartedText}</span>
         </a>
         <div className="app-tutorial-card-pf-footer-time-to-complete">
-          <Icon type="fa" name="clock-o" className="fa-lg" /> {props.mins} <span>Minutes</span>
+          {props.minsIcon}
+          {props.mins} <span>Minutes</span>
         </div>
       </CardFooter>
     </Card>
@@ -60,10 +61,16 @@ TutorialCard.propTypes = {
   title: PropTypes.string.isRequired,
   /** Link to page that explains the the tutorial in more detail */
   getStartedLink: PropTypes.string.isRequired,
+  /** Text for the Get Started link - variable */
+  getStartedText: PropTypes.string.isRequired,
+  /** Icon for the Get Started link */
+  getStartedIcon: PropTypes.object.isRequired,
   /** Users that apply to this tutorial */
   users: PropTypes.arrayOf(PropTypes.oneOf(Object.keys(users))).isRequired,
   /** Mins to complete the tutorial */
   mins: PropTypes.number.isRequired,
+  /** Icon for the minutes label */
+  minsIcon: PropTypes.object.isRequired,
   /** router history */
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
