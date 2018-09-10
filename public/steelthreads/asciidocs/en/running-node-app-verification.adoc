@@ -1,4 +1,1 @@
-[role="alert alert-info"]
-.Verification
-
 Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.

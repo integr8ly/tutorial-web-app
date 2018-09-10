@@ -59,12 +59,10 @@ app.post("/api/send-request", (req, resp) => {
 This automatically triggers a new build of the app in OpenShift.
 
 
+.Verification
 
 ifdef::location[]
 // tag::verification[]
-[role="alert alert-info"]
-.Verification
-
 Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
 // end::verification[]
 endif::location[]

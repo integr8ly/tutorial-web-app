@@ -1,4 +1,1 @@
-[role="alert alert-info"]
-.Verification
-
 Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.

@@ -39,11 +39,10 @@ You create two addresses in EnMasse to route messages to the Spring Boot app.
 .. Select *Standard* as the address plan and click *Next*.
 .. Select *Create* to complete the wizard.
 
-ifdef::location[]
-// tag::verification[]
-[role="alert alert-info"]
 .Verification
 
+ifdef::location[]
+// tag::verification[]
 Check the *Addresses* screen of the link:{enmasse-url}[EnMasse, window="_blank"] console to make sure the two addresses exist.
 // end::verification[]
 endif::location[]
