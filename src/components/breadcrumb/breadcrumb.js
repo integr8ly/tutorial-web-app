@@ -23,6 +23,9 @@ class Breadcrumb extends React.Component {
               <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
             </React.Fragment>
           )}
+        <li className="pull-right text-dark integr8ly-breadcrumb-special">
+          <i className="fa fa-hourglass-half" /> 7 Days remaining
+        </li>
       </PfBreadcrumb>
     );
   }
