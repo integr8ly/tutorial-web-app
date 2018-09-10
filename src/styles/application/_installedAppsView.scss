@@ -30,6 +30,9 @@
 .app-installed-apps-view-list {
   list-style-type: none;
   padding: 0;
+  i {
+    margin-left: 5px;
+  }
   & li {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;

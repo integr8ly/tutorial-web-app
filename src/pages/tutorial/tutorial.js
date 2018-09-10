@@ -73,9 +73,7 @@ class TutorialPage extends React.Component {
                 <p>
                   <ul className="list-unstyled">
                     {thread.data.applications.map((application, i) => (
-                      <li key={i}>
-                        <i className="fa fa-circle" /> {application}
-                      </li>
+                      <li key={i}>{application}</li>
                     ))}
                   </ul>
                 </p>

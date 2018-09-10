@@ -18,7 +18,10 @@ class InstalledAppsView extends React.Component {
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
       <li onClick={() => window.open(app.appLink, '_blank')} key={`${app.appName}_${index}`} value={index}>
-        <h3>{app.appName}</h3>
+        <h3>
+          {app.appName}
+          <i className="fa fa-external-link" />
+        </h3>
         <p>{app.appDescription}</p>
       </li>
     ));
@@ -43,6 +46,7 @@ InstalledAppsView.propTypes = {
   apps: PropTypes.arrayOf(
     PropTypes.shape({
       appName: PropTypes.string,
+      appIcon: PropTypes.string,
       appDescription: PropTypes.string
     })
   ).isRequired
