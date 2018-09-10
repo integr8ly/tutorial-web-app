@@ -83,10 +83,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             <li
               key="0"
             >
-              <i
-                className="fa fa-circle"
-              />
-               
               OpenShift
             </li>
           </ul>
