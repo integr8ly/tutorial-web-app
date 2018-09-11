@@ -7,7 +7,8 @@
 
 In this walkthrough you create two apps (a Node.js app and a Spring Boot app).
 Each app exposes a RESTful API that you connect so that they can share data without requiring coding or custom configuration.
-This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift, {enmasse} and Fuse.
+The Spring Boot app is a CRUD app for fruit inventory, the Node.js app allows you enter a new fruit entry, which is then added as a record to the CRUD app.
+This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift {enmasse} and Fuse.
 
 .Prerequisites
 

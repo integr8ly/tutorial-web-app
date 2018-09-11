@@ -1,0 +1,47 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+:enmasse: Red Hat AMQ Online
+
+[id='running-node-app_{context}']
+
+= Editing the Node.js configmap
+
+// tag::intro[]
+To use the Node.js app with {enmasse}, you share some credentials with the app.
+// end::intro[]
+
+Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values from the EnMasse binding secret:
+.  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
+
+. Expand the *EnMasse (standard)* service by selecting the *>* button.
+
+. Select *View Secret* to navigate to the EnMasse credentials page.
+
+. Select *Reveal Secret* to show the values for all the items.
+
+. Note the values of the following fields:
++
+// * *messagingHost*
+// messaging.enmasse-my-example-spac.svc
+* *password*
+// 8qP17U9qQ749PNsQOkLyVGP9BQrBmVOT+9MvfrpnH18=
+* *username*
+// user-d5515e3e-121c-4e11-acdb-321ba2c4c499
+
+. To edit the configmap using the console:
+.. Change to the OpenShift project associated with the Node.js app, for example, *evals*.
+.. Select *Config Maps* from the *Resources* menu.
+.. Select the *messaging-service* configmap.
+.. Set the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values retrieved from the previous step.
+.. Navigate to the *Overview* screen and choose *Deploy* from the menu for the application.
+
+
+ifdef::location[]
+// tag::verification[]
+.Verification
+
+Check the *Config Maps* values for the *messaging-service* configmap.
+// end::verification[]
+endif::location[]

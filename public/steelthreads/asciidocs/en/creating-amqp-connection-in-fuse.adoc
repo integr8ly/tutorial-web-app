@@ -9,7 +9,7 @@
 = Creating AMQP connection in Red Hat Fuse Online
 
 // tag::intro[]
-To receive messages from EnMasse, you must create a connection in Red Hat Fuse Online.
+To receive messages from EnMasse, you create a connection in Red Hat Fuse Online.
 // end::intro[]
 
 
@@ -58,5 +58,4 @@ NOTE: Do not select the similarly named *AMQ* option.
 . Click *Next* and enter a name for the connection, for example, `enmasse`.
 
 . Click *Create*.
-
 

@@ -9,7 +9,7 @@
 = Creating {enmasse} Binding
 
 // tag::intro[]
-To use {enmasse}, you must create an OpenShift binding.
+To use {enmasse}, you create an OpenShift binding.
 // end::intro[]
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
