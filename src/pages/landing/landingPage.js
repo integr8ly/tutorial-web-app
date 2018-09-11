@@ -1,35 +1,56 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
-import OpenShiftResourceParser from '../../components/openshiftResourceParser';
+import { connect, reduxActions } from '../../redux';
+import { noop } from 'patternfly-react';
 
 class LandingPage extends React.Component {
-  state = {
-    apps: []
-  };
-
   componentDidMount() {
-    const parser = new OpenShiftResourceParser(window.OPENSHIFT_CONFIG);
-    parser
-      .listProvisionedMWServices('eval')
-      .then(provisionedServiceList => {
-        this.setState({ apps: provisionedServiceList });
-      })
-      .catch(err => console.error(err));
+    const { listMiddleware } = this.props;
+    listMiddleware();
   }
 
   render() {
-    return (
-      <div>
-        <LandingPageMastHead />
-        <section className="app-landing-page-tutorial-dashboard-section">
-          <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
-          <InstalledAppsView className="app-landing-page-tutorial-dashboard-section-right" apps={this.state.apps} />
-        </section>
-      </div>
-    );
+    // TODO: Update to handle pending and error state.
+    const { middleware } = this.props;
+    console.log(this.props);
+    if (middleware.fulfilled && middleware.apps) {
+      return (
+        <div>
+          <LandingPageMastHead />
+          <section className="app-landing-page-tutorial-dashboard-section">
+            <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
+            <InstalledAppsView className="app-landing-page-tutorial-dashboard-section-right" apps={middleware.apps} />
+          </section>
+        </div>
+      );
+    }
+
+    return null;
   }
 }
 
-export default LandingPage;
+LandingPage.propTypes = {
+  listMiddleware: PropTypes.func,
+  middleware: PropTypes.object
+};
+
+LandingPage.defaultProps = {
+  listMiddleware: noop,
+  middleware: null
+};
+
+const mapDispatchToProps = dispatch => ({
+  listMiddleware: () => dispatch(reduxActions.middlewareActions.listMiddleware())
+});
+
+const mapStateToProps = state => ({ ...state.middlewareReducers });
+
+const ConnectedLandingPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LandingPage);
+
+export { ConnectedLandingPage as default, LandingPage };
