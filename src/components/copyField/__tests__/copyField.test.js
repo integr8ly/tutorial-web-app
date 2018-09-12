@@ -32,7 +32,7 @@ describe('CopyField Component', () => {
     };
     const component = mount(<CopyField {...props} />);
     const componentInstance = component.instance();
-    const mockEvent = { target: { blur: () => {} } };
+    const mockEvent = { target: { blur: () => { } } };
 
     componentInstance.onExpand(mockEvent);
     expect(component.state().expanded).toEqual(false);
