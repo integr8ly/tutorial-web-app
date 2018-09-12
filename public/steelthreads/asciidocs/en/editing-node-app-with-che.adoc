@@ -7,7 +7,7 @@
 = Editing the Node.js messaging app
 
 // tag::intro[]
-Che allows you edit the source code for your Node.js app in the browser.
+To edit the source code for your Node.js app in the browser, you use Che.
 // end::intro[]
 
 :che-url: http://che-che.apps.city.openshiftworkshop.com/
@@ -23,14 +23,14 @@ Che allows you edit the source code for your Node.js app in the browser.
 . Select your Node.js app:
 .. Click *Add or Import Project* to display a set of import options.
 .. Click the *GitHub* tab.
-.. Select the Node.js app you created using Launcher.
+.. Select the Node.js app you created using Red Hat Developer Launcher.
 .. Click *Add*.
 
 . Click *Create*. A pop-up is displayed informing you that your workspace was successfully created.
 
 . Click *Open in IDE*. The Eclipse Che IDE is displayed.
 
-. Edit the app, for example to prepend some text to the messages sent from this app:
+. Edit the app to prepend some text to the messages sent from this app:
 
 .. Open the `frontend/app.js` file.
 
@@ -56,6 +56,5 @@ app.post("/api/send-request", (req, resp) => {
 .. Select the *Push commited changes to* option and ensure it is indicating that the push is to the `origin/master` branch.
 .. Click *Commit*.
 +
-This automatically triggers a new build of the app in OpenShift.
-
+A new build of the app is automatically triggered in OpenShift.
 

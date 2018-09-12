@@ -23,24 +23,24 @@ EnMasse simplifies running messaging infrastructure for your organization.
 You use it to provide messaging services from a Node.js app to a Spring Boot app.
 // end::intro[]
 
-Provison an EnMasse service by selecting *EnMasse (standard)* from the service catalog.
+Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShift service catalog.
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
 . Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the service catalog.
 
-. Select *EnMasse (standard)* to starte the provisioning wizard.
+. Select *EnMasse (standard)* to start the provisioning wizard.
 
-. Select the *unlimited-standard* option in the Plan step of the wizard.
+. When completing the *Plan* step of the wizard, select the *unlimited-standard* option.
 
 . Enter `my-example-space` as the address space to create.
 
 . Choose *Do not bind at this time*.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a *Provisioned Service* named *EnMasse (standard)*.
 // end::verification[]
 endif::location[]
