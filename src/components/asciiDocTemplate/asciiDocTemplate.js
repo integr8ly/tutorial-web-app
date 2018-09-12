@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Asciidoctor from 'asciidoctor.js';
 import { translate } from 'react-i18next';
+import CopyField from '../copyField/copyField';
 
 class AsciiDocTemplate extends React.Component {
   state = { loaded: false, html: null };
@@ -9,6 +11,7 @@ class AsciiDocTemplate extends React.Component {
   constructor(props) {
     super(props);
     this.isUnmounted = false;
+    this.rootDiv = React.createRef();
   }
 
   componentDidMount() {
@@ -30,6 +33,15 @@ class AsciiDocTemplate extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.rootDiv.current) {
+      const codeBlocks = this.rootDiv.current.querySelectorAll('pre');
+      codeBlocks.forEach(block => {
+        ReactDOM.render(<CopyField value={block.innerText} multiline />, block.parentNode);
+      });
+    }
+  }
+
   componentWillUnmount() {
     this.isUnmounted = true;
   }
@@ -37,7 +49,7 @@ class AsciiDocTemplate extends React.Component {
   render() {
     const { loaded, html } = this.state;
     if (loaded) {
-      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+      return <div ref={this.rootDiv} dangerouslySetInnerHTML={{ __html: html }} />;
     }
     return null;
   }
