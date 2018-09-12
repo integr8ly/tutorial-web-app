@@ -1,0 +1,26 @@
+.integr8ly-copy {
+  &-input {
+    &.false {
+      width: 200px;
+      text-overflow: ellipsis;
+    }
+    &.expanded {
+      background-color: $color-pf-black-200;
+    }
+  }
+  &-display {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid $color-pf-black-400;
+    border-top-width: 0;
+    word-wrap: break-word;
+    resize: none;
+  }
+  & > .input-group {
+    display: flex;
+    .input-group-addon,
+    .input-group-btn {
+      width: auto;
+    }
+  }
+}
