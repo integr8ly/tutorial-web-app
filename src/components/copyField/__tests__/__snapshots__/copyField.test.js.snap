@@ -47,6 +47,7 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
       </button>
     </span>
   </span>
+<<<<<<< HEAD
   <textarea
     aria-hidden="true"
     class="integr8ly-copy-display"
@@ -56,6 +57,8 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
   >
     {"hello":"world"}
   </textarea>
+=======
+>>>>>>> convert code snippets to copy paste
 </div>
 `;
 
