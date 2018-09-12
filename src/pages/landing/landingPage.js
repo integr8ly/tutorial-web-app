@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
+import { connect } from '../../redux';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 
@@ -13,22 +14,16 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    // TODO: Update to handle pending and error state.
-    const { middleware } = this.props;
-    console.log(this.props);
-    if (middleware.fulfilled && middleware.apps) {
-      return (
-        <div>
-          <LandingPageMastHead />
-          <section className="app-landing-page-tutorial-dashboard-section">
-            <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
-            <InstalledAppsView className="app-landing-page-tutorial-dashboard-section-right" apps={middleware.apps} />
-          </section>
-        </div>
-      );
-    }
-
-    return null;
+    return (
+      <div>
+        {JSON.stringify(this.props.walkthroughs)}
+        <LandingPageMastHead />
+        <section className="app-landing-page-tutorial-dashboard-section">
+          <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
+          <InstalledAppsView className="app-landing-page-tutorial-dashboard-section-right" apps={this.state.apps} />
+        </section>
+      </div>
+    );
   }
 }
 
@@ -46,7 +41,10 @@ const mapDispatchToProps = dispatch => ({
   listMiddleware: () => dispatch(reduxActions.middlewareActions.listMiddleware())
 });
 
-const mapStateToProps = state => ({ ...state.middlewareReducers });
+const mapStateToProps = state => ({
+  ...state.middlewareReducers,
+  ...state.walkthroughReducers
+});
 
 const ConnectedLandingPage = connect(
   mapStateToProps,
