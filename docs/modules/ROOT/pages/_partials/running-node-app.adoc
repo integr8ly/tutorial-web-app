@@ -35,9 +35,9 @@ Choose the *Integreatly* version of Node.js. Click the blue down arrow to contin
 NOTE: Creating this application automatically creates an OpenShift project of the same name.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
 // end::verification[]
 endif::location[]

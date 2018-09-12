@@ -27,9 +27,9 @@ After setting up the integration between the Node.js and Spring Boot application
 . Check that the entry from the Node.js app is displayed.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 View the activity log:
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.

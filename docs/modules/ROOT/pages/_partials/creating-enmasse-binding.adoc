@@ -23,9 +23,9 @@ To use {enmasse}, you create an OpenShift binding.
 . Click *Bind* and wait for the binding to complete.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a binding related to *EnMasse (standard)*.
 // end::verification[]
 endif::location[]

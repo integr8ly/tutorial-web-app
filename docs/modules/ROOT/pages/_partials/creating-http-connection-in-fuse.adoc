@@ -32,9 +32,9 @@ To send messages to the Spring Boot app, you create a connection in Red Hat Fuse
 . Click *Create*.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
 endif::location[]

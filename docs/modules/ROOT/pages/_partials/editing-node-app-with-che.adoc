@@ -60,9 +60,9 @@ A new build of the app is automatically triggered in OpenShift.
 
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
 // end::verification[]
 endif::location[]

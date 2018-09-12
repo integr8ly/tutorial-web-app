@@ -85,9 +85,9 @@ To use the Fuse connections, you create an integration in Red Hat Fuse Online.
 . When prompted, enter a name, for example `fruit-inventory`.
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
 endif::location[]

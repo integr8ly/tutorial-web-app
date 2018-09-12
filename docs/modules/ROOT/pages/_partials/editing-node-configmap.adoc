@@ -39,9 +39,9 @@ Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_
 
 
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Config Maps* values for the *messaging-service* configmap.
 // end::verification[]
 endif::location[]
