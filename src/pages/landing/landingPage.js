@@ -1,10 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { noop } from 'patternfly-react';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
-import { noop } from 'patternfly-react';
 
 class LandingPage extends React.Component {
   componentDidMount() {
