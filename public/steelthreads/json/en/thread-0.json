@@ -54,6 +54,63 @@
       ]
     },
     {
+<<<<<<< HEAD
+=======
+      "title": "Creating and editing a publishing endpoint",
+      "description": "To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "running-node-app.adoc",
+          "infoVerifications": [
+            "running-node-app-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        },
+        {
+          "stepDoc": "editing-node-configmap.adoc",
+          "infoVerifications": [
+            "editing-node-configmap-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        },
+        {
+          "stepDoc": "editing-node-app-with-che.adoc",
+          "infoVerifications": [
+            "editing-node-app-with-che-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Creating a REST API endpoint to receive messages",
+      "description": "In this procedure, you deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application.",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "running-spring-app.adoc",
+          "infoVerifications": [
+            "running-spring-app-verification.adoc"
+          ],
+          "attributes": {
+            "launcher-url": "http://launcher-launcher.cluster-lfa3xlh.opentry.me/",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        }
+      ]
+    },
+    {
+>>>>>>> update based on Stacey review (#20)
       "title": "Creating connections",
       "estimatedTime": 5,
       "steps": [
