@@ -37,7 +37,7 @@ class AsciiDocTemplate extends React.Component {
     if (this.rootDiv.current) {
       const codeBlocks = this.rootDiv.current.querySelectorAll('pre');
       codeBlocks.forEach(block => {
-        ReactDOM.render(<CopyField value={block.innerText} multiline />, block.parentNode);
+        ReactDOM.render(<CopyField value={block.innerText} multiline={block.clientHeight > 40} />, block.parentNode);
       });
     }
   }

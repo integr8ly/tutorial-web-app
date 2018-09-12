@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CopyField Component should display an expanded value textarea: expanded 1`] = `
-<textarea
-  aria-hidden="true"
-  class="integr8ly-copy-display"
-  disabled=""
-  rows="5"
-  style="width: 100%;"
->
-  {"hello":"world"}
-</textarea>
-`;
+exports[`CopyField Component should default expanded on multiline and collapse on blur: expanded 1`] = `null`;
 
 exports[`CopyField Component should render a multi-line copy component: multi-line 1`] = `
 <div
@@ -31,12 +21,12 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
       >
         <span
           aria-hidden="true"
-          class="fa fa-angle-right"
+          class="fa fa-angle-down"
         />
       </button>
     </span>
     <input
-      class="integr8ly-copy-input false form-control"
+      class="integr8ly-copy-input expanded form-control"
       id="test"
       readonly=""
       type="text"
@@ -57,6 +47,15 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
       </button>
     </span>
   </span>
+  <textarea
+    aria-hidden="true"
+    class="integr8ly-copy-display"
+    disabled=""
+    rows="5"
+    style="width: 100%;"
+  >
+    {"hello":"world"}
+  </textarea>
 </div>
 `;
 

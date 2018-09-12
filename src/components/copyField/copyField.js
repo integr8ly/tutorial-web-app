@@ -4,11 +4,14 @@ import { Form, Icon, InputGroup, Button, OverlayTrigger, Tooltip as PFTooltip } 
 import { generateId } from '../../common/helpers';
 
 class CopyField extends React.Component {
-  state = {
-    copied: false,
-    expanded: false,
-    timer: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      copied: false,
+      expanded: !!props.multiline,
+      timer: null
+    };
+  }
 
   onCopy = event => {
     const { timer } = this.state;

@@ -24,3 +24,13 @@
     }
   }
 }
+
+@media (min-width: 768px) {
+  .integr8ly-copy {
+    &-input {
+      &.false {
+        width: 400px;
+      }
+    }
+  }
+}

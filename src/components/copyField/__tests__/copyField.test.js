@@ -24,7 +24,7 @@ describe('CopyField Component', () => {
     expect(component.render()).toMatchSnapshot('multi-line');
   });
 
-  it('should display an expanded value textarea', () => {
+  it('should default expanded on multiline and collapse on blur', () => {
     const props = {
       id: 'test',
       multiline: true,
@@ -35,7 +35,7 @@ describe('CopyField Component', () => {
     const mockEvent = { target: { blur: () => {} } };
 
     componentInstance.onExpand(mockEvent);
-    expect(component.state().expanded).toEqual(true);
+    expect(component.state().expanded).toEqual(false);
     expect(component.render().find('textarea.integr8ly-copy-display')).toMatchSnapshot('expanded');
   });
 });
