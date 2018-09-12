@@ -12,7 +12,24 @@ yarn start:dev
 The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
 When running locally, the available services list is mocked, and service urls set via env vars.
 
-# Deployment to OpenShift
+# Deployment to OpenShift (Remote Development Setup)
+
+A git reference can be deployed to a remote OpenShift cluster.
+
+```
+cd deployment
+./create_webapp.sh openshift.example.com:8443 webapp-001 development
+```
+
+NOTE: The cluster must be setup for cors manually. This requires adding the webapp route to the `corsAllowedOrigins` block in master-config.yml.
+
+To rebuild & redeploy:
+
+```
+oc start-build -n webapp-001 tutorial-web-app
+```
+
+# Deployment to OpenShift (Non-Development Setup)
 
 When deploying to OpenShift, services and their urls are retrived from the OpenShift cluster.
 
