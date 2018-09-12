@@ -23,7 +23,7 @@ ifdef::context[:parent-context: {context}]
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
 // tag::intro[]
-To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you must set up two connections in Red Hat Fuse Online.
+To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you set up two connections in Red Hat Fuse Online.
 // end::intro[]
 
 

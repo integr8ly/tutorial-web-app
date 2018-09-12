@@ -7,7 +7,7 @@
 = Creating an integration
 
 // tag::intro[]
-To use the Fuse connections, you must create an integration in Red Hat Fuse Online.
+To use the Fuse connections, you create an integration in Red Hat Fuse Online.
 // end::intro[]
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
@@ -82,6 +82,5 @@ To use the Fuse connections, you must create an integration in Red Hat Fuse Onli
 .. Click and drag *type* from the *Source* column to *name* in the *Target* column.
 . Click *Done* to navigate back to the Integration screen.
 . Click *Publish*.
-. When prompted, enter a name, for example `steel-thread-0`.
-
+. When prompted, enter a name, for example `fruit-inventory`.
 

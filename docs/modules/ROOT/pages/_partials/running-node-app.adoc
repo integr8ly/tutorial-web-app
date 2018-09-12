@@ -9,8 +9,7 @@
 = Running a Node.js messaging app
 
 // tag::intro[]
-The {launcher-name} enables you to build and deploy applications on OpenShift.
-In this procedure, you deploy an example Node.js application that is pre-configured to allow you enter details of fruit stock.
+To deploy an example Node.js application that is pre-configured to allow you enter details of fruit stock, you use {launcher-name}.
 // end::intro[]
 
 :launcher-url: http://launcher-launcher.apps.city.openshiftworkshop.com/
@@ -19,13 +18,13 @@ In this procedure, you deploy an example Node.js application that is pre-configu
 
 . Log in to the link:{launcher-url}[{launcher-name}, window="_blank"] console.
 
-. Select the *LAUNCH YOUR PROJECT*.
+. Select *LAUNCH YOUR PROJECT*.
 
 . Enter a name for your application, for example `my-node-app` and select *Continue*.
 
 . Select *Code Locally, Build and Deploy* to deploy the application on a hosted OpenShift instance. Click the blue down arrow to continue.
 
-. Select *Messaging Work Queue* from the list of missions and *Node.js* from the list of runtimes. 
+.  From the list of missions, select *Messaging Work Queue*. From the list of runtimes, select *Node.js*.
 +
 Choose the *Integreatly* version of Node.js. Click the blue down arrow to continue.
 
@@ -35,47 +34,10 @@ Choose the *Integreatly* version of Node.js. Click the blue down arrow to contin
 +
 NOTE: Creating this application automatically creates an OpenShift project of the same name.
 
-. Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values from the EnMasse binding secret:
-..  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
-
-.. Expand the *EnMasse (standard)* service by selecting the *>* button.
-
-.. Select *View Secret* to navigate to the EnMasse credentials page.
-
-.. Select *Reveal Secret* to show the values for all the items.
-
-.. Note the values of the following fields:
-+
-// * *messagingHost*
-// messaging.enmasse-my-example-spac.svc
-* *password*
-// 8qP17U9qQ749PNsQOkLyVGP9BQrBmVOT+9MvfrpnH18=
-* *username*
-// user-d5515e3e-121c-4e11-acdb-321ba2c4c499
-
-.. To edit the configmap using the console:
-... Change to the OpenShift project associated with the Node.js app, for example, `node-app`.
-... Select *Config Maps* from the *Resources* menu.
-... Select the *messaging-service* configmap.
-... Set the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values retrieved from the previous step.
-... Navigate to the *Overview* screen and choose *Deploy* from the menu for the application.
-+
-[NOTE]
-====
-To edit the configmap using `oc` command line tool:
-----
-oc edit cm messaging-service -n eval
-----
-To restart the application:
-----
-oc rollout latest nodejs-messaging-work-queue-frontend -n eval
-----
-====
-
 ifdef::location[]
-// tag::verification[]
-.Verification
 
+.Verification
+// tag::verification[]
 Check the *Overview* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for an application URL.
 // end::verification[]
 endif::location[]
