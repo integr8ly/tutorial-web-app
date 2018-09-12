@@ -22,7 +22,6 @@ class InstalledAppsView extends React.Component {
           {app.appName}
           <i className="fa fa-external-link" />
         </h3>
-        <p>{app.appDescription}</p>
       </li>
     ));
     return <ul className="app-installed-apps-view-list">{masterList}</ul>;
@@ -46,8 +45,7 @@ InstalledAppsView.propTypes = {
   apps: PropTypes.arrayOf(
     PropTypes.shape({
       appName: PropTypes.string,
-      appIcon: PropTypes.string,
-      appDescription: PropTypes.string
+      appIcon: PropTypes.string
     })
   ).isRequired
 };
