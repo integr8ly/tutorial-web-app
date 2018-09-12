@@ -60,6 +60,7 @@ class TutorialPage extends React.Component {
                     <li key={i}>{req}</li>
                   ))}
                 </ul> */}
+                <h3>Walkthroughs Available</h3>
                 <h3>{t('tutorial.roles')}</h3>
                 <ul className="list-unstyled">
                   {thread.data.roles.map((role, i) => (
