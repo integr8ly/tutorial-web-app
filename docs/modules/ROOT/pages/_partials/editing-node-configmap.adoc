@@ -8,11 +8,17 @@
 
 = Editing the Node.js configmap
 
+<<<<<<< HEAD
 ifdef::location[]
 // tag::intro[]
 To use the Node.js app with {enmasse}, you share some credentials with the app.
 // end::intro[]
 endif::location[]
+=======
+// tag::intro[]
+To use the Node.js app with {enmasse}, you share some credentials with the app.
+// end::intro[]
+>>>>>>> update based on Stacey review (#20)
 
 Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values from the EnMasse binding secret:
 .  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
