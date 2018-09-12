@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyField Component should display an expanded value textarea: expanded 1`] = `
+<textarea
+  aria-hidden="true"
+  class="integr8ly-copy-display"
+  disabled=""
+  rows="5"
+  style="width: 100%;"
+>
+  {"hello":"world"}
+</textarea>
+`;
+
+exports[`CopyField Component should render a multi-line copy component: multi-line 1`] = `
+<div
+  aria-live="polite"
+  class="integr8ly-copy form-group"
+>
+  <span
+    class="input-group"
+  >
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-hidden="true"
+        class="integr8ly-copy-display-button btn btn-default"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-angle-right"
+        />
+      </button>
+    </span>
+    <input
+      class="integr8ly-copy-input false form-control"
+      id="test"
+      readonly=""
+      type="text"
+      value="{\\"hello\\":\\"world\\"}"
+    />
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-label="Copy to Clipboard"
+        class="btn btn-default"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-paste"
+        />
+      </button>
+    </span>
+  </span>
+</div>
+`;
+
+exports[`CopyField Component should render a single-line copy component: single-line 1`] = `
+<div
+  aria-live="polite"
+  class="integr8ly-copy form-group"
+>
+  <span
+    class="input-group"
+  >
+    <input
+      class="integr8ly-copy-input false form-control"
+      id="test"
+      readonly=""
+      type="text"
+      value="{\\"hello\\":\\"world\\"}"
+    />
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-label="Copy to Clipboard"
+        class="btn btn-default"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-paste"
+        />
+      </button>
+    </span>
+  </span>
+</div>
+`;
