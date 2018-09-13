@@ -34,7 +34,7 @@ $OC_CMD patch -n $NAMESPACE deploymentconfig/tutorial-web-app --patch "$(cat $SO
 
 # Patch the oauthclient to allow redirects to this webapp's route
 WEBAPP_HOST=$($OC_CMD -n $NAMESPACE get route tutorial-web-app --template "{{.spec.host}}")
-$OC_CMD patch -n $NAMESPACE oauthclient/tutorial-web-app --patch "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
+$OC_CMD patch oauthclient/tutorial-web-app --patch "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
 
 # We can't patch the corsAllowedOrigins on the master-config using an oc command, so that has to be done manually
 # e.g. add the route to the corsAllowedOrigins block in master-config.yml and restart
