@@ -114,7 +114,7 @@ class TaskPage extends React.Component {
                         {step.infoVerifications &&
                           step.infoVerifications.map((verification, j) => (
                             <Alert type="info" key={j}>
-                              <strong>Verification</strong>
+                              <strong>{t('task.verificationTitle')}</strong>
                               <Checkbox
                                 checked={verifications[verification] || false}
                                 onChange={e => {
@@ -128,7 +128,7 @@ class TaskPage extends React.Component {
                         {step.successVerifications &&
                           step.successVerifications.map((verification, k) => (
                             <Alert type="success" key={k}>
-                              <strong>Verification</strong>
+                              <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate adoc={verification} attributes={step.attributes || {}} />
                             </Alert>
                           ))}
