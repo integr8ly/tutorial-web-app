@@ -51,7 +51,6 @@
     "**/jest": "23.5.0"
   },
   "scripts": {
-    "api:dev": "sh ./scripts/dev.sh -p 5000 -d \"$(pwd)/src/services\"",
     "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css",
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
     "build:js": "CI=false react-scripts build",
