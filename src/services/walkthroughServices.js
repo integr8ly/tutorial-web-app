@@ -5,16 +5,28 @@ import { buildServiceInstanceResourceObj } from "./serviceInstanceServices";
 
 const WALKTHROUGH_SERVICES = ['fuse', 'che', 'launcher', 'enmasse-standard'];
 
+const mockUserWalkthrough = (dispatch, mockData) => {
+  mockData.serviceInstances.forEach(si => dispatch({
+    type: FULFILLED_ACTION(walkthroughTypes.CREATE_WALKTHROUGH),
+    payload: si
+  }));
+}
+
 const manageUserWalkthrough = (dispatch) => {
   currentUser().then(user => {
     const userNamespace = buildValidProjectNamespaceName(user.username);
 
-    const namespaceWalkthroughDef = {
+    const namespaceRequestResourceDef = {
       name: 'projectrequests',
       version: 'v1',
       group: 'project.openshift.io'
     }
-    const namespaceWalkthroughObj = {
+    const namespaceResourceDef = {
+      name: 'projects',
+      version: 'v1',
+      group: 'project.openshift.io'
+    }
+    const namespaceObj = {
       kind: 'ProjectRequest',
       metadata: {
         name: userNamespace
@@ -28,7 +40,13 @@ const manageUserWalkthrough = (dispatch) => {
       group: 'servicecatalog.k8s.io'
     }
 
-    findOrCreateOpenshiftResource(namespaceWalkthroughDef, namespaceWalkthroughObj)
+    findOpenshiftResource(namespaceResourceDef, namespaceObj)
+      .then(foundResource => {
+        if (!foundResource) {
+          return create(namespaceRequestResourceDef, namespaceObj);
+        }
+        return foundResource;
+      })
       .then(() => {
         const siObjs = WALKTHROUGH_SERVICES.map(name => buildServiceInstanceResourceObj({ namespace: userNamespace, name, user }));
         return Promise.all(siObjs.map(siObj => findOrCreateOpenshiftResource(serviceInstanceDef, siObj, resObj => resObj.spec.clusterServiceClassExternalName === siObj.spec.clusterServiceClassExternalName)));
@@ -41,6 +59,11 @@ const manageUserWalkthrough = (dispatch) => {
 }
 
 const handleServiceInstanceWatchEvents = (dispatch, event) => {
+  if (event.type === OpenShiftWatchEvents.OPENED || event.type === OpenShiftWatchEvents.CLOSED) {
+    return;
+  }
+
+
   if (!WALKTHROUGH_SERVICES.includes(event.payload.spec.clusterServiceClassExternalName)) {
     return;
   }
@@ -58,16 +81,18 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
   }
 }
 
-const findOrCreateOpenshiftResource = (openshiftResourceDef, resToFind, compareFn) => {
+const findOpenshiftResource = (openshiftResourceDef, resToFind, compareFn) => {
   return list(openshiftResourceDef)
     .then(listResponse => listResponse.items)
     .then(resourceObjs => {
-      let foundResource;
-      if (compareFn) {
-        foundResource = resourceObjs.find(resObj => compareFn(resObj));
-      } else {
-        foundResource = resourceObjs.find(resObj => resObj.metadata.name === resToFind.metadata.name)
-      }
+      const compare = compareFn || (resObj => resObj.metadata.name === resToFind.metadata.name);
+      return resourceObjs.find(resObj => compare(resObj));
+    })
+}
+
+const findOrCreateOpenshiftResource = (openshiftResourceDef, resToFind, compareFn) => {
+  return findOpenshiftResource(openshiftResourceDef, resToFind, compareFn)
+    .then(foundResource => {
       if (!foundResource) {
         return create(openshiftResourceDef, resToFind);
       }
@@ -81,4 +106,4 @@ const buildValidProjectNamespaceName = (username) => {
 
 const cleanUsername = (username) => username.replace(/@/g, '-').replace(/\./g, '-');
 
-export { manageUserWalkthrough };
+export { manageUserWalkthrough, mockUserWalkthrough };
