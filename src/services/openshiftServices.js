@@ -215,8 +215,8 @@ const watch = (res) => {
   })
 }
 
-const _buildOpenShiftUrl = res => {
-  const urlBegin = `${window.OPENSHIFT_CONFIG.masterUri}/apis/${res.group}/${res.version}`;
+const _buildOpenShiftUrl = (baseUrl, res) => {
+  const urlBegin = `${baseUrl}/apis/${res.group}/${res.version}`;
   if (res.namespace) {
     return `${urlBegin}/namespaces/${res.namespace}/${res.name}`;
   }
@@ -224,11 +224,11 @@ const _buildOpenShiftUrl = res => {
 }
 
 const _buildRequestUrl = (res) => {
-  return `${_buildOpenShiftUrl(res)}`
+  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`
 }
 
 const _buildWatchUrl = (res) => {
-  return `wss://${_buildOpenShiftUrl(res)}?watch=true`
+  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`
 }
 
 export { finishOAuth, currentUser, get, create, list, watch, OpenShiftWatchEvents };

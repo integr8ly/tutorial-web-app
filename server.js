@@ -9,36 +9,60 @@ app.get('/config.js', (req, res) => {
     console.warn('OPENSHIFT_HOST not set. Using service URLs from env vars');
     res.send(`window.OPENSHIFT_CONFIG = {
       mockData: {
-        listProvisionedServices: [
+        serviceInstances: [
           {
-            appName: 'Red Hat OpenShift',
-            appDescription: 'An enterprise-ready container platform. Everything you build will be hosted on the same OpenShift cluster.',
-            appLink: '${process.env.OPENSHIFT_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Red Hat OpenShift'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           },
           {
-            appName: 'Red Hat 3scale API Management Platform',
-            appDescription: 'A portal that allows you to define desired authenthication methods, set rate limits, get analytics on the user of your APIs, and create a developer portal for API consumers.',
-            appLink: '${process.env.FUSE_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Red Hat 3scale API Management Platform'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           },
           {
-            appName: 'Red Hat AMQ',
-            appDescription: 'Managed self-service messaing on Kubernetes, AMQ Online (Tech Preview) and Red Hat AMQ Broker are available in this environment.',
-            appLink: '${process.env.ENMASSE_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Red Hat AMQ'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           },
           {
-            appName: 'Red Hat Fuse',
-            appDescription: 'An integration platform-as-a-serviceBoth low-code environment and developer-focused features are available in this environment.',
-            appLink: '${process.env.FUSE_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Red Hat Fuse'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           },
           {
-            appName: 'Red Hat OpenShift Application Runtimes',
-            appDescription: 'A collection of cloud-native runtimes for developing Java &trade; or JavaScript applications on OpenShift.',
-            appLink: '${process.env.LAUNCHER_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Red Hat OpenShift Application Runtimes'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           },
           {
-            appName: 'Eclipse Che',
-            appDescription: 'A developer workspace server and cloud IDE.',
-            appLink: '${process.env.CHE_URL}'
+            spec: {
+              clusterServiceClassExternalName: 'Eclipse Che'
+            },
+            status: {
+              dashboardURL:'${process.env.OPENSHIFT_URL}',
+              conditions: [{ status: 'True' }]
+            }
           }
         ]
       }
@@ -56,7 +80,8 @@ app.get('/config.js', (req, res) => {
       authorizationUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/authorize',
       redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
-      masterUri: 'https://${process.env.OPENSHIFT_HOST}'
+      masterUri: 'https://${process.env.OPENSHIFT_HOST}',
+      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}'
     };`)
   }
 })

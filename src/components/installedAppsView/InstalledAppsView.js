@@ -15,14 +15,23 @@ class InstalledAppsView extends React.Component {
   handleAppNameClicked(e) {
     this.setState({ currentApp: e.target.value });
   }
+
+  static getStatusForApp(app) {
+    const provisioningStatus = 'Provisioning';
+    if (app.status && app.status.conditions && app.status.conditions[0]) {
+      return app.status.conditions[0].status === 'True' ? 'Provisioned' : provisioningStatus;
+    }
+    return provisioningStatus;
+  }
+
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
-      <li onClick={() => window.open(app.appLink, '_blank')} key={`${app.appName}_${index}`} value={index}>
+      <li onClick={() => window.open(app.status.dashboardURL, '_blank')} key={`${app.spec.clusterServiceClassExternalName}_${index}`} value={index}>
         <h3>
-          {app.appName}
+          {app.spec.clusterServiceClassExternalName}
           <i className="fa fa-external-link" />
         </h3>
-        <p>{app.appDescription}</p>
+        <p>{InstalledAppsView.getStatusForApp(app)}</p>
       </li>
     ));
     return <ul className="app-installed-apps-view-list">{masterList}</ul>;
