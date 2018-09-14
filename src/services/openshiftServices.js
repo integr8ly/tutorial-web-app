@@ -27,8 +27,8 @@ const OpenShiftWatchEvents = Object.freeze({
 });
 
 class OpenShiftWatchEventListener {
-  _handler = () => {};
-  _errorHandler = () => {};
+  _handler = () => { };
+  _errorHandler = () => { };
 
   constructor(socket) {
     this._socket = socket;
@@ -174,7 +174,7 @@ const get = (res, name) =>
     axios({
       url: `${window.OPENSHIFT_CONFIG.masterUri}/apis/${res.group}/${res.version}/namespaces/${res.namespace}/${
         res.name
-      }/${name}`,
+        }/${name}`,
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
