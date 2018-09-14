@@ -18,10 +18,6 @@
 
 = Creating an EnMasse address space
 
-// tag::intro[]
-EnMasse simplifies running messaging infrastructure for your organization.
-You use it to provide messaging services from a Node.js app to a Spring Boot app.
-// end::intro[]
 
 Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShift service catalog.
 
