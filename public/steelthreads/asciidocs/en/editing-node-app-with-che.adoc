@@ -6,9 +6,6 @@
 [id='editing-node-app-with-che_{context}']
 = Editing the Node.js messaging app
 
-// tag::intro[]
-To edit the source code for your Node.js app in the browser, you use Che.
-// end::intro[]
 
 :che-url: http://che-che.apps.city.openshiftworkshop.com/
 

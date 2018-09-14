@@ -6,9 +6,11 @@
 [id='creating-fuse-integration_{context}']
 = Creating an integration
 
+ifdef::location[]
 // tag::intro[]
 To use the Fuse connections, you create an integration in Red Hat Fuse Online.
 // end::intro[]
+endif::location[]
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 

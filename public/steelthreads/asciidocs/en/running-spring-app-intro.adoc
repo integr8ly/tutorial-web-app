@@ -1,0 +1,1 @@
+To deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application, you use {launcher-name}.

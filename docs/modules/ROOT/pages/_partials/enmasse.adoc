@@ -24,9 +24,11 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-keyword
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
+ifdef::location[]
 // tag::intro[]
 To create and configure a message queue, you use {enmasse}, software for managed, self-service messaging on OpenShift.
 // end::intro[]
+endif::location[]
 
 // The following include statements pull in the module files that comprise the assembly. Include any combination of concept, procedure, or reference modules required to cover the user story. You can also include other assemblies.
 

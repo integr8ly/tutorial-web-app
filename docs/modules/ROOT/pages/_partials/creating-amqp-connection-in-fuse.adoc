@@ -8,9 +8,11 @@
 
 = Creating AMQP connection in Red Hat Fuse Online
 
+ifdef::location[]
 // tag::intro[]
 To receive messages from EnMasse, you create a connection in Red Hat Fuse Online.
 // end::intro[]
+endif::location[]
 
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/

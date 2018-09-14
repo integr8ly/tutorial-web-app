@@ -8,9 +8,6 @@
 
 = Using the application integration
 
-// tag::intro[]
-After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.
-// end::intro[]
 
 :node-url: http://frontend-node-app.apps.city.openshiftworkshop.com/
 :spring-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/

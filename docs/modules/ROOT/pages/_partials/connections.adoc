@@ -22,10 +22,11 @@ ifdef::context[:parent-context: {context}]
 :context: assembly-keyword
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
+ifdef::location[]
 // tag::intro[]
 To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you set up two connections in Red Hat Fuse Online.
 // end::intro[]
-
+endif::location[]
 
 include::{partialsdir}/creating-amqp-connection-in-fuse.adoc[leveloffset=2]
 
