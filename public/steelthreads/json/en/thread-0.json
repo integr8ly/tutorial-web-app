@@ -20,7 +20,6 @@
   "tasks": [
     {
       "title": "Setting up a message queue",
-      "description": "To create and configure a message queue, you use {enmasse}, software for managed, self-service messaging on OpenShift.",
       "estimatedTime": 6,
       "steps": [
         {
@@ -56,7 +55,6 @@
     },
     {
       "title": "Creating and editing a publishing endpoint",
-      "description": "To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.",
       "estimatedTime": 5,
       "steps": [
         {
@@ -93,7 +91,6 @@
     },
     {
       "title": "Creating a REST API endpoint to receive messages",
-      "description": "In this procedure, you deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application.",
       "estimatedTime": 5,
       "steps": [
         {
@@ -110,7 +107,6 @@
     },
     {
       "title": "Creating connections",
-      "description": "To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you must set up two connections in Red Hat Fuse Online.",
       "estimatedTime": 5,
       "steps": [
         {
@@ -136,7 +132,6 @@
     },
     {
       "title": "Creating an integration",
-      "description": "To use the Fuse connections, you must create an integration in Red Hat Fuse Online.",
       "estimatedTime": 5,
       "steps": [
         {
@@ -152,7 +147,6 @@
     },
     {
       "title": "Using the application integration",
-      "description": "After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.",
       "estimatedTime": 5,
       "steps": [
         {
