@@ -231,4 +231,4 @@ const _buildWatchUrl = (res) => {
   return `wss://${_buildOpenShiftUrl(res)}?watch=true`
 }
 
-export { currentUser, get, create, list, watch, OpenShiftWatchEvents };
+export { finishOAuth, currentUser, get, create, list, watch, OpenShiftWatchEvents };
