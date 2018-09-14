@@ -8,9 +8,11 @@
 
 = Creating {enmasse} Binding
 
+ifdef::location[]
 // tag::intro[]
 To use {enmasse}, you create an OpenShift binding.
 // end::intro[]
+endif::location[]
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
