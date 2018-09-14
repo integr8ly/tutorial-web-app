@@ -10,12 +10,12 @@ const manageUserWalkthrough = (dispatch) => {
     const userNamespace = buildValidProjectNamespaceName(user.username);
 
     const namespaceWalkthroughDef = {
-      name: 'projects',
+      name: 'projectrequests',
       version: 'v1',
       group: 'project.openshift.io'
     }
     const namespaceWalkthroughObj = {
-      kind: 'Project',
+      kind: 'ProjectRequest',
       metadata: {
         name: userNamespace
       }
