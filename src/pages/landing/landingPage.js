@@ -6,11 +6,14 @@ import LandingPageMastHead from './landingPageMastHead';
 import { connect } from '../../redux';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
+import { manageUserWalkthrough } from '../../services/walkthroughServices';
+import store from '../../redux/store';
 
 class LandingPage extends React.Component {
   componentDidMount() {
     const { listMiddleware } = this.props;
     listMiddleware();
+    manageUserWalkthrough(store.dispatch);
   }
 
   render() {

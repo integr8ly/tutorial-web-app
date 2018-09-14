@@ -9,9 +9,6 @@ import './styles/.css/index.css';
 import App from './App';
 import { baseName } from './routes';
 import store from './redux/store';
-import { manageUserWalkthrough } from './services/walkthroughServices';
-
-manageUserWalkthrough(store.dispatch);
 
 ReactDOM.render(
   <Provider store={store}>

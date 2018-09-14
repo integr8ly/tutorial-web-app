@@ -81,8 +81,6 @@ export default class OpenShiftResourceParser {
    * API call is attempted and there is no user details/access token.
    */
   startOAuth() {
-    const openshiftAuth = this.getOauthClient();
-    window.location = openshiftAuth.token.getUri();
   }
 
   /**
@@ -95,16 +93,6 @@ export default class OpenShiftResourceParser {
    * @returns {Promise<AuthData>}
    */
   finishOAuth() {
-    const openshiftAuth = this.getOauthClient();
-
-    return openshiftAuth.token.getToken(window.location.href).then(user => {
-      OpenShiftResourceParser.setUser(user.data);
-      const then = OpenShiftResourceParser.getParameterByName('then');
-      return {
-        user,
-        then
-      };
-    });
   }
 
   /**
