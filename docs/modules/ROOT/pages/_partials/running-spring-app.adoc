@@ -9,9 +9,11 @@
 
 = Creating a REST API endpoint to receive messages
 
+ifdef::location[]
 // tag::intro[]
 To deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application, you use {launcher-name}.
 // end::intro[]
+endif::location[]
 
 :launcher-url: http://launcher-launcher.apps.city.openshiftworkshop.com/
 

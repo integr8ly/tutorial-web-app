@@ -8,9 +8,11 @@
 
 = Running a Node.js messaging app
 
+ifdef::location[]
 // tag::intro[]
 To deploy an example Node.js application that is pre-configured to allow you enter details of fruit stock, you use {launcher-name}.
 // end::intro[]
+endif::location[]
 
 :launcher-url: http://launcher-launcher.apps.city.openshiftworkshop.com/
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
