@@ -13,37 +13,35 @@ const initialState = {
 };
 
 const walkthroughReducers = (state = initialState, action) => {
-  switch (action.type) {
-    case FULFILLED_ACTION(walkthroughTypes.CREATE_WALKTHROUGH):
-      let createData = Object.assign({}, state.walkthroughs.data);
-      createData[action.payload.spec.clusterServiceClassExternalName] = action.payload;
-      return setStateProp(
-        'walkthroughs',
-        {
-          data: createData
-        },
-        {
-          state,
-          initialState
-        }
-      )
-
-    case FULFILLED_ACTION(walkthroughTypes.REMOVE_WALKTHROUGH):
-      let removeData = Object.assign({}, state.walkthroughs.data);
-      delete removeData[action.payload.spec.clusterServiceClassExternalName];
-      return setStateProp(
-        'walkthroughs',
-        {
-          data: removeData
-        },
-        {
-          state,
-          initialState
-        }
-      )
-    default:
-      return state;
+  if (action.type === FULFILLED_ACTION(walkthroughTypes.CREATE_WALKTHROUGH)) {
+    const createData = Object.assign({}, state.walkthroughs.data);
+    createData[action.payload.spec.clusterServiceClassExternalName] = action.payload;
+    return setStateProp(
+      'walkthroughs',
+      {
+        data: createData
+      },
+      {
+        state,
+        initialState
+      }
+    );
   }
+  if (action.type === FULFILLED_ACTION(walkthroughTypes.REMOVE_WALKTHROUGH)) {
+    const removeData = Object.assign({}, state.walkthroughs.data);
+    delete removeData[action.payload.spec.clusterServiceClassExternalName];
+    return setStateProp(
+      'walkthroughs',
+      {
+        data: removeData
+      },
+      {
+        state,
+        initialState
+      }
+    );
+  }
+  return state;
 };
 
 walkthroughReducers.initialState = initialState;

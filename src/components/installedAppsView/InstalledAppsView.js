@@ -26,7 +26,11 @@ class InstalledAppsView extends React.Component {
 
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
-      <li onClick={() => window.open(app.status.dashboardURL, '_blank')} key={`${app.spec.clusterServiceClassExternalName}_${index}`} value={index}>
+      <li
+        onClick={() => window.open(app.status.dashboardURL, '_blank')}
+        key={`${app.spec.clusterServiceClassExternalName}_${index}`}
+        value={index}
+      >
         <h3>
           {app.spec.clusterServiceClassExternalName}
           <i className="fa fa-external-link" />
