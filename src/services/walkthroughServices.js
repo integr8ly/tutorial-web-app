@@ -63,7 +63,6 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
     return;
   }
 
-
   if (!WALKTHROUGH_SERVICES.includes(event.payload.spec.clusterServiceClassExternalName)) {
     return;
   }

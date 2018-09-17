@@ -1,6 +1,14 @@
 import axios from "axios";
 import ClientOAuth2 from 'client-oauth2';
 
+axios.interceptors.response.use(response => response, err => {
+  if (err.response.status === 401) {
+    startOAuth();
+    return;
+  }
+  return err;
+});
+
 class OpenShiftUser {
   constructor(uid, username) {
     this.uid = uid;
