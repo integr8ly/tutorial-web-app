@@ -15,6 +15,7 @@ $icon-font-path: '~patternfly/dist/fonts/';
 @import 'patternfly/dist/sass/patternfly/mixins';
 
 // Application Overrides
+@import 'application/patternfly4';
 @import 'application/fonts';
 @import 'application/variables';
 @import 'application/typography';
