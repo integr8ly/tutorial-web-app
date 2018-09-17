@@ -6,6 +6,9 @@ import { buildServiceInstanceResourceObj } from './serviceInstanceServices';
 const WALKTHROUGH_SERVICES = ['fuse', 'che', 'launcher', 'enmasse-standard'];
 
 const mockUserWalkthrough = (dispatch, mockData) => {
+  if (!mockData || !mockData.serviceInstances) {
+    return;
+  }
   mockData.serviceInstances.forEach(si =>
     dispatch({
       type: FULFILLED_ACTION(walkthroughTypes.CREATE_WALKTHROUGH),
