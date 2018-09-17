@@ -1,4 +1,13 @@
 $font-size-base: 16px;
+// Font size
+$pf-global--FontSize--4xl: 36px;
+$pf-global--FontSize--3xl: 28px;
+$pf-global--FontSize--2xl: 24px;
+$pf-global--FontSize--xl: 21px;
+$pf-global--FontSize--lg: 18px;
+$pf-global--FontSize--md: 16px;
+$pf-global--FontSize--sm: 14px;
+$pf-global--FontSize--xs: 12px;
 
 body {
   font-size: $font-size-base;
@@ -6,3 +15,18 @@ body {
 p {
   font-size: $font-size-base;
 }
+// h1 {
+//   font-size: $pf-global--FontSize--4xl !important;
+// }
+// h2 {
+//   font-size: $pf-global--FontSize--3xl !important;
+// }
+// h3 {
+//   font-size: $pf-global--FontSize--2xl !important;
+// }
+// h4 {
+//   font-size: $pf-global--FontSize--xl !important;
+// }
+// h5 {
+//   font-size: $pf-global--FontSize--lg !important;
+// }
