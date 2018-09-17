@@ -1,0 +1,16 @@
+spec:
+  template:
+    spec:
+      containers:
+      - name: tutorial-web-app
+        image: tutorial-web-app
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        from:
+          kind: ImageStreamTag
+          name: 'tutorial-web-app:latest'
+        containerNames:
+          - tutorial-web-app
