@@ -14,31 +14,10 @@ When running locally, the available services list is mocked, and service urls se
 
 # Deployment to OpenShift
 
-When deploying to OpenShift, services and their urls are retrived from the OpenShift cluster.
-
-To deploy, first export a variable set to the host of your OpenShift master.
-For example:
-
-```
-export OPENSHIFT_HOST=openshift.example.com:8443
-```
-
-Import the template and initialise it.
-
 ```
 oc new-project tutorial-web-app
-oc apply -f deployment/openshift-template.yml
-oc new-app --template tutorial-web-app -p OPENSHIFT_HOST=$OPENSHIFT_HOST
-```
-
-For other parameters that you may want to change, check the template.
-
-You will also need to create an OAuthClient. This will require cluster-admin privileges.
-
-```
-export WEBAPP_HOST=`oc get route tutorial-web-app -n tutorial-web-app --template '{{.spec.host}}'`
-oc create -f deployment/openshift-oauthclient.yml
-oc patch oauthclient tutorial-web-app -p "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
+find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
+oc new-app --template react-demo-app -p SOURCE_REPOSITORY_URL=https://github.com/priley86/integr8ly-prototype -p SOURCE_REPOSITORY_REF=development
 ```
 
 # Ascii Doc Support
@@ -68,26 +47,3 @@ xq . [OUTPUT-XML-FILE] > [OUTPUT-JSON-FILE]
 ```
 
 This JSON can then be referenced in the appropriate language locale under `public/locales/*.json`.
-
-
-# Releasing
-
-To do a release of the webapp, update the version in package.json
-
-```
-npm version x.y.z
-git tag x.y.z
-```
-
-Push the changes (including the version tag) to the repo
-
-```
-git push origin master
-git push --tags
-```
-
-This will trigger a new release build.
-If the build is successful, a new image will be pushed to https://quay.io/repository/integreatly/tutorial-web-app.
-The new image will be tagged as `latest` and the version number `x.y.z`.
-
-TODO: Installing a released version of the webapp to OpenShift
