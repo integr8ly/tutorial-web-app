@@ -1,13 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
 
-axios.interceptors.response.use(response => response, err => {
-  if (err.response.status === 401) {
-    startOAuth();
-    return;
+axios.interceptors.response.use(
+  response => response,
+  err => {
+    if (err.response.status === 401) {
+      return startOAuth();
+    }
+    return err;
   }
-  return err;
-});
+);
 
 class OpenShiftUser {
   constructor(uid, username) {
@@ -25,21 +27,21 @@ const OpenShiftWatchEvents = Object.freeze({
 });
 
 class OpenShiftWatchEventListener {
-  _handler = () => { };
-  _errorHandler = () => { };
+  _handler = () => {};
+  _errorHandler = () => {};
 
   constructor(socket) {
     this._socket = socket;
   }
 
   init() {
-    this._socket.onmessage = (event) => {
+    this._socket.onmessage = event => {
       const data = JSON.parse(event.data);
       this._handler({ type: data.type, payload: data.object });
-    }
+    };
     this._socket.oncreate = () => this._handler({ type: OpenShiftWatchEvents.OPENED });
     this._socket.onclose = () => this._handler({ type: OpenShiftWatchEvents.CLOSED });
-    this._socket.onerror = (err) => this._errorHandler(err);
+    this._socket.onerror = err => this._errorHandler(err);
     return this;
   }
 
@@ -70,34 +72,31 @@ const getUser = () => {
     return startOAuth();
   }
   return new Promise((resolve, reject) => resolve(user));
-}
-
-
+};
 
 /**
  * Saves the user to local storage for retrieval of the token later as needed
  * @param {User} user
  */
-const setUser = (user) => {
+const setUser = user => {
   if (!user) {
     window.localStorage.setItem('OpenShiftUser', null);
     return;
   }
   window.localStorage.setItem('OpenShiftUser', JSON.stringify(user));
-}
+};
 
 /**
  * Internal function to construct an oauth client from the oauth lib.
  */
-const getOauthClient = () => {
-  return new ClientOAuth2({
+const getOauthClient = () =>
+  new ClientOAuth2({
     clientId: window.OPENSHIFT_CONFIG.clientId,
     accessTokenUri: window.OPENSHIFT_CONFIG.accessTokenUri,
     authorizationUri: window.OPENSHIFT_CONFIG.authorizationUri,
     redirectUri: `${window.OPENSHIFT_CONFIG.redirectUri}?then=${window.location.href}`,
     scopes: window.OPENSHIFT_CONFIG.scopes
   });
-}
 
 /**
  * Starts the OAuth flow, loading the configured authorize url.
@@ -108,7 +107,7 @@ const getOauthClient = () => {
 const startOAuth = () => {
   const openshiftAuth = getOauthClient();
   window.location = openshiftAuth.token.getUri();
-}
+};
 
 /**
  * Finish the oauth flow, retrieving the access token, and passing
@@ -130,7 +129,7 @@ const finishOAuth = () => {
       then
     };
   });
-}
+};
 
 /**
  * Removes the user session from local storage.
@@ -139,9 +138,9 @@ const finishOAuth = () => {
  * logout state change in your App by navigating elsewhere
  * or reloading your App.
  */
-const logout = () => {
-  setUser(null);
-}
+// const logout = () => {
+//   setUser(null);
+// };
 
 /**
  * Retrieve a single parameter value from a URL that contains a query string
@@ -158,45 +157,43 @@ const getParameterByName = (name, url) => {
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+};
 
-
-const currentUser = () => {
-  return getUser().then(user => {
-    return axios({
+const currentUser = () =>
+  getUser().then(user =>
+    axios({
       url: `${window.OPENSHIFT_CONFIG.masterUri}/oapi/v1/users/~`,
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
-    }).then(response => new OpenShiftUser(response.data.metadata.uid, response.data.metadata.name));
-  })
-}
+    }).then(response => new OpenShiftUser(response.data.metadata.uid, response.data.metadata.name))
+  );
 
-const get = (res, name) => {
-  return getUser().then(user => {
-    return axios({
-      url: `${window.OPENSHIFT_CONFIG.masterUri}/apis/${res.group}/${res.version}/namespaces/${res.namespace}/${res.name}/${name}`,
+const get = (res, name) =>
+  getUser().then(user =>
+    axios({
+      url: `${window.OPENSHIFT_CONFIG.masterUri}/apis/${res.group}/${res.version}/namespaces/${res.namespace}/${
+        res.name
+      }/${name}`,
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
-    }).then(response => response.data);
-  });
-}
+    }).then(response => response.data)
+  );
 
-const list = (res) => {
-  return getUser().then(user => {
-    return axios({
+const list = res =>
+  getUser().then(user =>
+    axios({
       url: _buildRequestUrl(res),
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
-    }).then(response => response.data);
-  });
-};
+    }).then(response => response.data)
+  );
 
-const create = (res, obj) => {
-  return getUser().then(user => {
-    let requestUrl = _buildRequestUrl(res);
+const create = (res, obj) =>
+  getUser().then(user => {
+    const requestUrl = _buildRequestUrl(res);
 
     if (!obj.apiVersion) {
       obj.apiVersion = `${res.group}/${res.version}`;
@@ -210,18 +207,16 @@ const create = (res, obj) => {
         authorization: `Bearer ${user.access_token}`
       }
     }).then(response => response.data);
-  })
-}
+  });
 
-const watch = (res) => {
-  return getUser().then(user => {
+const watch = res =>
+  getUser().then(user => {
     const walkthroughsUrl = _buildWatchUrl(res);
     const base64token = window.btoa(user.access_token).replace(/=/g, '');
     const socket = new WebSocket(walkthroughsUrl, [`base64url.bearer.authorization.k8s.io.${base64token}`, null]);
 
     return Promise.resolve(new OpenShiftWatchEventListener(socket).init());
-  })
-}
+  });
 
 const _buildOpenShiftUrl = (baseUrl, res) => {
   const urlBegin = `${baseUrl}/apis/${res.group}/${res.version}`;
@@ -229,14 +224,10 @@ const _buildOpenShiftUrl = (baseUrl, res) => {
     return `${urlBegin}/namespaces/${res.namespace}/${res.name}`;
   }
   return `${urlBegin}/${res.name}`;
-}
+};
 
-const _buildRequestUrl = (res) => {
-  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`
-}
+const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`;
 
-const _buildWatchUrl = (res) => {
-  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`
-}
+const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
 
 export { finishOAuth, currentUser, get, create, list, watch, OpenShiftWatchEvents };
