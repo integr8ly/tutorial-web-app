@@ -3,22 +3,18 @@ import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
-import { connect } from '../../redux';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
-import { connect, reduxActions } from '../../redux';
-import { manageUserWalkthrough } from '../../services/walkthroughServices';
+import { connect } from '../../redux';
 import { manageUserWalkthrough, mockUserWalkthrough } from '../../services/walkthroughServices';
-import store from '../../redux/store';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { listMiddleware } = this.props;
-    listMiddleware();
+    const { manageWalkthroughServices, mockWalkthroughServices } = this.props;
     if (window.OPENSHIFT_CONFIG.mockData) {
-      mockUserWalkthrough(store.dispatch, window.OPENSHIFT_CONFIG.mockData);
+      mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData);
       return;
     }
-    manageUserWalkthrough(store.dispatch);
+    manageWalkthroughServices();
   }
 
   render() {
@@ -35,21 +31,23 @@ class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = {
-  listMiddleware: PropTypes.func,
-  middleware: PropTypes.object
+  manageWalkthroughServices: PropTypes.func,
+  mockWalkthroughServices: PropTypes.func,
+  walkthroughs: PropTypes.object
 };
 
 LandingPage.defaultProps = {
-  listMiddleware: noop,
-  middleware: null
+  manageWalkthroughServices: noop,
+  mockWalkthroughServices: noop,
+  walkthroughs: { data: {} }
 };
 
 const mapDispatchToProps = dispatch => ({
-  listMiddleware: () => dispatch(reduxActions.middlewareActions.listMiddleware())
+  manageWalkthroughServices: () => manageUserWalkthrough(dispatch),
+  mockWalkthroughServices: mockData => mockUserWalkthrough(dispatch, mockData)
 });
 
 const mapStateToProps = state => ({
-  ...state.middlewareReducers,
   ...state.walkthroughReducers
 });
 
