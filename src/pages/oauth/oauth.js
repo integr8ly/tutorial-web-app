@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OpenShiftResourceParser from '../../components/openshiftResourceParser';
+import { finishOAuth } from '../../services/openshiftServices';
 
 class OAuthPage extends React.Component {
   componentDidMount() {
-    const resourceParser = new OpenShiftResourceParser(window.OPENSHIFT_CONFIG);
-
-    resourceParser.finishOAuth().then(data => {
+    finishOAuth().then(data => {
       const url = new URL(data.then);
       this.props.history.push(url.pathname);
     });
