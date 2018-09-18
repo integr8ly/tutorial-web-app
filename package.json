@@ -57,7 +57,7 @@
     "start": "node server.js",
     "start:dev": "FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
     "start:local": "react-scripts start",
-    "start:server": "nodemon server.js",
+    "start:server": "nodemon --watch server.js --exec 'node server.js'",
     "commit:hash": "echo REACT_APP_UI_COMMIT_HASH=$(git rev-list -1 --all) > .env",
     "build": "yarn commit:hash && yarn build:css && yarn build:js && yarn postbuild",
     "test": "yarn lint && react-scripts test --env=jsdom --coverage",
