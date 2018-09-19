@@ -1,4 +1,4 @@
-* xref:index.adoc[0 Integrating two RESTful web services]
+* xref:index.adoc[0 Integrating event-driven and API-driven applications]
 * xref:tbd.adoc[1 Managing an API lifecycle]
 * xref:tbd.adoc[2 Integrating new and legacy services]
 * xref:tbd.adoc[3 Creating a REST API from a SOAP service]

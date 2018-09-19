@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "title": "Integrating two RESTful web services",
+  "title": "Integrating event-driven and API-driven applications",
   "descriptionDoc": "thread-0-description.adoc",
   "prerequisites": [
     "Access to an OpenShift instance with Integreatly components installed",
