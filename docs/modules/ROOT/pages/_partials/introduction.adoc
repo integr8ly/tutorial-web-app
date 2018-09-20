@@ -5,10 +5,22 @@
 
 .Introduction
 
-In this walkthrough you create two apps (a Node.js app and a Spring Boot app).
-Each app exposes a RESTful API that you connect so that they can share data without requiring coding or custom configuration.
-The Spring Boot app is a CRUD app for fruit inventory, the Node.js app allows you enter a new fruit entry, which is then added as a record to the CRUD app.
-This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift {enmasse} and Fuse.
+In a multi-application system, you often find:
+
+* communication between the applications can be difficult due to differing technologies
+* custom solutions can be difficult to create and maintain
+* custom solutions require custom monitoring
+* understanding the relationship between the applications requires deep technical insight to the overall architecture
+
+A more structured approach involves:
+
+* a simple integration that developers can understand intuitively 
+* simple provisioning and configuration
+* built-in monitoring
+
+This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
+
+image::st0.png[]
 
 .Prerequisites
 
