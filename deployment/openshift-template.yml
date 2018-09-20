@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: tutorial-web-app
+parameters:
+  - name: OPENSHIFT_OAUTHCLIENT_ID
+    description: The OAuthClient id in OpenShift to use for auth
+    displayName: OAuthClient ID
+    value: tutorial-web-app
+    required: true
+  - name: OPENSHIFT_HOST
+    description: The OpenShift master/api host e.g. openshift.example.com:8443. If blank, mock data (and mock service URL params) will be used.
+    displayName: OpenShift Host
+    required: false
+  - name: WEBAPP_IMAGE
+    value: quay.io/integreatly/tutorial-web-app
+    required: true
+  - name: WEBAPP_IMAGE_TAG
+    value: latest
+    required: true
+  - name: FUSE_URL
+    description: Mock URL for Fuse. Only used if OPENSHIFT_HOST is empty
+    required: false
+  - name: LAUNCHER_URL
+    description: Mock URL for Launcher. Only used if OPENSHIFT_HOST is empty
+    required: false
+  - name: CHE_URL
+    description: Mock URL for Che. Only used if OPENSHIFT_HOST is empty
+    required: false
+  - name: ENMASSE_URL
+    description: Mock URL for EnMasse. Only used if OPENSHIFT_HOST is empty
+    required: false
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: tutorial-web-app
+    name: tutorial-web-app
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      app: tutorial-web-app
+    strategy:
+      rollingParams:
+        timeoutSeconds: 3600
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: tutorial-web-app
+      spec:
+        containers:
+        - env:
+          - name: KUBERNETES_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: OPENSHIFT_OAUTHCLIENT_ID
+            value: ${OPENSHIFT_OAUTHCLIENT_ID}
+          - name: OPENSHIFT_HOST
+            value: ${OPENSHIFT_HOST}
+          - name: NODE_ENV
+            value: production
+          image: ${WEBAPP_IMAGE}:${WEBAPP_IMAGE_TAG}
+          imagePullPolicy: IfNotPresent
+          name: tutorial-web-app
+          ports:
+          - containerPort: 5001
+            name: http
+            protocol: TCP
+      metadata:
+        labels:
+          app: tutorial-web-app
+    triggers:
+      - type: ConfigChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: tutorial-web-app
+    name: tutorial-web-app
+  spec:
+    ports:
+    - name: http
+      port: 5001
+    selector:
+      app: tutorial-web-app
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: tutorial-web-app
+    name: tutorial-web-app
+  spec:
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: tutorial-web-app

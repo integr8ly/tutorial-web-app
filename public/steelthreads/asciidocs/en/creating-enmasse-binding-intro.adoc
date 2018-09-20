@@ -1,0 +1,1 @@
+To use {enmasse}, you create an OpenShift binding.

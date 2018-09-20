@@ -1,0 +1,22 @@
+.list-view-pf-integreatly {
+  & > .list-group-item:hover {
+    border-right-color: $color-pf-white;
+    border-left-color: $color-pf-white;
+  }
+  &-description {
+    flex: 1 !important; /* stylelint-disable-line declaration-no-important */
+  }
+}
+.module-list {
+  padding-left: 15px;
+  & > li {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    &:first-child {
+      margin-top: 20px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

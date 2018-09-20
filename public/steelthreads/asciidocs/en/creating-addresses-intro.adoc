@@ -1,0 +1,1 @@
+To route messages to the Spring Boot app, you create two addresses in EnMasse.

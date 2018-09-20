@@ -1,0 +1,22 @@
+.app-landing-page-integr8ly{
+  &-masthead {
+    background-image: url(../../img/Web_RH_Banner.png);
+    background-color: $color-pf-black-900;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+    color: $color-pf-white;
+    height: 130px;
+    margin: auto 0;
+    display: flex;
+    &:after {
+      background-image: url(../../img/RedHatLogo.png);
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      height: 38px;
+      width: 115px;
+    }
+  }
+}

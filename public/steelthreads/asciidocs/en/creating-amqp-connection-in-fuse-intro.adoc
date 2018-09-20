@@ -1,0 +1,1 @@
+To receive messages from EnMasse, you create a connection in Red Hat Fuse Online.

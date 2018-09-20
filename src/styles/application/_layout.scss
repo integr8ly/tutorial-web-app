@@ -1,0 +1,94 @@
+.integr8ly {
+  &-module {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    &-column {
+      &--status {
+        background-color: $color-pf-black-100;
+        border-bottom: 1px solid;
+        border-bottom-color: $color-pf-black-300;
+        margin: 0 -20px;
+        padding: 1px 20px;
+        &-next {
+          background-color: $color-pf-black-100;
+          border-top: 1px solid;
+          border-top-color: $color-pf-black-300;
+          margin: 0 -20px;
+          padding: 10px 20px 20px;
+        }
+      }
+      &--steps {
+        margin-right: -20px;
+        margin-bottom: 56px;
+        margin-left: -20px;
+        padding: 15px 20px 0;
+        background-color: $color-pf-white;
+      }
+      &--footer {
+        background-color: $color-pf-black-100;
+        border-top: 1px solid;
+        border-top-color: $color-pf-black-300;
+        // margin: 0 -20px;
+        padding: 10px 20px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 75%;
+        z-index: 10;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+  &-frame {
+    position: fixed;
+    top: 38px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: $color-pf-black-200;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  &-task-container {
+    margin-top: 40px;
+  }
+  &-prerequisites {
+    position: fixed;
+    top: 38px;
+    right: 0;
+    bottom: 0;
+    background-color: $color-pf-black-200;
+    border-left: 1px solid;
+    border-left-color: $color-pf-black-300;
+  }
+  &-steel-thread-rows {
+    margin-top: -10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  &-list-group--application-list {
+    margin-top: 20px;
+  }
+  &-masthead {
+    background-color: $color-pf-black-500;
+    color: $color-pf-white;
+    height: 325px;
+  }
+  &-container-cards-pf {
+    margin-top: 0;
+  }
+  &-card-pf {
+    &-footer {
+      background-color: $color-pf-white;
+      border-top: none;
+    }
+  }
+}
+.module-list {
+  padding-left: 15px;
+}
