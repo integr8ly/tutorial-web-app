@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import aboutModalReducers from './aboutModalReducers';
 import userReducers from './userReducers';
 import threadReducers from './threadReducers';
-import walkthroughReducers from './walkthroughReducers';
+import middlewareReducers from './middlewareReducers';
 
 const reducers = {
   aboutModalReducers,
   threadReducers,
   userReducers,
-  walkthroughReducers
+  middlewareReducers
 };
 
 const reduxReducers = combineReducers(reducers);
@@ -19,5 +19,5 @@ export {
   aboutModalReducers,
   threadReducers,
   userReducers,
-  walkthroughReducers
+  middlewareReducers
 };
