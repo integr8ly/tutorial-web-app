@@ -1,0 +1,1 @@
+To deploy an example Node.js application that is pre-configured to allow you enter details of fruit stock, you use {launcher-name}.

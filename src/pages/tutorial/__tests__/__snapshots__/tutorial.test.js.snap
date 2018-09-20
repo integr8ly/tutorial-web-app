@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TutorialPage Component should render the ConnectedTutorialPage component 1`] = `
+<Component
+  getThread={[Function]}
+  thread={
+    Object {
+      "pending": true,
+    }
+  }
+/>
+`;
+
+exports[`TutorialPage Component should render the TutorialPage component error state 1`] = `""`;
+
+exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
+<Fragment>
+  <withRouter() />
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={true}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        className="integr8ly-task-container"
+        componentClass="div"
+        sm={8}
+        xs={12}
+      >
+        <Component />
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="primary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          tutorial.getStarted
+        </Button>
+      </Col>
+      <Col
+        bsClass="col"
+        className="integr8ly-prerequisites"
+        componentClass="div"
+        sm={4}
+      >
+        <h3>
+          tutorial.roles
+        </h3>
+        <ul
+          className="list-unstyled"
+        >
+          <li
+            key="0"
+          >
+            <Icon
+              name="user"
+              style={
+                Object {
+                  "marginRight": 5,
+                }
+              }
+              type="pf"
+            />
+            <span>
+              Developer
+            </span>
+          </li>
+        </ul>
+        <h3>
+          tutorial.installedApplications
+        </h3>
+        <p>
+          <ul
+            className="list-unstyled"
+          >
+            <li
+              key="0"
+            >
+              OpenShift
+            </li>
+          </ul>
+        </p>
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={8}
+        xs={12}
+      >
+        <h2>
+          tutorial.tasksToComplete
+          <div
+            className="pull-right"
+          >
+            <Icon
+              name="clock-o"
+              type="fa"
+            />
+             
+            <span>
+               
+              tutorial.minutes
+            </span>
+          </div>
+        </h2>
+        <ListView
+          className="list-view-pf-integreatly"
+        >
+          <ListViewItem
+            actions={
+              <div>
+                <Icon
+                  name="clock-o"
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                  type="fa"
+                />
+                 
+                <span>
+                  10 
+                  tutorial.minutes
+                </span>
+              </div>
+            }
+            additionalInfo={null}
+            checkboxInput={null}
+            compoundExpand={false}
+            compoundExpanded={false}
+            description={
+              <div>
+                <ul
+                  style={
+                    Object {
+                      "paddingLeft": 20,
+                    }
+                  }
+                >
+                  <li>
+                    Github account
+                  </li>
+                </ul>
+              </div>
+            }
+            heading="0. Completing prerequisites"
+            hideCloseIcon={false}
+            leftContent={null}
+            onCloseCompoundExpand={[Function]}
+            onExpand={[Function]}
+            onExpandClose={[Function]}
+            stacked={true}
+          />
+          <ListViewItem
+            actions={
+              <div>
+                <Icon
+                  name="clock-o"
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                  type="fa"
+                />
+                 
+                <span>
+                  6
+                   
+                  tutorial.minutes
+                </span>
+              </div>
+            }
+            additionalInfo={null}
+            checkboxInput={null}
+            compoundExpand={false}
+            compoundExpanded={false}
+            description="EnMasse simplifies running messaging infrastructure for your organization. You use it to provide messaging services from a Node.js app to a Spring Boot app."
+            heading="1. Creating an EnMasse space"
+            hideCloseIcon={false}
+            key="0"
+            leftContent={null}
+            onCloseCompoundExpand={[Function]}
+            onExpand={[Function]}
+            onExpandClose={[Function]}
+            stacked={true}
+          />
+        </ListView>
+      </Col>
+    </Row>
+  </Grid>
+</Fragment>
+`;
+
+exports[`TutorialPage Component should render the TutorialPage component pending state 1`] = `""`;

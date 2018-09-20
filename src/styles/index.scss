@@ -1,0 +1,35 @@
+// Variables
+$font-path: '~patternfly/dist/fonts/';
+$img-path: '~patternfly/dist/img/';
+$icon-font-path: '~patternfly/dist/fonts/';
+
+// Include patternfly variables before bootstrap variables
+@import 'patternfly/dist/sass/patternfly/variables';
+
+// Bootstrap Core variables and mixins
+@import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import 'bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+
+// Patternfly Core variables and mixins
+@import 'patternfly/dist/sass/patternfly/bootstrap-mixin-overrides';
+@import 'patternfly/dist/sass/patternfly/mixins';
+
+// Application Overrides
+@import 'application/fonts';
+@import 'application/variables';
+@import 'application/typography';
+@import 'application/layout';
+@import 'application/lists';
+@import 'application/breadcrumbs';
+@import 'application/overrides';
+@import 'application/aboutModal';
+@import 'application/landingPage';
+@import 'application/landingPageMastHead';
+@import 'application/login';
+@import 'application/nav';
+@import 'application/tutorialDashboard';
+@import 'application/tutorialCard';
+@import 'application/modules';
+@import 'application/appLauncher';
+@import 'application/installedAppsView';
+@import 'application/copyField';

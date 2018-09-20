@@ -1,0 +1,35 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='setting-up-enmasse_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
+
+// :enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
+// or https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
+
+
+= Creating an EnMasse address space
+
+
+Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShift service catalog.
+
+:openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
+
+. Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the service catalog.
+
+. Select *EnMasse (standard)* to start the provisioning wizard.
+
+. When completing the *Plan* step of the wizard, select the *unlimited-standard* option.
+
+. Enter `my-example-space` as the address space to create.
+
+. Choose *Do not bind at this time*.
+

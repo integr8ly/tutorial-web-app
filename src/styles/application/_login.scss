@@ -1,0 +1,56 @@
+.app-login {
+  background-image: none;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow-y: auto;
+  position: fixed;
+
+  @media (min-width: $screen-sm-min) {
+    background-image: url(../../img/bg-login-2.png);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 30%;
+  }
+}
+
+.app-login-body {
+  @media (min-width: $screen-sm-min) {
+    background-image: url(../../img/bg-login.png);
+    background-repeat: no-repeat;
+    background-size: 30%;
+  }
+}
+
+.app-login-card {
+  min-height: 360px;
+
+  .login-pf-header,
+  .card-pf-body {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+.app-login-card-error {
+  color: $color-pf-red-100;
+  margin-bottom: 16px;
+  min-height: 20px;
+}
+
+.app-login-loading-card {
+  @extend .app-login-card;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-login-settings {
+  > * {
+    margin-top: 0;
+    padding-top: 0;
+    border-top-width: 0;
+  }
+}

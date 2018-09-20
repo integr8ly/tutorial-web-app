@@ -1,0 +1,10 @@
+.dockerignore
+.gitignore
+.env.*
+!.env.production
+build
+coverage
+Dockerfile
+node_modules
+README.md
+deployment

@@ -1,0 +1,34 @@
+@media (max-width: 1091px) {
+  .app-tutorial-dashboard {
+    width: 100%;
+    .card-pf-body {
+      min-height: 200px;
+    }
+  }
+}
+@media (min-width: 1092px) {
+  .app-tutorial-dashboard {
+    width: 66.6%;
+    .card-pf-body {
+      min-height: 180px;
+    }
+  }
+}
+
+.app-tutorial-dashboard {
+  margin-bottom: 0;
+  background-color: $color-pf-black-150;
+  & .panel-title {
+    display: flex;
+    border: none;
+    & h2 {
+      flex-basis: 50%;
+      margin-top: 5px;
+    }
+    & div {
+      flex-basis: 50%;
+      margin-top: 5px;
+      text-align: right;
+    }
+  }
+}

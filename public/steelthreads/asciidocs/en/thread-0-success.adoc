@@ -1,0 +1,9 @@
+===== *Fuse integration successfully built!*
+
+To better understand what was accomplished:
+
+:fuse-url: https://eval.apps.pwright.openshiftworkshop.com/
+
+. Log in to the link:{fuse-url}[Fuse Ignite console, window="_blank"].
+. Click on the *menu > submenu menu*
+. Click on the *stuff tab*.
