@@ -226,18 +226,8 @@ const _buildOpenShiftUrl = (baseUrl, res) => {
   return `${urlBegin}/${res.name}`;
 };
 
-<<<<<<< HEAD
 const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`;
 
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
-=======
-const _buildRequestUrl = (res) => {
-  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`
-}
-
-const _buildWatchUrl = (res) => {
-  return `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`
-}
->>>>>>> Integrate Walkthrough Service with UI
 
 export { finishOAuth, currentUser, get, create, list, watch, OpenShiftWatchEvents };

@@ -5,7 +5,6 @@
 
 .Introduction
 
-<<<<<<< HEAD
 In a multi-application system, you often find:
 
 * communication between the applications can be difficult due to differing technologies
@@ -22,12 +21,6 @@ A more structured approach involves:
 This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
 
 image::st0.png[]
-=======
-In this walkthrough you create two apps (a Node.js app and a Spring Boot app).
-Each app exposes a RESTful API that you connect so that they can share data without requiring coding or custom configuration.
-The Spring Boot app is a CRUD app for fruit inventory, the Node.js app allows you enter a new fruit entry, which is then added as a record to the CRUD app.
-This integration can be provisioned in minutes and is easily monitored and maintained using OpenShift {enmasse} and Fuse.
->>>>>>> update based on Stacey review (#20)
 
 .Prerequisites
 

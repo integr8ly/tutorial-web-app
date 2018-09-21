@@ -18,12 +18,6 @@
 
 = Creating addresses in EnMasse space
 
-<<<<<<< HEAD
-=======
-// tag::intro[]
-To route messages to the Spring Boot app, you create two addresses in EnMasse.
-// end::intro[]
->>>>>>> update based on Stacey review (#20)
 
 . Log into link:{enmasse-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
 . Select *Addresses* from the left hand menu.
