@@ -11,6 +11,9 @@ const LandingPageMastHead = () => (
         <br />
         use any of the available application services to create custom integrations.
       </p>
+      <p className="pull-right text-dark">
+        <i className="fa fa-hourglass-half" /> 7 Days remaining
+      </p>
     </div>
   </header>
 );
