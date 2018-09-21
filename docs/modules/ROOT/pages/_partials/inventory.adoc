@@ -23,26 +23,32 @@ The following products and projects are used in the walkthroughs:
 
 |Red Hat 3scale API Management Platform |2.2|Admin Portal|
 link:https://access.redhat.com/documentation/en-us/red_hat_3scale/2.2/[Documentation]
+
 link:https://www.redhat.com/en/technologies/jboss-middleware/3scale[Product Page]
 
 |Red Hat AMQ |7.2|AMQ Console|
 link:https://access.redhat.com/documentation/en-us/red_hat_amq/7.2/[Documentation]
+
 link:https://www.redhat.com/en/technologies/jboss-middleware/amq[Product Page]
 
 |Red Hat Fuse |7.0|Fuse Management Console|
 link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
+
 link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[Product Page]
 
 |Red Hat OpenShift Application Runtimes |1|NA|
 link:https://access.redhat.com/documentation/en-us/red_hat_openshift_application_runtimes/1/[Documentation]
+
 link:https://www.redhat.com/en/technologies/cloud-computing/openshift/application-runtimes[Product Page]
 
 |Eclipse Che |6|Eclipse Che|
 link:https://www.eclipse.org/che/docs/[Documentation]
+
 link:https://www.eclipse.org/che/[Project Page]
 
 |Red Hat OpenShift Container Platform|3.10|OpenShift Console|
 link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.10/[Documentation]
+
 link:https://access.redhat.com/products/red-hat-openshift-container-platform/[Product Page]
 
 
