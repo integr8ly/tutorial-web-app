@@ -9,6 +9,15 @@
         border-bottom-color: $color-pf-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
+        .progress.progress-label-left {
+          width: 80%;
+          margin-top: 15px;
+          margin-bottom: 10px;
+          margin-left: 100px;
+          span {
+            margin-left: -100px;
+          }
+        }
         &-next {
           background-color: $color-pf-black-100;
           border-top: 1px solid;
@@ -34,9 +43,19 @@
         bottom: 0;
         left: 0;
         width: 75%;
+        text-align: center;
         z-index: 10;
         @media (max-width: 768px) {
           width: 100%;
+        }
+        &_status {
+          color: $color-pf-blue;
+          .fa {
+            padding-right: 5px;
+          }
+          &-step {
+            margin-right: 15px;
+          }
         }
       }
     }
@@ -52,12 +71,13 @@
       display: none;
     }
   }
-  &-task-container {
-    margin-top: 40px;
-  }
+  // &-task-container {
+  //   margin-top: 40px;
+  // }
   &-prerequisites {
     position: fixed;
-    top: 38px;
+    // top: 38px;
+    top: 0;
     right: 0;
     bottom: 0;
     background-color: $color-pf-black-200;
@@ -87,6 +107,9 @@
       background-color: $color-pf-white;
       border-top: none;
     }
+  }
+  &-label-non-ga {
+    margin-left: 10px;
   }
 }
 .module-list {

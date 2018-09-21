@@ -1,6 +1,6 @@
 {
-  "short_name": "RHEval",
-  "name": "Red Hat Evaluation Environment",
+  "short_name": "RHSE",
+  "name": "Red Hat Solution Explorer",
   "icons": [
     {
       "src": "favicon.ico",

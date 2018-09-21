@@ -19,11 +19,13 @@
     & h2 {
       flex-basis: 70%;
       margin-top: 5px;
+      font-weight: 300;
     }
     & div {
       flex-basis: 30%;
-      margin-top: 5px;
+      margin-top: 12px;
       text-align: right;
+      font-weight: 600;
     }
   }
 }

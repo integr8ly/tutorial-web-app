@@ -11,11 +11,12 @@
     "minutes": "minutes"
   },
   "task": {
-    "whatsNext": "What's next?",
+    "CompleteAndCheck": "Complete and check all work before proceeding",
     "verificationTitle": "Did it work?",
     "completeTaskFirst": "You may still view the next task, but this task should be completed first.",
-    "nextTask": "Next Task",
-    "previousTask": "Previous Task",
-    "exitTutorial": "Exit Walkthrough"
+    "backToIntro": "Back to Intro",
+    "nextTask": "Next",
+    "previousTask": "Previous",
+    "exitTutorial": "Exit Tutorial"
   }
 }

@@ -6,6 +6,7 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
+import { blue } from 'kleur';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
@@ -54,6 +55,13 @@ class TaskPage extends React.Component {
       });
     }
   }
+
+  backToIntro = e => {
+    e.preventDefault();
+    const { history } = this.props;
+    const { id } = this.state;
+    history.push(`/tutorial/${id}`);
+  };
 
   goToTask = (e, next) => {
     e.preventDefault();
@@ -104,8 +112,9 @@ class TaskPage extends React.Component {
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
                   <div className="integr8ly-module-column--status">
-                    <h4>{threadTask.title}</h4>
-                    <ProgressBar className="progress progress-sm" now={progress} />
+                    <ProgressBar className="progress progress-label-left" now={progress} label={`${progress}%`}>
+                      <span>Walkthrough</span>
+                    </ProgressBar>
                   </div>
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
@@ -136,13 +145,28 @@ class TaskPage extends React.Component {
                     ))}
                   </div>
                   <div className="integr8ly-module-column--footer">
-                    <h4>{t('task.whatsNext')}</h4>
-                    <p>{t('task.completeTaskFirst')}</p>
+                    <h6>{t('task.CompleteAndCheck')}</h6>
+                    <div className="integr8ly-module-column--footer_status">
+                      <Icon type="fa" name="circle-o" />
+                      <span className="integr8ly-module-column--footer_status-step">1.1</span>
+                      <Icon type="fa" name="circle-o" />
+                      <span className="integr8ly-module-column--footer_status-step">1.2</span>
+                      <Icon type="fa" name="circle-o" />
+                      <span className="integr8ly-module-column--footer_status-step">1.3</span>
+                    </div>
                     <div
                       className="btn-group btn-group-justified"
                       role="group"
                       aria-label="module step progress buttons"
                     >
+                      {task === 0 && (
+                        <ButtonGroup>
+                          <Button onClick={e => this.backToIntro(e)}>
+                            <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
+                            {t('task.backToIntro')}
+                          </Button>
+                        </ButtonGroup>
+                      )}
                       {task > 0 && (
                         <ButtonGroup>
                           <Button onClick={e => this.goToTask(e, task - 1)}>
@@ -173,8 +197,8 @@ class TaskPage extends React.Component {
                 </div>
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-frame">
-                <h2>Helpful Links</h2>
-                <h3>OpenShift</h3>
+                <h4>Helpful Links</h4>
+                <h4>Red Hat OpenShift</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
@@ -183,7 +207,10 @@ class TaskPage extends React.Component {
                     <a href="https://blog.openshift.com/">OpenShift Blog</a>
                   </li>
                 </ul>
-                <h3>Fuse</h3>
+                <h4>
+                  Red Hat Fuse
+                  <span className="label label-default integr8ly-label-non-ga">Non-GA</span>
+                </h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://developers.redhat.com/products/fuse/help/">Fuse Community Q&amp;A</a>
@@ -192,7 +219,7 @@ class TaskPage extends React.Component {
                     <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
                   </li>
                 </ul>
-                <h3>AMQ</h3>
+                <h4>Red Hat AMQ</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>

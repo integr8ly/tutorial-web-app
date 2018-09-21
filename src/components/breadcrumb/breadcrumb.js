@@ -20,7 +20,7 @@ class Breadcrumb extends React.Component {
           taskPosition && (
             <React.Fragment>
               <PfBreadcrumb.Item href={`#/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
-              <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
+              {/* <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item> */}
             </React.Fragment>
           )}
       </PfBreadcrumb>
