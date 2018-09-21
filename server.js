@@ -81,7 +81,8 @@ app.get('/config.js', (req, res) => {
       authorizationUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/authorize',
       redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
-      masterUri: 'https://${process.env.OPENSHIFT_HOST}'
+      masterUri: 'https://${process.env.OPENSHIFT_HOST}',
+      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}'
     };`);
   }
 });
