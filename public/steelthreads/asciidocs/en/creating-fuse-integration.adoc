@@ -79,6 +79,5 @@
 .. Click and drag *type* from the *Source* column to *name* in the *Target* column.
 . Click *Done* to navigate back to the Integration screen.
 . Click *Publish*.
-
 . When prompted, enter a name, for example `fruit-inventory`.
 

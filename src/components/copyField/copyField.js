@@ -12,6 +12,11 @@ class CopyField extends React.Component {
       timer: null
     };
   }
+  state = {
+    copied: false,
+    expanded: false,
+    timer: null
+  };
 
   onCopy = event => {
     const { timer } = this.state;
