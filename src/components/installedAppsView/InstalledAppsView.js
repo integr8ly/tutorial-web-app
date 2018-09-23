@@ -31,9 +31,7 @@ class InstalledAppsView extends React.Component {
         key={`${app.spec.clusterServiceClassExternalName}_${index}`}
         value={index}
       >
-        <h3>
-          {app.spec.clusterServiceClassExternalName}
-        </h3>
+        <h3>{app.spec.clusterServiceClassExternalName}</h3>
       </li>
     ));
     return <ul className="app-installed-apps-view-list">{masterList}</ul>;
