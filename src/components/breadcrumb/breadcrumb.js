@@ -9,7 +9,7 @@ class Breadcrumb extends React.Component {
     this.props.history.push('/home');
   };
   render() {
-    const { t, threadName, threadId, taskPosition, totalTasks } = this.props;
+    const { threadName, threadId, taskPosition } = this.props;
     return (
       <PfBreadcrumb>
         <PfBreadcrumb.Item onClick={this.homeClicked}>
@@ -32,17 +32,14 @@ Breadcrumb.propTypes = {
   history: PropTypes.object,
   threadName: PropTypes.string,
   threadId: PropTypes.number,
-  taskPosition: PropTypes.number,
-  totalTasks: PropTypes.number,
-  t: PropTypes.func.isRequired
+  taskPosition: PropTypes.number
 };
 
 Breadcrumb.defaultProps = {
   history: {},
   threadName: '',
   threadId: null,
-  taskPosition: null,
-  totalTasks: null
+  taskPosition: null
 };
 
 const RoutedBreadcrumb = withRouter(translate()(Breadcrumb));
