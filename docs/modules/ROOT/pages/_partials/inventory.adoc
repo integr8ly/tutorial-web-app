@@ -25,31 +25,41 @@ The following products and projects are used in the walkthroughs:
 link:https://access.redhat.com/documentation/en-us/red_hat_3scale/2.2/[Documentation]
 
 link:https://www.redhat.com/en/technologies/jboss-middleware/3scale[Product Page]
+//A portal that allows you to define desired authentication methods, set rate limits, get analytics on the usage of your APIs, and create a developer portal for API consumers.
+
 
 |Red Hat AMQ |7.2|AMQ Console|
 link:https://access.redhat.com/documentation/en-us/red_hat_amq/7.2/[Documentation]
 
 link:https://www.redhat.com/en/technologies/jboss-middleware/amq[Product Page]
+//Managed self-service messaging on Kubernetes. AMQ Online (Tech Preview) and Red Hat AMQ Broker are available on this environment.
+
 
 |Red Hat Fuse |7.0|Fuse Management Console|
 link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
 
 link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[Product Page]
+//An integration platform-as-a-service. Both low-code and developer-focused features are available in this environment.
 
 |Red Hat OpenShift Application Runtimes |1|NA|
 link:https://access.redhat.com/documentation/en-us/red_hat_openshift_application_runtimes/1/[Documentation]
 
 link:https://www.redhat.com/en/technologies/cloud-computing/openshift/application-runtimes[Product Page]
+//A collection of runtimes for developing cloud-native Java or JavaScript applications on OpenShift
+
 
 |Eclipse Che |6|Eclipse Che|
 link:https://www.eclipse.org/che/docs/[Documentation]
 
 link:https://www.eclipse.org/che/[Project Page]
+//A cloud IDE with containerised developer workspaces.
+
 
 |Red Hat OpenShift Container Platform|3.10|OpenShift Console|
 link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.10/[Documentation]
 
 link:https://access.redhat.com/products/red-hat-openshift-container-platform/[Product Page]
+//An enterprise-ready container platform. Everything you build will be hosted on the same OpenShift cluster.
 
 
 |====
