@@ -15,7 +15,6 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
-  <withRouter() />
   <Grid
     bsClass="container"
     componentClass="div"
@@ -50,43 +49,77 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         componentClass="div"
         sm={4}
       >
-        <h3>
-          tutorial.roles
-        </h3>
+        <h4>
+          Helpful Links
+        </h4>
+        <h4>
+          Red Hat OpenShift
+        </h4>
         <ul
           className="list-unstyled"
         >
-          <li
-            key="0"
-          >
-            <Icon
-              name="user"
-              style={
-                Object {
-                  "marginRight": 5,
-                }
-              }
-              type="pf"
-            />
-            <span>
-              Developer
-            </span>
+          <li>
+            <a
+              href="https://help.openshift.com/"
+            >
+              OpenShift Online Help Center
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://blog.openshift.com/"
+            >
+              OpenShift Blog
+            </a>
           </li>
         </ul>
-        <h3>
-          tutorial.installedApplications
-        </h3>
-        <p>
-          <ul
-            className="list-unstyled"
+        <h4>
+          Red Hat Fuse
+          <span
+            className="label label-default integr8ly-label-non-ga"
           >
-            <li
-              key="0"
+            Non-GA
+          </span>
+        </h4>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <a
+              href="https://developers.redhat.com/products/fuse/help/"
             >
-              OpenShift
-            </li>
-          </ul>
-        </p>
+              Fuse Community Q&A
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://developers.redhat.com/videos/vimeo/95497167/"
+            >
+              Fuse Overview
+            </a>
+          </li>
+        </ul>
+        <h4>
+          Red Hat AMQ
+        </h4>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <a
+              href="https://developers.redhat.com/products/amq/help/"
+            >
+              AMQ Community Q&A
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://access.redhat.com/products/red-hat-amq"
+            >
+              AMQ Videos
+            </a>
+          </li>
+        </ul>
       </Col>
     </Row>
     <Row
@@ -99,10 +132,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={8}
         xs={12}
       >
-        <h2>
+        <h3>
           tutorial.tasksToComplete
           <div
-            className="pull-right"
+            className="pull-right task-dashboard-time-to-completion"
           >
             <Icon
               name="clock-o"
@@ -114,13 +147,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               tutorial.minutes
             </span>
           </div>
-        </h2>
+        </h3>
         <ListView
           className="list-view-pf-integreatly"
         >
           <ListViewItem
             actions={
-              <div>
+              <div
+                className="task-dashboard-estimated-time"
+              >
                 <Icon
                   name="clock-o"
                   style={
@@ -166,7 +201,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           />
           <ListViewItem
             actions={
-              <div>
+              <div
+                className="task-dashboard-estimated-time"
+              >
                 <Icon
                   name="clock-o"
                   style={
@@ -199,6 +236,23 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             stacked={true}
           />
         </ListView>
+      </Col>
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={8}
+        xs={12}
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="primary"
+          disabled={false}
+          onClick={[Function]}
+        >
+          tutorial.getStarted
+        </Button>
       </Col>
     </Row>
   </Grid>

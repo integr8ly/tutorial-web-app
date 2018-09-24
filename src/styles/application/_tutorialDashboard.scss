@@ -2,7 +2,7 @@
   .app-tutorial-dashboard {
     width: 100%;
     .card-pf-body {
-      min-height: 200px;
+      min-height: 270px;
     }
   }
 }
@@ -10,7 +10,7 @@
   .app-tutorial-dashboard {
     width: 66.6%;
     .card-pf-body {
-      min-height: 180px;
+      min-height: 250px;
     }
   }
 }
@@ -24,11 +24,13 @@
     & h2 {
       flex-basis: 50%;
       margin-top: 5px;
+      font-weight: 300;
     }
-    & div {
+    .walkthrough-counter {
       flex-basis: 50%;
-      margin-top: 5px;
+      margin-top: 12px;
       text-align: right;
+      font-weight: 600;
     }
   }
 }

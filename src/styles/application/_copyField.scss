@@ -2,9 +2,6 @@
   &-input {
     &.false {
       width: 200px;
-      @media (min-width: 768px) {
-        width: 400px;
-      }
       text-overflow: ellipsis;
     }
     &.expanded {
@@ -24,6 +21,35 @@
     .input-group-addon,
     .input-group-btn {
       width: auto;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .integr8ly-copy {
+    &-input {
+      &.false {
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .integr8ly-copy {
+    &-input {
+      &.false {
+        width: 400px;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .integr8ly-copy {
+    &-input {
+      &.false {
+        width: 400px;
+      }
     }
   }
 }

@@ -31,11 +31,7 @@ class InstalledAppsView extends React.Component {
         key={`${app.spec.clusterServiceClassExternalName}_${index}`}
         value={index}
       >
-        <h3>
-          {app.spec.clusterServiceClassExternalName}
-          <i className="fa fa-external-link" />
-        </h3>
-        <p>{InstalledAppsView.getStatusForApp(app)}</p>
+        <h3>{app.spec.clusterServiceClassExternalName}</h3>
       </li>
     ));
     return <ul className="app-installed-apps-view-list">{masterList}</ul>;
@@ -46,7 +42,7 @@ class InstalledAppsView extends React.Component {
     return (
       <div className="panel panel-default app-installed-apps-view">
         <div className="panel-heading panel-title app-installed-apps-view-panel-title">
-          <h2>Experience application services</h2>
+          <h2>Applications</h2>
           <div>{this.props.apps.length} services</div>
         </div>
         <div className="panel-content">{appList}</div>
@@ -59,8 +55,7 @@ InstalledAppsView.propTypes = {
   apps: PropTypes.arrayOf(
     PropTypes.shape({
       appName: PropTypes.string,
-      appIcon: PropTypes.string,
-      appDescription: PropTypes.string
+      appIcon: PropTypes.string
     })
   ).isRequired
 };

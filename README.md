@@ -31,31 +31,27 @@ oc start-build -n webapp-001 tutorial-web-app
 
 # Deployment to OpenShift (Non-Development Setup)
 
-When deploying to OpenShift, services and their urls are retrived from the OpenShift cluster.
-
-To deploy, first export a variable set to the host of your OpenShift master.
-For example:
+A git reference can be deployed to a remote OpenShift cluster.
 
 ```
-export OPENSHIFT_HOST=openshift.example.com:8443
+cd deployment
+./create_webapp.sh openshift.example.com:8443 webapp-001 development
 ```
 
-Import the template and initialise it.
+NOTE: The cluster must be setup for cors manually. This requires adding the webapp route to the `corsAllowedOrigins` block in master-config.yml.
+
+To rebuild & redeploy:
+
+```
+oc start-build -n webapp-001 tutorial-web-app
+```
+
+# Deployment to OpenShift (Non-Development Setup)
 
 ```
 oc new-project tutorial-web-app
-oc apply -f deployment/openshift-template.yml
-oc new-app --template tutorial-web-app -p OPENSHIFT_HOST=$OPENSHIFT_HOST
-```
-
-For other parameters that you may want to change, check the template.
-
-You will also need to create an OAuthClient. This will require cluster-admin privileges.
-
-```
-export WEBAPP_HOST=`oc get route tutorial-web-app -n tutorial-web-app --template '{{.spec.host}}'`
-oc create -f deployment/openshift-oauthclient.yml
-oc patch oauthclient tutorial-web-app -p "{\"redirectURIs\":[\"https://$WEBAPP_HOST\"]}"
+find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
+oc new-app --template react-demo-app -p SOURCE_REPOSITORY_URL=https://github.com/priley86/integr8ly-prototype -p SOURCE_REPOSITORY_REF=development
 ```
 
 # Ascii Doc Support
