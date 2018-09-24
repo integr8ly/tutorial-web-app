@@ -31,6 +31,23 @@ oc start-build -n webapp-001 tutorial-web-app
 
 # Deployment to OpenShift (Non-Development Setup)
 
+A git reference can be deployed to a remote OpenShift cluster.
+
+```
+cd deployment
+./create_webapp.sh openshift.example.com:8443 webapp-001 development
+```
+
+NOTE: The cluster must be setup for cors manually. This requires adding the webapp route to the `corsAllowedOrigins` block in master-config.yml.
+
+To rebuild & redeploy:
+
+```
+oc start-build -n webapp-001 tutorial-web-app
+```
+
+# Deployment to OpenShift (Non-Development Setup)
+
 ```
 oc new-project tutorial-web-app
 find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
@@ -64,3 +81,26 @@ xq . [OUTPUT-XML-FILE] > [OUTPUT-JSON-FILE]
 ```
 
 This JSON can then be referenced in the appropriate language locale under `public/locales/*.json`.
+
+
+# Releasing
+
+To do a release of the webapp, update the version in package.json
+
+```
+npm version x.y.z
+git tag x.y.z
+```
+
+Push the changes (including the version tag) to the repo
+
+```
+git push origin master
+git push --tags
+```
+
+This will trigger a new release build.
+If the build is successful, a new image will be pushed to https://quay.io/repository/integreatly/tutorial-web-app.
+The new image will be tagged as `latest` and the version number `x.y.z`.
+
+TODO: Installing a released version of the webapp to OpenShift
