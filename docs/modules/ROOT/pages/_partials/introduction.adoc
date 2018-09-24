@@ -14,7 +14,7 @@ In a multi-application system, you often find:
 
 A more structured approach involves:
 
-* a simple integration that developers can understand intuitively
+* a simple integration that developers can understand intuitively 
 * simple provisioning and configuration
 * built-in monitoring
 

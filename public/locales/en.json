@@ -12,6 +12,7 @@
   },
   "task": {
     "CompleteAndCheck": "Complete and check all work before proceeding",
+    "whatsNext": "What's next?",
     "verificationTitle": "Did it work?",
     "completeTaskFirst": "You may still view the next task, but this task should be completed first.",
     "backToIntro": "Back to Intro",
