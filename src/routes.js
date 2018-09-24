@@ -1,3 +1,4 @@
+import CongratulationsPage from './pages/congratulations/congratulations';
 import HelpPage from './pages/help/help';
 import LandingPage from './pages/landing/landingPage';
 import TutorialPage from './pages/tutorial/tutorial';
@@ -50,6 +51,13 @@ const routes = () => [
     to: '/oauth/callback',
     component: OAuthPage,
     exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Congratulations',
+    to: '/congratulations/:id',
+    component: CongratulationsPage,
+    exact: false
   }
 ];
 
