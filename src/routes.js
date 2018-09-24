@@ -1,6 +1,5 @@
 import HelpPage from './pages/help/help';
 import LandingPage from './pages/landing/landingPage';
-// import StaticLandingPage from './pages/staticLanding/staticLandingPage';
 import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
 import OAuthPage from './pages/oauth/oauth';
