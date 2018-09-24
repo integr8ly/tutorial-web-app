@@ -51,9 +51,9 @@ class TutorialPage extends React.Component {
                   {t('tutorial.getStarted')}
                 </Button>
               </Grid.Col>
-              <Grid.Col sm={4} className="integr8ly-prerequisites">
-                <h4>Helpful Links</h4>
-                <h4>Red Hat OpenShift</h4>
+              <Grid.Col sm={4} className="integr8ly-helpful-links">
+                <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
+                <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
@@ -62,7 +62,7 @@ class TutorialPage extends React.Component {
                     <a href="https://blog.openshift.com/">OpenShift Blog</a>
                   </li>
                 </ul>
-                <h4>
+                <h4 className="integr8ly-helpful-links-product-title">
                   Red Hat Fuse
                   <span className="label label-default integr8ly-label-non-ga">Non-GA</span>
                 </h4>
@@ -74,7 +74,7 @@ class TutorialPage extends React.Component {
                     <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
                   </li>
                 </ul>
-                <h4>Red Hat AMQ</h4>
+                <h4 className="integr8ly-helpful-links-product-title">Red Hat AMQ</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>

@@ -196,8 +196,8 @@ class TaskPage extends React.Component {
                 </div>
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-frame">
-                <h4>Helpful Links</h4>
-                <h4>Red Hat OpenShift</h4>
+                <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
+                <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
@@ -206,7 +206,7 @@ class TaskPage extends React.Component {
                     <a href="https://blog.openshift.com/">OpenShift Blog</a>
                   </li>
                 </ul>
-                <h4>
+                <h4 className="integr8ly-helpful-links-product-title">
                   Red Hat Fuse
                   <span className="label label-default integr8ly-label-non-ga">Non-GA</span>
                 </h4>
@@ -218,7 +218,7 @@ class TaskPage extends React.Component {
                     <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
                   </li>
                 </ul>
-                <h4>Red Hat AMQ</h4>
+                <h4 className="integr8ly-helpful-links-product-title">Red Hat AMQ</h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>

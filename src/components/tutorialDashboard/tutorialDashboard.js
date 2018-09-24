@@ -17,7 +17,6 @@ const TutorialDashboard = () => (
               getStartedLink="/tutorial/0"
               getStartedText="Get Started"
               getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-              users={[TutorialCard.users.OPERATOR, TutorialCard.users.DEVELOPER]}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
               mins={40}
             >
@@ -33,11 +32,10 @@ const TutorialDashboard = () => (
               getStartedLink="#"
               getStartedText=""
               getStartedIcon={<span>&nbsp;</span>}
-              users={[TutorialCard.users.DEVELOPER]}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
               mins={0}
             >
-              <p>Coming soon.</p>
+              <p>Coming soon!</p>
             </TutorialCard>
           </Col>
           <Col xs={12} sm={4}>
@@ -46,11 +44,10 @@ const TutorialDashboard = () => (
               getStartedLink="#"
               getStartedText=""
               getStartedIcon={<span>&nbsp;</span>}
-              users={[TutorialCard.users.OPERATOR, TutorialCard.users.DEVELOPER]}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
               mins={0}
             >
-              <p>Coming soon.</p>
+              <p>Coming soon!</p>
             </TutorialCard>
           </Col>
           <Col xs={12} sm={4}>
@@ -59,11 +56,10 @@ const TutorialDashboard = () => (
               getStartedLink="#"
               getStartedText=""
               getStartedIcon={<span>&nbsp;</span>}
-              users={[TutorialCard.users.OPERATOR, TutorialCard.users.DEVELOPER]}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
               mins={0}
             >
-              <p>Coming soon.</p>
+              <p>Coming soon!</p>
             </TutorialCard>
           </Col>
           <Col xs={12} sm={4}>
@@ -72,11 +68,10 @@ const TutorialDashboard = () => (
               getStartedLink="#"
               getStartedText=""
               getStartedIcon={<span>&nbsp;</span>}
-              users={[TutorialCard.users.OPERATOR]}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
               mins={0}
             >
-              <p>Coming soon.</p>
+              <p>Coming soon!</p>
             </TutorialCard>
           </Col>
         </Row>

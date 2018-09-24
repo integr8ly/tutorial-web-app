@@ -1,16 +1,19 @@
 .task-dashboard {
   &-time-to-completion {
     margin-top: 5px;
-    color: #72767b;
+    margin-right: 15px;
+    color: $color-pf-black-600;
     font-size: $pf-global--FontSize--lg;
-    font-weight: 400;
+    font-weight: $pf-global--FontWeight--normal;
   }
+
   &-estimated-time {
-    color: #72767b;
-    font-weight: 300;
+    color: $color-pf-black-600;
+    font-weight: $pf-global--FontWeight--normal;
   }
 }
+
 .list-view-pf-stacked .list-group-item-heading {
   font-size: $pf-global--FontSize--xl;
-  font-weight: 400;
+  font-weight: $pf-global--FontWeight--normal;
 }

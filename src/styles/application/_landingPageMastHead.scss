@@ -6,17 +6,27 @@
     background-position: top right;
     background-size: cover;
     color: $color-pf-white;
-    height: 150px;
+    height: 130px;
     margin: auto 0;
     display: flex;
     &:after {
       background-image: url(../../img/RedHatLogo.png);
       background-repeat: no-repeat;
       position: absolute;
-      top: 20px;
+      top: 25px;
       right: 25px;
       height: 38px;
       width: 115px;
+    }
+    h4 {
+      margin-top: 22px;
+    }
+    &-days-remaining {
+      position: absolute;
+      top: 80px;
+      right: 25px;
+      color: $color-pf-black-900;
+      font-weight: $pf-global--FontWeight--bold;
     }
   }
 }

@@ -7,15 +7,11 @@
 }
 
 .app-tutorial-card {
-  text-align: center;
   &-rectangle {
     background-color: $color-pf-black-300;
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
-  }
-  &-user-types {
-    color: $color-pf-black-600;
   }
 }
 .app-tutorial-card-footer-item {

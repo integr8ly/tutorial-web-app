@@ -2,8 +2,6 @@
   color: $color-pf-white;
 }
 .text-dark {
-  /* stylelint disable */
-  color: $color-pf-black-900 !important;
-  /* stylelint enable */
+  color: $color-pf-black-900 !important; /* stylelint-disable-line declaration-no-important */
   font-weight: 600;
 }

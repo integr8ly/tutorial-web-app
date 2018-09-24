@@ -3,23 +3,7 @@ import { Card, CardBody, CardFooter, CardTitle, Icon, noop } from 'patternfly-re
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-/** User enums for the users prop */
-const users = {
-  DEVELOPER: 'Developer',
-  OPERATOR: 'Operator'
-};
-
 const TutorialCard = props => {
-  let userList;
-  // eslint-disable-next-line array-callback-return
-  props.users.map(user => {
-    if (userList) {
-      userList = `${userList}, ${user}`;
-    } else {
-      userList = user;
-    }
-  });
-
   return (
     <Card
       matchHeight
@@ -32,12 +16,7 @@ const TutorialCard = props => {
       <CardTitle>
         <div> {props.title} </div>
       </CardTitle>
-      <CardBody>
-        {props.children}
-        <div className="app-tutorial-card-user-types">
-          <Icon type="pf" name="user" /> {userList}
-        </div>
-      </CardBody>
+      <CardBody> {props.children} </CardBody>
       <CardFooter className="app-tutorial-card-pf-footer">
         <a className="app-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
           {props.getStartedIcon}
@@ -45,14 +24,12 @@ const TutorialCard = props => {
         </a>
         <div className="app-tutorial-card-pf-footer-time-to-complete">
           {props.minsIcon}
-          {props.mins} <span>Minutes</span>
+          {props.mins} <span>min</span>
         </div>
       </CardFooter>
     </Card>
   );
 };
-
-TutorialCard.users = users;
 
 TutorialCard.propTypes = {
   /** Content rendered inside the tutorial card  */
@@ -65,8 +42,6 @@ TutorialCard.propTypes = {
   getStartedText: PropTypes.string.isRequired,
   /** Icon for the Get Started link */
   getStartedIcon: PropTypes.object.isRequired,
-  /** Users that apply to this tutorial */
-  users: PropTypes.arrayOf(PropTypes.oneOf(Object.keys(users))).isRequired,
   /** Mins to complete the tutorial */
   mins: PropTypes.number.isRequired,
   /** Icon for the minutes label */

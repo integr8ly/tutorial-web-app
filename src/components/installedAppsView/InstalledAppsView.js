@@ -31,7 +31,7 @@ class InstalledAppsView extends React.Component {
         key={`${app.spec.clusterServiceClassExternalName}_${index}`}
         value={index}
       >
-        <h3>{app.spec.clusterServiceClassExternalName}</h3>
+        <p>{app.spec.clusterServiceClassExternalName}</p>
       </li>
     ));
     return <ul className="app-installed-apps-view-list">{masterList}</ul>;
@@ -43,7 +43,7 @@ class InstalledAppsView extends React.Component {
       <div className="panel panel-default app-installed-apps-view">
         <div className="panel-heading panel-title app-installed-apps-view-panel-title">
           <h2>Applications</h2>
-          <div>{this.props.apps.length} services</div>
+          <div>{this.props.apps.length} applications</div>
         </div>
         <div className="panel-content">{appList}</div>
       </div>
