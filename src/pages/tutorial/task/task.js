@@ -72,7 +72,7 @@ class TaskPage extends React.Component {
   exitTutorial = e => {
     e.preventDefault();
     const { history } = this.props;
-    history.push(`/`);
+    history.push(`/congratulations/${this.props.thread.data.id}`);
   };
 
   handleVerificationChanged = (e, verification) => {
