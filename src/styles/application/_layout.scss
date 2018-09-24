@@ -2,6 +2,7 @@
   &-module {
     margin-top: 40px;
     margin-bottom: 80px;
+
     &-column {
       &--status {
         background-color: $color-pf-black-100;
@@ -9,15 +10,18 @@
         border-bottom-color: $color-pf-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
+
         .progress.progress-label-left {
           width: 80%;
           margin-top: 15px;
           margin-bottom: 10px;
           margin-left: 100px;
+
           span {
             margin-left: -100px;
           }
         }
+
         &-next {
           background-color: $color-pf-black-100;
           border-top: 1px solid;
@@ -26,6 +30,7 @@
           padding: 10px 20px 20px;
         }
       }
+
       &--steps {
         margin-right: -20px;
         margin-bottom: 56px;
@@ -33,11 +38,11 @@
         padding: 15px 20px 0;
         background-color: $color-pf-white;
       }
+
       &--footer {
         background-color: $color-pf-black-100;
         border-top: 1px solid;
         border-top-color: $color-pf-black-300;
-        // margin: 0 -20px;
         padding: 10px 20px;
         position: fixed;
         bottom: 0;
@@ -45,14 +50,18 @@
         width: 75%;
         text-align: center;
         z-index: 10;
+
         @media (max-width: 768px) {
           width: 100%;
         }
+
         &_status {
           color: $color-pf-blue;
+
           .fa {
             padding-right: 5px;
           }
+
           &-step {
             margin-right: 15px;
           }
@@ -60,6 +69,7 @@
       }
     }
   }
+
   &-frame {
     position: fixed;
     top: 38px;
@@ -67,23 +77,33 @@
     bottom: 0;
     overflow-y: auto;
     background-color: $color-pf-black-200;
+
     @media (max-width: 768px) {
       display: none;
     }
   }
-  // &-task-container {
-  //   margin-top: 40px;
-  // }
-  &-prerequisites {
+
+  &-helpful-links {
     position: fixed;
-    // top: 38px;
     top: 0;
     right: 0;
     bottom: 0;
     background-color: $color-pf-black-200;
     border-left: 1px solid;
     border-left-color: $color-pf-black-300;
+    &-heading {
+      margin-bottom: 28px;
+      font-weight: $pf-global--FontWeight--normal;
+    }
+    &-product-title {
+      font-weight: $pf-global--FontWeight--bold;
+      margin-top: 30px;
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
   }
+
   &-steel-thread-rows {
     margin-top: -10em;
     display: flex;
@@ -91,27 +111,33 @@
     align-items: center;
     width: 100%;
   }
+
   &-list-group--application-list {
     margin-top: 20px;
   }
+
   &-masthead {
     background-color: $color-pf-black-500;
     color: $color-pf-white;
     height: 325px;
   }
+
   &-container-cards-pf {
     margin-top: 0;
   }
+
   &-card-pf {
     &-footer {
       background-color: $color-pf-white;
       border-top: none;
     }
   }
+
   &-label-non-ga {
     margin-left: 10px;
   }
 }
+
 .module-list {
   padding-left: 15px;
 }

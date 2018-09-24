@@ -19,9 +19,9 @@ $pf-global--FontWeight--normal: 400 !default;
 $pf-global--FontWeight--semi-bold: 500 !default;
 $pf-global--FontWeight--bold: 600 !default;
 
-$font-weight-light:           $pf-global--FontWeight--light !default;
-$font-weight-normal:          $pf-global--FontWeight--normal !default;
-$font-weight-bold:            $pf-global--FontWeight--bold !default;
+$font-weight-light: $pf-global--FontWeight--light !default;
+$font-weight-normal: $pf-global--FontWeight--normal !default;
+$font-weight-bold: $pf-global--FontWeight--bold !default;
 
 // Font size
 $font-size-base: 16px;
@@ -35,17 +35,18 @@ $pf-global--FontSize--md: $font-size-base;
 $pf-global--FontSize--sm: 14px;
 $pf-global--FontSize--xs: 12px;
 
-$h1-font-size:                $pf-global--FontSize--4xl !default;
-$h2-font-size:                $pf-global--FontSize--3xl !default;
-$h3-font-size:                $pf-global--FontSize--2xl !default;
-$h4-font-size:                $pf-global--FontSize--xl !default;
-$h5-font-size:                $pf-global--FontSize--lg !default;
-$h6-font-size:                $pf-global--FontSize--sm !default;
+$h1-font-size: $pf-global--FontSize--4xl !default;
+$h2-font-size: $pf-global--FontSize--3xl !default;
+$h3-font-size: $pf-global--FontSize--2xl !default;
+$h4-font-size: $pf-global--FontSize--xl !default;
+$h5-font-size: $pf-global--FontSize--lg !default;
+$h6-font-size: $pf-global--FontSize--sm !default;
 
 // Body / Paragraph styling
 body {
   font-size: $pf-global--FontSize--md;
 }
+
 p {
   font-size: $pf-global--FontSize--md;
 }
@@ -54,45 +55,80 @@ p {
 h1 {
   font-size: $h1-font-size;
 }
+
 h2 {
   font-size: $h2-font-size;
 }
+
 h3 {
   font-size: $h3-font-size;
 }
+
 h4 {
   font-size: $h4-font-size;
 }
+
 h5 {
   font-size: $h5-font-size;
 }
+
 h6 {
   font-size: $h6-font-size;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: $pf-global--FontWeight--semi-bold;
 }
-h1, h2, h3 {
-  &.small, small {
+
+h1,
+h2,
+h3 {
+
+  &.small,
+  small {
     font-weight: $pf-global--FontWeight--normal;
     font-size: 65%;
   }
 }
-h4, h5, h6 {
-  &.small, small {
+
+h4,
+h5,
+h6 {
+
+  &.small,
+  small {
     font-weight: $pf-global--FontWeight--normal;
     font-size: 75%;
   }
 }
-.h1, .h2, .h3, h1, h2, h3 {
+
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-.h4, .h5, .h6, h4, h5, h6 {
+
+.h4,
+.h5,
+.h6,
+h4,
+h5,
+h6 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.small, small {
+
+.small,
+small {
   font-size: 91%;
 }
 
@@ -101,6 +137,7 @@ h4, h5, h6 {
 .form-control {
   font-size: $pf-global--FontSize--md;
 }
+
 .form-control {
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
