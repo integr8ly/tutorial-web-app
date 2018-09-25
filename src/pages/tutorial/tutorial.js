@@ -5,6 +5,7 @@ import { translate } from 'react-i18next';
 import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
+import PfMasthead from '../../components/masthead/masthead';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -45,13 +46,16 @@ class TutorialPage extends React.Component {
         <React.Fragment>
           <Grid fluid>
             <Grid.Row>
+              <PfMasthead />
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
                 <AsciiDocTemplate adoc={thread.data.descriptionDoc} />
                 <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                   {t('tutorial.getStarted')}
                 </Button>
               </Grid.Col>
-              <Grid.Col sm={4} className="integr8ly-helpful-links">
+              <Grid.Col sm={4} className="integr8ly-task-container">
                 <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
                 <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
                 <ul className="list-unstyled">

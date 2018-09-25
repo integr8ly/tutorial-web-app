@@ -4,8 +4,7 @@ import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
 import { aboutModalTypes } from '../../redux/constants';
-import iconImg from '../../img/logo-alt.svg';
-import titleImg from '../../img/brand-alt.svg';
+import titleImg from '../../img/brand-alt-solutions-explorer.svg';
 
 class Masthead extends React.Component {
   state = {
@@ -73,7 +72,7 @@ class Masthead extends React.Component {
 
   renderActions() {
     return (
-      <PfMasthead.Dropdown id="app-help-dropdown" noCaret title={<span aria-hidden className="pficon pficon-help" />}>
+      <PfMasthead.Dropdown id="app-help-dropdown" title={<span aria-hidden className="pficon pficon-help" />}>
         <MenuItem eventKey="1" onClick={this.onHelp}>
           Help
         </MenuItem>
@@ -106,12 +105,7 @@ class Masthead extends React.Component {
 
   render() {
     return (
-      <PfMasthead
-        iconImg={iconImg}
-        titleImg={titleImg}
-        title="PatternFly Enterprise Application"
-        onNavToggleClick={this.navToggle}
-      >
+      <PfMasthead titleImg={titleImg}>
         <PfMasthead.Collapse>
           {this.renderActions()}
           {this.renderUserDropdown()}
@@ -122,16 +116,22 @@ class Masthead extends React.Component {
   }
 }
 
-Masthead.propTypes = {
+PfMasthead.propTypes = {
+  titleImg: PropTypes.string,
+  navToggle: PropTypes.bool,
   logoutUser: PropTypes.func,
+  onTitleClick: PropTypes.func,
   user: PropTypes.shape({
     username: PropTypes.string
   }),
   history: PropTypes.object
 };
 
-Masthead.defaultProps = {
+PfMasthead.defaultProps = {
+  titleImg: '',
+  navToggle: false,
   logoutUser: noop,
+  onTitleClick: noop,
   user: {},
   history: {}
 };
