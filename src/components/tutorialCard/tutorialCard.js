@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, CardTitle, Icon, noop } from 'patternfly-react';
+import { Card, CardBody, CardFooter, CardTitle, noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

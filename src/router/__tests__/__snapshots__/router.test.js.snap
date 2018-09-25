@@ -35,6 +35,12 @@ exports[`Router Component should render a basic component 1`] = `
       key="/oauth/callback"
       path="/oauth/callback"
     />
+    <Route
+      component={[Function]}
+      exact={false}
+      key="/congratulations/:id"
+      path="/congratulations/:id"
+    />
     <Redirect
       from="/"
       push={false}

@@ -256,24 +256,6 @@ const findOrCreateOpenshiftResource = (openshiftResourceDef, resToFind, compareF
   });
 
 /**
- * Helper function for creating or updating an OpenShift Resource.
- * @param {Object} resourceDef The definition of the OpenShift Resource.
- * @param {Object} resource The OpenShift Resource itself. By default this needs only to contain a name.
- * @param {Function} replaceIfFn A custom function for comparing resources, determines if a resource is found.
- */
-const replaceOpenShiftResource = (
-  resourceDef,
-  resource,
-  replaceIfFn = resObj => resObj.metadata.name === resource.metadata.name
-) =>
-  findOrCreateOpenshiftResource(resourceDef, resource).then(res => {
-    if (replaceIfFn(res)) {
-      return update(res, res);
-    }
-    return Promise.resolve(res);
-  });
-
-/**
  * Construct a projects namespace from a given username.
  * Note that the namespace name might contain the full username as it is sanitized first.
  * @param {string} username The username to create the namespace name from.
