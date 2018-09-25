@@ -1,16 +1,11 @@
-@media (max-width: 1091px) {
-  .app-installed-apps-view {
+.integr8ly-installed-apps-view {
+  margin-bottom: 0;
+  @media (max-width: 1091px) {
     width: 100%;
   }
-}
-@media (min-width: 1092px) {
-  .app-installed-apps-view {
+  @media (min-width: 1092px) {
     width: 33.3%;
   }
-}
-
-.app-installed-apps-view {
-  margin-bottom: 0;
   & .panel-title {
     background-color: $color-pf-white;
   }
@@ -30,24 +25,24 @@
       text-align: right;
     }
   }
-}
-.app-installed-apps-view-list {
-  list-style-type: none;
-  padding: 0;
-  i {
-    margin-left: 5px;
-  }
-  & li {
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    p {
-      margin-bottom: 0;
+  &-list {
+    list-style-type: none;
+    padding: 0;
+    i {
+      margin-left: 5px;
     }
-  }
-  & li:hover {
-    background-color: $color-pf-blue-50;
-    cursor: pointer;
+    & li {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+    & li:hover {
+      background-color: $color-pf-blue-50;
+      cursor: pointer;
+    }
   }
 }

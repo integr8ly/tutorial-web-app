@@ -1,38 +1,36 @@
-.app-tutorial-card {
+.integr8ly-tutorial-card {
   min-width: 100px;
   &:hover {
     box-shadow: 0 1px 6px rgba(3,3,3,.35);
     cursor: pointer;
   }
-}
-
-.app-tutorial-card {
   &-rectangle {
     background-color: $color-pf-black-300;
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
   }
-}
-.app-tutorial-card-footer-item {
-  margin-bottom: 10px;
-}
 
-.app-tutorial-card-pf-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  padding-bottom: 20px;
-  display: flex;
-  &-get-started {
-    flex-basis: 50%;
-    text-align: left;
+  &-footer-item {
+    margin-bottom: 10px;
   }
-  &-time-to-complete {
-    flex-basis: 50%;
-    text-align: right;
-    .fa-clock-o:before {
-      color: $color-pf-black-600;
+
+  &-pf-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding-bottom: 20px;
+    display: flex;
+    &-get-started {
+      flex-basis: 50%;
+      text-align: left;
+    }
+    &-time-to-complete {
+      flex-basis: 50%;
+      text-align: right;
+      .fa-clock-o:before {
+        color: $color-pf-black-600;
+      }
     }
   }
 }

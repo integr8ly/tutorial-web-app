@@ -1,23 +1,18 @@
-@media (max-width: 1091px) {
-  .app-tutorial-dashboard {
+.integr8ly-tutorial-dashboard {
+  margin-bottom: 0;
+  background-color: $color-pf-black-150;
+  @media (max-width: 1091px) {
     width: 100%;
     .card-pf-body {
       min-height: 270px;
     }
   }
-}
-@media (min-width: 1092px) {
-  .app-tutorial-dashboard {
+  @media (min-width: 1092px) {
     width: 66.6%;
     .card-pf-body {
       min-height: 250px;
     }
   }
-}
-
-.app-tutorial-dashboard {
-  margin-bottom: 0;
-  background-color: $color-pf-black-150;
   & .panel-title {
     display: flex;
     border: none;

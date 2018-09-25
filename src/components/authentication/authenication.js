@@ -143,7 +143,7 @@ class Authentication extends React.Component {
 
   static renderLoading(message = 'Loading...') {
     return (
-      <Card className="app-login-loading-card">
+      <Card className="integr8ly-app-login-loading-card">
         <Card.Body>
           <div className="spinner spinner-xl" />
           <div className="text-center">{message}</div>
@@ -157,7 +157,7 @@ class Authentication extends React.Component {
     const { session } = this.props;
 
     return (
-      <Card className="app-login-card">
+      <Card className="integr8ly-app-login-card">
         <header className="login-pf-header">
           <select className="selectpicker">
             <option>English</option>
@@ -166,10 +166,10 @@ class Authentication extends React.Component {
         </header>
         <Card.Body>
           <Form method="post" autoComplete={remember ? 'on' : 'off'} onSubmit={this.onLogin}>
-            <div className="app-login-card-error help-block" aria-live="polite">
+            <div className="integr8ly-app-login-card-error help-block" aria-live="polite">
               {(!formTouched && session.error && session.loginFailed) ||
-              (emailError !== '' && emailError !== null) ||
-              (passwordError !== '' && passwordError !== null)
+                (emailError !== '' && emailError !== null) ||
+                (passwordError !== '' && passwordError !== null)
                 ? 'Email address or password is incorrect.'
                 : null}
             </div>
@@ -197,7 +197,7 @@ class Authentication extends React.Component {
                 onChange={this.onChangePassword}
               />
             </Form.FormGroup>
-            <Form.FormGroup controlId="remember" className="login-pf-settings app-login-settings">
+            <Form.FormGroup controlId="remember" className="login-pf-settings integr8ly-app-login-settings">
               <Form.Checkbox
                 name="remember"
                 checked={remember}
@@ -228,8 +228,8 @@ class Authentication extends React.Component {
     }
 
     return (
-      <div className="login-pf app-login fadein">
-        <div className="login-pf-page app-login-body">
+      <div className="login-pf integr8ly-app-login fadein">
+        <div className="login-pf-page integr8ly-app-login-body">
           <div className="container-fluid">
             <Grid.Row>
               <Grid.Col sm={8} smOffset={2} md={6} mdOffset={3} lg={6} lgOffset={3}>
