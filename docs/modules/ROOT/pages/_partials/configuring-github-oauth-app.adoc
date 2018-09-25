@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='configuring-github-oauth-app_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
+
+
+= Configuring a GitHub OAuth App
+
+ifdef::location[]
+// tag::intro[]
+Some walkthroughs require access to your GitHub account. A GitHub OAuth app enables this integration.
+// end::intro[]
+endif::location[]
+
+. Navigate to https://github.com/settings/developers
+. Click *New OAuth App*
+. Enter `{integreatly}` as the name for the app.
+. Enter the URL you received as part of your onboarding as the  *Homepage URL* and *Authorization callback URL*.
+
+
+ifdef::location[]
+
+.Verification
+// tag::verification[]
+Check *Developer Settings* in your GitHub account to make sure the OAuth app exists.
+// end::verification[]
+endif::location[]
+

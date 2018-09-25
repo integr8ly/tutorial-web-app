@@ -1,0 +1,20 @@
+// The master.adoc file for The Integreatly Guide
+
+:numbered:
+:chapter-label:
+
+:steel-thread: Integrating event-driven and API-driven applications
+
+
+// Book Title
+= {steel-thread}
+
+include::{partialsdir}/integrating-eventdriven-and-apidriven-applications-introduction.adoc[leveloffset=1]
+
+include::{partialsdir}/enmasse.adoc[leveloffset=1]
+
+include::{partialsdir}/connections.adoc[leveloffset=1]
+
+include::{partialsdir}/creating-fuse-integration.adoc[leveloffset=1]
+
+include::{partialsdir}/using-integration.adoc[leveloffset=1]

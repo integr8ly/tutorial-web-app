@@ -1,7 +1,7 @@
 {
   "id": 0,
-  "title": "Integrating event-driven and API-driven applications",
-  "descriptionDoc": "thread-0-description.adoc",
+  "title": "Configuring an {integreatly} environment",
+  "descriptionDoc": "configuring-an-integreatly-environment-introduction.adoc",
   "prerequisites": [
     "Access to an OpenShift instance with Integreatly components installed",
     "A GitHub account configured with an OAuth App to use the Integreatly Launcher instance."
@@ -11,99 +11,35 @@
     "Operator",
     "Developer"
   ],
-  "applications": [
-    "Red Hat OpenShift Application Runtimes",
-    "Eclipse Che",
-    "Fuse Ignite",
-    "EnMasse"
-  ],
+  "applications": [],
   "tasks": [
     {
-      "title": "Setting up a message queue",
+      "title": "Configuring a GitHub OAuth App",
       "estimatedTime": 6,
       "steps": [
         {
-          "stepDoc": "setting-up-enmasse.adoc",
+          "stepDoc": "configuring-github-oauth-app.adoc",
           "infoVerifications": [
-            "setting-up-enmasse-verification.adoc"
+            "configuring-github-oauth-app-verification.adoc"
           ],
           "attributes": {
             "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
             "openshift-url": "http://employee.openshift.com/"
           }
-        },
-        {
-          "stepDoc": "creating-enmasse-binding.adoc",
-          "infoVerifications": [
-            "creating-enmasse-binding-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
-        },
-        {
-          "stepDoc": "creating-addresses.adoc",
-          "infoVerifications": [
-            "creating-addresses-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
-          }
         }
       ]
     },
     {
-      "title": "Creating connections",
+      "title": "Creating user",
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-amqp-connection-in-fuse.adoc",
+          "stepDoc": "creating-users.adoc",
           "infoVerifications": [
-            "creating-amqp-connection-in-fuse-verification.adoc"
+            "creating-users-verification.adoc"
           ],
           "attributes": {
-            "openshift-url": "http://employee.openshift.com/",
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
-        },
-        {
-          "stepDoc": "creating-http-connection-in-fuse.adoc",
-          "infoVerifications": [
-            "creating-http-connection-in-fuse-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Creating an integration",
-      "estimatedTime": 5,
-      "steps": [
-        {
-          "stepDoc": "creating-fuse-integration.adoc",
-          "infoVerifications": [
-            "creating-fuse-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Using the application integration",
-      "estimatedTime": 5,
-      "steps": [
-        {
-          "stepDoc": "using-integration.adoc",
-          "successVerifications": [
-            "using-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+            "sso-admin-url": "https://console-keycloak.cluster-lfa3xlh.opentry.me/console/eval"
           }
         }
       ]

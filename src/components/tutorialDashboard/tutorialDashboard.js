@@ -13,8 +13,20 @@ const TutorialDashboard = () => (
         <Row>
           <Col xs={12} sm={4}>
             <TutorialCard
-              title="Integrating event-driven and API-driven applications"
+              title="Configuring an {integreatly} environment"
               getStartedLink="/tutorial/0"
+              getStartedText="Get Started"
+              getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
+              minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
+              mins={40}
+            >
+              <p>Complete these configuration tasks to ensure that you can complete all walkthroughs.</p>
+            </TutorialCard>
+          </Col>
+          <Col xs={12} sm={4}>
+            <TutorialCard
+              title="Integrating event-driven and API-driven applications"
+              getStartedLink="/tutorial/1A"
               getStartedText="Get Started"
               getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}

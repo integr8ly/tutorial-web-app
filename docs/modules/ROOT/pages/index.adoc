@@ -2,19 +2,14 @@
 
 :numbered:
 :chapter-label:
-
-:steel-thread: Integrating event-driven and API-driven applications
-
+:integreatly: Integreatly
 
 // Book Title
-= {steel-thread}
+= Configuring an {integreatly} environment
 
-include::{partialsdir}/introduction.adoc[leveloffset=1]
+include::{partialsdir}/configuring-an-integreatly-environment-introduction.adoc[leveloffset=1]
 
-include::{partialsdir}/enmasse.adoc[leveloffset=1]
+include::{partialsdir}/configuring-github-oauth-app.adoc[leveloffset=1]
 
-include::{partialsdir}/connections.adoc[leveloffset=1]
+include::{partialsdir}/creating-users.adoc[leveloffset=1]
 
-include::{partialsdir}/creating-fuse-integration.adoc[leveloffset=1]
-
-include::{partialsdir}/using-integration.adoc[leveloffset=1]

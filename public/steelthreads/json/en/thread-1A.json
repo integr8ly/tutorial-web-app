@@ -1,0 +1,109 @@
+{
+  "id": 1,
+  "title": "Integrating event-driven and API-driven applications",
+  "descriptionDoc": "integrating-eventdriven-and-apidriven-applications-introduction.adoc",
+  "prerequisites": [
+    "You have completed Walkthrough 0"
+  ],
+  "estimatedTime": 50,
+  "roles": [
+    "Operator",
+    "Developer"
+  ],
+  "applications": [
+    "Fuse Ignite",
+    "EnMasse"
+  ],
+  "tasks": [
+    {
+      "title": "Setting up a message queue",
+      "estimatedTime": 6,
+      "steps": [
+        {
+          "stepDoc": "setting-up-enmasse.adoc",
+          "infoVerifications": [
+            "setting-up-enmasse-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        },
+        {
+          "stepDoc": "creating-enmasse-binding.adoc",
+          "infoVerifications": [
+            "creating-enmasse-binding-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
+            "openshift-url": "http://employee.openshift.com/"
+          }
+        },
+        {
+          "stepDoc": "creating-addresses.adoc",
+          "infoVerifications": [
+            "creating-addresses-verification.adoc"
+          ],
+          "attributes": {
+            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Creating connections",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "creating-amqp-connection-in-fuse.adoc",
+          "infoVerifications": [
+            "creating-amqp-connection-in-fuse-verification.adoc"
+          ],
+          "attributes": {
+            "openshift-url": "http://employee.openshift.com/",
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        },
+        {
+          "stepDoc": "creating-http-connection-in-fuse.adoc",
+          "infoVerifications": [
+            "creating-http-connection-in-fuse-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Creating an integration",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "creating-fuse-integration.adoc",
+          "infoVerifications": [
+            "creating-fuse-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Using the application integration",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "using-integration.adoc",
+          "successVerifications": [
+            "using-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    }
+  ]
+}
