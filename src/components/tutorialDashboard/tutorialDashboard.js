@@ -25,8 +25,23 @@ const TutorialDashboard = () => (
           </Col>
           <Col xs={12} sm={4}>
             <TutorialCard
-              title="Integrating event-driven and API-driven applications"
+              title="Integrating event-driven and API-driven applications (EnMasse)"
               getStartedLink="/tutorial/1A"
+              getStartedText="Get Started"
+              getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
+              minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
+              mins={40}
+            >
+              <p>
+                Build a simple REST-based integration that enables a new fruit type to be added to an inventory list for
+                a fictional grocery list.
+              </p>
+            </TutorialCard>
+          </Col>
+          <Col xs={12} sm={4}>
+            <TutorialCard
+              title="Integrating event-driven and API-driven applications (AMQ)"
+              getStartedLink="/tutorial/1"
               getStartedText="Get Started"
               getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
               minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
