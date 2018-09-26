@@ -47,7 +47,7 @@ const namespaceRequestDef = {
   name: 'projectrequests',
   version: 'v1',
   group: 'project.openshift.io'
-}
+};
 const namespaceRequestResource = name => ({
   kind: 'ProjectRequest',
   metadata: {
@@ -58,7 +58,7 @@ const namespaceDef = {
   name: 'projects',
   version: 'v1',
   group: 'project.openshift.io'
-}
+};
 const namespaceResource = name => ({
   kind: 'projects',
   metadata: {
@@ -84,4 +84,16 @@ const serviceInstanceDef = namespace => ({
   group: 'servicecatalog.k8s.io'
 });
 
-export { buildValidProjectNamespaceName, cleanUsername, findOrCreateOpenshiftResource, findOpenshiftResource, namespaceRequestDef, namespaceRequestResource, namespaceDef, serviceInstanceDef, namespaceResource, statefulSetDef, routeDef };
+export {
+  buildValidProjectNamespaceName,
+  cleanUsername,
+  findOrCreateOpenshiftResource,
+  findOpenshiftResource,
+  namespaceRequestDef,
+  namespaceRequestResource,
+  namespaceDef,
+  serviceInstanceDef,
+  namespaceResource,
+  statefulSetDef,
+  routeDef
+};

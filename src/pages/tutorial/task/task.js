@@ -251,7 +251,8 @@ TaskPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object
+  thread: PropTypes.object,
+  middlewareServices: PropTypes.object
 };
 
 TaskPage.defaultProps = {
@@ -265,7 +266,11 @@ TaskPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null
+  thread: null,
+  middlewareServices: {
+    data: {},
+    amqCredentials: {}
+  }
 };
 
 const mapDispatchToProps = dispatch => ({

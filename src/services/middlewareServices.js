@@ -2,7 +2,14 @@ import { list, create, watch, update, currentUser, OpenShiftWatchEvents } from '
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 import { buildServiceInstanceResourceObj, DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
-import { buildValidProjectNamespaceName, namespaceRequestDef, namespaceDef, namespaceRequestResource, statefulSetDef, routeDef } from '../common/openshiftHelpers';
+import {
+  buildValidProjectNamespaceName,
+  namespaceRequestDef,
+  namespaceDef,
+  namespaceRequestResource,
+  statefulSetDef,
+  routeDef
+} from '../common/openshiftHelpers';
 
 const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.ENMASSE,

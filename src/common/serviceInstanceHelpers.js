@@ -70,7 +70,7 @@ class MessagingAppServiceInstanceTransform {
       MESSAGING_SERVICE_PASSWORD: siInfo.amqCredentials.password,
       MESSAGING_SERVICE_USER: siInfo.amqCredentials.username,
       MESSAGING_SERVICE_HOST: siInfo.amqCredentials.url
-    }
+    };
     return defaultTransform;
   }
 }
