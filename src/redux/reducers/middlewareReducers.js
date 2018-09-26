@@ -40,7 +40,8 @@ const middlewareReducers = (state = initialState, action) => {
         ...state.middlewareServices,
         amqCredentials: {
           username: action.payload.username,
-          password: action.payload.password
+          password: action.payload.password,
+          url: action.payload.url
         }
       }
     });

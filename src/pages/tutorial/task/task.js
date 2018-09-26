@@ -6,12 +6,16 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
+import { provisionWalkthroughOne } from '../../../services/walkthroughProvisionServices';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
+    if (this.props.match.params.id === '0') {
+      provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
+    }
   }
 
   componentDidUpdate() {
@@ -269,7 +273,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  ...state.threadReducers
+  ...state.threadReducers,
+  ...state.middlewareReducers
 });
 
 const ConnectedTaskPage = withRouter(

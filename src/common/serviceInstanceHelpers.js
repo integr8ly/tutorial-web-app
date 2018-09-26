@@ -31,6 +31,18 @@ class AMQServiceInstanceTransform {
   }
 }
 
+class CRUDAppInstanceTransform {
+  isTransformable(siInfo) {
+    return siInfo.name === DEFAULT_SERVICES.CRUD_APP;
+  }
+
+  transform(siInfo) {
+    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
+    defaultTransform.spec.clusterServicePlanExternalName = 'default';
+    return defaultTransform;
+  }
+}
+
 class EnMasseServiceInstanceTransform {
   isTransformable(siInfo) {
     return siInfo.name === DEFAULT_SERVICES.ENMASSE;
@@ -46,16 +58,37 @@ class EnMasseServiceInstanceTransform {
   }
 }
 
+class MessagingAppServiceInstanceTransform {
+  isTransformable(siInfo) {
+    return siInfo.name === DEFAULT_SERVICES.MESSAGING_APP;
+  }
+
+  transform(siInfo) {
+    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
+    defaultTransform.spec.clusterServicePlanExternalName = 'default';
+    defaultTransform.spec.parameters = {
+      MESSAGING_SERVICE_PASSWORD: siInfo.amqCredentials.password,
+      MESSAGING_SERVICE_USER: siInfo.amqCredentials.username,
+      MESSAGING_SERVICE_HOST: siInfo.amqCredentials.url
+    }
+    return defaultTransform;
+  }
+}
+
 const DEFAULT_SERVICES = {
   ENMASSE: 'enmasse-standard',
   AMQ: 'amq-broker-71-persistence',
   FUSE: 'fuse',
   CHE: 'che',
-  LAUNCHER: 'launcher'
+  LAUNCHER: 'launcher',
+  CRUD_APP: 'spring-boot-rest-http-crud',
+  MESSAGING_APP: 'nodejs-messaging-work-queue-frontend'
 };
 const DEFAULT_TRANSFORMS = [
   new EnMasseServiceInstanceTransform(),
   new AMQServiceInstanceTransform(),
+  new CRUDAppInstanceTransform(),
+  new MessagingAppServiceInstanceTransform(),
   new DefaultServiceInstanceTransform()
 ];
 
