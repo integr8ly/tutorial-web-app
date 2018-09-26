@@ -1,4 +1,8 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
+import { OpenShiftWatchEvents } from '../services/openshiftServices';
+import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughServicesConstants';
+import { FULFILLED_ACTION } from '../redux/helpers';
+
 class DefaultServiceInstanceTransform {
   isTransformable() {
     return true;
@@ -31,18 +35,6 @@ class AMQServiceInstanceTransform {
   }
 }
 
-class CRUDAppInstanceTransform {
-  isTransformable(siInfo) {
-    return siInfo.name === DEFAULT_SERVICES.CRUD_APP;
-  }
-
-  transform(siInfo) {
-    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
-    defaultTransform.spec.clusterServicePlanExternalName = 'default';
-    return defaultTransform;
-  }
-}
-
 class EnMasseServiceInstanceTransform {
   isTransformable(siInfo) {
     return siInfo.name === DEFAULT_SERVICES.ENMASSE;
@@ -58,6 +50,18 @@ class EnMasseServiceInstanceTransform {
   }
 }
 
+class CRUDAppInstanceTransform {
+  isTransformable(siInfo) {
+    return siInfo.name === DEFAULT_SERVICES.CRUD_APP;
+  }
+
+  transform(siInfo) {
+    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
+    defaultTransform.spec.clusterServicePlanExternalName = 'default';
+    return defaultTransform;
+  }
+}
+
 class MessagingAppServiceInstanceTransform {
   isTransformable(siInfo) {
     return siInfo.name === DEFAULT_SERVICES.MESSAGING_APP;
@@ -66,11 +70,13 @@ class MessagingAppServiceInstanceTransform {
   transform(siInfo) {
     const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
     defaultTransform.spec.clusterServicePlanExternalName = 'default';
+
     defaultTransform.spec.parameters = {
-      MESSAGING_SERVICE_PASSWORD: siInfo.amqCredentials.password,
-      MESSAGING_SERVICE_USER: siInfo.amqCredentials.username,
-      MESSAGING_SERVICE_HOST: siInfo.amqCredentials.url
+      MESSAGING_SERVICE_PASSWORD: siInfo.otherData.password,
+      MESSAGING_SERVICE_USER: siInfo.otherData.username,
+      MESSAGING_SERVICE_HOST: siInfo.otherData.url
     };
+
     return defaultTransform;
   }
 }
@@ -84,6 +90,7 @@ const DEFAULT_SERVICES = {
   CRUD_APP: 'spring-boot-rest-http-crud',
   MESSAGING_APP: 'nodejs-messaging-work-queue-frontend'
 };
+
 const DEFAULT_TRANSFORMS = [
   new EnMasseServiceInstanceTransform(),
   new AMQServiceInstanceTransform(),
@@ -113,10 +120,36 @@ const buildServiceInstanceResourceObj = (siInfo, transforms = DEFAULT_TRANSFORMS
 const buildServiceInstanceCompareFn = si => res =>
   res.spec.clusterServiceClassExternalName === si.spec.clusterServiceClassExternalName;
 
+const handleWalkthroughOneRoutes = (dispatch, event) => {
+  if (
+    event.type === OpenShiftWatchEvents.OPENED ||
+    event.type === OpenShiftWatchEvents.CLOSED ||
+    event.type === OpenShiftWatchEvents.DELETED
+  ) {
+    return;
+  }
+
+  const route = event.payload;
+  if (
+    route &&
+    route.spec &&
+    route.spec.to &&
+    (route.spec.to.name === DEFAULT_SERVICES.CRUD_APP || route.spec.to.name === DEFAULT_SERVICES.MESSAGING_APP)
+  ) {
+    dispatch({
+      type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
+      payload: route
+    });
+  }
+};
+
 export {
+  buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj,
+  CRUDAppInstanceTransform,
+  DEFAULT_SERVICES,
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
-  buildServiceInstanceCompareFn,
-  DEFAULT_SERVICES
+  handleWalkthroughOneRoutes,
+  MessagingAppServiceInstanceTransform
 };

@@ -6,16 +6,19 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
-import { provisionWalkthroughOne } from '../../../services/walkthroughProvisionServices';
+import { prepareWalkthroughNamespace, walkthroughs } from '../../../services/walkthroughServices';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
-    const { provisionWalkthroughOne } = this.props;
+    const { prepareWalkthroughOne, prepareWalkthroughOneA } = this.props;
     if (this.props.match.params.id === '1') {
-      provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
+      prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
+    }
+    if (this.props.match.params.id === '1A') {
+      prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
     }
   }
 
@@ -287,7 +290,8 @@ TaskPage.propTypes = {
   }),
   getThread: PropTypes.func,
   middlewareServices: PropTypes.object,
-  provisionWalkthrough: PropTypes.func,
+  prepareWalkthroughOne: PropTypes.func,
+  prepareWalkthroughOneA: PropTypes.func,
   setProgress: PropTypes.func,
   thread: PropTypes.object,
   user: PropTypes.object
@@ -306,9 +310,11 @@ TaskPage.defaultProps = {
   getThread: noop,
   middlewareServices: {
     data: {},
-    amqCredentials: {}
+    amqCredentials: {},
+    enmasseCredentials: {}
   },
-  provisionWalkthrough: noop,
+  prepareWalkthroughOne: noop,
+  prepareWalkthroughOneA: noop,
   setProgress: noop,
   thread: null,
   user: null
@@ -316,7 +322,9 @@ TaskPage.defaultProps = {
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  provisionWalkthrough: amqCredentials => provisionWalkthroughOne(dispatch, amqCredentials),
+  prepareWalkthroughOne: amqCredentials => prepareWalkthroughNamespace(dispatch, walkthroughs.one, amqCredentials),
+  prepareWalkthroughOneA: enmasseCredentials =>
+    prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress))
 });
 

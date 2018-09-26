@@ -10,8 +10,7 @@ const initialState = {
 const walkthroughServiceReducers = (state = initialState, action) => {
   if (action.type === FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE)) {
     const createData = Object.assign({}, state.walkthroughServices.services);
-    createData[action.payload.spec.to.name] = action.payload;
-    console.log('Create Data', createData);
+    createData[`${action.payload.metadata.namespace}-${action.payload.spec.to.name}`] = action.payload;
     return Object.assign({}, state, {
       walkthroughServices: {
         ...state.walkthroughServices,
