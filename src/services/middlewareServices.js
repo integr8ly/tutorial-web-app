@@ -185,7 +185,7 @@ const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
   }
 
   const secret = event.payload;
-  if (secret.metadata.name.includes("enmasse-standard") && secret.metadata.name.includes("credentials")) {
+  if (secret.metadata.name.includes('enmasse-standard') && secret.metadata.name.includes('credentials')) {
     const username = window.atob(secret.data.username);
     const password = window.atob(secret.data.password);
 
@@ -268,10 +268,49 @@ const handleAMQServiceInstanceWatchEvents = event => {
   });
 };
 
+const buildServiceBindingDef = namespace => ({
+  name: 'servicebindings',
+  namespace,
+  version: 'v1beta1',
+  group: 'servicecatalog.k8s.io'
+});
+
+/**
+ * Handle an event for an Enmasse ServiceInstance.
+ * Creates a service binding once Enmasse is provisioned
+ * @param {Object} event The event to handle.
+ */
 const handleEnmasseServiceInstanceWatchEvents = event => {
-  if (event.payload.status.provisionStatus === "Provisioned") {
-    // TODO: Create a service binding here. This would trigger creation of the enmasse credentials secret.
-    console.log("Enmasse provisioned")
+  const siObj = event.payload;
+  if (siObj.status.provisionStatus === 'Provisioned') {
+    const enmasseBindParams = {
+      consoleAccess: true,
+      consoleAdmin: true,
+      externalAccess: true,
+      receiveAddresses: '*',
+      sendAddresses: '*'
+    };
+
+    const enmasseBindObj = {
+      kind: 'ServiceBinding',
+      metadata: {
+        name: `${siObj.metadata.name}-bind`,
+        namespace: siObj.metadata.namespace
+      },
+      spec: {
+        instanceRef: {
+          name: siObj.metadata.name
+        },
+        secretName: `${siObj.metadata.name}-credentials`,
+        parameters: enmasseBindParams
+      }
+    };
+
+    findOrCreateOpenshiftResource(
+      buildServiceBindingDef(siObj.metadata.namespace),
+      enmasseBindObj,
+      resObj => resObj.metadata.name === enmasseBindObj.metadata.name
+    );
   }
 };
 
