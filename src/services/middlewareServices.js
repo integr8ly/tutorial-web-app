@@ -66,6 +66,11 @@ const manageMiddlewareServices = dispatch => {
       version: 'v1beta1',
       namespace: userNamespace
     };
+    const secretResourceDef = {
+      name: 'secrets',
+      version: 'v1',
+      namespace: userNamespace
+    };
 
     findOpenshiftResource(namespaceResourceDef, namespaceObj)
       .then(foundResource => {
@@ -94,6 +99,9 @@ const manageMiddlewareServices = dispatch => {
         );
         watch(statefulSetDef).then(watchListener =>
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
+        );
+        watch(secretResourceDef).then(watchListener =>
+          watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
       });
   });
@@ -162,6 +170,33 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
 };
 
 /**
+ * Handle an event that occurred while watching the Enmasse Secrets
+ * @param {Object} dispatch Redux dispatcher.
+ * @param {string} namespace The namespace to perform actions on, based on events.
+ * @param {Object} event The event to handle.
+ */
+const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
+  if (
+    event.type === OpenShiftWatchEvents.OPENED ||
+    event.type === OpenShiftWatchEvents.CLOSED ||
+    event.type === OpenShiftWatchEvents.DELETED
+  ) {
+    return;
+  }
+
+  const secret = event.payload;
+  if (secret.metadata.name.includes("enmasse-standard") && secret.metadata.name.includes("credentials")) {
+    const username = window.atob(secret.data.username);
+    const password = window.atob(secret.data.password);
+
+    dispatch({
+      type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
+      payload: { username, password }
+    });
+  }
+};
+
+/**
  * Handle an event that occured while watching ServiceInstances.
  * @param {Object} dispatch Redux dispatcher.
  * @param {Object} event The event to handle.
@@ -189,6 +224,13 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
       event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.AMQ
     ) {
       handleAMQServiceInstanceWatchEvents(event);
+    }
+
+    if (
+      event.payload.kind === 'ServiceInstance' &&
+      event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.ENMASSE
+    ) {
+      handleEnmasseServiceInstanceWatchEvents(event);
     }
   }
   if (event.type === OpenShiftWatchEvents.DELETED) {
@@ -224,6 +266,13 @@ const handleAMQServiceInstanceWatchEvents = event => {
     event.payload.metadata.annotations[dashboardUrl] = `http://${route.spec.host}`;
     update(buildServiceInstanceDef(event.payload.metadata.namespace), event.payload);
   });
+};
+
+const handleEnmasseServiceInstanceWatchEvents = event => {
+  if (event.payload.status.provisionStatus === "Provisioned") {
+    // TODO: Create a service binding here. This would trigger creation of the enmasse credentials secret.
+    console.log("Enmasse provisioned")
+  }
 };
 
 /**
