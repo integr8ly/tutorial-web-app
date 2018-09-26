@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Grid, Button } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
-import PfMasthead from '../../components/masthead/masthead';
+import Masthead from '../../components/masthead/masthead';
 
 class CongratulationsPage extends React.Component {
   exitTutorial = e => {
@@ -17,7 +17,7 @@ class CongratulationsPage extends React.Component {
     return (
       <Grid fluid>
         <Grid.Row>
-          <PfMasthead />
+          <Masthead />
         </Grid.Row>
         <Grid.Row>
           <Grid.Col xs={12} sm={9} className="integr8ly-module mb-0">
@@ -30,8 +30,9 @@ class CongratulationsPage extends React.Component {
                 <span className="integr8ly-congratulations-icon" />
                 <h1 className="integr8ly-congratulations-heading">
                   Congratulations, you completed the
-                  <br /> "Integrating event-driven and API-driven applications
-                  {threadName}" <br /> walkthrough!
+                  <br /> &quot;Integrating event-driven and API-driven applications
+                  {threadName}
+                  &quot; <br /> walkthrough!
                 </h1>
                 <p className="integr8ly-congratulations-paragraph">
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
