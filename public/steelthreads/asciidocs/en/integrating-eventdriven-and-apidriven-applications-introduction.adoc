@@ -2,7 +2,7 @@
 
 :enmasse: Red Hat AMQ Online
 
-.Introduction
+== What will I accomplish?
 
 In a multi-application system, you often find:
 

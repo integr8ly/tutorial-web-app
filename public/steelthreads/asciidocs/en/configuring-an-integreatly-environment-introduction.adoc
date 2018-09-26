@@ -11,6 +11,6 @@
 [id='introduction_{context}']
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
-= Introduction
+== What will I accomplish?
 
 Complete these configuration tasks to ensure that you can complete all walkthroughs.

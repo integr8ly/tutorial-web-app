@@ -4,7 +4,7 @@
   "descriptionDoc": "configuring-an-integreatly-environment-introduction.adoc",
   "prerequisites": [
     "Access to an OpenShift instance with Integreatly components installed",
-    "A GitHub account configured with an OAuth App to use the Integreatly Launcher instance."
+    "A GitHub account"
   ],
   "estimatedTime": 50,
   "roles": [
