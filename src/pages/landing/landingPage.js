@@ -5,7 +5,7 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect } from '../../redux';
-import { manageUserWalkthrough, mockUserWalkthrough } from '../../services/walkthroughServices';
+import { manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
   componentDidMount() {
@@ -25,7 +25,7 @@ class LandingPage extends React.Component {
           <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
           <InstalledAppsView
             className="app-landing-page-tutorial-dashboard-section-right"
-            apps={Object.values(this.props.walkthroughs.data)}
+            apps={Object.values(this.props.middlewareServices.data)}
           />
         </section>
       </div>
@@ -36,22 +36,22 @@ class LandingPage extends React.Component {
 LandingPage.propTypes = {
   manageWalkthroughServices: PropTypes.func,
   mockWalkthroughServices: PropTypes.func,
-  walkthroughs: PropTypes.object
+  middlewareServices: PropTypes.object
 };
 
 LandingPage.defaultProps = {
   manageWalkthroughServices: noop,
   mockWalkthroughServices: noop,
-  walkthroughs: { data: {} }
+  middlewareServices: { data: {} }
 };
 
 const mapDispatchToProps = dispatch => ({
-  manageWalkthroughServices: () => manageUserWalkthrough(dispatch),
-  mockWalkthroughServices: mockData => mockUserWalkthrough(dispatch, mockData)
+  manageWalkthroughServices: () => manageMiddlewareServices(dispatch),
+  mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData)
 });
 
 const mapStateToProps = state => ({
-  ...state.walkthroughReducers
+  ...state.middlewareReducers
 });
 
 const ConnectedLandingPage = connect(

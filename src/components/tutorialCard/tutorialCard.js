@@ -1,35 +1,33 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, CardTitle, Icon, noop } from 'patternfly-react';
+import { Card, CardBody, CardFooter, CardTitle, noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const TutorialCard = props => {
-  return (
-    <Card
-      matchHeight
-      className="app-tutorial-card"
-      onClick={e => {
-        e.preventDefault();
-        props.history.push(props.getStartedLink);
-      }}
-    >
-      <CardTitle>
-        <div> {props.title} </div>
-      </CardTitle>
-      <CardBody> {props.children} </CardBody>
-      <CardFooter className="app-tutorial-card-pf-footer">
-        <a className="app-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
-          {props.getStartedIcon}
-          <span>{props.getStartedText}</span>
-        </a>
-        <div className="app-tutorial-card-pf-footer-time-to-complete">
-          {props.minsIcon}
-          {props.mins} <span>min</span>
-        </div>
-      </CardFooter>
-    </Card>
-  );
-};
+const TutorialCard = props => (
+  <Card
+    matchHeight
+    className="app-tutorial-card"
+    onClick={e => {
+      e.preventDefault();
+      props.history.push(props.getStartedLink);
+    }}
+  >
+    <CardTitle>
+      <div> {props.title} </div>
+    </CardTitle>
+    <CardBody> {props.children} </CardBody>
+    <CardFooter className="app-tutorial-card-pf-footer">
+      <a className="app-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
+        {props.getStartedIcon}
+        <span>{props.getStartedText}</span>
+      </a>
+      <div className="app-tutorial-card-pf-footer-time-to-complete">
+        {props.minsIcon}
+        {props.mins} <span>min</span>
+      </div>
+    </CardFooter>
+  </Card>
+);
 
 TutorialCard.propTypes = {
   /** Content rendered inside the tutorial card  */
