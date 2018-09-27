@@ -28,4 +28,10 @@ To create users:
 The only required field is `Username`.
 . Click save.  This will bring you to the management page for your new user.
 
+. To ensure the user has all services available to them when they log in:
+.. Open a new browser window in incognito/private mode.
+.. Log into this application using the credentials of the new user you created.
++
+The system will start provisioning all the services required in minutes, and these will be available to the user when they log in.
+
 
