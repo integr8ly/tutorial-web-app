@@ -24,6 +24,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       bsClass="row"
       componentClass="div"
     >
+      <withRouter(Connect(Masthead)) />
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
       <Col
         bsClass="col"
         className="integr8ly-task-container"
@@ -45,14 +51,18 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       </Col>
       <Col
         bsClass="col"
-        className="integr8ly-prerequisites"
+        className="integr8ly-task-container"
         componentClass="div"
         sm={4}
       >
-        <h4>
+        <h4
+          className="integr8ly-helpful-links-heading"
+        >
           Helpful Links
         </h4>
-        <h4>
+        <h4
+          className="integr8ly-helpful-links-product-title"
+        >
           Red Hat OpenShift
         </h4>
         <ul
@@ -73,7 +83,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             </a>
           </li>
         </ul>
-        <h4>
+        <h4
+          className="integr8ly-helpful-links-product-title"
+        >
           Red Hat Fuse
           <span
             className="label label-default integr8ly-label-non-ga"
@@ -99,7 +111,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             </a>
           </li>
         </ul>
-        <h4>
+        <h4
+          className="integr8ly-helpful-links-product-title"
+        >
           Red Hat AMQ
         </h4>
         <ul
