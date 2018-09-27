@@ -24,10 +24,20 @@ class InstalledAppsView extends React.Component {
     return provisioningStatus;
   }
 
+  static getRouteForApp(app) {
+    if (app.status.dashboardURL) {
+      return app.status.dashboardURL;
+    }
+    if (app.metadata.annotations && app.metadata.annotations['integreatly/dashboard-url']) {
+      return app.metadata.annotations['integreatly/dashboard-url'];
+    }
+    return null;
+  }
+
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
       <li
-        onClick={() => window.open(app.status.dashboardURL, '_blank')}
+        onClick={() => window.open(InstalledAppsView.getRouteForApp(app), '_blank')}
         key={`${app.spec.clusterServiceClassExternalName}_${index}`}
         value={index}
       >

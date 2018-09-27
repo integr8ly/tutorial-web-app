@@ -181,6 +181,24 @@ const get = (res, name) =>
     }).then(response => response.data)
   );
 
+const update = (res, obj) =>
+  getUser().then(user => {
+    const requestUrl = _buildRequestUrl(res);
+
+    if (!obj.apiVersion) {
+      obj.apiVersion = res.group ? `${res.group}/${res.version}` : res.version;
+    }
+
+    return axios({
+      url: `${requestUrl}/${obj.metadata.name}`,
+      method: 'PUT',
+      data: obj,
+      headers: {
+        authorization: `Bearer ${user.access_token}`
+      }
+    }).then(response => response.data);
+  });
+
 const list = res =>
   getUser().then(user =>
     axios({
@@ -196,13 +214,35 @@ const create = (res, obj) =>
     const requestUrl = _buildRequestUrl(res);
 
     if (!obj.apiVersion) {
-      obj.apiVersion = `${res.group}/${res.version}`;
+      obj.apiVersion = res.group ? `${res.group}/${res.version}` : res.version;
     }
 
     return axios({
       url: requestUrl,
       method: 'POST',
       data: obj,
+      headers: {
+        authorization: `Bearer ${user.access_token}`
+      }
+    }).then(response => response.data);
+  });
+
+const remove = (res, obj) =>
+  getUser().then(user => {
+    const requestUrl = _buildRequestUrl(res);
+
+    if (!obj.apiVersion) {
+      obj.apiVersion = res.group ? `${res.group}/${res.version}` : res.version;
+    }
+
+    return axios({
+      url: `${requestUrl}/${obj.metadata.name}`,
+      method: 'DELETE',
+      data: {
+        apiVersion: obj.apiVersion,
+        kind: 'DeleteOptions',
+        propogationPolicy: 'Foreground'
+      },
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
@@ -218,8 +258,9 @@ const watch = res =>
     return Promise.resolve(new OpenShiftWatchEventListener(socket).init());
   });
 
+const _buildOpenshiftApiUrl = (baseUrl, res) => (res.group ? `${baseUrl}/apis/${res.group}` : `${baseUrl}/api`);
 const _buildOpenShiftUrl = (baseUrl, res) => {
-  const urlBegin = `${baseUrl}/apis/${res.group}/${res.version}`;
+  const urlBegin = `${_buildOpenshiftApiUrl(baseUrl, res)}/${res.version}`;
   if (res.namespace) {
     return `${urlBegin}/namespaces/${res.namespace}/${res.name}`;
   }
@@ -230,4 +271,4 @@ const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.ma
 
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
 
-export { finishOAuth, currentUser, get, create, list, watch, OpenShiftWatchEvents };
+export { finishOAuth, currentUser, get, create, list, watch, update, remove, OpenShiftWatchEvents };
