@@ -186,12 +186,15 @@ const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
 
   const secret = event.payload;
   if (secret.metadata.name.includes('enmasse-standard') && secret.metadata.name.includes('credentials')) {
+    const amqpHost = window.atob(secret.data.messagingHost);
+    const amqpPort = window.atob(secret.data.messagingAmqpPort);
     const username = window.atob(secret.data.username);
     const password = window.atob(secret.data.password);
+    const amqpURL = `amqp://${amqpHost}:${amqpPort}?amqp.saslMechanisms=PLAIN`;
 
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
-      payload: { username, password }
+      payload: { url: amqpURL, username, password }
     });
   }
 };
