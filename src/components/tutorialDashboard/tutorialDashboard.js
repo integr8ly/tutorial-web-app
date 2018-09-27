@@ -13,7 +13,7 @@ const TutorialDashboard = () => (
         <Row>
           <Col xs={12} sm={4}>
             <TutorialCard
-              title="Configuring an {integreatly} environment"
+              title="Configuring the Integreatly environment"
               getStartedLink="/tutorial/0"
               getStartedText="Get Started"
               getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
