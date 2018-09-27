@@ -110,9 +110,13 @@ const buildServiceInstanceResourceObj = (siInfo, transforms = DEFAULT_TRANSFORMS
   return transform.transform(siInfo);
 };
 
+const buildServiceInstanceCompareFn = si => res =>
+  res.spec.clusterServiceClassExternalName === si.spec.clusterServiceClassExternalName;
+
 export {
   buildServiceInstanceResourceObj,
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
+  buildServiceInstanceCompareFn,
   DEFAULT_SERVICES
 };

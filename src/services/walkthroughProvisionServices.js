@@ -9,7 +9,11 @@ import {
   serviceInstanceDef
 } from '../common/openshiftHelpers';
 import { currentUser, create } from './openshiftServices';
-import { DEFAULT_SERVICES, buildServiceInstanceResourceObj } from '../common/serviceInstanceHelpers';
+import {
+  DEFAULT_SERVICES,
+  buildServiceInstanceResourceObj,
+  buildServiceInstanceCompareFn
+} from '../common/serviceInstanceHelpers';
 
 /**
  * Provisions the services required for Walkthrough 1 into a username prefixed namespace.
@@ -49,8 +53,5 @@ const provisionWalkthroughOne = amqCredentials =>
         return findOrCreateOpenshiftResource(siDef, crudSiResource, buildServiceInstanceCompareFn(crudSiResource));
       });
   });
-
-const buildServiceInstanceCompareFn = si => res =>
-  res.spec.clusterServiceClassExternalName === si.spec.clusterServiceClassExternalName;
 
 export { provisionWalkthroughOne };
