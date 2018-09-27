@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
+import { Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
 import { aboutModalTypes } from '../../redux/constants';
@@ -11,29 +11,23 @@ class Masthead extends React.Component {
     mobileToggle: true
   };
 
-  onAbout = e => {
-    e.preventDefault();
+  onAbout = () => {
     store.dispatch({
       type: aboutModalTypes.ABOUT_MODAL_SHOW
     });
   };
 
-  onHelp = e => {
-    e.preventDefault();
-    this.props.history.push('/help');
+  onHelp = () => {
+    window.location.href = '/help';
   };
 
-  onLogoutUser = e => {
-    const { logoutUser } = this.props;
-
-    e.preventDefault();
-    Promise.all([logoutUser()]).then(() => window.location.replace('/'));
+  onLogoutUser = () => {
+    // TBD 092718 - placeholder until logout is implemented
+    window.location.href = '/';
   };
 
-  navToggle = () => {
-    const { mobileToggle } = this.state;
-
-    this.setState({ mobileToggle: !mobileToggle });
+  onTitleClick = () => {
+    window.location.href = '/';
   };
 
   renderMobileNav() {
@@ -105,7 +99,7 @@ class Masthead extends React.Component {
 
   render() {
     return (
-      <PfMasthead titleImg={titleImg}>
+      <PfMasthead titleImg={titleImg} navToggle={false} onTitleClick={this.onTitleClick}>
         <PfMasthead.Collapse>
           {this.renderActions()}
           {this.renderUserDropdown()}
@@ -116,24 +110,14 @@ class Masthead extends React.Component {
   }
 }
 
-PfMasthead.propTypes = {
-  titleImg: PropTypes.string,
-  navToggle: PropTypes.bool,
-  logoutUser: PropTypes.func,
-  onTitleClick: PropTypes.func,
+Masthead.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string
-  }),
-  history: PropTypes.object
+  })
 };
 
-PfMasthead.defaultProps = {
-  titleImg: '',
-  navToggle: false,
-  logoutUser: noop,
-  onTitleClick: noop,
-  user: {},
-  history: {}
+Masthead.defaultProps = {
+  user: {}
 };
 
 const mapDispatchToProps = dispatch => ({
