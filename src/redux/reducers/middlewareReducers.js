@@ -45,6 +45,19 @@ const middlewareReducers = (state = initialState, action) => {
       }
     });
   }
+
+  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS)) {
+    return Object.assign({}, state, {
+      middlewareServices: {
+        ...state.middlewareServices,
+        enmasseCredentials: {
+          username: action.payload.username,
+          password: action.payload.password,
+          url: action.payload.url
+        }
+      }
+    });
+  }
   return state;
 };
 

@@ -66,6 +66,11 @@ const manageMiddlewareServices = dispatch => {
       version: 'v1beta1',
       namespace: userNamespace
     };
+    const secretResourceDef = {
+      name: 'secrets',
+      version: 'v1',
+      namespace: userNamespace
+    };
 
     findOpenshiftResource(namespaceResourceDef, namespaceObj)
       .then(foundResource => {
@@ -94,6 +99,9 @@ const manageMiddlewareServices = dispatch => {
         );
         watch(statefulSetDef).then(watchListener =>
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
+        );
+        watch(secretResourceDef).then(watchListener =>
+          watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
       });
   });
@@ -162,6 +170,36 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
 };
 
 /**
+ * Handle an event that occurred while watching the Enmasse Secrets
+ * @param {Object} dispatch Redux dispatcher.
+ * @param {string} namespace The namespace to perform actions on, based on events.
+ * @param {Object} event The event to handle.
+ */
+const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
+  if (
+    event.type === OpenShiftWatchEvents.OPENED ||
+    event.type === OpenShiftWatchEvents.CLOSED ||
+    event.type === OpenShiftWatchEvents.DELETED
+  ) {
+    return;
+  }
+
+  const secret = event.payload;
+  if (secret.metadata.name.includes('enmasse-standard') && secret.metadata.name.includes('credentials')) {
+    const amqpHost = window.atob(secret.data.messagingHost);
+    const amqpPort = window.atob(secret.data.messagingAmqpPort);
+    const username = window.atob(secret.data.username);
+    const password = window.atob(secret.data.password);
+    const amqpURL = `amqp://${amqpHost}:${amqpPort}?amqp.saslMechanisms=PLAIN`;
+
+    dispatch({
+      type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
+      payload: { url: amqpURL, username, password }
+    });
+  }
+};
+
+/**
  * Handle an event that occured while watching ServiceInstances.
  * @param {Object} dispatch Redux dispatcher.
  * @param {Object} event The event to handle.
@@ -189,6 +227,13 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
       event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.AMQ
     ) {
       handleAMQServiceInstanceWatchEvents(event);
+    }
+
+    if (
+      event.payload.kind === 'ServiceInstance' &&
+      event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.ENMASSE
+    ) {
+      handleEnmasseServiceInstanceWatchEvents(event);
     }
   }
   if (event.type === OpenShiftWatchEvents.DELETED) {
@@ -224,6 +269,52 @@ const handleAMQServiceInstanceWatchEvents = event => {
     event.payload.metadata.annotations[dashboardUrl] = `http://${route.spec.host}`;
     update(buildServiceInstanceDef(event.payload.metadata.namespace), event.payload);
   });
+};
+
+const buildServiceBindingDef = namespace => ({
+  name: 'servicebindings',
+  namespace,
+  version: 'v1beta1',
+  group: 'servicecatalog.k8s.io'
+});
+
+/**
+ * Handle an event for an Enmasse ServiceInstance.
+ * Creates a service binding once Enmasse is provisioned
+ * @param {Object} event The event to handle.
+ */
+const handleEnmasseServiceInstanceWatchEvents = event => {
+  const siObj = event.payload;
+  if (siObj.status.provisionStatus === 'Provisioned') {
+    const enmasseBindParams = {
+      consoleAccess: true,
+      consoleAdmin: true,
+      externalAccess: true,
+      receiveAddresses: '*',
+      sendAddresses: '*'
+    };
+
+    const enmasseBindObj = {
+      kind: 'ServiceBinding',
+      metadata: {
+        name: `${siObj.metadata.name}-bind`,
+        namespace: siObj.metadata.namespace
+      },
+      spec: {
+        instanceRef: {
+          name: siObj.metadata.name
+        },
+        secretName: `${siObj.metadata.name}-credentials`,
+        parameters: enmasseBindParams
+      }
+    };
+
+    findOrCreateOpenshiftResource(
+      buildServiceBindingDef(siObj.metadata.namespace),
+      enmasseBindObj,
+      resObj => resObj.metadata.name === enmasseBindObj.metadata.name
+    );
+  }
 };
 
 /**
