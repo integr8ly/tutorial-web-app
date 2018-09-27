@@ -2,7 +2,6 @@
 
 exports[`Masthead Component should render a basic component: basic 1`] = `
 <Masthead
-  history={Object {}}
   logoutUser={[Function]}
   user={
     Object {
@@ -16,7 +15,7 @@ exports[`Masthead Component should render a basic component: help dropdown 1`] =
 <MastheadDropdown
   className=""
   id="app-help-dropdown"
-  noCaret={true}
+  noCaret={false}
   title={
     <span
       aria-hidden={true}

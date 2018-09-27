@@ -24,6 +24,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       bsClass="row"
       componentClass="div"
     >
+      <withRouter(Connect(Masthead)) />
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
       <Col
         bsClass="col"
         className="integr8ly-task-container"
@@ -45,7 +51,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       </Col>
       <Col
         bsClass="col"
-        className="integr8ly-helpful-links"
+        className="integr8ly-task-container"
         componentClass="div"
         sm={4}
       >

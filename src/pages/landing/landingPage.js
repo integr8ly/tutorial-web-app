@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
+import PfMasthead from '../../components/masthead/masthead';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -20,6 +21,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
+        <PfMasthead />
         <LandingPageMastHead />
         <section className="app-landing-page-tutorial-dashboard-section">
           <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
