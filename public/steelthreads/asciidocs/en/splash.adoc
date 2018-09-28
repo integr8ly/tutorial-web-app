@@ -1,0 +1,19 @@
+:enmasse: Red Hat AMQ Online
+
+Setting up a message queue
+To create and configure a message queue, you use {enmasse}, software for managed, self-service messaging on OpenShift.
+
+Creating and editing a publishing endpoint
+To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.
+
+Creating a REST API endpoint to receive messages
+To deploy an example Spring Boot CRUD application that is pre-configured to act as a simple grocery inventory application, you use {launcher-name}.
+
+Creating connections
+To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you set up two connections in Red Hat Fuse Online.
+
+Creating an integration
+To use the Fuse connections, you create an integration in Red Hat Fuse Online.
+
+Using the application integration
+After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.

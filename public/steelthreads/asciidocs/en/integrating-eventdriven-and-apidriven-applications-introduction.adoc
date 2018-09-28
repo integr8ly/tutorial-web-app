@@ -1,9 +1,5 @@
 [id='introduction']
 
-:enmasse: Red Hat AMQ Online
-
-.Introduction
-
 In a multi-application system, you often find:
 
 * communication between the applications can be difficult due to differing technologies
@@ -19,13 +15,16 @@ A more structured approach involves:
 
 This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
 
-image::st0.png[]
 
-.Prerequisites
+++++
+<img src="/images/st0.png" class="img-responsive" alt="integration">
+++++
 
-* [x] Access to an OpenShift instance with Integreatly components installed
+//.Prerequisites
+
+//* [x] Access to an OpenShift instance with Integreatly components installed
 
 
 //https://github.com/integr8ly/installation/blob/master/README.md
-* [x] A GitHub account configured with an OAuth App to use the Integreatly Launcher instance.
+//* [x] A GitHub account configured with an OAuth App to use the Integreatly Launcher instance.
 // https://github.com/settings/developers

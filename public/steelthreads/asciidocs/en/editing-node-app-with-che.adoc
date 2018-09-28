@@ -54,3 +54,5 @@ app.post("/api/send-request", (req, resp) => {
 .. Click *Commit*.
 +
 A new build of the app is automatically triggered in OpenShift.
+
+

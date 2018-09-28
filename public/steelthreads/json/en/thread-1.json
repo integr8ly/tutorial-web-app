@@ -1,0 +1,49 @@
+{
+  "id": 1,
+  "title": "Integrating event-driven and API-driven applications",
+  "descriptionDoc": "integrating-eventdriven-and-apidriven-applications-introduction.adoc",
+  "prerequisites": [
+    "You have completed Walkthrough 0"
+  ],
+  "estimatedTime": 50,
+  "roles": [
+    "Operator",
+    "Developer"
+  ],
+  "applications": [
+    "Fuse Ignite",
+    "EnMasse"
+  ],
+  "tasks": [
+    {
+      "title": "Creating an integration",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "creating-fuse-integration.adoc",
+          "infoVerifications": [
+            "creating-fuse-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Using the application integration",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "using-integration.adoc",
+          "successVerifications": [
+            "using-integration-verification.adoc"
+          ],
+          "attributes": {
+            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+// This assembly is included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Save the context of the assembly that is including this one.
+// This is necessary for including assemblies in assemblies.
+// See also the complementary step on the last line of this file.
+
+// Base the file name and the ID on the assembly title. For example:
+// * file name: my-assembly-a.adoc
+// * ID: [id='my-assembly-a']
+// * Title: = My assembly A
+
+:enmasse: Red Hat AMQ Online
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='a-collection-of-modules']
+// If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
+
+= Setting up a message queue
+
+//If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
+:context: assembly-keyword
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
+
+// The following include statements pull in the module files that comprise the assembly. Include any combination of concept, procedure, or reference modules required to cover the user story. You can also include other assemblies.
+
+
+
+Unresolved directive in enmasse.adoc - include::{partialsdir}/setting-up-enmasse.adoc[leveloffset=2]
+
+Unresolved directive in enmasse.adoc - include::{partialsdir}/creating-enmasse-binding.adoc[leveloffset=2]
+
+Unresolved directive in enmasse.adoc - include::{partialsdir}/creating-addresses.adoc[leveloffset=2]
+
+
+// [leveloffset=+1] ensures that when a module starts with a level-1 heading (= Heading), the heading will be interpreted as a level-2 heading (== Heading) in the assembly.
+
+
+// Restore the context to what it was before this assembly.
+:!context:

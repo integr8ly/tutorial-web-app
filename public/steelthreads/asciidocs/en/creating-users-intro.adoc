@@ -1,0 +1,1 @@
+To share your environment with other users, you must first create identities for those users in RH SSO.
