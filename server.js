@@ -2,10 +2,15 @@ const express = require('express')
 const path = require('path')
 const axios = require('axios')
 const app = express()
+const https = require('https')
 const port = process.env.PORT || 5001
+const isProduction = process.env.NODE_ENV === 'production'
 
 async function getOpenShiftHostUrl() {
-  const response = await axios.get('https://kubernetes.default/.well-known/oauth-authorization-server')
+  const response = await axios({
+    url: 'https://kubernetes.default/.well-known/oauth-authorization-server',
+    httpsAgent: new https.Agent({ rejectUnauthorized: false })
+  })
 
   if (response.status !== 200) {
     throw new Error(`received unexpected ${response.status} status when requesting openshift host URL`)
@@ -24,9 +29,14 @@ app.get('/config.js', async (req, res) => {
     console.log('OPENSHIFT_HOST environment variable not set. attempting to fetch host programmatically')
 
     try {
-      OPENSHIFT_HOST = await getOpenShiftHostUrl()
+      const host = await getOpenShiftHostUrl()
+
+      OPENSHIFT_HOST = host.replace('https://', '')
+
+      console.log('host fetched and set to %s', OPENSHIFT_HOST)
     } catch (e) {
       console.warn('unable to programmatically determine OPENSHIFT_HOST')
+      console.warn(e)
     }
   }
 
@@ -105,13 +115,13 @@ app.get('/config.js', async (req, res) => {
       authorizationUri: 'https://${OPENSHIFT_HOST}/oauth/authorize',
       redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
-      masterUri: 'https://${process.env.OPENSHIFT_HOST}',
-      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}'
-    };`);
+      masterUri: 'https://${OPENSHIFT_HOST}',
+      wssMasterUri: 'wss://${OPENSHIFT_HOST}'
+    };`)
   }
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'build')));
   // Handle React routing, return all requests to React app
