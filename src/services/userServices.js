@@ -196,12 +196,6 @@ const setProgress = progress => {
 };
 
 const getProgress = () =>
-  // const progress = {};
-  // for (const property in window.localStorage) {
-  //   if (property.includes('userProgress')) {
-  //     progress[property] = window.localStorage.getItem(property);
-  //   }
-  // }
   window.localStorage.getItem(`userProgress-${window.localStorage.getItem('currentUserName')}`);
 export {
   checkUser,
