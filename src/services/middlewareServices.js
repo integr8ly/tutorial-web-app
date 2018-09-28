@@ -29,6 +29,7 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   if (!mockData || !mockData.serviceInstances) {
     return;
   }
+  window.localStorage.setItem('currentUserName', 'mockUser@mockUser.com');
   mockData.serviceInstances.forEach(si =>
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),

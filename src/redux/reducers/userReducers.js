@@ -20,7 +20,10 @@ const initialState = {
     errorMessage: '',
     pending: false,
     fulfilled: false,
-    userInfo: {}
+    userInfo: {},
+    userProgress: {
+      threads: []
+    }
   }
 };
 
@@ -184,6 +187,19 @@ const userReducers = (state = initialState, action) => {
         {
           remember: false,
           storedEmail: null
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
+    case FULFILLED_ACTION(userTypes.USER_SET_PROGRESS):
+      return setStateProp(
+        'user',
+        {
+          fulfilled: true,
+          userProgress: action.payload.data
         },
         {
           state,
