@@ -13,6 +13,7 @@ class TaskPage extends React.Component {
 
   componentDidMount() {
     this.loadThread();
+    const { provisionWalkthroughOne } = this.props;
     if (this.props.match.params.id === '0') {
       provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
@@ -274,7 +275,8 @@ TaskPage.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
+  provisionWalkthroughOne: (amqCredentials) => provisionWalkthroughOne(dispatch, amqCredentials)
 });
 
 const mapStateToProps = state => ({

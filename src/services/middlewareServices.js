@@ -8,7 +8,8 @@ import {
   namespaceDef,
   namespaceRequestResource,
   statefulSetDef,
-  routeDef
+  routeDef,
+  secretDef
 } from '../common/openshiftHelpers';
 
 const WALKTHROUGH_SERVICES = [
@@ -87,7 +88,7 @@ const manageMiddlewareServices = dispatch => {
         watch(statefulSetDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
         );
-        watch(secretResourceDef).then(watchListener =>
+        watch(secretDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
       });

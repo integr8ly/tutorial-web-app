@@ -83,6 +83,16 @@ const serviceInstanceDef = namespace => ({
   version: 'v1beta1',
   group: 'servicecatalog.k8s.io'
 });
+const serviceDef = namespace => ({
+  name: 'services',
+  namespace,
+  version: 'v1'
+});
+const secretDef = namespace => ({
+  name: 'secrets',
+  version: 'v1',
+  namespace
+});
 
 export {
   buildValidProjectNamespaceName,
@@ -95,5 +105,7 @@ export {
   serviceInstanceDef,
   namespaceResource,
   statefulSetDef,
-  routeDef
+  routeDef,
+  serviceDef,
+  secretDef
 };
