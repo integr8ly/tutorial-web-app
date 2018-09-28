@@ -2,8 +2,23 @@ import { list, create, watch, update, currentUser, OpenShiftWatchEvents } from '
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 import { buildServiceInstanceResourceObj, DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
+import {
+  buildValidProjectNamespaceName,
+  namespaceRequestDef,
+  namespaceDef,
+  namespaceRequestResource,
+  statefulSetDef,
+  routeDef,
+  secretDef
+} from '../common/openshiftHelpers';
 
-const WALKTHROUGH_SERVICES = Object.values(DEFAULT_SERVICES);
+const WALKTHROUGH_SERVICES = [
+  DEFAULT_SERVICES.ENMASSE,
+  DEFAULT_SERVICES.CHE,
+  DEFAULT_SERVICES.FUSE,
+  DEFAULT_SERVICES.AMQ,
+  DEFAULT_SERVICES.LAUNCHER
+];
 
 /**
  * Dispatch a mock set of user services.
@@ -42,40 +57,13 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  */
 const manageMiddlewareServices = dispatch => {
   currentUser().then(user => {
-    const userNamespace = buildValidProjectNamespaceName(user.username);
+    const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
+    const namespaceObj = namespaceRequestResource(userNamespace);
 
-    const namespaceRequestResourceDef = {
-      name: 'projectrequests',
-      version: 'v1',
-      group: 'project.openshift.io'
-    };
-    const namespaceResourceDef = {
-      name: 'projects',
-      version: 'v1',
-      group: 'project.openshift.io'
-    };
-    const namespaceObj = {
-      kind: 'ProjectRequest',
-      metadata: {
-        name: userNamespace
-      }
-    };
-    const statefulSetDef = {
-      name: 'statefulsets',
-      group: 'apps',
-      version: 'v1beta1',
-      namespace: userNamespace
-    };
-    const secretResourceDef = {
-      name: 'secrets',
-      version: 'v1',
-      namespace: userNamespace
-    };
-
-    findOpenshiftResource(namespaceResourceDef, namespaceObj)
+    findOpenshiftResource(namespaceDef, namespaceObj)
       .then(foundResource => {
         if (!foundResource) {
-          return create(namespaceRequestResourceDef, namespaceObj);
+          return create(namespaceRequestDef, namespaceObj);
         }
         return foundResource;
       })
@@ -97,26 +85,15 @@ const manageMiddlewareServices = dispatch => {
         watch(buildServiceInstanceDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch))
         );
-        watch(statefulSetDef).then(watchListener =>
+        watch(statefulSetDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
         );
-        watch(secretResourceDef).then(watchListener =>
+        watch(secretDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
       });
   });
 };
-
-/**
- * Construct an OpenShift Resource Definition for a Route.
- * @param {string} namespace The namespace to reference in the definition.
- */
-const buildRouteDef = namespace => ({
-  name: 'routes',
-  group: 'route.openshift.io',
-  version: 'v1',
-  namespace
-});
 
 /**
  * Construct an OpenShift Resource Definition for a ServiceInstance.
@@ -165,7 +142,7 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
 
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_AMQ_CREDENTIALS),
-    payload: { username: usernameEnv.value, password: passwordEnv.value }
+    payload: { username: usernameEnv.value, password: passwordEnv.value, url: `broker-amq-amqp.${namespace}.svc` }
   });
 };
 
@@ -259,7 +236,7 @@ const handleAMQServiceInstanceWatchEvents = event => {
       name: 'console'
     }
   };
-  findOpenshiftResource(buildRouteDef(event.payload.metadata.namespace), routeResource).then(route => {
+  findOpenshiftResource(routeDef(event.payload.metadata.namespace), routeResource).then(route => {
     if (!route) {
       return;
     }
@@ -345,18 +322,5 @@ const findOrCreateOpenshiftResource = (openshiftResourceDef, resToFind, compareF
     }
     return Promise.resolve(foundResource);
   });
-
-/**
- * Construct a projects namespace from a given username.
- * Note that the namespace name might contain the full username as it is sanitized first.
- * @param {string} username The username to create the namespace name from.
- */
-const buildValidProjectNamespaceName = username => `${cleanUsername(username)}-walkthrough-projects`;
-
-/**
- * Get a sanitized version of a username, so it can be used to name OpenShift.
- * @param {string} username The username to sanitize.
- */
-const cleanUsername = username => username.replace(/@/g, '-').replace(/\./g, '-');
 
 export { manageMiddlewareServices, mockMiddlewareServices };

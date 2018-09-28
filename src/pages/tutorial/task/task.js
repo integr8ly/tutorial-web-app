@@ -6,12 +6,17 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
+import { provisionWalkthroughOne } from '../../../services/walkthroughProvisionServices';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
+    const { provisionWalkthroughOne } = this.props;
+    if (this.props.match.params.id === '0') {
+      provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
+    }
   }
 
   componentDidUpdate() {
@@ -247,7 +252,8 @@ TaskPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object
+  thread: PropTypes.object,
+  middlewareServices: PropTypes.object
 };
 
 TaskPage.defaultProps = {
@@ -261,15 +267,21 @@ TaskPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null
+  thread: null,
+  middlewareServices: {
+    data: {},
+    amqCredentials: {}
+  }
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
+  provisionWalkthroughOne: (amqCredentials) => provisionWalkthroughOne(dispatch, amqCredentials)
 });
 
 const mapStateToProps = state => ({
-  ...state.threadReducers
+  ...state.threadReducers,
+  ...state.middlewareReducers
 });
 
 const ConnectedTaskPage = withRouter(
