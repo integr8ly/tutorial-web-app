@@ -4,7 +4,7 @@ metadata:
   name: tutorial-web-app-source-building-supplement
 parameters:
   - name: SOURCE_REPOSITORY_URL
-    value: https://github.com/integr8ly/tutorial-web-app
+    value: https://github.com/evanshortiss/tutorial-web-app
     required: true
   - name: SOURCE_REPOSITORY_REF
     value: development
