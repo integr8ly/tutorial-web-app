@@ -1,4 +1,4 @@
-.app-login {
+.integr8ly-app-login {
   background-image: none;
   bottom: 0;
   left: 0;
@@ -13,44 +13,44 @@
     background-repeat: no-repeat;
     background-size: 30%;
   }
-}
 
-.app-login-body {
-  @media (min-width: $screen-sm-min) {
-    background-image: url(../../img/bg-login.png);
-    background-repeat: no-repeat;
-    background-size: 30%;
+  &-body {
+    @media (min-width: $screen-sm-min) {
+      background-image: url(../../img/bg-login.png);
+      background-repeat: no-repeat;
+      background-size: 30%;
+    }
   }
-}
 
-.app-login-card {
-  min-height: 360px;
+  &-card {
+    min-height: 360px;
 
-  .login-pf-header,
-  .card-pf-body {
-    margin-bottom: 0;
-    margin-top: 0;
+    .login-pf-header,
+    .card-pf-body {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
-}
 
-.app-login-card-error {
-  color: $color-pf-red-100;
-  margin-bottom: 16px;
-  min-height: 20px;
-}
+  &-card-error {
+    color: $color-pf-red-100;
+    margin-bottom: 16px;
+    min-height: 20px;
+  }
 
-.app-login-loading-card {
-  @extend .app-login-card;
+  &-loading-card {
+    @extend .integr8ly-app-login-card;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.app-login-settings {
-  > * {
-    margin-top: 0;
-    padding-top: 0;
-    border-top-width: 0;
+  &-settings {
+    > * {
+      margin-top: 0;
+      padding-top: 0;
+      border-top-width: 0;
+    }
   }
 }

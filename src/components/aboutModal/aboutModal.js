@@ -94,7 +94,7 @@ class AboutModal extends React.Component {
             {browser && <PfAboutModal.VersionItem label="Browser OS" versionText={browser.os || ''} />}
           </PfAboutModal.Versions>
         </div>
-        {copied && <div className="app-about-modal-copy">Copied</div>}
+        {copied && <div className="integr8ly-app-about-modal-copy">Copied</div>}
       </PfAboutModal>
     );
   }

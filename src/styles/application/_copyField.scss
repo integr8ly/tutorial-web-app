@@ -4,6 +4,11 @@
       width: 200px;
       text-overflow: ellipsis;
     }
+    @media (min-width: 768px) {
+      &.false {
+        width: 400px;
+      }
+    }
     &.expanded {
       background-color: $color-pf-black-200;
     }
@@ -21,35 +26,6 @@
     .input-group-addon,
     .input-group-btn {
       width: auto;
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .integr8ly-copy {
-    &-input {
-      &.false {
-      }
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .integr8ly-copy {
-    &-input {
-      &.false {
-        width: 400px;
-      }
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .integr8ly-copy {
-    &-input {
-      &.false {
-        width: 400px;
-      }
     }
   }
 }

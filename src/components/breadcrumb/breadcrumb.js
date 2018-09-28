@@ -11,7 +11,7 @@ class Breadcrumb extends React.Component {
   render() {
     const { threadName, threadId, taskPosition } = this.props;
     return (
-      <PfBreadcrumb>
+      <PfBreadcrumb className="integr8ly-breadcrumb">
         <PfBreadcrumb.Item onClick={this.homeClicked}>
           <Icon className="fa-lg" type="pf" name="home" />
         </PfBreadcrumb.Item>

@@ -200,7 +200,7 @@ class TaskPage extends React.Component {
                   </div>
                 </div>
               </Grid.Col>
-              <Grid.Col sm={3} className="integr8ly-frame">
+              <Grid.Col sm={3} className="integr8ly-module-frame">
                 <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
                 <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
                 <ul className="list-unstyled">

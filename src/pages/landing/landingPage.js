@@ -23,10 +23,10 @@ class LandingPage extends React.Component {
       <div>
         <PfMasthead />
         <LandingPageMastHead />
-        <section className="app-landing-page-tutorial-dashboard-section">
-          <TutorialDashboard className="app-landing-page-tutorial-dashboard-section-left" />
+        <section className="integr8ly-landing-page-tutorial-dashboard-section">
+          <TutorialDashboard className="integr8ly-landing-page-tutorial-dashboard-section-left" />
           <InstalledAppsView
-            className="app-landing-page-tutorial-dashboard-section-right"
+            className="integr8ly-landing-page-tutorial-dashboard-section-right"
             apps={Object.values(this.props.middlewareServices.data)}
           />
         </section>

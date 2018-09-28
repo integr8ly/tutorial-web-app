@@ -93,7 +93,7 @@ class TutorialPage extends React.Component {
               <Grid.Col xs={12} sm={8}>
                 <h3>
                   {t('tutorial.tasksToComplete')}
-                  <div className="pull-right task-dashboard-time-to-completion">
+                  <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock-o" />{' '}
                     <span>
                       {thread.data.estimatedTime} {t('tutorial.minutes')}
@@ -101,7 +101,7 @@ class TutorialPage extends React.Component {
                   </div>
                 </h3>
 
-                <ListView className="list-view-pf-integreatly">
+                <ListView className="integr8ly-list-view-pf">
                   {/* for UX testing only right now */}
                   <ListView.Item
                     heading="0. Completing prerequisites"
@@ -115,7 +115,7 @@ class TutorialPage extends React.Component {
                       </div>
                     }
                     actions={
-                      <div className="task-dashboard-estimated-time">
+                      <div className="integr8ly-task-dashboard-estimated-time">
                         <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
                         <span>10 {t('tutorial.minutes')}</span>
                       </div>
@@ -128,7 +128,7 @@ class TutorialPage extends React.Component {
                       heading={`${i + 1}. ${task.title}`}
                       description={task.description}
                       actions={
-                        <div className="task-dashboard-estimated-time">
+                        <div className="integr8ly-task-dashboard-estimated-time">
                           <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
                           <span>
                             {task.estimatedTime} {t('tutorial.minutes')}

@@ -44,14 +44,14 @@ class InstalledAppsView extends React.Component {
         <p>{app.spec.clusterServiceClassExternalName}</p>
       </li>
     ));
-    return <ul className="app-installed-apps-view-list">{masterList}</ul>;
+    return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
   }
 
   render() {
     const appList = InstalledAppsView.createMasterList(this.props.apps);
     return (
-      <div className="panel panel-default app-installed-apps-view">
-        <div className="panel-heading panel-title app-installed-apps-view-panel-title">
+      <div className="panel panel-default integr8ly-installed-apps-view">
+        <div className="panel-heading panel-title integr8ly-installed-apps-view-panel-title">
           <h2>Applications</h2>
           <div>{this.props.apps.length} applications</div>
         </div>
