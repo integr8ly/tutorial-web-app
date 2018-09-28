@@ -40,4 +40,9 @@ const storeData = data => dispatch =>
     payload: userServices.storeData(data)
   });
 
-export { checkUser, createUser, deleteUser, loginUser, logoutUser, removeStoredData, storeData };
+const setProgress = progress => ({
+  type: userTypes.USER_SET_PROGRESS,
+  payload: userServices.setProgress(progress)
+});
+
+export { checkUser, createUser, deleteUser, loginUser, logoutUser, removeStoredData, storeData, setProgress };

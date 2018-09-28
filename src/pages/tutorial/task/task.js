@@ -13,9 +13,9 @@ class TaskPage extends React.Component {
 
   componentDidMount() {
     this.loadThread();
-    const { provisionWalkthroughOne } = this.props;
+    const { provisionWalkthrough } = this.props;
     if (this.props.match.params.id === '0') {
-      provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
+      provisionWalkthrough(this.props.middlewareServices.amqCredentials);
     }
   }
 
@@ -60,8 +60,40 @@ class TaskPage extends React.Component {
     }
   }
 
+  updateThreadState = callback => {
+    const { thread, setProgress, user } = this.props;
+    const { task } = this.state;
+    const threadProgress = {
+      threadId: thread.data.id,
+      task: this.state.task,
+      verifications: this.state.verifications,
+      verificationsChecked: this.state.verificationsChecked,
+      totalTasks: thread.data.tasks.length,
+      progress: Math.round((task / (thread.data.tasks.length - 1)) * 100)
+    };
+
+    const progress = Object.assign({}, user.userProgress);
+
+    if (progress.threads.length === 0) {
+      progress.threads.push(threadProgress);
+    } else {
+      // Look through array of threads to see if the thread progress is in the users threads.
+      progress.threads.some((threadVal, index) => {
+        if (threadVal.threadId === threadProgress.threadId) {
+          progress.threads[index] = threadProgress;
+          return true;
+        } else if (index === progress.threads.length - 1) {
+          progress.threads.push(threadProgress);
+        }
+        return false;
+      });
+    }
+    setProgress(progress);
+  };
+
   backToIntro = e => {
     e.preventDefault();
+    this.updateThreadState();
     const { history } = this.props;
     const { id } = this.state;
     history.push(`/tutorial/${id}`);
@@ -69,6 +101,7 @@ class TaskPage extends React.Component {
 
   goToTask = (e, next) => {
     e.preventDefault();
+    this.updateThreadState();
     const { history } = this.props;
     const { id } = this.state;
     history.push(`/tutorial/${id}/task/${next}`);
@@ -76,6 +109,7 @@ class TaskPage extends React.Component {
 
   exitTutorial = e => {
     e.preventDefault();
+    this.updateThreadState();
     const { history } = this.props;
     history.push(`/congratulations/${this.props.thread.data.id}`);
   };
@@ -252,8 +286,11 @@ TaskPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
+  middlewareServices: PropTypes.object,
+  provisionWalkthrough: PropTypes.func,
+  setProgress: PropTypes.func,
   thread: PropTypes.object,
-  middlewareServices: PropTypes.object
+  user: PropTypes.object
 };
 
 TaskPage.defaultProps = {
@@ -267,21 +304,26 @@ TaskPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null,
   middlewareServices: {
     data: {},
     amqCredentials: {}
-  }
+  },
+  provisionWalkthrough: noop,
+  setProgress: noop,
+  thread: null,
+  user: null
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  provisionWalkthroughOne: (amqCredentials) => provisionWalkthroughOne(dispatch, amqCredentials)
+  provisionWalkthrough: amqCredentials => provisionWalkthroughOne(dispatch, amqCredentials),
+  setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress))
 });
 
 const mapStateToProps = state => ({
   ...state.threadReducers,
-  ...state.middlewareReducers
+  ...state.middlewareReducers,
+  ...state.userReducers
 });
 
 const ConnectedTaskPage = withRouter(

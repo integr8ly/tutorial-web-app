@@ -186,4 +186,31 @@ const storeData = (data, remove = false, config = { extend: true }) =>
  */
 const removeStoredData = () => storeData(null, true);
 
-export { checkUser, createUser, deleteUser, loginUser, logoutUser, storeData, removeStoredData };
+const setProgress = progress => {
+  window.localStorage.setItem(
+    `userProgress-${window.localStorage.getItem('currentUserName')}`,
+    JSON.stringify(progress)
+  );
+  // window.localStorage.setItem(`threadState-${thread}`, JSON.stringify(threadState));
+  return progress;
+};
+
+const getProgress = () =>
+  // const progress = {};
+  // for (const property in window.localStorage) {
+  //   if (property.includes('userProgress')) {
+  //     progress[property] = window.localStorage.getItem(property);
+  //   }
+  // }
+  window.localStorage.getItem(`userProgress-${window.localStorage.getItem('currentUserName')}`);
+export {
+  checkUser,
+  createUser,
+  deleteUser,
+  loginUser,
+  logoutUser,
+  storeData,
+  removeStoredData,
+  getProgress,
+  setProgress
+};
