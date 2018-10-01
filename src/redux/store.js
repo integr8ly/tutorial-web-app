@@ -11,6 +11,10 @@ if (process.env.NODE_ENV !== 'production' && process.env.REACT_APP_DEBUG_MIDDLEW
   middleware.push(createLogger());
 }
 
-const store = createStore(reduxReducers, applyMiddleware(...middleware));
+const store = createStore(
+  reduxReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(...middleware)
+);
 
 export default store;

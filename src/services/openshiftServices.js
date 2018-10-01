@@ -84,6 +84,7 @@ const setUser = user => {
     return;
   }
   window.localStorage.setItem('OpenShiftUser', JSON.stringify(user));
+  window.localStorage.setItem('currentUserName', this.username);
 };
 
 /**
