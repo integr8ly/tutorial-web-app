@@ -1,0 +1,12 @@
+:integreatly: Integreatly
+:imagesdir: /images
+:numbered:
+:chapter-label:
+
+
+:messaging-service: Red Hat AMQ Online
+:messaging-service-version: 7.2
+:integration-service: Fuse
+:integration-service-version: 7.1
+:api-mgmt-service: 3Scale
+:api-mgmt-service-version: 
