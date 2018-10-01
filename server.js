@@ -6,39 +6,46 @@ const https = require('https')
 const port = process.env.PORT || 5001
 const isProduction = process.env.NODE_ENV === 'production'
 
-async function getOpenShiftHostUrl() {
+async function requestHostFromKubernetes() {
   const response = await axios({
     url: 'https://kubernetes.default/.well-known/oauth-authorization-server',
     httpsAgent: new https.Agent({ rejectUnauthorized: false })
-  })
+  });
 
   if (response.status !== 200) {
-    throw new Error(`received unexpected ${response.status} status when requesting openshift host URL`)
+    throw new Error(`received unexpected ${response.status} status when requesting openshift host URL`);
   } else if (!response.data || !response.data.issuer) {
-    throw new Error('received unexpected response when requesting openshift host URL')
+    throw new Error('received unexpected response when requesting openshift host URL');
   } else {
-    return response.data.issuer
+    return response.data.issuer;
   }
 }
 
-// Dynamic configuration for openshift API calls
-app.get('/config.js', async (req, res) => {
-  let { OPENSHIFT_HOST } = process.env
+async function getOpenShiftHost() {
+  let { OPENSHIFT_HOST } = process.env;
 
   if (!OPENSHIFT_HOST) {
     console.log('OPENSHIFT_HOST environment variable not set. attempting to fetch host programmatically')
 
     try {
-      const host = await getOpenShiftHostUrl()
+      const host = await requestHostFromKubernetes();
 
-      OPENSHIFT_HOST = host.replace('https://', '')
+      // Remove http:// or https:// prefix
+      OPENSHIFT_HOST = host.replace(/(^\w+:|^)\/\//, '');
 
-      console.log('host fetched and set to %s', OPENSHIFT_HOST)
+      console.log('host fetched and set to %s', OPENSHIFT_HOST);
     } catch (e) {
-      console.warn('unable to programmatically determine OPENSHIFT_HOST')
-      console.warn(e)
+      console.warn('Error programmatically determining OPENSHIFT_HOST:');
+      console.warn(e);
     }
   }
+
+  return OPENSHIFT_HOST;
+}
+
+// Dynamic configuration for openshift API calls
+app.get('/config.js', async (req, res) => {
+  const OPENSHIFT_HOST = await getOpenShiftHost();
 
   if (!OPENSHIFT_HOST) {
     console.warn('OPENSHIFT_HOST not set. Using service URLs from env vars');
