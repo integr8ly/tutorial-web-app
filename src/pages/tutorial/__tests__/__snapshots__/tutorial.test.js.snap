@@ -155,9 +155,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               name="clock-o"
               type="fa"
             />
-
+             
             <span>
-
+               
               tutorial.minutes
             </span>
           </div>
@@ -179,9 +179,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-
+                 
                 <span>
-                  10
+                  10 
                   tutorial.minutes
                 </span>
               </div>
@@ -227,10 +227,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-
+                 
                 <span>
                   6
-
+                   
                   tutorial.minutes
                 </span>
               </div>
