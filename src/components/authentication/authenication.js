@@ -168,8 +168,8 @@ class Authentication extends React.Component {
           <Form method="post" autoComplete={remember ? 'on' : 'off'} onSubmit={this.onLogin}>
             <div className="integr8ly-app-login-card-error help-block" aria-live="polite">
               {(!formTouched && session.error && session.loginFailed) ||
-                (emailError !== '' && emailError !== null) ||
-                (passwordError !== '' && passwordError !== null)
+              (emailError !== '' && emailError !== null) ||
+              (passwordError !== '' && passwordError !== null)
                 ? 'Email address or password is incorrect.'
                 : null}
             </div>
