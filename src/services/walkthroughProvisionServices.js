@@ -22,6 +22,7 @@ import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughServicesC
  * Provisions the services required for Walkthrough 1 into a username prefixed namespace.
  * @param {Object} amqCredentials The credentials from the AMQ instance, including URL.
  */
+// eslint-disable-next-line consistent-return
 const provisionWalkthroughOne = (dispatch, amqCredentials) => {
   if (!window.OPENSHIFT_CONFIG.mockData) {
     return currentUser().then(user => {
