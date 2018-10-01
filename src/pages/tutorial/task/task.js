@@ -13,9 +13,9 @@ class TaskPage extends React.Component {
 
   componentDidMount() {
     this.loadThread();
-    const { provisionWalkthrough } = this.props;
-    if (this.props.match.params.id === '0') {
-      provisionWalkthrough(this.props.middlewareServices.amqCredentials);
+    const { provisionWalkthroughOne } = this.props;
+    if (this.props.match.params.id === '1') {
+      provisionWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
   }
 
