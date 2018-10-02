@@ -185,12 +185,15 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--footer">
                     <h6>{t('task.CompleteAndCheck')}</h6>
                     <div className="integr8ly-module-column--footer_status">
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.1</span>
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.2</span>
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.3</span>
+                      {threadTask.steps.map((step, l) => (
+                        <React.Fragment key={l}>
+                          <Icon type="fa" name="circle-o" />
+                          <span className="integr8ly-module-column--footer_status-step">
+                            1.
+                            {l}
+                          </span>
+                        </React.Fragment>
+                      ))}
                     </div>
                     <div
                       className="btn-group btn-group-justified"
