@@ -189,8 +189,7 @@ class TaskPage extends React.Component {
                         <React.Fragment key={l}>
                           <Icon type="fa" name="circle-o" />
                           <span className="integr8ly-module-column--footer_status-step">
-                            1.
-                            {l}
+                            {task}.{l}
                           </span>
                         </React.Fragment>
                       ))}
