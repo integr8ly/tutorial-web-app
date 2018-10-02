@@ -13,14 +13,15 @@
 :spring-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 
-. Navigate to the link:{node-url}[Node.js app, window="_blank"].
+. Navigate to the link:http://{node-js-url}[Node.js app, window="_blank"].
 
-. Enter values for *Fruit* and *Stock*, for example, `Banana` and `100`.
+. Enter a value for *Fruit*, for example `Pineapple`.
 
 . Click *Send Request*.
 
-. Navigate to the link:{spring-url}[Spring Boot app, window="_blank"].
+. Navigate to the link:http://{spring-boot-url}[Spring Boot app, window="_blank"].
 
 . Check that the entry from the Node.js app is displayed.
+
 
 
