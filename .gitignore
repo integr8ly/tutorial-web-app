@@ -3,6 +3,9 @@
 # css
 src/**/*.css
 
+
+# IDE - Intelij
+.idea
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
