@@ -220,6 +220,7 @@ class TaskPage extends React.Component {
                           <Button
                             bsStyle={verificationsChecked ? 'primary' : 'default'}
                             onClick={e => this.goToTask(e, task + 1)}
+                            disabled={!verificationsChecked}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
