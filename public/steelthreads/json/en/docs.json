@@ -1,0 +1,30 @@
+{
+    "number_of_docs": "1000",
+    "_attachments": {
+        "image1.png": {
+            "content_type": "image/png"
+        }
+    },
+    "docs": [
+    {
+        "_id": "000001",
+        "_rev": "0",
+        "_content": "abcdefg"
+    },
+    {
+        "_id": "000002",
+        "_rev": "0",
+        "_content": "hijklmn",
+        "_attachments": {
+            "image1.png": {
+                "content_type": "image/png"
+            
+            }
+        }
+    },
+    {
+        "_id": "000003",
+        "_rev": "0",
+        "_content": "opqrstuv"
+    }]
+}
