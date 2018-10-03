@@ -184,10 +184,16 @@ class TaskPage extends React.Component {
                   </div>
                   <div className="integr8ly-module-column--footer">
                     <h6>{t('task.CompleteAndCheck')}</h6>
-                    <div className="integr8ly-module-column--footer_status">
+                    <div
+                      className={
+                        verificationsChecked
+                          ? 'integr8ly-module-column--footer_status-checked'
+                          : 'integr8ly-module-column--footer_status'
+                      }
+                    >
                       {threadTask.steps.map((step, l) => (
                         <React.Fragment key={l}>
-                          <Icon type="fa" name="circle-o" />
+                          <Icon type="fa" name={verificationsChecked ? 'check' : 'circle-o'} />
                           <span className="integr8ly-module-column--footer_status-step">
                             {task}.{l}
                           </span>
