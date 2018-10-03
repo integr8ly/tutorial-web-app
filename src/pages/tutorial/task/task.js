@@ -6,7 +6,7 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
-import { prepareWalkthroughNamespace, walkthroughs, WALKTHOUGH_IDS } from '../../../services/walkthroughServices';
+import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 
@@ -16,10 +16,10 @@ class TaskPage extends React.Component {
   componentDidMount() {
     this.loadThread();
     const { prepareWalkthroughOne, prepareWalkthroughOneA } = this.props;
-    if (this.props.match.params.id === WALKTHOUGH_IDS.ONE) {
+    if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
-    if (this.props.match.params.id === WALKTHOUGH_IDS.ONEA) {
+    if (this.props.match.params.id === WALKTHROUGH_IDS.ONEA) {
       prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
     }
   }

@@ -1,4 +1,4 @@
-import { WALKTHOUGH_IDS } from '../services/walkthroughServices';
+import { WALKTHROUGH_IDS } from '../services/walkthroughServices';
 import { DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
@@ -13,10 +13,22 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
 };
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
-  if (walkthrough.id === WALKTHOUGH_IDS.ONE) {
+  if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
     const crudAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.CRUD_APP}`;
     const msgAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.MESSAGING_APP}`;
     const { url, username, password } = middlewareServices.amqCredentials;
+    return {
+      'spring-boot-url': getUrlFromWalkthroughServices(walkthroughServices, crudAppName),
+      'node-js-url': getUrlFromWalkthroughServices(walkthroughServices, msgAppName),
+      'messaging-broker-url': url,
+      'messaging-username': username,
+      'messaging-password': password
+    };
+  }
+  if (walkthrough.id === WALKTHROUGH_IDS.ONEA) {
+    const crudAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.CRUD_APP}`;
+    const msgAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.MESSAGING_APP}`;
+    const { url, username, password } = middlewareServices.enmasseCredentials;
     return {
       'spring-boot-url': getUrlFromWalkthroughServices(walkthroughServices, crudAppName),
       'node-js-url': getUrlFromWalkthroughServices(walkthroughServices, msgAppName),
