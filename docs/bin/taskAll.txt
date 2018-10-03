@@ -1,0 +1,6 @@
+../modules/ROOT/pages/_partials/task-configuring-github-oauth-app.adoc
+../modules/ROOT/pages/_partials/task-creating-connections.adoc
+../modules/ROOT/pages/_partials/task-creating-fuse-integration.adoc
+../modules/ROOT/pages/_partials/task-creating-users.adoc
+../modules/ROOT/pages/_partials/task-setting-up-a-message-queue.adoc
+../modules/ROOT/pages/_partials/task-using-integration.adoc

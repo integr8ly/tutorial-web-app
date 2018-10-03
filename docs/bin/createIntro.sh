@@ -8,7 +8,7 @@ while read p; do
   pbase=`echo ${p%.*}`
   # render filtered adoc and name with hyphen verification.adoc
   ./asciidoc-coalescer.rb --ATTRIBUTE=location=local ./temp.adoc > $destDir$pbase-intro.adoc
-done <listAll.txt
+done <taskAll.txt
 
 # tidy up 
 rm temp.adoc

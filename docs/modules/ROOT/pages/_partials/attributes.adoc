@@ -3,7 +3,13 @@
 :numbered:
 :chapter-label:
 
+//urls
+:fuse-url: https://cluster-lfa3xlh.opentry.me
+:messaging-broker-url: https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval
+:openshift-url: http://employee.openshift.com/
+:sso-admin-url: https://console-keycloak.cluster-lfa3xlh.opentry.me/console/eval
 
+//services and versions
 :messaging-service: Red Hat AMQ Online
 :messaging-service-version: 7.2
 :integration-service: Fuse

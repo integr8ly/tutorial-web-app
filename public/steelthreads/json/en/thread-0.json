@@ -18,14 +18,10 @@
       "estimatedTime": 6,
       "steps": [
         {
-          "stepDoc": "configuring-github-oauth-app.adoc",
+          "stepDoc": "task-configuring-github-oauth-app.adoc",
           "infoVerifications": [
-            "configuring-github-oauth-app-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
+            "task-configuring-github-oauth-app-verification.adoc"
+          ]
         }
       ]
     },
@@ -34,13 +30,10 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-users.adoc",
+          "stepDoc": "task-creating-users.adoc",
           "infoVerifications": [
-            "creating-users-verification.adoc"
-          ],
-          "attributes": {
-            "sso-admin-url": "https://console-keycloak.cluster-lfa3xlh.opentry.me/console/eval"
-          }
+            "task-creating-users-verification.adoc"
+          ]
         }
       ]
     }
@@ -50,6 +43,10 @@
     "imagesdir": "imagesdir",
     "numbered": "numbered",
     "chapter-label": "chapter-label",
+    "fuse-url": "fuse-url",
+    "messaging-broker-url": "messaging-broker-url",
+    "openshift-url": "openshift-url",
+    "sso-admin-url": "sso-admin-url",
     "messaging-service": "messaging-service",
     "messaging-service-version": "messaging-service-version",
     "integration-service": "integration-service",

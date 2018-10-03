@@ -23,30 +23,19 @@
           "stepDoc": "setting-up-enmasse.adoc",
           "infoVerifications": [
             "setting-up-enmasse-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
+          ]
         },
         {
           "stepDoc": "creating-enmasse-binding.adoc",
           "infoVerifications": [
             "creating-enmasse-binding-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
+          ]
         },
         {
           "stepDoc": "creating-addresses.adoc",
           "infoVerifications": [
             "creating-addresses-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
-          }
+          ]
         }
       ]
     },
@@ -58,20 +47,13 @@
           "stepDoc": "creating-amqp-connection-in-fuse.adoc",
           "infoVerifications": [
             "creating-amqp-connection-in-fuse-verification.adoc"
-          ],
-          "attributes": {
-            "openshift-url": "http://employee.openshift.com/",
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+          ]
         },
         {
           "stepDoc": "creating-http-connection-in-fuse.adoc",
           "infoVerifications": [
             "creating-http-connection-in-fuse-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+          ]
         }
       ]
     },
@@ -83,10 +65,7 @@
           "stepDoc": "creating-fuse-integration.adoc",
           "infoVerifications": [
             "creating-fuse-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+          ]
         }
       ]
     },
@@ -98,10 +77,7 @@
           "stepDoc": "using-integration.adoc",
           "successVerifications": [
             "using-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+          ]
         }
       ]
     }
@@ -111,6 +87,10 @@
     "imagesdir": "imagesdir",
     "numbered": "numbered",
     "chapter-label": "chapter-label",
+    "fuse-url": "fuse-url",
+    "messaging-broker-url": "messaging-broker-url",
+    "openshift-url": "openshift-url",
+    "sso-admin-url": "sso-admin-url",
     "messaging-service": "messaging-service",
     "messaging-service-version": "messaging-service-version",
     "integration-service": "integration-service",

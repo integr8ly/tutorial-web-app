@@ -1,2 +1,0 @@
-EnMasse simplifies running messaging infrastructure for your organization.
-You use it to provide messaging services from a Node.js app to a Spring Boot app.

@@ -20,13 +20,10 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-fuse-integration.adoc",
+          "stepDoc": "task-creating-fuse-integration.adoc",
           "infoVerifications": [
-            "creating-fuse-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+            "task-creating-fuse-integration-verification.adoc"
+          ]
         }
       ]
     },
@@ -35,13 +32,10 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "using-integration.adoc",
+          "stepDoc": "task-using-integration.adoc",
           "successVerifications": [
-            "using-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+            "task-using-integration-verification.adoc"
+          ]
         }
       ]
     }
@@ -51,6 +45,10 @@
     "imagesdir": "imagesdir",
     "numbered": "numbered",
     "chapter-label": "chapter-label",
+    "fuse-url": "fuse-url",
+    "messaging-broker-url": "messaging-broker-url",
+    "openshift-url": "openshift-url",
+    "sso-admin-url": "sso-admin-url",
     "messaging-service": "messaging-service",
     "messaging-service-version": "messaging-service-version",
     "integration-service": "integration-service",
