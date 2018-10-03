@@ -1,5 +1,6 @@
 import { FULFILLED_ACTION } from '../helpers';
 import { GET_WALKTHROUGH_SERVICE } from '../constants/walkthroughServicesConstants';
+import { buildNamespacedServiceInstanceName } from '../../common/openshiftHelpers';
 
 const initialState = {
   walkthroughServices: {
@@ -10,7 +11,8 @@ const initialState = {
 const walkthroughServiceReducers = (state = initialState, action) => {
   if (action.type === FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE)) {
     const createData = Object.assign({}, state.walkthroughServices.services);
-    createData[`${action.payload.metadata.namespace}-${action.payload.spec.to.name}`] = action.payload;
+    const siName = buildNamespacedServiceInstanceName(action.payload.prefix, action.payload.data);
+    createData[siName] = action.payload.data;
     return Object.assign({}, state, {
       walkthroughServices: {
         ...state.walkthroughServices,

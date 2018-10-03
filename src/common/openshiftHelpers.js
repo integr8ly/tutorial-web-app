@@ -14,6 +14,8 @@ const buildValidProjectNamespaceName = (username, suffix) => `${cleanUsername(us
  */
 const cleanUsername = username => username.replace(/@/g, '-').replace(/\./g, '-');
 
+const buildNamespacedServiceInstanceName = (prefix, si) => `${prefix}-${si.spec.to.name}`
+
 /**
  * Helper function for finding a single OpenShift Resource.
  * @param {Object} resourceDef The definition of the OpenShift Resource.
@@ -54,4 +56,4 @@ const findOrCreateOpenshiftResource = (
     return Promise.resolve(foundResource);
   });
 
-export { buildValidProjectNamespaceName, findOrCreateOpenshiftResource, findOpenshiftResource };
+export { buildValidProjectNamespaceName, findOrCreateOpenshiftResource, findOpenshiftResource, buildNamespacedServiceInstanceName };

@@ -6,7 +6,11 @@ import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } f
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
-import { prepareWalkthroughNamespace, walkthroughs } from '../../../services/walkthroughServices';
+import { prepareWalkthroughNamespace, walkthroughs, WALKTHOUGH_IDS } from '../../../services/walkthroughServices';
+import { DEFAULT_SERVICES } from '../../../common/serviceInstanceHelpers';
+import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
+import { getDocsForWalkthrough } from '../../../common/docsHelpers';
+
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
@@ -14,10 +18,10 @@ class TaskPage extends React.Component {
   componentDidMount() {
     this.loadThread();
     const { prepareWalkthroughOne, prepareWalkthroughOneA } = this.props;
-    if (this.props.match.params.id === '1') {
+    if (this.props.match.params.id === WALKTHOUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
-    if (this.props.match.params.id === '1A') {
+    if (this.props.match.params.id === WALKTHOUGH_IDS.ONEA) {
       prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
     }
   }
@@ -94,6 +98,43 @@ class TaskPage extends React.Component {
     setProgress(progress);
   };
 
+  areDocLinksReady = () => {
+    for (let attrKey of Object.keys(this.getDocsAttributes())) {
+      if (!this.getDocsAttributes()[attrKey]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Temporary fix for the Asciidoc renderer not being reactive.
+  getDocsAttributes = () => {
+    const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
+    return getDocsForWalkthrough(walkthrough, this.props.middlewareServices, this.props.walkthroughServices);
+  };
+
+  getAMQCredential = (middlewareServices, name) => {
+    if (!middlewareServices || !middlewareServices.amqCredentials || !middlewareServices.amqCredentials[name]) {
+      return null;
+    }
+    return middlewareServices.amqCredentials[name];
+  };
+
+  getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
+    if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {
+      return null;
+    }
+    const service = middlewareServices.data[serviceName];
+    return service.status.dashboardURL || service.metadata.annotations['integreatly/dashboard-url'];
+  };
+
+  getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
+    if (!walkthroughServices || !walkthroughServices.services || !walkthroughServices.services[buildNamespacedServiceInstanceName(walkthroughs.one.namespaceSuffix, serviceName)]) {
+      return null;
+    }
+    return walkthroughServices.services[serviceName].spec.host;
+  };
+
   backToIntro = e => {
     e.preventDefault();
     this.updateThreadState();
@@ -127,7 +168,7 @@ class TaskPage extends React.Component {
   render() {
     const { t, thread } = this.props;
     const { task, verifications, verificationsChecked } = this.state;
-    if (thread.pending) {
+    if (thread.pending || !this.areDocLinksReady()) {
       // todo: loading state
       return null;
     }
@@ -160,7 +201,7 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
                       <React.Fragment key={i}>
-                        <AsciiDocTemplate adoc={step.stepDoc} attributes={step.attributes || {}} />
+                        <AsciiDocTemplate adoc={step.stepDoc} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
                         {step.infoVerifications &&
                           step.infoVerifications.map((verification, j) => (
                             <Alert type="info" key={j}>
@@ -171,7 +212,7 @@ class TaskPage extends React.Component {
                                   this.handleVerificationChanged(e, verification);
                                 }}
                               >
-                                <AsciiDocTemplate adoc={verification} attributes={step.attributes || {}} />
+                                <AsciiDocTemplate adoc={verification} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
                               </Checkbox>
                             </Alert>
                           ))}
@@ -179,7 +220,7 @@ class TaskPage extends React.Component {
                           step.successVerifications.map((verification, k) => (
                             <Alert type="success" key={k}>
                               <strong>{t('task.verificationTitle')}</strong>
-                              <AsciiDocTemplate adoc={verification} attributes={step.attributes || {}} />
+                              <AsciiDocTemplate adoc={verification} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
                             </Alert>
                           ))}
                       </React.Fragment>
@@ -290,6 +331,7 @@ TaskPage.propTypes = {
   }),
   getThread: PropTypes.func,
   middlewareServices: PropTypes.object,
+  walkthroughServices: PropTypes.object,
   prepareWalkthroughOne: PropTypes.func,
   prepareWalkthroughOneA: PropTypes.func,
   setProgress: PropTypes.func,
@@ -313,6 +355,9 @@ TaskPage.defaultProps = {
     amqCredentials: {},
     enmasseCredentials: {}
   },
+  walkthroughServices: {
+    services: {}
+  },
   prepareWalkthroughOne: noop,
   prepareWalkthroughOneA: noop,
   setProgress: noop,
@@ -331,7 +376,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   ...state.threadReducers,
   ...state.middlewareReducers,
-  ...state.userReducers
+  ...state.userReducers,
+  ...state.walkthroughServiceReducers
 });
 
 const ConnectedTaskPage = withRouter(
