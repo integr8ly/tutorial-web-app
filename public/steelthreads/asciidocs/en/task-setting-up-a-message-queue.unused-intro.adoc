@@ -1,0 +1,1 @@
+To create and configure a message queue, you use {enmasse}, software for managed, self-service messaging on OpenShift.

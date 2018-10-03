@@ -14,7 +14,7 @@ while IFS=':' read dummy var val
 do
 if [ "$var" ]
 then
-value="$(echo -e "${var}" | sed -e 's/^[[:space:]]*//')"
+value="$(echo -e "${val}" | sed -e 's/^[[:space:]]*//')"
         echo \"$var\":\"$value\",
 fi
 
