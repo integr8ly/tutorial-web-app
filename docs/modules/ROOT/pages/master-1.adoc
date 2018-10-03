@@ -45,8 +45,6 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 endif::location[]
 
 
-include::{partialsdir}/task-setting-up-a-message-queue.adoc[leveloffset=1]
-
 include::{partialsdir}/task-creating-connections.adoc[leveloffset=1]
 
 include::{partialsdir}/task-creating-fuse-integration.adoc[leveloffset=1]

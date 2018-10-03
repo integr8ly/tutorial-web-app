@@ -4,7 +4,7 @@
 
 
 [id='creating-http-connection-in-fuse_{context}']
-= Creating HTTP connection in Red Hat Fuse Online
+= Creating HTTP connection to CRUD App
 
 ifdef::location[]
 // tag::intro[]
@@ -12,8 +12,6 @@ To send messages to the Spring Boot app, you create a connection in Red Hat Fuse
 // end::intro[]
 endif::location[]
 
-:fuse-url: https://eval.apps.city.openshiftworkshop.com/
-:spring-boot-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 
@@ -21,17 +19,13 @@ endif::location[]
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. Select *HTTP* to configure an AMQP Message Broker connection.
+. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
 
-. Enter the following:
-+
-* Base URL: `{spring-boot-url}`
+. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
 
-. Select the *Validate* button to check that the values are valid.
-
-. Click *Next* and enter a name for the connection, for example, `http`.
-
-. Click *Create*.
+. When prompted with *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Click *Create*
 
 ifdef::location[]
 

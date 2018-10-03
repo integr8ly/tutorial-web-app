@@ -16,6 +16,30 @@
   ],
   "tasks": [
     {
+      "title": "Creating Connections",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "creating-api-connector.adoc",
+          "infoVerifications": [
+            "creating-api-connector-verification.adoc"
+          ]
+        },
+        {
+          "stepDoc": "creating-amq-connection-in-fuse.adoc",
+          "infoVerifications": [
+            "creating-amq-connection-in-fuse-verification.adoc"
+          ]
+        },
+        {
+          "stepDoc": "creating-http-connection.adoc",
+          "infoVerifications": [
+            "creating-http-connection.adoc"
+          ]
+        }
+      ]
+    },
+    {
       "title": "Creating an integration",
       "estimatedTime": 5,
       "steps": [

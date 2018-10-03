@@ -13,26 +13,31 @@ ifdef::context[:parent-context: {context}]
 // * Title: = My assembly A
 
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='creating-connections']
+[id='creating-and-editing-a-publishing-endpoint']
 // If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
 
-= Creating connections
+= Creating and editing a publishing endpoint
 
 //If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
-:context: creating-connections
+:context: creating-and-editing-a-publishing-endpoint
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
 ifdef::location[]
 // tag::intro[]
-To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you set up two connections in Red Hat Fuse Online.
+To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.
 // end::intro[]
 endif::location[]
 
-include::{partialsdir}/creating-api-connector.adoc[leveloffset=2]
+// The following include statements pull in the module files that comprise the assembly. Include any combination of concept, procedure, or reference modules required to cover the user story. You can also include other assemblies.
 
-include::{partialsdir}/creating-amq-connection-in-fuse.adoc[leveloffset=2]
+include::{partialsdir}/running-node-app.adoc[leveloffset=2]
 
-include::{partialsdir}/creating-http-connection.adoc[leveloffset=2]
+include::{partialsdir}/editing-node-configmap.adoc[leveloffset=2]
+
+include::{partialsdir}/editing-node-app-with-che.adoc[leveloffset=2]
+
+
+// [leveloffset=+1] ensures that when a module starts with a level-1 heading (= Heading), the heading will be interpreted as a level-2 heading (== Heading) in the assembly.
 
 
 // Restore the context to what it was before this assembly.
