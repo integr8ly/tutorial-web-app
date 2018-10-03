@@ -19,7 +19,7 @@ class TaskPage extends React.Component {
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
-    if (this.props.match.params.id === WALKTHROUGH_IDS.ONEA) {
+    if (this.props.match.params.id === WALKTHROUGH_IDS.ONE_A) {
       prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
     }
   }

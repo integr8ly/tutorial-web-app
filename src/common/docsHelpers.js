@@ -25,7 +25,7 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
       'messaging-password': password
     };
   }
-  if (walkthrough.id === WALKTHROUGH_IDS.ONEA) {
+  if (walkthrough.id === WALKTHROUGH_IDS.ONE_A) {
     const crudAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.CRUD_APP}`;
     const msgAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.MESSAGING_APP}`;
     const { url, username, password } = middlewareServices.enmasseCredentials;
