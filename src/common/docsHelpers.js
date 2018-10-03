@@ -1,7 +1,6 @@
 import { WALKTHOUGH_IDS } from '../services/walkthroughServices';
 import { DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
 
-
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
   if (!walkthrough) {
     return {};
@@ -11,28 +10,29 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
   const walkthroughAttrs = getWalkthroughSpecificAttrs(walkthrough, middlewareServices, walkthroughServices);
 
   return Object.assign({}, middlewareAttrs, walkthroughAttrs);
-}
+};
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
   if (walkthrough.id === WALKTHOUGH_IDS.ONE) {
     const crudAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.CRUD_APP}`;
     const msgAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.MESSAGING_APP}`;
-    const amqCredentials = middlewareServices.amqCredentials;
+    const { url, username, password } = middlewareServices.amqCredentials;
     return {
-      "spring-boot-url": getUrlFromWalkthroughServices(walkthroughServices, crudAppName),
-      "node-js-url": getUrlFromWalkthroughServices(walkthroughServices, msgAppName),
-      "messaging-broker-url": amqCredentials.url,
-      "messaging-username": amqCredentials.username,
-      "messaging-password": amqCredentials.password 
-    }
+      'spring-boot-url': getUrlFromWalkthroughServices(walkthroughServices, crudAppName),
+      'node-js-url': getUrlFromWalkthroughServices(walkthroughServices, msgAppName),
+      'messaging-broker-url': url,
+      'messaging-username': username,
+      'messaging-password': password
+    };
   }
-}
+  return {};
+};
 
-const getMiddlwareServiceUrls = (middlewareServices) => ({
-  "fuse-url": getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
-  "messaging-url": getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ),
-  "launcher-url": getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
-  "che-url": getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
+const getMiddlwareServiceUrls = middlewareServices => ({
+  'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
+  'messaging-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ),
+  'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
+  'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
 });
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
@@ -50,4 +50,4 @@ const getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
   return walkthroughServices.services[serviceName].spec.host;
 };
 
-export { getDocsForWalkthrough }
+export { getDocsForWalkthrough };

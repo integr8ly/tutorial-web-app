@@ -7,10 +7,8 @@ import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHOUGH_IDS } from '../../../services/walkthroughServices';
-import { DEFAULT_SERVICES } from '../../../common/serviceInstanceHelpers';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
-
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
@@ -99,13 +97,13 @@ class TaskPage extends React.Component {
   };
 
   areDocLinksReady = () => {
-    for (let attrKey of Object.keys(this.getDocsAttributes())) {
+    for (const attrKey of Object.keys(this.getDocsAttributes())) {
       if (!this.getDocsAttributes()[attrKey]) {
         return false;
       }
     }
     return true;
-  }
+  };
 
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
@@ -129,7 +127,11 @@ class TaskPage extends React.Component {
   };
 
   getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
-    if (!walkthroughServices || !walkthroughServices.services || !walkthroughServices.services[buildNamespacedServiceInstanceName(walkthroughs.one.namespaceSuffix, serviceName)]) {
+    if (
+      !walkthroughServices ||
+      !walkthroughServices.services ||
+      !walkthroughServices.services[buildNamespacedServiceInstanceName(walkthroughs.one.namespaceSuffix, serviceName)]
+    ) {
       return null;
     }
     return walkthroughServices.services[serviceName].spec.host;
@@ -201,7 +203,10 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
                       <React.Fragment key={i}>
-                        <AsciiDocTemplate adoc={step.stepDoc} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
+                        <AsciiDocTemplate
+                          adoc={step.stepDoc}
+                          attributes={Object.assign({}, step.attributes, this.getDocsAttributes())}
+                        />
                         {step.infoVerifications &&
                           step.infoVerifications.map((verification, j) => (
                             <Alert type="info" key={j}>
@@ -212,7 +217,10 @@ class TaskPage extends React.Component {
                                   this.handleVerificationChanged(e, verification);
                                 }}
                               >
-                                <AsciiDocTemplate adoc={verification} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
+                                <AsciiDocTemplate
+                                  adoc={verification}
+                                  attributes={Object.assign({}, step.attributes, this.getDocsAttributes())}
+                                />
                               </Checkbox>
                             </Alert>
                           ))}
@@ -220,7 +228,10 @@ class TaskPage extends React.Component {
                           step.successVerifications.map((verification, k) => (
                             <Alert type="success" key={k}>
                               <strong>{t('task.verificationTitle')}</strong>
-                              <AsciiDocTemplate adoc={verification} attributes={Object.assign({}, step.attributes, this.getDocsAttributes())} />
+                              <AsciiDocTemplate
+                                adoc={verification}
+                                attributes={Object.assign({}, step.attributes, this.getDocsAttributes())}
+                              />
                             </Alert>
                           ))}
                       </React.Fragment>
