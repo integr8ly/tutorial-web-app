@@ -1,5 +1,5 @@
 # usage:
-# createAttrjson.sh <walkthrough-id>
+# createAttrJson.sh <walkthrough-id>
 
 sourceFile="../modules/ROOT/pages/_partials/attributes-$1.adoc"
 destDir="../../public/steelthreads/json/en/"
