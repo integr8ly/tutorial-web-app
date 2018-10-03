@@ -96,15 +96,6 @@ class TaskPage extends React.Component {
     setProgress(progress);
   };
 
-  areDocLinksReady = () => {
-    for (const attrKey of Object.keys(this.getDocsAttributes())) {
-      if (!this.getDocsAttributes()[attrKey]) {
-        return false;
-      }
-    }
-    return true;
-  };
-
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
     const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
@@ -170,7 +161,7 @@ class TaskPage extends React.Component {
   render() {
     const { t, thread } = this.props;
     const { task, verifications, verificationsChecked } = this.state;
-    if (thread.pending || !this.areDocLinksReady()) {
+    if (thread.pending) {
       // todo: loading state
       return null;
     }
