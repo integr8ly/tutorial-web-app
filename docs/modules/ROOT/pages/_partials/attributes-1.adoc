@@ -1,0 +1,3 @@
+include::attributes.adoc[]
+
+:walkthrough: Integrating event-driven and API-driven applications (AMQ)

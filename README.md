@@ -54,33 +54,20 @@ find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
 oc new-app --template react-demo-app -p SOURCE_REPOSITORY_URL=https://github.com/priley86/integr8ly-prototype -p SOURCE_REPOSITORY_REF=development
 ```
 
-# Ascii Doc Support
+# Documentation
 
-This project requires [asciidoctor](https://github.com/asciidoctor/asciidoctor) and [yq](https://github.com/kislyuk/yq) for translating Ascii Docs to JSON.
+This project requires [asciidoctor](https://asciidoctor.org/). It uses asciidoctor.js to render adoc files at runtime.
 
-Pre-requisites:
+To write documentation for inclusion in the app, you only need to edit the files in the [pages](./docs/modules/ROOT/pages) directory.
 
-```
-brew install asciidoctor
-brew install python-yq
-```
+After making edits, run the [buildDocs.sh](.docs/bin/buildDocs.sh) script.
 
-To convert ascii doc to HTML fragments, run the following:
+Each walkthrough requires:
 
-```
-cd ./public/asciidocs/en
-asciidoctor [INPUT-ASCII-DOC-FILE] -s
-```
-
-To convert ascii doc files to JSON, you can run the following:
-
-```
-cd ./public/asciidocs/en
-asciidoctor -b docbook [INPUT-ASCII-DOC-FILE] [OUTPUT-XML-FILE]
-xq . [OUTPUT-XML-FILE] > [OUTPUT-JSON-FILE]
-```
-
-This JSON can then be referenced in the appropriate language locale under `public/locales/*.json`.
+* master-<id>.adoc
+* attributes-<id>.adoc
+* task-<task>.adoc
+* <step>.adoc (only if task consists of more than one step)
 
 
 # Releasing
