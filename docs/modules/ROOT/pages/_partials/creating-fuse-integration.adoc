@@ -21,7 +21,7 @@ endif::location[]
 . Select the *Create API Connector* button to start the *API Client Connector* wizard.
 
 . When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
-.. Enter the following in the URL field. `http://{spring-boot-url}/v2/api-docs`
+.. Enter the following in the URL field. `\http://{spring-boot-url}/v2/api-docs`
 .. Click *Next*
 
 . When prompted with *Review Actions*, select *Next*.
@@ -29,7 +29,7 @@ endif::location[]
 . When prompted with *Specify Security*, select *Next*.
 
 . When prompted with *Review/Edit Connector Details*
-.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`.
+.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`
 .. Click *Create API Connector*
 
 . Select *Connections* from the left hand menu.
