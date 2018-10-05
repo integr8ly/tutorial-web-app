@@ -16,11 +16,11 @@
 // https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
 
 
-= Creating addresses in EnMasse space
+= Creating an address in EnMasse space
 
 ifdef::location[]
 // tag::intro[]
-To route messages to the Spring Boot app, you create two addresses in EnMasse.
+To route messages to the Spring Boot app, you create an address in EnMasse.
 // end::intro[]
 endif::location[]
 
@@ -34,12 +34,8 @@ endif::location[]
 .. Select *Pooled Queue* as the address plan and click *Next*.
 .. Select *Create* to complete the wizard.
 
-. Create a *updates* address:
-.. Select the *Create* button to start the *Create new address* wizard.
-.. Enter `work-queue/worker-updates` as the address name.
-.. Select *multicast* as the type and click *Next*.
-.. Select *Standard* as the address plan and click *Next*.
-.. Select *Create* to complete the wizard.
+After the address is created a green check mark is displayed.
+
 
 ifdef::location[]
 
