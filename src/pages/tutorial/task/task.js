@@ -196,7 +196,12 @@ class TaskPage extends React.Component {
                       <React.Fragment key={i}>
                         <AsciiDocTemplate
                           adoc={step.stepDoc}
-                          attributes={Object.assign({}, threadTask.attributes, step.attributes, this.getDocsAttributes())}
+                          attributes={Object.assign(
+                            {},
+                            threadTask.attributes,
+                            step.attributes,
+                            this.getDocsAttributes()
+                          )}
                         />
                         {step.infoVerifications &&
                           step.infoVerifications.map((verification, j) => (
@@ -210,7 +215,12 @@ class TaskPage extends React.Component {
                               >
                                 <AsciiDocTemplate
                                   adoc={verification}
-                                  attributes={Object.assign({}, threadTask.attributes, step.attributes, this.getDocsAttributes())}
+                                  attributes={Object.assign(
+                                    {},
+                                    threadTask.attributes,
+                                    step.attributes,
+                                    this.getDocsAttributes()
+                                  )}
                                 />
                               </Checkbox>
                             </Alert>
@@ -221,7 +231,12 @@ class TaskPage extends React.Component {
                               <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate
                                 adoc={verification}
-                                attributes={Object.assign({}, threadTask.attributes, step.attributes, this.getDocsAttributes())}
+                                attributes={Object.assign(
+                                  {},
+                                  threadTask.attributes,
+                                  step.attributes,
+                                  this.getDocsAttributes()
+                                )}
                               />
                             </Alert>
                           ))}
