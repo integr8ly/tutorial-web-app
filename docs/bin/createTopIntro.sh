@@ -1,4 +1,4 @@
-sourceDir="../modules/ROOT/pages/_partials/"
+sourceDir="../modules/ROOT/pages/"
 destDir="../../public/steelthreads/asciidocs/en/"
 
 while read p; do
@@ -10,7 +10,7 @@ while read p; do
   echo $pbase
   # render filtered adoc and name with hyphen verification.adoc
   ./asciidoc-coalescer.rb --ATTRIBUTE=location=local ./temp.adoc > $destDir$pbase-intro.adoc
-done <taskAll.txt
+done <walkAll.txt
 
 # tidy up 
 rm temp.adoc

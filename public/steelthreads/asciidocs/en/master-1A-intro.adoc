@@ -1,0 +1,15 @@
+
+In a multi-application system, you often find:
+
+* communication between the applications can be difficult due to differing technologies
+* custom solutions can be difficult to create and maintain
+* custom solutions require custom monitoring
+* understanding the relationship between the applications requires deep technical insight to the overall architecture
+
+A more structured approach involves:
+
+* a simple integration that developers can understand intuitively
+* simple provisioning and configuration
+* built-in monitoring
+
+This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
