@@ -24,13 +24,5 @@
     p:first-of-type {
       font-weight: $pf-global--FontWeight--bold;
     }
-    &-days-remaining {
-      position: absolute;
-      top: 80px;
-      right: 25px;
-      color: $color-pf-black-900;
-      font-size: $pf-global--FontSize--sm;
-      font-weight: $pf-global--FontWeight--bold;
-    }
   }
 }

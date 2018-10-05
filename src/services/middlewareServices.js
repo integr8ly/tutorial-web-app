@@ -1,16 +1,26 @@
-import { list, create, watch, update, currentUser, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, update, currentUser, OpenShiftWatchEvents } from './openshiftServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
-import { buildServiceInstanceResourceObj, DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
+import {
+  buildServiceInstanceCompareFn,
+  buildServiceInstanceResourceObj,
+  DEFAULT_SERVICES
+} from '../common/serviceInstanceHelpers';
 import {
   buildValidProjectNamespaceName,
-  namespaceRequestDef,
-  namespaceDef,
-  namespaceRequestResource,
-  statefulSetDef,
-  routeDef,
-  secretDef
+  findOpenshiftResource,
+  findOrCreateOpenshiftResource
 } from '../common/openshiftHelpers';
+import {
+  namespaceResource,
+  namespaceRequestResource,
+  namespaceDef,
+  namespaceRequestDef,
+  serviceInstanceDef,
+  statefulSetDef,
+  secretDef,
+  routeDef
+} from '../common/openshiftResourceDefinitions';
 
 const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.ENMASSE,
@@ -59,15 +69,16 @@ const mockMiddlewareServices = (dispatch, mockData) => {
 const manageMiddlewareServices = dispatch => {
   currentUser().then(user => {
     const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
-    const namespaceObj = namespaceRequestResource(userNamespace);
+    const namespaceObj = namespaceResource(userNamespace);
+    const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
-    findOpenshiftResource(namespaceDef, namespaceObj)
-      .then(foundResource => {
-        if (!foundResource) {
-          return create(namespaceRequestDef, namespaceObj);
-        }
-        return foundResource;
-      })
+    findOrCreateOpenshiftResource(
+      namespaceDef,
+      namespaceObj,
+      resObj => resObj.metadata.name === userNamespace,
+      namespaceRequestDef,
+      namespaceRequestObj
+    )
       .then(() => {
         const siObjs = WALKTHROUGH_SERVICES.map(name =>
           buildServiceInstanceResourceObj({ namespace: userNamespace, name, user })
@@ -75,15 +86,15 @@ const manageMiddlewareServices = dispatch => {
         return Promise.all(
           siObjs.map(siObj =>
             findOrCreateOpenshiftResource(
-              buildServiceInstanceDef(userNamespace),
+              serviceInstanceDef(userNamespace),
               siObj,
-              resObj => resObj.spec.clusterServiceClassExternalName === siObj.spec.clusterServiceClassExternalName
+              buildServiceInstanceCompareFn(siObj)
             )
           )
         );
       })
       .then(() => {
-        watch(buildServiceInstanceDef(userNamespace)).then(watchListener =>
+        watch(serviceInstanceDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch))
         );
         watch(statefulSetDef(userNamespace)).then(watchListener =>
@@ -95,17 +106,6 @@ const manageMiddlewareServices = dispatch => {
       });
   });
 };
-
-/**
- * Construct an OpenShift Resource Definition for a ServiceInstance.
- * @param {string} namespace The namespace to reference in the definition.
- */
-const buildServiceInstanceDef = namespace => ({
-  name: 'serviceinstances',
-  namespace,
-  version: 'v1beta1',
-  group: 'servicecatalog.k8s.io'
-});
 
 /**
  * Handle an event that occured while watching the AMQ StatefulSet.
@@ -143,7 +143,7 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
 
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_AMQ_CREDENTIALS),
-    payload: { username: usernameEnv.value, password: passwordEnv.value, url: `broker-amq-amqp.${namespace}.svc` }
+    payload: { username: usernameEnv.value, password: passwordEnv.value, url: `broker-amq-tcp.${namespace}.svc` }
   });
 };
 
@@ -165,14 +165,12 @@ const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
   const secret = event.payload;
   if (secret.metadata.name.includes('enmasse-standard') && secret.metadata.name.includes('credentials')) {
     const amqpHost = window.atob(secret.data.messagingHost);
-    const amqpPort = window.atob(secret.data.messagingAmqpPort);
     const username = window.atob(secret.data.username);
     const password = window.atob(secret.data.password);
-    const amqpURL = `amqp://${amqpHost}:${amqpPort}?amqp.saslMechanisms=PLAIN`;
 
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
-      payload: { url: amqpURL, username, password }
+      payload: { url: amqpHost, username, password }
     });
   }
 };
@@ -245,7 +243,7 @@ const handleAMQServiceInstanceWatchEvents = event => {
       event.payload.metadata.annotations = {};
     }
     event.payload.metadata.annotations[dashboardUrl] = `http://${route.spec.host}`;
-    update(buildServiceInstanceDef(event.payload.metadata.namespace), event.payload);
+    update(serviceInstanceDef(event.payload.metadata.namespace), event.payload);
   });
 };
 
@@ -294,34 +292,5 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
     );
   }
 };
-
-/**
- * Helper function for finding a single OpenShift Resource.
- * @param {Object} openshiftResourceDef The definition of the OpenShift Resource.
- * @param {Object} resToFind The OpenShift Resource itself. By default this needs only to contain a name.
- * @param {Function} compareFn A custom function for comparing resources, determines if a resource is found.
- */
-const findOpenshiftResource = (
-  openshiftResourceDef,
-  resToFind,
-  compareFn = resObj => resObj.metadata.name === resToFind.metadata.name
-) =>
-  list(openshiftResourceDef)
-    .then(listResponse => (listResponse && listResponse.items ? listResponse.items : []))
-    .then(resourceObjs => resourceObjs.find(resObj => compareFn(resObj)));
-
-/**
- * Helper function for creating an OpenShift Resource if it doesn't exist already.
- * @param {Object} openshiftResourceDef The definition of the OpenShift Resource.
- * @param {Object} resToFind The OpenShift Resource itself. By default this needs only to contain a name.
- * @param {Function} compareFn A custom function for comparing resources, determines if a resource is found.
- */
-const findOrCreateOpenshiftResource = (openshiftResourceDef, resToFind, compareFn) =>
-  findOpenshiftResource(openshiftResourceDef, resToFind, compareFn).then(foundResource => {
-    if (!foundResource) {
-      return create(openshiftResourceDef, resToFind);
-    }
-    return Promise.resolve(foundResource);
-  });
 
 export { manageMiddlewareServices, mockMiddlewareServices };

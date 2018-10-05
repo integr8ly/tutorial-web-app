@@ -1,7 +1,7 @@
 {
   "id": "1A",
   "title": "Integrating event-driven and API-driven applications",
-  "descriptionDoc": "integrating-eventdriven-and-apidriven-applications-introduction.adoc",
+  "descriptionDoc": "master-1A-intro.adoc",
   "prerequisites": [
     "You have completed Walkthrough 0"
   ],
@@ -16,37 +16,14 @@
   ],
   "tasks": [
     {
-      "title": "Setting up a message queue",
+      "title": "Creating an address in EnMasse space",
       "estimatedTime": 6,
       "steps": [
         {
-          "stepDoc": "setting-up-enmasse.adoc",
+          "stepDoc": "task-creating-addresses.adoc",
           "infoVerifications": [
-            "setting-up-enmasse-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
-        },
-        {
-          "stepDoc": "creating-enmasse-binding.adoc",
-          "infoVerifications": [
-            "creating-enmasse-binding-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
-            "openshift-url": "http://employee.openshift.com/"
-          }
-        },
-        {
-          "stepDoc": "creating-addresses.adoc",
-          "infoVerifications": [
-            "creating-addresses-verification.adoc"
-          ],
-          "attributes": {
-            "enmasse-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval"
-          }
+            "task-creating-addresses-verification.adoc"
+          ]
         }
       ]
     },
@@ -55,23 +32,16 @@
       "estimatedTime": 5,
       "steps": [
         {
+          "stepDoc": "creating-api-connector.adoc",
+          "infoVerifications": [
+            "creating-api-connector-verification.adoc"
+          ]
+        },
+        {
           "stepDoc": "creating-amqp-connection-in-fuse.adoc",
           "infoVerifications": [
             "creating-amqp-connection-in-fuse-verification.adoc"
-          ],
-          "attributes": {
-            "openshift-url": "http://employee.openshift.com/",
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
-        },
-        {
-          "stepDoc": "creating-http-connection-in-fuse.adoc",
-          "infoVerifications": [
-            "creating-http-connection-in-fuse-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+          ]
         }
       ]
     },
@@ -80,13 +50,10 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-fuse-integration.adoc",
+          "stepDoc": "task-creating-fuse-integration.adoc",
           "infoVerifications": [
-            "creating-fuse-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+            "task-creating-fuse-integration-verification.adoc"
+          ]
         }
       ]
     },
@@ -95,15 +62,41 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "using-integration.adoc",
+          "stepDoc": "task-using-integration.adoc",
           "successVerifications": [
-            "using-integration-verification.adoc"
-          ],
-          "attributes": {
-            "fuse-url": "https://cluster-lfa3xlh.opentry.me"
-          }
+            "task-using-integration-verification.adoc"
+          ]
         }
       ]
     }
-  ]
+  ],
+  "attributes": {
+    "integreatly": "Integreatly",
+    "imagesdir": "/images",
+    "numbered": "",
+    "chapter-label": "",
+    "fuse-url": "https://cluster-lfa3xlh.opentry.me",
+    "messaging-broker-url": "https://console-enmasse.cluster-lfa3xlh.opentry.me/console/eval",
+    "openshift-url": "http://employee.openshift.com/",
+    "sso-admin-url": "https://console-keycloak.cluster-lfa3xlh.opentry.me/console/eval",
+    "messaging-service": "EnMasse",
+    "messaging-service-version": "7.2",
+    "integration-service": "Fuse",
+    "integration-service-version": "7.1",
+    "api-mgmt-service": "3Scale",
+    "api-mgmt-service-version": "",
+    "//gitlab.cee.redhat.com/AMQ7-documentation/amq7-documentation/raw/release-amq-7.2.x/common/attributes.adoc": "",
+    "AMQ-ProductLongName": "Red Hat AMQ",
+    "AMQ-BrokerVersion": "7.2",
+    "//gitlab.cee.redhat.com/jboss-fuse-documentation/fuse7/raw/fuse-7.1-prod/docs/shared/attributes.adoc": "",
+    "Fuse-prodnamefull": "Red Hat Fuse",
+    "Fuse-version": "7.1",
+    "//gitlab.cee.redhat.com/red-hat-3scale-documentation/3scale-documentation/raw/up/2.3.x/docs/topics/templates/document-attributes.adoc": "",
+    "3Scale-ProductName": "Red Hat 3scale",
+    "3Scale-ProductVersion": "2.3",
+    "//raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc": "",
+    "EnMasse-master-ProductLongName": "EnMasse",
+    "walkthrough": "Integrating event-driven and API-driven applications (EnMasse)",
+    "dummy": "value"
+  }
 }

@@ -1,0 +1,24 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='creating-http-connection-in-fuse_{context}']
+= Creating HTTP connection to CRUD App
+
+
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+
+. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Click *Create*
+

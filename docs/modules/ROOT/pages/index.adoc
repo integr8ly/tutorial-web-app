@@ -5,11 +5,8 @@
 :integreatly: Integreatly
 
 // Book Title
-= Configuring an {integreatly} environment
+= Integreatly Walkthroughs
 
-include::{partialsdir}/configuring-an-integreatly-environment-introduction.adoc[leveloffset=1]
-
-include::{partialsdir}/configuring-github-oauth-app.adoc[leveloffset=1]
-
-include::{partialsdir}/creating-users.adoc[leveloffset=1]
-
+* xref:master-0.adoc[Configuring the environment]
+* xref:master-1.adoc[Integrating event-driven and API-driven applications (AMQ)]
+* xref:master-1A.adoc[Integrating event-driven and API-driven applications (EnMasse)]

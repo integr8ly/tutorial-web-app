@@ -1,1 +1,0 @@
-To send messages to the Spring Boot app, you create a connection in Red Hat Fuse Online.

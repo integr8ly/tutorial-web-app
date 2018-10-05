@@ -28,7 +28,7 @@ class TutorialDashboard extends React.Component {
           <Row>
             <Col xs={12} sm={4}>
               <TutorialCard
-                title="Configuring the Integreatly environment"
+                title="Configuring the environment"
                 getStartedLink="/tutorial/0"
                 getStartedText="Get Started"
                 getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
@@ -36,21 +36,6 @@ class TutorialDashboard extends React.Component {
                 mins={40}
               >
                 <p>Complete these configuration tasks to ensure that you can complete all walkthroughs.</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Integrating event-driven and API-driven applications (EnMasse)"
-                getStartedLink="/tutorial/1A"
-                getStartedText="Get Started"
-                getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={40}
-              >
-                <p>
-                  Build a simple REST-based integration that enables a new fruit type to be added to an inventory list
-                  for a fictional grocery list.
-                </p>
               </TutorialCard>
             </Col>
             <Col xs={12} sm={4}>
@@ -63,21 +48,36 @@ class TutorialDashboard extends React.Component {
                 mins={40}
               >
                 <p>
-                  Build a simple REST-based integration that enables a new fruit type to be added to an inventory list
-                  for a fictional grocery list.
+                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
+                  fictional grocery using Red Hat AMQ.
                 </p>
               </TutorialCard>
             </Col>
             <Col xs={12} sm={4}>
               <TutorialCard
-                title="Develop an API from beginning to end"
+                title="Integrating event-driven and API-driven applications (EnMasse)"
+                getStartedLink="/tutorial/1A"
+                getStartedText="Get Started"
+                getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
+                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
+                mins={40}
+              >
+                <p>
+                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
+                  fictional grocery using EnMasse.
+                </p>
+              </TutorialCard>
+            </Col>
+            <Col xs={12} sm={4}>
+              <TutorialCard
+                title="Integrating API-driven applications"
                 getStartedLink="#"
                 getStartedText=""
                 getStartedIcon={<span>&nbsp;</span>}
                 minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
                 mins={0}
               >
-                <p>Coming soon!</p>
+                <p>Expose and protect an API that reports on arrivals and departures at a fictional airport.</p>
               </TutorialCard>
             </Col>
             <Col xs={12} sm={4}>

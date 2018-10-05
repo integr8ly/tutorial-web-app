@@ -11,15 +11,61 @@
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 
+. Select *Customizations* from the left hand menu.
+
+. Select the *Create API Connector* button to start the *API Client Connector* wizard.
+
+. When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
+.. Enter the following in the URL field. `\http://{spring-boot-url}/v2/api-docs`
+.. Click *Next*
+
+. When prompted with *Review Actions*, select *Next*.
+
+. When prompted with *Specify Security*, select *Next*.
+
+. When prompted with *Review/Edit Connector Details*
+.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`.
+.. Click *Create API Connector*
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+
+. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Click *Create*
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *AMQ Message Broker*
+
+. When prompted with *AMQ Message Broker Configuration*
+.. Enter the following into the *Broker URL* field, `tcp://{messaging-broker-url}:61616`
+.. Enter the following into the *User Name* field, `{messaging-username}`
+.. Enter the following into the *Password* field, `{messaging-password}`
+.. Select `Disable` for the *Check Certificates* field.
+.. Click *Validate*
+.. Click *Next*
+
+. When prompted for *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One Messaging App`
+.. Click *Create*
+
 . Select *Integrations* from the left hand menu.
 
 . Select the *Create Integration* button to start the *Create Integration* wizard.
 
-. Choose *enmasse* as the *Start Connection*.
+. Choose `Walkthrough One Messaging App` as the *Start Connection*.
 
 . When prompted to *Choose an Action*, select *Subscribe for messages*.
 
-. When prompted for a *Destination Name*, enter `work-queue/worker-updates`.
+. When prompted for a *Destination Name*, enter `work-queue/requests`.
 
 . Choose *Queue* as the *Destination Type* and click *Next*.
 
@@ -34,50 +80,22 @@
 	"properties": {
 		"type": {
 			"type": "string"
-		},
-		"stock": {
-			"type": "string"
 		}
 	}
 }
 ----
 .. Click *Done*.
 
-. Choose *http* as the *Finish Connection*.
+. Choose `Walkthrough One CRUD App` as the *Finish Connection*.
 
-. When prompted to *Choose an Action*, select *Invoke URL*.
-
-. When prompted for a *properties*
-.. Enter `api/fruits` as the *URL Path*.
-.. Select *POST* as the *Http Method*.
-.. Click *Next*.
-
-. When prompted to *Specify Input Data Type*:
-.. Select *JSON Schema* as the type.
-.. Enter the following in the *Definition* field:
-+
-----
-{
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"type": "object",
-	"properties": {
-		"name": {
-			"type": "string"
-		},
-		"stock": {
-			"type": "string"
-		}
-	}
-}
-----
-.. Click *Done*.
+. When prompted to *Choose an Action*, select *Create a fruit*.
 
 . When prompted to *Add to Integration*, select *Add a Step*.
 
 . Select *Data Mapper* to map source and target fields in the corresponding JSON schemas:
-.. Click and drag *stock* from the *Source* column to *stock* in the *Target* column.
-.. Click and drag *type* from the *Source* column to *name* in the *Target* column.
-. Click *Done* to navigate back to the Integration screen.
+.. Click and drag *type* from the *Source* column to *body/name* in the *Target* column.
+.. Click *Done* to navigate back to the Integration screen.
+
 . Click *Publish*.
-. When prompted, enter a name, for example `fruit-inventory`.
+. When prompted, enter a name, for example `Walkthrough One`.
 

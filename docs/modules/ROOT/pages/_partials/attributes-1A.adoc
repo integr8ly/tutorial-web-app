@@ -1,0 +1,4 @@
+include::attributes.adoc[]
+
+:walkthrough: Integrating event-driven and API-driven applications (EnMasse)
+:messaging-service: EnMasse

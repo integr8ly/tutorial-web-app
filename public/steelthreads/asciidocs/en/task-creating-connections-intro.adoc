@@ -1,0 +1,1 @@
+To receive messages from the Node.js app and to send messages to the Spring Boot CRUD app, you set up two connections in Red Hat Fuse Online.

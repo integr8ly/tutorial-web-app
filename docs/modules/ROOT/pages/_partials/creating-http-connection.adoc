@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='creating-http-connection-in-fuse_{context}']
+= Creating HTTP connection to CRUD App
+
+ifdef::location[]
+// tag::intro[]
+To send messages to the Spring Boot app, you create a connection in Red Hat Fuse Online.
+// end::intro[]
+endif::location[]
+
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+
+. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Click *Create*
+
+ifdef::location[]
+
+.Verification
+// tag::verification[]
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+// end::verification[]
+endif::location[]
+
