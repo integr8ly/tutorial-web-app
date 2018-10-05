@@ -37,11 +37,7 @@ include::{partialsdir}/creating-http-connection.adoc[leveloffset=2]
 
 ifdef::location[]
 
-.Verification
-// tag::verification[]
-Make sure a connector and connections are created.
-// end::verification[]
-endif::location[]
+
 
 
 // Restore the context to what it was before this assembly.

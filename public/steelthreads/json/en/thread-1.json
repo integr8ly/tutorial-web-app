@@ -89,7 +89,7 @@
     "3Scale-ProductName": "Red Hat 3scale",
     "3Scale-ProductVersion": "2.3",
     "//raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc": "",
-    " EnMasse": "",
+    "EnMasse-master-ProductLongName": "EnMasse",
     "walkthrough": "Integrating event-driven and API-driven applications (AMQ)",
     "dummy": "value"
   }
