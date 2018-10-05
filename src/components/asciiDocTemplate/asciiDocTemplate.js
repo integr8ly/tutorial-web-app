@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 import CopyField from '../copyField/copyField';
 
 class AsciiDocTemplate extends React.Component {
-  state = { loaded: false, html: null };
+  state = { loaded: false, docContent: null };
 
   constructor(props) {
     super(props);
@@ -15,22 +15,17 @@ class AsciiDocTemplate extends React.Component {
   }
 
   componentDidMount() {
-    const { i18n, template, adoc, attributes } = this.props;
-    if (adoc) {
-      fetch(`${process.env.REACT_APP_STEELTHREAD_ASCIIDOC_PATH}/${i18n.language}/${adoc}`)
-        .then(res => res.text())
-        .then(html => {
-          const asciidoctor = Asciidoctor();
-          const asciihtml = asciidoctor.convert(html, { attributes });
-          !this.isUnmounted && this.setState({ loaded: true, html: asciihtml });
-        });
-    } else if (template) {
-      fetch(`${process.env.REACT_APP_STEELTHREAD_ASCIIDOC_PATH}/${i18n.language}/${template}`)
-        .then(res => res.text())
-        .then(html => {
-          !this.isUnmounted && this.setState({ loaded: true, html });
-        });
+    const { i18n, template, adoc } = this.props;
+    const docResource = adoc || template;
+    if (!docResource) {
+      return;
     }
+    const docEndpoint = `${process.env.REACT_APP_STEELTHREAD_ASCIIDOC_PATH}/${i18n.language}/${docResource}`;
+    fetch(docEndpoint)
+      .then(res => res.text())
+      .then(html => {
+        !this.isUnmounted && this.setState({ loaded: true, docContent: html });
+      });
   }
 
   componentDidUpdate() {
@@ -42,14 +37,25 @@ class AsciiDocTemplate extends React.Component {
     }
   }
 
+  getDocContent() {
+    if (this.props.template) {
+      return this.state.docContent;
+    }
+    const adoc = Asciidoctor();
+    if (!this.state.docContent) {
+      return null;
+    }
+    return adoc.convert(this.state.docContent, { loaded: true, attributes: this.props.attributes });
+  }
+
   componentWillUnmount() {
     this.isUnmounted = true;
   }
 
   render() {
-    const { loaded, html } = this.state;
+    const { loaded } = this.state;
     if (loaded) {
-      return <div ref={this.rootDiv} dangerouslySetInnerHTML={{ __html: html }} />;
+      return <div ref={this.rootDiv} dangerouslySetInnerHTML={{ __html: this.getDocContent() }} />;
     }
     return null;
   }

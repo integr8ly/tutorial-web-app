@@ -143,7 +143,7 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
 
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_AMQ_CREDENTIALS),
-    payload: { username: usernameEnv.value, password: passwordEnv.value, url: `broker-amq-amqp.${namespace}.svc` }
+    payload: { username: usernameEnv.value, password: passwordEnv.value, url: `broker-amq-tcp.${namespace}.svc` }
   });
 };
 

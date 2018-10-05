@@ -1,0 +1,114 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='creating-fuse-integration_{context}']
+= Creating an integration
+
+ifdef::location[]
+// tag::intro[]
+To use the Fuse connections, you create an integration in Red Hat Fuse Online.
+// end::intro[]
+endif::location[]
+
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Customizations* from the left hand menu.
+
+. Select the *Create API Connector* button to start the *API Client Connector* wizard.
+
+. When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
+.. Enter the following in the URL field. `\http://{spring-boot-url}/v2/api-docs`
+.. Click *Next*
+
+. When prompted with *Review Actions*, select *Next*.
+
+. When prompted with *Specify Security*, select *Next*.
+
+. When prompted with *Review/Edit Connector Details*
+.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`
+.. Click *Create API Connector*
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+
+. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Click *Create*
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *AMQ Message Broker*
+
+. When prompted with *AMQ Message Broker Configuration*
+.. Enter the following into the *Broker URL* field, `tcp://{messaging-broker-url}:61616`
+.. Enter the following into the *User Name* field, `{messaging-username}`
+.. Enter the following into the *Password* field, `{messaging-password}`
+.. Select `Disable` for the *Check Certificates* field.
+.. Click *Validate*
+.. Click *Next*
+
+. When prompted for *Add Connection Details*
+.. Enter the following in the *Connection Name* field, `Walkthrough One Messaging App`
+.. Click *Create*
+
+. Select *Integrations* from the left hand menu.
+
+. Select the *Create Integration* button to start the *Create Integration* wizard.
+
+. Choose `Walkthrough One Messaging App` as the *Start Connection*.
+
+. When prompted to *Choose an Action*, select *Subscribe for messages*.
+
+. When prompted for a *Destination Name*, enter `work-queue/requests`.
+
+. Choose *Queue* as the *Destination Type* and click *Next*.
+
+. When prompted to *Specify Output Data Type*:
+.. Select *JSON Schema* as the type.
+.. Enter the following in the *Definition* field:
++
+----
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"type": {
+			"type": "string"
+		}
+	}
+}
+----
+.. Click *Done*.
+
+. Choose `Walkthrough One CRUD App` as the *Finish Connection*.
+
+. When prompted to *Choose an Action*, select *Create a fruit*.
+
+. When prompted to *Add to Integration*, select *Add a Step*.
+
+. Select *Data Mapper* to map source and target fields in the corresponding JSON schemas:
+.. Click and drag *type* from the *Source* column to *body/name* in the *Target* column.
+.. Click *Done* to navigate back to the Integration screen.
+
+. Click *Publish*.
+. When prompted, enter a name, for example `Walkthrough One`.
+
+ifdef::location[]
+
+.Verification
+// tag::verification[]
+Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+// end::verification[]
+endif::location[]
+

@@ -120,7 +120,7 @@ const buildServiceInstanceResourceObj = (siInfo, transforms = DEFAULT_TRANSFORMS
 const buildServiceInstanceCompareFn = si => res =>
   res.spec.clusterServiceClassExternalName === si.spec.clusterServiceClassExternalName;
 
-const handleWalkthroughOneRoutes = (dispatch, event) => {
+const handleWalkthroughOneRoutes = (namespacePrefix, dispatch, event) => {
   if (
     event.type === OpenShiftWatchEvents.OPENED ||
     event.type === OpenShiftWatchEvents.CLOSED ||
@@ -138,7 +138,10 @@ const handleWalkthroughOneRoutes = (dispatch, event) => {
   ) {
     dispatch({
       type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
-      payload: route
+      payload: {
+        prefix: namespacePrefix,
+        data: route
+      }
     });
   }
 };

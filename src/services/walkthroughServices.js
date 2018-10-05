@@ -17,6 +17,8 @@ import {
   routeDef
 } from '../common/openshiftResourceDefinitions';
 
+const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A' };
+
 /**
  * Walkthroughs definitions, each root level object represents one walkthrough, each contains:
  * - suffix of the namespace ${username}-${suffix}
@@ -25,24 +27,26 @@ import {
  */
 const walkthroughs = {
   one: {
+    id: WALKTHROUGH_IDS.ONE,
     namespaceSuffix: 'walkthrough-one',
     services: [DEFAULT_SERVICES.CRUD_APP, DEFAULT_SERVICES.MESSAGING_APP],
     transforms: [new CRUDAppInstanceTransform(), new MessagingAppServiceInstanceTransform()],
     watchers: [
       {
         resource: namespace => routeDef(namespace),
-        handlerFn: handleWalkthroughOneRoutes
+        handlerFn: handleWalkthroughOneRoutes.bind(null, 'walkthrough-one')
       }
     ]
   },
   oneA: {
+    id: WALKTHROUGH_IDS.ONE_A,
     namespaceSuffix: 'walkthrough-one-a',
     services: [DEFAULT_SERVICES.CRUD_APP, DEFAULT_SERVICES.MESSAGING_APP],
     transforms: [new CRUDAppInstanceTransform(), new MessagingAppServiceInstanceTransform()],
     watchers: [
       {
         resource: namespace => routeDef(namespace),
-        handlerFn: handleWalkthroughOneRoutes
+        handlerFn: handleWalkthroughOneRoutes.bind(null, 'walkthrough-one-a')
       }
     ]
   }
@@ -105,4 +109,4 @@ const prepareWalkthroughNamespace = (dispatch, walkthrough, siInfoOtherData) => 
   return null;
 };
 
-export { prepareWalkthroughNamespace, walkthroughs };
+export { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS };
