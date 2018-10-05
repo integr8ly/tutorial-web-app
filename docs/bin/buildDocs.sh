@@ -4,5 +4,6 @@ ls -1 -I attributes* -I *.unused ../modules/ROOT/pages/_partials/task* > taskAll
 
 ./createDocs.sh
 ./createIntro.sh
+./createTopIntro.sh
 ./createVer.sh
 ./buildJson.sh

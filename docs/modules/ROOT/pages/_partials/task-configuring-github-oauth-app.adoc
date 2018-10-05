@@ -23,7 +23,7 @@ endif::location[]
 
 . Navigate to https://github.com/settings/developers
 . Click *New OAuth App*
-. Enter `{integreatly}` as the name for the app.
+. Enter `integration` as the name for the app.
 . Enter the URL you received as part of your onboarding as the  *Homepage URL* and *Authorization callback URL*.
 
 

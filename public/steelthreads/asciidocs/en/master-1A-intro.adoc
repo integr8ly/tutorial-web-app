@@ -12,4 +12,10 @@ A more structured approach involves:
 * simple provisioning and configuration
 * built-in monitoring
 
-This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
+This walkthrough describes how  to create such an integration, using OpenShift, EnMasse and API connectors in Fuse.
+
+
+++++
+<img src="/images/st0.png" class="img-responsive" alt="integration">
+++++
+

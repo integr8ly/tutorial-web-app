@@ -44,7 +44,7 @@ ifdef::location[]
 
 .Verification
 // tag::verification[]
-Make sure each of the users you created can log into the {integreatly} environment.
+Make sure each of the users you created can log into the environment.
 // end::verification[]
 endif::location[]
 
