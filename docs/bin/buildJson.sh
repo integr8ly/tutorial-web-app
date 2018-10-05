@@ -9,4 +9,3 @@ do
    insertAttrJson.sh $i  > thread-$i.tmp
    mv thread-$i.tmp $destDir/thread-$i.json
 done
-

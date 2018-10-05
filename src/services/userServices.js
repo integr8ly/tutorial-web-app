@@ -191,7 +191,6 @@ const setProgress = progress => {
     `userProgress-${window.localStorage.getItem('currentUserName')}`,
     JSON.stringify(progress)
   );
-  // window.localStorage.setItem(`threadState-${thread}`, JSON.stringify(threadState));
   return progress;
 };
 

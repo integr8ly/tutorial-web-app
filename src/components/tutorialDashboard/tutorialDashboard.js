@@ -48,8 +48,8 @@ class TutorialDashboard extends React.Component {
                 mins={40}
               >
                 <p>
-                  Build a simple integration that enables a new fruit type to be added to an inventory list
-                  for a fictional grocery using Red Hat AMQ.
+                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
+                  fictional grocery using Red Hat AMQ.
                 </p>
               </TutorialCard>
             </Col>
@@ -63,8 +63,8 @@ class TutorialDashboard extends React.Component {
                 mins={40}
               >
                 <p>
-                Build a simple integration that enables a new fruit type to be added to an inventory list
-                for a fictional grocery using EnMasse.
+                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
+                  fictional grocery using EnMasse.
                 </p>
               </TutorialCard>
             </Col>
