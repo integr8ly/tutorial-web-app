@@ -16,25 +16,13 @@
   ],
   "tasks": [
     {
-      "title": "Setting up a message queue",
+      "title": "Creating an address in EnMasse space",
       "estimatedTime": 6,
       "steps": [
         {
-          "stepDoc": "setting-up-enmasse.adoc",
+          "stepDoc": "task-creating-addresses.adoc",
           "infoVerifications": [
-            "setting-up-enmasse-verification.adoc"
-          ]
-        },
-        {
-          "stepDoc": "creating-enmasse-binding.adoc",
-          "infoVerifications": [
-            "creating-enmasse-binding-verification.adoc"
-          ]
-        },
-        {
-          "stepDoc": "creating-addresses.adoc",
-          "infoVerifications": [
-            "creating-addresses-verification.adoc"
+            "task-creating-addresses-verification.adoc"
           ]
         }
       ]
@@ -44,15 +32,15 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-amqp-connection-in-fuse.adoc",
+          "stepDoc": "creating-api-connector.adoc",
           "infoVerifications": [
-            "creating-amqp-connection-in-fuse-verification.adoc"
+            "creating-api-connector-verification.adoc"
           ]
         },
         {
-          "stepDoc": "creating-http-connection-in-fuse.adoc",
+          "stepDoc": "creating-amqp-connection-in-fuse.adoc",
           "infoVerifications": [
-            "creating-http-connection-in-fuse-verification.adoc"
+            "creating-amqp-connection-in-fuse-verification.adoc"
           ]
         }
       ]
@@ -62,9 +50,9 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-fuse-integration.adoc",
+          "stepDoc": "task-creating-fuse-integration.adoc",
           "infoVerifications": [
-            "creating-fuse-integration-verification.adoc"
+            "task-creating-fuse-integration-verification.adoc"
           ]
         }
       ]
@@ -74,9 +62,9 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "using-integration.adoc",
+          "stepDoc": "task-using-integration.adoc",
           "successVerifications": [
-            "using-integration-verification.adoc"
+            "task-using-integration-verification.adoc"
           ]
         }
       ]
@@ -107,8 +95,8 @@
     "3Scale-ProductName": "Red Hat 3scale",
     "3Scale-ProductVersion": "2.3",
     "//raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc": "",
-    " EnMasse": "",
-    "walkthrough": ":walkthrough: Integrating event-driven and API-driven applications (EnMasse)",
+    "EnMasse-master-ProductLongName": "EnMasse",
+    "walkthrough": "Integrating event-driven and API-driven applications (EnMasse)",
     "dummy": "value"
   }
 }
