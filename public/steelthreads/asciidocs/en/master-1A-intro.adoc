@@ -1,4 +1,3 @@
-[id='introduction']
 
 In a multi-application system, you often find:
 
@@ -13,18 +12,10 @@ A more structured approach involves:
 * simple provisioning and configuration
 * built-in monitoring
 
-This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
+This walkthrough describes how  to create such an integration, using OpenShift, EnMasse and API connectors in Fuse.
 
 
 ++++
 <img src="/images/st0.png" class="img-responsive" alt="integration">
 ++++
 
-//.Prerequisites
-
-//* [x] Access to an OpenShift instance with Integreatly components installed
-
-
-//https://github.com/integr8ly/installation/blob/master/README.md
-//* [x] A GitHub account configured with an OAuth App to use the Integreatly Launcher instance.
-// https://github.com/settings/developers

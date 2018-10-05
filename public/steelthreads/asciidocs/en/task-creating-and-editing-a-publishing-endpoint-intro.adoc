@@ -1,1 +1,0 @@
-To create a publishing endpoint, you use Red Hat OpenShift Application Runtimes to launch a Node.js messaging app.

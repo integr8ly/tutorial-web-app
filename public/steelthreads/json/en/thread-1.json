@@ -1,7 +1,7 @@
 {
   "id": 1,
   "title": "Integrating event-driven and API-driven applications",
-  "descriptionDoc": "integrating-eventdriven-and-apidriven-applications-introduction.adoc",
+  "descriptionDoc": "master-1-intro.adoc",
   "prerequisites": [
     "You have completed Walkthrough 0"
   ],

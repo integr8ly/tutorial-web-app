@@ -4,14 +4,14 @@ include::attributes-1A.adoc[]
 
 
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='integrating-eventdriven-and-apidriven-applications']
+[id='integrating-eventdriven-and-apidriven-applications-enmasse']
 // If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
 
 // Book Title
 = {walkthrough}
 
 //If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
-:context: integrating-eventdriven-and-apidriven-applications
+:context: integrating-eventdriven-and-apidriven-applications-enmasse
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
 ifdef::location[]
@@ -30,7 +30,13 @@ A more structured approach involves:
 * simple provisioning and configuration
 * built-in monitoring
 
-This walkthrough describes how  to create such an integration, using OpenShift, Red Hat AMQ Online and API connectors in Fuse.
+This walkthrough describes how  to create such an integration, using OpenShift, EnMasse and API connectors in Fuse.
+
+
+++++
+<img src="/images/st0.png" class="img-responsive" alt="integration"> 
+++++
+
 
 // end::intro[]
 endif::location[]

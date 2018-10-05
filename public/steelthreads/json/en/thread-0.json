@@ -1,7 +1,7 @@
 {
   "id": 0,
   "title": "Configuring an Integreatly environment",
-  "descriptionDoc": "configuring-an-integreatly-environment-introduction.adoc",
+  "descriptionDoc": "master-0-intro.adoc",
   "prerequisites": [
     "Access to an OpenShift instance with Integreatly components installed",
     "A GitHub account"
