@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.4.2",
     "enzyme-adapter-react-16": "^1.2.0",
     "enzyme-to-json": "^3.3.4",
@@ -53,11 +54,11 @@
   "scripts": {
     "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css",
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
-    "build:js": "CI=false react-scripts build",
+    "build:js": "cross-env CI=false react-scripts build",
     "start": "node server.js",
-    "start:dev": "FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
+    "start:dev": "cross-env FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
     "start:local": "react-scripts start",
-    "start:server": "nodemon --watch server.js --exec 'node server.js'",
+    "start:server": "nodemon --watch server.js --exec \"node server.js\"",
     "commit:hash": "echo REACT_APP_UI_COMMIT_HASH=$(git rev-list -1 --all) > .env",
     "build": "yarn commit:hash && yarn build:css && yarn build:js && yarn postbuild",
     "test": "yarn lint && react-scripts test --env=jsdom --coverage",
@@ -74,7 +75,7 @@
     "docker:push": "./scripts/docker_push.sh",
     "docker:push:release": "./scripts/docker_push_release.sh",
     "release:validate": "./scripts/validateRelease.sh",
-    "preinstall": "node -v; npm -v;",
+    "preinstall": "node -v && npm -v",
     "postbuild": "[ \"$BUILD_ENV\" != OCP ] && exit 0; yarn install --production --ignore-scripts --prefer-offline;"
   },
   "jest": {
