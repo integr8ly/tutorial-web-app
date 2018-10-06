@@ -57,10 +57,17 @@ class TaskPage extends React.Component {
             step.infoVerifications.forEach(verification => {
               verifications[verification] = false;
             });
+          } else if (step.successVerifications) {
+            step.successVerifications.forEach(verification => {
+              verifications[verification] = false;
+            });
           }
         });
         const hasVerifications = Object.keys(verifications).length > 0;
-        this.setState({ verifications, verificationsChecked: !hasVerifications });
+        this.setState({
+          verifications,
+          verificationsChecked: !hasVerifications
+        });
       });
     }
   }
@@ -169,6 +176,7 @@ class TaskPage extends React.Component {
       // todo: error state
       return null;
     }
+
     if (thread.fulfilled && thread.data) {
       const threadTask = thread.data.tasks[task];
       const totalTasks = thread.data.tasks.length;
@@ -246,12 +254,58 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--footer">
                     <h6>{t('task.CompleteAndCheck')}</h6>
                     <div className="integr8ly-module-column--footer_status">
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.1</span>
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.2</span>
-                      <Icon type="fa" name="circle-o" />
-                      <span className="integr8ly-module-column--footer_status-step">1.3</span>
+                      {threadTask.steps.map((step, l) => (
+                        <React.Fragment key={l}>
+                          {step.infoVerifications &&
+                            step.infoVerifications.map(() => (
+                              <Icon
+                                className={
+                                  step.infoVerifications && verifications[step.infoVerifications[0]]
+                                    ? 'integr8ly-module-column--footer_status-checked'
+                                    : 'integr8ly-module-column--footer_status'
+                                }
+                                type="fa"
+                                name={verifications[step.infoVerifications[0]] ? 'check' : 'circle-o'}
+                              />
+                            ))}
+                          {step.successVerifications &&
+                            step.successVerifications.map(() => (
+                              <Icon
+                                className={
+                                  step.successVerifications && verifications[step.successVerifications[0]]
+                                    ? 'integr8ly-module-column--footer_status-checked'
+                                    : 'integr8ly-module-column--footer_status'
+                                }
+                                type="fa"
+                                name={verifications[step.successVerifications[0]] ? 'check' : 'circle-o'}
+                              />
+                            ))}
+                          {step.infoVerifications &&
+                            step.infoVerifications.map(() => (
+                              <span
+                                className={
+                                  verifications[step.infoVerifications[0]]
+                                    ? 'integr8ly-module-column--footer_status-checked'
+                                    : 'integr8ly-module-column--footer_status-step'
+                                }
+                              >
+                                {task}.{l}
+                              </span>
+                            ))}
+                          {step.successVerifications &&
+                            step.successVerifications.map(() => (
+                              <span
+                                className={
+                                  verifications[step.successVerifications[0]]
+                                    ? 'integr8ly-module-column--footer_status-checked'
+                                    : 'integr8ly-module-column--footer_status-step'
+                                }
+                              >
+                                {task}.{l}
+                              </span>
+                            ))}
+                        </React.Fragment>
+                      ))}
                     </div>
                     <div
                       className="btn-group btn-group-justified"
@@ -279,6 +333,7 @@ class TaskPage extends React.Component {
                           <Button
                             bsStyle={verificationsChecked ? 'primary' : 'default'}
                             onClick={e => this.goToTask(e, task + 1)}
+                            disabled={!verificationsChecked}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
