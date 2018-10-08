@@ -92,6 +92,26 @@
       @media (max-width: 768px) {
         display: none;
       }
+      &.tutorial {
+        top: 60px;
+      }
+    }
+    & > .list-unstyled {
+      margin-left: 25px;
+    }
+  }
+  &-task {
+    &-introduction {
+      background-color: #fff;
+    }
+    &-information {
+      // position: fixed;
+      // top: 60px;
+      // right: 0;
+      // bottom: 0;
+      background-color: $color-pf-black-150;
+      border-left: 1px solid;
+      border-left-color: $color-pf-black-300;
     }
   }
 }

@@ -91,26 +91,35 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-heading"
         >
-          Helpful Links
+          Walkthrough Diagram
+        </h4>
+        <img src="/images/st0.png" className="img-responsive" alt="integration" />
+        <h4
+          className="integr8ly-helpful-links-heading"
+        >
+          Walkthrough Resources
         </h4>
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          Red Hat OpenShift
+          <i className="pficon pficon-on-running" /> Red Hat OpenShift
         </h4>
         <ul
           className="list-unstyled"
         >
           <li>
+            <a href="#" target="top">Open console</a>
+          </li>
+          <li>
             <a
-              href="https://help.openshift.com/"
+              href="https://help.openshift.com/" target="top"
             >
               OpenShift Online Help Center
             </a>
           </li>
           <li>
             <a
-              href="https://blog.openshift.com/"
+              href="https://blog.openshift.com/" target="top"
             >
               OpenShift Blog
             </a>
@@ -119,7 +128,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          Red Hat Fuse
+          <i className="fa fa-pie-chart" /> Red Hat Fuse
           <span
             className="label label-default integr8ly-label-preview"
           >
@@ -130,15 +139,18 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           className="list-unstyled"
         >
           <li>
+            <a href="#" target="top">Open console</a>
+          </li>
+          <li>
             <a
-              href="https://developers.redhat.com/products/fuse/help/"
+              href="https://developers.redhat.com/products/fuse/help/" target="top"
             >
               Fuse Community Q&A
             </a>
           </li>
           <li>
             <a
-              href="https://developers.redhat.com/videos/vimeo/95497167/"
+              href="https://developers.redhat.com/videos/vimeo/95497167/" target="top"
             >
               Fuse Overview
             </a>
@@ -147,7 +159,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          Red Hat AMQ
+          <i className="pficon pficon-pending" /> Red Hat AMQ
           <span
             className="label label-default integr8ly-label-preview"
           >
@@ -158,15 +170,18 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           className="list-unstyled"
         >
           <li>
+            <a href="#" target="top">Open console</a>
+          </li>
+          <li>
             <a
-              href="https://developers.redhat.com/products/amq/help/"
+              href="https://developers.redhat.com/products/amq/help/" target="top"
             >
               AMQ Community Q&A
             </a>
           </li>
           <li>
             <a
-              href="https://access.redhat.com/products/red-hat-amq"
+              href="https://access.redhat.com/products/red-hat-amq" target="top"
             >
               AMQ Videos
             </a>
@@ -175,13 +190,20 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          Eclipse Che
+          <i className="pficon pficon-error-circle-o" /> Eclipse Che
           <span
             className="label label-default integr8ly-label-community"
           >
             Community
           </span>
         </h4>
+        <ul
+          className="list-unstyled"
+        >
+          <li>
+            <a href="#" target="top">Open console</a>
+          </li>
+        </ul>
       </Col>
     </Row>
     <Row
@@ -203,9 +225,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               name="clock-o"
               type="fa"
             />
-             
+
             <span>
-               
+
               tutorial.minutes
             </span>
           </div>
@@ -227,10 +249,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-                 
+
                 <span>
                   6
-                   
+
                   tutorial.minutes
                 </span>
               </div>

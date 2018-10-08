@@ -9,7 +9,7 @@ class Breadcrumb extends React.Component {
     this.props.history.push('/home');
   };
   render() {
-    const { threadName, threadId, taskPosition } = this.props;
+    const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
     return (
       <PfBreadcrumb className="integr8ly-breadcrumb">
         <PfBreadcrumb.Item onClick={this.homeClicked}>
@@ -20,7 +20,7 @@ class Breadcrumb extends React.Component {
           taskPosition && (
             <React.Fragment>
               <PfBreadcrumb.Item href={`#/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
-              {/* <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item> */}
+              <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
             </React.Fragment>
           )}
       </PfBreadcrumb>
@@ -30,16 +30,19 @@ class Breadcrumb extends React.Component {
 
 Breadcrumb.propTypes = {
   history: PropTypes.object,
+  t: PropTypes.func.isRequired,
   threadName: PropTypes.string,
   threadId: PropTypes.number,
-  taskPosition: PropTypes.number
+  taskPosition: PropTypes.number,
+  totalTasks: PropTypes.number
 };
 
 Breadcrumb.defaultProps = {
   history: {},
   threadName: '',
   threadId: null,
-  taskPosition: null
+  taskPosition: null,
+  totalTasks: null
 };
 
 const RoutedBreadcrumb = withRouter(translate()(Breadcrumb));
