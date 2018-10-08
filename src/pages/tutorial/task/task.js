@@ -265,7 +265,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status'
                                 }
                                 type="fa"
-                                name={verifications[step.infoVerifications[0]] ? 'check' : 'circle-o'}
+                                name={verifications[step.infoVerifications[0]] ? 'check-circle-o' : 'circle-o'}
                               />
                             ))}
                           {step.successVerifications &&
@@ -277,7 +277,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status'
                                 }
                                 type="fa"
-                                name={verifications[step.successVerifications[0]] ? 'check' : 'circle-o'}
+                                name={verifications[step.successVerifications[0]] ? 'check-circle-o' : 'circle-o'}
                               />
                             ))}
                           {step.infoVerifications &&
