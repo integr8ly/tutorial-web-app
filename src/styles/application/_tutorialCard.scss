@@ -27,6 +27,8 @@
     }
     &-time-to-complete {
       flex-basis: 50%;
+      color: $color-pf-black-600;
+      font-weight: $pf-global--FontWeight--bold;
       text-align: right;
       .fa-clock-o:before {
         color: $color-pf-black-600;

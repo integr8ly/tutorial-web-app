@@ -19,15 +19,20 @@
     & h2 {
       flex-basis: 50%;
       margin-top: 5px;
-      font-weight: 300;
+      color: #282d33;
     }
     .walkthrough-counter {
       flex-basis: 50%;
       margin-top: 16px;
       text-align: right;
-      color: $color-pf-black-600;
+      color: $color-pf-black-800;
       font-size: $pf-global--FontSize--sm;
       font-weight: 600;
+    }
+  }
+  & .panel-content {
+    .container-cards-pf {
+      margin-top: 0;
     }
   }
 }

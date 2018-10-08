@@ -13,15 +13,14 @@ $pf-global--LineHeight--md: 1.5 !default;
 $pf-global--Transition: all 500ms cubic-bezier(.42, 0, .58, 1);
 $pf-global--TimingFunction: cubic-bezier(.645, .045, .355, 1);
 
-// Font weight
-$pf-global--FontWeight--light: 300 !default;
-$pf-global--FontWeight--normal: 400 !default;
-$pf-global--FontWeight--semi-bold: 500 !default;
-$pf-global--FontWeight--bold: 600 !default;
-
-$font-weight-light: $pf-global--FontWeight--light !default;
-$font-weight-normal: $pf-global--FontWeight--normal !default;
-$font-weight-bold: $pf-global--FontWeight--bold !default;
+// Spacers
+$pf-global--spacer--xs: pf-size-prem(4px) !default;
+$pf-global--spacer--sm: pf-size-prem(8px) !default;
+$pf-global--spacer--md: pf-size-prem(16px) !default;
+$pf-global--spacer--lg: pf-size-prem(24px) !default;
+$pf-global--spacer--xl: pf-size-prem(32px) !default;
+$pf-global--spacer--2xl: pf-size-prem(48px) !default;
+$pf-global--spacer--3xl: pf-size-prem(64px) !default;
 
 // Font size
 $font-size-base: 16px;
@@ -42,9 +41,45 @@ $h4-font-size: $pf-global--FontSize--xl !default;
 $h5-font-size: $pf-global--FontSize--lg !default;
 $h6-font-size: $pf-global--FontSize--sm !default;
 
+// Font weight
+$pf-global--FontWeight--light: 300 !default;
+$pf-global--FontWeight--normal: 400 !default;
+$pf-global--FontWeight--semi-bold: 500 !default;
+$pf-global--FontWeight--bold: 600 !default;
+
+$font-weight-light: $pf-global--FontWeight--light !default;
+$font-weight-normal: $pf-global--FontWeight--normal !default;
+$font-weight-bold: $pf-global--FontWeight--bold !default;
+
+// Line height
+$pf-global--LineHeight--sm: 1.3 !default;
+$pf-global--LineHeight--md: 1.5 !default;
+
+$line-height-base: $pf-global--LineHeight--md !default;
+$line-height-base: $pf-global--LineHeight--md !default;
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0;
+  text-align: left;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+}
+
 // Body / Paragraph styling
 body {
   font-size: $pf-global--FontSize--md;
+  font-size: $pf-global--FontSize--md;
+  font-weight: $pf-global--FontWeight--normal;
+  line-height: $pf-global--LineHeight--md;
 }
 
 p {
@@ -88,7 +123,6 @@ h6 {
 h1,
 h2,
 h3 {
-
   &.small,
   small {
     font-weight: $pf-global--FontWeight--normal;
@@ -99,7 +133,6 @@ h3 {
 h4,
 h5,
 h6 {
-
   &.small,
   small {
     font-weight: $pf-global--FontWeight--normal;
