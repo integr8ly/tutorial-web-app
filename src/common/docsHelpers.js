@@ -6,10 +6,10 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
     return {};
   }
 
-  const middlewareAttrs = getMiddlwareServiceUrls(middlewareServices);
+  const middlewareAttrs = getMiddlwareServiceUrls(walkthrough, middlewareServices);
   const walkthroughAttrs = getWalkthroughSpecificAttrs(walkthrough, middlewareServices, walkthroughServices);
 
-  return Object.assign({}, middlewareAttrs, walkthroughAttrs);
+  return Object.assign({}, middlewareAttrs, walkthroughAttrs, { 'walkthrough-id': walkthrough.id });
 };
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
@@ -40,12 +40,20 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
   return {};
 };
 
-const getMiddlwareServiceUrls = middlewareServices => ({
-  'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
-  'messaging-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ),
-  'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
-  'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
-});
+const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
+  const defaultServices = {
+    'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
+    'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
+    'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
+  };
+  if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
+    defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ);
+  }
+  if (walkthrough.id === WALKTHROUGH_IDS.ONE_A) {
+    defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.ENMASSE);
+  }
+  return defaultServices;
+}
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {

@@ -38,6 +38,12 @@
           ]
         },
         {
+          "stepDoc": "creating-http-connection.adoc",
+          "infoVerifications": [
+            "creating-http-connection-verification.adoc"
+          ]
+        },
+        {
           "stepDoc": "creating-amqp-connection-in-fuse.adoc",
           "infoVerifications": [
             "creating-amqp-connection-in-fuse-verification.adoc"

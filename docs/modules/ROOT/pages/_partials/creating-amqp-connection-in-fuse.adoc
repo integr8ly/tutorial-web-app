@@ -30,15 +30,15 @@ NOTE: Do not select the similarly named *AMQ* option.
 
 . Enter the following, using the configuration values relating to {enmasse}:
 +
-* Connection URI: `amqp://<messaging-service-host>:<messaging-service-port>?amqp.saslMechanisms=PLAIN`
-* User Name: `<username>`
-* Password: `<password>`
+* Connection URI: `amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN`
+* User Name: `{messaging-username}`
+* Password: `{messaging-password}`
 
 . Set the value of *Check Certificates* to `Disable`.
 
 . Select the *Validate* button to check that the values are valid.
 
-. Click *Next* and enter a name for the connection, for example, `enmasse`.
+. Click *Next* and enter a name for the connection, for example, `Walkthrough 1A Messaging App`.
 
 . Click *Create*.
 
