@@ -1,2 +1,2 @@
 include::attributes.adoc[]
-:walkthrough: Configuring the environment
+:walkthrough: Integrating API-driven applications

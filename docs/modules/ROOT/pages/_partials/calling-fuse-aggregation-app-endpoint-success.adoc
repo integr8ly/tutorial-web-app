@@ -1,0 +1,18 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='calling-fuse-aggregation-app-endpoint-success_{context}']
+= calling-fuse-aggregation-app-endpoint-success 
+
+. TODO steps
+
+ifdef::location[]
+
+.Verification
+// tag::verification[]
+TODO Verification
+// end::verification[]
+endif::location[]
+

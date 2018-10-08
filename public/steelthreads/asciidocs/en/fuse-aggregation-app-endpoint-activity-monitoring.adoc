@@ -1,0 +1,10 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='fuse-aggregation-app-endpoint-activity-monitoring_{context}']
+= fuse-aggregation-app-endpoint-activity-monitoring
+
+. TODO steps
+

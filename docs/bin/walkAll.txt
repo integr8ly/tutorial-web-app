@@ -1,3 +1,4 @@
 ../modules/ROOT/pages/master-0.adoc
 ../modules/ROOT/pages/master-1.adoc
 ../modules/ROOT/pages/master-1A.adoc
+../modules/ROOT/pages/master-2.adoc

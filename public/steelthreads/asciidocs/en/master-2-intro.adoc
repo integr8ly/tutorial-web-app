@@ -1,0 +1,8 @@
+
+This walkthrough describes how to create such an integration, using OpenShift, {launcher-service}, {che-service} and {api-mgmt-service}.
+
+
+++++
+<img src="/images/st2.png" class="img-responsive" alt="integration">
+++++
+

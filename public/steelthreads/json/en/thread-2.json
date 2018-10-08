@@ -1,0 +1,113 @@
+{
+  "id": "2",
+  "title": "Integrating API-driven applications",
+  "descriptionDoc": "master-2-intro.adoc",
+  "prerequisites": [],
+  "estimatedTime": 50,
+  "roles": [
+    "Developer"
+  ],
+  "applications": [
+    "Che",
+    "Launcher",
+    "3Scale"
+  ],
+  "tasks": [
+    {
+      "title": "Deploying the Fuse Aggregation App",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "task-deploying-fuse-aggregation-app.adoc",
+          "infoVerifications": [
+            "task-deploying-fuse-aggregation-app-verification.adoc"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Modifying the Fuse Aggregation App to aggregate data from 2 API Servers",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "task-modifying-fuse-aggregation-app.adoc",
+          "infoVerifications": [
+            "task-modifying-fuse-aggregation-app-verification.adoc"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Managing the Fuse Aggregation App endpoint",
+      "estimatedTime": 10,
+      "steps": [
+        {
+          "stepDoc": "api-management-login.adoc",
+          "infoVerifications": [
+            "api-management-login-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "add-fuse-aggregation-app-endpoint.adoc",
+          "infoVerifications": [
+            "add-fuse-aggregation-app-endpoint-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "fuse-aggregation-app-endpoint-limits.adoc",
+          "infoVerifications": [
+            "fuse-aggregation-app-endpoint-limits-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "fuse-aggregation-app-endpoint-activedocs.adoc",
+          "infoVerifications": [
+            "fuse-aggregation-app-endpoint-activedocs-verification.adoc"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Calling Fuse Aggregation App endpoint",
+      "estimatedTime": 5,
+      "steps": [
+        {
+          "stepDoc": "calling-fuse-aggregation-app-endpoint-success.adoc",
+          "infoVerifications": [
+            "calling-fuse-aggregation-app-endpoint-success-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-user-key.adoc",
+          "infoVerifications": [
+            "calling-fuse-aggregation-app-endpoint-fail-user-key-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-limits.adoc",
+          "infoVerifications": [
+            "calling-fuse-aggregation-app-endpoint-fail-limits-verification.adoc"
+          ]
+        }, {
+          "stepDoc": "fuse-aggregation-app-endpoint-activity-monitoring.adoc",
+          "infoVerifications": [
+            "fuse-aggregation-app-endpoint-activity-monitoring-verification.adoc"
+          ]
+        }
+      ]
+    }
+  ],
+  "attributes": {
+    "integreatly": "Integreatly",
+    "imagesdir": "/images",
+    "numbered": "",
+    "chapter-label": "",
+    "openshift-url": "http://employee.openshift.com/",
+    "api-mgmt-service": "3Scale",
+    "api-mgmt-service-version": "",
+    "launcher-service": "Launcher",
+    "launcher-service-version": "",
+    "che-service": "Che",
+    "che-service-version": "",
+    "//gitlab.cee.redhat.com/red-hat-3scale-documentation/3scale-documentation/raw/up/2.3.x/docs/topics/templates/document-attributes.adoc": "",
+    "3Scale-ProductName": "Red Hat 3scale API Management",
+    "3Scale-ProductVersion": "2.3",
+    "walkthrough": "Integrating API-driven applications",
+    "dummy": "value"
+  }
+}
