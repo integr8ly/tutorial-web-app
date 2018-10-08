@@ -25,7 +25,8 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
@@ -51,6 +52,8 @@
     "**/jest": "23.5.0"
   },
   "scripts": {
+    "clean": "rimraf build coverage",
+    "prebuild": "yarn clean",
     "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css",
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
     "build:js": "CI=false react-scripts build",
