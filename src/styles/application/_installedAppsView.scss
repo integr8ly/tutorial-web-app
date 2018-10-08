@@ -11,15 +11,15 @@
   }
   &-panel-title {
     display: flex;
-    & h2 {
+    & h3 {
       flex-basis: 70%;
       margin-top: 5px;
-      font-weight: $pf-global--FontWeight--light;
+      color: $color-pf-black-800;
     }
     & div {
       flex-basis: 30%;
-      margin-top: 12px;
-      color: $color-pf-black-600;
+      margin-top: 10px;
+      color: $color-pf-black-800;
       font-size: $pf-global--FontSize--sm;
       font-weight: $pf-global--FontWeight--bold;
       text-align: right;
@@ -38,6 +38,7 @@
       padding: 15px;
       p {
         margin-bottom: 0;
+        color: #282d33;
       }
     }
     & li:hover {
