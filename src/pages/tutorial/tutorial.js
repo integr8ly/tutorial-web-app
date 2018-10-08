@@ -68,7 +68,7 @@ class TutorialPage extends React.Component {
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
                   Red Hat Fuse
-                  <span className="label label-default integr8ly-label-non-ga">Non-GA</span>
+                  <span className="label label-default integr8ly-label-preview">Preview</span>
                 </h4>
                 <ul className="list-unstyled">
                   <li>
@@ -78,7 +78,10 @@ class TutorialPage extends React.Component {
                     <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
                   </li>
                 </ul>
-                <h4 className="integr8ly-helpful-links-product-title">Red Hat AMQ</h4>
+                <h4 className="integr8ly-helpful-links-product-title">
+                  Red Hat AMQ
+                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                </h4>
                 <ul className="list-unstyled">
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>
@@ -87,6 +90,10 @@ class TutorialPage extends React.Component {
                     <a href="https://access.redhat.com/products/red-hat-amq">AMQ Videos</a>
                   </li>
                 </ul>
+                <h4 className="integr8ly-helpful-links-product-title">
+                  Eclipse Che
+                  <span className="label label-default integr8ly-label-community">Community</span>
+                </h4>
               </Grid.Col>
             </Grid.Row>
             <Grid.Row>

@@ -1,8 +1,24 @@
 .integr8ly {
-  &-label-non-ga {
+  &-label-community {
     position: absolute;
     margin-left: 10px;
     padding: 6px 8px;
+    border: 1px solid;
+    border-color: $color-pf-black-300;
+    background-color: $color-pf-black-300;
+    color: $color-pf-black-900;
     font-size: $pf-global--FontSize--xs !important; /* stylelint-disable-line declaration-no-important */
+    font-weight: $pf-global--FontWeight--bold;
+  }
+  &-label-preview {
+    position: absolute;
+    margin-left: 10px;
+    padding: 6px 8px;
+    border: 1px solid;
+    border-color: $color-pf-blue-200;
+    background-color: $color-pf-blue-200;
+    color: $color-pf-black-900;
+    font-size: $pf-global--FontSize--xs !important; /* stylelint-disable-line declaration-no-important */
+    font-weight: $pf-global--FontWeight--bold;
   }
 }

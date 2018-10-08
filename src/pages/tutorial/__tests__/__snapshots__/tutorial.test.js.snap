@@ -88,9 +88,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         >
           Red Hat Fuse
           <span
-            className="label label-default integr8ly-label-non-ga"
+            className="label label-default integr8ly-label-preview"
           >
-            Non-GA
+            Preview
           </span>
         </h4>
         <ul
@@ -115,6 +115,11 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           className="integr8ly-helpful-links-product-title"
         >
           Red Hat AMQ
+          <span
+            className="label label-default integr8ly-label-preview"
+          >
+            Preview
+          </span>
         </h4>
         <ul
           className="list-unstyled"
@@ -134,6 +139,16 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             </a>
           </li>
         </ul>
+        <h4
+          className="integr8ly-helpful-links-product-title"
+        >
+          Red Hat AMQ
+          <span
+            className="label label-default integr8ly-label-community"
+          >
+            Community
+          </span>
+        </h4>
       </Col>
     </Row>
     <Row
@@ -155,9 +170,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               name="clock-o"
               type="fa"
             />
-             
+
             <span>
-               
+
               tutorial.minutes
             </span>
           </div>
@@ -179,9 +194,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-                 
+
                 <span>
-                  10 
+                  10
                   tutorial.minutes
                 </span>
               </div>
@@ -227,10 +242,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-                 
+
                 <span>
                   6
-                   
+
                   tutorial.minutes
                 </span>
               </div>
