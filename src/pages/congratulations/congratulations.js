@@ -20,7 +20,7 @@ class CongratulationsPage extends React.Component {
           <Masthead />
         </Grid.Row>
         <Grid.Row>
-          <Grid.Col xs={12} sm={9} className="integr8ly-module mb-0">
+          <Grid.Col xs={12} sm={9} className="integr8ly-module integr8ly-module-congratulations mb-0">
             <div className="integr8ly-module-column">
               <div className="integr8ly-module-column--status">
                 <span>Walkthrough</span>

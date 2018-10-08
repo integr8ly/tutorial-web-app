@@ -2,6 +2,9 @@
   &-module {
     margin-top: 40px;
     margin-bottom: 80px;
+    &-congratulations {
+      margin-top: 0;
+    }
     &-column {
       &--status {
         background-color: $color-pf-black-100;
