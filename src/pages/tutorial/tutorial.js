@@ -50,7 +50,10 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
-                <AsciiDocTemplate adoc={thread.data.descriptionDoc} />
+                <AsciiDocTemplate
+                  adoc={thread.data.descriptionDoc}
+                  attributes={Object.assign({}, thread.data.attributes)}
+                  />
                 <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                   {t('tutorial.getStarted')}
                 </Button>
