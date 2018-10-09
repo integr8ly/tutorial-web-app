@@ -4,9 +4,9 @@
 
 
 [id='fuse-aggregation-app-endpoint-limits_{context}']
-= fuse-aggregation-app-endpoint-limits 
+= Fuse Aggregation App Endpoint Limits 
 
-. TODO steps
+. 
 
 ifdef::location[]
 

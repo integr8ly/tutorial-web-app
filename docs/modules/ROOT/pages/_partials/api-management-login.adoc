@@ -4,15 +4,20 @@
 
 
 [id='api-management-login_{context}']
-= api-management-login 
+= API Management Login 
 
-. TODO steps
+// TODO service & url placeholders
+. Open the {api-management-service} :link{api-management-service-url}[Login screen]
+
+. Select the *Red Hat Single Sign On* option. This should trigger an OAuth Flow and redirect back to the {api-management-service} Dashboard.
+
+. Dismiss the *Getting Started* UI flow if this is you're first time logging in to {api-management-service}. The main Dashboard should now be shown.
 
 ifdef::location[]
 
 .Verification
 // tag::verification[]
-TODO Verification
+You are logged in to the {api-management-service} Dashboard and can navigate the main menu.
 // end::verification[]
 endif::location[]
 

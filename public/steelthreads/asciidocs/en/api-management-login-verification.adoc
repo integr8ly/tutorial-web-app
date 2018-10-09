@@ -1,1 +1,1 @@
-TODO Verification
+You are logged in to the {api-management-service} Dashboard and can navigate the main menu.
