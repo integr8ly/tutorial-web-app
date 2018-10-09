@@ -41,7 +41,7 @@ class InstalledAppsView extends React.Component {
         key={`openshift_console_${index}`}
         value={index}
       >
-        Openshift Console
+        OpenShift Console
       </li>
     );
   }
