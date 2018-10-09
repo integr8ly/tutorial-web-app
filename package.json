@@ -77,7 +77,7 @@
     "test": "yarn lint && react-scripts test --env=jsdom --coverage",
     "test:watch": "react-scripts test --env=jsdom --watch",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write --single-quote --trailing-comma=none \"src/**/*.js\"",
+    "prettier": "prettier --write --single-quote --trailing-comma=none \"src/**/*.js\" server.js",
     "analyze": "source-map-explorer build/static/js/main.*",
     "lint": "yarn lint:js && yarn lint:scss",
     "lint:js": "eslint --max-warnings 0 src",

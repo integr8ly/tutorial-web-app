@@ -1,10 +1,10 @@
-const express = require('express')
-const path = require('path')
-const axios = require('axios')
-const app = express()
-const https = require('https')
-const port = process.env.PORT || 5001
-const isProduction = process.env.NODE_ENV === 'production'
+const express = require('express');
+const path = require('path');
+const axios = require('axios');
+const app = express();
+const https = require('https');
+const port = process.env.PORT || 5001;
+const isProduction = process.env.NODE_ENV === 'production';
 
 async function requestHostFromKubernetes() {
   const response = await axios({
@@ -25,7 +25,7 @@ async function getOpenShiftHost() {
   let { OPENSHIFT_HOST } = process.env;
 
   if (!OPENSHIFT_HOST) {
-    console.log('OPENSHIFT_HOST environment variable not set. attempting to fetch host programmatically')
+    console.log('OPENSHIFT_HOST environment variable not set. attempting to fetch host programmatically');
 
     try {
       const host = await requestHostFromKubernetes();
