@@ -1,8 +1,13 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { routes } from '../routes';
+import { buildProvisioningScreen } from '../components/provisioning/provisioning';
 
 class Router extends React.Component {
+  static buildProvisioningComponent(component) {
+    return buildProvisioningScreen(component);
+  }
+
   static renderRoutes() {
     let redirectRoot = null;
 
@@ -16,8 +21,19 @@ class Router extends React.Component {
           redirectRoot = <Redirect from="/" to={item.to} />;
         }
 
+        if (item.to === '/oauth/callback') {
+          return (
+            <Route exact={item.hasParameters || item.exact} key={item.to} path={item.to} component={item.component} />
+          );
+        }
+
         return (
-          <Route exact={item.hasParameters || item.exact} key={item.to} path={item.to} component={item.component} />
+          <Route
+            exact={item.hasParameters || item.exact}
+            key={item.to}
+            path={item.to}
+            component={Router.buildProvisioningComponent(item.component)}
+          />
         );
       }),
       redirectRoot
