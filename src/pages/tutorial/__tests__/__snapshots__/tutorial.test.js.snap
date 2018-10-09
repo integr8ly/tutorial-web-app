@@ -37,7 +37,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={8}
         xs={12}
       >
-        <Component />
+        <Component
+          attributes={Object {}}
+        />
         <Button
           active={false}
           block={false}
@@ -142,7 +144,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          Red Hat AMQ
+          Eclipse Che
           <span
             className="label label-default integr8ly-label-community"
           >
@@ -170,9 +172,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               name="clock-o"
               type="fa"
             />
-
+             
             <span>
-
+               
               tutorial.minutes
             </span>
           </div>
@@ -194,9 +196,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-
+                 
                 <span>
-                  10
+                  10 
                   tutorial.minutes
                 </span>
               </div>
@@ -242,10 +244,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-
+                 
                 <span>
                   6
-
+                   
                   tutorial.minutes
                 </span>
               </div>

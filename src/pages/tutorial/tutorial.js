@@ -53,7 +53,7 @@ class TutorialPage extends React.Component {
                 <AsciiDocTemplate
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
-                  />
+                />
                 <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                   {t('tutorial.getStarted')}
                 </Button>

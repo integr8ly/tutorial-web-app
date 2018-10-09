@@ -53,7 +53,7 @@ const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
     defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.ENMASSE);
   }
   return defaultServices;
-}
+};
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {
