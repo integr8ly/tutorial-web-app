@@ -3,7 +3,7 @@
   "title": "Integrating event-driven and API-driven applications",
   "descriptionDoc": "master-1A-intro.adoc",
   "prerequisites": [
-    "You have completed Walkthrough 0"
+    "You have completed the walkthrough 'Configuring your environment'"
   ],
   "estimatedTime": 50,
   "roles": [
