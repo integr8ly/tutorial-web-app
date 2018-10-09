@@ -68,6 +68,8 @@ objects:
             value: production
           - name: SSO_ROUTE
             value: ${SSO_ROUTE}
+          - name: SSL_REJECT_UNAUTHORIZED_K8
+            value: false
           image: ${WEBAPP_IMAGE}:${WEBAPP_IMAGE_TAG}
           imagePullPolicy: Always
           name: tutorial-web-app

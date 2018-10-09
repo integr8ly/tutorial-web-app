@@ -8,9 +8,10 @@ const port = process.env.PORT || 5001;
 const isProduction = process.env.NODE_ENV === 'production';
 
 async function requestHostFromKubernetes() {
+  const rejectUnauthorized = process.env.SSL_REJECT_UNAUTHORIZED_K8 === 'true';
   const response = await axios({
     url: 'https://kubernetes.default/.well-known/oauth-authorization-server',
-    httpsAgent: new https.Agent({ rejectUnauthorized: false })
+    httpsAgent: new https.Agent({ rejectUnauthorized })
   });
 
   if (response.status !== 200) {
