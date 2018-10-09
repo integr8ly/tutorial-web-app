@@ -64,7 +64,7 @@ objects:
           - name: NODE_ENV
             value: production
           - name: SSL_REJECT_UNAUTHORIZED_K8
-            value: false
+            value: "false"
           image: ${WEBAPP_IMAGE}:${WEBAPP_IMAGE_TAG}
           imagePullPolicy: IfNotPresent
           name: tutorial-web-app
