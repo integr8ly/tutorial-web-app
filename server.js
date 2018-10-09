@@ -1,12 +1,55 @@
 const express = require('express');
 const path = require('path');
+const axios = require('axios');
+const https = require('https');
 
 const app = express();
 const port = process.env.PORT || 5001;
+const isProduction = process.env.NODE_ENV === 'production';
+
+async function requestHostFromKubernetes() {
+  const rejectUnauthorized = process.env.SSL_REJECT_UNAUTHORIZED_K8 === 'true';
+  const response = await axios({
+    url: 'https://kubernetes.default/.well-known/oauth-authorization-server',
+    httpsAgent: new https.Agent({ rejectUnauthorized })
+  });
+
+  if (response.status !== 200) {
+    throw new Error(`received unexpected ${response.status} status when requesting openshift host URL`);
+  } else if (!response.data || !response.data.issuer) {
+    throw new Error('received unexpected response when requesting openshift host URL');
+  } else {
+    return response.data.issuer;
+  }
+}
+
+async function getOpenShiftHost() {
+  let { OPENSHIFT_HOST } = process.env;
+
+  if (!OPENSHIFT_HOST) {
+    console.log('OPENSHIFT_HOST environment variable not set. attempting to fetch host programmatically');
+
+    try {
+      const host = await requestHostFromKubernetes();
+
+      // Remove http:// or https:// prefix
+      OPENSHIFT_HOST = host.replace(/(^\w+:|^)\/\//, '');
+
+      console.log('host fetched and set to %s', OPENSHIFT_HOST);
+    } catch (e) {
+      console.warn('Error programmatically determining OPENSHIFT_HOST:');
+      console.warn(e);
+    }
+  }
+
+  return OPENSHIFT_HOST;
+}
 
 // Dynamic configuration for openshift API calls
-app.get('/config.js', (req, res) => {
-  if (!process.env.OPENSHIFT_HOST) {
+app.get('/config.js', async (req, res) => {
+  const OPENSHIFT_HOST = await getOpenShiftHost();
+
+  if (!OPENSHIFT_HOST) {
     console.warn('OPENSHIFT_HOST not set. Using service URLs from env vars');
     res.send(`window.OPENSHIFT_CONFIG = {
       mockData: {
@@ -77,17 +120,17 @@ app.get('/config.js', (req, res) => {
     }
     res.send(`window.OPENSHIFT_CONFIG = {
       clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
-      accessTokenUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/token',
-      authorizationUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/authorize',
+      accessTokenUri: 'https://${OPENSHIFT_HOST}/oauth/token',
+      authorizationUri: 'https://${OPENSHIFT_HOST}/oauth/authorize',
       redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
-      masterUri: 'https://${process.env.OPENSHIFT_HOST}',
-      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}'
+      masterUri: 'https://${OPENSHIFT_HOST}',
+      wssMasterUri: 'wss://${OPENSHIFT_HOST}'
     };`);
   }
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'build')));
   // Handle React routing, return all requests to React app
