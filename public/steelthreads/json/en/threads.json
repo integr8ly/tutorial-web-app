@@ -4,18 +4,19 @@
       "id": "0",
       "title": "Configuring the environment",
       "descriptionDoc": "Complete these configuration tasks to ensure that you can complete all walkthroughs.",
-      "estimatedTime": 21 
-    }, 
+      "estimatedTime": 21
+    },
     {
       "id": "1",
       "title": "Integrating event-driven and API-driven applications (AMQ)",
       "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using Red Hat AMQ.",
       "estimatedTime": 25
-    }, 
+    },
     {
       "id": "1A",
       "title": "Integrating API-driven applications",
       "descriptionDoc": "Expose and protect an API that reports on arrivals and departures at a fictional airport.",
       "estimatedTime": 31
-    }]
+    }
+  ]
 }
