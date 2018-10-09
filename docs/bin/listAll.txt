@@ -2,6 +2,7 @@ creating-amq-connection-in-fuse.adoc
 creating-amqp-connection-in-fuse.adoc
 creating-api-connector.adoc
 creating-enmasse-binding.adoc
+creating-fuse-integration.adoc
 creating-http-connection.adoc
 editing-node-app-with-che.adoc
 editing-node-configmap.adoc
@@ -10,8 +11,8 @@ running-spring-app.adoc
 setting-up-enmasse.adoc
 task-configuring-github-oauth-app.adoc
 task-creating-addresses.adoc
-task-creating-connections.adoc
 task-creating-connections-enmasse.adoc
+task-creating-connections.adoc
 task-creating-fuse-integration.adoc
 task-creating-users.adoc
 task-using-integration.adoc

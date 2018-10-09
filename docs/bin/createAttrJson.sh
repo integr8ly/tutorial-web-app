@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # usage:
 # createAttrJson.sh <walkthrough-id>
 
