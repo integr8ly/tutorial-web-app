@@ -16,11 +16,11 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
     const crudAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.CRUD_APP}`;
     const msgAppName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.MESSAGING_APP}`;
-    const { url, username, password } = middlewareServices.amqCredentials;
+    const { tcpUrl, username, password } = middlewareServices.amqCredentials;
     return {
       'spring-boot-url': getUrlFromWalkthroughServices(walkthroughServices, crudAppName),
       'node-js-url': getUrlFromWalkthroughServices(walkthroughServices, msgAppName),
-      'messaging-broker-url': url,
+      'messaging-broker-url': tcpUrl,
       'messaging-username': username,
       'messaging-password': password
     };
