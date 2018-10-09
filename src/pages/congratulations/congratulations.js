@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Grid, Button } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
-import Masthead from '../../components/masthead/masthead';
+import PfMasthead from '../../components/masthead/masthead';
 
 class CongratulationsPage extends React.Component {
   exitTutorial = e => {
@@ -17,14 +17,11 @@ class CongratulationsPage extends React.Component {
     return (
       <Grid fluid>
         <Grid.Row>
-          <Masthead />
+          <PfMasthead />
         </Grid.Row>
         <Grid.Row>
-          <Grid.Col xs={12} sm={9} className="integr8ly-module integr8ly-module-congratulations mb-0">
+          <Grid.Col xs={12} className="integr8ly-module integr8ly-module-congratulations mb-0">
             <div className="integr8ly-module-column">
-              <div className="integr8ly-module-column--status">
-                <span>Walkthrough</span>
-              </div>
               <div className="integr8ly-module-column--steps integr8ly-congratulations">
                 <span className="integr8ly-congratulations-logo" />
                 <span className="integr8ly-congratulations-icon" />
@@ -44,46 +41,6 @@ class CongratulationsPage extends React.Component {
                 </div>
               </div>
             </div>
-          </Grid.Col>
-          <Grid.Col sm={3} className="integr8ly-module mb-0">
-            <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
-            <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
-            <ul className="list-unstyled">
-              <li>
-                <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
-              </li>
-              <li>
-                <a href="https://blog.openshift.com/">OpenShift Blog</a>
-              </li>
-            </ul>
-            <h4 className="integr8ly-helpful-links-product-title">
-              Red Hat Fuse
-              <span className="label label-default integr8ly-label-preview">Preview</span>
-            </h4>
-            <ul className="list-unstyled">
-              <li>
-                <a href="https://developers.redhat.com/products/fuse/help/">Fuse Community Q&amp;A</a>
-              </li>
-              <li>
-                <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
-              </li>
-            </ul>
-            <h4 className="integr8ly-helpful-links-product-title">
-              Red Hat AMQ
-              <span className="label label-default integr8ly-label-preview">Preview</span>
-            </h4>
-            <ul className="list-unstyled">
-              <li>
-                <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>
-              </li>
-              <li>
-                <a href="https://access.redhat.com/products/red-hat-amq">AMQ Videos</a>
-              </li>
-            </ul>
-            <h4 className="integr8ly-helpful-links-product-title">
-              Eclipse Che
-              <span className="label label-default integr8ly-label-community">Community</span>
-            </h4>
           </Grid.Col>
         </Grid.Row>
       </Grid>
