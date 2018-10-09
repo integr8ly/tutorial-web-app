@@ -21,7 +21,7 @@ class TutorialDashboard extends React.Component {
     <div className="integr8ly-tutorial-dashboard panel panel-default">
       <div className="panel-heading panel-title">
         <h2>Start with a walkthrough</h2>
-        <div className="walkthrough-counter">5 walkthroughs</div>
+        <div className="walkthrough-counter">4 walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">
         <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>
@@ -78,42 +78,6 @@ class TutorialDashboard extends React.Component {
                 mins={0}
               >
                 <p>Expose and protect an API that reports on arrivals and departures at a fictional airport.</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Create a greenfield-brownfield facade"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Build a microservice API gateway"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Create a REST facade to existing SOAP-based web service"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
               </TutorialCard>
             </Col>
           </Row>
