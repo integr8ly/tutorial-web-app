@@ -1,1 +1,1 @@
-TODO Verification
+The *Fuse Aggregation App* flights endpoint can be reached at link:{fuse-aggregation-app-flights-url}[Flights API], and now responds with much more than 8 flights.

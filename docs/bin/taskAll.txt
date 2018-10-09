@@ -8,5 +8,4 @@
 ../modules/ROOT/pages/_partials/task-deploying-fuse-aggregation-app.adoc
 ../modules/ROOT/pages/_partials/task-managing-fuse-aggregation-app-endpoint.adoc
 ../modules/ROOT/pages/_partials/task-modifying-fuse-aggregation-app.adoc
-../modules/ROOT/pages/_partials/task-setting-up-a-message-queue.unused
 ../modules/ROOT/pages/_partials/task-using-integration.adoc

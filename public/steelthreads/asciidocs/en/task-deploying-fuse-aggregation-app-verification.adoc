@@ -1,1 +1,9 @@
-TODO Verification
+The project in OpenShift has the following running pods:
+
+. Fuse Aggregation App
+
+. Arrivals Server
+
+. Departures Server
+
+The *Fuse Aggregation App* flights endpoint can be reached at link:{fuse-aggregation-app-flights-url}[Flights API], and responds with 8 flights.

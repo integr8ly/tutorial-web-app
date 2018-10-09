@@ -1,1 +1,1 @@
-TODO intro
+Modify the Fuse Aggregation App to aggregate flights data from the Arrivals & Deparatures servers
