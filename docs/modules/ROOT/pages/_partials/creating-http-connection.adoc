@@ -19,12 +19,12 @@ endif::location[]
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+. When prompted with *Select Connector*, select *Walkthrough {walkthrough-id} CRUD Connector*.
 
-. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+. When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
 
 . When prompted with *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`
 .. Click *Create*
 
 ifdef::location[]

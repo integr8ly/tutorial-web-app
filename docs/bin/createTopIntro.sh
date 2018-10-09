@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 sourceDir="../modules/ROOT/pages/"
 destDir="../../public/steelthreads/asciidocs/en/"
 

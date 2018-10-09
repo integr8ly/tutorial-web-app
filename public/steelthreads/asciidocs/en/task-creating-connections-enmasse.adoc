@@ -24,6 +24,8 @@
 
 Unresolved directive in task-creating-connections-enmasse.adoc - include::{partialsdir}/creating-api-connector.adoc[leveloffset=2]
 
+Unresolved directive in task-creating-connections-enmasse.adoc - include::{partialsdir}/creating-http-connection.adoc[leveloffset=2]
+
 Unresolved directive in task-creating-connections-enmasse.adoc - include::{partialsdir}/creating-amqp-connection-in-fuse.adoc[leveloffset=2]
 
 

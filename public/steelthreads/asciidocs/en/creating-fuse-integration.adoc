@@ -24,19 +24,19 @@
 . When prompted with *Specify Security*, select *Next*.
 
 . When prompted with *Review/Edit Connector Details*
-.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`.
+.. Enter the following in the *Connector Name* field, `Walkthrough {walkthrough-id} CRUD Connector`
 .. Click *Create API Connector*
 
 . Select *Connections* from the left hand menu.
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. When prompted with *Select Connector*, select *Walkthrough One CRUD Connector*.
+. When prompted with *Select Connector*, select *Walkthrough {walkthrough-id} CRUD Connector*.
 
-. When prompted with *Walkthrough One CRUD Configuration*, click *Next*.
+. When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
 
 . When prompted with *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough One CRUD App`
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`
 .. Click *Create*
 
 . Select *Connections* from the left hand menu.
@@ -54,14 +54,14 @@
 .. Click *Next*
 
 . When prompted for *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough One Messaging App`
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`
 .. Click *Create*
 
 . Select *Integrations* from the left hand menu.
 
 . Select the *Create Integration* button to start the *Create Integration* wizard.
 
-. Choose `Walkthrough One Messaging App` as the *Start Connection*.
+. Choose `Walkthrough {walkthrough-id} Messaging App` as the *Start Connection*.
 
 . When prompted to *Choose an Action*, select *Subscribe for messages*.
 
@@ -86,7 +86,7 @@
 ----
 .. Click *Done*.
 
-. Choose `Walkthrough One CRUD App` as the *Finish Connection*.
+. Choose `Walkthrough {walkthrough-id} CRUD App` as the *Finish Connection*.
 
 . When prompted to *Choose an Action*, select *Create a fruit*.
 
@@ -97,5 +97,5 @@
 .. Click *Done* to navigate back to the Integration screen.
 
 . Click *Publish*.
-. When prompted, enter a name, for example `Walkthrough One`.
+. When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
 

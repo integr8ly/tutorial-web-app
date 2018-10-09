@@ -21,6 +21,6 @@
 . When prompted with *Specify Security*, select *Next*.
 
 . When prompted with *Review/Edit Connector Details*
-.. Enter the following in the *Connector Name* field, `Walkthrough One CRUD Connector`.
+.. Enter the following in the *Connector Name* field, `Walkthrough {walkthrough-id} CRUD Connector`.
 .. Click *Create API Connector*
 

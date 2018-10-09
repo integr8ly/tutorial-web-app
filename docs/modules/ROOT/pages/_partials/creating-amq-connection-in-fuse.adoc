@@ -31,7 +31,7 @@ endif::location[]
 .. Click *Next*
 
 . When prompted for *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough One Messaging App`
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`
 .. Click *Create*
 
 

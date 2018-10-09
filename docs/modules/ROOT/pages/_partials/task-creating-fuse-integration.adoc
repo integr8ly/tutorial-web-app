@@ -17,7 +17,7 @@ endif::location[]
 
 . Select the *Create Integration* button to start the *Create Integration* wizard.
 
-. Choose `Walkthrough One Messaging App` as the *Start Connection*.
+. Choose `Walkthrough {walkthrough-id} Messaging App` as the *Start Connection*.
 
 . When prompted to *Choose an Action*, select *Subscribe for messages*.
 
@@ -42,7 +42,7 @@ endif::location[]
 ----
 .. Click *Done*.
 
-. Choose `Walkthrough One CRUD App` as the *Finish Connection*.
+. Choose `Walkthrough {walkthrough-id} CRUD App` as the *Finish Connection*.
 
 . When prompted to *Choose an Action*, select *Create a fruit*.
 
@@ -53,7 +53,7 @@ endif::location[]
 .. Click *Done* to navigate back to the Integration screen.
 
 . Click *Publish*.
-. When prompted, enter a name, for example `Walkthrough One`.
+. When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
 
 ifdef::location[]
 
