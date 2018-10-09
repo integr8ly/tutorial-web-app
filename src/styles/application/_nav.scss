@@ -1,7 +1,20 @@
-.navbar-header .navbar-brand img.navbar-brand-name {
-  height: auto;
+.navbar {
+  height: 40px;
+  min-height: 40px;
+  z-index: 5;
 }
-
+.navbar-pf-vertical {
+  .navbar-brand {
+    padding: 8px 0 0;
+    min-height: auto;
+    .navbar-brand-name {
+      height: auto;
+    }
+  }
+  .nav .nav-item-iconic {
+    padding: 10px 12px;
+  }
+}
 // Setup for internal vertical scroll
 .integr8ly-app-content {
   bottom: 0;

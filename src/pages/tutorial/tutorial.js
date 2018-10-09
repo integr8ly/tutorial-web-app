@@ -73,15 +73,16 @@ class TutorialPage extends React.Component {
                 />
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-module-frame">
-                <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" />
+                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
                 <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-on-running" /> Red Hat OpenShift
+                  {/* <i className="pficon pficon-on-running" /> */}
+                  Red Hat OpenShift
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
@@ -91,12 +92,13 @@ class TutorialPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="fa fa-pie-chart" /> Red Hat Fuse
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <i className="fa fa-pie-chart" /> */}
+                  Red Hat Fuse
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
@@ -106,12 +108,13 @@ class TutorialPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-pending" /> Red Hat AMQ
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <i className="pficon pficon-pending" /> */}
+                  Red Hat AMQ
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
@@ -121,12 +124,13 @@ class TutorialPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-error-circle-o" /> Eclipse Che
-                  <span className="label label-default integr8ly-label-community">Community</span>
+                  {/* <i className="pficon pficon-error-circle-o" /> */}
+                  Eclipse Che
+                  {/* <span className="label label-default integr8ly-label-community">Community</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                 </ul>
               </Grid.Col>

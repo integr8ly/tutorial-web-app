@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon, ProgressBar } from 'patternfly-react';
+import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
@@ -180,7 +180,6 @@ class TaskPage extends React.Component {
     if (thread.fulfilled && thread.data) {
       const threadTask = thread.data.tasks[task];
       const totalTasks = thread.data.tasks.length;
-      const progress = Math.round((task / (totalTasks - 1)) * 100);
 
       return (
         <React.Fragment>
@@ -346,15 +345,16 @@ class TaskPage extends React.Component {
                 </div>
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-module-frame">
-                <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" />
+                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
                 <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-on-running" /> Red Hat OpenShift
+                  {/* <i className="pficon pficon-on-running" /> */}
+                  Red Hat OpenShift
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
@@ -364,12 +364,13 @@ class TaskPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="fa fa-pie-chart" /> Red Hat Fuse
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <i className="fa fa-pie-chart" /> */}
+                  Red Hat Fuse
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
@@ -379,12 +380,13 @@ class TaskPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-pending" /> Red Hat AMQ
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <i className="pficon pficon-pending" /> */}
+                  Red Hat AMQ
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
                     <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
@@ -394,12 +396,13 @@ class TaskPage extends React.Component {
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
-                  <i className="pficon pficon-error-circle-o" /> Eclipse Che
-                  <span className="label label-default integr8ly-label-community">Community</span>
+                  {/* <i className="pficon pficon-error-circle-o" /> */}
+                  Eclipse Che
+                  {/* <span className="label label-default integr8ly-label-community">Community</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" target="top">Open console</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                 </ul>
               </Grid.Col>
