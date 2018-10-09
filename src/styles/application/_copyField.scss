@@ -10,13 +10,13 @@
       }
     }
     &.expanded {
-      background-color: $color-pf-black-200;
+      background-color: $pf-color-black-200;
     }
   }
   &-display {
     width: 100%;
     padding: 15px;
-    border: 1px solid $color-pf-black-400;
+    border: 1px solid $pf-color-black-400;
     border-top-width: 0;
     word-wrap: break-word;
     resize: none;

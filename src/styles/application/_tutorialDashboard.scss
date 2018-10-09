@@ -1,6 +1,6 @@
 .integr8ly-tutorial-dashboard {
   margin-bottom: 0;
-  background-color: $color-pf-black-150;
+  background-color: $pf-color-black-150;
   @media (max-width: 1091px) {
     width: 100%;
     .card-pf-body {
@@ -25,7 +25,7 @@
       flex-basis: 50%;
       margin-top: 16px;
       text-align: right;
-      color: $color-pf-black-800;
+      color: $pf-color-black-800;
       font-size: $pf-global--FontSize--sm;
       font-weight: 600;
     }
