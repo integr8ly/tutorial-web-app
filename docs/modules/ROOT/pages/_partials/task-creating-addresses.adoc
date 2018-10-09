@@ -41,7 +41,7 @@ ifdef::location[]
 
 .Verification
 // tag::verification[]
-Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank"] console to make sure address exists.
+Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank"] console to make sure the newly created address exists.
 // end::verification[]
 endif::location[]
 
