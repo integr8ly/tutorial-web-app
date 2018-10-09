@@ -24,9 +24,7 @@ endif::location[]
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. Select *AMQP* to configure an AMQP Message Broker connection.
-+
-NOTE: Do not select the similarly named *AMQ* option.
+. Select *AMQP* to configure an *AMQP Message Broker* connection.
 
 . Enter the following, using the configuration values relating to {enmasse}:
 +
