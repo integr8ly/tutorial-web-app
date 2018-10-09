@@ -16,7 +16,9 @@
 = Configuring a GitHub OAuth App
 
 
-. Navigate to https://github.com/settings/developers
+:github-devel-settings-url: https://github.com/settings/developers
+
+. Navigate to link:{github-devel-settings-url}[window="_blank"]
 . Click *New OAuth App*
 . Enter `integration` as the name for the app.
 . Enter the URL you received as part of your onboarding as the  *Homepage URL* and *Authorization callback URL*.
