@@ -29,7 +29,7 @@ class LandingPage extends React.Component {
         <section className="integr8ly-landing-page-tutorial-dashboard-section">
           <TutorialDashboard
             className="integr8ly-landing-page-tutorial-dashboard-section-left"
-            walkthroughs={Object.values(walkthroughServices.data)}
+            walkthroughs={walkthroughServices.data.threads}
           />
           <InstalledAppsView
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
