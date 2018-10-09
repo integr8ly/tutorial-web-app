@@ -7,19 +7,19 @@
     width: 33.3%;
   }
   & .panel-title {
-    background-color: $color-pf-white;
+    background-color: $pf-color-white;
   }
   &-panel-title {
     display: flex;
     & h3 {
       flex-basis: 70%;
       margin-top: 5px;
-      color: $color-pf-black-800;
+      color: $pf-color-black-800;
     }
     & div {
       flex-basis: 30%;
       margin-top: 10px;
-      color: $color-pf-black-800;
+      color: $pf-color-black-800;
       font-size: $pf-global--FontSize--sm;
       font-weight: $pf-global--FontWeight--bold;
       text-align: right;
@@ -42,7 +42,7 @@
       }
     }
     & li:hover {
-      background-color: $color-pf-blue-50;
+      background-color: $pf-color-blue-50;
       cursor: pointer;
     }
   }

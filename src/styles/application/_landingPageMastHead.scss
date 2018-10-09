@@ -1,11 +1,11 @@
 .integr8ly-landing-page {
   &-masthead {
     background-image: url(../../img/Web_RH_Banner.png);
-    background-color: $color-pf-black-900;
+    background-color: $pf-color-black-900;
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
-    color: $color-pf-white;
+    color: $pf-color-white;
     height: 130px;
     margin: auto 0;
     display: flex;

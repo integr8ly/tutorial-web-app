@@ -5,7 +5,7 @@
     cursor: pointer;
   }
   &-rectangle {
-    background-color: $color-pf-black-300;
+    background-color: $pf-color-black-300;
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
@@ -27,11 +27,11 @@
     }
     &-time-to-complete {
       flex-basis: 50%;
-      color: $color-pf-black-600;
+      color: $pf-color-black-600;
       font-weight: $pf-global--FontWeight--bold;
       text-align: right;
       .fa-clock-o:before {
-        color: $color-pf-black-600;
+        color: $pf-color-black-600;
       }
     }
   }
