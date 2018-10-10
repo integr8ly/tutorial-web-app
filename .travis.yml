@@ -1,16 +1,10 @@
 language: node_js
-sudo: required
 cache:
-  directories:
-  - node_modules
+  yarn: true
 notifications:
   email: false
 node_js:
-- '10'
-before_script:
-- yarn build
-script:
-- yarn test
+  - '10'
 branches:
   only:
     - master
