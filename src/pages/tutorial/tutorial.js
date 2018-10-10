@@ -32,7 +32,7 @@ class TutorialPage extends React.Component {
   }
 
   render() {
-    const { t, threadName, thread } = this.props;
+    const { t, thread } = this.props;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -82,13 +82,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
+                    <a href="https://help.openshift.com/" target="top">
+                      OpenShift Online Help Center
+                    </a>
                   </li>
                   <li>
-                    <a href="https://blog.openshift.com/" target="top">OpenShift Blog</a>
+                    <a href="https://blog.openshift.com/" target="top">
+                      OpenShift Blog
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -98,13 +104,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">
+                      Fuse Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">Fuse Overview</a>
+                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">
+                      Fuse Overview
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -114,13 +126,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/amq/help/" target="top">
+                      AMQ Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">AMQ Videos</a>
+                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">
+                      AMQ Videos
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -130,7 +148,9 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                 </ul>
               </Grid.Col>
@@ -184,8 +204,7 @@ TutorialPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object,
-  threadName: PropTypes.string
+  thread: PropTypes.object
 };
 
 TutorialPage.defaultProps = {
@@ -199,8 +218,7 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null,
-  threadName: ''
+  thread: null
 };
 
 const mapDispatchToProps = dispatch => ({
