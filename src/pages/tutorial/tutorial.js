@@ -142,21 +142,18 @@ class TutorialPage extends React.Component {
                     />
                   ))}
                   <ListView.Item
-                      description='Total estimated time to complete'
-                      actions={
-                        <div className="integr8ly-task-dashboard-estimated-time">
-                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
-                          <span>
-                            {thread.data.estimatedTime} {t('tutorial.minutes')}
-                          </span>
-                        </div>
-                      }
-                      stacked
-                    />
+                    description="Total estimated time to complete"
+                    actions={
+                      <div className="integr8ly-task-dashboard-estimated-time">
+                        <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                        <span>
+                          {thread.data.estimatedTime} {t('tutorial.minutes')}
+                        </span>
+                      </div>
+                    }
+                    stacked
+                  />
                 </ListView>
-              </Grid.Col>
-              <Grid.Col xs={12} sm={8}>
-                
               </Grid.Col>
             </Grid.Row>
           </Grid>
