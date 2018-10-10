@@ -84,16 +84,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       </Col>
       <Col
         bsClass="col"
-        className="integr8ly-task-container"
+        className="integr8ly-module-frame"
         componentClass="div"
-        sm={4}
+        sm={3}
       >
-        <h4
-          className="integr8ly-helpful-links-heading"
-        >
-          Walkthrough Diagram
-        </h4>
-        <img src="/images/st0.png" className="img-responsive" alt="integration" />
         <h4
           className="integr8ly-helpful-links-heading"
         >
@@ -102,24 +96,31 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          <i className="pficon pficon-on-running" /> Red Hat OpenShift
+          Red Hat OpenShift
         </h4>
         <ul
           className="list-unstyled"
         >
           <li>
-            <a href="#" target="top">Open console</a>
+            <a
+              href="https://url/"
+              target="top"
+            >
+              Open console
+            </a>
           </li>
           <li>
             <a
-              href="https://help.openshift.com/" target="top"
+              href="https://help.openshift.com/"
+              target="top"
             >
               OpenShift Online Help Center
             </a>
           </li>
           <li>
             <a
-              href="https://blog.openshift.com/" target="top"
+              href="https://blog.openshift.com/"
+              target="top"
             >
               OpenShift Blog
             </a>
@@ -128,29 +129,31 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          <i className="fa fa-pie-chart" /> Red Hat Fuse
-          <span
-            className="label label-default integr8ly-label-preview"
-          >
-            Preview
-          </span>
+          Red Hat Fuse
         </h4>
         <ul
           className="list-unstyled"
         >
           <li>
-            <a href="#" target="top">Open console</a>
+            <a
+              href="https://url/"
+              target="top"
+            >
+              Open console
+            </a>
           </li>
           <li>
             <a
-              href="https://developers.redhat.com/products/fuse/help/" target="top"
+              href="https://developers.redhat.com/products/fuse/help/"
+              target="top"
             >
               Fuse Community Q&A
             </a>
           </li>
           <li>
             <a
-              href="https://developers.redhat.com/videos/vimeo/95497167/" target="top"
+              href="https://developers.redhat.com/videos/vimeo/95497167/"
+              target="top"
             >
               Fuse Overview
             </a>
@@ -159,29 +162,31 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          <i className="pficon pficon-pending" /> Red Hat AMQ
-          <span
-            className="label label-default integr8ly-label-preview"
-          >
-            Preview
-          </span>
+          Red Hat AMQ
         </h4>
         <ul
           className="list-unstyled"
         >
           <li>
-            <a href="#" target="top">Open console</a>
+            <a
+              href="https://url/"
+              target="top"
+            >
+              Open console
+            </a>
           </li>
           <li>
             <a
-              href="https://developers.redhat.com/products/amq/help/" target="top"
+              href="https://developers.redhat.com/products/amq/help/"
+              target="top"
             >
               AMQ Community Q&A
             </a>
           </li>
           <li>
             <a
-              href="https://access.redhat.com/products/red-hat-amq" target="top"
+              href="https://access.redhat.com/products/red-hat-amq"
+              target="top"
             >
               AMQ Videos
             </a>
@@ -190,18 +195,18 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <h4
           className="integr8ly-helpful-links-product-title"
         >
-          <i className="pficon pficon-error-circle-o" /> Eclipse Che
-          <span
-            className="label label-default integr8ly-label-community"
-          >
-            Community
-          </span>
+          Eclipse Che
         </h4>
         <ul
           className="list-unstyled"
         >
           <li>
-            <a href="#" target="top">Open console</a>
+            <a
+              href="https://url/"
+              target="top"
+            >
+              Open console
+            </a>
           </li>
         </ul>
       </Col>
@@ -213,7 +218,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       <Col
         bsClass="col"
         componentClass="div"
-        sm={8}
+        sm={9}
         xs={12}
       >
         <h3>
@@ -221,15 +226,16 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           <div
             className="pull-right integr8ly-task-dashboard-time-to-completion"
           >
-            <Icon
-              name="clock-o"
-              type="fa"
-            />
-
-            <span>
-
-              tutorial.minutes
-            </span>
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              tutorial.getStarted
+            </Button>
           </div>
         </h3>
         <ListView
@@ -249,10 +255,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-
+                 
                 <span>
                   6
-
+                   
                   tutorial.minutes
                 </span>
               </div>
@@ -272,23 +278,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             stacked={true}
           />
         </ListView>
-      </Col>
-      <Col
-        bsClass="col"
-        componentClass="div"
-        sm={8}
-        xs={12}
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="primary"
-          disabled={false}
-          onClick={[Function]}
-        >
-          tutorial.getStarted
-        </Button>
       </Col>
     </Row>
   </Grid>

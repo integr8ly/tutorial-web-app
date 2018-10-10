@@ -6,6 +6,12 @@
   @media (min-width: 1092px) {
     width: 33.3%;
   }
+  & .state-provisioining {
+    color: #72767b;
+  }
+  & .state-ready {
+    color: #409c35;
+  }
   & .panel-title {
     background-color: $pf-color-white;
   }
