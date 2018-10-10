@@ -50,8 +50,14 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
+                <div className="integr8ly-task-dashboard-header">
+                  <h3>{thread.data.title}</h3>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                    {t('tutorial.getStarted')}
+                  </Button>
+                </div>
                 <div className="alert alert-primary" style={{ marginTop: 10 }}>
-                  <h3 className="integr8ly-tutorial-header">{t('tutorial.prereq')}</h3>
+                  <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
                   <ul className="fa-ul">
                     {thread.data.prerequisites.map((req, i) => (
                       <li key={i}>
@@ -65,9 +71,6 @@ class TutorialPage extends React.Component {
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
                 />
-                <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                  {t('tutorial.getStarted')}
-                </Button>
               </Grid.Col>
               <Grid.Col sm={4} className="integr8ly-task-container">
                 <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
@@ -123,26 +126,6 @@ class TutorialPage extends React.Component {
                 </h3>
 
                 <ListView className="integr8ly-list-view-pf">
-                  {/* for UX testing only right now */}
-                  <ListView.Item
-                    heading="0. Completing prerequisites"
-                    description={
-                      <div>
-                        <ul style={{ paddingLeft: 20 }}>
-                          {thread.data.prerequisites.map((req, i) => (
-                            <li key={i}>{req}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    }
-                    actions={
-                      <div className="integr8ly-task-dashboard-estimated-time">
-                        <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
-                        <span>10 {t('tutorial.minutes')}</span>
-                      </div>
-                    }
-                    stacked
-                  />
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}

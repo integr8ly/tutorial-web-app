@@ -11,9 +11,15 @@
     color: $pf-color-black-600;
     font-weight: $pf-global--FontWeight--normal;
   }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
-.integr8ly-tutorial-header {
+.integr8ly-tutorial-prereqs {
   margin-top: 5px;
   font-size: $pf-global--FontSize--xl;
 }

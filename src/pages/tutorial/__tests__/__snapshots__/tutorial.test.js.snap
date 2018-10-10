@@ -37,19 +37,50 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={8}
         xs={12}
       >
+        <div
+          className="integr8ly-task-dashboard-header"
+        >
+          <h3 />
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            tutorial.getStarted
+          </Button>
+        </div>
+        <div
+          className="alert alert-primary"
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <h3
+            className="integr8ly-tutorial-prereqs"
+          >
+            tutorial.prereq
+          </h3>
+          <ul
+            className="fa-ul"
+          >
+            <li
+              key="0"
+            >
+              <i
+                className="fa-li fa fa-check-square-o"
+              />
+              Github account
+            </li>
+          </ul>
+        </div>
         <Component
           attributes={Object {}}
         />
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="primary"
-          disabled={false}
-          onClick={[Function]}
-        >
-          tutorial.getStarted
-        </Button>
       </Col>
       <Col
         bsClass="col"
@@ -182,54 +213,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <ListView
           className="integr8ly-list-view-pf"
         >
-          <ListViewItem
-            actions={
-              <div
-                className="integr8ly-task-dashboard-estimated-time"
-              >
-                <Icon
-                  name="clock-o"
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                  type="fa"
-                />
-                 
-                <span>
-                  10 
-                  tutorial.minutes
-                </span>
-              </div>
-            }
-            additionalInfo={null}
-            checkboxInput={null}
-            compoundExpand={false}
-            compoundExpanded={false}
-            description={
-              <div>
-                <ul
-                  style={
-                    Object {
-                      "paddingLeft": 20,
-                    }
-                  }
-                >
-                  <li>
-                    Github account
-                  </li>
-                </ul>
-              </div>
-            }
-            heading="0. Completing prerequisites"
-            hideCloseIcon={false}
-            leftContent={null}
-            onCloseCompoundExpand={[Function]}
-            onExpand={[Function]}
-            onExpandClose={[Function]}
-            stacked={true}
-          />
           <ListViewItem
             actions={
               <div
