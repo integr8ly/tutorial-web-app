@@ -76,7 +76,7 @@ class TaskPage extends React.Component {
     const { thread, setProgress, user } = this.props;
     const { task } = this.state;
     const threadProgress = {
-      threadId: thread.data.id,
+      threadId: thread.data.id.toString(),
       task: this.state.task,
       verifications: this.state.verifications,
       verificationsChecked: this.state.verificationsChecked,

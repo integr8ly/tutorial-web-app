@@ -10,8 +10,9 @@ import { manageMiddlewareServices, mockMiddlewareServices } from '../../services
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { manageWalkthroughServices, mockWalkthroughServices, getWalkthroughs } = this.props;
+    const { manageWalkthroughServices, mockWalkthroughServices, getProgress, getWalkthroughs } = this.props;
     getWalkthroughs('en');
+    getProgress();
     if (window.OPENSHIFT_CONFIG.mockData) {
       mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData);
       return;
@@ -20,8 +21,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { walkthroughServices, middlewareServices } = this.props;
-    debugger;
+    const { walkthroughServices, middlewareServices, user } = this.props;
     return (
       <div>
         <PfMasthead />
@@ -29,6 +29,7 @@ class LandingPage extends React.Component {
         <section className="integr8ly-landing-page-tutorial-dashboard-section">
           <TutorialDashboard
             className="integr8ly-landing-page-tutorial-dashboard-section-left"
+            userProgress={user.userProgress.threads}
             walkthroughs={walkthroughServices.data.threads}
           />
           <InstalledAppsView
@@ -44,28 +45,34 @@ class LandingPage extends React.Component {
 LandingPage.propTypes = {
   manageWalkthroughServices: PropTypes.func,
   mockWalkthroughServices: PropTypes.func,
+  getProgress: PropTypes.func,
   getWalkthroughs: PropTypes.func,
   middlewareServices: PropTypes.object,
-  walkthroughServices: PropTypes.object
+  walkthroughServices: PropTypes.object,
+  user: PropTypes.object
 };
 
 LandingPage.defaultProps = {
   manageWalkthroughServices: noop,
   mockWalkthroughServices: noop,
+  getProgress: noop,
   getWalkthroughs: noop,
   middlewareServices: { data: {} },
-  walkthroughServices: { data: {} }
+  walkthroughServices: { data: {} },
+  user: { userProgress: {} }
 };
 
 const mapDispatchToProps = dispatch => ({
   manageWalkthroughServices: () => manageMiddlewareServices(dispatch),
   mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData),
-  getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language))
+  getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
+  getProgress: () => dispatch(reduxActions.userActions.getProgress())
 });
 
 const mapStateToProps = state => ({
   ...state.middlewareReducers,
-  ...state.walkthroughServiceReducers
+  ...state.walkthroughServiceReducers,
+  ...state.userReducers
 });
 
 const ConnectedLandingPage = connect(
