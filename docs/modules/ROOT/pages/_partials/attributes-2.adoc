@@ -1,2 +1,2 @@
 include::attributes.adoc[]
-:walkthrough: Configuring an Integreatly environment
+:walkthrough: Configuring the environment
