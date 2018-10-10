@@ -54,6 +54,7 @@ class InstalledAppsView extends React.Component {
         value={index}
       >
         <p>{app.spec.clusterServiceClassExternalName}</p>
+        <small></small>
       </li>
     ));
     masterList.push(this.getOpenshiftConsole(masterList.length));

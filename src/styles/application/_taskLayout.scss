@@ -81,9 +81,10 @@
     }
     &-frame {
       position: fixed;
-      top: 38px;
+      top: 0;
       right: 0;
       bottom: 0;
+      padding-top: 40px;
       overflow-y: auto;
       background-color: $pf-color-black-150;
       border-left: 1px solid;
@@ -92,6 +93,9 @@
       @media (max-width: 768px) {
         display: none;
       }
+      // & > .list-unstyled {
+      //   margin-left: 25px;
+      // }
     }
   }
 }
