@@ -50,24 +50,26 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
-                <div className="alert alert-primary" style={{ marginTop: 10 }}>
-                  <h3 className="integr8ly-tutorial-header">{t('tutorial.prereq')}</h3>
-                  <ul className="fa-ul">
+                <div className="integr8ly-task-dashboard-prereqs">
+                  <h4>{thread.data.title}</h4>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                    {t('tutorial.getStarted')}
+                  </Button>
+                  <div className="alert alert-primary" style={{ marginTop: 10 }}>
+                    <h3 className="integr8ly-tutorial-header">{t('tutorial.prereq')}</h3>
+                    <ul className="fa-ul">
                     {thread.data.prerequisites.map((req, i) => (
                       <li key={i}>
                         <i className="fa-li fa fa-check-square-o" />
                         {req}
                       </li>
                     ))}
-                  </ul>
-                </div>
+                    </ul>
+                  </div>
                 <AsciiDocTemplate
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
                 />
-                <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                  {t('tutorial.getStarted')}
-                </Button>
               </Grid.Col>
               <Grid.Col sm={4} className="integr8ly-task-container">
                 <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
