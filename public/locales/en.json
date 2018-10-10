@@ -4,7 +4,7 @@
   },
   "tutorial": {
     "getStarted": "Get Started",
-    "prereq": "Prerequisites",
+    "prereq": "Prerequisites to complete this walkthrough",
     "roles": "Roles",
     "installedApplications": "Installed applications used in this walkthrough",
     "tasksToComplete": "Tasks to complete",
