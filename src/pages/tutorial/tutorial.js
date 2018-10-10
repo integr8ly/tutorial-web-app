@@ -118,10 +118,9 @@ class TutorialPage extends React.Component {
                 <h3>
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Icon type="fa" name="clock-o" />{' '}
-                    <span>
-                      {thread.data.estimatedTime} {t('tutorial.minutes')}
-                    </span>
+                    <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                      {t('tutorial.getStarted')}
+                    </Button>
                   </div>
                 </h3>
 
@@ -142,12 +141,19 @@ class TutorialPage extends React.Component {
                       stacked
                     />
                   ))}
+                  <ListView.Item
+                    description="Total estimated time to complete"
+                    actions={
+                      <div className="integr8ly-task-dashboard-estimated-time">
+                        <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                        <span>
+                          {thread.data.estimatedTime} {t('tutorial.minutes')}
+                        </span>
+                      </div>
+                    }
+                    stacked
+                  />
                 </ListView>
-              </Grid.Col>
-              <Grid.Col xs={12} sm={8}>
-                <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                  {t('tutorial.getStarted')}
-                </Button>
               </Grid.Col>
             </Grid.Row>
           </Grid>
