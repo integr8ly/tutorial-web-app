@@ -1,6 +1,6 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
 import { OpenShiftWatchEvents } from '../services/openshiftServices';
-import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughServicesConstants';
+import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughConstants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 
 class DefaultServiceInstanceTransform {

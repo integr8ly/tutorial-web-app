@@ -76,12 +76,12 @@ class TaskPage extends React.Component {
     const { thread, setProgress, user } = this.props;
     const { task } = this.state;
     const threadProgress = {
-      threadId: thread.data.id,
+      threadId: thread.data.id.toString(),
       task: this.state.task,
       verifications: this.state.verifications,
       verificationsChecked: this.state.verificationsChecked,
       totalTasks: thread.data.tasks.length,
-      progress: Math.round((task / (thread.data.tasks.length - 1)) * 100)
+      progress: Math.round(((task + 1) / thread.data.tasks.length) * 100)
     };
 
     const progress = Object.assign({}, user.userProgress);

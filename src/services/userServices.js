@@ -194,7 +194,9 @@ const setProgress = progress => {
   return progress;
 };
 
-const getProgress = () => window.localStorage.getItem(`userProgress-${window.localStorage.getItem('currentUserName')}`);
+const getProgress = () =>
+  JSON.parse(window.localStorage.getItem(`userProgress-${window.localStorage.getItem('currentUserName')}`));
+
 export {
   checkUser,
   createUser,

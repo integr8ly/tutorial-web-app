@@ -1,5 +1,6 @@
 import { userTypes } from '../constants';
 import { userServices } from '../../services';
+import { FULFILLED_ACTION } from '../helpers';
 
 const checkUser = () => ({
   type: userTypes.USER_INFO,
@@ -41,8 +42,23 @@ const storeData = data => dispatch =>
   });
 
 const setProgress = progress => ({
-  type: userTypes.USER_SET_PROGRESS,
+  type: FULFILLED_ACTION(userTypes.USER_SET_PROGRESS),
   payload: userServices.setProgress(progress)
 });
 
-export { checkUser, createUser, deleteUser, loginUser, logoutUser, removeStoredData, storeData, setProgress };
+const getProgress = () => ({
+  type: FULFILLED_ACTION(userTypes.USER_GET_PROGRESS),
+  payload: userServices.getProgress()
+});
+
+export {
+  checkUser,
+  createUser,
+  deleteUser,
+  getProgress,
+  loginUser,
+  logoutUser,
+  removeStoredData,
+  storeData,
+  setProgress
+};

@@ -195,11 +195,12 @@ const userReducers = (state = initialState, action) => {
       );
 
     case FULFILLED_ACTION(userTypes.USER_SET_PROGRESS):
+    case FULFILLED_ACTION(userTypes.USER_GET_PROGRESS):
       return setStateProp(
         'user',
         {
           fulfilled: true,
-          userProgress: action.payload.data
+          userProgress: action.payload ? action.payload : { threads: [] }
         },
         {
           state,
