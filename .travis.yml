@@ -11,3 +11,6 @@ before_script:
 - yarn build
 script:
 - yarn test
+branches:
+  only:
+    - master
