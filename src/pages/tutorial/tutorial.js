@@ -32,7 +32,7 @@ class TutorialPage extends React.Component {
   }
 
   render() {
-    const { t, thread } = this.props;
+    const { t, threadName, thread } = this.props;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -50,88 +50,103 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
+                <div className="integr8ly-task-dashboard-header">
+                  <h3>{thread.data.title}</h3>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                    {t('tutorial.getStarted')}
+                  </Button>
+                </div>
+                <div className="alert alert-primary" style={{ marginTop: 10 }}>
+                  <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
+                  <ul className="fa-ul">
+                    {thread.data.prerequisites.map((req, i) => (
+                      <li key={i}>
+                        <i className="fa-li fa fa-check-square-o" />
+                        {req}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <AsciiDocTemplate
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
                 />
-                <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                  {t('tutorial.getStarted')}
-                </Button>
               </Grid.Col>
-              <Grid.Col sm={4} className="integr8ly-task-container">
-                <h4 className="integr8ly-helpful-links-heading">Helpful Links</h4>
-                <h4 className="integr8ly-helpful-links-product-title">Red Hat OpenShift</h4>
+              <Grid.Col sm={3} className="integr8ly-module-frame">
+                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
+                <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+                <h4 className="integr8ly-helpful-links-product-title">
+                  {/* <i className="pficon pficon-on-running" /> */}
+                  Red Hat OpenShift
+                </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://help.openshift.com/">OpenShift Online Help Center</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
-                    <a href="https://blog.openshift.com/">OpenShift Blog</a>
+                    <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
+                  </li>
+                  <li>
+                    <a href="https://blog.openshift.com/" target="top">OpenShift Blog</a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
+                  {/* <i className="fa fa-pie-chart" /> */}
                   Red Hat Fuse
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://developers.redhat.com/products/fuse/help/">Fuse Community Q&amp;A</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/videos/vimeo/95497167/">Fuse Overview</a>
+                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
+                  </li>
+                  <li>
+                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">Fuse Overview</a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
+                  {/* <i className="pficon pficon-pending" /> */}
                   Red Hat AMQ
-                  <span className="label label-default integr8ly-label-preview">Preview</span>
+                  {/* <span className="label label-default integr8ly-label-preview">Preview</span> */}
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://developers.redhat.com/products/amq/help/">AMQ Community Q&amp;A</a>
+                    <a href="https://url/" target="top">Open console</a>
                   </li>
                   <li>
-                    <a href="https://access.redhat.com/products/red-hat-amq">AMQ Videos</a>
+                    <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
+                  </li>
+                  <li>
+                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">AMQ Videos</a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
+                  {/* <i className="pficon pficon-error-circle-o" /> */}
                   Eclipse Che
-                  <span className="label label-default integr8ly-label-community">Community</span>
+                  {/* <span className="label label-default integr8ly-label-community">Community</span> */}
                 </h4>
+                <ul className="list-unstyled">
+                  <li>
+                    <a href="https://url/" target="top">Open console</a>
+                  </li>
+                </ul>
               </Grid.Col>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Col xs={12} sm={8}>
+              <Grid.Col xs={12} sm={9}>
                 <h3>
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Icon type="fa" name="clock-o" />{' '}
-                    <span>
-                      {thread.data.estimatedTime} {t('tutorial.minutes')}
-                    </span>
+                    <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                      {t('tutorial.getStarted')}
+                    </Button>
                   </div>
                 </h3>
 
                 <ListView className="integr8ly-list-view-pf">
-                  {/* for UX testing only right now */}
-                  <ListView.Item
-                    heading="0. Completing prerequisites"
-                    description={
-                      <div>
-                        <ul style={{ paddingLeft: 20 }}>
-                          {thread.data.prerequisites.map((req, i) => (
-                            <li key={i}>{req}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    }
-                    actions={
-                      <div className="integr8ly-task-dashboard-estimated-time">
-                        <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
-                        <span>10 {t('tutorial.minutes')}</span>
-                      </div>
-                    }
-                    stacked
-                  />
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}
@@ -149,11 +164,6 @@ class TutorialPage extends React.Component {
                     />
                   ))}
                 </ListView>
-              </Grid.Col>
-              <Grid.Col xs={12} sm={8}>
-                <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                  {t('tutorial.getStarted')}
-                </Button>
               </Grid.Col>
             </Grid.Row>
           </Grid>
@@ -174,7 +184,8 @@ TutorialPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object
+  thread: PropTypes.object,
+  threadName: PropTypes.string
 };
 
 TutorialPage.defaultProps = {
@@ -188,7 +199,8 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null
+  thread: null,
+  threadName: ''
 };
 
 const mapDispatchToProps = dispatch => ({

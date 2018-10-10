@@ -39,11 +39,7 @@ const middlewareReducers = (state = initialState, action) => {
     return Object.assign({}, state, {
       middlewareServices: {
         ...state.middlewareServices,
-        amqCredentials: {
-          username: action.payload.username,
-          password: action.payload.password,
-          url: action.payload.url
-        }
+        amqCredentials: action.payload
       }
     });
   }

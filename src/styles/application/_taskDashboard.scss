@@ -1,16 +1,26 @@
 .integr8ly-task-dashboard {
   &-time-to-completion {
     margin-top: 5px;
-    margin-right: 15px;
     color: $color-pf-black-600;
     font-size: $pf-global--FontSize--lg;
     font-weight: $pf-global--FontWeight--normal;
   }
 
   &-estimated-time {
-    color: $color-pf-black-600;
+    color: $pf-color-black-600;
     font-weight: $pf-global--FontWeight--normal;
   }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.integr8ly-tutorial-prereqs {
+  margin-top: 5px;
+  font-size: $pf-global--FontSize--xl;
 }
 
 .list-view-pf-stacked .list-group-item-heading {

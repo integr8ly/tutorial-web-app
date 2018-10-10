@@ -4,16 +4,28 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: $color-pf-black-150;
+    background-color: $pf-color-black-150;
     border-left: 1px solid;
-    border-left-color: $color-pf-black-300;
+    border-left-color: $pf-color-black-300;
     &-heading {
-      margin-bottom: 28px;
+      margin-bottom: 20px;
       font-weight: $pf-global--FontWeight--normal;
     }
     &-product-title {
-      font-weight: $pf-global--FontWeight--bold;
-      margin-top: 30px;
+      margin-top: 25px;
+      font-size: $pf-global--FontSize--lg;
+      i {
+        font-size: $pf-global--FontSize--md;
+        &.pficon-on-running {
+          color: $color-pf-green-400;
+        }
+        &.fa-pie-chart {
+          color: $color-pf-black-600;
+        }
+        &.pficon-pending {
+          color: $color-pf-orange-400;
+        }
+      }
       &:first-of-type {
         margin-top: 0;
       }

@@ -1,147 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardGrid, Col, Row, Icon, noop } from 'patternfly-react';
+import { CardGrid, Col, Row, Icon } from 'patternfly-react';
 import TutorialCard from '../tutorialCard/tutorialCard';
-import { getProgress } from '../../services/userServices';
-import { connect } from '../../redux';
 
-class TutorialDashboard extends React.Component {
-  threadStates = {};
+const TutorialDashboard = props => {
+  const { walkthroughs, userProgress } = props;
+  const cards = [];
 
-  componentDidMount() {
-    this.loadUserState();
-  }
+  walkthroughs.map((walkthrough, i) => {
+    const progress = userProgress.find(thread => thread.threadId === walkthrough.id);
+    return cards.push(
+      <Col xs={12} sm={4}>
+        <TutorialCard
+          title={walkthrough.title}
+          getStartedLink={
+            progress !== undefined && progress.task + 1 === progress.totalTasks
+              ? '#'
+              : `/tutorial/${walkthrough.id}/${progress === undefined ? '' : `task/${progress.task + 1}`}`
+          }
+          getStartedText={progress === undefined ? 'Get Started' : 'Resume'}
+          getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
+          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right />}
+          progress={progress === undefined ? 0 : progress.progress}
+          mins={walkthrough.estimatedTime}
+        >
+          <p>{walkthrough.descriptionDoc}</p>
+        </TutorialCard>
+      </Col>
+    );
+  });
 
-  loadUserState = () => {
-    const { getUserProgress } = this.props;
-    getUserProgress();
-  };
-
-  render = () => (
+  return (
     <div className="integr8ly-tutorial-dashboard panel panel-default">
       <div className="panel-heading panel-title">
         <h2>Start with a walkthrough</h2>
-        <div className="walkthrough-counter">5 walkthroughs</div>
+        <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">
         <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>
-          <Row>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Configuring the environment"
-                getStartedLink="/tutorial/0"
-                getStartedText="Get Started"
-                getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={40}
-              >
-                <p>Complete these configuration tasks to ensure that you can complete all walkthroughs.</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Integrating event-driven and API-driven applications (AMQ)"
-                getStartedLink="/tutorial/1"
-                getStartedText="Get Started"
-                getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={40}
-              >
-                <p>
-                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
-                  fictional grocery using Red Hat AMQ.
-                </p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Integrating event-driven and API-driven applications (EnMasse)"
-                getStartedLink="/tutorial/1A"
-                getStartedText="Get Started"
-                getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={40}
-              >
-                <p>
-                  Build a simple integration that enables a new fruit type to be added to an inventory list for a
-                  fictional grocery using EnMasse.
-                </p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Integrating API-driven applications"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Expose and protect an API that reports on arrivals and departures at a fictional airport.</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Create a greenfield-brownfield facade"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Build a microservice API gateway"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
-              </TutorialCard>
-            </Col>
-            <Col xs={12} sm={4}>
-              <TutorialCard
-                title="Create a REST facade to existing SOAP-based web service"
-                getStartedLink="#"
-                getStartedText=""
-                getStartedIcon={<span>&nbsp;</span>}
-                minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" style={{ paddingRight: 5 }} />}
-                mins={0}
-              >
-                <p>Coming soon!</p>
-              </TutorialCard>
-            </Col>
-          </Row>
+          <Row>{cards}</Row>
         </CardGrid>
       </div>
     </div>
   );
-}
+};
 
 TutorialDashboard.propTypes = {
-  getUserProgress: PropTypes.func
+  userProgress: PropTypes.object,
+  walkthroughs: PropTypes.object
 };
 
 TutorialDashboard.defaultProps = {
-  getUserProgress: noop
+  userProgress: [],
+  walkthroughs: []
 };
 
-const mapDispatchToProps = dispatch => ({
-  getUserProgress: () => getProgress(dispatch)
-});
-
-const mapStateToProps = state => ({
-  ...state.userReducer
-});
-
-const ConnectedTutorialDashboard = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TutorialDashboard);
-
-export { ConnectedTutorialDashboard as default, TutorialDashboard };
+export { TutorialDashboard as default, TutorialDashboard };

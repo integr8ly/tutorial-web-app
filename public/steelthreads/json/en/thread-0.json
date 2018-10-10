@@ -6,7 +6,7 @@
     "Access to an OpenShift instance with Integreatly components installed",
     "A GitHub account"
   ],
-  "estimatedTime": 50,
+  "estimatedTime": 21,
   "roles": [
     "Operator",
     "Developer"

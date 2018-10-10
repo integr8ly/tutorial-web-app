@@ -7,9 +7,9 @@
     }
     &-column {
       &--status {
-        background-color: $color-pf-black-100;
+        background-color: $pf-color-black-100;
         border-bottom: 1px solid;
-        border-bottom-color: $color-pf-black-300;
+        border-bottom-color: $pf-color-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
         min-height: 48px;
@@ -28,9 +28,9 @@
         }
 
         &-next {
-          background-color: $color-pf-black-100;
+          background-color: $pf-color-black-100;
           border-top: 1px solid;
-          border-top-color: $color-pf-black-300;
+          border-top-color: $pf-color-black-300;
           margin: 0 -20px;
           padding: 10px 20px 20px;
         }
@@ -41,18 +41,18 @@
         margin-bottom: 56px;
         margin-left: -20px;
         padding: 15px 20px 0;
-        background-color: $color-pf-white;
+        background-color: $pf-color-white;
       
         .alert.default {
-          background-color: $color-pf-blue-50;
-          border-color: $color-pf-blue-200;
-          color: $color-pf-black-100;      
+          background-color: $pf-color-blue-50;
+          border-color: $pf-color-blue-200;
+          color: $pf-color-black-100;      
       }
 
       &--footer {
-        background-color: $color-pf-black-100;
+        background-color: $pf-color-black-100;
         border-top: 1px solid;
-        border-top-color: $color-pf-black-300;
+        border-top-color: $pf-color-black-300;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -66,7 +66,7 @@
 
         &_status {
           margin-bottom: 10px;
-          color: $color-pf-blue;
+          color: $pf-color-blue-400;
 
           .fa {
             padding-right: 5px;
@@ -75,7 +75,7 @@
           &-checked {
             margin-bottom: 10px;
             padding-right: 15px;
-            color: $color-pf-green;
+            color: $pf-color-green-400;
           }
 
           &-step {
@@ -86,17 +86,21 @@
     }
     &-frame {
       position: fixed;
-      top: 38px;
+      top: 0;
       right: 0;
       bottom: 0;
+      padding-top: 40px;
       overflow-y: auto;
-      background-color: $color-pf-black-150;
+      background-color: $pf-color-black-150;
       border-left: 1px solid;
-      border-left-color: $color-pf-black-300;
+      border-left-color: $pf-color-black-300;
 
       @media (max-width: 768px) {
         display: none;
       }
+      // & > .list-unstyled {
+      //   margin-left: 25px;
+      // }
     }
   }
 }

@@ -1,17 +1,17 @@
 .integr8ly-congratulations {
   background-image: url(../../img/congratulations_bg.png);
-  background-color: $color-pf-blue-600;
+  background-color: $pf-color-blue-600;
   background-repeat: no-repeat;
   background-position: top right;
   background-size: cover;
   display: flex;
-  height: calc(100vh - 88px);
+  height: calc(100vh - 40px);
   margin-bottom: 0;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  color: $color-pf-white;
+  color: $pf-color-white;
   text-align: center;
   &-logo {
     background-image: url(../../img/RedHatLogo.png);

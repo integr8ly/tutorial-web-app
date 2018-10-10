@@ -20,8 +20,10 @@ $icon-font-path: '~patternfly/dist/fonts/';
 // Application Overrides
 @import 'application/fonts';
 @import 'application/variables';
+@import 'application/colors';
 @import 'application/typography';
 @import 'application/layout';
+@import 'application/alerts';
 @import 'application/lists';
 @import 'application/labels';
 @import 'application/breadcrumbs';

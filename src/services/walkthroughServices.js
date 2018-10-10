@@ -1,3 +1,5 @@
+import axios from 'axios';
+import serviceConfig from './config';
 import { watch, currentUser } from './openshiftServices';
 import { buildValidProjectNamespaceName, findOrCreateOpenshiftResource } from '../common/openshiftHelpers';
 import {
@@ -109,4 +111,27 @@ const prepareWalkthroughNamespace = (dispatch, walkthrough, siInfoOtherData) => 
   return null;
 };
 
-export { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS };
+/**
+ * Retrieves the json document for a specified walkthrough (aka thread).
+ * @param {} language Specifies the language end point where the json file is stored.  Used to create multiple localized documenation.
+ * @param {*} id The ID for the thread.
+ */
+const getWalkthrough = (language, id) =>
+  axios(
+    serviceConfig({
+      url: `${process.env.REACT_APP_STEELTHREAD_JSON_PATH}${language}/thread-${id}.json`
+    })
+  );
+
+/**
+ * Retrieves the json document that specifies all available walkthroughs (aka threads)
+ * @param {} language Specifies the language end point where the json file is stored.  Used to create multiple localized documenation.
+ */
+const getWalkthroughs = language =>
+  axios(
+    serviceConfig({
+      url: `${process.env.REACT_APP_STEELTHREAD_JSON_PATH}${language}/threads.json`
+    })
+  );
+
+export { getWalkthrough, getWalkthroughs, prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS };

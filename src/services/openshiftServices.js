@@ -12,9 +12,10 @@ axios.interceptors.response.use(
 );
 
 class OpenShiftUser {
-  constructor(uid, username) {
-    this.uid = uid;
-    this.username = username;
+  constructor(userRes) {
+    this.uid = userRes.metadata.uid;
+    this.username = userRes.metadata.name;
+    this.fullName = userRes.fullName;
   }
 }
 
@@ -167,7 +168,7 @@ const currentUser = () =>
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
-    }).then(response => new OpenShiftUser(response.data.metadata.uid, response.data.metadata.name))
+    }).then(response => new OpenShiftUser(response.data))
   );
 
 const get = (res, name) =>

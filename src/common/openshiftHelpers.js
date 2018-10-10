@@ -12,7 +12,11 @@ const buildValidProjectNamespaceName = (username, suffix) => `${cleanUsername(us
  * Get a sanitized version of a username, so it can be used to name OpenShift.
  * @param {string} username The username to sanitize.
  */
-const cleanUsername = username => username.replace(/@/g, '-').replace(/\./g, '-');
+const cleanUsername = username =>
+  username
+    .replace(/@/g, '-')
+    .replace(/\./g, '-')
+    .replace(/\s/g, '-');
 
 const buildNamespacedServiceInstanceName = (prefix, si) => `${prefix}-${si.spec.to.name}`;
 

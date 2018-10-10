@@ -240,6 +240,36 @@ Object {
 }
 `;
 
+exports[`UserReducers should handle all defined error types: rejected types 9`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": true,
+      "email": "developer@redhat.com",
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": "developer",
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+      "userProgress": Object {
+        "threads": Array [],
+      },
+    },
+  },
+  "type": "USER_GET_PROGRESS_REJECTED",
+}
+`;
+
 exports[`UserReducers should handle all defined fulfilled types: fulfilled types 1`] = `
 Object {
   "result": Object {
@@ -476,11 +506,45 @@ Object {
       "pending": false,
       "userInfo": Object {},
       "userProgress": Object {
-        "test": "success",
+        "data": Object {
+          "test": "success",
+        },
       },
     },
   },
   "type": "USER_SET_PROGRESS_FULFILLED",
+}
+`;
+
+exports[`UserReducers should handle all defined fulfilled types: fulfilled types 9`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": true,
+      "email": "developer@redhat.com",
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": "developer",
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": true,
+      "pending": false,
+      "userInfo": Object {},
+      "userProgress": Object {
+        "data": Object {
+          "test": "success",
+        },
+      },
+    },
+  },
+  "type": "USER_GET_PROGRESS_FULFILLED",
 }
 `;
 
@@ -721,5 +785,35 @@ Object {
     },
   },
   "type": "USER_SET_PROGRESS_PENDING",
+}
+`;
+
+exports[`UserReducers should handle all defined pending types: pending types 9`] = `
+Object {
+  "result": Object {
+    "session": Object {
+      "authorized": true,
+      "email": "developer@redhat.com",
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "loginFailed": false,
+      "pending": false,
+      "remember": false,
+      "storedEmail": null,
+      "username": "developer",
+    },
+    "user": Object {
+      "error": false,
+      "errorMessage": "",
+      "fulfilled": false,
+      "pending": false,
+      "userInfo": Object {},
+      "userProgress": Object {
+        "threads": Array [],
+      },
+    },
+  },
+  "type": "USER_GET_PROGRESS_PENDING",
 }
 `;

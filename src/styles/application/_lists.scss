@@ -1,7 +1,7 @@
 .integr8ly-list-view-pf {
   & > .list-group-item:hover {
-    border-right-color: $color-pf-white;
-    border-left-color: $color-pf-white;
+    border-right-color: $pf-color-white;
+    border-left-color: $pf-color-white;
   }
   &-description {
     flex: 1 !important; /* stylelint-disable-line declaration-no-important */
