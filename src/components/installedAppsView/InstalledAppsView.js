@@ -34,6 +34,18 @@ class InstalledAppsView extends React.Component {
     return null;
   }
 
+  static getOpenshiftConsole(index) {
+    return (
+      <li
+        onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+        key={`openshift_console_${index}`}
+        value={index}
+      >
+        OpenShift Console
+      </li>
+    );
+  }
+
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => (
       <li
@@ -44,6 +56,7 @@ class InstalledAppsView extends React.Component {
         <p>{app.spec.clusterServiceClassExternalName}</p>
       </li>
     ));
+    masterList.push(this.getOpenshiftConsole(masterList.length));
     return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
   }
 

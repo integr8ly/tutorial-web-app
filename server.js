@@ -9,6 +9,7 @@ app.get('/config.js', (req, res) => {
   if (!process.env.OPENSHIFT_HOST) {
     console.warn('OPENSHIFT_HOST not set. Using service URLs from env vars');
     res.send(`window.OPENSHIFT_CONFIG = {
+      masterUri: 'mock-openshift-console-url',
       mockData: {
         serviceInstances: [
           {
