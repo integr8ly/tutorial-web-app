@@ -1,7 +1,12 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, CardTitle, noop } from 'patternfly-react';
+import { Card, CardBody, CardFooter, CardTitle, ProgressBar, noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+const progressStyle = {
+  width: '100%',
+  'padding-top': '5px'
+};
 
 const TutorialCard = props => (
   <Card
@@ -21,10 +26,16 @@ const TutorialCard = props => (
         {props.getStartedIcon}
         <span>{props.getStartedText}</span>
       </a>
-      <div className="integr8ly-tutorial-card-pf-footer-time-to-complete">
-        {props.minsIcon}
-        {props.mins} <span>min</span>
-      </div>
+      {props.progress === 0 ? (
+        <div className="integr8ly-tutorial-card-pf-footer-time-to-complete">
+          {props.minsIcon}
+          {props.mins} <span>min</span>
+        </div>
+      ) : (
+        <div style={progressStyle}>
+          <ProgressBar now={props.progress} label={`${props.progress}%`} />
+        </div>
+      )}
     </CardFooter>
   </Card>
 );
@@ -44,6 +55,8 @@ TutorialCard.propTypes = {
   mins: PropTypes.number.isRequired,
   /** Icon for the minutes label */
   minsIcon: PropTypes.object.isRequired,
+  /** Progress in percent */
+  progress: PropTypes.number.isRequired,
   /** router history */
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
