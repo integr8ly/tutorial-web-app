@@ -199,15 +199,16 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           <div
             className="pull-right integr8ly-task-dashboard-time-to-completion"
           >
-            <Icon
-              name="clock-o"
-              type="fa"
-            />
-             
-            <span>
-               
-              tutorial.minutes
-            </span>
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              tutorial.getStarted
+            </Button>
           </div>
         </h3>
         <ListView
@@ -249,24 +250,41 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             onExpandClose={[Function]}
             stacked={true}
           />
+          <ListViewItem
+            actions={
+              <div
+                className="integr8ly-task-dashboard-estimated-time"
+              >
+                <Icon
+                  name="clock-o"
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                  type="fa"
+                />
+                 
+                <span>
+                   
+                  tutorial.minutes
+                </span>
+              </div>
+            }
+            additionalInfo={null}
+            checkboxInput={null}
+            compoundExpand={false}
+            compoundExpanded={false}
+            description="Total estimated time to complete"
+            heading={null}
+            hideCloseIcon={false}
+            leftContent={null}
+            onCloseCompoundExpand={[Function]}
+            onExpand={[Function]}
+            onExpandClose={[Function]}
+            stacked={true}
+          />
         </ListView>
-      </Col>
-      <Col
-        bsClass="col"
-        componentClass="div"
-        sm={8}
-        xs={12}
-      >
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="primary"
-          disabled={false}
-          onClick={[Function]}
-        >
-          tutorial.getStarted
-        </Button>
       </Col>
     </Row>
   </Grid>
