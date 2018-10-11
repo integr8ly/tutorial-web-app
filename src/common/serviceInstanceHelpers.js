@@ -87,6 +87,7 @@ const DEFAULT_SERVICES = {
   FUSE: 'fuse',
   CHE: 'che',
   LAUNCHER: 'launcher',
+  THREESCALE: '3scale',
   CRUD_APP: 'spring-boot-rest-http-crud',
   MESSAGING_APP: 'nodejs-messaging-work-queue-frontend'
 };
