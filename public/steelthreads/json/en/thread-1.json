@@ -31,7 +31,7 @@
         {
           "stepDoc": "creating-http-connection.adoc",
           "infoVerifications": [
-            "creating-http-connection.adoc"
+            "creating-http-connection-verification.adoc"
           ]
         }
       ]
