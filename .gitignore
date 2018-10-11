@@ -34,6 +34,3 @@ src/**/*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# ignore yarn lock file
-yarn.lock

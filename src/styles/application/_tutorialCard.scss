@@ -21,18 +21,56 @@
     bottom: 0;
     padding-bottom: 20px;
     display: flex;
+    .progress-bar-table{
+      display: table;
+      width: auto;
+      float: right;
+      margin-left: 50px;
+    }
+    .progress {
+      display: table-cell;
+      width: 100px;
+      margin-top: -2px;
+      margin-bottom: 0;
+      vertical-align: middle;
+      .progress-bar[aria-valuenow='100'] {
+        background-color: $pf-color-green-400;
+      }
+    }
+    .progress-label {
+      display: table-cell;
+      margin-top: -2px;
+      margin-bottom: 0;
+      padding-left: 10px;
+    }
+
+    .progress-label-completed {
+      color: $pf-color-green-400;
+    }
+
     &-get-started {
       flex-basis: 50%;
       text-align: left;
+      white-space: nowrap;
     }
     &-time-to-complete {
       flex-basis: 50%;
       color: $pf-color-black-600;
       font-weight: $pf-global--FontWeight--bold;
       text-align: right;
-      .fa-clock-o:before {
-        color: $pf-color-black-600;
+      .fa-clock-o {
+        margin-right: 3px;
+        &:before {
+          color: $pf-color-black-600;
+        }
       }
     }
   }
+}
+
+.integr8ly-text-complete {
+  color: $pf-color-green-400;
+}
+.integr8ly-card-complete {
+  border-top-color: $pf-color-green-400;
 }

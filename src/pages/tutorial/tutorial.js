@@ -31,8 +31,30 @@ class TutorialPage extends React.Component {
     history.push(`/tutorial/${id}/task/0`);
   }
 
+  renderPrereqs(thread) {
+    const { t } = this.props;
+    const { data } = thread;
+    if (!data.prerequisites || data.prerequisites.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="alert alert-primary" style={{ marginTop: 10 }}>
+        <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
+        <ul className="fa-ul">
+          {data.prerequisites.map((req, i) => (
+            <li key={i}>
+              <i className="fa-li fa fa-check-square-o" />
+              {req}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   render() {
-    const { t, threadName, thread } = this.props;
+    const { t, thread } = this.props;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -49,24 +71,14 @@ class TutorialPage extends React.Component {
               <PfMasthead />
             </Grid.Row>
             <Grid.Row>
-              <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
                 <div className="integr8ly-task-dashboard-header">
                   <h3>{thread.data.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
                   </Button>
                 </div>
-                <div className="alert alert-primary" style={{ marginTop: 10 }}>
-                  <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
-                  <ul className="fa-ul">
-                    {thread.data.prerequisites.map((req, i) => (
-                      <li key={i}>
-                        <i className="fa-li fa fa-check-square-o" />
-                        {req}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {this.renderPrereqs(thread)}
                 <AsciiDocTemplate
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
@@ -82,13 +94,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
+                    <a href="https://help.openshift.com/" target="top">
+                      OpenShift Online Help Center
+                    </a>
                   </li>
                   <li>
-                    <a href="https://blog.openshift.com/" target="top">OpenShift Blog</a>
+                    <a href="https://blog.openshift.com/" target="top">
+                      OpenShift Blog
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -98,13 +116,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">
+                      Fuse Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">Fuse Overview</a>
+                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">
+                      Fuse Overview
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -114,13 +138,19 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/amq/help/" target="top">
+                      AMQ Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">AMQ Videos</a>
+                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">
+                      AMQ Videos
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -130,7 +160,9 @@ class TutorialPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                 </ul>
               </Grid.Col>
@@ -154,9 +186,10 @@ class TutorialPage extends React.Component {
                       description={task.description}
                       actions={
                         <div className="integr8ly-task-dashboard-estimated-time">
-                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
                           <span>
-                            {task.estimatedTime} {t('tutorial.minutes')}
+                            {task.estimatedTime}
+                            {t('tutorial.minutes')}
                           </span>
                         </div>
                       }
@@ -184,8 +217,7 @@ TutorialPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object,
-  threadName: PropTypes.string
+  thread: PropTypes.object
 };
 
 TutorialPage.defaultProps = {
@@ -199,8 +231,7 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null,
-  threadName: ''
+  thread: null
 };
 
 const mapDispatchToProps = dispatch => ({

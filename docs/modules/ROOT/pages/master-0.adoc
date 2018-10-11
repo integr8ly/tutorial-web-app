@@ -19,12 +19,11 @@ ifdef::location[]
 
 // word count range that fits best is 15-22, with 20 really being the sweet spot. Character count for that space would be 100-125
 // tag::oneliner[]
-Prerequisite configuration tasks for an Integreatly environment.
+Prerequisite configuration tasks for your environment.
 // end::onliner[]
 
 
-When you logged into this application, you started provisioning all the applications required for the walkthroughs. However, to 
-complete all the walkthroughs, you must configure your GitHub account and create users as described in this walkthrough.
+To complete the walkthroughs in this environment, you need to configure your GitHub account as described in the following steps. You can also create and add additional users to the environment if you need to.
 
 
 // end::intro[]

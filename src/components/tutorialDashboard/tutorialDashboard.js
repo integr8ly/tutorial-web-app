@@ -8,20 +8,35 @@ const TutorialDashboard = props => {
   const cards = [];
 
   walkthroughs.map((walkthrough, i) => {
-    const progress = userProgress.find(thread => thread.threadId === walkthrough.id);
+    const currentProgress = userProgress.find(thread => thread.threadId === walkthrough.id);
+    let startedText;
+    if (currentProgress === undefined) startedText = 'Get Started';
+    else if (currentProgress.progress === 100) startedText = 'Completed';
+    else startedText = 'Resume';
+
     return cards.push(
       <Col xs={12} sm={4}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
-            progress !== undefined && progress.task + 1 === progress.totalTasks
+            currentProgress !== undefined && currentProgress.task + 1 === currentProgress.totalTasks
               ? '#'
-              : `/tutorial/${walkthrough.id}/${progress === undefined ? '' : `task/${progress.task + 1}`}`
+              : `/tutorial/${walkthrough.id}/${currentProgress === undefined ? '' : `task/${currentProgress.task + 1}`}`
           }
-          getStartedText={progress === undefined ? 'Get Started' : 'Resume'}
-          getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
+          getStartedText={startedText}
+          getStartedIcon={
+            <Icon
+              type="fa"
+              name={
+                currentProgress !== undefined && currentProgress.progress === 100
+                  ? 'check-circle-o'
+                  : 'arrow-circle-o-right'
+              }
+              className="fa-lg"
+            />
+          }
           minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right />}
-          progress={progress === undefined ? 0 : progress.progress}
+          progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.estimatedTime}
         >
           <p>{walkthrough.descriptionDoc}</p>
@@ -46,8 +61,8 @@ const TutorialDashboard = props => {
 };
 
 TutorialDashboard.propTypes = {
-  userProgress: PropTypes.object,
-  walkthroughs: PropTypes.object
+  userProgress: PropTypes.array,
+  walkthroughs: PropTypes.array
 };
 
 TutorialDashboard.defaultProps = {

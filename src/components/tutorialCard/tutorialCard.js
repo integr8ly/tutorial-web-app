@@ -3,15 +3,10 @@ import { Card, CardBody, CardFooter, CardTitle, ProgressBar, noop } from 'patter
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const progressStyle = {
-  width: '100%',
-  'padding-top': '5px'
-};
-
 const TutorialCard = props => (
   <Card
     matchHeight
-    className="integr8ly-tutorial-card"
+    className={props.progress === 100 ? 'integr8ly-tutorial-card integr8ly-card-complete' : 'integr8ly-tutorial-card'}
     onClick={e => {
       e.preventDefault();
       props.history.push(props.getStartedLink);
@@ -22,7 +17,14 @@ const TutorialCard = props => (
     </CardTitle>
     <CardBody> {props.children} </CardBody>
     <CardFooter className="integr8ly-tutorial-card-pf-footer">
-      <a className="integr8ly-tutorial-card-pf-footer-get-started" href={props.getStartedLink}>
+      <a
+        className={
+          props.progress === 100
+            ? 'integr8ly-tutorial-card-pf-footer-get-started integr8ly-text-complete'
+            : 'integr8ly-tutorial-card-pf-footer-get-started'
+        }
+        href={props.getStartedLink}
+      >
         {props.getStartedIcon}
         <span>{props.getStartedText}</span>
       </a>
@@ -32,8 +34,9 @@ const TutorialCard = props => (
           {props.mins} <span>min</span>
         </div>
       ) : (
-        <div style={progressStyle}>
-          <ProgressBar now={props.progress} label={`${props.progress}%`} />
+        <div className="progress-bar-table">
+          <ProgressBar now={props.progress} />
+          <span className="progress-label">{`${props.progress}%`} </span>
         </div>
       )}
     </CardFooter>

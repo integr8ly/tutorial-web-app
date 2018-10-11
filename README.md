@@ -69,6 +69,13 @@ Each walkthrough requires:
 * task-<task>.adoc
 * <step>.adoc (only if task consists of more than one step)
 
+# Running the tests
+
+Tests are implemented using Jest and Enzyme. Run them with:
+
+```
+yarn test
+```
 
 # Releasing
 

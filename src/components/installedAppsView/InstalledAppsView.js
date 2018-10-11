@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'patternfly-react';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -17,9 +18,31 @@ class InstalledAppsView extends React.Component {
   }
 
   static getStatusForApp(app) {
-    const provisioningStatus = 'Provisioning';
+    const provisioningStatus = (
+      <div className="state-provisioining">
+        <Icon type="fa" name="pie-chart" /> &nbsp;Provisioning
+      </div>
+    );
+    const readyStatus = (
+      <div className="state-ready">
+        <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+      </div>
+    );
+    const unavailableStatus = (
+      <div className="state-unavailable">
+        <Icon type="pf" name="error-circle-o" /> &nbsp;Unavailable
+      </div>
+    );
+
+    if (app.metadata && app.metadata.deletionTimestamp) {
+      return unavailableStatus;
+    }
+
     if (app.status && app.status.conditions && app.status.conditions[0]) {
-      return app.status.conditions[0].status === 'True' ? 'Provisioned' : provisioningStatus;
+      if (app.status.provisionStatus === 'NotProvisioned') {
+        return unavailableStatus;
+      }
+      return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
     }
     return provisioningStatus;
   }
@@ -54,7 +77,8 @@ class InstalledAppsView extends React.Component {
         value={index}
       >
         <p>{app.spec.clusterServiceClassExternalName}</p>
-        <small></small>
+        {InstalledAppsView.getStatusForApp(app)}
+        <small />
       </li>
     ));
     masterList.push(this.getOpenshiftConsole(masterList.length));
