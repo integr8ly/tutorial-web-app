@@ -34,7 +34,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         bsClass="col"
         className="integr8ly-task-container"
         componentClass="div"
-        sm={8}
+        sm={9}
         xs={12}
       >
         <div
@@ -259,6 +259,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 <span>
                   6
                    
+
                   tutorial.minutes
                 </span>
               </div>
