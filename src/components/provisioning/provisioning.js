@@ -65,16 +65,7 @@ function buildProvisioningScreen(WrappedComponent) {
     static loadingScreen(services) {
       const provisionProgress = Provisioning.getMiddlwareServiceProgress(services);
       return (
-        <div
-          style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            display: 'block',
-            textAlign: 'center',
-            maxWidth: '800px',
-            marginTop: '150px'
-          }}
-        >
+        <div className="provisioning">
           <div>We&#39;re putting the finishing touches on your new environment. Please stand by.</div>
           <ProgressBar
             className="progress progress-label-left"
