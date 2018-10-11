@@ -25,7 +25,7 @@ endif::location[]
 
 To create users:
 
-. Log in to the link:{sso-admin-url}[RH SSO Admin Console]. 
+. Log in to the link:{sso-admin-url}[RH SSO Admin Console, window="_blank"].
 . Click on `Users` in the left menu bar.
 . Click the `Add User` button on the right hand side of the page. 
 . Enter details for that user.

@@ -298,4 +298,13 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
   }
 };
 
-export { manageMiddlewareServices, mockMiddlewareServices };
+const getSsoRoute = () => {
+  const secureSsoRoute = {
+    metadata: {
+      name: 'secure-sso'
+    }
+  };
+  return findOpenshiftResource(routeDef('sso'), secureSsoRoute);
+};
+
+export { manageMiddlewareServices, mockMiddlewareServices, getSsoRoute };

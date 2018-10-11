@@ -1,5 +1,6 @@
 import { WALKTHROUGH_IDS } from '../services/walkthroughServices';
 import { DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
+import { getSsoRoute } from '../services/middlewareServices';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
   if (!walkthrough) {
@@ -11,6 +12,9 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
 
   return Object.assign({}, middlewareAttrs, walkthroughAttrs, { 'walkthrough-id': walkthrough.id });
 };
+
+const getDocsforConfigIntegreatly = () =>
+  getSsoRoute().then(route => ({ 'sso-admin-url': `https://${route.spec.host}` }));
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
@@ -42,9 +46,10 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
 
 const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
   const defaultServices = {
+    'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
     'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
-    'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
+    'sso-url': getSsoRoute()
   };
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
     defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ);
@@ -70,4 +75,4 @@ const getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
   return walkthroughServices.services[serviceName].spec.host;
 };
 
-export { getDocsForWalkthrough };
+export { getDocsForWalkthrough, getDocsforConfigIntegreatly };
