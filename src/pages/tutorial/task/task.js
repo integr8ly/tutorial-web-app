@@ -226,8 +226,7 @@ class TaskPage extends React.Component {
                           step.infoVerifications.map(
                             (verification, j) =>
                               verifications[step.infoVerifications[0]] === undefined ? (
-                                // <Alert>Undefined</Alert>
-                                <Alert type="info" className="alert alert-default" key={j}>
+                                <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={j}>
                                   <strong>{t('task.verificationTitle')}</strong>
                                   <AsciiDocTemplate adoc={verification} />
                                   <ButtonGroup>

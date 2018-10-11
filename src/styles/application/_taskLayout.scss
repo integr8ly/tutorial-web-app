@@ -43,10 +43,10 @@
         padding: 15px 20px 0;
         background-color: $pf-color-white;
       
-        .alert.default {
+        &_alert-blue {
           background-color: $pf-color-blue-50;
           border-color: $pf-color-blue-200;
-          color: $pf-color-black-100;      
+          color: $pf-color-black-1000;      
       }
     }
       &--footer {
