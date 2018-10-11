@@ -5,6 +5,7 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
+  const cards = [];
 
   walkthroughs.map((walkthrough, i) => {
     const currentProgress = userProgress.find(thread => thread.threadId === walkthrough.id);
