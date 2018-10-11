@@ -18,5 +18,5 @@ A more structured approach involves:
 This walkthrough describes how  to create such an integration, using OpenShift, {messaging-service} and API connectors in Fuse.
 
 ++++
-<img src="/images/st0.png" class="img-responsive" alt="integration">
+<img src="/images/wt1.png" class="img-responsive" alt="integration">
 ++++

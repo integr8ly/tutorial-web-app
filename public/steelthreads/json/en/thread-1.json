@@ -2,9 +2,6 @@
   "id": 1,
   "title": "Integrating event-driven and API-driven applications",
   "descriptionDoc": "master-1-intro.adoc",
-  "prerequisites": [
-    "You have completed the walkthrough 'Configuring your environment'"
-  ],
   "estimatedTime": 15,
   "roles": [
     "Operator",
@@ -34,7 +31,7 @@
         {
           "stepDoc": "creating-http-connection.adoc",
           "infoVerifications": [
-            "creating-http-connection.adoc"
+            "creating-http-connection-verification.adoc"
           ]
         }
       ]

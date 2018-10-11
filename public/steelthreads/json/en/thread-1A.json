@@ -2,9 +2,6 @@
   "id": "1A",
   "title": "Integrating event-driven and API-driven applications",
   "descriptionDoc": "master-1A-intro.adoc",
-  "prerequisites": [
-    "You have completed the walkthrough 'Configuring your environment'"
-  ],
   "estimatedTime": 21,
   "roles": [
     "Operator",
