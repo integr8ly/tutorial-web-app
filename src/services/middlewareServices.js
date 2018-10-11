@@ -31,6 +31,31 @@ const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.THREESCALE
 ];
 
+const WALKTHROUGH_SERVICE_DETAILS = {
+  [DEFAULT_SERVICES.ENMASSE]: {
+    prettyName: 'EnMasse',
+    gaStatus: 'preview'
+  },
+  [DEFAULT_SERVICES.FUSE]: {
+    prettyName: 'Red Hat Fuse'
+  },
+  [DEFAULT_SERVICES.AMQ]: {
+    prettyName: 'Red Hat AMQ'
+  },
+  [DEFAULT_SERVICES.CHE]: {
+    prettyName: 'Eclipse Che'
+  },
+  [DEFAULT_SERVICES.LAUNCHER]: {
+    prettyName: 'Red Hat Developer Launcher'
+  },
+  [DEFAULT_SERVICES.THREESCALE]: {
+    prettyName: 'Red Hat 3scale API Management Platform',
+    gaStatus: 'community'
+  }
+};
+
+console.log(WALKTHROUGH_SERVICE_DETAILS);
+
 /**
  * Dispatch a mock set of user services.
  * @param {Object} dispatch Redux dispatch.
@@ -41,12 +66,13 @@ const mockMiddlewareServices = (dispatch, mockData) => {
     return;
   }
   window.localStorage.setItem('currentUserName', 'mockUser@mockUser.com');
-  mockData.serviceInstances.forEach(si =>
+  mockData.serviceInstances.forEach(si => {
+    si.serviceDetails = WALKTHROUGH_SERVICE_DETAILS[si.spec.clusterServiceClassExternalName];
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: si
-    })
-  );
+    });
+  });
 };
 
 /**
@@ -73,6 +99,7 @@ const manageMiddlewareServices = dispatch => {
     const namespaceObj = namespaceResource(userNamespace);
     const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
+    // Namespace
     findOrCreateOpenshiftResource(
       namespaceDef,
       namespaceObj,
@@ -86,6 +113,7 @@ const manageMiddlewareServices = dispatch => {
         );
         return Promise.all(
           siObjs.map(siObj =>
+            // Service Instance
             findOrCreateOpenshiftResource(
               serviceInstanceDef(userNamespace),
               siObj,

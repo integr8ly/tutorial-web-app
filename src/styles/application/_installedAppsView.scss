@@ -55,4 +55,24 @@
       cursor: pointer;
     }
   }
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .gastatus {
+      text-transform: capitalize;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px;
+    }
+
+    .preview {
+      background-color: $pf-color-black-200;
+    }
+
+    .community {
+      background-color: $pf-color-purple-200;
+    }
+  }
 }

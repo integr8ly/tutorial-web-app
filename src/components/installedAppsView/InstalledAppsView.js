@@ -17,6 +17,16 @@ class InstalledAppsView extends React.Component {
     this.setState({ currentApp: e.target.value });
   }
 
+  static getAppProductDetails(app) {
+    const { serviceDetails, spec } = app;
+    if (serviceDetails) {
+      return serviceDetails;
+    }
+    return {
+      prettyName: spec.clusterServiceClassExternalName
+    };
+  }
+
   static getStatusForApp(app) {
     const provisioningStatus = (
       <div className="state-provisioining">
@@ -70,17 +80,23 @@ class InstalledAppsView extends React.Component {
   }
 
   static createMasterList(apps) {
-    const masterList = apps.map((app, index) => (
-      <li
-        onClick={() => window.open(InstalledAppsView.getRouteForApp(app), '_blank')}
-        key={`${app.spec.clusterServiceClassExternalName}_${index}`}
-        value={index}
-      >
-        <p>{app.spec.clusterServiceClassExternalName}</p>
-        {InstalledAppsView.getStatusForApp(app)}
-        <small />
-      </li>
-    ));
+    const masterList = apps.map((app, index) => {
+      const { prettyName, gaStatus } = InstalledAppsView.getAppProductDetails(app);
+      return (
+        <li
+          onClick={() => window.open(InstalledAppsView.getRouteForApp(app), '_blank')}
+          key={`${app.spec.clusterServiceClassExternalName}_${index}`}
+          value={index}
+        >
+          <div className="integr8ly-installed-apps-view-title">
+            <p>{prettyName}</p>
+            <p className={`gastatus ${gaStatus}`}>{gaStatus}</p>
+          </div>
+          {InstalledAppsView.getStatusForApp(app)}
+          <small />
+        </li>
+      );
+    });
     masterList.push(this.getOpenshiftConsole(masterList.length));
     return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
   }
