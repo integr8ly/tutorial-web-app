@@ -11,7 +11,7 @@ import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHel
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 
 class TaskPage extends React.Component {
-  state = { task: 0, verifications: {}, verificationsChecked: false };
+  state = { task: 0, verifications: {}, verificationsNo: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
@@ -51,6 +51,7 @@ class TaskPage extends React.Component {
       this.setState({ id, task: parsedTask });
       getThread(i18n.language, id).then(thread => {
         const verifications = {};
+        const verificationsNo = {};
         const threadTask = thread.value.data.tasks[parsedTask];
         threadTask.steps.forEach(step => {
           if (step.infoVerifications) {
@@ -66,6 +67,7 @@ class TaskPage extends React.Component {
         const hasVerifications = Object.keys(verifications).length > 0;
         this.setState({
           verifications,
+          verificationsNo,
           verificationsChecked: !hasVerifications
         });
       });
@@ -177,6 +179,7 @@ class TaskPage extends React.Component {
     o[verification] = !e.target.checked;
     const verificationsChecked = Object.values(o).every(v => v === true);
     this.setState({ verifications: o, verificationsChecked });
+    console.log(Object.values(o).length);
   };
 
   render() {
@@ -223,18 +226,17 @@ class TaskPage extends React.Component {
                           step.infoVerifications.map((verification, j) => (
                             <Alert
                               type={
-
                                 step.infoVerifications && verifications[step.infoVerifications[0]] ? 'success' : 'error'
                               }
                               className="alert alert-default"
                               key={j}
                             >
-                              {/* <strong>{t('task.verificationTitle')}</strong> */}
+                              <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate adoc={verification} />
                               <ButtonGroup>
                                 <Radio
                                   name={j}
-                                  //checked={verifications[verification]}
+                                  // checked={verifications[verification]}
                                   onChange={e => {
                                     this.handleYesVerification(e, verification);
                                   }}
@@ -243,7 +245,7 @@ class TaskPage extends React.Component {
                                 </Radio>
                                 <Radio
                                   name={j}
-                                  //checked={!verifications[verification]}
+                                  // checked={!verifications[verification]}
                                   onChange={e => {
                                     this.handleNoVerification(e, verification);
                                   }}
@@ -251,32 +253,22 @@ class TaskPage extends React.Component {
                                   No
                                 </Radio>
                               </ButtonGroup>
-                              <span>
-                                <AsciiDocTemplate adoc="creating-api-connector-verification-no.adoc" />
+                              <span
+                                className={
+                                  step.infoVerifications && verifications[step.infoVerifications[0]] ? 'hidden' : 'show'
+                                }
+                              >
+                                <AsciiDocTemplate adoc={step.infoVerificationsNo} />
                               </span>
-                            </Alert>
-                          ))}
-                        {step.infoVerificationsNo &&
-                          step.infoVerificationsNo.map((verificationNo, k) => (
-                            <Alert type="info" key={k}>
-                              {/* <strong>{t('task.verificationTitle')}</strong> */}
-                              <AsciiDocTemplate adoc={verificationNo} />
-                              <Radio
-                                checked={verifications[verificationNo] || false}
-                                onChange={e => {
-                                  this.handleYesVerification(e, verificationNo);
-                                }}
+                              {/* <span
+                                className={
+                                  step.infoVerificationsNo && verifications[step.infoVerificationsNo[0]]
+                                    ? 'hidden'
+                                    : 'show'
+                                }
                               >
-                                Yes
-                              </Radio>
-                              <Radio
-                                checked={verifications[verificationNo] || false}
-                                onChange={e => {
-                                  this.handleNoVerification(e, verificationNo);
-                                }}
-                              >
-                                No
-                              </Radio>
+                                <AsciiDocTemplate adoc={infoVerificationsNo} />
+                              </span> */}
                             </Alert>
                           ))}
                         {step.successVerifications &&
@@ -406,13 +398,19 @@ class TaskPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://help.openshift.com/" target="top">OpenShift Online Help Center</a>
+                    <a href="https://help.openshift.com/" target="top">
+                      OpenShift Online Help Center
+                    </a>
                   </li>
                   <li>
-                    <a href="https://blog.openshift.com/" target="top">OpenShift Blog</a>
+                    <a href="https://blog.openshift.com/" target="top">
+                      OpenShift Blog
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -422,13 +420,19 @@ class TaskPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">Fuse Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/fuse/help/" target="top">
+                      Fuse Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">Fuse Overview</a>
+                    <a href="https://developers.redhat.com/videos/vimeo/95497167/" target="top">
+                      Fuse Overview
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -438,13 +442,19 @@ class TaskPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                   <li>
-                    <a href="https://developers.redhat.com/products/amq/help/" target="top">AMQ Community Q&amp;A</a>
+                    <a href="https://developers.redhat.com/products/amq/help/" target="top">
+                      AMQ Community Q&amp;A
+                    </a>
                   </li>
                   <li>
-                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">AMQ Videos</a>
+                    <a href="https://access.redhat.com/products/red-hat-amq" target="top">
+                      AMQ Videos
+                    </a>
                   </li>
                 </ul>
                 <h4 className="integr8ly-helpful-links-product-title">
@@ -454,7 +464,9 @@ class TaskPage extends React.Component {
                 </h4>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="https://url/" target="top">Open console</a>
+                    <a href="https://url/" target="top">
+                      Open console
+                    </a>
                   </li>
                 </ul>
               </Grid.Col>

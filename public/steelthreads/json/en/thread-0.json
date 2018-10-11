@@ -21,6 +21,9 @@
           "stepDoc": "task-configuring-github-oauth-app.adoc",
           "infoVerifications": [
             "task-configuring-github-oauth-app-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "creating-api-connector-verification-no.adoc"
           ]
         }
       ]
@@ -33,6 +36,9 @@
           "stepDoc": "task-creating-users.adoc",
           "infoVerifications": [
             "task-creating-users-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "creating-api-connector-verification-no.adoc"
           ]
         }
       ]
