@@ -61,17 +61,25 @@ function buildProvisioningScreen(WrappedComponent) {
       return false;
     }
 
-    // NOTE: All styling is inline as it'll all be removed anyway.
     static loadingScreen(services) {
       const provisionProgress = Provisioning.getMiddlwareServiceProgress(services);
       return (
-        <div className="provisioning">
-          <div>We&#39;re putting the finishing touches on your new environment. Please stand by.</div>
-          <ProgressBar
-            className="progress progress-label-left"
-            now={provisionProgress}
-            label={`${provisionProgress}%`}
-          />
+        <div>
+          <div className="loadingscreen-backdrop">
+            <div className="loadingscreen-logo" />
+          </div>
+          <object
+            className="loadingscreen-throbber"
+            data={require('./StartingServices_Final.svg')}
+            type="image/svg+xml"
+          >
+            Loading...
+          </object>
+          <h2 className="loadingscreen-text integr8ly-congratulations-heading">
+            We&#39;re putting the finishing touches on your new environment. Please stand by.
+          </h2>
+          <ProgressBar className="loadingscreen-progressbar" now={provisionProgress} />
+          <span className="loadingscreen-progress-label">{provisionProgress}%</span>
         </div>
       );
     }

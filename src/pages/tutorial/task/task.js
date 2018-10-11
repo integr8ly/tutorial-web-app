@@ -207,7 +207,7 @@ class TaskPage extends React.Component {
                           adoc={step.stepDoc}
                           attributes={Object.assign(
                             {},
-                            threadTask.attributes,
+                            thread.data.attributes,
                             step.attributes,
                             this.getDocsAttributes()
                           )}
@@ -218,7 +218,15 @@ class TaskPage extends React.Component {
                               verifications[step.infoVerifications[0]] === undefined ? (
                                 <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={j}>
                                   <strong>{t('task.verificationTitle')}</strong>
-                                  <AsciiDocTemplate adoc={verification} />
+                                  <AsciiDocTemplate
+                                    adoc={verification}
+                                    attributes={Object.assign(
+                                      {},
+                                      thread.data.attributes,
+                                      step.attributes,
+                                      this.getDocsAttributes()
+                                    )}
+                                  />
                                   <ButtonGroup>
                                     <Radio
                                       name={step.stepDoc}
@@ -249,7 +257,15 @@ class TaskPage extends React.Component {
                                   key={j}
                                 >
                                   <strong>{t('task.verificationTitle')}</strong>
-                                  <AsciiDocTemplate adoc={verification} />
+                                  <AsciiDocTemplate
+                                    adoc={verification}
+                                    attributes={Object.assign(
+                                      {},
+                                      thread.data.attributes,
+                                      step.attributes,
+                                      this.getDocsAttributes()
+                                    )}
+                                  />
                                   <ButtonGroup>
                                     <Radio
                                       name={step.stepDoc}
@@ -275,7 +291,15 @@ class TaskPage extends React.Component {
                                         : 'show'
                                     }
                                   >
-                                    <AsciiDocTemplate adoc={step.infoVerificationsNo[0]} />
+                                    <AsciiDocTemplate
+                                      adoc={step.infoVerificationsNo[0]}
+                                      attributes={Object.assign(
+                                        {},
+                                        thread.data.attributes,
+                                        step.attributes,
+                                        this.getDocsAttributes()
+                                      )}
+                                    />
                                   </span>
                                 </Alert>
                               )
