@@ -34,7 +34,7 @@
             "creating-amq-connection-in-fuse-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "creating-api-connector-verification-no.adoc"
+            "creating-amq-connection-in-fuse-verification-no.adoc"
           ]
         },
         {
@@ -43,7 +43,7 @@
             "creating-http-connection-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "creating-api-connector-verification-no.adoc"
+            "creating-http-connection-verification-no.adoc"
           ]
         }
       ]
@@ -58,7 +58,7 @@
             "task-creating-fuse-integration-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "creating-api-connector-verification-no.adoc"
+            "task-creating-fuse-integration-verification-no.adoc"
           ]
         }
       ]

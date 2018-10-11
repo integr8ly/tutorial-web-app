@@ -1,1 +1,1 @@
-Retry the *Creating AMQ connection in Fuse* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+Retry the *Running node app* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
