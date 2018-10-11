@@ -11,7 +11,7 @@ import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHel
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 
 class TaskPage extends React.Component {
-  state = { task: 0, verifications: {}, verificationsNo: {}, verificationsChecked: false };
+  state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
@@ -51,12 +51,11 @@ class TaskPage extends React.Component {
       this.setState({ id, task: parsedTask });
       getThread(i18n.language, id).then(thread => {
         const verifications = {};
-        const verificationsNo = {};
         const threadTask = thread.value.data.tasks[parsedTask];
         threadTask.steps.forEach(step => {
           if (step.infoVerifications) {
             step.infoVerifications.forEach(verification => {
-              verifications[verification] = undefined; // if yes/no, should set to undefined?
+              verifications[verification] = undefined;
             });
           } else if (step.successVerifications) {
             step.successVerifications.forEach(verification => {
@@ -67,7 +66,6 @@ class TaskPage extends React.Component {
         const hasVerifications = Object.keys(verifications).length > 0;
         this.setState({
           verifications,
-          verificationsNo,
           verificationsChecked: !hasVerifications
         });
       });
@@ -160,13 +158,6 @@ class TaskPage extends React.Component {
     history.push(`/congratulations/${this.props.thread.data.id}`);
   };
 
-  handleVerificationChanged = (e, verification) => {
-    const o = Object.assign({}, this.state.verifications);
-    o[verification] = !!e.target.checked;
-    const verificationsChecked = Object.values(o).every(v => v === true);
-    this.setState({ verifications: o, verificationsChecked });
-  };
-
   handleYesVerification = (e, verification) => {
     const o = Object.assign({}, this.state.verifications);
     o[verification] = e.target.checked;
@@ -179,7 +170,6 @@ class TaskPage extends React.Component {
     o[verification] = !e.target.checked;
     const verificationsChecked = Object.values(o).every(v => v === true);
     this.setState({ verifications: o, verificationsChecked });
-    console.log(Object.values(o).length);
   };
 
   render() {
@@ -231,8 +221,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate adoc={verification} />
                                   <ButtonGroup>
                                     <Radio
-                                      name={j}
-                                      // checked={verifications[verification]}
+                                      name={step.stepDoc}
                                       onChange={e => {
                                         this.handleYesVerification(e, verification);
                                       }}
@@ -240,8 +229,7 @@ class TaskPage extends React.Component {
                                       Yes
                                     </Radio>
                                     <Radio
-                                      name={j}
-                                      // checked={!verifications[verification]}
+                                      name={step.stepDoc}
                                       onChange={e => {
                                         this.handleNoVerification(e, verification);
                                       }}
@@ -251,7 +239,6 @@ class TaskPage extends React.Component {
                                   </ButtonGroup>
                                 </Alert>
                               ) : (
-                                // verifications[step.infoVerifications[0]] !== undefined(
                                 <Alert
                                   type={
                                     step.infoVerifications && verifications[step.infoVerifications[0]]
@@ -265,8 +252,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate adoc={verification} />
                                   <ButtonGroup>
                                     <Radio
-                                      name={j}
-                                      // checked={verifications[verification]}
+                                      name={step.stepDoc}
                                       onChange={e => {
                                         this.handleYesVerification(e, verification);
                                       }}
@@ -274,8 +260,7 @@ class TaskPage extends React.Component {
                                       Yes
                                     </Radio>
                                     <Radio
-                                      name={j}
-                                      // checked={!verifications[verification]}
+                                      name={step.stepDoc}
                                       onChange={e => {
                                         this.handleNoVerification(e, verification);
                                       }}
@@ -290,7 +275,7 @@ class TaskPage extends React.Component {
                                         : 'show'
                                     }
                                   >
-                                    <AsciiDocTemplate adoc={step.infoVerificationsNo} />
+                                    <AsciiDocTemplate adoc={step.infoVerificationsNo[0]} />
                                   </span>
                                 </Alert>
                               )
