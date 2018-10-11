@@ -20,6 +20,9 @@
           "stepDoc": "task-creating-addresses.adoc",
           "infoVerifications": [
             "task-creating-addresses-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "task-creating-addresses-verification-no.adoc"
           ]
         }
       ]
@@ -32,18 +35,27 @@
           "stepDoc": "creating-api-connector.adoc",
           "infoVerifications": [
             "creating-api-connector-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "creating-api-connector-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "creating-http-connection.adoc",
           "infoVerifications": [
             "creating-http-connection-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "creating-http-connection-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "creating-amqp-connection-in-fuse.adoc",
           "infoVerifications": [
             "creating-amqp-connection-in-fuse-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "creating-amqp-connection-in-fuse-verification-no.adoc"
           ]
         }
       ]
@@ -56,6 +68,9 @@
           "stepDoc": "task-creating-fuse-integration.adoc",
           "infoVerifications": [
             "task-creating-fuse-integration-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "task-creating-fuse-integration-verification-no.adoc"
           ]
         }
       ]
@@ -68,6 +83,9 @@
           "stepDoc": "task-using-integration.adoc",
           "successVerifications": [
             "task-using-integration-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "task-using-integration-verification-no.adoc"
           ]
         }
       ]

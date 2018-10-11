@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Alert, Button, ButtonGroup, Checkbox, Grid, Icon } from 'patternfly-react';
+import { noop, Alert, Button, ButtonGroup, Radio, Grid, Icon } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
@@ -55,7 +55,7 @@ class TaskPage extends React.Component {
         threadTask.steps.forEach(step => {
           if (step.infoVerifications) {
             step.infoVerifications.forEach(verification => {
-              verifications[verification] = false;
+              verifications[verification] = undefined;
             });
           } else if (step.successVerifications) {
             step.successVerifications.forEach(verification => {
@@ -158,9 +158,16 @@ class TaskPage extends React.Component {
     history.push(`/congratulations/${this.props.thread.data.id}`);
   };
 
-  handleVerificationChanged = (e, verification) => {
+  handleYesVerification = (e, verification) => {
     const o = Object.assign({}, this.state.verifications);
-    o[verification] = !!e.target.checked;
+    o[verification] = e.target.checked;
+    const verificationsChecked = Object.values(o).every(v => v === true);
+    this.setState({ verifications: o, verificationsChecked });
+  };
+
+  handleNoVerification = (e, verification) => {
+    const o = Object.assign({}, this.state.verifications);
+    o[verification] = !e.target.checked;
     const verificationsChecked = Object.values(o).every(v => v === true);
     this.setState({ verifications: o, verificationsChecked });
   };
@@ -206,30 +213,76 @@ class TaskPage extends React.Component {
                           )}
                         />
                         {step.infoVerifications &&
-                          step.infoVerifications.map((verification, j) => (
-                            <Alert type="info" key={j}>
-                              <strong>{t('task.verificationTitle')}</strong>
-                              <Checkbox
-                                checked={verifications[verification] || false}
-                                onChange={e => {
-                                  this.handleVerificationChanged(e, verification);
-                                }}
-                              >
-                                <AsciiDocTemplate
-                                  adoc={verification}
-                                  attributes={Object.assign(
-                                    {},
-                                    threadTask.attributes,
-                                    step.attributes,
-                                    this.getDocsAttributes()
-                                  )}
-                                />
-                              </Checkbox>
-                            </Alert>
-                          ))}
+                          step.infoVerifications.map(
+                            (verification, j) =>
+                              verifications[step.infoVerifications[0]] === undefined ? (
+                                <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={j}>
+                                  <strong>{t('task.verificationTitle')}</strong>
+                                  <AsciiDocTemplate adoc={verification} />
+                                  <ButtonGroup>
+                                    <Radio
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleYesVerification(e, verification);
+                                      }}
+                                    >
+                                      Yes
+                                    </Radio>
+                                    <Radio
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleNoVerification(e, verification);
+                                      }}
+                                    >
+                                      No
+                                    </Radio>
+                                  </ButtonGroup>
+                                </Alert>
+                              ) : (
+                                <Alert
+                                  type={
+                                    step.infoVerifications && verifications[step.infoVerifications[0]]
+                                      ? 'success'
+                                      : 'error'
+                                  }
+                                  className="alert alert-default"
+                                  key={j}
+                                >
+                                  <strong>{t('task.verificationTitle')}</strong>
+                                  <AsciiDocTemplate adoc={verification} />
+                                  <ButtonGroup>
+                                    <Radio
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleYesVerification(e, verification);
+                                      }}
+                                    >
+                                      Yes
+                                    </Radio>
+                                    <Radio
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleNoVerification(e, verification);
+                                      }}
+                                    >
+                                      No
+                                    </Radio>
+                                  </ButtonGroup>
+                                  <span
+                                    className={
+                                      step.infoVerifications && verifications[step.infoVerifications[0]]
+                                        ? 'hidden'
+                                        : 'show'
+                                    }
+                                  >
+                                    <AsciiDocTemplate adoc={step.infoVerificationsNo[0]} />
+                                  </span>
+                                </Alert>
+                              )
+                          )}
                         {step.successVerifications &&
-                          step.successVerifications.map((verification, k) => (
-                            <Alert type="success" key={k}>
+                          step.successVerifications.map((verification, c) => (
+                            <Alert type="success" key={c}>
                               <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate
                                 adoc={verification}
