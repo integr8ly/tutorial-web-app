@@ -5,12 +5,11 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
-  const cards = [];
 
-  walkthroughs.map((walkthrough, i) => {
+  const cards = walkthroughs.map(walkthrough => {
     const progress = userProgress.find(thread => thread.threadId === walkthrough.id);
-    return cards.push(
-      <Col xs={12} sm={4}>
+    return (
+      <Col xs={12} sm={4} key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
@@ -20,7 +19,7 @@ const TutorialDashboard = props => {
           }
           getStartedText={progress === undefined ? 'Get Started' : 'Resume'}
           getStartedIcon={<Icon type="fa" name="arrow-circle-o-right" className="fa-lg" />}
-          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right />}
+          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right="true" />}
           progress={progress === undefined ? 0 : progress.progress}
           mins={walkthrough.estimatedTime}
         >
@@ -46,8 +45,8 @@ const TutorialDashboard = props => {
 };
 
 TutorialDashboard.propTypes = {
-  userProgress: PropTypes.object,
-  walkthroughs: PropTypes.object
+  userProgress: PropTypes.array,
+  walkthroughs: PropTypes.array
 };
 
 TutorialDashboard.defaultProps = {
