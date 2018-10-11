@@ -9,14 +9,14 @@
 . Create a new *Application Plan*
 .. Select *Application Plans* from the left menu
 .. Select *Create Application Plan*
-.. Enter {fuse-aggregation-plan-name} as the *Name* and *System name*
+.. Enter `{fuse-aggregator-app-name}` as the *Name* and *System name*
 .. Select *Create Application Plan*
 .. Select the *Publish* button to publish the Plan
 
-. Select the {fuse-aggregation-plan-name} plan to return to the edit screen.
+. Select the *{fuse-aggregator-app-name}* plan to return to the edit screen.
 
 . Set a limit of 5 calls per hour.
-.. Select the *Limits (0)* button
+.. On the *Metrics, Methods, Limits & Pricing Rules* section, select the *Limits (0)* button
 .. Select the *New usage limit* button
 .. Set the *Period* to *hour*
 .. Set the *Max. value* to *5*
@@ -25,11 +25,18 @@
 . Create a new *Application* for the *Developer* Group, assigned to the Plan
 .. Select the *Developers* menu at the top
 .. Select the *Developer* Account to open the *Account Summary* page
-.. Select the *(num) Applications* item from the breadcrumb to view Applications
+.. Select the *(num) Application* item from the breadcrumb to view Applications
 .. Select the *Create Application* button in the top right
-.. Select the {fuse-aggregation-plan-name} Plan in the *Application plan* dropdown
-.. Enter {fuse-aggregation-app-name} for the *Name* and *Description*
+.. Select the *{fuse-aggregator-app-name}* Plan in the *Application plan* dropdown
+.. Enter `{fuse-aggregator-app-name}` for the *Name* and *Description*
 .. Select *Create Application*
+
+. Set a custom *User Key* for the application.
+.. On the *{fuse-aggregator-app-name}* application screen, scroll to the *API Credentials* section
+.. Select *Set Custom Key*
+.. In the *Custom User Key* field, enter `{fuse-aggregator-app-name}`
+.. Select *Set Custom Key*
+
 
 
 

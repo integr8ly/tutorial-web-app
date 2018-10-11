@@ -8,6 +8,7 @@ import {
   CRUDAppInstanceTransform,
   DEFAULT_SERVICES,
   handleWalkthroughOneRoutes,
+  handleWalkthroughTwoRoutes,
   MessagingAppServiceInstanceTransform
 } from '../common/serviceInstanceHelpers';
 import {
@@ -19,7 +20,7 @@ import {
   routeDef
 } from '../common/openshiftResourceDefinitions';
 
-const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A' };
+const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A', TWO: '2' };
 
 /**
  * Walkthroughs definitions, each root level object represents one walkthrough, each contains:
@@ -49,6 +50,18 @@ const walkthroughs = {
       {
         resource: namespace => routeDef(namespace),
         handlerFn: handleWalkthroughOneRoutes.bind(null, 'walkthrough-one-a')
+      }
+    ]
+  },
+  two: {
+    id: WALKTHROUGH_IDS.TWO,
+    namespaceSuffix: 'walkthrough-two',
+    services: [],
+    transforms: [],
+    watchers: [
+      {
+        resource: namespace => routeDef(namespace),
+        handlerFn: handleWalkthroughTwoRoutes.bind(null, 'walkthrough-two')
       }
     ]
   }

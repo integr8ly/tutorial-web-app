@@ -6,12 +6,8 @@
 [id='calling-fuse-aggregation-app-endpoint-success_{context}']
 = calling-fuse-aggregation-app-endpoint-success 
 
-. From the *ActiveDocs* page for the {fuse-aggregation-app-name} Application, expand the *GET /flights* endpoint
-
-. Select the *user_key* input to pop up an autofill modal
-
-. Choose the *user_key* for the {fuse-aggregation-app-name} Application
-
+. From the *ActiveDocs* page for the `{fuse-aggregator-app-name}` Application, expand the *GET /flights* endpoint
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`
 . Select the *Try it out!* button
 
 ifdef::location[]

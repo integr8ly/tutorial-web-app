@@ -1,1 +1,1 @@
-You are logged in to the {api-management-service} Dashboard and can navigate the main menu.
+You are logged in to the {3Scale-ProductName} Dashboard and can navigate the main menu.

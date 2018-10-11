@@ -1,16 +1,28 @@
 import { WALKTHROUGH_IDS } from '../services/walkthroughServices';
 import { DEFAULT_SERVICES, getDashboardUrl } from '../common/serviceInstanceHelpers';
+import { buildValidProjectNamespaceName, cleanUsername } from './openshiftHelpers';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
   if (!walkthrough) {
     return {};
   }
 
+  const userAttrs = getUserAttrs(walkthrough, middlewareServices.provisioningUser);
   const middlewareAttrs = getMiddlwareServiceUrls(walkthrough, middlewareServices);
   const walkthroughAttrs = getWalkthroughSpecificAttrs(walkthrough, middlewareServices, walkthroughServices);
 
-  return Object.assign({}, middlewareAttrs, walkthroughAttrs, { 'walkthrough-id': walkthrough.id });
+  return Object.assign({}, middlewareAttrs, walkthroughAttrs, userAttrs, { 'walkthrough-id': walkthrough.id });
 };
+
+const getUserAttrs = (walkthrough, username) => {
+  return {
+    'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
+    'project-namespace': buildValidProjectNamespaceName(username, 'walkthrough-projects'),
+    'walkthrough-namespace': buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix),
+    'user-username': username,
+    'user-sanitized-username': cleanUsername(username)
+  }
+}
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
@@ -37,14 +49,24 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
       'messaging-password': password
     };
   }
+  if (walkthrough.id === WALKTHROUGH_IDS.TWO) {
+    const fuseAggregatorName = `${walkthrough.namespaceSuffix}-${DEFAULT_SERVICES.FUSE_AGGREGATOR}`;
+    const username = middlewareServices.provisioningUser;
+    return {
+      'fuse-aggregator-url': getUrlFromWalkthroughServices(walkthroughServices, fuseAggregatorName),
+      'fuse-aggregator-app-name': `fuse-aggregation-app-${buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix)}`
+    }
+  }
   return {};
 };
 
 const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
   const defaultServices = {
+    'openshift-app-host': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE).replace('https://3scale-admin.', ''),
     'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
-    'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE)
+    'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
+    'api-management-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE)
   };
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
     defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ);

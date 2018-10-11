@@ -6,5 +6,6 @@
 [id='fuse-aggregation-app-endpoint-activity-monitoring_{context}']
 = fuse-aggregation-app-endpoint-activity-monitoring
 
-. TODO steps
+. Select the *Analytics* tab from the top menu
+. Select *{fuse-aggregator-app-name}* from the *Monitoring* section
 

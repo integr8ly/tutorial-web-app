@@ -1,4 +1,4 @@
-The link:{project}[Project] in OpenShift has the following running pods:
+The link:{openshift-host}/console/project/{walkthrough-namespace}[Project, window="_blank"] in OpenShift has the following running pods:
 
 . fuse-flights-aggregator
 
@@ -7,4 +7,4 @@ The link:{project}[Project] in OpenShift has the following running pods:
 . departures
 
 // TODO: flights api links to /camel/flights
-The link:{fuse-aggregation-app-flights-url}[/camel/flights]* endpoint can be reached and responds with 8 flights.
+The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] can be reached and responds with 8 flights.

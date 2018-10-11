@@ -12,10 +12,69 @@
 
 . Select *Create a new spec*
 
-. Enter {fuse-aggregation-app-name} for the *Name* and *System name*
+. Enter `{fuse-aggregator-app-name}` for the *Name* and *System name*
 
 . Enter the below content for the *API JSON Spec*
 +
+[subs="attributes"]
+----
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Airport Flights REST API"
+  },
+  "host" : "wt2-{user-sanitized-username}-3scale.{openshift-app-host}",
+  "basePath" : "/camel/",
+  "tags" : [ {
+    "name" : "flights",
+    "description" : "List all flights (arrivals & departures)"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/flights" : {
+      "get" : {
+        "tags" : [ "flights" ],
+        "operationId" : "flights-api",
+        "parameters" : [ {
+          "name" : "user_key",
+          "in" : "query",
+          "description" : "User Key, if calling the API in front of 3Scale.",
+          "required" : false,
+          "type" : "string",
+          "x-data-threescale-name": "user_keys"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "string",
+              "format" : "com.redhat.fuse.boosters.rest.http.FlightsList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Flight" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "flightType" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+----
 // TODO: spec from fuse aggregation app, with 2 modifications:
 //     - 'host' field set to the fuse-aggregation-app-apicast-route-url attribute
 //     - add a field to the 'user_key' parameter, 'x-data-threescale-name' with value of 'user_keys' (needed for autofill later)

@@ -1,1 +1,3 @@
-TODO Verification
+The request limits for the hour have been exceeded.
+
+. *Hits %* in the *Current Utilization* section is `100%`.

@@ -1,1 +1,1 @@
-TODO Verification
+Analytics of the requests made to the service are visible.

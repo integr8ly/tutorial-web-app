@@ -1,1 +1,1 @@
-Check the *Config Maps* values for the *messaging-service* configmap. Do you see it?
+Check the *Config Maps* values for the *messaging-service* configmap.

@@ -23,7 +23,7 @@ endif::location[]
 
 // TODO placeholders for product names
 // TODO project name
-. Log in to the link:{che-url}[Che] Dashboard
+. Log in to the link:{che-url}[Che, window="_blank"] Dashboard
 
 . You should land on the *New Workspace* page. From here, create a new Workspace
 .. Use the *Java* stack.
@@ -40,17 +40,17 @@ endif::location[]
 // TODO: explain what the app is doing and why we're modifying it
 
 . Comment out the routing code that talks to local java services.
-.. Navigate to the section of the file with a comment of *// COMMENT OUT THIS*.
+.. Navigate to the section of the file with a comment of `// COMMENT OUT THIS`.
 .. Comment out the line of code below this using double slashes *//*.
 
 . Uncomment the routing code that talks to remote services.
-.. Navigate to the section of the file with a comment of *// UNCOMMENT THIS*.
+.. Navigate to the section of the file with a comment of `// UNCOMMENT THIS`.
 .. Uncomment the line of code below this by removing the double slashes.
 
 . Before the changes can be commited and pushed to the repository, a Git Committer Name & Email must be specified.
 .. Select the *Profile* menu, then *Preferences*.
 .. Choose the *Commiter* option under the *Git* heading.
-.. Set a *Name* & *Email*.
+.. Set a *Name* and *Email*.
 .. Select *Save* then *Close*.
 
 . Commit and push the changes back to the repository.
@@ -67,7 +67,7 @@ ifdef::location[]
 .Verification
 // tag::verification[]
 // TODO: flights api links to /camel/flights
-The link:{fuse-aggregation-app-flights-url}[/camel/flights]* endpoint should now responds with much more than 8 flights.
+The link:{fuse-aggregator-url}/camel/flights[Flights Endpoint] should now responds with much more than 8 flights.
 Note that the build and redeploy may take a minute.
 // end::verification[]
 endif::location[]

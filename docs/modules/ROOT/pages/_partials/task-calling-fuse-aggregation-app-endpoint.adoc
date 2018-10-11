@@ -28,14 +28,13 @@ TODO intro
 // end::intro[]
 endif::location[]
 
-include::{partialsdir}/calling-fuse-aggregation-app-endpoint-success.adoc[leveloffset=2]
-
 include::{partialsdir}/calling-fuse-aggregation-app-endpoint-fail-user-key.adoc[leveloffset=2]
+
+include::{partialsdir}/calling-fuse-aggregation-app-endpoint-success.adoc[leveloffset=2]
 
 include::{partialsdir}/calling-fuse-aggregation-app-endpoint-fail-limits.adoc[leveloffset=2]
 
 include::{partialsdir}/fuse-aggregation-app-endpoint-activity-monitoring.adoc[leveloffset=2]
-
 
 ifdef::location[]
 

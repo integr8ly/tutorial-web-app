@@ -1,8 +1,8 @@
 ../modules/ROOT/pages/_partials/task-calling-fuse-aggregation-app-endpoint.adoc
 ../modules/ROOT/pages/_partials/task-configuring-github-oauth-app.adoc
 ../modules/ROOT/pages/_partials/task-creating-addresses.adoc
-../modules/ROOT/pages/_partials/task-creating-connections.adoc
 ../modules/ROOT/pages/_partials/task-creating-connections-enmasse.adoc
+../modules/ROOT/pages/_partials/task-creating-connections.adoc
 ../modules/ROOT/pages/_partials/task-creating-fuse-integration.adoc
 ../modules/ROOT/pages/_partials/task-creating-users.adoc
 ../modules/ROOT/pages/_partials/task-deploying-fuse-aggregation-app.adoc

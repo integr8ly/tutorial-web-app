@@ -19,11 +19,11 @@
 // TODO placeholders for product names
 // TODO append /launch/wizard/<project-name> to launcher url
 // TODO flights endpoint url
-. Log in to the link:{launcher-url}[{launcer-service}, window="_blank"] wizard.
+. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{Launcher-ProductName}, window="_blank"] wizard.
 
 . Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step
 
-. Select the *Authorize* button to allow Launcher create resources in the OpenShift cluster. This triggers an OAuth flow, and eventually redirects back to the {launcer-service} wizard.
+. Select the *Authorize* button to allow Launcher create resources in the OpenShift cluster. This triggers an OAuth flow, and eventually redirects back to the {Launcher-ProductName} wizard.
 
 . Select the blue down-arrow icon to continue the wizard
 
@@ -35,7 +35,7 @@
 .. Select the *Log In & Authorize Account* button in the *Authorize Git Provider* step.
 .. This opens a Github OAuth page.
 .. Select the *Authorize <organisation/user>* button at the bottom
-.. You will be redirected back to the {launcer-service} wizard.
+.. You will be redirected back to the {Launcher-ProductName} wizard.
 
 . Select all blue down-arrow icons to continue the wizard, accepting the git repository name.
 

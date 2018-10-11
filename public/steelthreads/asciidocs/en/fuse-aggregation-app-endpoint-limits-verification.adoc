@@ -1,6 +1,6 @@
 . Select the *APIs* menu item at the top
 
-. Expand the {fuse-aggregation-app-name} service
+. Expand the *{fuse-aggregator-app-name}* service
 
 . Select the *Configure APIcast* button
 

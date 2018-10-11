@@ -36,3 +36,7 @@
 // https://raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc
 
 :EnMasse-master-ProductLongName: EnMasse
+
+// Aiden made it up
+
+:Launcher-ProductName: Launcher

@@ -6,13 +6,19 @@
 [id='calling-fuse-aggregation-app-endpoint-fail-user-key_{context}']
 = calling-fuse-aggregation-app-endpoint-fail-user-key 
 
-. TODO steps
+. From the *ActiveDocs* page for the `{fuse-aggregator-app-name}` Application, expand the *GET /flights* endpoint
+. Leave the *user_key* field empty.
+. Select the *Try it out!* button
 
 ifdef::location[]
 
 .Verification
 // tag::verification[]
-TODO Verification
+{3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
+
+. The *Response Body* is `no content`
+
+. The *Response Code* is 0
+
 // end::verification[]
 endif::location[]
-

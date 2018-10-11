@@ -1,1 +1,5 @@
-TODO Verification
+{3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
+
+. The *Response Body* is `no content`
+
+. The *Response Code* is 0

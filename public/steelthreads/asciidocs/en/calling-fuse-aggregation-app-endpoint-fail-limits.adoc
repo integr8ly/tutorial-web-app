@@ -6,5 +6,10 @@
 [id='calling-fuse-aggregation-app-endpoint-fail-limits_{context}']
 = calling-fuse-aggregation-app-endpoint-fail-limits
 
-. TODO steps
-
+. From the *ActiveDocs* page for the `{fuse-aggregator-app-name}` Application, expand the *GET /flights* endpoint
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`
+. Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
+should require less than 5 clicks (the hourly limit set earlier)
+. Select the *Applications* tab from the top menu
+. Select the *{fuse-aggregator-app-name}* application from the *Applications* list
+. Scroll down to the *Current Utilization* section

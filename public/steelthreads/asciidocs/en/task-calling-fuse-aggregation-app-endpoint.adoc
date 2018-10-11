@@ -22,14 +22,13 @@
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
 
-Unresolved directive in task-calling-fuse-aggregation-app-endpoint.adoc - include::{partialsdir}/calling-fuse-aggregation-app-endpoint-success.adoc[leveloffset=2]
-
 Unresolved directive in task-calling-fuse-aggregation-app-endpoint.adoc - include::{partialsdir}/calling-fuse-aggregation-app-endpoint-fail-user-key.adoc[leveloffset=2]
+
+Unresolved directive in task-calling-fuse-aggregation-app-endpoint.adoc - include::{partialsdir}/calling-fuse-aggregation-app-endpoint-success.adoc[leveloffset=2]
 
 Unresolved directive in task-calling-fuse-aggregation-app-endpoint.adoc - include::{partialsdir}/calling-fuse-aggregation-app-endpoint-fail-limits.adoc[leveloffset=2]
 
 Unresolved directive in task-calling-fuse-aggregation-app-endpoint.adoc - include::{partialsdir}/fuse-aggregation-app-endpoint-activity-monitoring.adoc[leveloffset=2]
-
 
 
 

@@ -20,8 +20,8 @@ setting-up-enmasse.adoc
 task-calling-fuse-aggregation-app-endpoint.adoc
 task-configuring-github-oauth-app.adoc
 task-creating-addresses.adoc
-task-creating-connections.adoc
 task-creating-connections-enmasse.adoc
+task-creating-connections.adoc
 task-creating-fuse-integration.adoc
 task-creating-users.adoc
 task-deploying-fuse-aggregation-app.adoc
