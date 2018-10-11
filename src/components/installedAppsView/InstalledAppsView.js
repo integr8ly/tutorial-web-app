@@ -28,7 +28,20 @@ class InstalledAppsView extends React.Component {
         <Icon type="pf" name="on-running" /> &nbsp;Ready for use
       </div>
     );
+    const unavailableStatus = (
+      <div className="state-unavailable">
+        <Icon type="pf" name="error-circle-o" /> &nbsp;Unavailable
+      </div>
+    );
+
+    if (app.metadata && app.metadata.deletionTimestamp) {
+      return unavailableStatus;
+    }
+
     if (app.status && app.status.conditions && app.status.conditions[0]) {
+      if (app.status.provisionStatus === 'NotProvisioned') {
+        return unavailableStatus;
+      }
       return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
     }
     return provisioningStatus;
