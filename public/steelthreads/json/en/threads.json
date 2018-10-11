@@ -15,7 +15,7 @@
     {
       "id": "1A",
       "title": "Integrating API-driven applications",
-      "descriptionDoc": "Expose and protect an API that reports on arrivals and departures at a fictional airport.",
+      "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using EnMasse.",
       "estimatedTime": 21
     }]
 }
