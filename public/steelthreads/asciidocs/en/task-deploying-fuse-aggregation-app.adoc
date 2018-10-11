@@ -19,7 +19,7 @@
 // TODO placeholders for product names
 // TODO append /launch/wizard/<project-name> to launcher url
 // TODO flights endpoint url
-. Log in to the link:{launcher-url}[Launcher, window="_blank"] wizard.
+. Log in to the link:{launcher-url}[{launcer-service}, window="_blank"] wizard.
 
 . Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step
 
@@ -31,11 +31,15 @@
 
 . Select the blue down-arrow icon to continue the wizard
 
-. Select the *Authorize* button in the *Authorize Git Provider* step. This opens a Github OAuth page, and eventually redirect back to the {launcer-service} wizard.
+. Authorize your Github Account
+.. Select the *Log In & Authorize Account* button in the *Authorize Git Provider* step.
+.. This opens a Github OAuth page.
+.. Select the *Authorize <organisation/user>* button at the bottom
+.. You will be redirected back to the {launcer-service} wizard.
 
-. Select the blue down-arrow icon to continue the wizard, accepting the git repository name.
+. Select all blue down-arrow icons to continue the wizard, accepting the git repository name.
 
-. Select the *Set Up Application* button to provision the mission resources to OpenShift. A build fo the *Fuse Aggregation App* will be triggered, and a deployment eventually rolled out.
+. Select the *Set Up Application* button to create a Git repository and provision the mission resources to OpenShift. A build for the *Fuse Aggregation App* will be triggered, and a deployment eventually rolled out.
 
 
 

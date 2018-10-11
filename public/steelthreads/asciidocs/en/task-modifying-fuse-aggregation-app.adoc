@@ -17,14 +17,22 @@
 
 
 // TODO placeholders for product names
+// TODO project name
 . Log in to the link:{che-url}[Che] Dashboard
 
-. Navigate to the *Create Workspace* menu item to create a new workspace to modify the app in.
+. You should land on the *New Workspace* page. From here, create a new Workspace
 .. Use the *Java* stack.
-.. Select the *Add or Import Project* button to import the git repository for the *Fuse Aggregation App* into the workspace. The repository can be seen in the *Github* tab. You may need to filter by account if you are a member of any Organizations.
-.. Select the *Create* button at the bottom to continue, then select *Open in IDE*.
+.. Select the *Add or Import Project* button
+.. Select the *Github* tab
+.. Select the *Connect your Github Account* button
+.. Select the checkbox beside the git repository named {project}. You may need to filter by account if you are a member of any Organizations.
+.. Select the *Add* button to add the repository to the workspace
+.. Select the *Create* button at the bottom
+.. Select *Open in IDE*.
 
 . Open the file at *src/main/java/com/redhat/fuse/boosters/rest/http/CamelRouter.java*.
+
+// TODO: explain what the app is doing and why we're modifying it
 
 . Comment out the routing code that talks to local java services.
 .. Navigate to the section of the file with a comment of *// COMMENT OUT THIS*.
@@ -45,5 +53,7 @@
 .. Ensure the *CamelRouter.java* file is checked.
 .. Enter a commit message of *Switch to remote services* in the input area.
 .. Check the box for *Push commited changes to* and ensure the branch is set to *master*.
-.. Select the *Commit* button. This will trigger a build in OpenShift and rollout the new changes to the *Fuse Aggregation App*
+.. Select the *Commit* button.
+.. You should see a green notification with a message of *Pushed to Origin*
+.. A new build will be triggered in OpenShift and rollout the new changes to the *Fuse Aggregation App*
 

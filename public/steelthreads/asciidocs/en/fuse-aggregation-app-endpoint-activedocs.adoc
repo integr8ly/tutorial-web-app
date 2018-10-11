@@ -6,5 +6,80 @@
 [id='fuse-aggregation-app-endpoint-activedocs_{context}']
 = fuse-aggregation-app-endpoint-activedocs
 
-. TODO steps
+. Select the *APIs* menu item at the top to return to the *APIs* Overview page
+
+. Select the *ActiveDocs* tab
+
+. Select *Create a new spec*
+
+. Enter {fuse-aggregation-app-name} for the *Name* and *System name*
+
+. Enter the below content for the *API JSON Spec*
++
+// TODO: spec from fuse aggregation app, with 2 modifications:
+//     - 'host' field set to the fuse-aggregation-app-apicast-route-url attribute
+//     - add a field to the 'user_key' parameter, 'x-data-threescale-name' with value of 'user_keys' (needed for autofill later)
+//
+// The swagger spec comes from the /camel/api-doc endpoint in the fuse-aggregation app. e.g.
++
+////
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Airport Flights REST API"
+  },
+  "host" : "wt2-f2-3scale-apicast-staging-3scale-3scale.cluster-lfa3xlh.opentry.me",
+  "basePath" : "/camel/",
+  "tags" : [ {
+    "name" : "flights",
+    "description" : "List all flights (arrivals & departures)"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/flights" : {
+      "get" : {
+        "tags" : [ "flights" ],
+        "operationId" : "flights-api",
+        "parameters" : [ {
+          "name" : "user_key",
+          "in" : "query",
+          "description" : "User Key, if calling the API in front of 3Scale.",
+          "required" : false,
+          "type" : "string",
+          "x-data-threescale-name": "user_keys"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "string",
+              "format" : "com.redhat.fuse.boosters.rest.http.FlightsList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Flight" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "flightType" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+////
++
+. Select the *Create Service* button
 

@@ -1,1 +1,2 @@
-The API Integration updates successfully and is staged.
+The API Integration updates successfully.
+However, it is OK at this time for a *403: Authentication failed* message to be shown.

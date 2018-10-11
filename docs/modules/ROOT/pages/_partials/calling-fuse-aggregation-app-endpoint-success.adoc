@@ -6,13 +6,23 @@
 [id='calling-fuse-aggregation-app-endpoint-success_{context}']
 = calling-fuse-aggregation-app-endpoint-success 
 
-. TODO steps
+. From the *ActiveDocs* page for the {fuse-aggregation-app-name} Application, expand the *GET /flights* endpoint
+
+. Select the *user_key* input to pop up an autofill modal
+
+. Choose the *user_key* for the {fuse-aggregation-app-name} Application
+
+. Select the *Try it out!* button
 
 ifdef::location[]
 
 .Verification
 // tag::verification[]
-TODO Verification
+
+. The *Response Code* is 200
+
+. The *Response Body* shows a *JSON Array* of flights
+
 // end::verification[]
 endif::location[]
 

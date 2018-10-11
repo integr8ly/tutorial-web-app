@@ -1,9 +1,10 @@
-The project in OpenShift has the following running pods:
+The link:{project}[Project] in OpenShift has the following running pods:
 
-. Fuse Aggregation App
+. fuse-flights-aggregator
 
-. Arrivals Server
+. arrivals
 
-. Departures Server
+. departures
 
-The *Fuse Aggregation App* flights endpoint can be reached at link:{fuse-aggregation-app-flights-url}[Flights API], and responds with 8 flights.
+// TODO: flights api links to /camel/flights
+The link:{fuse-aggregation-app-flights-url}[/camel/flights]* endpoint can be reached and responds with 8 flights.

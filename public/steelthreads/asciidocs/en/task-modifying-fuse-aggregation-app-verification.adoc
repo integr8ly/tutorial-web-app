@@ -1,1 +1,3 @@
-The *Fuse Aggregation App* flights endpoint can be reached at link:{fuse-aggregation-app-flights-url}[Flights API], and now responds with much more than 8 flights.
+// TODO: flights api links to /camel/flights
+The link:{fuse-aggregation-app-flights-url}[/camel/flights]* endpoint should now responds with much more than 8 flights.
+Note that the build and redeploy may take a minute.

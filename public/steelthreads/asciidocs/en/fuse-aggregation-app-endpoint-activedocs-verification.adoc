@@ -1,1 +1,1 @@
-TODO Verification
+The *Airport Flights REST API* ActiveDoc is created and has a *List all flights* API endpoint.

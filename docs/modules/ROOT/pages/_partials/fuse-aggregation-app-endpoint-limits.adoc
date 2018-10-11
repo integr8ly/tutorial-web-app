@@ -6,13 +6,45 @@
 [id='fuse-aggregation-app-endpoint-limits_{context}']
 = Fuse Aggregation App Endpoint Limits 
 
-. 
+. Create a new *Application Plan*
+.. Select *Application Plans* from the left menu
+.. Select *Create Application Plan*
+.. Enter {fuse-aggregation-plan-name} as the *Name* and *System name*
+.. Select *Create Application Plan*
+.. Select the *Publish* button to publish the Plan
+
+. Select the {fuse-aggregation-plan-name} plan to return to the edit screen.
+
+. Set a limit of 5 calls per hour.
+.. Select the *Limits (0)* button
+.. Select the *New usage limit* button
+.. Set the *Period* to *hour*
+.. Set the *Max. value* to *5*
+.. Select *Create usage limit*
+
+. Create a new *Application* for the *Developer* Group, assigned to the Plan
+.. Select the *Developers* menu at the top
+.. Select the *Developer* Account to open the *Account Summary* page
+.. Select the *(num) Applications* item from the breadcrumb to view Applications
+.. Select the *Create Application* button in the top right
+.. Select the {fuse-aggregation-plan-name} Plan in the *Application plan* dropdown
+.. Enter {fuse-aggregation-app-name} for the *Name* and *Description*
+.. Select *Create Application*
 
 ifdef::location[]
 
 .Verification
 // tag::verification[]
-TODO Verification
+. Select the *APIs* menu item at the top
+
+. Expand the {fuse-aggregation-app-name} service
+
+. Select the *Configure APIcast* button
+
+. Select the *Update & test in Staging Environment* button at the bottom again
+
+. The test should be successful, with a green line along the left side of the page, and a success message at the bottom
+
 // end::verification[]
 endif::location[]
 
