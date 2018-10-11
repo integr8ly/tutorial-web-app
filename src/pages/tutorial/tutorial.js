@@ -31,6 +31,28 @@ class TutorialPage extends React.Component {
     history.push(`/tutorial/${id}/task/0`);
   }
 
+  renderPrereqs(thread) {
+    const { t } = this.props;
+    const { data } = thread;
+    if (!data.prerequisites || data.prerequisites.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="alert alert-primary" style={{ marginTop: 10 }}>
+        <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
+        <ul className="fa-ul">
+          {data.prerequisites.map((req, i) => (
+            <li key={i}>
+              <i className="fa-li fa fa-check-square-o" />
+              {req}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   render() {
     const { t, thread } = this.props;
     if (thread.pending) {
@@ -56,17 +78,7 @@ class TutorialPage extends React.Component {
                     {t('tutorial.getStarted')}
                   </Button>
                 </div>
-                <div className="alert alert-primary" style={{ marginTop: 10 }}>
-                  <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
-                  <ul className="fa-ul">
-                    {thread.data.prerequisites.map((req, i) => (
-                      <li key={i}>
-                        <i className="fa-li fa fa-check-square-o" />
-                        {req}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {this.renderPrereqs(thread)}
                 <AsciiDocTemplate
                   adoc={thread.data.descriptionDoc}
                   attributes={Object.assign({}, thread.data.attributes)}
