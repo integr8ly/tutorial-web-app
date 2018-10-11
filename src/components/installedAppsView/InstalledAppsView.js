@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'patternfly-react';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -17,9 +18,18 @@ class InstalledAppsView extends React.Component {
   }
 
   static getStatusForApp(app) {
-    const provisioningStatus = 'Provisioning';
+    const provisioningStatus = (
+      <div className="state-provisioining">
+        <Icon type="fa" name="pie-chart" /> &nbsp;Provisioning
+      </div>
+    );
+    const readyStatus = (
+      <div className="state-ready">
+        <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+      </div>
+    );
     if (app.status && app.status.conditions && app.status.conditions[0]) {
-      return app.status.conditions[0].status === 'True' ? 'Provisioned' : provisioningStatus;
+      return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
     }
     return provisioningStatus;
   }
@@ -54,6 +64,7 @@ class InstalledAppsView extends React.Component {
         value={index}
       >
         <p>{app.spec.clusterServiceClassExternalName}</p>
+        {InstalledAppsView.getStatusForApp(app)}
         <small />
       </li>
     ));
