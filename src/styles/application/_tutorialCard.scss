@@ -21,17 +21,30 @@
     bottom: 0;
     padding-bottom: 20px;
     display: flex;
+    .progress {
+      width: 75%;
+      margin-top: -2px;
+      margin-bottom: 0;
+      float: right;
+      .progress-bar[aria-valuenow='100'] {
+        background-color: $pf-color-green-400;
+      }
+    }
     &-get-started {
       flex-basis: 50%;
       text-align: left;
+      white-space: nowrap;
     }
     &-time-to-complete {
       flex-basis: 50%;
       color: $pf-color-black-600;
       font-weight: $pf-global--FontWeight--bold;
       text-align: right;
-      .fa-clock-o:before {
-        color: $pf-color-black-600;
+      .fa-clock-o {
+        margin-right: 3px;
+        &:before {
+          color: $pf-color-black-600;
+        }
       }
     }
   }

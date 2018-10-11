@@ -49,7 +49,7 @@ class TutorialPage extends React.Component {
               <PfMasthead />
             </Grid.Row>
             <Grid.Row>
-              <Grid.Col xs={12} sm={8} className="integr8ly-task-container">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
                 <div className="integr8ly-task-dashboard-header">
                   <h3>{thread.data.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
@@ -174,9 +174,10 @@ class TutorialPage extends React.Component {
                       description={task.description}
                       actions={
                         <div className="integr8ly-task-dashboard-estimated-time">
-                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />{' '}
+                          <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
                           <span>
-                            {task.estimatedTime} {t('tutorial.minutes')}
+                            {task.estimatedTime}
+                            {t('tutorial.minutes')}
                           </span>
                         </div>
                       }
