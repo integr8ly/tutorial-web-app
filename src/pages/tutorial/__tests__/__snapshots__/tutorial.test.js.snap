@@ -255,11 +255,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                   type="fa"
                 />
-                 
                 <span>
                   6
-                   
-
                   tutorial.minutes
                 </span>
               </div>
