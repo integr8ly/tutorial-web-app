@@ -78,7 +78,7 @@
     "docker:push:release": "./scripts/docker_push_release.sh",
     "release:validate": "./scripts/validateRelease.sh",
     "preinstall": "node -v; npm -v;",
-    "postbuild": "[ \"$BUILD_ENV\" != OCP ] && exit 0; yarn install --production --ignore-scripts --prefer-offline;"
+    "postbuild": "[ \"$BUILD_ENV\" != OCP ] && exit 0; yarn install --production --ignore-scripts --prefer-offline --pure-lockfile;"
   },
   "jest": {
     "collectCoverageFrom": [
