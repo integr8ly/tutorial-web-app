@@ -7,10 +7,10 @@
     width: 33.3%;
   }
   & .state-provisioining {
-    color: #72767b;
+    color: $pf-color-black-600;
   }
   & .state-ready {
-    color: #409c35;
+    color: $pf-color-green-400;
   }
   & .state-unavailable {
     color: $pf-color-red-100;
@@ -56,10 +56,6 @@
     }
   }
   &-title {
-    .gastatus {
-      text-transform: capitalize;
-      float: right;
-      position: relative;
-    }
+    display: flex;
   }
 }

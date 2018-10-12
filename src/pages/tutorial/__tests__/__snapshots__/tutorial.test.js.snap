@@ -53,7 +53,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           </Button>
         </div>
         <div
-          className="alert alert-primary"
+          className="alert alert-info"
           style={
             Object {
               "marginTop": 10,
@@ -226,16 +226,16 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           <div
             className="pull-right integr8ly-task-dashboard-time-to-completion"
           >
-            <Button
-              active={false}
-              block={false}
-              bsClass="btn"
-              bsStyle="primary"
-              disabled={false}
-              onClick={[Function]}
+            <Icon
+              type="fa"
+              name="clock-o"
+            />
+            11
+            <span
+              className="integr8ly-task-dashboard-time-to-completion_minutes"
             >
-              tutorial.getStarted
-            </Button>
+              tutorial.minutes
+            </span>
           </div>
         </h3>
         <ListView
@@ -257,8 +257,11 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 />
                 <span>
                   6
-                  tutorial.minutes
-                </span>
+                  <span
+                    className="integr8ly-task-dashboard-estimated-time_minutes"
+                  >
+                    tutorial.minutes
+                  </span>
               </div>
             }
             additionalInfo={null}
@@ -276,6 +279,20 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             stacked={true}
           />
         </ListView>
+        <div
+          className="pull-right integr8ly-task-dashboard-time-to-completion"
+        >
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            tutorial.getStarted
+          </Button>
+        </div>
       </Col>
     </Row>
   </Grid>
