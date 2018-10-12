@@ -223,6 +223,7 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
+    event.payload.serviceDetails = WALKTHROUGH_SERVICE_DETAILS[si.spec.clusterServiceClassExternalName];
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: event.payload
