@@ -14,7 +14,7 @@ app.get('/config.js', (req, res) => {
         serviceInstances: [
           {
             spec: {
-              clusterServiceClassExternalName: 'Red Hat OpenShift'
+              clusterServiceClassExternalName: 'enmasse-standard'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -23,7 +23,7 @@ app.get('/config.js', (req, res) => {
           },
           {
             spec: {
-              clusterServiceClassExternalName: 'Red Hat 3scale API Management Platform'
+              clusterServiceClassExternalName: '3scale'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -32,7 +32,7 @@ app.get('/config.js', (req, res) => {
           },
           {
             spec: {
-              clusterServiceClassExternalName: 'Red Hat AMQ'
+              clusterServiceClassExternalName: 'amq-broker-71-persistence'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -41,7 +41,7 @@ app.get('/config.js', (req, res) => {
           },
           {
             spec: {
-              clusterServiceClassExternalName: 'Red Hat Fuse'
+              clusterServiceClassExternalName: 'fuse'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -50,7 +50,7 @@ app.get('/config.js', (req, res) => {
           },
           {
             spec: {
-              clusterServiceClassExternalName: 'Red Hat OpenShift Application Runtimes'
+              clusterServiceClassExternalName: 'launcher'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -59,7 +59,7 @@ app.get('/config.js', (req, res) => {
           },
           {
             spec: {
-              clusterServiceClassExternalName: 'Eclipse Che'
+              clusterServiceClassExternalName: 'che'
             },
             status: {
               dashboardURL:'${process.env.OPENSHIFT_URL}',

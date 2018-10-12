@@ -22,6 +22,8 @@ import {
   routeDef
 } from '../common/openshiftResourceDefinitions';
 
+import productDetails from '../product-info';
+
 const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.ENMASSE,
   DEFAULT_SERVICES.CHE,
@@ -30,6 +32,18 @@ const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE
 ];
+
+/**
+ * Lookup product details (name and GA status) and add them to the
+ * service instance object
+ * @param serviceInstance Service instance retrieved from Openshift
+ */
+const setProductDetails = serviceInstance => {
+  const { spec } = serviceInstance;
+  if (spec) {
+    serviceInstance.productDetails = productDetails[spec.clusterServiceClassExternalName];
+  }
+};
 
 /**
  * Dispatch a mock set of user services.
@@ -41,12 +55,13 @@ const mockMiddlewareServices = (dispatch, mockData) => {
     return;
   }
   window.localStorage.setItem('currentUserName', 'mockUser@mockUser.com');
-  mockData.serviceInstances.forEach(si =>
+  mockData.serviceInstances.forEach(si => {
+    setProductDetails(si);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: si
-    })
-  );
+    });
+  });
 };
 
 /**
@@ -73,6 +88,7 @@ const manageMiddlewareServices = dispatch => {
     const namespaceObj = namespaceResource(userNamespace);
     const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
+    // Namespace
     findOrCreateOpenshiftResource(
       namespaceDef,
       namespaceObj,
@@ -86,6 +102,7 @@ const manageMiddlewareServices = dispatch => {
         );
         return Promise.all(
           siObjs.map(siObj =>
+            // Service Instance
             findOrCreateOpenshiftResource(
               serviceInstanceDef(userNamespace),
               siObj,
@@ -195,6 +212,7 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
+    setProductDetails(event.payload);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: event.payload
