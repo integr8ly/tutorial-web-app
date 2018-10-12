@@ -71,5 +71,24 @@
     "EnMasse-master-ProductLongName": "EnMasse",
     "walkthrough": "Configuring the environment",
     "dummy": "value"
-  }
+  },
+  "resources": [
+    {
+      "title": "Red Hat OpenShift",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/"
+        },
+        {
+          "name": "OpenShift Online Help Center",
+          "url": "https://help.openshift.com/"
+        },
+        {
+          "name": "OpenShift Blog",
+          "url": "https://blog.openshift.com/"
+        }
+      ]
+    }
+  ]
 }

@@ -119,5 +119,54 @@
     "EnMasse-master-ProductLongName": "EnMasse",
     "walkthrough": "Integrating event-driven and API-driven applications (EnMasse)",
     "dummy": "value"
-  }
+  },
+  "resources": [
+    {
+      "title": "Red Hat OpenShift",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/"
+        },
+        {
+          "name": "Openshift Online Help Center",
+          "url": "https://help.openshift.com/"
+        },
+        {
+          "name": "Openshift Blog",
+          "url": "https://blog.openshift.com/"
+        }
+      ]
+    },
+    {
+      "title": "Red Hat Fuse",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/"
+        },
+        {
+          "name": "Fuse Community Q&A",
+          "url": "https://developers.redhat.com/products/fuse/help/"
+        },
+        {
+          "name": "Fuse Overview",
+          "url": "https://developers.redhat.com/videos/vimeo/95497167/"
+        }
+      ]
+    },
+    {
+      "title": "Red Hat AMQ Online",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/"
+        },
+        {
+          "name": "Red Hat AMQ Online Overview",
+          "url": "https://www.redhat.com/en/explore/amq-online"
+        }
+      ]
+    }
+  ]
 }
