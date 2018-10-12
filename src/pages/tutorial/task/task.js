@@ -8,7 +8,7 @@ import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
-import { getDocsForWalkthrough } from '../../../common/docsHelpers';
+import { getDocsForWalkthrough, getDocsforConfigIntegreatly } from '../../../common/docsHelpers';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
@@ -105,8 +105,12 @@ class TaskPage extends React.Component {
 
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
+    if (this.props.match.params.id === '0') {
+      return getDocsforConfigIntegreatly();
+    }
     const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
-    return getDocsForWalkthrough(walkthrough, this.props.middlewareServices, this.props.walkthroughServices);
+    return getDocsForWalkthrough(walkthrough, this.props.middlewareServices, this.props.walkthroughServices)
+    ;
   };
 
   getAMQCredential = (middlewareServices, name) => {
