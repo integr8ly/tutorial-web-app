@@ -10,8 +10,6 @@ COPY . ./
 
 USER root
 
-RUN chmod g+w yarn.lock 
-
 RUN chmod -R g+w src/styles
 
 USER default
