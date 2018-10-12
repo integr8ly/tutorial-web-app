@@ -76,6 +76,13 @@ app.get('/config.js', (req, res) => {
     } else {
       redirectHost = `https://${req.headers.host}`;
     }
+    let logoutRedirectUri;
+    if (process.env.NODE_ENV === 'production') {
+      logoutRedirectUri = redirectHost;
+    } else {
+      logoutRedirectUri = 'http://localhost:3006';
+    }
+
     res.send(`window.OPENSHIFT_CONFIG = {
       clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
       accessTokenUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/token',
@@ -83,7 +90,8 @@ app.get('/config.js', (req, res) => {
       redirectUri: '${redirectHost}/oauth/callback',
       scopes: ['user:full'],
       masterUri: 'https://${process.env.OPENSHIFT_HOST}',
-      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}'
+      wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
+      ssoLogoutUri: 'https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}'
     };`);
   }
 });

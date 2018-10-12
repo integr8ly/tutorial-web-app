@@ -12,6 +12,14 @@ yarn start:dev
 The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
 When running locally, the available services list is mocked, and service urls set via env vars.
 
+# Local Development against existing Openshft
+```
+yarn install
+OPENSHIFT_HOST={openshift_master_uri} SSO_ROUTE={sso_url} yarn start:dev
+```
+example command against PDS cluster
+`OPENSHIFT_HOST=master.CITY.openshiftworkshop.com SSO_ROUTE=secure-sso-sso.apps.CITY.openshiftworkshop.com yarn start:dev`
+
 # Deployment to OpenShift (Remote Development Setup)
 
 A git reference can be deployed to a remote OpenShift cluster.

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
 import { aboutModalTypes } from '../../redux/constants';
 import titleImg from '../../img/brand-alt-solutions-explorer.svg';
+import { logout } from '../../services/openshiftServices';
 
 class Masthead extends React.Component {
   state = {
@@ -23,8 +24,10 @@ class Masthead extends React.Component {
 
   onLogoutUser = () => {
     // TBD 092718 - placeholder until logout is implemented
-    window.localStorage.clear();
-    window.location.href = '/';
+    logout().then(() => {
+      window.localStorage.clear();
+      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
+    });
   };
 
   onTitleClick = () => {

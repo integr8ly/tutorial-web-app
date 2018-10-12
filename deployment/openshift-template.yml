@@ -30,6 +30,9 @@ parameters:
   - name: ENMASSE_URL
     description: Mock URL for EnMasse. Only used if OPENSHIFT_HOST is empty
     required: false
+  - name: SSO_ROUTE
+    description: Openshift SSO URL
+    required: false
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -63,6 +66,8 @@ objects:
             value: ${OPENSHIFT_HOST}
           - name: NODE_ENV
             value: production
+          - name: SSO_ROUTE
+            value: ${SSO_ROUTE}
           image: ${WEBAPP_IMAGE}:${WEBAPP_IMAGE_TAG}
           imagePullPolicy: IfNotPresent
           name: tutorial-web-app
