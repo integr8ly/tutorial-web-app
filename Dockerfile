@@ -14,6 +14,6 @@ RUN chmod -R g+w src/styles
 
 USER default
 
-RUN npm i -g yarn && yarn install && yarn build
+RUN npm i -g yarn && yarn install --pure-lockfile && yarn build
 
 CMD ["npm", "start"]
