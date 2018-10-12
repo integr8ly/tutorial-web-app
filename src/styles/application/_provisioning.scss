@@ -52,9 +52,9 @@
   right: 0;
   width: 50%;
   margin: auto;
-  background-color: transparent !important;
+  background-color: transparent;
   border: 2px solid $pf-color-white;
-  color: $pf-color-white !important;
+  color: $pf-color-white;
 }
 
 .loadingscreen-progressbar .progress-bar {
@@ -72,5 +72,5 @@
   width: 25px;
   height: 25px;
   margin: auto;
-  color: $pf-color-white !important;
+  color: $pf-color-white;
 }
