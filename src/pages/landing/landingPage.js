@@ -6,18 +6,12 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
-import { manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { manageWalkthroughServices, mockWalkthroughServices, getProgress, getWalkthroughs } = this.props;
+    const { getProgress, getWalkthroughs } = this.props;
     getWalkthroughs('en');
     getProgress();
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData);
-      return;
-    }
-    manageWalkthroughServices();
   }
 
   render() {
@@ -43,8 +37,6 @@ class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = {
-  manageWalkthroughServices: PropTypes.func,
-  mockWalkthroughServices: PropTypes.func,
   getProgress: PropTypes.func,
   getWalkthroughs: PropTypes.func,
   middlewareServices: PropTypes.object,
@@ -53,8 +45,6 @@ LandingPage.propTypes = {
 };
 
 LandingPage.defaultProps = {
-  manageWalkthroughServices: noop,
-  mockWalkthroughServices: noop,
   getProgress: noop,
   getWalkthroughs: noop,
   middlewareServices: { data: {} },
@@ -63,8 +53,6 @@ LandingPage.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  manageWalkthroughServices: () => manageMiddlewareServices(dispatch),
-  mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData),
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
   getProgress: () => dispatch(reduxActions.userActions.getProgress())
 });
