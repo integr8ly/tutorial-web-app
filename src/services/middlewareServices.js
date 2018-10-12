@@ -22,6 +22,8 @@ import {
   routeDef
 } from '../common/openshiftResourceDefinitions';
 
+import productDetails from '../product-info';
+
 const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.ENMASSE,
   DEFAULT_SERVICES.CHE,
@@ -31,30 +33,17 @@ const WALKTHROUGH_SERVICES = [
   DEFAULT_SERVICES.THREESCALE
 ];
 
-const WALKTHROUGH_SERVICE_DETAILS = {
-  [DEFAULT_SERVICES.ENMASSE]: {
-    prettyName: 'EnMasse',
-    gaStatus: 'preview'
-  },
-  [DEFAULT_SERVICES.FUSE]: {
-    prettyName: 'Red Hat Fuse'
-  },
-  [DEFAULT_SERVICES.AMQ]: {
-    prettyName: 'Red Hat AMQ'
-  },
-  [DEFAULT_SERVICES.CHE]: {
-    prettyName: 'Eclipse Che'
-  },
-  [DEFAULT_SERVICES.LAUNCHER]: {
-    prettyName: 'Red Hat Developer Launcher'
-  },
-  [DEFAULT_SERVICES.THREESCALE]: {
-    prettyName: 'Red Hat 3scale API Management Platform',
-    gaStatus: 'community'
+/**
+ * Lookup product details (name and GA status) and add them to the
+ * service instance object
+ * @param serviceInstance Service instance retrieved from Openshift
+ */
+const setProductDetails = serviceInstance => {
+  const { spec } = serviceInstance;
+  if (spec) {
+    serviceInstance.productDetails = productDetails[spec.clusterServiceClassExternalName];
   }
 };
-
-console.log(WALKTHROUGH_SERVICE_DETAILS);
 
 /**
  * Dispatch a mock set of user services.
@@ -67,7 +56,7 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   }
   window.localStorage.setItem('currentUserName', 'mockUser@mockUser.com');
   mockData.serviceInstances.forEach(si => {
-    si.serviceDetails = WALKTHROUGH_SERVICE_DETAILS[si.spec.clusterServiceClassExternalName];
+    setProductDetails(si);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: si
@@ -223,7 +212,7 @@ const handleServiceInstanceWatchEvents = (dispatch, event) => {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
-    event.payload.serviceDetails = WALKTHROUGH_SERVICE_DETAILS[si.spec.clusterServiceClassExternalName];
+    setProductDetails(event.payload);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: event.payload

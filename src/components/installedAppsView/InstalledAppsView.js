@@ -17,10 +17,10 @@ class InstalledAppsView extends React.Component {
     this.setState({ currentApp: e.target.value });
   }
 
-  static getAppProductDetails(app) {
-    const { serviceDetails, spec } = app;
-    if (serviceDetails) {
-      return serviceDetails;
+  static getProductDetails(app) {
+    const { productDetails, spec } = app;
+    if (productDetails) {
+      return productDetails;
     }
     return {
       prettyName: spec.clusterServiceClassExternalName
@@ -81,7 +81,7 @@ class InstalledAppsView extends React.Component {
 
   static createMasterList(apps) {
     const masterList = apps.map((app, index) => {
-      const { prettyName, gaStatus } = InstalledAppsView.getAppProductDetails(app);
+      const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
       return (
         <li
           onClick={() => window.open(InstalledAppsView.getRouteForApp(app), '_blank')}
