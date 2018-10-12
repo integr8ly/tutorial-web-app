@@ -101,10 +101,7 @@ class Masthead extends React.Component {
   render() {
     return (
       <PfMasthead titleImg={titleImg} navToggle={false} onTitleClick={this.onTitleClick}>
-        <PfMasthead.Collapse>
-          {this.renderActions()}
-          {this.renderUserDropdown()}
-        </PfMasthead.Collapse>
+        <PfMasthead.Collapse>{this.renderUserDropdown()}</PfMasthead.Collapse>
         {this.renderMobileNav()}
       </PfMasthead>
     );
