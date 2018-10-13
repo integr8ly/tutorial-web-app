@@ -39,7 +39,7 @@ class TutorialPage extends React.Component {
     }
 
     return (
-      <div className="alert alert-primary" style={{ marginTop: 10 }}>
+      <div className="alert alert-info" style={{ marginTop: 10 }}>
         <h3 className="integr8ly-tutorial-prereqs">{t('tutorial.prereq')}</h3>
         <ul className="fa-ul">
           {data.prerequisites.map((req, i) => (
@@ -172,12 +172,12 @@ class TutorialPage extends React.Component {
                 <h3>
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
-                      {t('tutorial.getStarted')}
-                    </Button>
+                    <Icon type="fa" name="clock-o" />
+                    <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                      {thread.data.estimatedTime} {t('tutorial.minutes')}
+                    </span>
                   </div>
                 </h3>
-
                 <ListView className="integr8ly-list-view-pf">
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item
@@ -189,7 +189,9 @@ class TutorialPage extends React.Component {
                           <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
                           <span>
                             {task.estimatedTime}
-                            {t('tutorial.minutes')}
+                            <span className="integr8ly-task-dashboard-estimated-time_minutes">
+                              {t('tutorial.minutes')}
+                            </span>
                           </span>
                         </div>
                       }
@@ -197,6 +199,11 @@ class TutorialPage extends React.Component {
                     />
                   ))}
                 </ListView>
+                <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                    {t('tutorial.getStarted')}
+                  </Button>
+                </div>
               </Grid.Col>
             </Grid.Row>
           </Grid>

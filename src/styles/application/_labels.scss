@@ -1,9 +1,8 @@
 .integr8ly {
   &-label-community {
     position: absolute;
-    margin-top: -5px;
-    margin-left: 10px;
-    padding: 6px 8px;
+    right: 25px;
+    padding: 2px 8px;
     border: 1px solid;
     border-color: $pf-color-black-300;
     background-color: $pf-color-black-300;
@@ -13,9 +12,8 @@
   }
   &-label-preview {
     position: absolute;
-    margin-top: -5px;
-    margin-left: 10px;
-    padding: 6px 8px;
+    right: 25px;
+    padding: 2px 8px;
     border: 1px solid;
     border-color: $pf-color-blue-200;
     background-color: $pf-color-blue-200;

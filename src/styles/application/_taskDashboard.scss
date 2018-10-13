@@ -4,11 +4,17 @@
     color: $color-pf-black-600;
     font-size: $pf-global--FontSize--lg;
     font-weight: $pf-global--FontWeight--normal;
+    &_minutes {
+      padding-left: 5px;
+    }
   }
 
   &-estimated-time {
     color: $pf-color-black-600;
     font-weight: $pf-global--FontWeight--normal;
+    &_minutes {
+      padding-left: 5px;
+    }
   }
 
   &-header {
