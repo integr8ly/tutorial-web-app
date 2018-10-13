@@ -5,6 +5,7 @@ import { translate } from 'react-i18next';
 import { noop, Alert, Button, ButtonGroup, Radio, Grid, Icon } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
+import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
@@ -103,6 +104,29 @@ class TaskPage extends React.Component {
     setProgress(progress);
   };
 
+  docsAttributesProgress = attrs => {
+    let found = 0;
+    const requirements = {
+      '1': ['spring-boot-url', 'node-js-url'],
+      '1A': ['spring-boot-url', 'node-js-url']
+    };
+    if (!(attrs['walkthrough-id'] in requirements)) {
+      return 100;
+    }
+    for (let i = 0; i < requirements[attrs['walkthrough-id']].length; i++) {
+      if (attrs[requirements[attrs['walkthrough-id']][i]] !== null) {
+        found++;
+      }
+    }
+    if (found === requirements[attrs['walkthrough-id']].length) {
+      return 100;
+    }
+    if (found === 0) {
+      return 0;
+    }
+    return 100 * (found / requirements[attrs['walkthrough-id']].length);
+  };
+
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
     const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
@@ -173,6 +197,7 @@ class TaskPage extends React.Component {
   };
 
   render() {
+    const attrs = this.getDocsAttributes();
     const { t, thread } = this.props;
     const { task, verifications, verificationsChecked } = this.state;
     if (thread.pending) {
@@ -187,7 +212,7 @@ class TaskPage extends React.Component {
     if (thread.fulfilled && thread.data) {
       const threadTask = thread.data.tasks[task];
       const totalTasks = thread.data.tasks.length;
-
+      const loadingText = `We're initiating services for " ${thread.data.title} ". Please stand by.`;
       return (
         <React.Fragment>
           <Breadcrumb
@@ -197,6 +222,7 @@ class TaskPage extends React.Component {
             totalTasks={totalTasks}
           />
           <Grid fluid>
+            <LoadingScreen loadingText={loadingText} progress={this.docsAttributesProgress(attrs)} />
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
@@ -310,12 +336,7 @@ class TaskPage extends React.Component {
                               <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate
                                 adoc={verification}
-                                attributes={Object.assign(
-                                  {},
-                                  threadTask.attributes,
-                                  step.attributes,
-                                  this.getDocsAttributes()
-                                )}
+                                attributes={Object.assign({}, threadTask.attributes, step.attributes, attrs)}
                               />
                             </Alert>
                           ))}
