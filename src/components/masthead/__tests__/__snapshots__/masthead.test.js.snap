@@ -11,40 +11,7 @@ exports[`Masthead Component should render a basic component: basic 1`] = `
 />
 `;
 
-exports[`Masthead Component should render a basic component: help dropdown 1`] = `
-<MastheadDropdown
-  className=""
-  id="app-help-dropdown"
-  noCaret={false}
-  title={
-    <span
-      aria-hidden={true}
-      className="pficon pficon-help"
-    />
-  }
->
-  <MenuItem
-    bsClass="dropdown"
-    disabled={false}
-    divider={false}
-    eventKey="1"
-    header={false}
-    onClick={[Function]}
-  >
-    Help
-  </MenuItem>
-  <MenuItem
-    bsClass="dropdown"
-    disabled={false}
-    divider={false}
-    eventKey="2"
-    header={false}
-    onClick={[Function]}
-  >
-    About
-  </MenuItem>
-</MastheadDropdown>
-`;
+exports[`Masthead Component should render a basic component: help dropdown 1`] = `null`;
 
 exports[`Masthead Component should render a basic component: user dropdown 1`] = `
 <MastheadDropdown

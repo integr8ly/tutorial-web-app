@@ -74,7 +74,10 @@ class InstalledAppsView extends React.Component {
         key={`openshift_console_${index}`}
         value={index}
       >
-        OpenShift Console
+        <p>Red Hat OpenShift</p>
+        <div className="state-ready">
+          <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+        </div>
       </li>
     );
   }
@@ -97,7 +100,7 @@ class InstalledAppsView extends React.Component {
         </li>
       );
     });
-    masterList.push(this.getOpenshiftConsole(masterList.length));
+    masterList.unshift(this.getOpenshiftConsole(masterList.length));
     return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
   }
 
