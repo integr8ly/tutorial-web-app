@@ -34,3 +34,6 @@ src/**/*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Ignoring lock file until https://github.com/integr8ly/tutorial-web-app/issues/126 is fixed
+yarn.lock
