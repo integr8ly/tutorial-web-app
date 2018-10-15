@@ -20,8 +20,8 @@ const TutorialDashboard = props => {
           title={walkthrough.title}
           getStartedLink={
             currentProgress !== undefined && currentProgress.task + 1 === currentProgress.totalTasks
-              ? '#'
-              : `/tutorial/${walkthrough.id}/${currentProgress === undefined ? '' : `task/${currentProgress.task + 1}`}`
+              ? `/tutorial/${walkthrough.id}`
+              : `/tutorial/${walkthrough.id}/${currentProgress === undefined ? '' : `task/${currentProgress.task}`}`
           }
           getStartedText={startedText}
           getStartedIcon={

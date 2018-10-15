@@ -6,7 +6,11 @@ import { withRouter } from 'react-router-dom';
 
 class Breadcrumb extends React.Component {
   homeClicked = () => {
+    const { homeClickedCallback } = this.props;
     this.props.history.push('/home');
+    if (homeClickedCallback) {
+      homeClickedCallback();
+    }
   };
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
@@ -34,7 +38,8 @@ Breadcrumb.propTypes = {
   threadName: PropTypes.string,
   threadId: PropTypes.number,
   taskPosition: PropTypes.number,
-  totalTasks: PropTypes.number
+  totalTasks: PropTypes.number,
+  homeClickedCallback: PropTypes.func
 };
 
 Breadcrumb.defaultProps = {
@@ -42,7 +47,8 @@ Breadcrumb.defaultProps = {
   threadName: '',
   threadId: null,
   taskPosition: null,
-  totalTasks: null
+  totalTasks: null,
+  homeClickedCallback: undefined
 };
 
 const RoutedBreadcrumb = withRouter(translate()(Breadcrumb));
