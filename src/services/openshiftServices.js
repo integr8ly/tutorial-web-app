@@ -68,7 +68,6 @@ const getUser = () => {
     console.error(e);
     window.localStorage.removeItem('OpenShiftUser');
   }
-
   if (!user) {
     return startOAuth();
   }
@@ -140,9 +139,7 @@ const finishOAuth = () => {
  * logout state change in your App by navigating elsewhere
  * or reloading your App.
  */
-// const logout = () => {
-//   setUser(null);
-// };
+const logout = () => deleteCurrentSessionAuthToken().then(() => setUser(null));
 
 /**
  * Retrieve a single parameter value from a URL that contains a query string
@@ -181,6 +178,18 @@ const get = (res, name) =>
         authorization: `Bearer ${user.access_token}`
       }
     }).then(response => response.data)
+  );
+
+const deleteCurrentSessionAuthToken = () =>
+  getUser().then(user =>
+    axios({
+      url: `${window.OPENSHIFT_CONFIG.masterUri}/apis/oauth.openshift.io/v1/oauthaccesstokens/${user.access_token}`,
+      method: 'delete',
+      headers: {
+        authorization: `Bearer ${user.access_token}`,
+        'content-type': 'application/json'
+      }
+    })
   );
 
 const update = (res, obj) =>
@@ -273,4 +282,4 @@ const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.ma
 
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
 
-export { finishOAuth, currentUser, get, create, list, watch, update, remove, OpenShiftWatchEvents };
+export { finishOAuth, currentUser, get, create, list, watch, update, remove, OpenShiftWatchEvents, logout, getUser };
