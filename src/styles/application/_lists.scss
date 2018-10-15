@@ -1,20 +1,27 @@
 .integr8ly-list-view-pf {
-  & > .list-group-item:hover {
-    border-right-color: $pf-color-white;
-    border-left-color: $pf-color-white;
+  & > .list-group-item { /* stylelint-disable-line selector-class-pattern */
+    &:hover {
+      border-right-color: $pf-color-white;
+      border-left-color: $pf-color-white;
+    }
   }
+
   &-description {
     flex: 1 !important; /* stylelint-disable-line declaration-no-important */
   }
 }
-.module-list {
+
+.module-list { /* stylelint-disable selector-class-pattern */
   padding-left: 15px;
+
   & > li {
     margin-top: 10px;
     padding-bottom: 10px;
+
     &:first-child {
       margin-top: 20px;
     }
+
     &:last-child {
       margin-bottom: 0;
     }

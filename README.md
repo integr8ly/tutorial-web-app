@@ -71,7 +71,7 @@ Each walkthrough requires:
 
 # Running the tests
 
-Tests are implemented using Jest and Enzyme. Run them with:
+Tests are implemented using Jest, Enzyme, and Stylelint. Run them with:
 
 ```
 yarn test

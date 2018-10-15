@@ -33,16 +33,16 @@ class LoadingScreen extends React.Component {
     return (
       <React.Fragment>
         {this.props.showBackdrop === true && (
-          <div className="loadingscreen-backdrop" style={backdropStyle}>
-            <div className="loadingscreen-logo" style={logoStyle} />
+          <div className="integr8ly-loadingscreen-backdrop" style={backdropStyle}>
+            <div className="integr8ly-loadingscreen-logo" style={logoStyle} />
           </div>
         )}
-        <object className="loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
+        <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
           Loading...
         </object>
-        <h2 className="loadingscreen-text integr8ly-congratulations-heading">{this.props.loadingText}</h2>
-        <ProgressBar className="loadingscreen-progressbar" now={this.props.progress} />
-        <span className="loadingscreen-progress-label">{this.props.progress}%</span>
+        <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">{this.props.loadingText}</h2>
+        <ProgressBar className="integr8ly-loadingscreen-progressbar" now={this.props.progress} />
+        <span className="integr8ly-loadingscreen-progress-label">{this.props.progress}%</span>
       </React.Fragment>
     );
   }

@@ -65,21 +65,21 @@ function buildProvisioningScreen(WrappedComponent) {
       const provisionProgress = Provisioning.getMiddlwareServiceProgress(services);
       return (
         <div>
-          <div className="loadingscreen-backdrop">
-            <div className="loadingscreen-logo" />
+          <div className="integr8ly-loadingscreen-backdrop">
+            <div className="integr8ly-loadingscreen-logo" />
           </div>
           <object
-            className="loadingscreen-throbber"
+            className="integr8ly-loadingscreen-throbber"
             data={require('./StartingServices_Final.svg')}
             type="image/svg+xml"
           >
             Loading...
           </object>
-          <h2 className="loadingscreen-text integr8ly-congratulations-heading">
+          <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
             We&#39;re putting the finishing touches on your new environment. Please stand by.
           </h2>
-          <ProgressBar className="loadingscreen-progressbar" now={provisionProgress} />
-          <span className="loadingscreen-progress-label">{provisionProgress}%</span>
+          <ProgressBar className="integr8ly-loadingscreen-progressbar" now={provisionProgress} />
+          <span className="integr8ly-loadingscreen-progress-label">{provisionProgress}%</span>
         </div>
       );
     }

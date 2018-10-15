@@ -1,7 +1,11 @@
-
+/* stylelint-disable */
+/* allow for simple variable names
+/* and use of !important  to force overrides */
 .mb-0 {
-  margin-bottom: 0 !important /* stylelint-disable-line declaration-no-important */;
+  margin-bottom: 0 !important;
 }
+
 .mt-0 {
-  margin-top: 0 !important /* stylelint-disable-line declaration-no-important */;
+  margin-top: 0 !important;
 }
+/* stylelint-enable */

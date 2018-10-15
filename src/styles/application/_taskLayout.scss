@@ -1,10 +1,12 @@
-.integr8ly {
-  &-module {
+.integr8ly- {
+  &module {
     margin-top: 40px;
     margin-bottom: 80px;
+
     &-congratulations {
       margin-top: 0;
     }
+
     &-column {
       &--status {
         background-color: $pf-color-black-100;
@@ -14,6 +16,8 @@
         padding: 1px 20px;
         min-height: 48px;
 
+        /* stylelint-disable */
+        /* fix depth of nesting - should be no more than 3 */
         .progress.progress-label-left {
           width: 80%;
           margin-top: 15px;
@@ -47,8 +51,9 @@
           background-color: $pf-color-blue-50;
           border-color: $pf-color-blue-200;
           color: $pf-color-black-1000;
+        }
       }
-    }
+
       &--footer {
         background-color: $pf-color-black-100;
         border-top: 1px solid;
@@ -82,8 +87,10 @@
             margin-right: 15px;
           }
         }
+        /* stylelint-enable */
       }
     }
+
     &-frame {
       position: fixed;
       top: 0;

@@ -1,10 +1,16 @@
-.applauncher-pf .btn-link {
-  color: $pf-color-black-800;
-  &:hover {
-    color: $pf-color-blue-500;
+/* stylelint-disable selector-class-pattern */
+/* used to override existing classes */
+.applauncher-pf {
+  .btn-link {
+    color: $pf-color-black-800;
+
+    &:hover {
+      color: $pf-color-blue-500;
+    }
   }
 }
 
 .fa.applauncher-pf-icon {
   font-size: 16px;
 }
+/* stylelint-enable */

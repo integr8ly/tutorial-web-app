@@ -1,6 +1,6 @@
 .integr8ly-landing-page {
   &-masthead {
-    background-image: url(../../img/Web_RH_Banner.png);
+    background-image: url("../../img/Web_RH_Banner.png");
     background-color: $pf-color-black-900;
     background-repeat: no-repeat;
     background-position: top right;
@@ -9,8 +9,9 @@
     height: 130px;
     margin: auto 0;
     display: flex;
-    &:after {
-      background-image: url(../../img/RedHatLogo.png);
+
+    &::after {
+      background-image: url("../../img/RedHatLogo.png");
       background-repeat: no-repeat;
       position: absolute;
       top: 85px;
@@ -18,9 +19,11 @@
       height: 38px;
       width: 115px;
     }
+
     h4 {
       margin-top: 22px;
     }
+
     p:first-of-type {
       font-weight: $pf-global--FontWeight--bold;
     }

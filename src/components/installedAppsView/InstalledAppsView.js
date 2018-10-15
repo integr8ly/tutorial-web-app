@@ -29,17 +29,17 @@ class InstalledAppsView extends React.Component {
 
   static getStatusForApp(app) {
     const provisioningStatus = (
-      <div className="state-provisioining">
+      <div className="integr8ly-state-provisioining">
         <Icon type="fa" name="pie-chart" /> &nbsp;Provisioning
       </div>
     );
     const readyStatus = (
-      <div className="state-ready">
+      <div className="integr8ly-state-ready">
         <Icon type="pf" name="on-running" /> &nbsp;Ready for use
       </div>
     );
     const unavailableStatus = (
-      <div className="state-unavailable">
+      <div className="integr8ly-state-unavailable">
         <Icon type="pf" name="error-circle-o" /> &nbsp;Unavailable
       </div>
     );
@@ -75,7 +75,7 @@ class InstalledAppsView extends React.Component {
         value={index}
       >
         <p>Red Hat OpenShift</p>
-        <div className="state-ready">
+        <div className="integr8ly-state-ready">
           <Icon type="pf" name="on-running" /> &nbsp;Ready for use
         </div>
       </li>
