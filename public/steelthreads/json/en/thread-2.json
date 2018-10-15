@@ -3,7 +3,7 @@
   "title": "Integrating API-driven applications",
   "descriptionDoc": "master-2-intro.adoc",
   "prerequisites": [],
-  "estimatedTime": 50,
+  "estimatedTime": 60,
   "roles": [
     "Developer"
   ],
@@ -30,7 +30,7 @@
     },
     {
       "title": "Modifying the Fuse Aggregation App to aggregate data from 2 API Servers",
-      "estimatedTime": 5,
+      "estimatedTime": 10,
       "steps": [
         {
           "stepDoc": "task-modifying-fuse-aggregation-app.adoc",
@@ -42,7 +42,7 @@
     },
     {
       "title": "Managing the Fuse Aggregation App endpoint",
-      "estimatedTime": 10,
+      "estimatedTime": 15,
       "steps": [
         {
           "stepDoc": "api-management-login.adoc",
@@ -72,7 +72,7 @@
     },
     {
       "title": "Calling Fuse Aggregation App endpoint",
-      "estimatedTime": 5,
+      "estimatedTime": 30,
       "steps": [
         {
           "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-user-key.adoc",
@@ -114,6 +114,8 @@
     "messaging-service-version": "7.2",
     "integration-service": "Fuse",
     "integration-service-version": "7.1",
+    "che-service": "Che",
+    "launcher-service": "Launcher",
     "api-mgmt-service": "3Scale",
     "api-mgmt-service-version": "",
     "//gitlab.cee.redhat.com/AMQ7-documentation/amq7-documentation/raw/release-amq-7.2.x/common/attributes.adoc": "",
@@ -127,7 +129,6 @@
     "3Scale-ProductVersion": "2.3",
     "//raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc": "",
     "EnMasse-master-ProductLongName": "EnMasse",
-    "Launcher-ProductName": "Launcher",
     "walkthrough": "Integrating API-driven applications",
     "dummy": "value"
   }

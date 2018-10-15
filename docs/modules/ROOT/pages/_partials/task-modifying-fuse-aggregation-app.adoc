@@ -30,23 +30,23 @@ endif::location[]
 .. Select the *Add or Import Project* button
 .. Select the *Github* tab
 .. Select the *Connect your Github Account* button
-.. Select the checkbox beside the git repository named {project}. You may need to filter by account if you are a member of any Organizations.
+.. Select the checkbox beside the git repository named `{walkthrough-namespace}`. You may need to filter by account if you are a member of any Organizations.
 .. Select the *Add* button to add the repository to the workspace
 .. Select the *Create* button at the bottom
 .. Select *Open in IDE*.
-
++
 . Open the file at *src/main/java/com/redhat/fuse/boosters/rest/http/CamelRouter.java*.
-
++
 // TODO: explain what the app is doing and why we're modifying it
-
++
 . Comment out the routing code that talks to local java services.
 .. Navigate to the section of the file with a comment of `// COMMENT OUT THIS`.
 .. Comment out the line of code below this using double slashes *//*.
-
++
 . Uncomment the routing code that talks to remote services.
 .. Navigate to the section of the file with a comment of `// UNCOMMENT THIS`.
 .. Uncomment the line of code below this by removing the double slashes.
-
++
 . Before the changes can be commited and pushed to the repository, a Git Committer Name & Email must be specified.
 .. Select the *Profile* menu, then *Preferences*.
 .. Choose the *Commiter* option under the *Git* heading.
@@ -67,7 +67,7 @@ ifdef::location[]
 .Verification
 // tag::verification[]
 // TODO: flights api links to /camel/flights
-The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint] should now responds with much more than 8 flights.
+The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] should now respond with much more than 8 flights.
 Note that the build and redeploy may take a minute.
 // end::verification[]
 endif::location[]

@@ -86,6 +86,8 @@
     "messaging-service-version": "7.2",
     "integration-service": "Fuse",
     "integration-service-version": "7.1",
+    "che-service": "Che",
+    "launcher-service": "Launcher",
     "api-mgmt-service": "3Scale",
     "api-mgmt-service-version": "",
     "//gitlab.cee.redhat.com/AMQ7-documentation/amq7-documentation/raw/release-amq-7.2.x/common/attributes.adoc": "",
@@ -99,7 +101,6 @@
     "3Scale-ProductVersion": "2.3",
     "//raw.githubusercontent.com/EnMasseProject/enmasse/master/documentation/common/attributes.adoc": "",
     "EnMasse-master-ProductLongName": "EnMasse",
-    "Launcher-ProductName": "Launcher",
     "walkthrough": "Integrating event-driven and API-driven applications (AMQ)",
     "dummy": "value"
   },
