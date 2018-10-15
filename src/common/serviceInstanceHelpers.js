@@ -160,9 +160,8 @@ const getDashboardUrl = si => {
     return status.dashboardURL;
   } else if (metadata.annotations && metadata.annotations['integreatly/dashboard-url']) {
     return metadata.annotations['integreatly/dashboard-url'];
-  } else {
-    return '';
   }
+  return '';
 };
 
 export {
