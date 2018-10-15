@@ -25,7 +25,7 @@
 // The 'fuse-aggregation-app-url' should be the url of the Fuse Aggregation App e.g. https://fuse-flights-aggregator-ak49.cluster-lfa3xlh.opentry.me/
 . Enter `\https://{fuse-aggregator-url}` in the *Private Base URL* field.
 // The '{fuse-aggregation-app-apicast-route-url}' shoudl be the apicast-staging route url for this specific user. It can be looked up or deterministicly set.
-. Enter `https://wt2-{user-sanitized-username}-3scale.{openshift-app-host}` in the *Staging Public Base URL*. Note that this route should point to the shared staging APIcast in the *3scale* project in OpenShift. If using an eval user, this route should already be created for you. If not, you will need an administrator to create this for you.
+. Enter `\https://wt2-{user-sanitized-username}-3scale.{openshift-app-host}` in the *Staging Public Base URL*. Note that this route should point to the shared staging APIcast in the *3scale* project in OpenShift. If using an eval user, this route should already be created for you. If not, you will need an administrator to create this for you.
 
 . Select *Update & test in Staging Environment*
 
