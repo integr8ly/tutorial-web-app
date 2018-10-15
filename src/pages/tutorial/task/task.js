@@ -80,7 +80,6 @@ class TaskPage extends React.Component {
       threadId: thread.data.id.toString(),
       task: this.state.task,
       verifications: this.state.verifications,
-      verificationsChecked: this.state.verificationsChecked,
       totalTasks: thread.data.tasks.length,
       progress: Math.round(((task + 1) / thread.data.tasks.length) * 100)
     };
@@ -222,7 +221,10 @@ class TaskPage extends React.Component {
             totalTasks={totalTasks}
           />
           <Grid fluid>
-            <LoadingScreen loadingText={loadingText} progress={this.docsAttributesProgress(attrs)} />
+            <LoadingScreen
+              loadingText={loadingText}
+              progress={!window.OPENSHIFT_CONFIG.mockData ? this.docsAttributesProgress(attrs) : 100}
+            />
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
