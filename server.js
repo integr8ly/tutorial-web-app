@@ -70,13 +70,13 @@ app.get('/config.js', (req, res) => {
       }
     };`);
   } else {
-    let redirectHost;
+    let redirectHost = null;
     if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-host']) {
       redirectHost = `${req.headers['x-forwarded-proto']}://${req.headers['x-forwarded-host']}`;
     } else {
       redirectHost = `https://${req.headers.host}`;
     }
-    let logoutRedirectUri;
+    let logoutRedirectUri = null;
     if (process.env.NODE_ENV === 'production') {
       logoutRedirectUri = redirectHost;
     } else {
