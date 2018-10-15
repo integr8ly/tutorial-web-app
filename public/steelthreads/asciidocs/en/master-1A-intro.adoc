@@ -16,6 +16,6 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 
 
 ++++
-<img src="/images/wt1a.png" class="img-responsive" alt="integration">
+<img src="/images/wt1A.png" class="img-responsive" alt="integration">
 ++++
 
