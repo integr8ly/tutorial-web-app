@@ -147,6 +147,24 @@ const handleWalkthroughOneRoutes = (namespacePrefix, dispatch, event) => {
   }
 };
 
+/**
+ * Try to get the service's dashboard URL preferably from the status properties and
+ * as a fallback the integreatly/dashboard-url annotation. Returns an empty string
+ * if neither is applicable.
+ * @param si Service Instance Object
+ * @returns {string} Dashboard URL
+ */
+const getDashboardUrl = si => {
+  const { status, metadata } = si;
+  if (status.dashboardURL) {
+    return status.dashboardURL;
+  } else if (metadata.annotations && metadata.annotations['integreatly/dashboard-url']) {
+    return metadata.annotations['integreatly/dashboard-url'];
+  } else {
+    return '';
+  }
+};
+
 export {
   buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj,
@@ -155,5 +173,6 @@ export {
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
   handleWalkthroughOneRoutes,
-  MessagingAppServiceInstanceTransform
+  MessagingAppServiceInstanceTransform,
+  getDashboardUrl
 };

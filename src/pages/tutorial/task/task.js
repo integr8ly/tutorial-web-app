@@ -140,14 +140,6 @@ class TaskPage extends React.Component {
     return middlewareServices.amqCredentials[name];
   };
 
-  getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
-    if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {
-      return null;
-    }
-    const service = middlewareServices.data[serviceName];
-    return service.status.dashboardURL || service.metadata.annotations['integreatly/dashboard-url'];
-  };
-
   getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
     if (
       !walkthroughServices ||

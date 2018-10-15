@@ -1,5 +1,5 @@
 import { WALKTHROUGH_IDS } from '../services/walkthroughServices';
-import { DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
+import { DEFAULT_SERVICES, getDashboardUrl } from '../common/serviceInstanceHelpers';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
   if (!walkthrough) {
@@ -60,7 +60,7 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
     return null;
   }
   const service = middlewareServices.data[serviceName];
-  return service.status.dashboardURL || service.metadata.annotations['integreatly/dashboard-url'];
+  return getDashboardUrl(service);
 };
 
 const getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
