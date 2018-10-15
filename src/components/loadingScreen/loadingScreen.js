@@ -21,13 +21,13 @@ class LoadingScreen extends React.Component {
       opacity: this.props.backdropOpacity
     };
     if (this.props.backdropImage !== null) {
-      backdropStyle['background-image'] = `url("${this.props.backdropImage}")`;
+      backdropStyle.backgroundImage = `url("${this.props.backdropImage}")`;
     } else {
-      backdropStyle['background-color'] = this.props.backdropColor;
+      backdropStyle.backgroundColor = this.props.backdropColor;
     }
 
     const logoStyle = {
-      'background-image': `url(" ${this.props.logo}")`
+      backgroundImage: `url(" ${this.props.logo}")`
     };
 
     return (
@@ -52,7 +52,7 @@ LoadingScreen.propTypes = {
   showBackdrop: PropTypes.bool,
   backdropImage: PropTypes.string,
   backdropColor: PropTypes.string,
-  backdropOpacity: PropTypes.number,
+  backdropOpacity: PropTypes.string,
   progress: PropTypes.number,
   throbberImage: PropTypes.string,
   logo: PropTypes.string,
