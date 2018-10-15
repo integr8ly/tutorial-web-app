@@ -201,14 +201,6 @@ class TaskPage extends React.Component {
     return middlewareServices.amqCredentials[name];
   };
 
-  getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
-    if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {
-      return null;
-    }
-    const service = middlewareServices.data[serviceName];
-    return service.status.dashboardURL || service.metadata.annotations['integreatly/dashboard-url'];
-  };
-
   getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
     if (
       !walkthroughServices ||
@@ -426,8 +418,9 @@ class TaskPage extends React.Component {
                       {threadTask.steps.map((step, l) => (
                         <React.Fragment key={l}>
                           {step.infoVerifications &&
-                            step.infoVerifications.map(() => (
+                            step.infoVerifications.map(v => (
                               <Icon
+                                key={v}
                                 className={
                                   step.infoVerifications && verifications[step.infoVerifications[0]]
                                     ? 'integr8ly-module-column--footer_status-checked'
@@ -438,8 +431,9 @@ class TaskPage extends React.Component {
                               />
                             ))}
                           {step.successVerifications &&
-                            step.successVerifications.map(() => (
+                            step.successVerifications.map(v => (
                               <Icon
+                                key={v}
                                 className={
                                   step.successVerifications && verifications[step.successVerifications[0]]
                                     ? 'integr8ly-module-column--footer_status-checked'
@@ -450,8 +444,9 @@ class TaskPage extends React.Component {
                               />
                             ))}
                           {step.infoVerifications &&
-                            step.infoVerifications.map(() => (
+                            step.infoVerifications.map(v => (
                               <span
+                                key={v}
                                 className={
                                   verifications[step.infoVerifications[0]]
                                     ? 'integr8ly-module-column--footer_status-checked'
@@ -462,8 +457,9 @@ class TaskPage extends React.Component {
                               </span>
                             ))}
                           {step.successVerifications &&
-                            step.successVerifications.map(() => (
+                            step.successVerifications.map(v => (
                               <span
+                                key={v}
                                 className={
                                   verifications[step.successVerifications[0]]
                                     ? 'integr8ly-module-column--footer_status-checked'

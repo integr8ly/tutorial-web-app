@@ -15,7 +15,7 @@ const TutorialDashboard = props => {
     else startedText = 'Resume';
 
     return cards.push(
-      <Col xs={12} sm={4}>
+      <Col xs={12} sm={4} key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
@@ -35,7 +35,7 @@ const TutorialDashboard = props => {
               className="fa-lg"
             />
           }
-          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right />}
+          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right="true" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.estimatedTime}
         >
