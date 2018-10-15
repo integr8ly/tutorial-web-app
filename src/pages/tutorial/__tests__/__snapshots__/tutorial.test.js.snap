@@ -227,13 +227,13 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             className="pull-right integr8ly-task-dashboard-time-to-completion"
           >
             <Icon
-              type="fa"
               name="clock-o"
+              type="fa"
             />
-            11
             <span
               className="integr8ly-task-dashboard-time-to-completion_minutes"
             >
+               
               tutorial.minutes
             </span>
           </div>
@@ -262,6 +262,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   >
                     tutorial.minutes
                   </span>
+                </span>
               </div>
             }
             additionalInfo={null}

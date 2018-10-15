@@ -45,14 +45,19 @@ class TaskPage extends React.Component {
       match: {
         params: { id, task }
       },
-      getThread
+      getProgress,
+      getThread,
+      user
     } = this.props;
     if (!Number.isNaN(id)) {
       const parsedTask = parseInt(task, 10);
       this.setState({ id, task: parsedTask });
+      getProgress();
       getThread(i18n.language, id).then(thread => {
         const verifications = {};
         const threadTask = thread.value.data.tasks[parsedTask];
+        const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.value.data.id.toString());
+
         threadTask.steps.forEach(step => {
           if (step.infoVerifications) {
             step.infoVerifications.forEach(verification => {
@@ -64,7 +69,15 @@ class TaskPage extends React.Component {
             });
           }
         });
+
         const hasVerifications = Object.keys(verifications).length > 0;
+        if (currentProgress && currentProgress.threadStepsVerified && hasVerifications) {
+          for (const property in verifications) {
+            if (verifications.hasOwnProperty(property)) {
+              verifications[property] = currentProgress.threadStepsVerified[parsedTask.toString()][property];
+            }
+          }
+        }
         this.setState({
           verifications,
           verificationsChecked: !hasVerifications
@@ -73,17 +86,65 @@ class TaskPage extends React.Component {
     }
   }
 
-  updateThreadState = callback => {
+  getTotalSteps = tasks => {
+    let totalSteps = 0;
+    tasks.forEach(task => {
+      task.steps.forEach(step => {
+        if (step.infoVerifications) {
+          totalSteps++;
+        }
+      });
+    });
+    return totalSteps;
+  };
+
+  updateThreadState = () => {
     const { thread, setProgress, user } = this.props;
     const { task } = this.state;
     const threadProgress = {
       threadId: thread.data.id.toString(),
-      task: this.state.task,
-      verifications: this.state.verifications,
+      threadStepsVerified: this.state.verifications,
       totalTasks: thread.data.tasks.length,
-      progress: Math.round(((task + 1) / thread.data.tasks.length) * 100)
+      totalSteps: this.getTotalSteps(thread.data.tasks)
     };
 
+    // Get the previous steps verified and the new steps verified.
+    const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.data.id.toString());
+
+    if (currentProgress !== undefined) {
+      threadProgress.threadStepsVerified = currentProgress.threadStepsVerified;
+      threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
+    } else {
+      threadProgress.threadStepsVerified = {};
+      threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
+    }
+
+    let stepsCompleted = 0;
+    // Calculate how many steps have been completed.
+    for (const threadProperty in threadProgress.threadStepsVerified) {
+      if (threadProgress.threadStepsVerified.hasOwnProperty(threadProperty)) {
+        for (const stepProperty in threadProgress.threadStepsVerified[threadProperty]) {
+          if (
+            threadProgress.threadStepsVerified[threadProperty].hasOwnProperty(stepProperty) &&
+            threadProgress.threadStepsVerified[threadProperty][stepProperty] === true
+          ) {
+            stepsCompleted++;
+          }
+        }
+      }
+    }
+
+    // Check if this task is completed.
+    let lastTaskCompleted = task;
+    for (const step in this.state.verifications) {
+      if (this.state.verifications[step] === undefined || this.state.verifications[step] === false) {
+        lastTaskCompleted = task === 0 ? 0 : task - 1;
+        break;
+      }
+    }
+
+    threadProgress.task = lastTaskCompleted;
+    threadProgress.progress = Math.round((stepsCompleted / threadProgress.totalSteps) * 100);
     const progress = Object.assign({}, user.userProgress);
 
     if (progress.threads.length === 0) {
@@ -219,6 +280,9 @@ class TaskPage extends React.Component {
             threadId={thread.data.id}
             taskPosition={task + 1}
             totalTasks={totalTasks}
+            homeClickedCallback={() => {
+              this.updateThreadState();
+            }}
           />
           <Grid fluid>
             <LoadingScreen
@@ -296,6 +360,11 @@ class TaskPage extends React.Component {
                                   />
                                   <ButtonGroup>
                                     <Radio
+                                      checked={
+                                        step.infoVerifications && verifications[step.infoVerifications[0]]
+                                          ? 'checked'
+                                          : ''
+                                      }
                                       name={step.stepDoc}
                                       onChange={e => {
                                         this.handleYesVerification(e, verification);
@@ -304,6 +373,11 @@ class TaskPage extends React.Component {
                                       Yes
                                     </Radio>
                                     <Radio
+                                      checked={
+                                        step.infoVerifications && verifications[step.infoVerifications[0]]
+                                          ? ''
+                                          : 'checked'
+                                      }
                                       name={step.stepDoc}
                                       onChange={e => {
                                         this.handleNoVerification(e, verification);
@@ -383,7 +457,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status-step'
                                 }
                               >
-                                {task}.{l}
+                                {task + 1}.{l}
                               </span>
                             ))}
                           {step.successVerifications &&
@@ -395,7 +469,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status-step'
                                 }
                               >
-                                {task}.{l}
+                                {task + 1}.{l}
                               </span>
                             ))}
                         </React.Fragment>
@@ -549,6 +623,7 @@ TaskPage.propTypes = {
   walkthroughServices: PropTypes.object,
   prepareWalkthroughOne: PropTypes.func,
   prepareWalkthroughOneA: PropTypes.func,
+  getProgress: PropTypes.func,
   setProgress: PropTypes.func,
   thread: PropTypes.object,
   user: PropTypes.object
@@ -575,6 +650,7 @@ TaskPage.defaultProps = {
   },
   prepareWalkthroughOne: noop,
   prepareWalkthroughOneA: noop,
+  getProgress: noop,
   setProgress: noop,
   thread: null,
   user: null
@@ -585,6 +661,7 @@ const mapDispatchToProps = dispatch => ({
   prepareWalkthroughOne: amqCredentials => prepareWalkthroughNamespace(dispatch, walkthroughs.one, amqCredentials),
   prepareWalkthroughOneA: enmasseCredentials =>
     prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
+  getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress))
 });
 
