@@ -46,10 +46,22 @@
     "prettier": "^1.14.2",
     "react-scripts": "1.1.4",
     "redux-mock-store": "^1.5.3",
-    "source-map-explorer": "^1.5.0"
+    "source-map-explorer": "^1.5.0",
+    "stylelint": "^9.6.0",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-order": "^0.8.0",
+    "stylelint-scss": "^2.5.0"
   },
   "resolutions": {
     "**/jest": "23.5.0"
+  },
+  "lint-staged": {
+    "src/styles/**/*.{scss,css}": [
+      "stylelint --config=.stylelintrc --fix",
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
   },
   "scripts": {
     "clean": "rimraf build coverage",
@@ -68,8 +80,9 @@
     "eject": "react-scripts eject",
     "prettier": "prettier --write --single-quote --trailing-comma=none \"src/**/*.js\"",
     "analyze": "source-map-explorer build/static/js/main.*",
-    "lint": "yarn lint:js",
+    "lint": "yarn lint:js && yarn lint:scss",
     "lint:js": "eslint --max-warnings 0 src",
+    "lint:scss": "stylelint --config=.stylelintrc 'src/styles/**/*.scss'",
     "locales": "node scripts/syncLocales --check",
     "lint:locales": "node scripts/syncLocales --check",
     "docker:build": "./scripts/docker_build.sh",
