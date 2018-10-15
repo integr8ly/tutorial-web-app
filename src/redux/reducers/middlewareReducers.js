@@ -62,7 +62,7 @@ const middlewareReducers = (state = initialState, action) => {
       middlewareServices: {
         ...state.middlewareServices,
         provisioningUser: action.payload.provisioningUser
-      }      
+      }
     });
   }
   return state;

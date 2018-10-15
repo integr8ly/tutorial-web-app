@@ -14,15 +14,13 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
   return Object.assign({}, middlewareAttrs, walkthroughAttrs, userAttrs, { 'walkthrough-id': walkthrough.id });
 };
 
-const getUserAttrs = (walkthrough, username) => {
-  return {
-    'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
-    'project-namespace': buildValidProjectNamespaceName(username, 'walkthrough-projects'),
-    'walkthrough-namespace': buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix),
-    'user-username': username,
-    'user-sanitized-username': cleanUsername(username)
-  }
-}
+const getUserAttrs = (walkthrough, username) => ({
+  'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
+  'project-namespace': buildValidProjectNamespaceName(username, 'walkthrough-projects'),
+  'walkthrough-namespace': buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix),
+  'user-username': username,
+  'user-sanitized-username': cleanUsername(username)
+});
 
 const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroughServices) => {
   if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
@@ -54,15 +52,21 @@ const getWalkthroughSpecificAttrs = (walkthrough, middlewareServices, walkthroug
     const username = middlewareServices.provisioningUser;
     return {
       'fuse-aggregator-url': getUrlFromWalkthroughServices(walkthroughServices, fuseAggregatorName),
-      'fuse-aggregator-app-name': `fuse-aggregation-app-${buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix)}`
-    }
+      'fuse-aggregator-app-name': `fuse-aggregation-app-${buildValidProjectNamespaceName(
+        username,
+        walkthrough.namespaceSuffix
+      )}`
+    };
   }
   return {};
 };
 
 const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
   const defaultServices = {
-    'openshift-app-host': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE).replace('https://3scale-admin.', ''),
+    'openshift-app-host': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE).replace(
+      'https://3scale-admin.',
+      ''
+    ),
     'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),

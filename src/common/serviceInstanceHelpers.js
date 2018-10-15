@@ -175,12 +175,7 @@ const handleWalkthroughTwoRoutes = (namespacePrefix, dispatch, event) => {
   }
 
   const route = event.payload;
-  if (
-    route &&
-    route.spec &&
-    route.spec.to &&
-    (route.spec.to.name === DEFAULT_SERVICES.FUSE_AGGREGATOR)
-  ) {
+  if (route && route.spec && route.spec.to && route.spec.to.name === DEFAULT_SERVICES.FUSE_AGGREGATOR) {
     dispatch({
       type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
       payload: {
@@ -189,7 +184,7 @@ const handleWalkthroughTwoRoutes = (namespacePrefix, dispatch, event) => {
       }
     });
   }
-}
+};
 
 export {
   buildServiceInstanceCompareFn,
