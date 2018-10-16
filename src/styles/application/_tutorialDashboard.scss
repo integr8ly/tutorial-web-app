@@ -37,4 +37,12 @@
       padding-left: 0;
     }
   }
+  & .walkthrough-labels {
+    float: left;
+    & .walkthrough-labels-tag {
+      display: inline;
+      position: inherit;
+      margin-right: 10px;
+    }
+  }
 }

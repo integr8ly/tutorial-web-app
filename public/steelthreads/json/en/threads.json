@@ -10,12 +10,14 @@
       "id": "1",
       "title": "Integrating event-driven and API-driven applications (AMQ)",
       "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using Red Hat AMQ.",
-      "estimatedTime": 15
+      "estimatedTime": 15,
+      "preview": true
     }, 
     {
       "id": "1A",
       "title": "Integrating API-driven applications",
       "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using EnMasse.",
-      "estimatedTime": 21
+      "estimatedTime": 21,
+      "preview": true
     }]
 }

@@ -74,7 +74,7 @@ class TaskPage extends React.Component {
         const hasVerifications = Object.keys(verifications).length > 0;
         if (currentProgress && currentProgress.threadStepsVerified && hasVerifications) {
           for (const property in verifications) {
-            if (verifications.hasOwnProperty(property)) {
+            if (verifications.hasOwnProperty(property) && currentProgress.threadStepsVerified[parsedTask.toString()]) {
               verifications[property] = currentProgress.threadStepsVerified[parsedTask.toString()][property];
             }
           }
