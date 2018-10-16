@@ -27,7 +27,7 @@ class WalkthroughResources extends React.Component {
         }
 
         resource.links.forEach(link => {
-          if (link.name === 'Open Console') {
+          if (link.type === 'console') {
             link.url = url;
           }
         });
@@ -42,23 +42,19 @@ class WalkthroughResources extends React.Component {
     let resourceList = null;
     if (resources && resources.length !== 0) {
       resourceList = resources.map(resource => {
-        let resourceLinks;
-        if (resource) {
-          resourceLinks = resource.links.map(link => (
-            <li key={link.name}>
-              <a href={link.url} target="top">
-                {link.name}
-              </a>
-            </li>
-          ));
-          return (
-            <div key={resource.title}>
-              <h4 className="integr8ly-helpful-links-product-title">{resource.title}</h4>
-              <ul className="list-unstyled">{resourceLinks}</ul>
-            </div>
-          );
-        }
-        return resourceLinks;
+        const resourceLinks = resource.links.map(link => (
+          <li key={link.name}>
+            <a href={link.url} target="top">
+              {link.name}
+            </a>
+          </li>
+        ));
+        return (
+          <div key={resource.title}>
+            <h4 className="integr8ly-helpful-links-product-title">{resource.title}</h4>
+            <ul className="list-unstyled">{resourceLinks}</ul>
+          </div>
+        );
       });
     }
     this.setState({ resourceList });
