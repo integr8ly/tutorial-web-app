@@ -125,6 +125,7 @@
   "resources": [
     {
       "title": "Red Hat OpenShift",
+      "serviceName": "openshift",
       "links": [
         {
           "name": "Open Console",
@@ -142,6 +143,7 @@
     },
     {
       "title": "Red Hat Fuse",
+      "serviceName": "fuse",
       "links": [
         {
           "name": "Open Console",
@@ -159,6 +161,7 @@
     },
     {
       "title": "Red Hat AMQ Online",
+      "serviceName": "enmasse-standard",
       "links": [
         {
           "name": "Open Console",

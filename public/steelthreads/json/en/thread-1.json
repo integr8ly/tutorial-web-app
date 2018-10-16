@@ -107,6 +107,7 @@
   "resources": [
     {
       "title": "Red Hat OpenShift",
+      "serviceName": "openshift",
       "links": [
         {
           "name": "Open Console",
@@ -124,6 +125,7 @@
     },
     {
       "title": "Red Hat Fuse",
+      "serviceName": "fuse",
       "links": [
         {
           "name": "Open Console",
@@ -141,6 +143,7 @@
     },
     {
       "title": "Red Hat AMQ",
+      "serviceName": "amq-broker-71-persistence",
       "links": [
         {
           "name": "Open Console",
