@@ -17,6 +17,13 @@ include::{partialsdir}/attributes-2.adoc[]
 ifdef::location[]
 // tag::intro[]
 
+Integrate an API that provides flight information, ensuring that the API is protected and rate limited.
+
+APIs are the ideal channel for organizations who want to reach audiences whenever, wherever, and however they choose. 
+This enables innovation, mobile and partner development.  
+However, it also exposes the hosting infrastructure and organization. 
+It is possible to protect and limit access to an API using {api-mgmt-service} as part of your integration.
+
 This walkthrough describes how to create such an integration, using OpenShift, {launcher-service}, {che-service} and {api-mgmt-service}.
 
 

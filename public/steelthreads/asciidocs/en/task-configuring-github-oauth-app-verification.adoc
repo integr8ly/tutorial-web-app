@@ -1,0 +1,1 @@
+Check *Developer Settings* in your GitHub account to make sure the OAuth app exists.

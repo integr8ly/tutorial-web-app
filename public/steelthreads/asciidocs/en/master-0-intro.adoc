@@ -1,0 +1,1 @@
+Unresolved directive in temp.adoc - include::../modules/ROOT/pages/master-0.adoc[tags=intro]

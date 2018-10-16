@@ -15,7 +15,7 @@
     {
       "id": "2",
       "title": "Integrating API-driven applications",
-      "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using EnMasse.",
+      "descriptionDoc": "Integrate an API that provides flight information, ensuring that the API is protected and rate limited.",
       "estimatedTime": 21
     }]
 }
