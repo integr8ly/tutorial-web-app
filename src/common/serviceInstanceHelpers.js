@@ -196,5 +196,5 @@ export {
   handleWalkthroughOneRoutes,
   MessagingAppServiceInstanceTransform,
   getDashboardUrl,
-  handleWalkthroughTwoRoutes,
+  handleWalkthroughTwoRoutes
 };

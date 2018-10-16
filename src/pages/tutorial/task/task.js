@@ -13,7 +13,7 @@ import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHel
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 
 class TaskPage extends React.Component {
-  state = { task: 0, verifications: {}, verificationsChecked: false, threadStepsVerified: {} };
+  state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
     this.loadThread();
@@ -77,7 +77,7 @@ class TaskPage extends React.Component {
         const hasVerifications = Object.keys(verifications).length > 0;
         if (currentProgress && currentProgress.threadStepsVerified && hasVerifications) {
           for (const property in verifications) {
-            if (verifications.hasOwnProperty(property)) {
+            if (verifications.hasOwnProperty(property) && currentProgress.threadStepsVerified[parsedTask.toString()]) {
               verifications[property] = currentProgress.threadStepsVerified[parsedTask.toString()][property];
             }
           }
@@ -114,7 +114,6 @@ class TaskPage extends React.Component {
 
     // Get the previous steps verified and the new steps verified.
     const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.data.id.toString());
-
     if (currentProgress !== undefined) {
       threadProgress.threadStepsVerified = currentProgress.threadStepsVerified;
       threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
