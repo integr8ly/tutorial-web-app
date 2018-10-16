@@ -3,7 +3,7 @@ import { DEFAULT_SERVICES, getDashboardUrl } from '../common/serviceInstanceHelp
 import { buildValidProjectNamespaceName, cleanUsername } from './openshiftHelpers';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
-  if (!walkthrough) {
+  if (!walkthrough || window.OPENSHIFT_CONFIG.mockData) {
     return {};
   }
 
