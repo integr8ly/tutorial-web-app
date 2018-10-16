@@ -1,1 +1,0 @@
-Some walkthroughs require access to your GitHub account. A GitHub OAuth app enables this integration.
