@@ -23,19 +23,19 @@ class CongratulationsPage extends React.Component {
           <Grid.Col xs={12} className="integr8ly-module integr8ly-module-congratulations mb-0">
             <div className="integr8ly-module-column">
               <div className="integr8ly-module-column--steps integr8ly-congratulations">
-                <span className="integr8ly-congratulations-logo" />
-                <span className="integr8ly-congratulations-icon" />
-                <h2 className="integr8ly-congratulations-heading">
+                <span className="integr8ly-congratulations_logo" />
+                <span className="integr8ly-congratulations_icon" />
+                <h2 className="integr8ly-congratulations_heading">
                   Congratulations, you completed the
                   <br /> &quot;Integrating event-driven and API-driven applications
                   {threadName}
                   &quot; <br /> walkthrough!
                 </h2>
-                <p className="integr8ly-congratulations-paragraph">
+                <p className="integr8ly-congratulations_paragraph">
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
                   you just built!
                 </p>
-                <div className="integr8ly-congratulations-buttons">
+                <div className="integr8ly-congratulations_buttons">
                   <Button onClick={e => this.exitTutorial(e)}> Return to Home Page </Button>
                   <Button> Launch OpenShift Console </Button>
                 </div>

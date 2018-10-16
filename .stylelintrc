@@ -1,0 +1,86 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": [ "always", {
+      "except": [
+        "blockless-after-same-name-blockless",
+        "first-nested"
+      ],
+      "ignore": ["after-comment"],
+      "ignoreAtRules": "else"
+    }],
+    "at-rule-name-space-after": "always",
+    "at-rule-no-vendor-prefix": true,
+    "at-rule-semicolon-space-before": "never",
+    "block-no-empty": true,
+    "block-closing-brace-newline-after": ["always", {
+      "ignoreAtRules": [
+        "if",
+        "else"
+      ]
+    }],
+    "color-named": "never",
+    "color-no-invalid-hex": true,
+    "comment-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": [
+        "after-comment",
+        "stylelint-commands"
+      ]
+    }],
+    "custom-property-pattern": "^integr8ly-(global|[lcud])-.+$",
+    "declaration-block-semicolon-newline-before": "never-multi-line",
+    "declaration-no-important": true,
+    "font-family-name-quotes": "always-where-recommended",
+    "font-weight-notation": "numeric",
+    "function-comma-newline-before": "never-multi-line",
+    "function-url-quotes": "always",
+    "max-empty-lines": 2,
+    "max-nesting-depth": 3,
+    "media-feature-name-no-vendor-prefix": true,
+    "media-feature-parentheses-space-inside": "never",
+    "media-query-list-comma-newline-before": "never-multi-line",
+    "no-descending-specificity": null,
+    "no-unknown-animations": true,
+    "number-leading-zero": "never",
+    "property-no-vendor-prefix": true,
+    "scss/declaration-nested-properties": "never",
+    "scss/dollar-variable-empty-line-before": ["always", {
+      "except": [
+        "first-nested",
+        "after-comment",
+        "after-dollar-variable"
+      ]
+    }],
+    "scss/double-slash-comment-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": [
+        "between-comments",
+        "stylelint-commands"
+      ]
+    }],
+    "scss/double-slash-comment-whitespace-inside": "always",
+    "scss/operator-no-unspaced": true,
+    "scss/dollar-variable-colon-space-after": "at-least-one-space",
+    "scss/dollar-variable-colon-space-before": "never",
+    "selector-attribute-quotes": "always",
+    "selector-class-pattern": "integr8ly-",
+    "selector-max-attribute": 2,
+    "selector-max-class": 4,
+    "selector-max-combinators": 4,
+    "selector-max-compound-selectors": 4,
+    "selector-max-id": 0,
+    "selector-max-type": 2,
+    "selector-max-universal": 1,
+    "selector-no-qualifying-type": true,
+    "selector-no-vendor-prefix": true,
+    "shorthand-property-no-redundant-values": true,
+    "string-quotes": "double",
+    "value-keyword-case": "lower",
+    "value-list-comma-newline-before": "never-multi-line",
+    "value-no-vendor-prefix": true
+  }
+}

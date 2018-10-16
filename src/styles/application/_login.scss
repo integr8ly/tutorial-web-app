@@ -8,7 +8,7 @@
   position: fixed;
 
   @media (min-width: $screen-sm-min) {
-    background-image: url(../../img/bg-login-2.png);
+    background-image: url("../../img/bg-login-2.png");
     background-position: 100% 100%;
     background-repeat: no-repeat;
     background-size: 30%;
@@ -16,7 +16,7 @@
 
   &-body {
     @media (min-width: $screen-sm-min) {
-      background-image: url(../../img/bg-login.png);
+      background-image: url("../../img/bg-login.png");
       background-repeat: no-repeat;
       background-size: 30%;
     }
@@ -25,11 +25,13 @@
   &-card {
     min-height: 360px;
 
+    /* stylelint-disable selector-class-pattern */
     .login-pf-header,
     .card-pf-body {
       margin-bottom: 0;
       margin-top: 0;
     }
+    /* stylelint-enable */
   }
 
   &-card-error {
