@@ -1,7 +1,0 @@
-
-// word count range that fits best is 15-22, with 20 really being the sweet spot. Character count for that space would be 100-125
-Prerequisite configuration tasks for your environment.
-
-
-To complete the walkthroughs in this environment, you need to configure your GitHub account as described in the following steps. You can also create and add additional users to the environment if you need to.
-
