@@ -47,3 +47,11 @@ ifdef::location[]
 Check the *Config Maps* values for the *messaging-service* configmap.
 // end::verification[]
 endif::location[]
+
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Editing node config map* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

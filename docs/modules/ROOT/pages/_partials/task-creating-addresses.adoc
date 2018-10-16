@@ -45,3 +45,10 @@ Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating addresses* procedure. If this still doesn't work, visit link:{enmasse-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

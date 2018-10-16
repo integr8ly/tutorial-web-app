@@ -112,3 +112,10 @@ Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, wind
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating Fuse integration* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

@@ -50,3 +50,5 @@
 . Click *Publish*.
 . When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
 
+
+
