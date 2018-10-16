@@ -32,3 +32,10 @@ Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, wi
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating API connector* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

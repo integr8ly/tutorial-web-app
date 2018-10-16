@@ -1,0 +1,1 @@
+Retry the *Creating connections* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.

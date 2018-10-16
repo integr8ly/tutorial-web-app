@@ -35,3 +35,10 @@ Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, windo
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating HTTP connection* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

@@ -33,3 +33,5 @@ Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShif
 
 . Choose *Do not bind at this time*.
 
+
+

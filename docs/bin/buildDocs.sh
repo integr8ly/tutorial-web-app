@@ -7,4 +7,5 @@ ls -1 ../modules/ROOT/pages/_partials/task* | grep -v attributes | grep -v '.unu
 ./createIntro.sh
 ./createTopIntro.sh
 ./createVer.sh
+./createVerNo.sh
 ./buildJson.sh

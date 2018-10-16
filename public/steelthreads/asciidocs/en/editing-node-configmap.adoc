@@ -35,3 +35,5 @@ Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_
 .. Navigate to the *Overview* screen and choose *Deploy* from the menu for the application.
 
 
+
+

@@ -56,3 +56,5 @@ app.post("/api/send-request", (req, resp) => {
 A new build of the app is automatically triggered in OpenShift.
 
 
+
+

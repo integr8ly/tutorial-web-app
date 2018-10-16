@@ -32,3 +32,10 @@ Check the *Overview* screen of the *eval* project in the link:{openshift-url}[Op
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating EnMasse binding* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

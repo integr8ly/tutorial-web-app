@@ -68,3 +68,11 @@ ifdef::location[]
 Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
 // end::verification[]
 endif::location[]
+
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating connections* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]
