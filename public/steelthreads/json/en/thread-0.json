@@ -56,6 +56,8 @@
     "messaging-service-version": "7.2",
     "integration-service": "Fuse",
     "integration-service-version": "7.1",
+    "che-service": "Che",
+    "launcher-service": "Launcher",
     "api-mgmt-service": "3Scale",
     "api-mgmt-service-version": "",
     "//gitlab.cee.redhat.com/AMQ7-documentation/amq7-documentation/raw/release-amq-7.2.x/common/attributes.adoc": "",

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## declare walkthrough variable
-declare -a arr=("0" "1" "1A")
+declare -a arr=("0" "1" "1A" "2")
 destDir="../../public/steelthreads/json/en"
 
 ## loop through the walkthrough array

@@ -1,1 +1,1 @@
-Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connector exists. Did you see it?
+Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connector exists.

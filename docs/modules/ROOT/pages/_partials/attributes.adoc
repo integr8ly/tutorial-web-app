@@ -14,6 +14,8 @@
 :messaging-service-version: 7.2
 :integration-service: Fuse
 :integration-service-version: 7.1
+:che-service: Che
+:launcher-service: Launcher
 :api-mgmt-service: 3Scale
 :api-mgmt-service-version: 
 

@@ -64,5 +64,6 @@ export {
   buildValidProjectNamespaceName,
   findOrCreateOpenshiftResource,
   findOpenshiftResource,
-  buildNamespacedServiceInstanceName
+  buildNamespacedServiceInstanceName,
+  cleanUsername
 };

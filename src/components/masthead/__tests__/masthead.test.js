@@ -6,6 +6,14 @@ import { ConnectedMasthead, Masthead } from '../masthead';
 describe('Masthead Component', () => {
   const generateEmptyStore = (obj = {}) => configureMockStore()(obj);
 
+  beforeAll(() => {
+    window.OPENSHIFT_CONFIG = {
+      mockData: {}
+    };
+  });
+
+  afterAll(() => delete window.OPENSHIFT_CONFIG);
+
   it('should render a basic component', () => {
     const store = generateEmptyStore({ userReducers: { session: { username: 'Admin' } } });
     const component = shallow(<ConnectedMasthead />, { context: { store } });

@@ -1,0 +1,4 @@
+
+. The *Response Code* is 200
+
+. The *Response Body* shows a *JSON Array* of flights

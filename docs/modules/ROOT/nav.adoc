@@ -2,3 +2,4 @@
 * xref:master-0.adoc[Configuring the environment]
 * xref:master-1.adoc[1. Integrating event-driven and API-driven applications (AMQ)]
 * xref:master-1A.adoc[1A. Integrating event-driven and API-driven applications (EnMasse)]
+* xref:master-2.adoc[2. Integrating API-driven applications]

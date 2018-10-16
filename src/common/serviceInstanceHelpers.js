@@ -89,7 +89,8 @@ const DEFAULT_SERVICES = {
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
   CRUD_APP: 'spring-boot-rest-http-crud',
-  MESSAGING_APP: 'nodejs-messaging-work-queue-frontend'
+  MESSAGING_APP: 'nodejs-messaging-work-queue-frontend',
+  FUSE_AGGREGATOR: 'fuse-flights-aggregator'
 };
 
 const DEFAULT_TRANSFORMS = [
@@ -164,6 +165,27 @@ const getDashboardUrl = si => {
   return '';
 };
 
+const handleWalkthroughTwoRoutes = (namespacePrefix, dispatch, event) => {
+  if (
+    event.type === OpenShiftWatchEvents.OPENED ||
+    event.type === OpenShiftWatchEvents.CLOSED ||
+    event.type === OpenShiftWatchEvents.DELETED
+  ) {
+    return;
+  }
+
+  const route = event.payload;
+  if (route && route.spec && route.spec.to && route.spec.to.name === DEFAULT_SERVICES.FUSE_AGGREGATOR) {
+    dispatch({
+      type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
+      payload: {
+        prefix: namespacePrefix,
+        data: route
+      }
+    });
+  }
+};
+
 export {
   buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj,
@@ -173,5 +195,6 @@ export {
   EnMasseServiceInstanceTransform,
   handleWalkthroughOneRoutes,
   MessagingAppServiceInstanceTransform,
-  getDashboardUrl
+  getDashboardUrl,
+  handleWalkthroughTwoRoutes
 };

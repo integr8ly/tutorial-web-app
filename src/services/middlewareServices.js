@@ -84,6 +84,10 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  */
 const manageMiddlewareServices = dispatch => {
   currentUser().then(user => {
+    dispatch({
+      type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
+      payload: { provisioningUser: user.username }
+    });
     const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
     const namespaceObj = namespaceResource(userNamespace);
     const namespaceRequestObj = namespaceRequestResource(userNamespace);

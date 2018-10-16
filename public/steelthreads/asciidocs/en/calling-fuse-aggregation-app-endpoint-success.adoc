@@ -1,0 +1,14 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+
+[id='calling-fuse-aggregation-app-endpoint-success_{context}']
+= calling-fuse-aggregation-app-endpoint-success
+
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`
+. Select the *Try it out!* button
+
+
+
+

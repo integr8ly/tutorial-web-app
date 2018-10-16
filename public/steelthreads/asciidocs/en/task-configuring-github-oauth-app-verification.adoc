@@ -1,1 +1,1 @@
-Check *Developer Settings* in your GitHub account to make sure the OAuth app exists. Do you see it?
+Check *Developer Settings* in your GitHub account to make sure the OAuth app exists.

@@ -1,0 +1,1 @@
+The Fuse Aggregation App can be deployed using Launcher.

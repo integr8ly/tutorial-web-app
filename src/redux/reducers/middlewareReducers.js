@@ -10,6 +10,7 @@ const initialState = {
     fulfilled: false,
     enmasseCredentials: {},
     amqCredentials: {},
+    provisioningUser: null,
     data: {}
   }
 };
@@ -53,6 +54,14 @@ const middlewareReducers = (state = initialState, action) => {
           password: action.payload.password,
           url: action.payload.url
         }
+      }
+    });
+  }
+  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER)) {
+    return Object.assign({}, state, {
+      middlewareServices: {
+        ...state.middlewareServices,
+        provisioningUser: action.payload.provisioningUser
       }
     });
   }

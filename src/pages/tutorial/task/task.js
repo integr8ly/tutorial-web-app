@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Alert, Button, ButtonGroup, Radio, Grid, Icon } from 'patternfly-react';
+import { noop, Alert, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -17,12 +17,15 @@ class TaskPage extends React.Component {
 
   componentDidMount() {
     this.loadThread();
-    const { prepareWalkthroughOne, prepareWalkthroughOneA } = this.props;
+    const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
     }
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE_A) {
       prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
+    }
+    if (this.props.match.params.id === WALKTHROUGH_IDS.TWO) {
+      prepareWalkthroughTwo();
     }
   }
 
@@ -74,7 +77,7 @@ class TaskPage extends React.Component {
         const hasVerifications = Object.keys(verifications).length > 0;
         if (currentProgress && currentProgress.threadStepsVerified && hasVerifications) {
           for (const property in verifications) {
-            if (verifications.hasOwnProperty(property)) {
+            if (verifications.hasOwnProperty(property) && currentProgress.threadStepsVerified[parsedTask.toString()]) {
               verifications[property] = currentProgress.threadStepsVerified[parsedTask.toString()][property];
             }
           }
@@ -111,7 +114,6 @@ class TaskPage extends React.Component {
 
     // Get the previous steps verified and the new steps verified.
     const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.data.id.toString());
-
     if (currentProgress !== undefined) {
       threadProgress.threadStepsVerified = currentProgress.threadStepsVerified;
       threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
@@ -387,7 +389,7 @@ class TaskPage extends React.Component {
                                     }
                                   >
                                     <AsciiDocTemplate
-                                      adoc={step.infoVerificationsNo[0]}
+                                      adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
                                       attributes={Object.assign(
                                         {},
                                         thread.data.attributes,
@@ -405,7 +407,7 @@ class TaskPage extends React.Component {
                               <strong>{t('task.verificationTitle')}</strong>
                               <AsciiDocTemplate
                                 adoc={verification}
-                                attributes={Object.assign({}, threadTask.attributes, step.attributes, attrs)}
+                                attributes={Object.assign({}, thread.data.attributes, step.attributes, attrs)}
                               />
                             </Alert>
                           ))}
@@ -544,6 +546,7 @@ TaskPage.propTypes = {
   prepareWalkthroughOne: PropTypes.func,
   prepareWalkthroughOneA: PropTypes.func,
   getProgress: PropTypes.func,
+  prepareWalkthroughTwo: PropTypes.func,
   setProgress: PropTypes.func,
   thread: PropTypes.object,
   user: PropTypes.object
@@ -571,6 +574,7 @@ TaskPage.defaultProps = {
   prepareWalkthroughOne: noop,
   prepareWalkthroughOneA: noop,
   getProgress: noop,
+  prepareWalkthroughTwo: noop,
   setProgress: noop,
   thread: null,
   user: null
@@ -582,6 +586,7 @@ const mapDispatchToProps = dispatch => ({
   prepareWalkthroughOneA: enmasseCredentials =>
     prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
   getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
+  prepareWalkthroughTwo: () => prepareWalkthroughNamespace(dispatch, walkthroughs.two, null),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress))
 });
 

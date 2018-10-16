@@ -14,6 +14,11 @@
     }, 
     {
       "id": "1A",
+      "title": "Integrating event-driven and API-driven applications (EnMasse)",
+      "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using EnMasse."
+    }, 
+    {
+      "id": "2",
       "title": "Integrating API-driven applications",
       "descriptionDoc": "Build a simple integration that enables a new fruit type to be added to an inventory list for a fictional grocery using EnMasse.",
       "estimatedTime": 21
