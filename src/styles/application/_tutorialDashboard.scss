@@ -1,27 +1,34 @@
 .integr8ly-tutorial-dashboard {
   margin-bottom: 0;
   background-color: $pf-color-black-150;
+
   @media (max-width: 1091px) {
     width: 100%;
-    .card-pf-body {
+
+    .card-pf-body { /* stylelint-disable-line selector-class-pattern */
       min-height: 270px;
     }
   }
+
   @media (min-width: 1092px) {
     width: 66.6%;
-    .card-pf-body {
+
+    .card-pf-body { /* stylelint-disable-line selector-class-pattern */
       min-height: 250px;
     }
   }
-  & .panel-title {
+
+  & .panel-title { /* stylelint-disable-line selector-class-pattern */
     display: flex;
     border: none;
+
     & h2 {
       flex-basis: 50%;
       margin-top: 5px;
       color: #282d33;
     }
-    .walkthrough-counter {
+
+    .walkthrough-counter { /* stylelint-disable-line selector-class-pattern */
       flex-basis: 50%;
       margin-top: 16px;
       text-align: right;
@@ -30,8 +37,9 @@
       font-weight: 600;
     }
   }
-  & .panel-content {
-    .container-cards-pf {
+
+  & .panel-content { /* stylelint-disable-line selector-class-pattern */
+    .container-cards-pf { /* stylelint-disable-line selector-class-pattern */
       margin-top: 0;
       padding-right: 0;
       padding-left: 0;

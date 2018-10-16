@@ -1,80 +1,81 @@
+.integr8ly-loadingscreen {
+  &-backdrop {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-size: cover;
+    z-index: 4;
+  }
 
-.loadingscreen-backdrop {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-size:cover;
-  z-index: 4;
-}
+  &-logo {
+    background-size: cover;
+    z-index: 4;
+    height: 36px;
+    width: 113px;
+    position: absolute;
+    top: 91px;
+    right: 50px;
+  }
 
-.loadingscreen-logo {
-  background-size: cover;
-  z-index: 4;
-  height: 36px;
-  width: 113px;
-  position: absolute;
-  top: 91px;
-  right: 50px;
-}
+  &-throbber {
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    bottom: 30%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 4;
+  }
 
-.loadingscreen-throbber {
-  display: inline-block;
-  position: fixed;
-  top: 0;
-  bottom: 30%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  z-index: 4;
-}
+  &-text {
+    display: inline-block;
+    position: fixed;
+    color: $pf-color-white;
+    text-align: center;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 45%;
+    height: 15%;
+    margin: auto;
+    z-index: 4;
+  }
 
-.loadingscreen-text {
-  display: inline-block;
-  position: fixed;
-  color: $pf-color-white;
-  text-align: center;
-  top: 50%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 45%;
-  height: 15%;
-  margin: auto;
-  z-index: 4;
-}
+  &-progressbar {
+    display: inline-block;
+    position: fixed;
+    top: 65%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 50%;
+    margin: auto;
+    z-index: 4;
+    background-color: transparent;
+    border: 2px solid $pf-color-white;
+    color: $pf-color-white;
 
-.loadingscreen-progressbar {
-  display: inline-block;
-  position: fixed;
-  top: 65%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 50%;
-  margin: auto;
-  z-index: 4;
-  background-color: transparent;
-  border: 2px solid $pf-color-white;
-  color: $pf-color-white;
-}
+    & .progress-bar { /* stylelint-disable-line selector-class-pattern */
+      background-color: $pf-color-white;
+      background-image: none;
+    }
+  }
 
-.loadingscreen-progressbar .progress-bar {
-  background-color: $pf-color-white;
-  background-image: none;  
-}
-
-.loadingscreen-progress-label {
-  display: inline-block;
-  position: fixed;
-  top: 65%;
-  bottom: 0;
-  left: 54%;
-  right: 0;
-  width: 25px;
-  height: 25px;
-  margin: auto;
-  z-index: 4;
-  color: $pf-color-white;
+  &-progress-label {
+    display: inline-block;
+    position: fixed;
+    top: 65%;
+    bottom: 0;
+    left: 54%;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    z-index: 4;
+    color: $pf-color-white;
+  }
 }

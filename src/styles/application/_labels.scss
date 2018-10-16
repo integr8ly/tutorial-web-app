@@ -1,5 +1,5 @@
-.integr8ly {
-  &-label-community {
+.integr8ly-label {
+  &-community {
     position: absolute;
     right: 25px;
     padding: 2px 8px;
@@ -10,7 +10,8 @@
     font-size: $pf-global--FontSize--xs !important; /* stylelint-disable-line declaration-no-important */
     font-weight: $pf-global--FontWeight--bold;
   }
-  &-label-preview {
+
+  &-preview {
     position: absolute;
     right: 25px;
     padding: 2px 8px;

@@ -1,20 +1,25 @@
+/* stylelint-disable selector-class-pattern */
 .navbar {
   height: 40px;
   min-height: 40px;
   z-index: 5;
 }
+
 .navbar-pf-vertical {
   .navbar-brand {
     padding: 8px 0 0;
     min-height: auto;
+
     .navbar-brand-name {
       height: auto;
     }
   }
+
   .nav .nav-item-iconic {
     padding: 10px 12px;
   }
 }
+
 // Setup for internal vertical scroll
 .integr8ly-app-content {
   bottom: 0;
@@ -26,6 +31,7 @@
   .collapsed-nav & {
     left: $nav-pf-vertical-collapsed-width;
   }
+
   .hidden-nav & {
     left: 0;
   }
@@ -36,10 +42,13 @@
     border: 0;
     width: 0;
   }
+
   .container-pf-nav-pf-vertical {
     margin-left: 0;
   }
+
   .navbar-toggle {
     visibility: hidden;
   }
 }
+/* stylelint-enable */

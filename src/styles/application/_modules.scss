@@ -1,13 +1,15 @@
-div.olist ol.arabic {
+/* stylelint-disable selector-class-pattern */
+.olist .arabic {
   padding-left: 15px;
 }
 
 .integr8ly-list-view-pf {
   .list-view-pf-description {
-    flex: 1 !important;
+    flex: 1 !important; /* stylelint-disable-line declaration-no-important */
   }
 
   .list-group-item:hover {
     background-color: $pf-color-white;
   }
 }
+/* stylelint-enable */

@@ -1,5 +1,5 @@
 .integr8ly-congratulations {
-  background-image: url(../../img/congratulations_bg.png);
+  background-image: url("../../img/congratulations_bg.png");
   background-color: $pf-color-blue-600;
   background-repeat: no-repeat;
   background-position: top right;
@@ -13,8 +13,9 @@
   align-items: center;
   color: $pf-color-white;
   text-align: center;
-  &-logo {
-    background-image: url(../../img/RedHatLogo.png);
+
+  &_logo {
+    background-image: url("../../img/RedHatLogo.png");
     background-repeat: no-repeat;
     position: absolute;
     top: 45px;
@@ -22,8 +23,9 @@
     height: 38px;
     width: 115px;
   }
-  &-icon {
-    background-image: url(../../img/congratulations.svg);
+
+  &_icon {
+    background-image: url("../../img/congratulations.svg");
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
@@ -32,10 +34,12 @@
     width: 198px;
     margin-bottom: 16px;
   }
-  &-paragraph {
+
+  &_paragraph {
     margin-bottom: 28px;
   }
-  &-buttons {
+
+  &_buttons {
     button {
       &:first-of-type {
         margin-right: 20px;
