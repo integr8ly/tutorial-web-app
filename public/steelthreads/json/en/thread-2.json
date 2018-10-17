@@ -131,5 +131,86 @@
     "EnMasse-master-ProductLongName": "EnMasse",
     "walkthrough": "Integrating API-driven applications",
     "dummy": "value"
-  }
+  },
+  "resources": [
+    {
+      "title": "Red Hat OpenShift",
+      "serviceName": "openshift",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/",
+          "type": "console"
+        },
+        {
+          "name": "Openshift Online Help Center",
+          "url": "https://help.openshift.com/",
+          "type": "info"
+        },
+        {
+          "name": "Openshift Blog",
+          "url": "https://blog.openshift.com/",
+          "type": "info"
+        }
+      ]
+    },
+    {
+      "title": "Launcher",
+      "serviceName": "launcher",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/",
+          "type": "console"
+        },
+        {
+          "name": "Launcher Documentation",
+          "url": "https://launcher.fabric8.io/docs/",
+          "type": "info"
+        }
+      ]
+    },
+    {
+      "title": "Eclipse Che",
+      "serviceName": "che",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/",
+          "type": "console"
+        },
+        {
+          "name": "Eclipse Che Overview",
+          "url": "https://developers.redhat.com/products/che/overview/",
+          "type": "info"
+        },
+        {
+          "name": "Eclipse Che Documentation",
+          "url": "https://www.eclipse.org/che/docs/index.html",
+          "type": "info"
+        }
+      ]
+    },
+    {
+      "title": "3Scale",
+      "serviceName": "3scale",
+      "links": [
+        {
+          "name": "Open Console",
+          "url": "https://url/",
+          "type": "console"
+        },
+        {
+          "name": "3Scale Overview",
+          "url": "https://developers.redhat.com/products/3scale/overview/",
+          "type": "info"
+        },
+        {
+          "name": "3Scale Website",
+          "url": "https://www.3scale.net/",
+          "type": "info"
+        }
+      ]
+    }
+  ]
 }
