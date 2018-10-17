@@ -10,6 +10,6 @@ This walkthrough describes how to create such an integration, using OpenShift, {
 
 
 ++++
-<img src="/images/st2.png" class="img-responsive" alt="integration">
+<img src="/images/wt2.png" class="img-responsive" alt="integration">
 ++++
 
