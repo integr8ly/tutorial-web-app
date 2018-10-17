@@ -17,19 +17,6 @@ class LoadingScreen extends React.Component {
       return '';
     }
 
-    const backdropStyle = {
-      opacity: this.props.backdropOpacity
-    };
-    if (this.props.backdropImage !== null) {
-      backdropStyle.backgroundImage = `url("${this.props.backdropImage}")`;
-    } else {
-      backdropStyle.backgroundColor = this.props.backdropColor;
-    }
-
-    const logoStyle = {
-      backgroundImage: `url(" ${this.props.logo}")`
-    };
-
     return (
       <React.Fragment>
         <div className="integr8ly-loadingscreen">
@@ -40,7 +27,7 @@ class LoadingScreen extends React.Component {
           )}
           <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
             Loading...
-            </object>
+          </object>
           <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
             {this.props.loadingText}
             <br />
@@ -51,19 +38,15 @@ class LoadingScreen extends React.Component {
             <span className="integr8ly-loadingscreen-progress-label">{this.props.progress}%</span>
           </div>
         </div>
-      </React.Fragment >
+      </React.Fragment>
     );
   }
 }
 
 LoadingScreen.propTypes = {
   showBackdrop: PropTypes.bool,
-  backdropImage: PropTypes.string,
-  backdropColor: PropTypes.string,
-  backdropOpacity: PropTypes.string,
   progress: PropTypes.number,
   throbberImage: PropTypes.string,
-  logo: PropTypes.string,
   loadingText: PropTypes.string,
   standbyText: PropTypes.string,
   hideDelay: PropTypes.number
@@ -72,10 +55,6 @@ LoadingScreen.propTypes = {
 LoadingScreen.defaultProps = {
   hideDelay: 2500,
   showBackdrop: true,
-  backdropImage: require('./resources/backdrop.png'),
-  backdropColor: '#000',
-  backdropOpacity: '1',
-  logo: require('./resources/RedHatLogo.png'),
   progress: 0,
   throbberImage: require('./resources/StartingServices_Final.svg'),
   loadingText: 'Loading...',

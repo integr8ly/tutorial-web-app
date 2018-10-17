@@ -336,18 +336,62 @@ class TaskPage extends React.Component {
                                   </ButtonGroup>
                                 </Alert>
                               ) : (
-                                  <Alert
-                                    type={
+                                <Alert
+                                  type={
+                                    step.infoVerifications && verifications[step.infoVerifications[0]]
+                                      ? 'success'
+                                      : 'error'
+                                  }
+                                  className="alert alert-default"
+                                  key={j}
+                                >
+                                  <strong>{t('task.verificationTitle')}</strong>
+                                  <AsciiDocTemplate
+                                    adoc={verification}
+                                    attributes={Object.assign(
+                                      {},
+                                      thread.data.attributes,
+                                      step.attributes,
+                                      this.getDocsAttributes()
+                                    )}
+                                  />
+                                  <ButtonGroup>
+                                    <Radio
+                                      checked={
+                                        step.infoVerifications && verifications[step.infoVerifications[0]]
+                                          ? 'checked'
+                                          : ''
+                                      }
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleYesVerification(e, verification);
+                                      }}
+                                    >
+                                      Yes
+                                    </Radio>
+                                    <Radio
+                                      checked={
+                                        step.infoVerifications && verifications[step.infoVerifications[0]]
+                                          ? ''
+                                          : 'checked'
+                                      }
+                                      name={step.stepDoc}
+                                      onChange={e => {
+                                        this.handleNoVerification(e, verification);
+                                      }}
+                                    >
+                                      No
+                                    </Radio>
+                                  </ButtonGroup>
+                                  <span
+                                    className={
                                       step.infoVerifications && verifications[step.infoVerifications[0]]
-                                        ? 'success'
-                                        : 'error'
+                                        ? 'hidden'
+                                        : 'show'
                                     }
-                                    className="alert alert-default"
-                                    key={j}
                                   >
-                                    <strong>{t('task.verificationTitle')}</strong>
                                     <AsciiDocTemplate
-                                      adoc={verification}
+                                      adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
                                       attributes={Object.assign(
                                         {},
                                         thread.data.attributes,
@@ -355,53 +399,9 @@ class TaskPage extends React.Component {
                                         this.getDocsAttributes()
                                       )}
                                     />
-                                    <ButtonGroup>
-                                      <Radio
-                                        checked={
-                                          step.infoVerifications && verifications[step.infoVerifications[0]]
-                                            ? 'checked'
-                                            : ''
-                                        }
-                                        name={step.stepDoc}
-                                        onChange={e => {
-                                          this.handleYesVerification(e, verification);
-                                        }}
-                                      >
-                                        Yes
-                                    </Radio>
-                                      <Radio
-                                        checked={
-                                          step.infoVerifications && verifications[step.infoVerifications[0]]
-                                            ? ''
-                                            : 'checked'
-                                        }
-                                        name={step.stepDoc}
-                                        onChange={e => {
-                                          this.handleNoVerification(e, verification);
-                                        }}
-                                      >
-                                        No
-                                    </Radio>
-                                    </ButtonGroup>
-                                    <span
-                                      className={
-                                        step.infoVerifications && verifications[step.infoVerifications[0]]
-                                          ? 'hidden'
-                                          : 'show'
-                                      }
-                                    >
-                                      <AsciiDocTemplate
-                                        adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
-                                        attributes={Object.assign(
-                                          {},
-                                          thread.data.attributes,
-                                          step.attributes,
-                                          this.getDocsAttributes()
-                                        )}
-                                      />
-                                    </span>
-                                  </Alert>
-                                )
+                                  </span>
+                                </Alert>
+                              )
                           )}
                         {step.successVerifications &&
                           step.successVerifications.map((verification, c) => (
