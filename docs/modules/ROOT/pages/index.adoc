@@ -4,7 +4,7 @@
 :chapter-label:
 :integreatly: Integreatly
 
-// Book Title
+
 = Integreatly Walkthroughs
 
 * xref:master-0.adoc[Configuring the environment]
