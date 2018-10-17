@@ -164,6 +164,11 @@
           "type": "console"
         },
         {
+          "name": "Launcher Overview",
+          "url": "https://developers.redhat.com/products/openshiftio/overview/",
+          "type": "info"
+        },
+        {
           "name": "Launcher Documentation",
           "url": "https://launcher.fabric8.io/docs/",
           "type": "info"
