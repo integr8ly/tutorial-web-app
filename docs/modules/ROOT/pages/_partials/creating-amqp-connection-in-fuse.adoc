@@ -47,3 +47,11 @@ ifdef::location[]
 Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
 endif::location[]
+
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Creating AMQP connection in Red Hat Fuse Online* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

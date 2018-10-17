@@ -57,3 +57,5 @@
 .. You should see a green notification with a message of *Pushed to Origin*
 .. A new build will be triggered in OpenShift and rollout the new changes to the *Fuse Aggregation App*
 
+
+

@@ -9,3 +9,5 @@
 . Select the *Analytics* tab from the top menu
 . Select *{fuse-aggregator-app-name}* from the *Monitoring* section
 
+
+
