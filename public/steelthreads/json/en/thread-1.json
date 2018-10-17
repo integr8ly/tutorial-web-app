@@ -107,52 +107,64 @@
   "resources": [
     {
       "title": "Red Hat OpenShift",
+      "serviceName": "openshift",
       "links": [
         {
           "name": "Open Console",
-          "url": "https://url/"
+          "url": "https://url/",
+          "type": "console"
         },
         {
           "name": "OpenShift Online Help Center",
-          "url": "https://help.openshift.com/"
+          "url": "https://help.openshift.com/",
+          "type": "info"
         },
         {
           "name": "OpenShift Blog",
-          "url": "https://blog.openshift.com/"
+          "url": "https://blog.openshift.com/",
+          "type": "info"
         }
       ]
     },
     {
       "title": "Red Hat Fuse",
+      "serviceName": "fuse",
       "links": [
         {
           "name": "Open Console",
-          "url": "https://url/"
+          "url": "https://url/",
+          "type": "console"
         },
         {
           "name": "Fuse Community Q&A",
-          "url": "https://developers.redhat.com/products/fuse/help/"
+          "url": "https://developers.redhat.com/products/fuse/help/",
+          "type": "info"
         },
         {
           "name": "Fuse Overview",
-          "url": "https://developers.redhat.com/videos/vimeo/95497167/"
+          "url": "https://developers.redhat.com/videos/vimeo/95497167/",
+          "type": "info"
         }
       ]
     },
     {
       "title": "Red Hat AMQ",
+      "serviceName": "amq-broker-71-persistence",
       "links": [
         {
           "name": "Open Console",
-          "url": "https://url/"
+          "url": "https://url/",
+          "type": "console"
         },
         {
           "name": "AMQ Community Q&A",
-          "url": "https://developers.redhat.com/products/amq/help/"
+          "url": "https://developers.redhat.com/products/amq/help/",
+          "type": "info"
         },
         {
           "name": "AMQ Videos",
-          "url": "https://access.redhat.com/products/red-hat-amq"
+          "url": "https://access.redhat.com/products/red-hat-amq",
+          "type": "info"
         }
       ]
     }
