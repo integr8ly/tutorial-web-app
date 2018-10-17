@@ -72,3 +72,10 @@ Note that the build and redeploy may take a minute.
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Modifying the Fuse Aggregation App* procedure. If this still doesn't work, visit link:{fuse-aggregator-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

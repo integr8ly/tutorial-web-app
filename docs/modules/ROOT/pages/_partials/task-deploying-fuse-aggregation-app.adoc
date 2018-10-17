@@ -65,3 +65,10 @@ The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Deploying the Fuse Aggregation App* procedure. If this still doesn't work, visit link:{fuse-aggregator-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

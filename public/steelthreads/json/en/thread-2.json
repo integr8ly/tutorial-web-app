@@ -22,7 +22,7 @@
           "infoVerifications": [
             "task-deploying-fuse-aggregation-app-verification.adoc"
           ],
-          "infoVerficiationsNo": [
+          "infoVerificationsNo": [
             "task-deploying-fuse-aggregation-app-verification-no.adoc"
           ]
         }
@@ -36,6 +36,9 @@
           "stepDoc": "task-modifying-fuse-aggregation-app.adoc",
           "infoVerifications": [
             "task-modifying-fuse-aggregation-app-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "task-modifying-fuse-aggregation-app-verification-no.adoc"
           ]
         }
       ]
@@ -48,24 +51,36 @@
           "stepDoc": "api-management-login.adoc",
           "infoVerifications": [
             "api-management-login-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "api-management-login-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "add-fuse-aggregation-app-endpoint.adoc",
           "infoVerifications": [
             "add-fuse-aggregation-app-endpoint-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "add-fuse-aggregation-app-endpoint-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "fuse-aggregation-app-endpoint-limits.adoc",
           "infoVerifications": [
             "fuse-aggregation-app-endpoint-limits-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "fuse-aggregation-app-endpoint-limits-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "fuse-aggregation-app-endpoint-activedocs.adoc",
           "infoVerifications": [
             "fuse-aggregation-app-endpoint-activedocs-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "fuse-aggregation-app-endpoint-activedocs-verification-no.adoc"
           ]
         }
       ]
@@ -78,24 +93,36 @@
           "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-user-key.adoc",
           "infoVerifications": [
             "calling-fuse-aggregation-app-endpoint-fail-user-key-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "calling-fuse-aggregation-app-endpoint-fail-user-key-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "calling-fuse-aggregation-app-endpoint-success.adoc",
           "infoVerifications": [
             "calling-fuse-aggregation-app-endpoint-success-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "calling-fuse-aggregation-app-endpoint-success-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-limits.adoc",
           "infoVerifications": [
             "calling-fuse-aggregation-app-endpoint-fail-limits-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "calling-fuse-aggregation-app-endpoint-fail-limits-verification-no.adoc"
           ]
         },
         {
           "stepDoc": "fuse-aggregation-app-endpoint-activity-monitoring.adoc",
           "infoVerifications": [
             "fuse-aggregation-app-endpoint-activity-monitoring-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "fuse-aggregation-app-endpoint-activity-monitoring-verification-no.adoc"
           ]
         }
       ]

@@ -150,3 +150,10 @@ The *Airport Flights REST API* ActiveDoc is created and has a *List all flights*
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Create a new spec* procedure. If this still doesn't work, visit link:{api-management-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]

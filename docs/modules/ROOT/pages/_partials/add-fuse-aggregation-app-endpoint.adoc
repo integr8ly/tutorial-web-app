@@ -38,3 +38,10 @@ However, it is OK at this time for a *403: Authentication failed* message to be 
 // end::verification[]
 endif::location[]
 
+ifdef::location[]
+
+.VerificationNo
+// tag::verificationNo[]
+Retry the *Add the Fuse Aggregation App Endpoint to the {3Scale-ProductName}* procedure. If this still doesn't work, visit link:{api-management-url}[this link, window="_blank"] to find additional help.
+// end::verificationNo[]
+endif::location[]
