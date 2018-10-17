@@ -15,7 +15,7 @@
   "tasks": [
     {
       "title": "Deploying the Fuse Aggregation App",
-      "estimatedTime": 5,
+      "estimatedTime": 10,
       "steps": [
         {
           "stepDoc": "task-deploying-fuse-aggregation-app.adoc",
@@ -30,7 +30,7 @@
     },
     {
       "title": "Modifying the Fuse Aggregation App to aggregate data from 2 API Servers",
-      "estimatedTime": 10,
+      "estimatedTime": 15,
       "steps": [
         {
           "stepDoc": "task-modifying-fuse-aggregation-app.adoc",
@@ -42,7 +42,7 @@
     },
     {
       "title": "Managing the Fuse Aggregation App endpoint",
-      "estimatedTime": 15,
+      "estimatedTime": 30,
       "steps": [
         {
           "stepDoc": "api-management-login.adoc",
@@ -72,7 +72,7 @@
     },
     {
       "title": "Calling Fuse Aggregation App endpoint",
-      "estimatedTime": 30,
+      "estimatedTime": 5,
       "steps": [
         {
           "stepDoc": "calling-fuse-aggregation-app-endpoint-fail-user-key.adoc",
