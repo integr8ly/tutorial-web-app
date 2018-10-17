@@ -69,7 +69,7 @@ objects:
           - name: SSO_ROUTE
             value: ${SSO_ROUTE}
           image: ${WEBAPP_IMAGE}:${WEBAPP_IMAGE_TAG}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: tutorial-web-app
           ports:
           - containerPort: 5001
