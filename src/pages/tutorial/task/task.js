@@ -82,9 +82,11 @@ class TaskPage extends React.Component {
             }
           }
         }
+
+        const verificationsChecked = Object.values(verifications).every(v => v === true);
         this.setState({
           verifications,
-          verificationsChecked: !hasVerifications
+          verificationsChecked
         });
       });
     }
