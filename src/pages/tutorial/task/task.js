@@ -13,12 +13,15 @@ import WalkthroughResources from '../../../components/walkthroughResources/walkt
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
+import { retrieveOverviewFromAdoc } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {}, verificationsChecked: false };
 
   componentDidMount() {
-    this.loadThread();
+    const { getWalkthrough, match: { params: { id } } } = this.props;
+    getWalkthrough(id);
+    //this.loadThread();
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
@@ -28,6 +31,10 @@ class TaskPage extends React.Component {
     }
     if (this.props.match.params.id === WALKTHROUGH_IDS.TWO) {
       prepareWalkthroughTwo();
+    }
+    const currentProgress = this.getStoredProgressForCurrentTask();
+    if (!!currentProgress) {
+      this.setState({ verifications: currentProgress });
     }
   }
 
@@ -39,10 +46,44 @@ class TaskPage extends React.Component {
     } = this.props;
     if (!Number.isNaN(id)) {
       const parsedTask = parseInt(task, 10);
-      if (id !== this.state.id || parsedTask !== this.state.task) {
-        this.loadThread();
+      if (id !== this.state.id || parsedTask !== task) {
+        //this.loadThread();
       }
     }
+  }
+
+  getStoredProgressForCurrentTask = () => {
+    const {
+      match: {
+        params: { id, task }
+      }
+    } = this.props;
+    const currentUsername = window.localStorage.getItem('currentUserName');
+    const currentProgress = JSON.parse(localStorage.getItem(`walkthroughProgress_${currentUsername}`));
+    if (!currentProgress || !currentProgress[id] || !currentProgress[id][task]) {
+      return {};
+    }
+    return currentProgress[id][task];
+  }
+
+  updateStoredProgressForCurrentTask = (verificationState) => {
+    const {
+      match: {
+        params: { id, task }
+      }
+    } = this.props;
+    const currentUsername = window.localStorage.getItem('currentUserName');
+    const oldProgressJSON = localStorage.getItem(`walkthroughProgress_${currentUsername}`);
+    const oldProgress = JSON.parse(oldProgressJSON) || {};
+    if (!oldProgress[id]) {
+      oldProgress[id] = {};
+    }
+    if (!oldProgress[id][task]) {
+      oldProgress[id][task] = {};
+    }
+    oldProgress[id][task] = verificationState;
+
+    localStorage.setItem(`walkthroughProgress_${currentUsername}`, JSON.stringify(oldProgress));
   }
 
   loadThread() {
@@ -93,6 +134,16 @@ class TaskPage extends React.Component {
     }
   }
 
+  getVerificationsForTask = task => {
+    let verifications = [];
+    task.steps.forEach(step => verifications = verifications.concat(this.getVerificationsForStep(step)));
+    return verifications;
+  }
+
+  getVerificationsForStep = step => {
+    return step.blocks.filter(block => block.isVerification);
+  }
+
   getTotalSteps = tasks => {
     let totalSteps = 0;
     tasks.forEach(task => {
@@ -103,71 +154,6 @@ class TaskPage extends React.Component {
       });
     });
     return totalSteps;
-  };
-
-  updateThreadState = () => {
-    const { thread, setProgress, user } = this.props;
-    const { task } = this.state;
-    const threadProgress = {
-      threadId: thread.data.id.toString(),
-      threadStepsVerified: this.state.verifications,
-      totalTasks: thread.data.tasks.length,
-      totalSteps: this.getTotalSteps(thread.data.tasks)
-    };
-
-    // Get the previous steps verified and the new steps verified.
-    const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.data.id.toString());
-    if (currentProgress !== undefined) {
-      threadProgress.threadStepsVerified = currentProgress.threadStepsVerified;
-      threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
-    } else {
-      threadProgress.threadStepsVerified = {};
-      threadProgress.threadStepsVerified[this.state.task] = this.state.verifications;
-    }
-
-    let stepsCompleted = 0;
-    // Calculate how many steps have been completed.
-    for (const threadProperty in threadProgress.threadStepsVerified) {
-      if (threadProgress.threadStepsVerified.hasOwnProperty(threadProperty)) {
-        for (const stepProperty in threadProgress.threadStepsVerified[threadProperty]) {
-          if (
-            threadProgress.threadStepsVerified[threadProperty].hasOwnProperty(stepProperty) &&
-            threadProgress.threadStepsVerified[threadProperty][stepProperty] === true
-          ) {
-            stepsCompleted++;
-          }
-        }
-      }
-    }
-
-    // Check if this task is completed.
-    let lastTaskCompleted = task;
-    for (const step in this.state.verifications) {
-      if (this.state.verifications[step] === undefined || this.state.verifications[step] === false) {
-        lastTaskCompleted = task === 0 ? 0 : task - 1;
-        break;
-      }
-    }
-
-    threadProgress.task = lastTaskCompleted;
-    threadProgress.progress = Math.round((stepsCompleted / threadProgress.totalSteps) * 100);
-    const progress = Object.assign({}, user.userProgress);
-
-    if (progress.threads.length === 0) {
-      progress.threads.push(threadProgress);
-    } else {
-      // Look through array of threads to see if the thread progress is in the users threads.
-      progress.threads.some((threadVal, index) => {
-        if (threadVal.threadId === threadProgress.threadId) {
-          progress.threads[index] = threadProgress;
-          return true;
-        } else if (index === progress.threads.length - 1) {
-          progress.threads.push(threadProgress);
-        }
-        return false;
-      });
-    }
-    setProgress(progress);
   };
 
   docsAttributesProgress = attrs => {
@@ -219,46 +205,84 @@ class TaskPage extends React.Component {
 
   backToIntro = e => {
     e.preventDefault();
-    this.updateThreadState();
-    const { history } = this.props;
-    const { id } = this.state;
+    const { history, match: { params: { id } } } = this.props;
     history.push(`/tutorial/${id}`);
   };
 
   goToTask = (e, next) => {
     e.preventDefault();
-    this.updateThreadState();
-    const { history } = this.props;
-    const { id } = this.state;
+    const { history, match: { params: { id } } } = this.props;
     history.push(`/tutorial/${id}/task/${next}`);
   };
 
   exitTutorial = e => {
     e.preventDefault();
-    this.updateThreadState();
     const { history } = this.props;
     history.push(`/congratulations/${this.props.thread.data.id}`);
   };
 
-  handleYesVerification = (e, verification) => {
+  handleVerificationInput = (e, verification, isSuccess) => {
     const o = Object.assign({}, this.state.verifications);
-    o[verification] = e.target.checked;
+    o[verification.verificationId] = isSuccess;
     const verificationsChecked = Object.values(o).every(v => v === true);
-    this.setState({ verifications: o, verificationsChecked });
+    this.setState({ verifications: o, verificationsChecked }, () => {
+      this.updateStoredProgressForCurrentTask(this.state.verifications);
+    });
   };
 
-  handleNoVerification = (e, verification) => {
-    const o = Object.assign({}, this.state.verifications);
-    o[verification] = !e.target.checked;
-    const verificationsChecked = Object.values(o).every(v => v === true);
-    this.setState({ verifications: o, verificationsChecked });
-  };
+  taskVerificationStatus = (verifications, toVerify) => {
+    if (toVerify.length === 0) {
+      return true;
+    }
+    for (const verification of toVerify) {
+      if (!verifications[verification.verificationId]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  renderVerificationBlock(id, block) {
+    const { t } = this.props;
+    let isFalseChecked = null;
+    if (this.state.verifications[block.verificationId] !== undefined) {
+      isFalseChecked = !this.state.verifications[block.verificationId];
+    }
+    return (
+      <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={id}>
+        <strong>{t('task.verificationTitle')}</strong>
+        <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }}/>
+        {(
+          <React.Fragment>
+            <Radio
+              name={id}
+              checked={!!this.state.verifications[block.verificationId]}
+              onChange={e => {
+                this.handleVerificationInput(e, block, true);
+              }}
+            >
+              Yes
+            </Radio>
+            <Radio
+              name={id}
+              checked={isFalseChecked}
+              onChange={e => {
+                this.handleVerificationInput(e, block, false);
+              }}
+            >
+              No
+            </Radio>
+            {this.state.verifications[block.verificationId] != undefined && !this.state.verifications[block.verificationId] && block.verificationFailText}
+          </React.Fragment>
+        )}
+      </Alert>
+    )
+  }
 
   render() {
     const attrs = this.getDocsAttributes();
     const { t, thread } = this.props;
-    const { task, verifications, verificationsChecked } = this.state;
-
+    const { task, verifications } = this.state;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -274,20 +298,21 @@ class TaskPage extends React.Component {
     }
 
     if (thread.fulfilled && thread.data) {
-      const threadTask = thread.data.tasks[task];
-      const totalTasks = thread.data.tasks.length;
-      const loadingText = `We're initiating services for "${thread.data.title}".`;
-      const standbyText = 'Please stand by.';
+      const { match: { params: { id, task }}} = this.props;
+      const taskNum = parseInt(task);
+      const parsedThread = retrieveOverviewFromAdoc(thread.data);
+      const threadTask = parsedThread.tasks[taskNum];
+      const totalTasks = parsedThread.tasks.filter(t => !t.isVerification).length;
+      const loadingText = `We're initiating services for " ${parsedThread.title} ". Please stand by.`;
+      const taskVerificationComplete = this.taskVerificationStatus(this.state.verifications, this.getVerificationsForTask(threadTask));
       return (
         <React.Fragment>
           <Breadcrumb
-            threadName={thread.data.title}
-            threadId={thread.data.id}
-            taskPosition={task + 1}
+            threadName={parsedThread.title}
+            threadId={id}
+            taskPosition={parseInt(taskNum) + 1} 
             totalTasks={totalTasks}
-            homeClickedCallback={() => {
-              this.updateThreadState();
-            }}
+            homeClickedCallback={() => {}}
           />
           <Grid fluid>
             <LoadingScreen
@@ -301,131 +326,13 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
                       <React.Fragment key={i}>
-                        <AsciiDocTemplate
-                          adoc={step.stepDoc}
-                          attributes={Object.assign(
-                            {},
-                            thread.data.attributes,
-                            step.attributes,
-                            this.getDocsAttributes()
-                          )}
-                        />
-
-                        {/* for Yes/No implementation */}
-                        {step.infoVerifications &&
-                          step.infoVerifications.map(
-                            (verification, j) =>
-                              verifications[step.infoVerifications[0]] === undefined ? (
-                                <div
-                                  className="alert integr8ly-alert integr8ly-module-column--steps_alert-blue"
-                                  key={j}
-                                >
-                                  <i className="integr8ly-alert-icon far fa-circle" />
-                                  <strong>{t('task.verificationTitle')}</strong>
-
-                                  <AsciiDocTemplate
-                                    adoc={verification}
-                                    attributes={Object.assign(
-                                      {},
-                                      thread.data.attributes,
-                                      step.attributes,
-                                      this.getDocsAttributes()
-                                    )}
-                                  />
-                                  <ButtonGroup>
-                                    <Radio
-                                      name={step.stepDoc}
-                                      onChange={e => {
-                                        this.handleYesVerification(e, verification);
-                                      }}
-                                    >
-                                      Yes
-                                    </Radio>
-                                    <Radio
-                                      name={step.stepDoc}
-                                      onChange={e => {
-                                        this.handleNoVerification(e, verification);
-                                      }}
-                                    >
-                                      No
-                                    </Radio>
-                                  </ButtonGroup>
-                                </div>
-                              ) : (
-                                <div
-                                  className={
-                                    step.infoVerifications && verifications[step.infoVerifications[0]]
-                                      ? 'alert integr8ly-alert integr8ly-module-column--steps_alert-green'
-                                      : 'alert integr8ly-alert integr8ly-module-column--steps_alert-red'
-                                  }
-                                  key={j}
-                                >
-                                  <i
-                                    className={
-                                      step.infoVerifications && verifications[step.infoVerifications[0]]
-                                        ? 'integr8ly-alert-icon far fa-check-circle'
-                                        : 'integr8ly-alert-icon far fa-times-circle'
-                                    }
-                                  />
-
-                                  <strong>{t('task.verificationTitle')}</strong>
-                                  <AsciiDocTemplate
-                                    adoc={verification}
-                                    attributes={Object.assign(
-                                      {},
-                                      thread.data.attributes,
-                                      step.attributes,
-                                      this.getDocsAttributes()
-                                    )}
-                                  />
-                                  <ButtonGroup>
-                                    <Radio
-                                      checked={
-                                        step.infoVerifications && verifications[step.infoVerifications[0]]
-                                          ? 'checked'
-                                          : ''
-                                      }
-                                      name={step.stepDoc}
-                                      onChange={e => {
-                                        this.handleYesVerification(e, verification);
-                                      }}
-                                    >
-                                      Yes
-                                    </Radio>
-                                    <Radio
-                                      checked={
-                                        step.infoVerifications && verifications[step.infoVerifications[0]]
-                                          ? ''
-                                          : 'checked'
-                                      }
-                                      name={step.stepDoc}
-                                      onChange={e => {
-                                        this.handleNoVerification(e, verification);
-                                      }}
-                                    >
-                                      No
-                                    </Radio>
-                                  </ButtonGroup>
-                                  <span
-                                    className={
-                                      step.infoVerifications && verifications[step.infoVerifications[0]]
-                                        ? 'hidden'
-                                        : 'show'
-                                    }
-                                  >
-                                    <AsciiDocTemplate
-                                      adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
-                                      attributes={Object.assign(
-                                        {},
-                                        thread.data.attributes,
-                                        step.attributes,
-                                        this.getDocsAttributes()
-                                      )}
-                                    />
-                                  </span>
-                                </div>
-                              )
-                          )}
+                        <h3>{step.title}</h3>
+                        {step.blocks.map((block, j) => (
+                          <React.Fragment key={`${i}-${j}`}>
+                            {!block.isVerification && <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }}/>}
+                            {block.isVerification && this.renderVerificationBlock(`${i}-${j}`, block)}
+                          </React.Fragment>
+                        ))}
                       </React.Fragment>
                     ))}
                   </div>
@@ -490,7 +397,7 @@ class TaskPage extends React.Component {
                       role="group"
                       aria-label="module step progress buttons"
                     >
-                      {task === 0 && (
+                      {taskNum === 0 && (
                         <ButtonGroup>
                           <Button onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
@@ -498,7 +405,7 @@ class TaskPage extends React.Component {
                           </Button>
                         </ButtonGroup>
                       )}
-                      {task > 0 && (
+                      {taskNum > 0 && (
                         <ButtonGroup>
                           <Button onClick={e => this.goToTask(e, task - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
@@ -506,18 +413,18 @@ class TaskPage extends React.Component {
                           </Button>
                         </ButtonGroup>
                       )}
-                      {task + 1 < totalTasks && (
+                      {taskNum + 1 < totalTasks && (
                         <ButtonGroup>
                           <Button
-                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
                             onClick={e => this.goToTask(e, task + 1)}
-                            disabled={!verificationsChecked}
+                            disabled={!taskVerificationComplete}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
                         </ButtonGroup>
                       )}
-                      {task + 1 === totalTasks && (
+                      {taskNum + 1 === totalTasks && (
                         <ButtonGroup>
                           <Button
                             bsStyle={verificationsChecked ? 'primary' : 'default'}
@@ -602,7 +509,8 @@ const mapDispatchToProps = dispatch => ({
     prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
   getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
   prepareWalkthroughTwo: () => prepareWalkthroughNamespace(dispatch, walkthroughs.two, null),
-  setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress))
+  setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
+  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id))
 });
 
 const mapStateToProps = state => ({

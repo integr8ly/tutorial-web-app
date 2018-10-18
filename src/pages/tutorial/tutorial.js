@@ -7,10 +7,13 @@ import { connect, reduxActions } from '../../redux';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
+import { retrieveOverviewFromAdoc } from '../../common/walkthroughHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
-    this.loadThread();
+    const { getWalkthrough, match: { params: { id } } } = this.props;
+    getWalkthrough(id);
+    //this.loadThread();
   }
 
   loadThread() {
@@ -65,6 +68,8 @@ class TutorialPage extends React.Component {
       return null;
     }
     if (thread.fulfilled && thread.data) {
+      const parsedThread = retrieveOverviewFromAdoc(thread.data);
+      const { match: { params: { id } } } = this.props;
       return (
         <React.Fragment>
           <Grid fluid>
@@ -74,16 +79,17 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
-                  <h1 className="pf-c-title pf-m-2xl">{thread.data.title}</h1>
-                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                  <h3>{parsedThread.title}</h3>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </Button>
                 </div>
                 {this.renderPrereqs(thread)}
-                <AsciiDocTemplate
-                  adoc={thread.data.descriptionDoc}
+                <div dangerouslySetInnerHTML={{ __html: parsedThread.descriptionHTML }}/>
+                {/* <AsciiDocTemplate
+                  adoc={thread}
                   attributes={Object.assign({}, thread.data.attributes)}
-                />
+                /> */}
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-module-frame">
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
@@ -98,7 +104,7 @@ class TutorialPage extends React.Component {
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
                     <span>
-                      {thread.data.estimatedTime}
+                      {parsedThread.time}
                       <span className="integr8ly-task-dashboard-time-to-completion_minutes">
                         {t('tutorial.minutes')}
                       </span>
@@ -106,16 +112,16 @@ class TutorialPage extends React.Component {
                   </div>
                 </h1>
                 <ListView className="integr8ly-list-view-pf">
-                  {thread.data.tasks.map((task, i) => (
+                  {parsedThread.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}
                       heading={`${i + 1}. ${task.title}`}
-                      description={task.description}
+                      description={task.shortDescription}
                       actions={
                         <div className="integr8ly-task-dashboard-estimated-time">
                           <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
                           <span>
-                            {task.estimatedTime}
+                            {task.time}
                             <span className="integr8ly-task-dashboard-estimated-time_minutes">
                               {t('tutorial.minutes')}
                             </span>
@@ -127,7 +133,7 @@ class TutorialPage extends React.Component {
                   ))}
                 </ListView>
                 <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </Button>
                 </div>
@@ -169,7 +175,8 @@ TutorialPage.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
+  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id))
 });
 
 const mapStateToProps = state => ({

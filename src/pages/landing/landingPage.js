@@ -9,8 +9,9 @@ import { connect, reduxActions } from '../../redux';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { getProgress, getWalkthroughs } = this.props;
-    getWalkthroughs('en');
+    const { getProgress, getWalkthroughs, getCustomWalkthroughs } = this.props;
+    // getWalkthroughs('en');
+    getCustomWalkthroughs();
     getProgress();
   }
 
@@ -25,7 +26,7 @@ class LandingPage extends React.Component {
             <TutorialDashboard
               className="integr8ly-landing-page-tutorial-dashboard-section-left"
               userProgress={user.userProgress.threads}
-              walkthroughs={walkthroughServices.data.threads}
+              walkthroughs={walkthroughServices.data}
             />
             <InstalledAppsView
               className="integr8ly-landing-page-tutorial-dashboard-section-right"
@@ -57,6 +58,7 @@ LandingPage.defaultProps = {
 
 const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
+  getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
   getProgress: () => dispatch(reduxActions.userActions.getProgress())
 });
 

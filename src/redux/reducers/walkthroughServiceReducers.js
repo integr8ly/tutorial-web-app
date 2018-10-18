@@ -9,7 +9,7 @@ const initialState = {
     errorMessage: null,
     pending: false,
     fulfilled: false,
-    data: {},
+    data: [],
     services: {}
   }
 };

@@ -6,4 +6,9 @@ const getThread = (language, id) => ({
   payload: threadServices.getThread(language, id)
 });
 
-export { getThread };
+const getCustomThread = (id) => ({
+  type: threadTypes.GET_THREAD,
+  payload: threadServices.getCustomThread(id)
+});
+
+export { getThread, getCustomThread };

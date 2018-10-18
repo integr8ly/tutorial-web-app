@@ -8,4 +8,10 @@ const getThread = (language, id) =>
     })
   );
 
-export { getThread };
+const getCustomThread = id => {
+  return axios(serviceConfig({
+    url: `/walkthroughs/${id}/walkthrough.adoc`
+  }));
+}
+
+export { getThread, getCustomThread };
