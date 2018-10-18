@@ -41,7 +41,7 @@ Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShif
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a *Provisioned Service* named *EnMasse (standard)*.
 // end::verification[]
@@ -49,8 +49,8 @@ endif::location[]
 
 ifdef::location[]
 
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Setting up EnMasse* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

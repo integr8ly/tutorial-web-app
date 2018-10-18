@@ -24,7 +24,7 @@ ifdef::context[:parent-context: {context}]
 
 ifdef::location[]
 // tag::intro[]
-TODO intro
+You manage an API using 3Scale to set limits on the number of times the API can be accessed.
 // end::intro[]
 endif::location[]
 

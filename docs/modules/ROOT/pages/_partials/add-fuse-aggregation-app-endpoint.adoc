@@ -4,24 +4,24 @@
 
 
 [id='add-fuse-aggregation-app-endpoint_{context}']
-= Add the Fuse Aggregation App Endpoint to the {3Scale-ProductName}
+= Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
 
-. Select the *API* menu item from the top of the screen
+. Select the *API* menu item from the top of the screen.
 
-. Select *Create Service* from the top right of the *API* screen
+. Select *Create Service* from the top right of the *API* screen.
 +
 // TODO: dynamic fuse aggregation app name based on user id/email. "Only ASCII letters, numbers, dashes and underscores are allowed" for System name. e.g. fuse-aggregation-app-test01-example-com
 . Enter `{fuse-aggregator-app-name}` as the *Name* and *System name*.
 
-. Leave the *Description* field empty
+. Leave the *Description* field empty.
 
-. Leave the *Gateway* option as APIcast
+. Leave the *Gateway* option as APIcast.
 
-. Leave the *Authentication* option as *API Key (user_key)*
+. Leave the *Authentication* option as *API Key (user_key)*.
 
-. Select *Create Service* at the bottom of the screen
+. Select *Create Service* at the bottom of the screen.
 
-. After creation, expand the new *{fuse-aggregator-app-name}* API Service and select the *Configure APIcast* button
+. After the service is created, expand the new *{fuse-aggregator-app-name}* API Service and select the *Configure APIcast* button.
 // The 'fuse-aggregation-app-url' should be the url of the Fuse Aggregation App e.g. https://fuse-flights-aggregator-ak49.cluster-lfa3xlh.opentry.me/
 . Enter `\https://{fuse-aggregator-url}` in the *Private Base URL* field.
 // The '{fuse-aggregation-app-apicast-route-url}' shoudl be the apicast-staging route url for this specific user. It can be looked up or deterministicly set.
@@ -29,12 +29,17 @@
 
 . Select *Update & test in Staging Environment*
 
+
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
-The API Integration updates successfully.
-However, it is OK at this time for a *403: Authentication failed* message to be shown.
+Check that the API service is available.
+You might encounter a *403: Authentication failed* message. You can ignore this message, the issue is resolved in a later step.
 // end::verification[]
-endif::location[]
 
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
+endif::location[]

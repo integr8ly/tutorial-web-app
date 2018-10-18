@@ -1,1 +1,1 @@
-Retry the *Creating EnMasse binding* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.

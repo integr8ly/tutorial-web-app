@@ -30,5 +30,5 @@ Unresolved directive in task-creating-connections.adoc - include::{partialsdir}/
 
 
 
-
-
+// Restore the context to what it was before this assembly.
+:!context:

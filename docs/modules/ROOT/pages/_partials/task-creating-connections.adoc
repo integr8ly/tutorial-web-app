@@ -35,10 +35,6 @@ include::{partialsdir}/creating-amq-connection-in-fuse.adoc[leveloffset=2]
 include::{partialsdir}/creating-http-connection.adoc[leveloffset=2]
 
 
-ifdef::location[]
-
-
-
 
 // Restore the context to what it was before this assembly.
 ifdef::parent-context[:context: {parent-context}]

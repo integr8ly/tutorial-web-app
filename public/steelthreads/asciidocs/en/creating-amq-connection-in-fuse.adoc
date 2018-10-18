@@ -1,8 +1,3 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-
 [id='creating-amqp-connection-in-fuse_{context}']
 
 = Creating an AMQ connection
@@ -15,21 +10,19 @@
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. When prompted with *Select Connector*, select *AMQ Message Broker*
+. When prompted with *Select Connector*, select *AMQ Message Broker*.
 
-. When prompted with *AMQ Message Broker Configuration*
+. When prompted with *AMQ Message Broker Configuration*:
 .. Enter the following into the *Broker URL* field: `tcp://{messaging-broker-url}:61616`.
 .. Enter the following into the *User Name* field: `{messaging-username}`.
-.. Enter the following into the *Password* field: `{messaging-password}`
+.. Enter the following into the *Password* field: `{messaging-password}`.
 .. Select `Disable` for the *Check Certificates* field.
-.. Click *Validate*
-.. Click *Next*
+.. Click *Validate*.
+.. Click *Next*.
 
-. When prompted for *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`
-.. Click *Create*
-
-
+. When prompted for *Add Connection Details*:
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`.
+.. Click *Create*.
 
 
 

@@ -64,7 +64,7 @@ endif::location[]
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 // TODO: flights api links to /camel/flights
 The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] should now respond with much more than 8 flights.

@@ -1,7 +1,3 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
 
 [id='creating-amqp-connection-in-fuse_{context}']
 
@@ -20,34 +16,30 @@ endif::location[]
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. When prompted with *Select Connector*, select *AMQ Message Broker*
+. When prompted with *Select Connector*, select *AMQ Message Broker*.
 
-. When prompted with *AMQ Message Broker Configuration*
+. When prompted with *AMQ Message Broker Configuration*:
 .. Enter the following into the *Broker URL* field: `tcp://{messaging-broker-url}:61616`.
 .. Enter the following into the *User Name* field: `{messaging-username}`.
-.. Enter the following into the *Password* field: `{messaging-password}`
+.. Enter the following into the *Password* field: `{messaging-password}`.
 .. Select `Disable` for the *Check Certificates* field.
-.. Click *Validate*
-.. Click *Next*
+.. Click *Validate*.
+.. Click *Next*.
 
-. When prompted for *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`
-.. Click *Create*
+. When prompted for *Add Connection Details*:
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`.
+.. Click *Create*.
 
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
-endif::location[]
 
-
-ifdef::location[]
-
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Creating AMQ connection in Fuse* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

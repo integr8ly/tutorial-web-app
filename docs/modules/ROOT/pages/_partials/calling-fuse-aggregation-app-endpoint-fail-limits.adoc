@@ -15,7 +15,7 @@ should require less than 5 clicks (the hourly limit set earlier)
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 The request limits for the hour have been exceeded.
 

@@ -11,7 +11,7 @@
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 
 . The *Response Code* is 200

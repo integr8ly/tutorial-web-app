@@ -39,16 +39,13 @@ After the address is created a green check mark is displayed.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank"] console to make sure the newly created address exists.
 // end::verification[]
-endif::location[]
 
-ifdef::location[]
-
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Creating addresses* procedure. If this still doesn't work, visit link:{enmasse-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

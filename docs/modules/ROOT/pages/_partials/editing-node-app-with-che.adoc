@@ -63,7 +63,7 @@ A new build of the app is automatically triggered in OpenShift.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
 // end::verification[]
@@ -71,8 +71,8 @@ endif::location[]
 
 ifdef::location[]
 
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Creating connections* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

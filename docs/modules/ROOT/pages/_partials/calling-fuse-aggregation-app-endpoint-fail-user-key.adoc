@@ -12,7 +12,7 @@
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 {3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
 
