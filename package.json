@@ -1,6 +1,6 @@
 {
   "name": "integreatly-web-app",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
