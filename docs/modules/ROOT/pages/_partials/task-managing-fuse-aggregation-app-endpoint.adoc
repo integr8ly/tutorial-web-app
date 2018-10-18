@@ -16,7 +16,7 @@ ifdef::context[:parent-context: {context}]
 [id='managing-fuse-aggregation-app-endpoint']
 
 
-= managing-fuse-aggregation-app-endpoint
+= Setting up a managed API service
 
 
 :context: managing-fuse-aggregation-app-endpoint

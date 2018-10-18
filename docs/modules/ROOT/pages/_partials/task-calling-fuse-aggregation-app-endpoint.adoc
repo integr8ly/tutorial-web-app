@@ -16,7 +16,7 @@ ifdef::context[:parent-context: {context}]
 [id='managing-fuse-aggregation-app-endpoint']
 
 
-= managing-fuse-aggregation-app-endpoint
+= Using the managed API service
 
 
 :context: managing-fuse-aggregation-app-endpoint
@@ -24,7 +24,7 @@ ifdef::context[:parent-context: {context}]
 
 ifdef::location[]
 // tag::intro[]
-TODO intro
+With the API service managed by {3Scale-ProductName}, flight information is protected and usage is limited.
 // end::intro[]
 endif::location[]
 

@@ -20,14 +20,14 @@
 // TODO project name
 . Log in to the link:{che-url}[Che, window="_blank"] Dashboard
 
-. You should land on the *New Workspace* page. From here, create a new Workspace
+. The *New Workspace* page is displayed. Create a new Workspace:
 .. Use the *Java* stack.
-.. Select the *Add or Import Project* button
-.. Select the *Github* tab
-.. Select the *Connect your Github Account* button
+.. Select the *Add or Import Project* button.
+.. Select the *Github* tab.
+.. Select the *Connect your Github Account* button.
 .. Select the checkbox beside the git repository named `{walkthrough-namespace}`. You may need to filter by account if you are a member of any Organizations.
-.. Select the *Add* button to add the repository to the workspace
-.. Select the *Create* button at the bottom
+.. Select the *Add* button to add the repository to the workspace.
+.. Select the *Create* button at the bottom.
 .. Select *Open in IDE*.
 +
 . Open the file at *src/main/java/com/redhat/fuse/boosters/rest/http/CamelRouter.java*.
@@ -42,18 +42,20 @@
 .. Navigate to the section of the file with a comment of `// UNCOMMENT THIS`.
 .. Uncomment the line of code below this by removing the double slashes.
 +
-. Before the changes can be commited and pushed to the repository, a Git Committer Name & Email must be specified.
+. Before the changes can be commited and pushed to the repository, you must specify a name and email to associate with commits:
 .. Select the *Profile* menu, then *Preferences*.
 .. Choose the *Commiter* option under the *Git* heading.
 .. Set a *Name* and *Email*.
 .. Select *Save* then *Close*.
 
-. Commit and push the changes back to the repository.
+. Commit and push the changes back to the repository:
 .. Select the *Git* menu, then *Commit*.
 .. Ensure the *CamelRouter.java* file is checked.
 .. Enter a commit message of *Switch to remote services* in the input area.
 .. Check the box for *Push commited changes to* and ensure the branch is set to *master*.
 .. Select the *Commit* button.
-.. You should see a green notification with a message of *Pushed to Origin*
-.. A new build will be triggered in OpenShift and rollout the new changes to the *Fuse Aggregation App*
+.. A green notification *Pushed to Origin* is displayed.
+.. A new build will be triggered in OpenShift and rollout the new changes to the *Fuse Aggregation App*.
+
+
 
