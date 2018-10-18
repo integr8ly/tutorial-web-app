@@ -4,10 +4,10 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-success_{context}']
-= calling-fuse-aggregation-app-endpoint-success
+= Validating access to the API Service
 
-. In the *user_key* field, enter `{fuse-aggregator-app-name}`
-. Select the *Try it out!* button
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`.
+. Select the *Try it out!* button.
 
 
 

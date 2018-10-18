@@ -1,1 +1,1 @@
-You are logged in to the {3Scale-ProductName} Dashboard and can navigate the main menu.
+Make sure you can see the {3Scale-ProductName} Dashboard and can navigate the main menu.

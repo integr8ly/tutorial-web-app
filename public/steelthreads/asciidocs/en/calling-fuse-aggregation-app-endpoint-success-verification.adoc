@@ -1,4 +1,5 @@
+Check that:
 
-. The *Response Code* is 200
+* the *Response Code* is 200
 
-. The *Response Body* shows a *JSON Array* of flights
+* the *Response Body* shows a *JSON Array* of flights

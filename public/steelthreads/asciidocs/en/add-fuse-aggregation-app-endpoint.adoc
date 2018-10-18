@@ -4,7 +4,7 @@
 
 
 [id='add-fuse-aggregation-app-endpoint_{context}']
-= Adding the Fuse Aggregation App Endpoint to the {3Scale-ProductName}
+= Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
 
 . Select the *API* menu item from the top of the screen.
 
@@ -30,16 +30,4 @@
 . Select *Update & test in Staging Environment*
 
 
-ifdef::location[]
 
-.To verify this procedure:
-// tag::verification[]
-The API Integration updates successfully.
-You might encounter a *403: Authentication failed* message. You can ignore this message, the issue is resolved in a later step.
-// end::verification[]
-
-.If your verification fails:
-// tag::verificationNo[]
-Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
-// end::verificationNo[]
-endif::location[]

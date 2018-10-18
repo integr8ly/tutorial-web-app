@@ -5,6 +5,5 @@
 * arrivals
 +
 * departures
-
 // TODO: flights api links to /camel/flights
 . Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.

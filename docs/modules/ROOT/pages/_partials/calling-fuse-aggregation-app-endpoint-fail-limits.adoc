@@ -4,22 +4,27 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-fail-limits_{context}']
-= calling-fuse-aggregation-app-endpoint-fail-limits 
+= Verifying access to the API Service is limited 
 
-. In the *user_key* field, enter `{fuse-aggregator-app-name}`
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`.
 . Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
-should require less than 5 clicks (the hourly limit set earlier)
-. Select the *Applications* tab from the top menu
-. Select the *{fuse-aggregator-app-name}* application from the *Applications* list
-. Scroll down to the *Current Utilization* section
+should require less than 5 clicks (the hourly limit set earlier).
+. Select the *Applications* tab from the top menu.
+. Select the *{fuse-aggregator-app-name}* application from the *Applications* list.
+. Scroll down to the *Current Utilization* section.
 
 ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-The request limits for the hour have been exceeded.
+Check that the following is displayed:
 
 . *Hits %* in the *Current Utilization* section is `100%`.
 
 // end::verification[]
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
 endif::location[]

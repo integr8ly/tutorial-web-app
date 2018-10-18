@@ -1,2 +1,2 @@
-The API Integration updates successfully.
-However, it is OK at this time for a *403: Authentication failed* message to be shown.
+Check that the API service is available.
+You might encounter a *403: Authentication failed* message. You can ignore this message, the issue is resolved in a later step.

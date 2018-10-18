@@ -7,9 +7,10 @@
 = API Management Login
 
 // TODO service & url placeholders
-. Open the link:{api-management-url}[{3Scale-ProductName} Login screen, window="_blank"]
+. Open the link:{api-management-url}[{3Scale-ProductName} Login screen, window="_blank"].
 
 . Select the *Red Hat Single Sign On* option. This should trigger an OAuth Flow and redirect back to the {3Scale-ProductName} Dashboard.
 
-. Dismiss the *How does 3Scale work?* UI flow if this is you are first time logging in to {3Scale-ProductName}. The main Dashboard should now be shown.
+. Dismiss the *How does 3Scale work?* UI flow if this is you are first time logging in to {3Scale-ProductName}. The main Dashboard is displayed.
+
 
