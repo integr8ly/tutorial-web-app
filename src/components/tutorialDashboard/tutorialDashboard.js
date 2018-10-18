@@ -6,7 +6,6 @@ import TutorialCard from '../tutorialCard/tutorialCard';
 const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
   const cards = [];
-
   walkthroughs.map((walkthrough, i) => {
     const currentProgress = userProgress.find(thread => thread.threadId === walkthrough.id);
     let startedText;
@@ -37,9 +36,9 @@ const TutorialDashboard = props => {
           }
           minsIcon={<Icon type="fa" name="clock" className="fa-lg" arrow-alt-circle-right="true" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
-          mins={walkthrough.estimatedTime}
+          mins={walkthrough.time}
         >
-          <p>{walkthrough.descriptionDoc}</p>
+          <p>{walkthrough.shortDescription}</p>
 
           <div className="integr8ly-walkthrough-labels">
             {walkthrough.community === true ? (

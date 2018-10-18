@@ -167,4 +167,10 @@ const getWalkthroughs = language =>
     })
   );
 
-export { getWalkthrough, getWalkthroughs, prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS };
+const getCustomWalkthroughs = () => {
+  return axios(serviceConfig({
+    url: `/customWalkthroughs`
+  }));
+}
+
+export { getWalkthrough, getWalkthroughs, prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS, getCustomWalkthroughs };
