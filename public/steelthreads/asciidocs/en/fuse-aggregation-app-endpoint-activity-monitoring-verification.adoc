@@ -1,1 +1,1 @@
-Analytics of the requests made to the service are visible.
+Check that analytics show the service requests.

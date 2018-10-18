@@ -7,9 +7,9 @@
 // * ID: [id='doing-procedure-a']
 // * Title: = Doing procedure A
 
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+
 [id='deploying-fuse-aggregation-app_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
 
 
 
@@ -17,7 +17,7 @@
 
 ifdef::location[]
 // tag::intro[]
-The Fuse Aggregation App can be deployed using Launcher.
+The Fuse Aggregation App provides information about flights, you deploy it using Launcher.
 // end::intro[]
 endif::location[]
 
@@ -26,42 +26,46 @@ endif::location[]
 // TODO flights endpoint url
 . Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window="_blank"] wizard.
 
-. Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step
+. Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step.
 
 . Select the *Authorize* button to allow Launcher create resources in the OpenShift cluster. This triggers an OAuth flow, and eventually redirects back to the {launcher-service} wizard.
 
-. Select the blue down-arrow icon to continue the wizard
+. Select the blue down-arrow icon to continue the wizard.
 
 . Select the *Aggregation* mission and *Fuse* runtime in the *Select Mission & Runtime* step
 
-. Select the blue down-arrow icon to continue the wizard
+. Select the blue down-arrow icon to continue the wizard.
 
 . Authorize your Github Account
 .. Select the *Log In & Authorize Account* button in the *Authorize Git Provider* step.
 .. This opens a Github OAuth page.
-.. Select the *Authorize <organisation/user>* button at the bottom
+.. Select the *Authorize <organisation/user>* button at the bottom.
 .. You will be redirected back to the {launcher-service} wizard.
 
 . Select all blue down-arrow icons to continue the wizard, accepting the git repository name.
 
-. Select the *Set Up Application* button to create a Git repository and provision the mission resources to OpenShift. A build for the *Fuse Aggregation App* will be triggered, and a deployment eventually rolled out.
+. Select the *Set Up Application* button to create a Git repository and provision the mission resources to OpenShift. A build for the *Fuse Aggregation App* is triggered and deployed.
 
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
-The link:{openshift-host}/console/project/{walkthrough-namespace}[Project, window="_blank"] in OpenShift has the following running pods:
-
-. fuse-flights-aggregator
-
-. arrivals
-
-. departures
-
+. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window="_blank"]:
++
+* fuse-flights-aggregator
++
+* arrivals
++
+* departures
 // TODO: flights api links to /camel/flights
-The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] can be reached and responds with 8 flights.
+. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
 
 // end::verification[]
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
 endif::location[]
 

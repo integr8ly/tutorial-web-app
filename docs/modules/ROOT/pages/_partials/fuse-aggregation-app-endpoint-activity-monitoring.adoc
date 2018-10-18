@@ -4,16 +4,23 @@
 
 
 [id='fuse-aggregation-app-endpoint-activity-monitoring_{context}']
-= fuse-aggregation-app-endpoint-activity-monitoring 
+= Monitoring the API Service 
 
-. Select the *Analytics* tab from the top menu
-. Select *{fuse-aggregator-app-name}* from the *Monitoring* section
+. Select the *Analytics* tab from the top menu.
+. Select *{fuse-aggregator-app-name}* from the *Monitoring* section.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
-Analytics of the requests made to the service are visible.
+Check that analytics show the service requests.
 // end::verification[]
+
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
 endif::location[]
+
 

@@ -18,9 +18,8 @@
 
 . When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
 
-. When prompted with *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`
-.. Click *Create*
-
+. When prompted with *Add Connection Details*:
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`.
+.. Click *Create*.
 
 

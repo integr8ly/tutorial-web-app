@@ -1,3 +1,2 @@
 // TODO: flights api links to /camel/flights
-The link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] should now respond with much more than 8 flights.
-Note that the build and redeploy may take a minute.
+After waiting for the build and depoyment to complete, check that link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] responds with more than 8 flights.

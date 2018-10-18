@@ -7,9 +7,9 @@
 // * ID: [id='doing-procedure-a']
 // * Title: = Doing procedure A
 
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+
 [id='setting-up-enmasse_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
 
 
 // :enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
@@ -41,7 +41,7 @@ Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShif
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a *Provisioned Service* named *EnMasse (standard)*.
 // end::verification[]
@@ -49,8 +49,8 @@ endif::location[]
 
 ifdef::location[]
 
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Setting up EnMasse* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

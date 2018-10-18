@@ -1,9 +1,9 @@
-. Select the *APIs* menu item at the top
+. Select the *APIs* menu item at the top.
 
-. Expand the *{fuse-aggregator-app-name}* service
+. Expand the *{fuse-aggregator-app-name}* service.
 
-. Select the *Configure APIcast* button
+. Select the *Configure APIcast* button.
 
-. Select the *Update & test in Staging Environment* button at the bottom again
+. Select the *Update & test in Staging Environment* button at the bottom again.
 
-. The test should be successful, with a green line along the left side of the page, and a success message at the bottom
+. Check that a success message is displayed, and a green line along the left side of the page.

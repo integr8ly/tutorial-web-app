@@ -1,1 +1,1 @@
-The Fuse Aggregation App can be deployed using Launcher.
+The Fuse Aggregation App provides information about flights, you deploy it using Launcher.

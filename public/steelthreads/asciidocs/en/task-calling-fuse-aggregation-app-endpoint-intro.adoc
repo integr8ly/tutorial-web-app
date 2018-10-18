@@ -1,1 +1,1 @@
-TODO intro
+With the API service managed by {3Scale-ProductName}, flight information is protected and usage is limited.

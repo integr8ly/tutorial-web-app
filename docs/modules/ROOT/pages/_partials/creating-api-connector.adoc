@@ -12,30 +12,28 @@
 
 . Select the *Create API Connector* button to start the *API Client Connector* wizard.
 
-. When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
-.. Enter the following in the URL field. `http://{spring-boot-url}/v2/api-docs`
-.. Click *Next*
+. When prompted to *Upload OpenAPI Specification*, select *Use a URL*:
+.. Enter the following in the URL field. `http://{spring-boot-url}/v2/api-docs`.
+.. Click *Next*.
 
 . When prompted with *Review Actions*, select *Next*.
 
 . When prompted with *Specify Security*, select *Next*.
 
-. When prompted with *Review/Edit Connector Details*
+. When prompted with *Review/Edit Connector Details*:
 .. Enter the following in the *Connector Name* field, `Walkthrough {walkthrough-id} CRUD Connector`.
-.. Click *Create API Connector*
+.. Click *Create API Connector*.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connector exists.
 // end::verification[]
-endif::location[]
 
-ifdef::location[]
 
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Creating API connector* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

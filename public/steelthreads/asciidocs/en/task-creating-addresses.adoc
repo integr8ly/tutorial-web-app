@@ -7,9 +7,9 @@
 // * ID: [id='doing-procedure-a']
 // * Title: = Doing procedure A
 
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+
 [id='creating-addresses_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
 
 // TODO: figure out enmasse url
 :enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
@@ -30,7 +30,6 @@
 .. Select *Create* to complete the wizard.
 
 After the address is created a green check mark is displayed.
-
 
 
 

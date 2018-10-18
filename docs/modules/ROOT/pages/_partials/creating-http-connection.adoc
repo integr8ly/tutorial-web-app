@@ -23,22 +23,19 @@ endif::location[]
 
 . When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
 
-. When prompted with *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`
-.. Click *Create*
+. When prompted with *Add Connection Details*:
+.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`.
+.. Click *Create*.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
-endif::location[]
 
-ifdef::location[]
-
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Creating HTTP connection* procedure. If this still doesn't work, visit link:{fuse-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

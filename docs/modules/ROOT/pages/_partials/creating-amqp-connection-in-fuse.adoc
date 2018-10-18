@@ -42,8 +42,14 @@ endif::location[]
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
 // end::verification[]
+
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
 endif::location[]

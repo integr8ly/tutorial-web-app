@@ -42,7 +42,7 @@ Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
 Check the *Config Maps* values for the *messaging-service* configmap.
 // end::verification[]
@@ -50,8 +50,8 @@ endif::location[]
 
 ifdef::location[]
 
-.VerificationNo
+.If your verification fails:
 // tag::verificationNo[]
-Retry the *Editing node config map* procedure. If this still doesn't work, visit link:{openshift-url}[this link, window="_blank"] to find additional help.
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::verificationNo[]
 endif::location[]

@@ -4,20 +4,25 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-success_{context}']
-= calling-fuse-aggregation-app-endpoint-success 
+= Validating access to the API Service 
 
-. In the *user_key* field, enter `{fuse-aggregator-app-name}`
-. Select the *Try it out!* button
+. In the *user_key* field, enter `{fuse-aggregator-app-name}`.
+. Select the *Try it out!* button.
 
 ifdef::location[]
 
-.Verification
+.To verify this procedure:
 // tag::verification[]
+Check that:
 
-. The *Response Code* is 200
+* the *Response Code* is 200
 
-. The *Response Body* shows a *JSON Array* of flights
-
+* the *Response Body* shows a *JSON Array* of flights
 // end::verification[]
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
 endif::location[]
 

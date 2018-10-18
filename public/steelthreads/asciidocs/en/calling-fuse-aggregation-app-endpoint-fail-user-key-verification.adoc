@@ -1,5 +1,5 @@
-{3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
+Check that {3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
 
-. The *Response Body* is `no content`
+* The *Response Body* is `no content`
 
-. The *Response Code* is 0
+* The *Response Code* is 0
