@@ -268,7 +268,8 @@ class TaskPage extends React.Component {
     if (thread.fulfilled && thread.data) {
       const threadTask = thread.data.tasks[task];
       const totalTasks = thread.data.tasks.length;
-      const loadingText = `We're initiating services for " ${thread.data.title} ". Please stand by.`;
+      const loadingText = `We're initiating services for "${thread.data.title}".`;
+      const standbyText = 'Please stand by.';
       return (
         <React.Fragment>
           <Breadcrumb
@@ -283,6 +284,7 @@ class TaskPage extends React.Component {
           <Grid fluid>
             <LoadingScreen
               loadingText={loadingText}
+              standbyText={standbyText}
               progress={!window.OPENSHIFT_CONFIG.mockData ? this.docsAttributesProgress(attrs) : 100}
             />
             <Grid.Row>

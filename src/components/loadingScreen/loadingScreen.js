@@ -17,32 +17,27 @@ class LoadingScreen extends React.Component {
       return '';
     }
 
-    const backdropStyle = {
-      opacity: this.props.backdropOpacity
-    };
-    if (this.props.backdropImage !== null) {
-      backdropStyle.backgroundImage = `url("${this.props.backdropImage}")`;
-    } else {
-      backdropStyle.backgroundColor = this.props.backdropColor;
-    }
-
-    const logoStyle = {
-      backgroundImage: `url(" ${this.props.logo}")`
-    };
-
     return (
       <React.Fragment>
-        {this.props.showBackdrop === true && (
-          <div className="integr8ly-loadingscreen-backdrop" style={backdropStyle}>
-            <div className="integr8ly-loadingscreen-logo" style={logoStyle} />
+        <div className="integr8ly-loadingscreen">
+          {this.props.showBackdrop === true && (
+            <div className="integr8ly-loadingscreen-backdrop">
+              <div className="integr8ly-loadingscreen-logo" />
+            </div>
+          )}
+          <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
+            Loading...
+          </object>
+          <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
+            {this.props.loadingText}
+            <br />
+            {this.props.standbyText}
+          </h2>
+          <div className="integr8ly-loadingscreen-progress">
+            <ProgressBar className="integr8ly-loadingscreen-progressbar" now={this.props.progress} />
+            <span className="integr8ly-loadingscreen-progress-label">{this.props.progress}%</span>
           </div>
-        )}
-        <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
-          Loading...
-        </object>
-        <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">{this.props.loadingText}</h2>
-        <ProgressBar className="integr8ly-loadingscreen-progressbar" now={this.props.progress} />
-        <span className="integr8ly-loadingscreen-progress-label">{this.props.progress}%</span>
+        </div>
       </React.Fragment>
     );
   }
@@ -50,26 +45,20 @@ class LoadingScreen extends React.Component {
 
 LoadingScreen.propTypes = {
   showBackdrop: PropTypes.bool,
-  backdropImage: PropTypes.string,
-  backdropColor: PropTypes.string,
-  backdropOpacity: PropTypes.string,
   progress: PropTypes.number,
   throbberImage: PropTypes.string,
-  logo: PropTypes.string,
   loadingText: PropTypes.string,
+  standbyText: PropTypes.string,
   hideDelay: PropTypes.number
 };
 
 LoadingScreen.defaultProps = {
   hideDelay: 2500,
   showBackdrop: true,
-  backdropImage: require('./resources/backdrop.png'),
-  backdropColor: '#000',
-  backdropOpacity: '1',
-  logo: require('./resources/RedHatLogo.png'),
   progress: 0,
   throbberImage: require('./resources/StartingServices_Final.svg'),
-  loadingText: 'Loading...'
+  loadingText: 'Loading...',
+  standbyText: 'Please stand by.'
 };
 
 export default LoadingScreen;
