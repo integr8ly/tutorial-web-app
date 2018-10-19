@@ -89,27 +89,33 @@ p {
 }
 
 // Header styling
-h1 {
+h1,
+.integr8ly-h1 {
   font-size: $h1-font-size;
 }
 
-h2 {
+h2,
+.integr8ly-h2 {
   font-size: $h2-font-size;
 }
 
-h3 {
+h3,
+.integr8ly-h3 {
   font-size: $h3-font-size;
 }
 
-h4 {
+h4,
+.integr8ly-h4 {
   font-size: $h4-font-size;
 }
 
-h5 {
+h5,
+.integr8ly-h5 {
   font-size: $h5-font-size;
 }
 
-h6 {
+h6,
+.integr8ly-h6 {
   font-size: $h6-font-size;
 }
 
@@ -118,7 +124,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.integr8ly-h1,
+.integr8ly-h2,
+.integr8ly-h3,
+.integr8ly-h4,
+.integr8ly-h5,
+.integr8ly-h6 {
   font-weight: $pf-global--FontWeight--semi-bold;
 }
 
@@ -142,28 +154,28 @@ h6 {
   }
 }
 
-.integr8ly-h1,
-.integr8ly-h2,
-.integr8ly-h3,
 h1,
 h2,
-h3 {
+h3,
+.integr8ly-h1,
+.integr8ly-h2,
+.integr8ly-h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.integr8ly-h4,
-.integr8ly-h5,
-.integr8ly-h6,
 h4,
 h5,
-h6 {
+h6,
+.integr8ly-h4,
+.integr8ly-h5,
+.integr8ly-h6 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.integr8ly-small,
-small {
+small,
+.integr8ly-small {
   font-size: 91%;
 }
 
