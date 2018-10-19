@@ -456,7 +456,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status-step'
                                 }
                               >
-                                {task + 1}.{l}
+                                {task + 1}.{l + 1}
                               </span>
                             ))}
                           {step.successVerifications &&
@@ -469,7 +469,7 @@ class TaskPage extends React.Component {
                                     : 'integr8ly-module-column--footer_status-step'
                                 }
                               >
-                                {task + 1}.{l}
+                                {task + 1}.{l + 1}
                               </span>
                             ))}
                         </React.Fragment>
