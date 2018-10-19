@@ -82,6 +82,7 @@ class TaskPage extends React.Component {
             }
           }
         }
+
         this.setState({
           verifications,
           verificationsChecked: Object.values(verifications).every(v => v === true)
