@@ -6,7 +6,7 @@
 
 [id='creating-amqp-connection-in-fuse_{context}']
 
-= Creating AMQP connection in Red Hat Fuse Online
+===== 2.3 Creating AMQP connection in Red Hat Fuse Online
 
 ifdef::location[]
 // tag::intro[]

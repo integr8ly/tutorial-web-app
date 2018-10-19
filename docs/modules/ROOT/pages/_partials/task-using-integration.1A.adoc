@@ -6,7 +6,7 @@
 [id='using-integration_{context}']
 
 
-===== 3.1 Using the application integration
+===== 4.1 Using the application integration
 
 ifdef::location[]
 // tag::intro[]
