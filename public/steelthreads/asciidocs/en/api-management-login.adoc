@@ -4,7 +4,7 @@
 
 
 [id='api-management-login_{context}']
-= API Management Login
+===== 3.1 API Management Login
 
 // TODO service & url placeholders
 . Open the link:{api-management-url}[{3Scale-ProductName} Login screen, window="_blank"].

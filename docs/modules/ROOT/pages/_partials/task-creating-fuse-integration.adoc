@@ -4,7 +4,7 @@
 
 
 [id='creating-fuse-integration_{context}']
-= Creating an integration
+===== 2.1 Creating an integration
 
 ifdef::location[]
 // tag::intro[]

@@ -13,7 +13,7 @@
 
 
 
-= Deploying the Fuse Aggregation App
+===== 1 Deploying the Fuse Aggregation App
 
 
 // TODO placeholders for product names

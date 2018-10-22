@@ -16,7 +16,7 @@
 // https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
 
 
-= Creating an address in EnMasse space
+===== 1.1 Creating an address in EnMasse space
 
 ifdef::location[]
 // tag::intro[]

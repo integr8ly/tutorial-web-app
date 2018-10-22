@@ -4,8 +4,13 @@
 
 
 [id='creating-fuse-integration_{context}']
-===== 2.1 Creating an integration
+===== 3.1 Creating an integration
 
+ifdef::location[]
+// tag::intro[]
+To use the Fuse connections, you create an integration in Red Hat Fuse Online.
+// end::intro[]
+endif::location[]
 
 
 . Select *Integrations* from the left hand menu.
@@ -50,4 +55,15 @@
 . Click *Publish*.
 . When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
 
+ifdef::location[]
 
+.To verify this procedure:
+// tag::verification[]
+Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+// end::verification[]
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
+endif::location[]

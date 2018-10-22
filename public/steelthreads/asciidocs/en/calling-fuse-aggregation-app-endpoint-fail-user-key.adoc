@@ -4,7 +4,7 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-fail-user-key_{context}']
-= Checking the API Service is protected
+===== 4.1 Checking the API Service is protected
 
 . From the *ActiveDocs* page for the `{fuse-aggregator-app-name}` Application, expand the *GET /flights* endpoint.
 . Leave the *user_key* field empty.

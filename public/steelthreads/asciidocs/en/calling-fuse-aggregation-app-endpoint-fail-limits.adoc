@@ -4,7 +4,7 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-fail-limits_{context}']
-= Verifying access to the API Service is limited
+===== 4.3 Verifying access to the API Service is limited
 
 . In the *user_key* field, enter `{fuse-aggregator-app-name}`.
 . Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
