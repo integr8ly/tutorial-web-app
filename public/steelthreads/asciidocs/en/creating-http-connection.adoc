@@ -4,6 +4,7 @@
 
 
 [id='creating-http-connection-in-fuse_{context}']
+[.integr8ly-docs-header]
 ===== 1.3 Creating HTTP connection to CRUD App
 
 

@@ -4,6 +4,7 @@
 
 
 [id='fuse-aggregation-app-endpoint-activity-monitoring_{context}']
+[.integr8ly-docs-header]
 ===== 4.4 Monitoring the API Service 
 
 . Select the *Analytics* tab from the top menu.

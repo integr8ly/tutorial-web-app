@@ -4,6 +4,7 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-success_{context}']
+[.integr8ly-docs-header]
 ===== 4.2 Validating access to the API Service 
 
 . In the *user_key* field, enter `{fuse-aggregator-app-name}`.

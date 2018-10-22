@@ -1,6 +1,6 @@
 
 [id='creating-amqp-connection-in-fuse_{context}']
-
+[.integr8ly-docs-header]
 ===== 1.2 Creating an AMQ connection
 
 ifdef::location[]

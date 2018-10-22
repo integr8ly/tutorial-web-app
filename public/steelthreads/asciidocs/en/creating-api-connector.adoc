@@ -4,6 +4,7 @@
 
 
 [id='creating-api-connector_{context}']
+[.integr8ly-docs-header]
 ===== 1.1 Creating an API Connector
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.

@@ -5,7 +5,7 @@
 :enmasse: Red Hat AMQ Online
 
 [id='creating-amqp-connection-in-fuse_{context}']
-
+[.integr8ly-docs-header]
 ===== 2.3 Creating AMQP connection in Red Hat Fuse Online
 
 ifdef::location[]

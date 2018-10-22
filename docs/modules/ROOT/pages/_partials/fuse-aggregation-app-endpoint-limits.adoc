@@ -4,6 +4,7 @@
 
 
 [id='fuse-aggregation-app-endpoint-limits_{context}']
+[.integr8ly-docs-header]
 ===== 3.3 Setting Fuse Aggregation App Endpoint Limits 
 
 . Create a new *Application Plan*:
