@@ -106,3 +106,4 @@ If the build is successful, a new image will be pushed to https://quay.io/reposi
 The new image will be tagged as `latest` and the version number `x.y.z`.
 
 TODO: Installing a released version of the webapp to OpenShift
+
