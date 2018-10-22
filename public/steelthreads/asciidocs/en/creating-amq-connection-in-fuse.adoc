@@ -1,6 +1,6 @@
 [id='creating-amqp-connection-in-fuse_{context}']
 
-= Creating an AMQ connection
+===== 1.2 Creating an AMQ connection
 
 
 

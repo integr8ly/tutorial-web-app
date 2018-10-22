@@ -68,6 +68,9 @@
           "stepDoc": "task-using-integration.adoc",
           "successVerifications": [
             "task-using-integration-verification.adoc"
+          ],
+          "infoVerificationsNo": [
+            "task-sing-integration-verification-no.adoc"
           ]
         }
       ]

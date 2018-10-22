@@ -5,9 +5,11 @@ calling-fuse-aggregation-app-endpoint-fail-user-key.adoc
 calling-fuse-aggregation-app-endpoint-success.adoc
 creating-amq-connection-in-fuse.adoc
 creating-amqp-connection-in-fuse.adoc
+creating-api-connector-1A.adoc
 creating-api-connector.adoc
 creating-enmasse-binding.adoc
 creating-fuse-integration.adoc
+creating-http-connection-1A.adoc
 creating-http-connection.adoc
 editing-node-app-with-che.adoc
 editing-node-configmap.adoc
@@ -21,8 +23,10 @@ task-calling-fuse-aggregation-app-endpoint.adoc
 task-creating-addresses.adoc
 task-creating-connections.adoc
 task-creating-connections-enmasse.adoc
+task-creating-fuse-integration-1A.adoc
 task-creating-fuse-integration.adoc
 task-deploying-fuse-aggregation-app.adoc
 task-managing-fuse-aggregation-app-endpoint.adoc
 task-modifying-fuse-aggregation-app.adoc
+task-using-integration-1A.adoc
 task-using-integration.adoc

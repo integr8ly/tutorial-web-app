@@ -32,21 +32,21 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "creating-api-connector.1A.adoc",
+          "stepDoc": "creating-api-connector-1A.adoc",
           "infoVerifications": [
-            "creating-api-connector.1A-verification.adoc"
+            "creating-api-connector-1A-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "creating-api-connector.1A-verification-no.adoc"
+            "creating-api-connector-1A-verification-no.adoc"
           ]
         },
         {
-          "stepDoc": "creating-http-connection.1A.adoc",
+          "stepDoc": "creating-http-connection-1A.adoc",
           "infoVerifications": [
-            "creating-http-connection.1A-verification.adoc"
+            "creating-http-connection-1A-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "creating-http-connection.1A-verification-no.adoc"
+            "creating-http-connection-1A-verification-no.adoc"
           ]
         },
         {
@@ -65,12 +65,12 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "task-creating-fuse-integration.1A.adoc",
+          "stepDoc": "task-creating-fuse-integration-1A.adoc",
           "infoVerifications": [
-            "task-creating-fuse-integration.1A-verification.adoc"
+            "task-creating-fuse-integration-1A-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "task-creating-fuse-integration.1A-verification-no.adoc"
+            "task-creating-fuse-integration-1A-verification-no.adoc"
           ]
         }
       ]
@@ -80,12 +80,12 @@
       "estimatedTime": 5,
       "steps": [
         {
-          "stepDoc": "task-using-integration.1A.adoc",
-          "successVerifications": [
-            "task-using-integration.1A-verification.adoc"
+          "stepDoc": "task-using-integration-1A.adoc",
+          "infoVerifications": [
+            "task-using-integration-1A-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "task-using-integration.1A-verification-no.adoc"
+            "task-using-integration-1A-verification-no.adoc"
           ]
         }
       ]
