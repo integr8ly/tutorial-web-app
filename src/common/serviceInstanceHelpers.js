@@ -1,7 +1,8 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
 import { OpenShiftWatchEvents } from '../services/openshiftServices';
 import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughConstants';
-import { FULFILLED_ACTION } from '../redux/helpers';
+import { FULFILLED_ACTION, REJECTED_ACTION } from '../redux/helpers';
+import { GET_THREAD } from '../redux/constants/threadConstants';
 
 class DefaultServiceInstanceTransform {
   isTransformable() {
@@ -148,6 +149,23 @@ const handleWalkthroughOneRoutes = (namespacePrefix, dispatch, event) => {
   }
 };
 
+const handleServiceInstancesProvision = (namespacePrefix, dispatch, event) => {
+  const serviceInstance = event.payload;
+
+  if (serviceInstance && serviceInstance.status && serviceInstance.status.conditions) {
+    const lastCondition = serviceInstance.status.conditions.pop();
+
+    if (lastCondition.type === 'Failed') {
+      dispatch({
+        type: REJECTED_ACTION(GET_THREAD),
+        error: true,
+        payload: {
+          errorMessage: lastCondition.message
+        }
+      });
+    }
+  }
+};
 /**
  * Try to get the service's dashboard URL preferably from the status properties and
  * as a fallback the integreatly/dashboard-url annotation. Returns an empty string
@@ -194,6 +212,7 @@ export {
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
   handleWalkthroughOneRoutes,
+  handleServiceInstancesProvision,
   MessagingAppServiceInstanceTransform,
   getDashboardUrl,
   handleWalkthroughTwoRoutes
