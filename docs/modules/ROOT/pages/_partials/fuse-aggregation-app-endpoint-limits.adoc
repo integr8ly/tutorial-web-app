@@ -4,7 +4,7 @@
 
 
 [id='fuse-aggregation-app-endpoint-limits_{context}']
-= Setting Fuse Aggregation App Endpoint Limits 
+===== 3.3 Setting Fuse Aggregation App Endpoint Limits 
 
 . Create a new *Application Plan*:
 .. Select *Application Plans* from the left menu.

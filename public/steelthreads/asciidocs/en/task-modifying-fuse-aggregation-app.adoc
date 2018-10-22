@@ -13,7 +13,7 @@
 
 
 
-= Modifying the Fuse Aggregation App
+===== 2 Modifying the Fuse Aggregation App
 
 
 // TODO placeholders for product names

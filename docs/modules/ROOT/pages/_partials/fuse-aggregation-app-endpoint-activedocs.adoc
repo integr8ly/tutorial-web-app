@@ -4,7 +4,7 @@
 
 
 [id='fuse-aggregation-app-endpoint-activedocs_{context}']
-= Create a new ActiveDocs Service
+===== 3.4 Create a new ActiveDocs Service
 
 . Select the *APIs* menu item at the top to return to the *APIs* Overview page.
 

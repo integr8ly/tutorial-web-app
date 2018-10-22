@@ -4,7 +4,7 @@
 
 
 [id='add-fuse-aggregation-app-endpoint_{context}']
-= Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
+===== 3.2 Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
 
 . Select the *API* menu item from the top of the screen.
 
