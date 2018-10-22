@@ -2,10 +2,8 @@
 //
 // <List assemblies here, each on a new line>
 
-
 [id='using-integration_{context}']
-
-
+[.integr8ly-docs-header]
 ===== 3.1 Using the application integration
 
 

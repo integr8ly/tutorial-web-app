@@ -15,7 +15,7 @@
 :enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
 // https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
 
-
+[.integr8ly-docs-header]
 ===== 1.1 Creating an address in EnMasse space
 
 ifdef::location[]

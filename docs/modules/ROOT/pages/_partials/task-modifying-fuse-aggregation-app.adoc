@@ -7,13 +7,9 @@
 // * ID: [id='doing-procedure-a']
 // * Title: = Doing procedure A
 
-
 [id='modifying-fuse-aggregation-app_{context}']
-
-
-
-
-===== 2 Modifying the Fuse Aggregation App
+[.integr8ly-docs-header]
+===== 2.1 Modifying the Fuse Aggregation App
 
 ifdef::location[]
 // tag::intro[]

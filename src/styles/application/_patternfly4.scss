@@ -197,3 +197,16 @@ ol {
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
 /* stylelint-enable */
+
+.integr8ly-docs-header {
+  h5 {
+    font-size: $h3-font-size;
+    font-weight: $pf-global--FontWeight--semi-bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .olist {
+    font-size: $pf-global--FontSize--md;
+    font-weight: $pf-global--FontWeight--normal;
+  }
+}

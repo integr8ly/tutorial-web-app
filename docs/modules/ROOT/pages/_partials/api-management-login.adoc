@@ -4,6 +4,7 @@
 
 
 [id='api-management-login_{context}']
+[.integr8ly-docs-header]
 ===== 3.1 API Management Login 
 
 // TODO service & url placeholders

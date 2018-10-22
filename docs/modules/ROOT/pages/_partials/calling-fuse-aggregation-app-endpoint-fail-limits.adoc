@@ -4,6 +4,7 @@
 
 
 [id='calling-fuse-aggregation-app-endpoint-fail-limits_{context}']
+[.integr8ly-docs-header]
 ===== 4.3 Verifying access to the API Service is limited 
 
 . In the *user_key* field, enter `{fuse-aggregator-app-name}`.

@@ -4,6 +4,7 @@
 
 
 [id='creating-fuse-integration_{context}']
+[.integr8ly-docs-header]
 ===== 2.1 Creating an integration
 
 ifdef::location[]
