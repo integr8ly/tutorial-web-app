@@ -205,7 +205,8 @@ ol {
     margin-top: 20px;
     margin-bottom: 10px;
   }
-  .olist {
+
+  .olist { /* stylelint-disable-line selector-class-pattern */
     font-size: $pf-global--FontSize--md;
     font-weight: $pf-global--FontWeight--normal;
   }
