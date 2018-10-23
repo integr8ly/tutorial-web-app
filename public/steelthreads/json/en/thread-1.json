@@ -66,11 +66,11 @@
       "steps": [
         {
           "stepDoc": "task-using-integration.adoc",
-          "successVerifications": [
+          "infoVerifications": [
             "task-using-integration-verification.adoc"
           ],
           "infoVerificationsNo": [
-            "task-sing-integration-verification-no.adoc"
+            "task-using-integration-verification-no.adoc"
           ]
         }
       ]

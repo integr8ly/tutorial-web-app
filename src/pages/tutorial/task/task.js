@@ -274,7 +274,7 @@ class TaskPage extends React.Component {
         <React.Fragment>
           <Breadcrumb
             threadName={thread.data.title}
-            threadId={thread.data.id}
+            threadId={thread.data.id.parseInt}
             taskPosition={task + 1}
             totalTasks={totalTasks}
             homeClickedCallback={() => {
@@ -511,7 +511,11 @@ class TaskPage extends React.Component {
                       )}
                       {task + 1 === totalTasks && (
                         <ButtonGroup>
-                          <Button onClick={e => this.exitTutorial(e)}>
+                          <Button
+                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                            onClick={e => this.exitTutorial(e)}
+                            disabled={!verificationsChecked}
+                          >
                             {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
                         </ButtonGroup>
