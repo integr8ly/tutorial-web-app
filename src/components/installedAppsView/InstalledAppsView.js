@@ -84,20 +84,16 @@ class InstalledAppsView extends React.Component {
 
   static createCustomAppElem(i, customApp) {
     return (
-      <li
-        onClick={() => window.open(`${customApp.url}`, '_blank')}
-        key={`openshift_console_${i}`}
-        value={i}
-      >
+      <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
         <div className="integr8ly-installed-apps-view-title">
           <p>{customApp.name}</p>
-          <span className={`integr8ly-label-community`}>custom</span>
+          <span className="integr8ly-label-community">custom</span>
         </div>
         <div className="integr8ly-state-ready">
           <Icon type="pf" name="on-running" /> &nbsp;Ready for use
         </div>
       </li>
-    )
+    );
   }
 
   static createMasterList(apps, customApps) {

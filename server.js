@@ -6,6 +6,8 @@ const handlebars = require('handlebars');
 const app = express();
 const port = process.env.PORT || 5001;
 
+const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
+
 const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
 };
@@ -21,7 +23,7 @@ app.get('/config.js', (req, res) => {
 });
 
 app.get('/customConfig', (req, res) => {
-  getCustomConfigData(process.env.SERVER_EXTRA_CONFIG_FILE).then(config => {
+  getCustomConfigData(configPath).then(config => {
     const compiledConfig = handlebars.compile(JSON.stringify(config));
     res.json(JSON.parse(compiledConfig(req.query)));
   });
