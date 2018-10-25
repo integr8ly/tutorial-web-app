@@ -11,7 +11,8 @@ const initialState = {
     enmasseCredentials: {},
     amqCredentials: {},
     provisioningUser: null,
-    data: {}
+    data: {},
+    customServices: []
   }
 };
 
@@ -62,6 +63,15 @@ const middlewareReducers = (state = initialState, action) => {
       middlewareServices: {
         ...state.middlewareServices,
         provisioningUser: action.payload.provisioningUser
+      }
+    });
+  }
+
+  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES)) {
+    return Object.assign({}, state, {
+      middlewareServices: {
+        ...state.middlewareServices,
+        customServices: action.payload.services
       }
     });
   }

@@ -8,6 +8,7 @@ import {
 } from '../common/serviceInstanceHelpers';
 import {
   buildValidProjectNamespaceName,
+  cleanUsername,
   findOpenshiftResource,
   findOrCreateOpenshiftResource
 } from '../common/openshiftHelpers';
@@ -126,6 +127,21 @@ const manageMiddlewareServices = dispatch => {
           watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
       });
+    const parsedUsername = cleanUsername(user.username);
+    fetch(`/customConfig?username=${parsedUsername}`).then(res => res.json())
+    .then(config => {
+      if (config && config.services) {
+        dispatch({
+          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
+          payload: {
+            services: config.services
+          }
+        });
+      }
+    })
+    .catch(err => {
+      console.error(`Failed to retrieve custom config: ${err}`)
+    });
   });
 };
 

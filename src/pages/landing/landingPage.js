@@ -29,6 +29,7 @@ class LandingPage extends React.Component {
           <InstalledAppsView
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
             apps={Object.values(middlewareServices.data)}
+            customApps={middlewareServices.customServices}
           />
         </section>
       </div>
