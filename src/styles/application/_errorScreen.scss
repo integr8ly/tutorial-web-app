@@ -1,0 +1,48 @@
+.integr8ly-errorscreen {
+  display: flex;
+  flex-direction: column;
+
+  &-backdrop {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-color: $pf-color-blue-600;
+    background-image: url("../../img/provisioning-bg.png");
+    z-index: 5;
+  }
+
+  &-logo {
+    background-size: cover;
+    height: 36px;
+    width: 113px;
+    position: absolute;
+    top: 85px;
+    right: 25px;
+    background-image: url("../../img/RedHatLogo.png");
+  }
+
+  &-error-img {
+    display: flex;
+    justify-content: center;
+    margin: 75px auto -75px;
+    width: 464px;
+    height: 380px;
+    z-index: 5;
+  }
+
+  &-info-text {
+    color: $pf-color-white;
+    text-align: center;
+    z-index: 5;
+  }
+
+  &-info-btn {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto 0;
+    z-index: 5;
+  }
+}

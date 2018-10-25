@@ -9,6 +9,7 @@ import {
   DEFAULT_SERVICES,
   handleWalkthroughOneRoutes,
   handleWalkthroughTwoRoutes,
+  handleServiceInstancesProvision,
   MessagingAppServiceInstanceTransform
 } from '../common/serviceInstanceHelpers';
 import {
@@ -19,6 +20,8 @@ import {
   serviceInstanceDef,
   routeDef
 } from '../common/openshiftResourceDefinitions';
+import { REJECTED_ACTION } from '../redux/helpers';
+import { GET_THREAD } from '../redux/constants/threadConstants';
 
 const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A', TWO: '2' };
 
@@ -38,6 +41,10 @@ const walkthroughs = {
       {
         resource: namespace => routeDef(namespace),
         handlerFn: handleWalkthroughOneRoutes.bind(null, 'walkthrough-one')
+      },
+      {
+        resource: namespace => serviceInstanceDef(namespace),
+        handlerFn: handleServiceInstancesProvision.bind(null, 'walkthrough-one')
       }
     ]
   },
@@ -50,6 +57,10 @@ const walkthroughs = {
       {
         resource: namespace => routeDef(namespace),
         handlerFn: handleWalkthroughOneRoutes.bind(null, 'walkthrough-one-a')
+      },
+      {
+        resource: namespace => serviceInstanceDef(namespace),
+        handlerFn: handleServiceInstancesProvision.bind(null, 'walkthrough-one-a')
       }
     ]
   },
@@ -77,8 +88,11 @@ const walkthroughs = {
  * @param siInfoOtherData other data that will be added as siInfo.otherData ={} object, can be used to pass data into transforms
  */
 const prepareWalkthroughNamespace = (dispatch, walkthrough, siInfoOtherData) => {
-  if (!window.OPENSHIFT_CONFIG.mockData) {
-    return currentUser().then(user => {
+  if (window.OPENSHIFT_CONFIG.mockData) {
+    return null;
+  }
+  return currentUser()
+    .then(user => {
       const userNamespace = buildValidProjectNamespaceName(user.username, walkthrough.namespaceSuffix);
       const namespaceObj = namespaceResource(userNamespace);
       const namespaceRequestObj = namespaceRequestResource(userNamespace);
@@ -119,9 +133,15 @@ const prepareWalkthroughNamespace = (dispatch, walkthrough, siInfoOtherData) => 
             );
           });
         });
+    })
+    .catch(err => {
+      dispatch({
+        type: REJECTED_ACTION(GET_THREAD),
+        payload: {
+          error: err
+        }
+      });
     });
-  }
-  return null;
 };
 
 /**

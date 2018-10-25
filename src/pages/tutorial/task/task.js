@@ -6,6 +6,8 @@ import { noop, Alert, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
+import ErrorScreen from '../../../components/errorScreen/errorScreen';
+import PfMasthead from '../../../components/masthead/masthead';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
@@ -256,13 +258,19 @@ class TaskPage extends React.Component {
     const attrs = this.getDocsAttributes();
     const { t, thread } = this.props;
     const { task, verifications, verificationsChecked } = this.state;
+
     if (thread.pending) {
       // todo: loading state
       return null;
     }
+
     if (thread.error) {
-      // todo: error state
-      return null;
+      return (
+        <div>
+          <PfMasthead />
+          <ErrorScreen />
+        </div>
+      );
     }
 
     if (thread.fulfilled && thread.data) {
