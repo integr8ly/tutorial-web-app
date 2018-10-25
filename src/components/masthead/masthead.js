@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
@@ -112,26 +111,12 @@ class Masthead extends React.Component {
   }
 }
 
-Masthead.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string
-  })
-};
-
-Masthead.defaultProps = {
-  user: {}
-};
-
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(reduxActions.userActions.logoutUser())
 });
 
-const mapStateToProps = state => ({
-  user: state.userReducers.session
-});
-
 const ConnectedMasthead = connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps
 )(Masthead);
 
