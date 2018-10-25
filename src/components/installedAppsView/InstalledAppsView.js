@@ -82,7 +82,21 @@ class InstalledAppsView extends React.Component {
     );
   }
 
-  static createMasterList(apps) {
+  static createCustomAppElem(i, customApp) {
+    return (
+      <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
+        <div className="integr8ly-installed-apps-view-title">
+          <p>{customApp.name}</p>
+          <span className="integr8ly-label-community">custom</span>
+        </div>
+        <div className="integr8ly-state-ready">
+          <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+        </div>
+      </li>
+    );
+  }
+
+  static createMasterList(apps, customApps) {
     const masterList = apps.map((app, index) => {
       const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
       return (
@@ -101,11 +115,14 @@ class InstalledAppsView extends React.Component {
       );
     });
     masterList.unshift(this.getOpenshiftConsole(masterList.length));
+    if (customApps) {
+      customApps.forEach(app => masterList.push(this.createCustomAppElem(masterList.length, app)));
+    }
     return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
   }
 
   render() {
-    const appList = InstalledAppsView.createMasterList(this.props.apps);
+    const appList = InstalledAppsView.createMasterList(this.props.apps, this.props.customApps);
     return (
       <div className="panel panel-default integr8ly-installed-apps-view">
         <div className="panel-heading panel-title integr8ly-installed-apps-view-panel-title">
@@ -123,6 +140,12 @@ InstalledAppsView.propTypes = {
     PropTypes.shape({
       appName: PropTypes.string,
       appIcon: PropTypes.string
+    })
+  ).isRequired,
+  customApps: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string
     })
   ).isRequired
 };

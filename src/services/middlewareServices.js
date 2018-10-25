@@ -8,6 +8,7 @@ import {
 } from '../common/serviceInstanceHelpers';
 import {
   buildValidProjectNamespaceName,
+  cleanUsername,
   findOpenshiftResource,
   findOrCreateOpenshiftResource
 } from '../common/openshiftHelpers';
@@ -54,7 +55,8 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   if (!mockData || !mockData.serviceInstances) {
     return;
   }
-  window.localStorage.setItem('currentUserName', 'mockUser@mockUser.com');
+  const mockUsername = 'mockuser';
+  window.localStorage.setItem('currentUserName', mockUsername);
   mockData.serviceInstances.forEach(si => {
     setProductDetails(si);
     dispatch({
@@ -62,6 +64,22 @@ const mockMiddlewareServices = (dispatch, mockData) => {
       payload: si
     });
   });
+
+  fetch(`/customConfig?username=${mockUsername}`)
+    .then(res => res.json())
+    .then(config => {
+      if (config && config.services) {
+        dispatch({
+          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
+          payload: {
+            services: config.services
+          }
+        });
+      }
+    })
+    .catch(err => {
+      console.error(`Failed to retrieve custom config: ${err}`);
+    });
 };
 
 /**
@@ -125,6 +143,22 @@ const manageMiddlewareServices = dispatch => {
         watch(secretDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
+      });
+    const parsedUsername = cleanUsername(user.username);
+    fetch(`/customConfig?username=${parsedUsername}`)
+      .then(res => res.json())
+      .then(config => {
+        if (config && config.services) {
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
+            payload: {
+              services: config.services
+            }
+          });
+        }
+      })
+      .catch(err => {
+        console.error(`Failed to retrieve custom config: ${err}`);
       });
   });
 };
