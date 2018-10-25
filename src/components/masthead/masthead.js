@@ -30,7 +30,6 @@ class Masthead extends React.Component {
       return;
     }
     logout().then(() => {
-      window.localStorage.clear();
       window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
     });
   };
@@ -87,15 +86,12 @@ class Masthead extends React.Component {
   }
 
   renderUserDropdown() {
-    const { user } = this.props;
     const title = (
       <React.Fragment>
         <Icon type="pf" name="user" key="user-icon" />{' '}
-        {user && (
-          <span className="dropdown-title" key="dropdown-title">
-            {user.username} {` `}
-          </span>
-        )}
+        <span className="dropdown-title" key="dropdown-title">
+          {window.localStorage.getItem('currentUserName')} {` `}
+        </span>
       </React.Fragment>
     );
 

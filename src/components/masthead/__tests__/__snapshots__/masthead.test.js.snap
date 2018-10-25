@@ -28,7 +28,6 @@ exports[`Masthead Component should render a basic component: user dropdown 1`] =
       <span
         className="dropdown-title"
       >
-        Admin
          
          
       </span>
