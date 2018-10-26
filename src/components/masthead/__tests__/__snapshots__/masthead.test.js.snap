@@ -3,11 +3,6 @@
 exports[`Masthead Component should render a basic component: basic 1`] = `
 <Masthead
   logoutUser={[Function]}
-  user={
-    Object {
-      "username": "Admin",
-    }
-  }
 />
 `;
 
