@@ -1,4 +1,4 @@
-import { watch, update, currentUser, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, update, OpenShiftWatchEvents } from './openshiftServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 import {
@@ -64,22 +64,6 @@ const mockMiddlewareServices = (dispatch, mockData) => {
       payload: si
     });
   });
-
-  fetch(`/customConfig?username=${mockUsername}`)
-    .then(res => res.json())
-    .then(config => {
-      if (config && config.services) {
-        dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
-          payload: {
-            services: config.services
-          }
-        });
-      }
-    })
-    .catch(err => {
-      console.error(`Failed to retrieve custom config: ${err}`);
-    });
 };
 
 /**
@@ -100,67 +84,70 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  *   a Secret containing the credentials of AMQ.
  * @param {Object} dispatch Redux dispatch.
  */
-const manageMiddlewareServices = dispatch => {
-  currentUser().then(user => {
-    dispatch({
-      type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
-      payload: { provisioningUser: user.username }
-    });
-    const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
-    const namespaceObj = namespaceResource(userNamespace);
-    const namespaceRequestObj = namespaceRequestResource(userNamespace);
+const manageMiddlewareServices = (dispatch, user, config) => {
+  const walkthroughServices = config.servicesToProvision || WALKTHROUGH_SERVICES;
+  dispatch({
+    type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
+    payload: { provisioningUser: user.username }
+  });
+  const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
+  const namespaceObj = namespaceResource(userNamespace);
+  const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
-    // Namespace
-    findOrCreateOpenshiftResource(
-      namespaceDef,
-      namespaceObj,
-      resObj => resObj.metadata.name === userNamespace,
-      namespaceRequestDef,
-      namespaceRequestObj
-    )
-      .then(() => {
-        const siObjs = WALKTHROUGH_SERVICES.map(name =>
-          buildServiceInstanceResourceObj({ namespace: userNamespace, name, user })
-        );
-        return Promise.all(
-          siObjs.map(siObj =>
-            // Service Instance
-            findOrCreateOpenshiftResource(
-              serviceInstanceDef(userNamespace),
-              siObj,
-              buildServiceInstanceCompareFn(siObj)
-            )
-          )
-        );
-      })
-      .then(() => {
-        watch(serviceInstanceDef(userNamespace)).then(watchListener =>
-          watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch))
-        );
+  // Namespace
+  findOrCreateOpenshiftResource(
+    namespaceDef,
+    namespaceObj,
+    resObj => resObj.metadata.name === userNamespace,
+    namespaceRequestDef,
+    namespaceRequestObj
+  )
+    .then(() => {
+      const siObjs = walkthroughServices.map(name =>
+        buildServiceInstanceResourceObj({ namespace: userNamespace, name, user })
+      );
+      return Promise.all(
+        siObjs.map(siObj =>
+          // Service Instance
+          findOrCreateOpenshiftResource(serviceInstanceDef(userNamespace), siObj, buildServiceInstanceCompareFn(siObj))
+        )
+      );
+    })
+    .then(() => {
+      watch(serviceInstanceDef(userNamespace)).then(watchListener =>
+        watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch, walkthroughServices))
+      );
+      if (walkthroughServices.includes(DEFAULT_SERVICES.AMQ)) {
         watch(statefulSetDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
         );
+      }
+      if (walkthroughServices.includes(DEFAULT_SERVICES.ENMASSE)) {
         watch(secretDef(userNamespace)).then(watchListener =>
           watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
         );
-      });
-    const parsedUsername = cleanUsername(user.username);
-    fetch(`/customConfig?username=${parsedUsername}`)
-      .then(res => res.json())
-      .then(config => {
-        if (config && config.services) {
-          dispatch({
-            type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
-            payload: {
-              services: config.services
-            }
-          });
-        }
-      })
-      .catch(err => {
-        console.error(`Failed to retrieve custom config: ${err}`);
-      });
-  });
+      }
+    });
+};
+
+const getCustomConfig = (dispatch, user) => {
+  const parsedUsername = cleanUsername(user.username);
+  return fetch(`/customConfig?username=${parsedUsername}`)
+    .then(res => res.json())
+    .then(config => {
+      if (config && config.services) {
+        dispatch({
+          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
+          payload: {
+            services: config.services
+          }
+        });
+      }
+      return config;
+    })
+    .catch(err => {
+      console.error(`Failed to retrieve custom config: ${err}`);
+    });
 };
 
 /**
@@ -241,12 +228,12 @@ const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
  * @param {Object} dispatch Redux dispatcher.
  * @param {Object} event The event to handle.
  */
-const handleServiceInstanceWatchEvents = (dispatch, event) => {
+const handleServiceInstanceWatchEvents = (dispatch, toWatch, event) => {
   if (event.type === OpenShiftWatchEvents.OPENED || event.type === OpenShiftWatchEvents.CLOSED) {
     return;
   }
 
-  if (!WALKTHROUGH_SERVICES.includes(event.payload.spec.clusterServiceClassExternalName)) {
+  if (!toWatch.includes(event.payload.spec.clusterServiceClassExternalName)) {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
@@ -355,4 +342,4 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
   }
 };
 
-export { manageMiddlewareServices, mockMiddlewareServices };
+export { manageMiddlewareServices, mockMiddlewareServices, getCustomConfig };

@@ -154,16 +154,16 @@ const handleServiceInstancesProvision = (namespacePrefix, dispatch, event) => {
 
   if (serviceInstance && serviceInstance.status && serviceInstance.status.conditions) {
     const lastCondition = serviceInstance.status.conditions.pop();
-
-    if (lastCondition.type === 'Failed') {
-      dispatch({
-        type: REJECTED_ACTION(GET_THREAD),
-        error: true,
-        payload: {
-          errorMessage: lastCondition.message
-        }
-      });
+    if (!lastCondition || lastCondition.type !== 'Failed') {
+      return;
     }
+    dispatch({
+      type: REJECTED_ACTION(GET_THREAD),
+      error: true,
+      payload: {
+        errorMessage: lastCondition.message
+      }
+    });
   }
 };
 /**

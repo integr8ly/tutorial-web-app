@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { ProgressBar, noop } from 'patternfly-react';
 import get from 'lodash.get';
 import { connect } from '../../redux';
-import { manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
+import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
+import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 
 const PROVISION_SERVICES = [
@@ -16,32 +17,46 @@ const PROVISION_SERVICES = [
 
 function buildProvisioningScreen(WrappedComponent) {
   class Provisioning extends React.Component {
+    state = { servicesToProvision: PROVISION_SERVICES };
+
     componentDidMount() {
-      const { manageWalkthroughServices, mockWalkthroughServices } = this.props;
+      const { getCustomConfigForUser, manageWalkthroughServices, mockWalkthroughServices } = this.props;
       if (window.OPENSHIFT_CONFIG.mockData) {
-        mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData);
+        getCustomConfigForUser({ username: 'mockUser' }).then(() =>
+          mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData)
+        );
         return;
       }
-      manageWalkthroughServices();
+      currentUser().then(user => {
+        getCustomConfigForUser(user).then(config => {
+          this.setState({ servicesToProvision: config.servicesToProvision });
+          manageWalkthroughServices(user, config);
+        });
+      });
     }
 
-    static getMiddlwareServiceProgress(services) {
-      const svcNames = Provisioning.getProvisionedMiddlewareServices(services);
-      return (svcNames.length / PROVISION_SERVICES.length) * 100;
+    static getMiddlwareServiceProgress(services, toProvision) {
+      const servicesToProvision = toProvision || PROVISION_SERVICES;
+      const svcNames = Provisioning.getProvisionedMiddlewareServices(services, toProvision);
+      return (svcNames.length / servicesToProvision.length) * 100;
     }
 
-    static getProvisionedMiddlewareServices(services) {
-      return PROVISION_SERVICES.map(svcName => {
-        const svc = Provisioning.getServiceInstanceByClassName(services, svcName);
-        if (!svc || !Provisioning.isMiddlewareServiceProvisioned(svc)) {
-          return null;
-        }
-        return svc;
-      }).filter(svc => !!svc);
+    static getProvisionedMiddlewareServices(services, toProvision) {
+      const servicesToProvision = toProvision || PROVISION_SERVICES;
+      return servicesToProvision
+        .map(svcName => {
+          const svc = Provisioning.getServiceInstanceByClassName(services, svcName);
+          if (!svc || !Provisioning.isMiddlewareServiceProvisioned(svc)) {
+            return null;
+          }
+          return svc;
+        })
+        .filter(svc => !!svc);
     }
 
-    static areMiddlewareServicesReady(services) {
-      for (const svcName of PROVISION_SERVICES) {
+    static areMiddlewareServicesReady(services, toProvision) {
+      const servicesToProvision = toProvision || PROVISION_SERVICES;
+      for (const svcName of servicesToProvision) {
         const svc = Provisioning.getServiceInstanceByClassName(services, svcName);
         if (!svc || !Provisioning.isMiddlewareServiceProvisioned(svc)) {
           return false;
@@ -61,8 +76,8 @@ function buildProvisioningScreen(WrappedComponent) {
       return false;
     }
 
-    static loadingScreen(services) {
-      const provisionProgress = Provisioning.getMiddlwareServiceProgress(services);
+    static loadingScreen(services, servicesToProvision) {
+      const provisionProgress = Provisioning.getMiddlwareServiceProgress(services, servicesToProvision);
       return (
         <div className="integr8ly-loadingscreen">
           <div className="integr8ly-loadingscreen-backdrop">
@@ -90,9 +105,14 @@ function buildProvisioningScreen(WrappedComponent) {
       const { middlewareServices } = this.props;
       return (
         <div>
-          {!Provisioning.areMiddlewareServicesReady(Object.values(middlewareServices.data)) &&
-            Provisioning.loadingScreen(Object.values(middlewareServices.data))}
-          {Provisioning.areMiddlewareServicesReady(Object.values(middlewareServices.data)) && <WrappedComponent />}
+          {!Provisioning.areMiddlewareServicesReady(
+            Object.values(middlewareServices.data),
+            this.state.servicesToProvision
+          ) && Provisioning.loadingScreen(Object.values(middlewareServices.data), this.state.servicesToProvision)}
+          {Provisioning.areMiddlewareServicesReady(
+            Object.values(middlewareServices.data),
+            this.state.servicesToProvision
+          ) && <WrappedComponent />}
         </div>
       );
     }
@@ -101,18 +121,21 @@ function buildProvisioningScreen(WrappedComponent) {
   Provisioning.propTypes = {
     manageWalkthroughServices: PropTypes.func,
     mockWalkthroughServices: PropTypes.func,
-    middlewareServices: PropTypes.object
+    middlewareServices: PropTypes.object,
+    getCustomConfigForUser: PropTypes.func
   };
 
   Provisioning.defaultProps = {
     manageWalkthroughServices: noop,
     mockWalkthroughServices: noop,
+    getCustomConfigForUser: noop,
     middlewareServices: { data: {} }
   };
 
   const mapDispatchToProps = dispatch => ({
-    manageWalkthroughServices: () => manageMiddlewareServices(dispatch),
-    mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData)
+    manageWalkthroughServices: (user, config) => manageMiddlewareServices(dispatch, user, config),
+    mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData),
+    getCustomConfigForUser: user => getCustomConfig(dispatch, user)
   });
 
   const mapStateToProps = state => ({
