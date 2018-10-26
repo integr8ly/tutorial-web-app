@@ -282,7 +282,7 @@ class TaskPage extends React.Component {
         <React.Fragment>
           <Breadcrumb
             threadName={thread.data.title}
-            threadId={thread.data.id.parseInt}
+            threadId={thread.data.id}
             taskPosition={task + 1}
             totalTasks={totalTasks}
             homeClickedCallback={() => {
