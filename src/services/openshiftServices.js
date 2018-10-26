@@ -16,6 +16,7 @@ class OpenShiftUser {
     this.uid = userRes.metadata.uid;
     this.username = userRes.metadata.name;
     this.fullName = userRes.fullName;
+    window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
   }
 }
 
@@ -81,10 +82,11 @@ const getUser = () => {
 const setUser = user => {
   if (!user) {
     window.localStorage.setItem('OpenShiftUser', null);
+    window.localStorage.removeItem('currentUserName');
     return;
   }
   window.localStorage.setItem('OpenShiftUser', JSON.stringify(user));
-  window.localStorage.setItem('currentUserName', this.username);
+  window.localStorage.setItem('currentUserName', user.fullName ? user.fullName : user.username);
 };
 
 /**
