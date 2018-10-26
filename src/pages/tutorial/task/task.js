@@ -316,8 +316,11 @@ class TaskPage extends React.Component {
                           step.infoVerifications.map(
                             (verification, j) =>
                               verifications[step.infoVerifications[0]] === undefined ? (
-                                <div className="alert integr8ly-module-column--steps_alert-blue" key={j}>
-                                  <i className="pficon fa fa-circle-o" />
+                                <div
+                                  className="alert integr8ly-alert integr8ly-module-column--steps_alert-blue"
+                                  key={j}
+                                >
+                                  <i className="integr8ly-alert-icon far fa-circle" />
                                   <strong>{t('task.verificationTitle')}</strong>
 
                                   <AsciiDocTemplate
@@ -352,16 +355,16 @@ class TaskPage extends React.Component {
                                 <div
                                   className={
                                     step.infoVerifications && verifications[step.infoVerifications[0]]
-                                      ? 'alert integr8ly-module-column--steps_alert-green'
-                                      : 'alert integr8ly-module-column--steps_alert-red'
+                                      ? 'alert integr8ly-alert integr8ly-module-column--steps_alert-green'
+                                      : 'alert integr8ly-alert integr8ly-module-column--steps_alert-red'
                                   }
                                   key={j}
                                 >
                                   <i
                                     className={
                                       step.infoVerifications && verifications[step.infoVerifications[0]]
-                                        ? 'pficon fa fa-check-circle-o'
-                                        : 'pficon fa fa-times-circle-o'
+                                        ? 'integr8ly-alert-icon far fa-check-circle'
+                                        : 'integr8ly-alert-icon far fa-times-circle'
                                     }
                                   />
 
@@ -440,22 +443,20 @@ class TaskPage extends React.Component {
                                 verifications[step.infoVerifications[0]] === undefined ? (
                                   <Icon
                                     type="fa"
-                                    className="integr8ly-module-column--footer_status"
+                                    className="far integr8ly-module-column--footer_status"
                                     key={v}
-                                    name="circle-o"
+                                    name="circle"
                                   />
                                 ) : (
                                   <Icon
                                     type="fa"
                                     className={
                                       step.infoVerifications && verifications[step.infoVerifications[0]]
-                                        ? 'integr8ly-module-column--footer_status-checked'
-                                        : 'integr8ly-module-column--footer_status-unchecked'
+                                        ? 'far integr8ly-module-column--footer_status-checked'
+                                        : 'far integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
-                                    name={
-                                      verifications[step.infoVerifications[0]] ? 'check-circle-o' : 'times-circle-o'
-                                    }
+                                    name={verifications[step.infoVerifications[0]] ? 'check-circle' : 'times-circle'}
                                   />
                                 )
                             )}
@@ -464,15 +465,15 @@ class TaskPage extends React.Component {
                             step.infoVerifications.map(
                               (verification, v) =>
                                 verifications[step.infoVerifications[0]] === undefined ? (
-                                  <span className="integr8ly-module-column--footer_status" key={v}>
+                                  <span className="far integr8ly-module-column--footer_status" key={v}>
                                     {task + 1}.{l + 1}
                                   </span>
                                 ) : (
                                   <span
                                     className={
                                       verifications[step.infoVerifications[0]]
-                                        ? 'integr8ly-module-column--footer_status-checked'
-                                        : 'integr8ly-module-column--footer_status-unchecked'
+                                        ? 'far integr8ly-module-column--footer_status-checked'
+                                        : 'far integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
                                   >

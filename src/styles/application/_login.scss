@@ -7,7 +7,7 @@
   overflow-y: auto;
   position: fixed;
 
-  @media (min-width: $screen-sm-min) {
+  @media (min-width: var(--pf-global--breakpoint--sm)) {
     background-image: url("../../img/bg-login-2.png");
     background-position: 100% 100%;
     background-repeat: no-repeat;
@@ -15,7 +15,7 @@
   }
 
   &-body {
-    @media (min-width: $screen-sm-min) {
+    @media (min-width: var(--pf-global--breakpoint--sm)) {
       background-image: url("../../img/bg-login.png");
       background-repeat: no-repeat;
       background-size: 30%;
@@ -35,7 +35,7 @@
   }
 
   &-card-error {
-    color: $pf-color-red-100;
+    color: var(--pf-global--danger-color--100);
     margin-bottom: 16px;
     min-height: 20px;
   }

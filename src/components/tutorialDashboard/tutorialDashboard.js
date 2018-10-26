@@ -29,13 +29,13 @@ const TutorialDashboard = props => {
               type="fa"
               name={
                 currentProgress !== undefined && currentProgress.progress === 100
-                  ? 'check-circle-o'
-                  : 'arrow-circle-o-right'
+                  ? 'check-circle'
+                  : 'arrow-circle-right'
               }
               className="fa-lg"
             />
           }
-          minsIcon={<Icon type="fa" name="clock-o" className="fa-lg" arrow-alt-circle-right="true" />}
+          minsIcon={<Icon type="fa" name="clock" className="fa-lg" arrow-alt-circle-right="true" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.estimatedTime}
         >
@@ -61,7 +61,7 @@ const TutorialDashboard = props => {
   return (
     <div className="integr8ly-tutorial-dashboard panel panel-default">
       <div className="panel-heading panel-title">
-        <h2>Start with a walkthrough</h2>
+        <h1 className="pf-c-title pf-m-3xl">Start with a walkthrough</h1>
         <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">

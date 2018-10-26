@@ -40,7 +40,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h3 />
+          <h1
+            className="pf-c-title pf-m-2xl"
+          />
           <Button
             active={false}
             block={false}
@@ -72,7 +74,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               key="0"
             >
               <i
-                className="fa-li fa fa-check-square-o"
+                className="fa-li fa fa-check-square"
               />
               Github account
             </li>
@@ -101,23 +103,24 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={9}
         xs={12}
       >
-        <h3>
+        <h1
+          className="pf-c-title pf-m-2xl"
+        >
           tutorial.tasksToComplete
           <div
             className="pull-right integr8ly-task-dashboard-time-to-completion"
           >
             <Icon
-              name="clock-o"
+              name="clock"
               type="fa"
             />
             <span
               className="integr8ly-task-dashboard-time-to-completion_minutes"
             >
-               
               tutorial.minutes
             </span>
           </div>
-        </h3>
+        </h1>
         <ListView
           className="integr8ly-list-view-pf"
         >

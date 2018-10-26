@@ -63,12 +63,12 @@
     &-time-to-complete {
       flex-basis: 50%;
       color: $pf-color-black-600;
-      font-weight: $pf-global--FontWeight--bold;
+      font-weight: var(--pf-global--FontWeight--bold);
       text-align: right;
 
       /* stylelint-disable */
       /* fix depth of nesting - should be no more than 3 */
-      .fa-clock-o {
+      .fa-clock {
         margin-right: 3px;
 
         &::before {

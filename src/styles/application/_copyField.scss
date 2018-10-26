@@ -12,14 +12,15 @@
     }
 
     &.expanded { /* stylelint-disable-line selector-class-pattern */
-      background-color: $pf-color-black-200;
+      background-color: var(--pf-global--BackgroundColor--light-300);
     }
   }
 
   &-display {
     width: 100%;
     padding: 15px;
-    border: 1px solid $pf-color-black-400;
+    border: var(--pf-global--BorderWidth--sm) solid;
+    border-color: var(--pf-global--BorderColor--light);
     border-top-width: 0;
     word-wrap: break-word;
     resize: none;

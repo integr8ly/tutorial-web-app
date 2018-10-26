@@ -1,6 +1,7 @@
 .integr8ly-loadingscreen {
   display: flex;
   flex-direction: column;
+  height: 0;
 
   &-backdrop {
     position: fixed;
@@ -9,7 +10,7 @@
     height: 100%;
     width: 100%;
     background-size: cover;
-    background-color: $pf-color-blue-600;
+    background-color: var(--pf-global--info-color--200);
     background-image: url("../../img/provisioning-bg.png");
     z-index: 5;
   }
@@ -46,7 +47,7 @@
   &-progressbar {
     width: 85%;
     background-color: transparent;
-    border: 2px solid $pf-color-white;
+    border: var(--pf-global--BorderWidth--md) solid $pf-color-white;
     color: $pf-color-white;
 
     & .progress-bar { /* stylelint-disable-line selector-class-pattern */

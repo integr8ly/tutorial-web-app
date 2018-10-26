@@ -45,7 +45,7 @@ class TutorialPage extends React.Component {
         <ul className="fa-ul">
           {data.prerequisites.map((req, i) => (
             <li key={i}>
-              <i className="fa-li fa fa-check-square-o" />
+              <i className="fa-li fa fa-check-square" />
               {req}
             </li>
           ))}
@@ -74,7 +74,7 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
                 <div className="integr8ly-task-dashboard-header">
-                  <h3>{thread.data.title}</h3>
+                  <h1 className="pf-c-title pf-m-2xl">{thread.data.title}</h1>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
                   </Button>
@@ -93,15 +93,16 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={9}>
-                <h3>
+                <h1 className="pf-c-title pf-m-2xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Icon type="fa" name="clock-o" />
+                    <Icon type="fa" name="clock" />
                     <span className="integr8ly-task-dashboard-time-to-completion_minutes">
-                      {thread.data.estimatedTime} {t('tutorial.minutes')}
+                      {thread.data.estimatedTime}
+                      {t('tutorial.minutes')}
                     </span>
                   </div>
-                </h3>
+                </h1>
                 <ListView className="integr8ly-list-view-pf">
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item

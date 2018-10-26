@@ -1,9 +1,9 @@
 .integr8ly-task-dashboard {
   &-time-to-completion {
     margin-top: 5px;
-    color: $color-pf-black-600;
-    font-size: $pf-global--FontSize--lg;
-    font-weight: $pf-global--FontWeight--normal;
+    color: $pf-color-black-600;
+    font-size: var(--pf-global--FontSize--lg);
+    font-weight: var(--pf-global--FontWeight--normal);
 
     &_minutes {
       padding-left: 5px;
@@ -12,7 +12,7 @@
 
   &-estimated-time {
     color: $pf-color-black-600;
-    font-weight: $pf-global--FontWeight--normal;
+    font-weight: var(--pf-global--FontWeight--normal);
 
     &_minutes {
       padding-left: 5px;
@@ -28,13 +28,13 @@
 
 .integr8ly-tutorial-prereqs {
   margin-top: 5px;
-  font-size: $pf-global--FontSize--xl;
+  font-size: var(--pf-global--FontSize--xl);
 }
 
 /* stylelint-disable selector-class-pattern */
 /* override PF3 styles */
 .list-view-pf-stacked .list-group-item-heading {
-  font-size: $pf-global--FontSize--xl;
-  font-weight: $pf-global--FontWeight--normal;
+  font-size: var(--pf-global--FontSize--xl);
+  font-weight: var(--pf-global--FontWeight--normal);
 }
 /* stylelint-enable */

@@ -1,5 +1,5 @@
 /* stylelint-disable selector-class-pattern */
-@media (min-width: 768px) {
+@media (min-width: var(--pf-global--breakpoint--md)) {
   .applauncher-pf:not(.applauncher-pf-block-list) .applauncher-pf-link-title {
     flex: 0;
   }

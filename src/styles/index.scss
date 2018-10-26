@@ -1,25 +1,19 @@
 // Variables
-$font-path: "~patternfly/dist/fonts/";
+$fa-font-path: "./assets/fonts/webfonts";
 $img-path: "~patternfly/dist/img/";
 $icon-font-path: "~patternfly/dist/fonts/";
 
-// Include patternfly variables before bootstrap variables
-@import "patternfly/dist/sass/rcue/variables";
+// PatternFly 4
+@import "application/pf4Import";
 
-// Bootstrap Core variables and mixins
-@import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+// Font Awesome 5 icons
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/regular.scss";
 
-// Patternfly Core variables and mixins
-@import "patternfly/dist/sass/rcue/bootstrap-mixin-overrides";
-@import "patternfly/dist/sass/rcue/mixins";
-
-// PatternFly 4 Variables
+// Utilized to overwrite PF3 typography settings
 @import "application/patternfly4";
 
 // Application Overrides
-@import "application/variables";
-@import "application/colors";
 @import "application/typography";
 @import "application/alerts";
 @import "application/lists";

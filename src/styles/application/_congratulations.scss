@@ -11,7 +11,6 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  color: $pf-color-white;
   text-align: center;
 
   &_logo {
@@ -35,8 +34,13 @@
     margin-bottom: 16px;
   }
 
+  &_heading {
+    color: $pf-color-white;
+  }
+
   &_paragraph {
     margin-bottom: 28px;
+    color: $pf-color-white;
   }
 
   &_buttons {

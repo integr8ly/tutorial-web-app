@@ -10,3 +10,11 @@
   }
 }
 /* stylelint-enable */
+.integr8ly-alert {
+  .integr8ly-alert-icon {
+    font-size: var(--pf-global--FontSize--2xl);
+    position: absolute;
+    left: 13px;
+    top: 10px;
+  }
+}
