@@ -310,11 +310,14 @@ class TaskPage extends React.Component {
                             this.getDocsAttributes()
                           )}
                         />
+
+                        {/* for Yes/No implementation */}
                         {step.infoVerifications &&
                           step.infoVerifications.map(
                             (verification, j) =>
                               verifications[step.infoVerifications[0]] === undefined ? (
-                                <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={j}>
+                                <div className="alert integr8ly-module-column--steps_alert-blue" key={j}>
+                                  <i className="pficon fa fa-circle-o" />
                                   <strong>{t('task.verificationTitle')}</strong>
                                   <AsciiDocTemplate
                                     adoc={verification}
@@ -343,7 +346,7 @@ class TaskPage extends React.Component {
                                       No
                                     </Radio>
                                   </ButtonGroup>
-                                </Alert>
+                                </div>
                               ) : (
                                 <Alert
                                   type={
@@ -412,79 +415,67 @@ class TaskPage extends React.Component {
                                 </Alert>
                               )
                           )}
-                        {step.successVerifications &&
-                          step.successVerifications.map((verification, c) => (
-                            <Alert type="success" key={c}>
-                              <strong>{t('task.verificationTitle')}</strong>
-                              <AsciiDocTemplate
-                                adoc={verification}
-                                attributes={Object.assign({}, thread.data.attributes, step.attributes, attrs)}
-                              />
-                            </Alert>
-                          ))}
                       </React.Fragment>
                     ))}
                   </div>
+
+                  {/* Bottom footer */}
                   <div className="integr8ly-module-column--footer">
                     <h6>{t('task.CompleteAndCheck')}</h6>
                     <div className="integr8ly-module-column--footer_status">
                       {threadTask.steps.map((step, l) => (
                         <React.Fragment key={l}>
+                          {/* Bottom footer icon */}
                           {step.infoVerifications &&
-                            step.infoVerifications.map(v => (
-                              <Icon
-                                key={v}
-                                className={
-                                  step.infoVerifications && verifications[step.infoVerifications[0]]
-                                    ? 'integr8ly-module-column--footer_status-checked'
-                                    : 'integr8ly-module-column--footer_status'
-                                }
-                                type="fa"
-                                name={verifications[step.infoVerifications[0]] ? 'check-circle-o' : 'circle-o'}
-                              />
-                            ))}
-                          {step.successVerifications &&
-                            step.successVerifications.map(v => (
-                              <Icon
-                                key={v}
-                                className={
-                                  step.successVerifications && verifications[step.successVerifications[0]]
-                                    ? 'integr8ly-module-column--footer_status-checked'
-                                    : 'integr8ly-module-column--footer_status'
-                                }
-                                type="fa"
-                                name={verifications[step.successVerifications[0]] ? 'check-circle-o' : 'circle-o'}
-                              />
-                            ))}
+                            step.infoVerifications.map(
+                              (verification, v) =>
+                                verifications[step.infoVerifications[0]] === undefined ? (
+                                  <Icon
+                                    type="fa"
+                                    className="integr8ly-module-column--footer_status"
+                                    key={v}
+                                    name="circle-o"
+                                  />
+                                ) : (
+                                  <Icon
+                                    type="fa"
+                                    className={
+                                      step.infoVerifications && verifications[step.infoVerifications[0]]
+                                        ? 'integr8ly-module-column--footer_status-checked'
+                                        : 'integr8ly-module-column--footer_status-unchecked'
+                                    }
+                                    key={v}
+                                    name={
+                                      verifications[step.infoVerifications[0]] ? 'check-circle-o' : 'times-circle-o'
+                                    }
+                                  />
+                                )
+                            )}
+                          {/* Bottom footer number to the right of icon  */}
                           {step.infoVerifications &&
-                            step.infoVerifications.map(v => (
-                              <span
-                                key={v}
-                                className={
-                                  verifications[step.infoVerifications[0]]
-                                    ? 'integr8ly-module-column--footer_status-checked'
-                                    : 'integr8ly-module-column--footer_status-step'
-                                }
-                              >
-                                {task + 1}.{l + 1}
-                              </span>
-                            ))}
-                          {step.successVerifications &&
-                            step.successVerifications.map(v => (
-                              <span
-                                key={v}
-                                className={
-                                  verifications[step.successVerifications[0]]
-                                    ? 'integr8ly-module-column--footer_status-checked'
-                                    : 'integr8ly-module-column--footer_status-step'
-                                }
-                              >
-                                {task + 1}.{l + 1}
-                              </span>
-                            ))}
+                            step.infoVerifications.map(
+                              (verification, v) =>
+                                verifications[step.infoVerifications[0]] === undefined ? (
+                                  <span className="integr8ly-module-column--footer_status" key={v}>
+                                    {task + 1}.{l + 1}
+                                  </span>
+                                ) : (
+                                  <span
+                                    className={
+                                      verifications[step.infoVerifications[0]]
+                                        ? 'integr8ly-module-column--footer_status-checked'
+                                        : 'integr8ly-module-column--footer_status-unchecked'
+                                    }
+                                    key={v}
+                                  >
+                                    {task + 1}.{l + 1}
+                                  </span>
+                                )
+                            )}
                         </React.Fragment>
                       ))}
                     </div>
+
                     <div
                       className="btn-group btn-group-justified"
                       role="group"

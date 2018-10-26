@@ -51,6 +51,10 @@
           background-color: $pf-color-blue-50;
           border-color: $pf-color-blue-200;
           color: $pf-color-black-1000;
+
+          i {
+            color: $pf-color-blue-400;
+          }
         }
       }
 
@@ -71,6 +75,7 @@
 
         &_status {
           margin-bottom: 10px;
+          padding-right: 15px;
           color: $pf-color-blue-400;
 
           .fa {
@@ -81,6 +86,12 @@
             margin-bottom: 10px;
             padding-right: 15px;
             color: $pf-color-green-400;
+          }
+
+          &-unchecked {
+            margin-bottom: 10px;
+            padding-right: 15px;
+            color: $pf-color-red-100;
           }
 
           &-step {
