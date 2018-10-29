@@ -56,6 +56,24 @@
             color: $pf-color-blue-400;
           }
         }
+        &_alert-red {
+          background-color: lighten($pf-color-red-100, 55%);
+          border-color: $pf-color-red-100;
+          color: $pf-color-black-1000;
+
+          i {
+            color: $pf-color-red-100;
+          }
+        }
+        &_alert-green {
+          background-color: lighten($pf-color-green-100, 10%);
+          border-color: $pf-color-green-200;
+          color: $pf-color-black-1000;
+
+          i {
+            color: $pf-color-green-400;
+          }
+        }
       }
 
       &--footer {
