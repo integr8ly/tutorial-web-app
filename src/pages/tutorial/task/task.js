@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Alert, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -319,6 +319,7 @@ class TaskPage extends React.Component {
                                 <div className="alert integr8ly-module-column--steps_alert-blue" key={j}>
                                   <i className="pficon fa fa-circle-o" />
                                   <strong>{t('task.verificationTitle')}</strong>
+
                                   <AsciiDocTemplate
                                     adoc={verification}
                                     attributes={Object.assign(
@@ -348,15 +349,22 @@ class TaskPage extends React.Component {
                                   </ButtonGroup>
                                 </div>
                               ) : (
-                                <Alert
-                                  type={
+                                <div
+                                  className={
                                     step.infoVerifications && verifications[step.infoVerifications[0]]
-                                      ? 'success'
-                                      : 'error'
+                                      ? 'alert integr8ly-module-column--steps_alert-green'
+                                      : 'alert integr8ly-module-column--steps_alert-red'
                                   }
-                                  className="alert alert-default"
                                   key={j}
                                 >
+                                  <i
+                                    className={
+                                      step.infoVerifications && verifications[step.infoVerifications[0]]
+                                        ? 'pficon fa fa-check-circle-o'
+                                        : 'pficon fa fa-times-circle-o'
+                                    }
+                                  />
+
                                   <strong>{t('task.verificationTitle')}</strong>
                                   <AsciiDocTemplate
                                     adoc={verification}
@@ -412,7 +420,7 @@ class TaskPage extends React.Component {
                                       )}
                                     />
                                   </span>
-                                </Alert>
+                                </div>
                               )
                           )}
                       </React.Fragment>
