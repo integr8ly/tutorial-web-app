@@ -1,8 +1,14 @@
 // Variables
+// Font path
+$pf-global--font-path: "/assets/fonts" !default;
+
+// Icon path
 $fa-font-path: "/assets/fonts/webfonts" !default;
+$icon-font-path: "~patternfly/dist/fonts/";
+
+// Image path
 $pf-global--image-path: "/assets/images" !default;
 $img-path: "~patternfly/dist/img/";
-$icon-font-path: "~patternfly/dist/fonts/";
 
 // PatternFly 4
 @import "application/pf4Import";
