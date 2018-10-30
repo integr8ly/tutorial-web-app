@@ -18,7 +18,11 @@ endif::location[]
 
 . Navigate to the link:http://{node-js-url}[Node.js app, window="_blank"].
 
-. Enter a value for *Fruit*, for example `Pineapple`.
+. Enter a value for *Fruit*, for example:
++
+----  
+Pineapple
+----
 
 . Click *Send Request*.
 

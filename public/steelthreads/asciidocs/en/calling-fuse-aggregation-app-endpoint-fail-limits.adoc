@@ -7,7 +7,11 @@
 [.integr8ly-docs-header]
 ===== 4.3 Verifying access to the API Service is limited
 
-. In the *user_key* field, enter `{fuse-aggregator-app-name}`.
+. In the *user_key* field, enter:
++
+----
+{fuse-aggregator-app-name}
+----
 . Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
 should require less than 5 clicks (the hourly limit set earlier).
 . Select the *Applications* tab from the top menu.

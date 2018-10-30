@@ -13,7 +13,11 @@
 
 . Select *Create a new spec*.
 
-. Enter `{fuse-aggregator-app-name}` for the *Name* and *System name*.
+. Enter the following for *Name* and *System name*:
++
+----
+{fuse-aggregator-app-name}
+----
 
 . Enter the below content for the *API JSON Spec*.
 +

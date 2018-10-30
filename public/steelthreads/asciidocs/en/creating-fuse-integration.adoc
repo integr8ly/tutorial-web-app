@@ -30,7 +30,11 @@ http://{spring-boot-url}/v2/api-docs
 . When prompted with *Specify Security*, select *Next*.
 
 . When prompted with *Review/Edit Connector Details*
-.. Enter the following in the *Connector Name* field, `Walkthrough {walkthrough-id} CRUD Connector`
+.. Enter the following in the *Connector Name* field:
++
+----
+Walkthrough {walkthrough-id} CRUD Connector
+----
 .. Click *Create API Connector*
 
 . Select *Connections* from the left hand menu.
@@ -130,7 +134,11 @@ work-queue/requests
 .. Click *Done* to navigate back to the Integration screen.
 
 . Click *Publish*.
-. When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
+. When prompted, enter a name, for example:
++
+----
+Walkthrough {walkthrough-id}
+----
 
 
 
