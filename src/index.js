@@ -2,10 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import 'patternfly/dist/css/rcue.css';
-// import 'patternfly/dist/css/rcue-additions.css';
-// import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
-import '@patternfly/patternfly-next/patternfly.min.css';
 import './styles/.css/index.css';
 
 import App from './App';
