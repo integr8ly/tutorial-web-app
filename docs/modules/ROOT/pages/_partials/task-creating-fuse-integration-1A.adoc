@@ -18,11 +18,16 @@ endif::location[]
 
 . Select the *Create Integration* button to start the *Create Integration* wizard.
 
-. Choose `Walkthrough {walkthrough-id} Messaging App` as the *Start Connection*.
+. Choose *Walkthrough {walkthrough-id} Messaging App* as the *Start Connection*.
 
 . When prompted to *Choose an Action*, select *Subscribe for messages*.
 
-. When prompted for a *Destination Name*, enter `work-queue/requests`.
+. When prompted for a *Destination Name*, enter:
++
+[subs="attributes+"]
+---- 
+work-queue/requests
+----
 
 . Choose *Queue* as the *Destination Type* and click *Next*.
 
@@ -30,6 +35,7 @@ endif::location[]
 .. Select *JSON Schema* as the type.
 .. Enter the following in the *Definition* field:
 +
+[subs="attributes+"]
 ----
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
@@ -43,7 +49,7 @@ endif::location[]
 ----
 .. Click *Done*.
 
-. Choose `Walkthrough {walkthrough-id} CRUD App` as the *Finish Connection*.
+. Choose *Walkthrough {walkthrough-id} CRUD App* as the *Finish Connection*.
 
 . When prompted to *Choose an Action*, select *Create a fruit*.
 
@@ -54,7 +60,12 @@ endif::location[]
 .. Click *Done* to navigate back to the Integration screen.
 
 . Click *Publish*.
-. When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
+. When prompted, enter a name, for example:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id}
+----
 
 ifdef::location[]
 

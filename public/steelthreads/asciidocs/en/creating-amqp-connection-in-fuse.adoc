@@ -21,17 +21,37 @@
 
 . Select *AMQP* to configure an *AMQP Message Broker* connection.
 
-. Enter the following, using the configuration values relating to {enmasse}:
+. Enter the connection URI relating to {enmasse}:
 +
-* Connection URI: `amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN`
-* User Name: `{messaging-username}`
-* Password: `{messaging-password}`
+[subs="attributes+"]
+----
+amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN
+----
+
+. Enter the username relating to {enmasse}:
++
+[subs="attributes+"]
+----
+{messaging-username}
+----
+
+. Enter the password relating to {enmasse}:
++
+[subs="attributes+"]
+----
+{messaging-password}
+----
 
 . Set the value of *Check Certificates* to `Disable`.
 
 . Select the *Validate* button to check that the values are valid.
 
-. Click *Next* and enter a name for the connection, for example, `Walkthrough {walkthrough-id} Messaging App`.
+. Click *Next* and enter a name for the connection, for example:
++
+[subs="attributes+"]
+----
+Walkthrough {walkthrough-id} Messaging App
+----
 
 . Click *Create*.
 

@@ -21,7 +21,7 @@
 .. Select the *Add or Import Project* button.
 .. Select the *Github* tab.
 .. Select the *Connect your Github Account* button.
-.. Select the checkbox beside the git repository named `{walkthrough-namespace}`. You may need to filter by account if you are a member of any Organizations.
+.. Select the checkbox beside the git repository named *{walkthrough-namespace}*. You may need to filter by account if you are a member of any Organizations.
 .. Select the *Add* button to add the repository to the workspace.
 .. Select the *Create* button at the bottom.
 .. Select *Open in IDE*.

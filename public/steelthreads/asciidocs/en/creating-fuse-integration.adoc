@@ -17,7 +17,13 @@
 . Select the *Create API Connector* button to start the *API Client Connector* wizard.
 
 . When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
-.. Enter the following in the URL field. `\http://{spring-boot-url}/v2/api-docs`
+.. Enter the following in the URL field:
++
+[subs="attributes+"]
+----
+http://{spring-boot-url}/v2/api-docs
+----
+
 .. Click *Next*
 
 . When prompted with *Review Actions*, select *Next*.
@@ -25,7 +31,12 @@
 . When prompted with *Specify Security*, select *Next*.
 
 . When prompted with *Review/Edit Connector Details*
-.. Enter the following in the *Connector Name* field, `Walkthrough {walkthrough-id} CRUD Connector`
+.. Enter the following in the *Connector Name* field:
++
+[subs="attributes+"]
+----
+Walkthrough {walkthrough-id} CRUD Connector
+----
 .. Click *Create API Connector*
 
 . Select *Connections* from the left hand menu.
@@ -37,7 +48,12 @@
 . When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
 
 . When prompted with *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} CRUD App`
+.. Enter the following in the *Connection Name* field:
++
+[subs="attributes+"]
+----
+Walkthrough {walkthrough-id} CRUD App
+----
 .. Click *Create*
 
 . Select *Connections* from the left hand menu.
@@ -47,26 +63,54 @@
 . When prompted with *Select Connector*, select *AMQ Message Broker*
 
 . When prompted with *AMQ Message Broker Configuration*
-.. Enter the following into the *Broker URL* field, `tcp://{messaging-broker-url}:61616`
-.. Enter the following into the *User Name* field, `{messaging-username}`
-.. Enter the following into the *Password* field, `{messaging-password}`
-.. Select `Disable` for the *Check Certificates* field.
+.. Enter the following into the *Broker URL* field:
++
+[subs="attributes+"]
+----
+tcp://{messaging-broker-url}:61616
+----
+
+.. Enter the following into the *User Name* field:
++
+[subs="attributes+"]
+----
+{messaging-username}
+----
+
+.. Enter the following into the *Password* field:
++
+[subs="attributes+"]
+----
+{messaging-password}
+
+.. Select *Disable* for the *Check Certificates* field.
 .. Click *Validate*
 .. Click *Next*
 
 . When prompted for *Add Connection Details*
-.. Enter the following in the *Connection Name* field, `Walkthrough {walkthrough-id} Messaging App`
+.. Enter the following in the *Connection Name* field:
++
+[subs="attributes+"]
+----
+Walkthrough {walkthrough-id} Messaging App
+----
+
 .. Click *Create*
 
 . Select *Integrations* from the left hand menu.
 
 . Select the *Create Integration* button to start the *Create Integration* wizard.
 
-. Choose `Walkthrough {walkthrough-id} Messaging App` as the *Start Connection*.
+. Choose *Walkthrough {walkthrough-id} Messaging App* as the *Start Connection*.
 
 . When prompted to *Choose an Action*, select *Subscribe for messages*.
 
-. When prompted for a *Destination Name*, enter `work-queue/requests`.
+. When prompted for a *Destination Name*, enter:
++
+[subs="attributes+"]
+----
+work-queue/requests
+----
 
 . Choose *Queue* as the *Destination Type* and click *Next*.
 
@@ -74,6 +118,7 @@
 .. Select *JSON Schema* as the type.
 .. Enter the following in the *Definition* field:
 +
+[subs="attributes+"]
 ----
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
@@ -87,7 +132,7 @@
 ----
 .. Click *Done*.
 
-. Choose `Walkthrough {walkthrough-id} CRUD App` as the *Finish Connection*.
+. Choose *Walkthrough {walkthrough-id} CRUD App* as the *Finish Connection*.
 
 . When prompted to *Choose an Action*, select *Create a fruit*.
 
@@ -98,7 +143,12 @@
 .. Click *Done* to navigate back to the Integration screen.
 
 . Click *Publish*.
-. When prompted, enter a name, for example `Walkthrough {walkthrough-id}`.
+. When prompted, enter a name, for example:
++
+[subs="attributes+"]
+----
+Walkthrough {walkthrough-id}
+----
 
 
 
