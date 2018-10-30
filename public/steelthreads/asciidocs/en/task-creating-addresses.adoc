@@ -26,6 +26,7 @@
 .. Select the *Create* button to start the *Create new address* wizard.
 .. Enter the following as the address name:
 +
+[subs="attributes+"]
 ----
 work-queue/requests
 ----

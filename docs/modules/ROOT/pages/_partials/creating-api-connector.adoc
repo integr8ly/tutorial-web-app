@@ -16,6 +16,7 @@
 . When prompted to *Upload OpenAPI Specification*, select *Use a URL*:
 .. Enter the following in the URL field:
 +
+[subs="attributes+"]
 ---- 
 http://{spring-boot-url}/v2/api-docs
 ----
@@ -29,6 +30,7 @@ http://{spring-boot-url}/v2/api-docs
 . When prompted with *Review/Edit Connector Details*:
 .. Enter the following in the *Connector Name* field:
 +
+[subs="attributes+"]
 ----  
 Walkthrough {walkthrough-id} CRUD Connector
 ----

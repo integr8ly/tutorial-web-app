@@ -19,6 +19,7 @@
 . When prompted to *Upload OpenAPI Specification*, select *Use a URL*.
 .. Enter the following in the URL field:
 +
+[subs="attributes+"]
 ----
 http://{spring-boot-url}/v2/api-docs
 ----
@@ -32,6 +33,7 @@ http://{spring-boot-url}/v2/api-docs
 . When prompted with *Review/Edit Connector Details*
 .. Enter the following in the *Connector Name* field:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id} CRUD Connector
 ----
@@ -48,6 +50,7 @@ Walkthrough {walkthrough-id} CRUD Connector
 . When prompted with *Add Connection Details*
 .. Enter the following in the *Connection Name* field:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id} CRUD App
 ----
@@ -62,18 +65,21 @@ Walkthrough {walkthrough-id} CRUD App
 . When prompted with *AMQ Message Broker Configuration*
 .. Enter the following into the *Broker URL* field:
 +
+[subs="attributes+"]
 ----
 tcp://{messaging-broker-url}:61616
 ----
 
 .. Enter the following into the *User Name* field:
 +
+[subs="attributes+"]
 ----
 {messaging-username}
 ----
 
 .. Enter the following into the *Password* field:
 +
+[subs="attributes+"]
 ----
 {messaging-password}
 
@@ -84,6 +90,7 @@ tcp://{messaging-broker-url}:61616
 . When prompted for *Add Connection Details*
 .. Enter the following in the *Connection Name* field:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id} Messaging App
 ----
@@ -100,6 +107,7 @@ Walkthrough {walkthrough-id} Messaging App
 
 . When prompted for a *Destination Name*, enter:
 +
+[subs="attributes+"]
 ----
 work-queue/requests
 ----
@@ -110,6 +118,7 @@ work-queue/requests
 .. Select *JSON Schema* as the type.
 .. Enter the following in the *Definition* field:
 +
+[subs="attributes+"]
 ----
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
@@ -136,6 +145,7 @@ work-queue/requests
 . Click *Publish*.
 . When prompted, enter a name, for example:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id}
 ----

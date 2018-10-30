@@ -12,6 +12,7 @@
 .. Select *Create Application Plan*.
 .. Enter the following for *Name* and *System name*:
 +
+[subs="attributes+"]
 ----  
 {fuse-aggregator-app-name}
 ----
@@ -35,6 +36,7 @@
 .. Select the *{fuse-aggregator-app-name}* Plan in the *Application plan* dropdown.
 .. Enter the following for *Name* and *Description*:
 +
+[subs="attributes+"]
 ----  
 {fuse-aggregator-app-name}
 ----
@@ -45,6 +47,7 @@
 .. Select *Set Custom Key*.
 .. In the *Custom User Key* field, enter:
 +
+[subs="attributes+"]
 ----  
 {fuse-aggregator-app-name}
 ----

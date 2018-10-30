@@ -15,6 +15,7 @@
 
 . Enter the following for *Name* and *System name*:
 +
+[subs="attributes+"]
 ----  
 {fuse-aggregator-app-name}
 ----

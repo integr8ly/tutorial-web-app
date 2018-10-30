@@ -27,6 +27,7 @@ endif::location[]
 . When prompted with *Add Connection Details*:
 .. Enter the following in the *Connection Name* field:
 +
+[subs="attributes+"]
 ----  
 Walkthrough {walkthrough-id} CRUD App
 ----

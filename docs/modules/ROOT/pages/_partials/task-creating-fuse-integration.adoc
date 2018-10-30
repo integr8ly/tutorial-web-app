@@ -24,6 +24,7 @@ endif::location[]
 
 . When prompted for a *Destination Name*, enter:
 +
+[subs="attributes+"]
 ---- 
 work-queue/requests
 ----
@@ -34,6 +35,7 @@ work-queue/requests
 .. Select *JSON Schema* as the type.
 .. Enter the following in the *Definition* field:
 +
+[subs="attributes+"]
 ----
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
@@ -60,6 +62,7 @@ work-queue/requests
 . Click *Publish*.
 . When prompted, enter a name, for example:
 +
+[subs="attributes+"]
 ----  
 Walkthrough {walkthrough-id}
 ----

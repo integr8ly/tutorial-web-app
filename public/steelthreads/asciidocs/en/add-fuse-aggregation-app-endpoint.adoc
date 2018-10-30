@@ -14,6 +14,7 @@
 // TODO: dynamic fuse aggregation app name based on user id/email. "Only ASCII letters, numbers, dashes and underscores are allowed" for System name. e.g. fuse-aggregation-app-test01-example-com
 . Enter the following as the *Name* and *System name*:
 +
+[subs="attributes+"]
 ----
 {fuse-aggregator-app-name}
 ----

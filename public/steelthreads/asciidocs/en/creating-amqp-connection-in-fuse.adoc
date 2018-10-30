@@ -23,18 +23,21 @@
 
 . Enter the connection URI relating to {enmasse}:
 +
+[subs="attributes+"]
 ----
 amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN
 ----
 
 . Enter the username relating to {enmasse}:
 +
+[subs="attributes+"]
 ----
 {messaging-username}
 ----
 
 . Enter the password relating to {enmasse}:
 +
+[subs="attributes+"]
 ----
 {messaging-password}
 ----
@@ -45,6 +48,7 @@ amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN
 
 . Click *Next* and enter a name for the connection, for example:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id} Messaging App
 ----

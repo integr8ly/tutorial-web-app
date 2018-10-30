@@ -15,16 +15,19 @@
 . When prompted with *AMQ Message Broker Configuration*:
 .. Enter the following into the *Broker URL* field:
 +
+[subs="attributes+"]
 ----
 tcp://{messaging-broker-url}:61616
 ----
 .. Enter the following into the *User Name* field:
 +
+[subs="attributes+"]
 ----
 {messaging-username}
 ----
 .. Enter the following into the *Password* field:
 +
+[subs="attributes+"]
 ----
 {messaging-password}
 ----
@@ -35,6 +38,7 @@ tcp://{messaging-broker-url}:61616
 . When prompted for *Add Connection Details*:
 .. Enter the following in the *Connection Name* field:
 +
+[subs="attributes+"]
 ----
 Walkthrough {walkthrough-id} Messaging App
 ----

@@ -9,6 +9,7 @@
 
 . In the *user_key* field, enter:
 +
+[subs="attributes+"]
 ----
 {fuse-aggregator-app-name}
 ----
