@@ -5,33 +5,33 @@
     right: 0;
     bottom: 0;
     background-color: $pf-color-black-150;
-    border-left: 1px solid;
+    border-left: var(--pf-global--BorderWidth--sm) solid;
     border-left-color: $pf-color-black-300;
 
     &-heading {
       margin-bottom: 20px;
-      font-weight: $pf-global--FontWeight--normal;
+      font-weight: var(--pf-global--FontWeight--normal);
     }
 
     &-product-title {
       margin-top: 25px;
-      font-size: $pf-global--FontSize--lg;
+      font-size: var(--pf-global--FontSize--lg);
 
       i {
-        font-size: $pf-global--FontSize--md;
+        font-size: var(--pf-global--FontSize--md);
 
         /* stylelint-disable */
         /* only 3 levels of nesting allowed - this needs to be fixed */
         &.pficon-on-running {
-          color: $color-pf-green-400;
+          color: $pf-color-green-400;
         }
 
         &.fa-pie-chart {
-          color: $color-pf-black-600;
+          color: $pf-color-black-600;
         }
 
         &.pficon-pending {
-          color: $color-pf-orange-400;
+          color: $pf-color-orange-400;
         }
         /* stylelint-enable */
       }

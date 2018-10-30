@@ -1,12 +1,12 @@
 .integr8ly-landing-page {
   &-masthead {
     background-image: url("../../img/Web_RH_Banner.png");
-    background-color: $pf-color-black-900;
+    background-color: var(--pf-global--BackgroundColor--dark-100);
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
-    color: $pf-color-white;
     height: 130px;
+    width: 100%;
     margin: auto 0;
     display: flex;
 
@@ -20,12 +20,14 @@
       width: 115px;
     }
 
-    h4 {
+    h1 {
       margin-top: 22px;
+      color: $pf-color-white;
     }
 
     p:first-of-type {
-      font-weight: $pf-global--FontWeight--bold;
+      color: $pf-color-white;
+      font-weight: var(--pf-global--FontWeight--bold);
     }
   }
 }

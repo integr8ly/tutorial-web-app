@@ -30,12 +30,12 @@ class InstalledAppsView extends React.Component {
   static getStatusForApp(app) {
     const provisioningStatus = (
       <div className="integr8ly-state-provisioining">
-        <Icon type="fa" name="pie-chart" /> &nbsp;Provisioning
+        <Icon type="fa" name="chart-pie" /> &nbsp;Provisioning
       </div>
     );
     const readyStatus = (
       <div className="integr8ly-state-ready">
-        <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+        <Icon type="fa" name="bolt" /> &nbsp;Ready for use
       </div>
     );
     const unavailableStatus = (
@@ -76,7 +76,7 @@ class InstalledAppsView extends React.Component {
       >
         <p>Red Hat OpenShift</p>
         <div className="integr8ly-state-ready">
-          <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+          <Icon type="fa" name="bolt" /> &nbsp;Ready for use
         </div>
       </li>
     );
@@ -90,7 +90,7 @@ class InstalledAppsView extends React.Component {
           <span className="integr8ly-label-community">custom</span>
         </div>
         <div className="integr8ly-state-ready">
-          <Icon type="pf" name="on-running" /> &nbsp;Ready for use
+          <Icon type="fa" name="bolt" /> &nbsp;Ready for use
         </div>
       </li>
     );
@@ -126,7 +126,7 @@ class InstalledAppsView extends React.Component {
     return (
       <div className="panel panel-default integr8ly-installed-apps-view">
         <div className="panel-heading panel-title integr8ly-installed-apps-view-panel-title">
-          <h3>Applications</h3>
+          <h1 className="pf-c-title pf-m-2xl">Applications</h1>
           <div>{appList.props.children.length} applications</div>
         </div>
         <div className="panel-content">{appList}</div>

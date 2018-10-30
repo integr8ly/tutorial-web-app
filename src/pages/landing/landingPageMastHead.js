@@ -3,9 +3,9 @@ import * as React from 'react';
 const LandingPageMastHead = () => (
   <header className="row integr8ly-landing-page-masthead">
     <div className="col-xs-12">
-      <h4>
+      <h1 className="pf-c-title pf-m-xl">
         Welcome to the <b>Red Hat Solution Explorer</b>
-      </h4>
+      </h1>
       <p>
         Get started with an end-to-end solution walkthrough or
         <br />

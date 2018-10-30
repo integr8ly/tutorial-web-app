@@ -10,7 +10,7 @@
     &-column {
       &--status {
         background-color: $pf-color-black-100;
-        border-bottom: 1px solid;
+        border-bottom: var(--pf-global--BorderWidth--sm) solid;
         border-bottom-color: $pf-color-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
@@ -33,7 +33,7 @@
 
         &-next {
           background-color: $pf-color-black-100;
-          border-top: 1px solid;
+          border-top: var(--pf-global--BorderWidth--sm) solid;
           border-top-color: $pf-color-black-300;
           margin: 0 -20px;
           padding: 10px 20px 20px;
@@ -58,11 +58,11 @@
         }
         &_alert-red {
           background-color: lighten($pf-color-red-100, 55%);
-          border-color: $pf-color-red-100;
+          border-color: var(--pf-global--danger-color--100);
           color: $pf-color-black-1000;
 
           i {
-            color: $pf-color-red-100;
+            color: var(--pf-global--danger-color--100);
           }
         }
         &_alert-green {
@@ -78,7 +78,7 @@
 
       &--footer {
         background-color: $pf-color-black-100;
-        border-top: 1px solid;
+        border-top: var(--pf-global--BorderWidth--sm) solid;
         border-top-color: $pf-color-black-300;
         position: fixed;
         bottom: 0;
@@ -96,7 +96,7 @@
           padding-right: 15px;
           color: $pf-color-blue-400;
 
-          .fa {
+          .far {
             padding-right: 5px;
           }
 
@@ -109,7 +109,7 @@
           &-unchecked {
             margin-bottom: 10px;
             padding-right: 15px;
-            color: $pf-color-red-100;
+            color: var(--pf-global--danger-color--100);
           }
 
           &-step {
@@ -128,10 +128,10 @@
       padding-top: 40px;
       overflow-y: auto;
       background-color: $pf-color-black-150;
-      border-left: 1px solid;
+      border-left: var(--pf-global--BorderWidth--sm) solid;
       border-left-color: $pf-color-black-300;
 
-      @media (max-width: 768px) {
+      @media (max-width: var(--pf-global--breakpoint--md)) {
         display: none;
       }
     }
