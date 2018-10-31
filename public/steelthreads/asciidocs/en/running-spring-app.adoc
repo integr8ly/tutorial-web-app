@@ -13,7 +13,7 @@
 :launcher-url: http://launcher-launcher.apps.city.openshiftworkshop.com/
 
 
-. Log in to the link:{launcher-url}[{launcher-name}, window="_blank"] console.
+. Log in to the link:{launcher-url}[{launcher-name}, window={target}] console.
 
 . Select *LAUNCH YOUR PROJECT*.
 

@@ -10,7 +10,7 @@
 
 
 Edit the messaging-service configmap, setting the values for `MESSAGING_SERVICE_PASSWORD` and `MESSAGING_SERVICE_USER` to the values from the EnMasse binding secret:
-.  Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the Overview screen for the *evals* project.
+.  Log in to the link:{openshift-url}[OpenShift, window={target}] console and navigate to the Overview screen for the *evals* project.
 
 . Expand the *EnMasse (standard)* service by selecting the *>* button.
 

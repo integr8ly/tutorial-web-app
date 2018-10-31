@@ -19,7 +19,7 @@ endif::location[]
 
 // TODO placeholders for product names
 // TODO project name
-. Log in to the link:{che-url}[Che, window="_blank"] Dashboard
+. Log in to the link:{che-url}[Che, window={target}] Dashboard
 
 . The *New Workspace* page is displayed. Create a new Workspace:
 .. Use the *Java* stack.
@@ -63,7 +63,7 @@ ifdef::location[]
 .To verify this procedure:
 // tag::verification[]
 // TODO: flights api links to /camel/flights
-After waiting for the build and depoyment to complete, check that link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] responds with more than 8 flights.
+After waiting for the build and depoyment to complete, check that link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window={target}] responds with more than 8 flights.
 
 // end::verification[]
 

@@ -278,6 +278,7 @@ class TaskPage extends React.Component {
       const totalTasks = thread.data.tasks.length;
       const loadingText = `We're initiating services for "${thread.data.title}".`;
       const standbyText = 'Please stand by.';
+      const target = 'currentApp';
       return (
         <React.Fragment>
           <Breadcrumb
@@ -304,7 +305,7 @@ class TaskPage extends React.Component {
                         <AsciiDocTemplate
                           adoc={step.stepDoc}
                           attributes={Object.assign(
-                            {},
+                            { target },
                             thread.data.attributes,
                             step.attributes,
                             this.getDocsAttributes()
@@ -536,7 +537,7 @@ class TaskPage extends React.Component {
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
                 <Iframe
-                  url="https://fuse-af19fff4-d90e-11e8-8e24-0a580a810002.cluster-lfa3xlh.opentry.me/"
+                  name="currentApp"
                   styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
                   display="initial"
                   position="middle"

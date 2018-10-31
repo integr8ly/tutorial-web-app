@@ -11,7 +11,7 @@
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
-. Log in to the link:{openshift-url}[OpenShift, window="_blank"] console.
+. Log in to the link:{openshift-url}[OpenShift, window={target}] console.
 
 . Click the *Create Binding* option beside *EnMasse (standard)*.
 
