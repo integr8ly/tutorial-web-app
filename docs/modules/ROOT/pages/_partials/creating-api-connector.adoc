@@ -7,7 +7,7 @@
 [.integr8ly-docs-header]
 ===== 1.1 Creating an API Connector 
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 
 . Select *Customizations* from the left hand menu.
 
@@ -41,7 +41,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connector exists.
+Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window={target}] console to make sure the new connector exists.
 // end::verification[]
 
 

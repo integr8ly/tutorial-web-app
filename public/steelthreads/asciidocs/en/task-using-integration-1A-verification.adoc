@@ -1,6 +1,6 @@
 View the activity log:
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 . Select *Integrations* from the left hand menu.
 . Select your integration.
 . Select the *Activity* tab.

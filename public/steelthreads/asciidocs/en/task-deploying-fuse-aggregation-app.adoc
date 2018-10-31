@@ -15,7 +15,7 @@
 // TODO placeholders for product names
 // TODO append /launch/wizard/<project-name> to launcher url
 // TODO flights endpoint url
-. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window="_blank"] wizard.
+. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window={target}] wizard.
 
 . Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step.
 

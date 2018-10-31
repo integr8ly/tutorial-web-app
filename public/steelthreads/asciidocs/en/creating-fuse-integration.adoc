@@ -10,7 +10,7 @@
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 
 . Select *Customizations* from the left hand menu.
 

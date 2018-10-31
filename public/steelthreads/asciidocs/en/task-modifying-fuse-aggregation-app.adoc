@@ -14,7 +14,7 @@
 
 // TODO placeholders for product names
 // TODO project name
-. Log in to the link:{che-url}[Che, window="_blank"] Dashboard
+. Log in to the link:{che-url}[Che, window={target}] Dashboard
 
 . The *New Workspace* page is displayed. Create a new Workspace:
 .. Use the *Java* stack.
