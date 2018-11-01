@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { noop, Grid, Button } from 'patternfly-react';
+import { noop, Grid } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
 
@@ -36,10 +36,15 @@ class CongratulationsPage extends React.Component {
                   you just built!
                 </p>
                 <div className="integr8ly-congratulations_buttons">
-                  <Button onClick={e => this.exitTutorial(e)}>Return to Home Page</Button>
-                  <Button onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}>
+                  <button className="pf-c-button pf-m-primary" onClick={e => this.exitTutorial(e)}>
+                    Return to Home Page
+                  </button>
+                  <button
+                    className="pf-c-button pf-m-primary"
+                    onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+                  >
                     Launch OpenShift Console
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

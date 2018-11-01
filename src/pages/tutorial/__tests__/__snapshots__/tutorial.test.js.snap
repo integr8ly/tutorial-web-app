@@ -40,19 +40,18 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h1
+          <h3
             className="pf-c-title pf-m-2xl"
           />
-          <Button
+          <button
             active={false}
             block={false}
-            bsClass="btn"
-            bsStyle="primary"
             disabled={false}
+            className="pf-c-button pf-m-primary"
             onClick={[Function]}
           >
             tutorial.getStarted
-          </Button>
+          </button>
         </div>
         <div
           className="alert alert-info"
@@ -103,7 +102,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={9}
         xs={12}
       >
-        <h1
+        <h3
           className="pf-c-title pf-m-2xl"
         >
           tutorial.tasksToComplete
@@ -120,7 +119,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               tutorial.minutes
             </span>
           </div>
-        </h1>
+        </h3>
         <ListView
           className="integr8ly-list-view-pf"
         >
@@ -166,16 +165,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="pull-right integr8ly-task-dashboard-time-to-completion"
         >
-          <Button
+          <button
             active={false}
             block={false}
-            bsClass="btn"
-            bsStyle="primary"
+            className="pf-c-button pf-m-primary"
             disabled={false}
             onClick={[Function]}
           >
             tutorial.getStarted
-          </Button>
+          </button>
         </div>
       </Col>
     </Row>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import { noop, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -492,40 +492,40 @@ class TaskPage extends React.Component {
                     >
                       {task === 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.backToIntro(e)}>
+                          <button className="pf-c-button pf-m-secondary" onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.backToIntro')}
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {task > 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, task - 1)}>
+                          <button className="pf-c-button pf-m-secondary" onClick={e => this.goToTask(e, task - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {task + 1 < totalTasks && (
                         <ButtonGroup>
-                          <Button
-                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                          <button
+                            className={verificationsChecked ? 'pf-c-button pf-m-primary' : 'pf-c-button pf-m-secondary'}
                             onClick={e => this.goToTask(e, task + 1)}
                             disabled={!verificationsChecked}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {task + 1 === totalTasks && (
                         <ButtonGroup>
-                          <Button
-                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                          <button
+                            className={verificationsChecked ? 'pf-c-button pf-m-primary' : 'pf-c-button pf-m-secondary'}
                             onClick={e => this.exitTutorial(e)}
                             disabled={!verificationsChecked}
                           >
                             {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                     </div>

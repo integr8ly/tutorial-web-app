@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
+import { noop, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
 import PfMasthead from '../../components/masthead/masthead';
@@ -74,10 +74,10 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
                 <div className="integr8ly-task-dashboard-header">
-                  <h1 className="pf-c-title pf-m-2xl">{thread.data.title}</h1>
-                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                  <h3 className="pf-c-title pf-m-2xl">{thread.data.title}</h3>
+                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
-                  </Button>
+                  </button>
                 </div>
                 {this.renderPrereqs(thread)}
                 <AsciiDocTemplate
@@ -93,7 +93,7 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={9}>
-                <h1 className="pf-c-title pf-m-2xl">
+                <h3 className="pf-c-title pf-m-2xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock" />
@@ -102,7 +102,7 @@ class TutorialPage extends React.Component {
                       {t('tutorial.minutes')}
                     </span>
                   </div>
-                </h1>
+                </h3>
                 <ListView className="integr8ly-list-view-pf">
                   {thread.data.tasks.map((task, i) => (
                     <ListView.Item
@@ -125,9 +125,9 @@ class TutorialPage extends React.Component {
                   ))}
                 </ListView>
                 <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                  <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
-                  </Button>
+                  </button>
                 </div>
               </Grid.Col>
             </Grid.Row>
