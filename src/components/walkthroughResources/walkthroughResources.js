@@ -90,7 +90,7 @@ class WalkthroughResources extends React.Component {
 
         return (
           <div key={resource.title}>
-            <h4 className="integr8ly-helpful-links-product-title">
+            <h4 className="pf-c-title pf-m-xl integr8ly-helpful-links-product-title">
               {resource.statusIcon}
               &nbsp;
               {resource.title}
@@ -117,7 +117,7 @@ class WalkthroughResources extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+        <h4 className="pf-c-title pf-m-xl integr8ly-helpful-links-heading">Walkthrough Resources</h4>
         {this.state.resourceList}
         <div className={this.state.resourceList ? 'hidden' : 'show'}>No resources available.</div>
       </div>
