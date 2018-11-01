@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -29,7 +28,7 @@ class WalkthroughResources extends React.Component {
 
         if (resource.serviceName === 'openshift') {
           gaStatus = '';
-          icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
+          icon = <i className="fas fa-bolt integr8ly-state-ready" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
@@ -51,9 +50,9 @@ class WalkthroughResources extends React.Component {
   }
 
   static assignSerivceIcon(app) {
-    const provisioningStatus = <Icon className="integr8ly-state-provisioining" type="fa" name="chart-pie" />;
-    const readyStatus = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
-    const unavailableStatus = <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />;
+    const provisioningStatus = <i className="fas fa-chart-pie integr8ly-state-provisioining" />;
+    const readyStatus = <i className="fas fa-bolt integr8ly-state-ready" />;
+    const unavailableStatus = <i className="fas fa-exclamation-circle integr8ly-state-unavailable" />;
 
     if (app.metadata && app.metadata.deletionTimestamp) {
       return unavailableStatus;
@@ -74,7 +73,7 @@ class WalkthroughResources extends React.Component {
     if (resources && resources.length > 0) {
       resourceList = resources.map(resource => (
         <div key={resource.title}>
-          <h4 className="integr8ly-helpful-links-product-title">
+          <h4>
             {resource.statusIcon}
             &nbsp;
             {resource.title}
@@ -90,7 +89,7 @@ class WalkthroughResources extends React.Component {
               <span />
             )}
           </h4>
-          <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
+          <div dangerouslySetInnerHTML={{ __html: resource.html }} />
         </div>
       ));
     }
@@ -100,7 +99,7 @@ class WalkthroughResources extends React.Component {
   render() {
     return (
       <div>
-        <h3 className="integr8ly-helpful-links-heading">Walkthrough Resources</h3>
+        <h2>Walkthrough Resources</h2>
         {this.state.resourceList}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
       </div>

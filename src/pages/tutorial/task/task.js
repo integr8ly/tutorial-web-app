@@ -443,7 +443,7 @@ class TaskPage extends React.Component {
                     >
                       {taskNum === 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.backToIntro(e)}>
+                          <Button bsStyle="default" onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.backToIntro')}
                           </Button>
@@ -451,7 +451,7 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum > 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, taskNum - 1)}>
+                          <Button bsStyle="default" onClick={e => this.goToTask(e, taskNum - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
                           </Button>
