@@ -119,7 +119,7 @@ class TutorialPage extends React.Component {
                       </span>
                     </span>
                   </div>
-                </h1>
+                </h3>
                 <ListView className="integr8ly-list-view-pf">
                   {parsedThread.tasks.map((task, i) => (
                     <ListView.Item
