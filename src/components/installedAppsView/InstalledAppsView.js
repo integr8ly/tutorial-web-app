@@ -126,7 +126,7 @@ class InstalledAppsView extends React.Component {
     return (
       <div className="panel panel-default integr8ly-installed-apps-view">
         <div className="panel-heading panel-title integr8ly-installed-apps-view-panel-title">
-          <h1 className="pf-c-title pf-m-2xl">Applications</h1>
+          <h3 className="pf-c-title pf-m-2xl">Applications</h3>
           <div>{appList.props.children.length} applications</div>
         </div>
         <div className="panel-content">{appList}</div>

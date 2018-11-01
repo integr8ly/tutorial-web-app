@@ -40,7 +40,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h1
+          <h3
             className="pf-c-title pf-m-2xl"
           />
           <Button
@@ -103,7 +103,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={9}
         xs={12}
       >
-        <h1
+        <h3
           className="pf-c-title pf-m-2xl"
         >
           tutorial.tasksToComplete
@@ -120,7 +120,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               tutorial.minutes
             </span>
           </div>
-        </h1>
+        </h3>
         <ListView
           className="integr8ly-list-view-pf"
         >
