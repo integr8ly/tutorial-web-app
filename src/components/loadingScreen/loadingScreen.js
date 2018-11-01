@@ -30,7 +30,7 @@ class LoadingScreen extends React.Component {
               />
             </object>
           </div>
-          <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
+          <h2 className="pf-c-title pf-m-3xl integr8ly-loadingscreen-text integr8ly-congratulations-heading pf-u-mt-xl pf-u-mb-xl">
             {this.props.loadingText}
             <br />
             {this.props.standbyText}

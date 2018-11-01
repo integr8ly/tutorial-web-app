@@ -60,7 +60,7 @@ const TutorialDashboard = props => {
   return (
     <div className="integr8ly-tutorial-dashboard panel panel-default">
       <div className="panel-heading panel-title">
-        <h1 className="pf-c-title pf-m-3xl">Start with a walkthrough</h1>
+        <h2 className="pf-c-title pf-m-3xl">Start with a walkthrough</h2>
         <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">

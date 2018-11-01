@@ -87,7 +87,7 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
-                  <h3>{parsedThread.title}</h3>
+                  <h3 className="pf-c-title pf-m-2xl">{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </Button>
