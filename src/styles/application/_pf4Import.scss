@@ -6,60 +6,61 @@
 
 // These two variables control the usage/combination of PatternFly 3 and PatternFly 4
 // To remove PatternFly 3, set $pf-global--load-pf-3 to 'false'
+$pf-global--enable-font-overpass-cdn: true !default;
 $pf-global--load-pf-3: true !default;
 $pf-global--enable-reset: false !default;
 
 @import "../node_modules/@patternfly/patternfly-next/patternfly-base.scss";
 
-// @import "../node_modules/@patternfly/patternfly-next/components/AboutModalBox/about-modal-box.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/Alert/alert.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Avatar/avatar.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/Backdrop/backdrop.scss";
+// Components
+@import "../node_modules/@patternfly/patternfly-next/components/AboutModalBox/about-modal-box.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Alert/alert.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Avatar/avatar.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Backdrop/backdrop.scss";
 @import "../node_modules/@patternfly/patternfly-next/components/BackgroundImage/background-image.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Badge/badge.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Brand/brand.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Badge/badge.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Brand/brand.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Breadcrumb/breadcrumb.scss";
 @import "../node_modules/@patternfly/patternfly-next/components/Button/button.scss";
 @import "../node_modules/@patternfly/patternfly-next/components/Card/card.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Check/check.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Check/check.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Chip/chip.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/ChipGroup/chip-group.scss";
 @import "../node_modules/@patternfly/patternfly-next/components/Content/content.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Dropdown/dropdown.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Form/form.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/FormControl/form-control.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/InputGroup/input-group.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/List/list.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/LoginBox/login-box.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/ModalBox/modal-box.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/Nav/nav.scss";
-// @import "../node_modules/@patternfly/patternfly-next/components/Popover/popover.scss";
-@import "../node_modules/@patternfly/patternfly-next/components/Progress/progress.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Switch/switch.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Table/table.scss";
-@import "../node_modules/@patternfly/patternfly-next/components/Title/title.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/components/Tooltip/tooltip.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Bullseye/bullseye.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Gallery/gallery.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Grid/grid.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Level/level.scss";
-
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Login/login.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/DataList/styles.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Dropdown/dropdown.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/EmptyState/empty-state.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Form/form.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/FormControl/form-control.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/InputGroup/input-group.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Label/label.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/List/list.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Login/login.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/ModalBox/modal-box.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Nav/nav.scss";
 @import "../node_modules/@patternfly/patternfly-next/components/Page/page.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Popover/popover.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Progress/progress.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Switch/switch.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Table/table.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Tabs/tabs.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Title/title.scss";
+@import "../node_modules/@patternfly/patternfly-next/components/Tooltip/tooltip.scss";
 
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Split/split.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Stack/stack.scss";
-// @import "../node_modules/@patternfly/patternfly-next/layouts/Toolbar/toolbar.scss";
+// Layouts
+@import "../node_modules/@patternfly/patternfly-next/layouts/Bullseye/bullseye.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Gallery/gallery.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Grid/grid.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Level/level.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Split/split.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Stack/stack.scss";
+@import "../node_modules/@patternfly/patternfly-next/layouts/Toolbar/toolbar.scss";
+
+// Utilities
 @import "../node_modules/@patternfly/patternfly-next/utilities/Accessibility/accessibility.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Alignment/alignment.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/BoxShadow/box-shadow.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Display/display.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Flex/flex.scss";
+@import "../node_modules/@patternfly/patternfly-next/utilities/Sizing/sizing.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Spacing/spacing.scss";

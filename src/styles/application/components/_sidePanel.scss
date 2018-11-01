@@ -1,11 +1,4 @@
 .integr8ly-helpful {
-  &-resources-list {
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-  }
-
   &-links {
     position: fixed;
     top: 0;
@@ -15,16 +8,7 @@
     border-left: var(--pf-global--BorderWidth--sm) solid;
     border-left-color: $pf-color-black-300;
 
-    &-heading {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      font-weight: var(--pf-global--FontWeight--normal);
-    }
-
     &-product-title {
-      margin-top: 25px;
-      font-size: var(--pf-global--FontSize--lg);
-
       i {
         font-size: var(--pf-global--FontSize--md);
 
@@ -42,10 +26,6 @@
           color: $pf-color-orange-400;
         }
         /* stylelint-enable */
-      }
-
-      &:first-of-type {
-        margin-top: 0;
       }
     }
   }

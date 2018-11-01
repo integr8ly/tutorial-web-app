@@ -1,11 +1,9 @@
 import * as React from 'react';
 
 const LandingPageMastHead = () => (
-  <header className="row integr8ly-landing-page-masthead">
+  <header className="row integr8ly-landing-page-masthead pf-c-content">
     <div className="col-xs-12">
-      <h1 className="pf-c-title pf-m-xl">
-        Welcome to the <b>Red Hat Solution Explorer</b>
-      </h1>
+      <h1 className="pf-u-mt-lg">Welcome to the Red Hat Solution Explorer</h1>
       <p>
         Get started with an end-to-end solution walkthrough or
         <br />

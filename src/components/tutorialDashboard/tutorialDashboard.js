@@ -42,12 +42,12 @@ const TutorialDashboard = props => {
 
           <div className="integr8ly-walkthrough-labels">
             {walkthrough.community === true ? (
-              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+              <span className="label integr8ly-c-label">community</span>
             ) : (
               <span />
             )}
             {walkthrough.preview === true ? (
-              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+              <span className="label integr8ly-c-label integr8ly-preview">preview</span>
             ) : (
               <span />
             )}
@@ -60,11 +60,11 @@ const TutorialDashboard = props => {
   return (
     <div className="integr8ly-tutorial-dashboard panel panel-default">
       <div className="panel-heading panel-title">
-        <h1 className="pf-c-title pf-m-3xl">Start with a walkthrough</h1>
+        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
         <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">
-        <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>
+        <CardGrid className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm" matchHeight style={{ width: 'calc(100% - 40px)' }}>
           <Row>{cards}</Row>
         </CardGrid>
       </div>
