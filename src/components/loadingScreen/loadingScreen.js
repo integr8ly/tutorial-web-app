@@ -20,7 +20,9 @@ class LoadingScreen extends React.Component {
     return (
       <React.Fragment>
         <div className="integr8ly-loadingscreen">
-          <div className="integr8ly-loadingscreen-logo" />
+          <div className="integr8ly-loadingscreen-backdrop">
+            <div className="integr8ly-loadingscreen-logo" />
+          </div>
           <div className="integr8ly-loadingscreen-spacer">
             <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
               <img
@@ -30,7 +32,7 @@ class LoadingScreen extends React.Component {
               />
             </object>
           </div>
-          <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
+          <h2 className="pf-c-title pf-m-3xl integr8ly-loadingscreen-text integr8ly-congratulations-heading pf-u-mt-xl pf-u-mb-xl">
             {this.props.loadingText}
             <br />
             {this.props.standbyText}
