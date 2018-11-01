@@ -360,8 +360,8 @@ class TaskPage extends React.Component {
             homeClickedCallback={() => {}}
           />
           <Grid fluid>
-            <Grid.Row>
-              <Grid.Col xs={12} sm={9} className="integr8ly-module">
+            <Grid.Row className="pf-c-content">
+              <Grid.Col xs={12} sm={9} className="integr8ly-module pf-u-mt-xl pf-u-mb-3xl">
                 <div className="integr8ly-module-column">
                   <h2>{threadTask.title}</h2>
                   <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
@@ -429,7 +429,7 @@ class TaskPage extends React.Component {
                     >
                       {taskNum === 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.backToIntro(e)}>
+                          <Button bsStyle="default" onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.backToIntro')}
                           </Button>
@@ -437,7 +437,7 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum > 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, taskNum - 1)}>
+                          <Button bsStyle="default" onClick={e => this.goToTask(e, taskNum - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
                           </Button>
