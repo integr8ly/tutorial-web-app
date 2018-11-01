@@ -25,10 +25,9 @@
     display: flex;
     border: none;
 
-    & h1 {
+    & h2 {
       flex-basis: 50%;
-      margin-top: 5px;
-      color: #282d33;
+      color: $pf-color-black-900;
     }
 
     .walkthrough-counter { /* stylelint-disable-line selector-class-pattern */
@@ -38,14 +37,6 @@
       color: $pf-color-black-800;
       font-size: var(--pf-global--FontSize--sm);
       font-weight: var(--pf-global--FontWeight--bold);
-    }
-  }
-
-  & .panel-content { /* stylelint-disable-line selector-class-pattern */
-    .container-cards-pf { /* stylelint-disable-line selector-class-pattern */
-      margin-top: 0;
-      padding-right: 0;
-      padding-left: 0;
     }
   }
 }
