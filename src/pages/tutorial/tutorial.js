@@ -83,10 +83,15 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <PfMasthead />
             </Grid.Row>
+<<<<<<< HEAD
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg pf-u-px-lg">
+=======
+            <Grid.Row className="pf-c-content">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
+>>>>>>> feat(PF4): Introduce PatternFly 4
                 <div className="integr8ly-task-dashboard-header">
-                  <h3>{parsedThread.title}</h3>
+                  <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </Button>
@@ -104,9 +109,9 @@ class TutorialPage extends React.Component {
                 <WalkthroughResources resources={parsedThread.resources} />
               </Grid.Col>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row className="pf-c-content">
               <Grid.Col xs={12} sm={9}>
-                <h1 className="pf-c-title pf-m-2xl pf-u-mt-xl">
+                <h3 className="pf-u-mt-xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
@@ -117,7 +122,7 @@ class TutorialPage extends React.Component {
                       </span>
                     </span>
                   </div>
-                </h1>
+                </h3>
                 <ListView className="integr8ly-list-view-pf">
                   {parsedThread.tasks.map((task, i) => (
                     <ListView.Item

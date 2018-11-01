@@ -374,9 +374,15 @@ class TaskPage extends React.Component {
             homeClickedCallback={() => {}}
           />
           <Grid fluid>
+<<<<<<< HEAD
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column pf-c-content pf-u-mt-lg pf-u-px-lg">
+=======
+            <Grid.Row className="pf-c-content">
+              <Grid.Col xs={12} sm={9} className="integr8ly-module pf-u-mt-xl pf-u-mb-3xl">
+                <div className="integr8ly-module-column">
+>>>>>>> feat(PF4): Introduce PatternFly 4
                   <h2>{threadTask.title}</h2>
                   <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                     {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
@@ -443,7 +449,7 @@ class TaskPage extends React.Component {
                     >
                       {taskNum === 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.backToIntro(e)}>
+                          <Button bsStyle="default" onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.backToIntro')}
                           </Button>
@@ -451,7 +457,7 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum > 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, taskNum - 1)}>
+                          <Button bsStyle="default" onClick={e => this.goToTask(e, taskNum - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
                           </Button>

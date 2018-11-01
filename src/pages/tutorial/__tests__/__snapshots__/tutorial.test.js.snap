@@ -30,11 +30,16 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     </Row>
     <Row
       bsClass="row"
+      className="pf-c-content"
       componentClass="div"
     >
       <Col
         bsClass="col"
+<<<<<<< HEAD
         className="integr8ly-task-container pf-u-mt-lg pf-u-px-lg"
+=======
+        className="integr8ly-task-container"
+>>>>>>> feat(PF4): Introduce PatternFly 4
         componentClass="div"
         sm={9}
         xs={12}
@@ -42,7 +47,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h3>
+          <h3
+            className="pf-u-mt-lg"
+          >
             Example
           </h3>
           <Button
@@ -81,6 +88,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     </Row>
     <Row
       bsClass="row"
+      className="pf-c-content"
       componentClass="div"
     >
       <Col
@@ -89,8 +97,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         sm={9}
         xs={12}
       >
-        <h1
-          className="pf-c-title pf-m-2xl pf-u-mt-xl"
+        <h3
+          className="pf-u-mt-xl"
         >
           tutorial.tasksToComplete
           <div
@@ -114,7 +122,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               </span>
             </span>
           </div>
-        </h1>
+        </h3>
         <ListView
           className="integr8ly-list-view-pf"
         />
