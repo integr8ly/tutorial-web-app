@@ -1,16 +1,16 @@
 // This file needs to live inside src to be importable
 export default {
   'enmasse-standard': {
-    prettyName: 'EnMasse',
-    gaStatus: null
+    prettyName: 'Red Hat AMQ Online',
+    gaStatus: 'preview'
   },
   'amq-broker-71-persistence': {
     prettyName: 'Red Hat AMQ',
-    gaStatus: 'preview'
+    gaStatus: 'GA'
   },
   fuse: {
-    prettyName: 'Red Hat Fuse',
-    gaStatus: 'preview'
+    prettyName: 'Red Hat Fuse Online',
+    gaStatus: 'GA'
   },
   che: {
     prettyName: 'Eclipse Che',
@@ -22,6 +22,6 @@ export default {
   },
   '3scale': {
     prettyName: 'Red Hat 3scale API Management Platform',
-    gaStatus: null
+    gaStatus: 'GA'
   }
 };
