@@ -11,6 +11,7 @@ $pf-global--image-path: "/assets/images" !default;
 $img-path: "~patternfly/dist/img/";
 
 // PatternFly 4
+@import "application/fonts";
 @import "application/pf4Import";
 
 // Font Awesome 5 icons
