@@ -432,7 +432,7 @@ class TaskPage extends React.Component {
 
                   {/* Bottom footer */}
                   <div className="integr8ly-module-column--footer">
-                    <h6>{t('task.CompleteAndCheck')}</h6>
+                    <h6 className="pf-c-title pf-m-sm">{t('task.CompleteAndCheck')}</h6>
                     <div className="integr8ly-module-column--footer_status">
                       {threadTask.steps.map((step, l) => (
                         <React.Fragment key={l}>
