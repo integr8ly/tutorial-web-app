@@ -3,7 +3,6 @@
 # css
 src/**/*.css
 
-
 # IDE - Intelij
 .idea
 # IDE - VSCode
@@ -34,3 +33,6 @@ src/**/*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ignore package-lock file, as the webapp uses yarn
+package-lock.json
