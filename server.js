@@ -1,10 +1,9 @@
-const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const handlebars = require('handlebars');
 const asciidoctor = require('asciidoctor.js');
 const adoc = asciidoctor();
+const Mustache = require('mustache');
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -18,57 +17,6 @@ const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
 
 const walkthroughs = [];
-
-fs.readdir('./public/walkthroughs', (err, files) => {
-  files.forEach((dirName) => {
-    fs.readFile(`./public/walkthroughs/${dirName}/walkthrough.adoc`, (err, rawAdoc) => {
-      if(err) {
-        console.error(err);
-        process.exit(1);
-      }
-      const loadedAdoc = adoc.load(rawAdoc);
-      walkthroughs.push(getWalkthroughInfoFromAdoc(dirName, loadedAdoc));
-    });
-  });
-});
-
-function getWalkthroughInfoFromAdoc(dirName, adoc) {
-  
-  // Retrieve the short description. There must be a gap between the document title and the short description.
-  // Otherwise it's counted as the author field. For example, see this adoc file:
-  // ````
-  // = This is a title
-  // This is an author field
-  // This would be the revision field or something
-  // This is the short description.
-  // ````
-  // So it's better to just tell the user to put a blank line between the title and short description. 
-  let shortDescription = '';
-  if (adoc.blocks[0] && adoc.blocks[0].context === 'preamble' && adoc.blocks[0].blocks.length > 0) {
-    shortDescription = adoc.blocks[0].blocks[0].lines[0];
-  }
-
-  return {
-    id: dirName,
-    title: adoc.getDocumentTitle(),
-    shortDescription: shortDescription,
-    // description: getPreambleBlockContent(adoc),
-    time: getTotalWalkthroughTime(adoc),
-    adoc: `/public/walkthroughs/${dirName}/walkthroughs.adoc`
-  }
-}
-
-const getTotalWalkthroughTime = (adoc) => {
-  let time = 0;
-  adoc.blocks.forEach(b => {
-    if (b.context === CONTEXT_PREAMBLE || b.context === CONTEXT_PARAGRAPH) {
-      return;
-    }
-    time += parseInt(b.getAttribute('time')) || 0;
-  });
-  return time;
-}
-
 
 app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
@@ -86,10 +34,25 @@ app.get('/config.js', (req, res) => {
 
 app.get('/customConfig', (req, res) => {
   getCustomConfigData(configPath).then(config => {
-    const compiledConfig = handlebars.compile(JSON.stringify(config));
-    res.json(JSON.parse(compiledConfig(req.query)));
+    const compiledConfig = Mustache.render(JSON.stringify(config), req.query);
+    res.json(JSON.parse(compiledConfig));
   });
 });
+
+function loadCustomWalkthroughs(walkthroughsPath) {
+  fs.readdir(walkthroughsPath, (err, files) => {
+    files.forEach((dirName) => {
+      fs.readFile(`./public/walkthroughs/${dirName}/walkthrough.adoc`, (err, rawAdoc) => {
+        if(err) {
+          console.error(err);
+          process.exit(1);
+        }
+        const loadedAdoc = adoc.load(rawAdoc);
+        walkthroughs.push(getWalkthroughInfoFromAdoc(dirName, loadedAdoc));
+      });
+    });
+  });
+}
 
 function getCustomConfigData(configPath) {
   return new Promise((resolve) => {
@@ -196,6 +159,43 @@ function getConfigData(req) {
   };`
 }
 
+function getWalkthroughInfoFromAdoc(dirName, adoc) {
+  
+  // Retrieve the short description. There must be a gap between the document title and the short description.
+  // Otherwise it's counted as the author field. For example, see this adoc file:
+  // ````
+  // = This is a title
+  // This is an author field
+  // This would be the revision field or something
+  // This is the short description.
+  // ````
+  // So it's better to just tell the user to put a blank line between the title and short description. 
+  let shortDescription = '';
+  if (adoc.blocks[0] && adoc.blocks[0].context === 'preamble' && adoc.blocks[0].blocks.length > 0) {
+    shortDescription = adoc.blocks[0].blocks[0].lines[0];
+  }
+
+  return {
+    id: dirName,
+    title: adoc.getDocumentTitle(),
+    shortDescription: shortDescription,
+    // description: getPreambleBlockContent(adoc),
+    time: getTotalWalkthroughTime(adoc),
+    adoc: `/public/walkthroughs/${dirName}/walkthroughs.adoc`
+  }
+}
+
+const getTotalWalkthroughTime = (adoc) => {
+  let time = 0;
+  adoc.blocks.forEach(b => {
+    if (b.context === CONTEXT_PREAMBLE || b.context === CONTEXT_PARAGRAPH) {
+      return;
+    }
+    time += parseInt(b.getAttribute('time')) || 0;
+  });
+  return time;
+}
+
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'build')));
@@ -204,5 +204,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }
+
+loadCustomWalkthroughs('./public/walkthroughs');
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

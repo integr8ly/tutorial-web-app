@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import { noop, Button, ButtonGroup, Grid, Icon, Radio, Alert } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -303,7 +303,8 @@ class TaskPage extends React.Component {
       const parsedThread = retrieveOverviewFromAdoc(thread.data);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(t => !t.isVerification).length;
-      const loadingText = `We're initiating services for " ${parsedThread.title} ". Please stand by.`;
+      const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
+      const standbyText = ' Please stand by.';
       const taskVerificationComplete = this.taskVerificationStatus(this.state.verifications, this.getVerificationsForTask(threadTask));
       return (
         <React.Fragment>
@@ -407,7 +408,7 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum > 0 && (
                         <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, task - 1)}>
+                          <Button onClick={e => this.goToTask(e, taskNum - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
                           </Button>
@@ -417,7 +418,7 @@ class TaskPage extends React.Component {
                         <ButtonGroup>
                           <Button
                             bsStyle={taskVerificationComplete ? 'primary' : 'default'}
-                            onClick={e => this.goToTask(e, task + 1)}
+                            onClick={e => this.goToTask(e, taskNum + 1)}
                             disabled={!taskVerificationComplete}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
@@ -427,9 +428,9 @@ class TaskPage extends React.Component {
                       {taskNum + 1 === totalTasks && (
                         <ButtonGroup>
                           <Button
-                            bsStyle={verificationsChecked ? 'primary' : 'default'}
+                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
                             onClick={e => this.exitTutorial(e)}
-                            disabled={!verificationsChecked}
+                            disabled={!taskVerificationComplete}
                           >
                             {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
                           </Button>
