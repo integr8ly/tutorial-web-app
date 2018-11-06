@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'patternfly-react';
 
 class ErrorScreen extends React.Component {
   constructor(props) {
@@ -31,9 +30,9 @@ class ErrorScreen extends React.Component {
             <br />
             {this.props.proceedText}
           </h2>
-          <Button variant="secondary" className="integr8ly-errorscreen-info-btn" onClick={this.onTryAgain}>
+          <button className="pf-c-button pf-m-primary integr8ly-errorscreen-info-btn" onClick={this.onTryAgain}>
             Try again
-          </Button>
+          </button>
         </div>
       </React.Fragment>
     );
