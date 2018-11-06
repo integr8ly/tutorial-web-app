@@ -6,7 +6,7 @@ const getThread = (language, id) => ({
   payload: threadServices.getThread(language, id)
 });
 
-const getCustomThread = (id) => ({
+const getCustomThread = id => ({
   type: threadTypes.GET_THREAD,
   payload: threadServices.getCustomThread(id)
 });

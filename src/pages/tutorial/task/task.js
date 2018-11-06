@@ -8,7 +8,6 @@ import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
-import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
@@ -16,12 +15,16 @@ import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 import { retrieveOverviewFromAdoc } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
-  state = { task: 0, verifications: {}, verificationsChecked: false };
+  state = { task: 0, verifications: {} };
 
   componentDidMount() {
-    const { getWalkthrough, match: { params: { id } } } = this.props;
+    const {
+      getWalkthrough,
+      match: {
+        params: { id }
+      }
+    } = this.props;
     getWalkthrough(id);
-    //this.loadThread();
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
@@ -33,22 +36,8 @@ class TaskPage extends React.Component {
       prepareWalkthroughTwo();
     }
     const currentProgress = this.getStoredProgressForCurrentTask();
-    if (!!currentProgress) {
+    if (currentProgress) {
       this.setState({ verifications: currentProgress });
-    }
-  }
-
-  componentDidUpdate() {
-    const {
-      match: {
-        params: { id, task }
-      }
-    } = this.props;
-    if (!Number.isNaN(id)) {
-      const parsedTask = parseInt(task, 10);
-      if (id !== this.state.id || parsedTask !== task) {
-        //this.loadThread();
-      }
     }
   }
 
@@ -64,9 +53,9 @@ class TaskPage extends React.Component {
       return {};
     }
     return currentProgress[id][task];
-  }
+  };
 
-  updateStoredProgressForCurrentTask = (verificationState) => {
+  updateStoredProgressForCurrentTask = verificationState => {
     const {
       match: {
         params: { id, task }
@@ -84,65 +73,15 @@ class TaskPage extends React.Component {
     oldProgress[id][task] = verificationState;
 
     localStorage.setItem(`walkthroughProgress_${currentUsername}`, JSON.stringify(oldProgress));
-  }
-
-  loadThread() {
-    const {
-      i18n,
-      match: {
-        params: { id, task }
-      },
-      getProgress,
-      getThread,
-      user
-    } = this.props;
-    if (!Number.isNaN(id)) {
-      const parsedTask = parseInt(task, 10);
-      this.setState({ id, task: parsedTask });
-      getProgress();
-      getThread(i18n.language, id).then(thread => {
-        const verifications = {};
-        const threadTask = thread.value.data.tasks[parsedTask];
-        const currentProgress = user.userProgress.threads.find(thd => thd.threadId === thread.value.data.id.toString());
-
-        threadTask.steps.forEach(step => {
-          if (step.infoVerifications) {
-            step.infoVerifications.forEach(verification => {
-              verifications[verification] = undefined;
-            });
-          } else if (step.successVerifications) {
-            step.successVerifications.forEach(verification => {
-              verifications[verification] = false;
-            });
-          }
-        });
-
-        const hasVerifications = Object.keys(verifications).length > 0;
-        if (currentProgress && currentProgress.threadStepsVerified && hasVerifications) {
-          for (const property in verifications) {
-            if (verifications.hasOwnProperty(property) && currentProgress.threadStepsVerified[parsedTask.toString()]) {
-              verifications[property] = currentProgress.threadStepsVerified[parsedTask.toString()][property];
-            }
-          }
-        }
-
-        this.setState({
-          verifications,
-          verificationsChecked: Object.values(verifications).every(v => v === true)
-        });
-      });
-    }
-  }
+  };
 
   getVerificationsForTask = task => {
-    let verifications = [];
-    task.steps.forEach(step => verifications = verifications.concat(this.getVerificationsForStep(step)));
-    return verifications;
-  }
+    const stepVerifications = task.steps.map(step => this.getVerificationsForStep(step));
+    // Flatten the array of arrays. Array.prototype.flat() is not IE/Edge compatible. (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat#Browser_compatibility)
+    return [].concat(...stepVerifications);
+  };
 
-  getVerificationsForStep = step => {
-    return step.blocks.filter(block => block.isVerification);
-  }
+  getVerificationsForStep = step => step.blocks.filter(block => block.isVerification);
 
   getTotalSteps = tasks => {
     let totalSteps = 0;
@@ -205,13 +144,23 @@ class TaskPage extends React.Component {
 
   backToIntro = e => {
     e.preventDefault();
-    const { history, match: { params: { id } } } = this.props;
+    const {
+      history,
+      match: {
+        params: { id }
+      }
+    } = this.props;
     history.push(`/tutorial/${id}`);
   };
 
   goToTask = (e, next) => {
     e.preventDefault();
-    const { history, match: { params: { id } } } = this.props;
+    const {
+      history,
+      match: {
+        params: { id }
+      }
+    } = this.props;
     history.push(`/tutorial/${id}/task/${next}`);
   };
 
@@ -224,8 +173,7 @@ class TaskPage extends React.Component {
   handleVerificationInput = (e, verification, isSuccess) => {
     const o = Object.assign({}, this.state.verifications);
     o[verification.verificationId] = isSuccess;
-    const verificationsChecked = Object.values(o).every(v => v === true);
-    this.setState({ verifications: o, verificationsChecked }, () => {
+    this.setState({ verifications: o }, () => {
       this.updateStoredProgressForCurrentTask(this.state.verifications);
     });
   };
@@ -240,7 +188,7 @@ class TaskPage extends React.Component {
       }
     }
     return true;
-  }
+  };
 
   renderVerificationBlock(id, block) {
     const { t } = this.props;
@@ -251,8 +199,8 @@ class TaskPage extends React.Component {
     return (
       <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={id}>
         <strong>{t('task.verificationTitle')}</strong>
-        <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }}/>
-        {(
+        <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }} />
+        {
           <React.Fragment>
             <Radio
               name={id}
@@ -272,17 +220,21 @@ class TaskPage extends React.Component {
             >
               No
             </Radio>
-            {this.state.verifications[block.verificationId] != undefined && !this.state.verifications[block.verificationId] && block.verificationFailText}
+            {this.state.verifications[block.verificationId] !== undefined &&
+              !this.state.verifications[block.verificationId] &&
+              block.verificationFailText}
           </React.Fragment>
-        )}
+        }
       </Alert>
-    )
+    );
   }
 
   render() {
     const attrs = this.getDocsAttributes();
     const { t, thread } = this.props;
-    const { task, verifications } = this.state;
+    const { verifications } = this.state;
+    
+    console.log('PROPS', this.props);
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -298,20 +250,27 @@ class TaskPage extends React.Component {
     }
 
     if (thread.fulfilled && thread.data) {
-      const { match: { params: { id, task }}} = this.props;
-      const taskNum = parseInt(task);
+      const {
+        match: {
+          params: { id, task }
+        }
+      } = this.props;
+      const taskNum = parseInt(task, 10);
       const parsedThread = retrieveOverviewFromAdoc(thread.data);
       const threadTask = parsedThread.tasks[taskNum];
-      const totalTasks = parsedThread.tasks.filter(t => !t.isVerification).length;
+      const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
       const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
       const standbyText = ' Please stand by.';
-      const taskVerificationComplete = this.taskVerificationStatus(this.state.verifications, this.getVerificationsForTask(threadTask));
+      const taskVerificationComplete = this.taskVerificationStatus(
+        this.state.verifications,
+        this.getVerificationsForTask(threadTask)
+      );
       return (
         <React.Fragment>
           <Breadcrumb
             threadName={parsedThread.title}
             threadId={id}
-            taskPosition={parseInt(taskNum) + 1} 
+            taskPosition={taskNum + 1}
             totalTasks={totalTasks}
             homeClickedCallback={() => {}}
           />
@@ -330,7 +289,7 @@ class TaskPage extends React.Component {
                         <h3>{step.title}</h3>
                         {step.blocks.map((block, j) => (
                           <React.Fragment key={`${i}-${j}`}>
-                            {!block.isVerification && <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }}/>}
+                            {!block.isVerification && <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }} />}
                             {block.isVerification && this.renderVerificationBlock(`${i}-${j}`, block)}
                           </React.Fragment>
                         ))}
@@ -455,7 +414,7 @@ class TaskPage extends React.Component {
 }
 
 TaskPage.propTypes = {
-  i18n: PropTypes.object,
+  // i18n: PropTypes.object,
   t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
@@ -463,29 +422,26 @@ TaskPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object
   }),
-  getThread: PropTypes.func,
   middlewareServices: PropTypes.object,
   walkthroughServices: PropTypes.object,
   prepareWalkthroughOne: PropTypes.func,
   prepareWalkthroughOneA: PropTypes.func,
-  getProgress: PropTypes.func,
   prepareWalkthroughTwo: PropTypes.func,
-  setProgress: PropTypes.func,
   thread: PropTypes.object,
-  user: PropTypes.object
+  //user: PropTypes.object,
+  getWalkthrough: PropTypes.func
 };
 
 TaskPage.defaultProps = {
-  i18n: {
-    language: 'en'
-  },
+  // i18n: {
+  //   language: 'en'
+  // },
   history: {
     push: noop
   },
   match: {
     params: {}
   },
-  getThread: noop,
   middlewareServices: {
     data: {},
     amqCredentials: {},
@@ -496,11 +452,10 @@ TaskPage.defaultProps = {
   },
   prepareWalkthroughOne: noop,
   prepareWalkthroughOneA: noop,
-  getProgress: noop,
   prepareWalkthroughTwo: noop,
-  setProgress: noop,
   thread: null,
-  user: null
+  //user: null,
+  getWalkthrough: noop
 };
 
 const mapDispatchToProps = dispatch => ({

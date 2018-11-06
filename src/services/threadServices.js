@@ -8,10 +8,11 @@ const getThread = (language, id) =>
     })
   );
 
-const getCustomThread = id => {
-  return axios(serviceConfig({
-    url: `/walkthroughs/${id}/walkthrough.adoc`
-  }));
-}
+const getCustomThread = id =>
+  axios(
+    serviceConfig({
+      url: `/walkthroughs/${id}/walkthrough.adoc`
+    })
+  );
 
 export { getThread, getCustomThread };
