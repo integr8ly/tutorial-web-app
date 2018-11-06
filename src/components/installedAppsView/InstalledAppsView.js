@@ -87,7 +87,7 @@ class InstalledAppsView extends React.Component {
       <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
         <div className="integr8ly-installed-apps-view-title">
           <p>{customApp.name}</p>
-          <span className="integr8ly-label-community">custom</span>
+          <span className="pf-c-label integr8ly-label-community">custom</span>
         </div>
         <div className="integr8ly-state-ready">
           <Icon type="fa" name="bolt" /> &nbsp;Ready for use
@@ -108,7 +108,7 @@ class InstalledAppsView extends React.Component {
           <div className="integr8ly-installed-apps-view-title">
             <p>{prettyName}</p>
             {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-              <span className={`integr8ly-label-${gaStatus}`}>{gaStatus}</span>
+              <span className={`pf-c-label integr8ly-label-${gaStatus}`}>{gaStatus}</span>
             ) : (
               <span />
             )}
