@@ -11,9 +11,14 @@ import { retrieveOverviewFromAdoc } from '../../common/walkthroughHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
-    const { getWalkthrough, match: { params: { id } } } = this.props;
+    const {
+      getWalkthrough,
+      match: {
+        params: { id }
+      }
+    } = this.props;
     getWalkthrough(id);
-    //this.loadThread();
+    // this.loadThread();
   }
 
   loadThread() {
@@ -69,7 +74,11 @@ class TutorialPage extends React.Component {
     }
     if (thread.fulfilled && thread.data) {
       const parsedThread = retrieveOverviewFromAdoc(thread.data);
-      const { match: { params: { id } } } = this.props;
+      const {
+        match: {
+          params: { id }
+        }
+      } = this.props;
       return (
         <React.Fragment>
           <Grid fluid>
@@ -85,7 +94,7 @@ class TutorialPage extends React.Component {
                   </Button>
                 </div>
                 {this.renderPrereqs(thread)}
-                <div dangerouslySetInnerHTML={{ __html: parsedThread.descriptionHTML }}/>
+                <div dangerouslySetInnerHTML={{ __html: parsedThread.descriptionHTML }} />
                 {/* <AsciiDocTemplate
                   adoc={thread}
                   attributes={Object.assign({}, thread.data.attributes)}
