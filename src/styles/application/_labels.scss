@@ -5,6 +5,7 @@
     padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--sm);
     border: var(--pf-global--BorderWidth--sm) solid;
     border-color: $pf-color-black-300;
+    border-radius: var(--pf-global--BorderRadius--sm);
     background-color: $pf-color-black-300;
     color: $pf-color-black-900;
     font-size: var(--pf-global--FontSize--xs) !important; /* stylelint-disable-line declaration-no-important */
@@ -17,6 +18,7 @@
     padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--sm);
     border: var(--pf-global--BorderWidth--sm) solid;
     border-color: $pf-color-blue-200;
+    border-radius: var(--pf-global--BorderRadius--sm);
     background-color: $pf-color-blue-200;
     color: $pf-color-black-900;
     font-size: var(--pf-global--FontSize--xs) !important; /* stylelint-disable-line declaration-no-important */
