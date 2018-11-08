@@ -6,10 +6,15 @@
 
   &-spacer {
     align-self: center;
-    min-height: 450px;
+    min-height: 465px;
     min-width: 380px;
     margin-top: 75px;
     z-index: 5;
+  }
+
+  &-throbber-static {
+    height: 380px;
+    width: 465px;
   }
 
   &-backdrop {
