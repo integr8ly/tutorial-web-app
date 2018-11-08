@@ -12,7 +12,7 @@ import WalkthroughResources from '../../../components/walkthroughResources/walkt
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
-import { retrieveOverviewFromAdoc } from '../../../common/walkthroughHelpers';
+import { parseWalkthroughAdoc, WalkthroughVerificationBlock, WalkthroughTextBlock } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {} };
@@ -76,12 +76,20 @@ class TaskPage extends React.Component {
   };
 
   getVerificationsForTask = task => {
-    const stepVerifications = task.steps.map(step => this.getVerificationsForStep(step));
+    const stepVerifications = task.steps.map((step, i) => this.getVerificationsForStep(i, step));
     // Flatten the array of arrays. Array.prototype.flat() is not IE/Edge compatible. (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat#Browser_compatibility)
     return [].concat(...stepVerifications);
   };
 
-  getVerificationsForStep = step => step.blocks.filter(block => block.isVerification);
+  getVerificationsForStep = (stepId, step) => {
+    const verificationIds = [];
+    step.blocks.forEach((block, i) => {
+      if (block instanceof WalkthroughVerificationBlock) {
+        verificationIds.push(`${stepId}-${i}`);
+      }
+    });
+    return verificationIds;
+  }
 
   getTotalSteps = tasks => {
     let totalSteps = 0;
@@ -170,20 +178,20 @@ class TaskPage extends React.Component {
     history.push(`/congratulations/${this.props.thread.data.id}`);
   };
 
-  handleVerificationInput = (e, verification, isSuccess) => {
+  handleVerificationInput = (e, id, isSuccess) => {
     const o = Object.assign({}, this.state.verifications);
-    o[verification.verificationId] = isSuccess;
+    o[id] = isSuccess;
     this.setState({ verifications: o }, () => {
       this.updateStoredProgressForCurrentTask(this.state.verifications);
     });
   };
 
-  taskVerificationStatus = (verifications, toVerify) => {
-    if (toVerify.length === 0) {
+  taskVerificationStatus = (verifications, idsToVerify) => {
+    if (idsToVerify.length === 0) {
       return true;
     }
-    for (const verification of toVerify) {
-      if (!verifications[verification.verificationId]) {
+    for (const verificationId of idsToVerify) {
+      if (!verifications[verificationId]) {
         return false;
       }
     }
@@ -192,37 +200,38 @@ class TaskPage extends React.Component {
 
   renderVerificationBlock(id, block) {
     const { t } = this.props;
-    let isFalseChecked = null;
-    if (this.state.verifications[block.verificationId] !== undefined) {
-      isFalseChecked = !this.state.verifications[block.verificationId];
-    }
+    let isNoChecked = this.state.verifications[id] !== undefined && !this.state.verifications[id];
+    let isYesChecked = this.state.verifications[id] !== undefined && !!this.state.verifications[id];
     return (
       <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={id}>
         <strong>{t('task.verificationTitle')}</strong>
-        <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }} />
+        <div dangerouslySetInnerHTML={{ __html: block.html }} />
         {
           <React.Fragment>
             <Radio
               name={id}
-              checked={!!this.state.verifications[block.verificationId]}
+              checked={isYesChecked}
               onChange={e => {
-                this.handleVerificationInput(e, block, true);
+                this.handleVerificationInput(e, id, true);
               }}
             >
               Yes
             </Radio>
             <Radio
               name={id}
-              checked={isFalseChecked}
+              checked={isNoChecked}
               onChange={e => {
-                this.handleVerificationInput(e, block, false);
+                this.handleVerificationInput(e, id, false);
               }}
             >
               No
             </Radio>
-            {this.state.verifications[block.verificationId] !== undefined &&
-              !this.state.verifications[block.verificationId] &&
-              block.verificationFailText}
+            {isNoChecked &&
+              block.hasFailBlock &&
+              <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }}/>}
+            {isYesChecked &&
+              block.hasSuccessBlock &&
+              <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }}/>}
           </React.Fragment>
         }
       </Alert>
@@ -234,7 +243,6 @@ class TaskPage extends React.Component {
     const { t, thread } = this.props;
     const { verifications } = this.state;
     
-    console.log('PROPS', this.props);
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -256,7 +264,7 @@ class TaskPage extends React.Component {
         }
       } = this.props;
       const taskNum = parseInt(task, 10);
-      const parsedThread = retrieveOverviewFromAdoc(thread.data);
+      const parsedThread = parseWalkthroughAdoc(thread.data);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
       const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
@@ -289,8 +297,8 @@ class TaskPage extends React.Component {
                         <h3>{step.title}</h3>
                         {step.blocks.map((block, j) => (
                           <React.Fragment key={`${i}-${j}`}>
-                            {!block.isVerification && <div dangerouslySetInnerHTML={{ __html: block.bodyHTML }} />}
-                            {block.isVerification && this.renderVerificationBlock(`${i}-${j}`, block)}
+                            {block instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: block.html }} />}
+                            {block instanceof WalkthroughVerificationBlock && this.renderVerificationBlock(`${i}-${j}`, block)}
                           </React.Fragment>
                         ))}
                       </React.Fragment>

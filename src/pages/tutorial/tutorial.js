@@ -7,7 +7,7 @@ import { connect, reduxActions } from '../../redux';
 import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
-import { retrieveOverviewFromAdoc } from '../../common/walkthroughHelpers';
+import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -73,7 +73,7 @@ class TutorialPage extends React.Component {
       return null;
     }
     if (thread.fulfilled && thread.data) {
-      const parsedThread = retrieveOverviewFromAdoc(thread.data);
+      const parsedThread = parseWalkthroughAdoc(thread.data);
       const {
         match: {
           params: { id }

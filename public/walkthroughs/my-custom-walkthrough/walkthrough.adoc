@@ -4,7 +4,6 @@ A custom walkthrough that shows users how to do something.
 
 This walkthrough is so super awesome, wow! Everyone will learn so much from it.
 
-[time=12]
 == First task
 
 This is the first task, super duper
@@ -13,7 +12,7 @@ This is the first task, super duper
 
 The first step needs you to do 
 
-[verification='check_that_thing']
+[type=verification]
 - Check this thing.
 - Check that thing
 
@@ -21,8 +20,22 @@ The first step needs you to do
 
 The second step needs you to do this other thing.
 
-[verification='check_this_thing', verificationFailText='Breathe. Calm down. Try again. Contact your admin.']
+[type=verification]
 Check that thing.
+
+[type=verificationFail]
+Breathe. Calm down. Try again. Contact your admin.
+
+[type=verificationSuccess]
+Well done. You're clearly a good person.
+
+Woop woop doop doop
+
+[type=verification]
+Check one more thing
+
+[type=verificationFail]
+Heck 'em!
 
 [time=15]
 == Second task

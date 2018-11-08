@@ -4,64 +4,255 @@ const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_SECTION = 'section';
 const CONTEXT_PARAGRAPH = 'paragraph';
 
-const retrieveOverviewFromAdoc = rawAdoc => {
-  const parsedAdoc = parseAdoc(rawAdoc);
-  return {
-    title: parsedAdoc.getDocumentTitle(),
-    descriptionHTML: parsedAdoc.blocks[0].convert(),
-    time: getTotalWalkthroughTime(parsedAdoc),
-    tasks: retrieveTasksFromAdoc(parsedAdoc).map(b => ({
-      title: b.title,
-      time: b.getAttribute('time') || 0,
-      shortDescription: shortDescriptionFromBlock(b),
-      steps: getStepsForTask(b)
-    }))
-  };
-};
+const BLOCK_ATTR_TYPE = 'type';
+const BLOCK_ATTR_TIME = 'time';
 
-const getTotalWalkthroughTime = adoc => {
-  let time = 0;
-  adoc.blocks.forEach(b => {
-    if (b.context === CONTEXT_PREAMBLE || b.context === CONTEXT_PARAGRAPH) {
-      return;
+const BLOCK_TYPE_VERIFICATION = 'verification';
+const BLOCK_TYPE_VERIFICATION_FAIL = 'verificationFail';
+const BLOCK_TYPE_VERIFICATION_SUCCESS = 'verificationSuccess';
+
+class WalkthroughTextBlock {
+  constructor(html) {
+    this._html = html;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  static canConvert(block) {
+    return !WalkthroughVerificationBlock.canConvert(block)
+      && !WalkthroughVerificationFailBlock.canConvert(block)
+      && !WalkthroughVerificationSuccessBlock.canConvert(block);
+  }
+
+  static fromAdoc(adoc) {
+    return new WalkthroughTextBlock(adoc.convert());
+  }
+}
+
+class WalkthroughVerificationBlock {
+  constructor(html, successBlock, failBlock) {
+    this._html = html;
+    this._successBlock = successBlock;
+    this._failBlock = failBlock;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  get hasSuccessBlock() {
+    return !!this._successBlock;
+  }
+
+  get hasFailBlock() {
+    return !!this._failBlock;
+  }
+
+  get successBlock() {
+    return this._successBlock;
+  }
+
+  get failBlock() {
+    return this._failBlock;
+  }
+
+  static canConvert(block) {
+    return block.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_VERIFICATION;
+  }
+
+  static fromAdoc(adoc) {
+    return new WalkthroughVerificationBlock(adoc.convert())
+  }
+}
+
+class WalkthroughVerificationSuccessBlock {
+  constructor(html) {
+    this._html = html;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  static canConvert(block) {
+    return block.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_VERIFICATION_SUCCESS;
+  }
+
+
+  static fromAdoc(adoc) {
+    return new WalkthroughVerificationSuccessBlock(adoc.convert());
+  }
+
+  static findNextForVerification(blocks) {
+    for (const block of blocks) {
+      if (WalkthroughVerificationBlock.canConvert(block)) {
+        return null;
+      }
+      if (WalkthroughVerificationSuccessBlock.canConvert(block)) {
+        return WalkthroughVerificationSuccessBlock.fromAdoc(block);
+      }
     }
-    time += parseInt(b.getAttribute('time')) || 0;
-  });
-  return time;
-};
+    return null;
+  }
+}
 
-const getStepsForTask = task =>
-  task.blocks
-    .map(b => {
+class WalkthroughVerificationFailBlock {
+  constructor(html) {
+    this._html = html;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  static canConvert(block) {
+    return block.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_VERIFICATION_FAIL;
+  }
+
+  static fromAdoc(adoc) {
+    return new WalkthroughVerificationFailBlock(adoc.convert());
+  }
+
+  static findNextForVerification(blocks) {
+    for (const block of blocks) {
+      if (WalkthroughVerificationBlock.canConvert(block)) {
+        return null;
+      }
+      if (WalkthroughVerificationFailBlock.canConvert(block)) {
+        return WalkthroughVerificationFailBlock.fromAdoc(block);
+      }
+    }
+    return null;
+  }
+}
+
+class WalkthroughStep {
+  constructor(title, blocks) {
+    this._title = title;
+    this._blocks = blocks;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get blocks() {
+    return this._blocks;
+  }
+
+  static fromAdoc(adoc) {
+    const blocks = adoc.blocks.map((b, i, blockList) => {
+      if (WalkthroughVerificationBlock.canConvert(b)) {
+        const remainingBlocks = blockList.slice(i+1, blockList.length);
+        const successBlock = WalkthroughVerificationSuccessBlock.findNextForVerification(remainingBlocks);
+        const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
+        return new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock);
+      }
+      if (WalkthroughTextBlock.canConvert(b)) {
+        return new WalkthroughTextBlock(b.convert());
+      }
+    });
+    return new WalkthroughStep(adoc.title, blocks);
+  }
+}
+
+class WalkthroughTask {
+  constructor(title, time, shortDescriptionHTML, html, steps) {
+    this._title = title;
+    this._time = time;
+    this._shortDescriptionHTML = shortDescriptionHTML; 
+    this._html = html;
+    this._steps = steps;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get time() {
+    return this._time;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  get steps() {
+    return this._steps;
+  }
+
+  static canConvert(adoc) {
+    return adoc.context === CONTEXT_SECTION;
+  }
+
+  static fromAdoc(adoc) {
+    const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10);
+    const steps = adoc.blocks.map(b => {
       if (b.context === CONTEXT_PARAGRAPH || b.context === CONTEXT_PREAMBLE) {
         return;
       }
-      return {
-        title: b.title,
-        isVerification: b.getAttribute('verification') === 'true',
-        bodyHTML: b.convert(),
-        blocks: getBlocksForStep(b)
-      };
-    })
-    .filter(b => !!b);
+      return WalkthroughStep.fromAdoc(b);
+    }).filter(b => !!b);
 
-const getBlocksForStep = step =>
-  step.blocks.map(b => ({
-    isVerification: !!b.getAttribute('verification'),
-    verificationId: b.getAttribute('verification'),
-    verificationFailText: b.getAttribute('verificationFailText'),
-    bodyHTML: b.convert()
-  }));
+    let shortDescription = '';
+    if (adoc.blocks[0].context === CONTEXT_PARAGRAPH && adoc.blocks[0].lines.length !== 0) {
+      shortDescription = adoc.blocks[0].lines[0];
+    }
 
-const retrieveTasksFromAdoc = adoc => adoc.blocks.filter(b => b.context === CONTEXT_SECTION);
-
-const shortDescriptionFromBlock = block => {
-  if (block.blocks[0].context !== CONTEXT_PARAGRAPH || block.blocks[0].lines.length === 0) {
-    return;
+    return new WalkthroughTask(adoc.title, time, shortDescription, adoc.convert(), steps);
   }
-  return block.blocks[0].lines[0];
+}
+
+class Walkthrough {
+  constructor(title, descriptionHTML, time, tasks) {
+    this._title = title;
+    this._descriptionHTML = descriptionHTML;
+    this._time = time;
+    this._tasks = tasks;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get descriptionHTML() {
+    return this._descriptionHTML;
+  }
+
+  get time() {
+    return this._time;
+  }
+
+  get tasks() {
+    return this._tasks;
+  }
+
+  static fromAdoc(adoc) {
+    const title = adoc.getDocumentTitle();
+    const descriptionHTML = adoc.blocks[0].convert();
+    const tasks = adoc.blocks.filter(b => WalkthroughTask.canConvert(b)).map(b => WalkthroughTask.fromAdoc(b));
+    let time = 0;
+    tasks.forEach(t => time += t.time);
+    return new Walkthrough(title, descriptionHTML, time, tasks);
+  }
+}
+
+const parseWalkthroughAdoc = rawAdoc => {
+  const parsedAdoc = parseAdoc(rawAdoc);
+  return Walkthrough.fromAdoc(parsedAdoc);
 };
 
 const parseAdoc = rawAdoc => asciidoctor().load(rawAdoc);
 
-export { retrieveOverviewFromAdoc };
+export {
+  WalkthroughTextBlock,
+  WalkthroughVerificationBlock,
+  WalkthroughVerificationFailBlock,
+  WalkthroughVerificationSuccessBlock,
+  WalkthroughStep,
+  WalkthroughTask,
+  Walkthrough,
+  parseWalkthroughAdoc
+};
