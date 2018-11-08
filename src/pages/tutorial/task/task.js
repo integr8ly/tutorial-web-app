@@ -465,15 +465,15 @@ class TaskPage extends React.Component {
                             step.infoVerifications.map(
                               (verification, v) =>
                                 verifications[step.infoVerifications[0]] === undefined ? (
-                                  <span className="far integr8ly-module-column--footer_status" key={v}>
+                                  <span className="integr8ly-module-column--footer_status" key={v}>
                                     {task + 1}.{l + 1}
                                   </span>
                                 ) : (
                                   <span
                                     className={
                                       verifications[step.infoVerifications[0]]
-                                        ? 'far integr8ly-module-column--footer_status-checked'
-                                        : 'far integr8ly-module-column--footer_status-unchecked'
+                                        ? 'integr8ly-module-column--footer_status-checked'
+                                        : 'integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
                                   >
