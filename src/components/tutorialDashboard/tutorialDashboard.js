@@ -43,12 +43,12 @@ const TutorialDashboard = props => {
 
           <div className="integr8ly-walkthrough-labels">
             {walkthrough.community === true ? (
-              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+              <span className="pf-c-label integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
             ) : (
               <span />
             )}
             {walkthrough.preview === true ? (
-              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+              <span className="pf-c-label integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
             ) : (
               <span />
             )}
