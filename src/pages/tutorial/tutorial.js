@@ -72,7 +72,7 @@ class TutorialPage extends React.Component {
               <PfMasthead />
             </Grid.Row>
             <Grid.Row>
-              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
                   <h1 className="pf-c-title pf-m-2xl">{thread.data.title}</h1>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
@@ -124,7 +124,7 @@ class TutorialPage extends React.Component {
                     />
                   ))}
                 </ListView>
-                <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
                   </Button>
