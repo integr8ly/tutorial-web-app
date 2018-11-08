@@ -8,7 +8,7 @@ class LoadingScreen extends React.Component {
     this.state = { show: true, complete: false };
   }
   render() {
-    if (this.props.progress === 100 && !this.state.complete) {
+    if (this.props.progress === 10 && !this.state.complete) {
       setTimeout(() => {
         this.setState({ show: false, complete: true });
       }, this.props.hideDelay);
@@ -25,9 +25,11 @@ class LoadingScreen extends React.Component {
               <div className="integr8ly-loadingscreen-logo" />
             </div>
           )}
-          <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
-            Loading...
-          </object>
+          <div className="integr8ly-loadingscreen-spacer">
+            <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
+              Loading...
+            </object>
+          </div>
           <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
             {this.props.loadingText}
             <br />
