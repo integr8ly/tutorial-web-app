@@ -36,7 +36,7 @@ Breadcrumb.propTypes = {
   history: PropTypes.object,
   t: PropTypes.func.isRequired,
   threadName: PropTypes.string,
-  threadId: PropTypes.number,
+  threadId: PropTypes.string,
   taskPosition: PropTypes.number,
   totalTasks: PropTypes.number,
   homeClickedCallback: PropTypes.func
