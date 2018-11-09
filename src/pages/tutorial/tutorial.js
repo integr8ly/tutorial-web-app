@@ -96,10 +96,12 @@ class TutorialPage extends React.Component {
                 <h1 className="pf-c-title pf-m-2xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Icon type="fa" name="clock" />
-                    <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                    <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
+                    <span>
                       {thread.data.estimatedTime}
-                      {t('tutorial.minutes')}
+                      <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                        {t('tutorial.minutes')}
+                      </span>
                     </span>
                   </div>
                 </h1>
