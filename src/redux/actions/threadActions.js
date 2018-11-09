@@ -11,4 +11,9 @@ const getCustomThread = id => ({
   payload: threadServices.getCustomThread(id)
 });
 
-export { getThread, getCustomThread };
+const initCustomThread = id => ({
+  type: threadTypes.INIT_THREAD,
+  payload: threadServices.initCustomThread(id)
+});
+
+export { getThread, getCustomThread, initCustomThread };

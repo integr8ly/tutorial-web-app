@@ -12,7 +12,11 @@ import WalkthroughResources from '../../../components/walkthroughResources/walkt
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
-import { parseWalkthroughAdoc, WalkthroughVerificationBlock, WalkthroughTextBlock } from '../../../common/walkthroughHelpers';
+import {
+  parseWalkthroughAdoc,
+  WalkthroughVerificationBlock,
+  WalkthroughTextBlock
+} from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
   state = { task: 0, verifications: {} };
@@ -20,11 +24,13 @@ class TaskPage extends React.Component {
   componentDidMount() {
     const {
       getWalkthrough,
+      initWalkthrough,
       match: {
         params: { id }
       }
     } = this.props;
     getWalkthrough(id);
+    initWalkthrough(id);
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
@@ -89,7 +95,7 @@ class TaskPage extends React.Component {
       }
     });
     return verificationIds;
-  }
+  };
 
   getTotalSteps = tasks => {
     let totalSteps = 0;
@@ -200,8 +206,8 @@ class TaskPage extends React.Component {
 
   renderVerificationBlock(id, block) {
     const { t } = this.props;
-    let isNoChecked = this.state.verifications[id] !== undefined && !this.state.verifications[id];
-    let isYesChecked = this.state.verifications[id] !== undefined && !!this.state.verifications[id];
+    const isNoChecked = this.state.verifications[id] !== undefined && !this.state.verifications[id];
+    const isYesChecked = this.state.verifications[id] !== undefined && !!this.state.verifications[id];
     return (
       <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={id}>
         <strong>{t('task.verificationTitle')}</strong>
@@ -226,12 +232,9 @@ class TaskPage extends React.Component {
             >
               No
             </Radio>
-            {isNoChecked &&
-              block.hasFailBlock &&
-              <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }}/>}
+            {isNoChecked && block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
             {isYesChecked &&
-              block.hasSuccessBlock &&
-              <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }}/>}
+              block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
           </React.Fragment>
         }
       </Alert>
@@ -240,15 +243,15 @@ class TaskPage extends React.Component {
 
   render() {
     const attrs = this.getDocsAttributes();
-    const { t, thread } = this.props;
+    const { t, thread, manifest } = this.props;
     const { verifications } = this.state;
-    
-    if (thread.pending) {
+
+    if (thread.pending || manifest.pending) {
       // todo: loading state
       return null;
     }
 
-    if (thread.error) {
+    if (thread.error || manifest.error) {
       return (
         <div>
           <PfMasthead />
@@ -297,8 +300,11 @@ class TaskPage extends React.Component {
                         <h3>{step.title}</h3>
                         {step.blocks.map((block, j) => (
                           <React.Fragment key={`${i}-${j}`}>
-                            {block instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: block.html }} />}
-                            {block instanceof WalkthroughVerificationBlock && this.renderVerificationBlock(`${i}-${j}`, block)}
+                            {block instanceof WalkthroughTextBlock && (
+                              <div dangerouslySetInnerHTML={{ __html: block.html }} />
+                            )}
+                            {block instanceof WalkthroughVerificationBlock &&
+                              this.renderVerificationBlock(`${i}-${j}`, block)}
                           </React.Fragment>
                         ))}
                       </React.Fragment>
@@ -436,8 +442,10 @@ TaskPage.propTypes = {
   prepareWalkthroughOneA: PropTypes.func,
   prepareWalkthroughTwo: PropTypes.func,
   thread: PropTypes.object,
-  //user: PropTypes.object,
-  getWalkthrough: PropTypes.func
+  manifest: PropTypes.object,
+  // user: PropTypes.object,
+  getWalkthrough: PropTypes.func,
+  initWalkthrough: PropTypes.func
 };
 
 TaskPage.defaultProps = {
@@ -462,8 +470,10 @@ TaskPage.defaultProps = {
   prepareWalkthroughOneA: noop,
   prepareWalkthroughTwo: noop,
   thread: null,
-  //user: null,
-  getWalkthrough: noop
+  manifest: null,
+  // user: null,
+  getWalkthrough: noop,
+  initWalkthrough: noop
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -474,7 +484,8 @@ const mapDispatchToProps = dispatch => ({
   getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
   prepareWalkthroughTwo: () => prepareWalkthroughNamespace(dispatch, walkthroughs.two, null),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
-  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id))
+  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
+  initWalkthrough: id => dispatch(reduxActions.threadActions.initCustomThread(id))
 });
 
 const mapStateToProps = state => ({

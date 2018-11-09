@@ -15,4 +15,11 @@ const getCustomThread = id =>
     })
   );
 
-export { getThread, getCustomThread };
+const initCustomThread = id =>
+  axios(
+    serviceConfig({
+      url: `/walkthroughs/${id}/walkthrough.json`
+    })
+  );
+
+export { getThread, getCustomThread, initCustomThread };
