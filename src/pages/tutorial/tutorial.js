@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
-import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
@@ -163,7 +162,8 @@ TutorialPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object
+  thread: PropTypes.object,
+  getWalkthrough: PropTypes.func
 };
 
 TutorialPage.defaultProps = {
@@ -177,7 +177,8 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null
+  thread: null,
+  getWalkthrough: noop
 };
 
 const mapDispatchToProps = dispatch => ({

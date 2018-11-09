@@ -21,9 +21,11 @@ class WalkthroughTextBlock {
   }
 
   static canConvert(block) {
-    return !WalkthroughVerificationBlock.canConvert(block)
-      && !WalkthroughVerificationFailBlock.canConvert(block)
-      && !WalkthroughVerificationSuccessBlock.canConvert(block);
+    return (
+      !WalkthroughVerificationBlock.canConvert(block) &&
+      !WalkthroughVerificationFailBlock.canConvert(block) &&
+      !WalkthroughVerificationSuccessBlock.canConvert(block)
+    );
   }
 
   static fromAdoc(adoc) {
@@ -63,7 +65,7 @@ class WalkthroughVerificationBlock {
   }
 
   static fromAdoc(adoc) {
-    return new WalkthroughVerificationBlock(adoc.convert())
+    return new WalkthroughVerificationBlock(adoc.convert());
   }
 }
 
@@ -79,7 +81,6 @@ class WalkthroughVerificationSuccessBlock {
   static canConvert(block) {
     return block.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_VERIFICATION_SUCCESS;
   }
-
 
   static fromAdoc(adoc) {
     return new WalkthroughVerificationSuccessBlock(adoc.convert());
@@ -145,7 +146,7 @@ class WalkthroughStep {
   static fromAdoc(adoc) {
     const blocks = adoc.blocks.map((b, i, blockList) => {
       if (WalkthroughVerificationBlock.canConvert(b)) {
-        const remainingBlocks = blockList.slice(i+1, blockList.length);
+        const remainingBlocks = blockList.slice(i + 1, blockList.length);
         const successBlock = WalkthroughVerificationSuccessBlock.findNextForVerification(remainingBlocks);
         const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
         return new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock);
@@ -153,6 +154,7 @@ class WalkthroughStep {
       if (WalkthroughTextBlock.canConvert(b)) {
         return new WalkthroughTextBlock(b.convert());
       }
+      return undefined;
     });
     return new WalkthroughStep(adoc.title, blocks);
   }
@@ -162,7 +164,7 @@ class WalkthroughTask {
   constructor(title, time, shortDescriptionHTML, html, steps) {
     this._title = title;
     this._time = time;
-    this._shortDescriptionHTML = shortDescriptionHTML; 
+    this._shortDescriptionHTML = shortDescriptionHTML;
     this._html = html;
     this._steps = steps;
   }
@@ -187,21 +189,32 @@ class WalkthroughTask {
     return adoc.context === CONTEXT_SECTION;
   }
 
-  static fromAdoc(adoc) {
-    const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10);
-    const steps = adoc.blocks.map(b => {
-      if (b.context === CONTEXT_PARAGRAPH || b.context === CONTEXT_PREAMBLE) {
-        return;
-      }
-      return WalkthroughStep.fromAdoc(b);
-    }).filter(b => !!b);
-
-    let shortDescription = '';
+  static getShortDescription(adoc) {
     if (adoc.blocks[0].context === CONTEXT_PARAGRAPH && adoc.blocks[0].lines.length !== 0) {
-      shortDescription = adoc.blocks[0].lines[0];
+      const {
+        blocks: [
+          {
+            lines: [shortDescription]
+          }
+        ]
+      } = adoc;
+      return shortDescription;
     }
+    return '';
+  }
 
-    return new WalkthroughTask(adoc.title, time, shortDescription, adoc.convert(), steps);
+  static fromAdoc(adoc) {
+    const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10) || 0;
+
+    const steps = adoc.blocks.reduce((acc, b) => {
+      if (b.context === CONTEXT_PARAGRAPH || b.context === CONTEXT_PREAMBLE) {
+        return acc;
+      }
+      acc.push(WalkthroughStep.fromAdoc(b));
+      return acc;
+    }, []);
+
+    return new WalkthroughTask(adoc.title, time, this.getShortDescription(adoc), adoc.convert(), steps);
   }
 }
 
@@ -233,8 +246,7 @@ class Walkthrough {
     const title = adoc.getDocumentTitle();
     const descriptionHTML = adoc.blocks[0].convert();
     const tasks = adoc.blocks.filter(b => WalkthroughTask.canConvert(b)).map(b => WalkthroughTask.fromAdoc(b));
-    let time = 0;
-    tasks.forEach(t => time += t.time);
+    const time = tasks.reduce((acc, t) => acc + t._time || 0, 0);
     return new Walkthrough(title, descriptionHTML, time, tasks);
   }
 }
