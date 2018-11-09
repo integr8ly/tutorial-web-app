@@ -20,11 +20,7 @@ class LoadingScreen extends React.Component {
     return (
       <React.Fragment>
         <div className="integr8ly-loadingscreen">
-          {this.props.showBackdrop === true && (
-            <div className="integr8ly-loadingscreen-backdrop">
-              <div className="integr8ly-loadingscreen-logo" />
-            </div>
-          )}
+          <div className="integr8ly-loadingscreen-logo" />
           <div className="integr8ly-loadingscreen-spacer">
             <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
               <img
@@ -50,7 +46,6 @@ class LoadingScreen extends React.Component {
 }
 
 LoadingScreen.propTypes = {
-  showBackdrop: PropTypes.bool,
   progress: PropTypes.number,
   staticThrobberImage: PropTypes.string,
   throbberImage: PropTypes.string,
@@ -61,7 +56,6 @@ LoadingScreen.propTypes = {
 
 LoadingScreen.defaultProps = {
   hideDelay: 2500,
-  showBackdrop: true,
   progress: 0,
   staticThrobberImage: require('./resources/StartingServices_Final.png'),
   throbberImage: require('./resources/StartingServices_Final.svg'),
