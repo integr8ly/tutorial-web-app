@@ -9,8 +9,7 @@ import { connect, reduxActions } from '../../redux';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { getProgress, getWalkthroughs, getCustomWalkthroughs } = this.props;
-    // getWalkthroughs('en');
+    const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
     getProgress();
   }
@@ -42,7 +41,7 @@ class LandingPage extends React.Component {
 
 LandingPage.propTypes = {
   getProgress: PropTypes.func,
-  getWalkthroughs: PropTypes.func,
+  getCustomWalkthroughs: PropTypes.func,
   middlewareServices: PropTypes.object,
   walkthroughServices: PropTypes.object,
   user: PropTypes.object
@@ -50,7 +49,7 @@ LandingPage.propTypes = {
 
 LandingPage.defaultProps = {
   getProgress: noop,
-  getWalkthroughs: noop,
+  getCustomWalkthroughs: noop,
   middlewareServices: { data: {} },
   walkthroughServices: { data: {} },
   user: { userProgress: {} }
