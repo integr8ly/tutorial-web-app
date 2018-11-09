@@ -1,7 +1,21 @@
 .integr8ly-loadingscreen {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 0;
+
+  &-spacer {
+    align-self: center;
+    min-height: 465px;
+    min-width: 380px;
+    margin-top: 75px;
+    z-index: 5;
+  }
+
+  &-throbber-static {
+    height: 380px;
+    width: 465px;
+  }
 
   &-backdrop {
     position: fixed;
@@ -23,11 +37,6 @@
     top: 85px;
     right: 25px;
     background-image: url("../../img/RedHatLogo.png");
-  }
-
-  &-throbber {
-    margin-top: 75px;
-    z-index: 5;
   }
 
   &-text {

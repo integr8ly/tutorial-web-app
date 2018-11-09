@@ -25,9 +25,15 @@ class LoadingScreen extends React.Component {
               <div className="integr8ly-loadingscreen-logo" />
             </div>
           )}
-          <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
-            Loading...
-          </object>
+          <div className="integr8ly-loadingscreen-spacer">
+            <object className="integr8ly-loadingscreen-throbber" data={this.props.throbberImage} type="image/svg+xml">
+              <img
+                src={this.props.staticThrobberImage}
+                className="integr8ly-loadingscreen-throbber-static"
+                alt="Static loading animation"
+              />
+            </object>
+          </div>
           <h2 className="integr8ly-loadingscreen-text integr8ly-congratulations-heading">
             {this.props.loadingText}
             <br />
@@ -46,6 +52,7 @@ class LoadingScreen extends React.Component {
 LoadingScreen.propTypes = {
   showBackdrop: PropTypes.bool,
   progress: PropTypes.number,
+  staticThrobberImage: PropTypes.string,
   throbberImage: PropTypes.string,
   loadingText: PropTypes.string,
   standbyText: PropTypes.string,
@@ -56,6 +63,7 @@ LoadingScreen.defaultProps = {
   hideDelay: 2500,
   showBackdrop: true,
   progress: 0,
+  staticThrobberImage: require('./resources/StartingServices_Final.png'),
   throbberImage: require('./resources/StartingServices_Final.svg'),
   loadingText: 'Loading...',
   standbyText: 'Please stand by.'
