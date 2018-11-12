@@ -11,6 +11,7 @@ const BLOCK_ATTR_TIME = 'time';
 const BLOCK_TYPE_VERIFICATION = 'verification';
 const BLOCK_TYPE_VERIFICATION_FAIL = 'verificationFail';
 const BLOCK_TYPE_VERIFICATION_SUCCESS = 'verificationSuccess';
+const BLOCK_TYPE_TASK_RESOURCE = 'taskResource';
 
 const BLOCK_LEVEL_TASK = 1;
 const BLOCK_LEVEL_STEP = 2;
@@ -153,19 +154,37 @@ class WalkthroughStep {
 
   static fromAdoc(adoc) {
     const title = adoc.numbered ? `${getNumberedTitle(adoc)}. ${adoc.title}` : adoc.title;
-    const blocks = adoc.blocks.map((b, i, blockList) => {
+    const blocks = adoc.blocks.reduce((acc, b, i, blockList) => {
       if (WalkthroughVerificationBlock.canConvert(b)) {
         const remainingBlocks = blockList.slice(i + 1, blockList.length);
         const successBlock = WalkthroughVerificationSuccessBlock.findNextForVerification(remainingBlocks);
         const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
-        return new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock);
+        acc.push(new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock));
       }
       if (WalkthroughTextBlock.canConvert(b)) {
-        return new WalkthroughTextBlock(b.convert());
+        acc.push(new WalkthroughTextBlock(b.convert()));
       }
-      return undefined;
-    });
+      return acc;
+    }, []);
     return new WalkthroughStep(title, blocks);
+  }
+}
+
+class WalkthroughResourceStep {
+  constructor(html) {
+    this._html = html;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  static canConvert(adoc) {
+    return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_STEP && adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE;
+  }
+
+  static fromAdoc(adoc) {
+    return new WalkthroughResourceStep(adoc.convert());
   }
 }
 
@@ -190,7 +209,11 @@ class WalkthroughTask {
   }
 
   get steps() {
-    return this._steps;
+    return this._steps.filter(s => !(s instanceof WalkthroughResourceStep));
+  }
+
+  get resources() {
+    return this._steps.filter(s => s instanceof WalkthroughResourceStep);
   }
 
   static canConvert(adoc) {
@@ -201,7 +224,9 @@ class WalkthroughTask {
     const title = adoc.numbered ? `${getNumberedTitle(adoc)}. ${adoc.title}` : adoc.title;
     const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10) || 0;
     const steps = adoc.blocks.reduce((acc, b) => {
-      if (WalkthroughStep.canConvert(b)) {
+      if (WalkthroughResourceStep.canConvert(b)) {
+        acc.push(WalkthroughResourceStep.fromAdoc(b));
+      } else if (WalkthroughStep.canConvert(b)) {
         acc.push(WalkthroughStep.fromAdoc(b));
       } else if (WalkthroughTextBlock.canConvert(b)) {
         acc.push(WalkthroughTextBlock.fromAdoc(b));
