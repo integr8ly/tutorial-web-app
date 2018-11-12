@@ -93,7 +93,7 @@ class TutorialPage extends React.Component {
                   </Button>
                 </div>
                 {this.renderPrereqs(thread)}
-                <div dangerouslySetInnerHTML={{ __html: parsedThread.descriptionHTML }} />
+                <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
                 {/* <AsciiDocTemplate
                   adoc={thread}
                   attributes={Object.assign({}, thread.data.attributes)}

@@ -15,7 +15,8 @@ import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 import {
   parseWalkthroughAdoc,
   WalkthroughVerificationBlock,
-  WalkthroughTextBlock
+  WalkthroughTextBlock,
+  WalkthroughStep
 } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
@@ -88,6 +89,9 @@ class TaskPage extends React.Component {
   };
 
   getVerificationsForStep = (stepId, step) => {
+    if (!step.blocks) {
+      return [];
+    }
     const verificationIds = [];
     step.blocks.forEach((block, i) => {
       if (block instanceof WalkthroughVerificationBlock) {
@@ -241,6 +245,33 @@ class TaskPage extends React.Component {
     );
   }
 
+  renderStepBlock(id, block) {
+    if (block instanceof WalkthroughTextBlock) {
+      return (
+        <React.Fragment key={id}>
+          <div dangerouslySetInnerHTML={{ __html: block.html}}/>
+        </React.Fragment>
+      )
+    }
+    if (block instanceof WalkthroughStep) {
+      return (
+        <React.Fragment key={id}>
+          <h3>{block.title}</h3>
+          {block.blocks.map((block, i) => (
+            <React.Fragment key={`${id}-${i}`}>
+              {block instanceof WalkthroughTextBlock && (
+                <div dangerouslySetInnerHTML={{ __html: block.html }} />
+              )}
+              {block instanceof WalkthroughVerificationBlock &&
+                this.renderVerificationBlock(`${id}-${i}`, block)}
+            </React.Fragment>
+          ))}
+        </React.Fragment>
+      )
+    }
+    return null;
+  }
+
   render() {
     const attrs = this.getDocsAttributes();
     const { t, thread, manifest } = this.props;
@@ -267,7 +298,7 @@ class TaskPage extends React.Component {
         }
       } = this.props;
       const taskNum = parseInt(task, 10);
-      const parsedThread = parseWalkthroughAdoc(thread.data);
+      const parsedThread = parseWalkthroughAdoc(thread.data, attrs);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
       const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
@@ -294,21 +325,9 @@ class TaskPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
+                  <h2>{threadTask.title}</h2>
                   <div className="integr8ly-module-column--steps">
-                    {threadTask.steps.map((step, i) => (
-                      <React.Fragment key={i}>
-                        <h3>{step.title}</h3>
-                        {step.blocks.map((block, j) => (
-                          <React.Fragment key={`${i}-${j}`}>
-                            {block instanceof WalkthroughTextBlock && (
-                              <div dangerouslySetInnerHTML={{ __html: block.html }} />
-                            )}
-                            {block instanceof WalkthroughVerificationBlock &&
-                              this.renderVerificationBlock(`${i}-${j}`, block)}
-                          </React.Fragment>
-                        ))}
-                      </React.Fragment>
-                    ))}
+                    {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
                   </div>
 
                   {/* Bottom footer */}
