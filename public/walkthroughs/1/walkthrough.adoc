@@ -304,6 +304,7 @@ Pineapple
 
 
 [type=verification]
+****
 View the activity log:
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
@@ -311,6 +312,7 @@ View the activity log:
 . Select your integration.
 . Select the *Activity* tab.
 . Expand the log entry to display the steps performed.
+****
 
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
