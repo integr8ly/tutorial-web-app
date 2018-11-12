@@ -3,12 +3,17 @@ import { DEFAULT_SERVICES, getDashboardUrl } from '../common/serviceInstanceHelp
 import { buildValidProjectNamespaceName, cleanUsername } from './openshiftHelpers';
 
 const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServices) => {
-  if (!walkthrough || window.OPENSHIFT_CONFIG.mockData) {
+  if (window.OPENSHIFT_CONFIG.mockData) {
     return {};
   }
 
   const userAttrs = getUserAttrs(walkthrough, middlewareServices.provisioningUser);
   const middlewareAttrs = getMiddlwareServiceUrls(walkthrough, middlewareServices);
+
+  if (!walkthrough) {
+    return Object.assign({}, userAttrs, middlewareAttrs);
+  }
+
   const walkthroughAttrs = getWalkthroughSpecificAttrs(walkthrough, middlewareServices, walkthroughServices);
 
   return Object.assign({}, middlewareAttrs, walkthroughAttrs, userAttrs, { 'walkthrough-id': walkthrough.id });
@@ -17,7 +22,7 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
 const getUserAttrs = (walkthrough, username) => ({
   'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
   'project-namespace': buildValidProjectNamespaceName(username, 'walkthrough-projects'),
-  'walkthrough-namespace': buildValidProjectNamespaceName(username, walkthrough.namespaceSuffix),
+  'walkthrough-namespace': buildValidProjectNamespaceName(username, (walkthrough && walkthrough.namespaceSuffix) || buildValidProjectNamespaceName(username, 'walkthrough-projects')),
   'user-username': username,
   'user-sanitized-username': cleanUsername(username)
 });
@@ -72,10 +77,10 @@ const getMiddlwareServiceUrls = (walkthrough, middlewareServices) => {
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
     'api-management-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE)
   };
-  if (walkthrough.id === WALKTHROUGH_IDS.ONE) {
+  if (walkthrough && walkthrough.id === WALKTHROUGH_IDS.ONE) {
     defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ);
   }
-  if (walkthrough.id === WALKTHROUGH_IDS.ONE_A) {
+  if (walkthrough && walkthrough.id === WALKTHROUGH_IDS.ONE_A) {
     defaultServices['messaging-url'] = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.ENMASSE);
   }
   return defaultServices;
