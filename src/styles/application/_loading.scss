@@ -2,31 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 0;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-color: var(--pf-global--info-color--200);
+  background-image: url("../../img/provisioning-bg.png");
+  z-index: 5;
 
   &-spacer {
-    align-self: center;
-    min-height: 465px;
-    min-width: 380px;
-    margin-top: 75px;
-    z-index: 5;
+    @media (max-width: $pf-global--breakpoint--sm), (max-height: 550px) { // set height at max-width of 576px OR max-height of 550px
+      min-height: auto;
+    }
+  }
+
+  &-throbber {
+    @media (max-width: $pf-global--breakpoint--sm), (max-height: 550px) { // set display: none at max-width of 576px OR max-height of 550px
+      display: none;
+    }
   }
 
   &-throbber-static {
     height: 380px;
     width: 465px;
-  }
-
-  &-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-color: var(--pf-global--info-color--200);
-    background-image: url("../../img/provisioning-bg.png");
-    z-index: 5;
   }
 
   &-logo {
@@ -42,15 +43,11 @@
   &-text {
     color: $pf-color-white;
     text-align: center;
-    z-index: 5;
   }
 
   &-progress {
     display: flex;
-    justify-content: center;
     width: 65%;
-    margin: 0 auto;
-    z-index: 5;
   }
 
   &-progressbar {
