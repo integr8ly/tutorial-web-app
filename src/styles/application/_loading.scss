@@ -20,6 +20,9 @@
   }
 
   &-throbber {
+    min-height: 380px;
+    min-width: 464px;
+
     @media (max-width: $pf-global--breakpoint--sm), (max-height: 550px) { // set display: none at max-width of 576px OR max-height of 550px
       display: none;
     }
