@@ -1,14 +1,73 @@
 .integr8ly-landing-page {
   &-masthead {
-    background-image: url("../../img/Web_RH_Banner.png");
+    display: flex;
+    height: 130px;
+    width: 100%;
+    margin: auto 0;
     background-color: var(--pf-global--BackgroundColor--dark-100);
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
-    height: 130px;
-    width: 100%;
-    margin: auto 0;
-    display: flex;
+
+    // replace this image name with the desired image
+    // only for use with single-size images
+    $integr8ly-banner-image: "Web_RH_Banner.png";
+
+    // --integr8ly-c-masthead-image--BackgroundImage--xs: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--sm: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--md: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--lg: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+    // --integr8ly-c-masthead-image--BackgroundImage--xl: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+
+    --integr8ly-c-masthead-image--BackgroundImage--xs: url("#{$pf-global--image-path}/pfbg_576.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/pfbg_576@2x.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--sm: url("#{$pf-global--image-path}/pfbg_768.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/pfbg_768@2x.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--md: url("#{$pf-global--image-path}/pfbg_992.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/pfbg_992@2x.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--lg: url("#{$pf-global--image-path}/pfbg_1200.jpg");
+    --integr8ly-c-masthead-image--BackgroundImage--xl: url("#{$pf-global--image-path}/pfbg_2000.jpg");
+
+    /* stylelint-disable */
+    @media (max-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
+      (max-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--xs-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--sm) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--sm);
+    }
+
+    @media (min-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--sm-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--md) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--md);
+    }
+
+    @media (min-width: $pf-global--breakpoint--md) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--md) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--md-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--lg) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--lg);
+    }
+
+    @media (min-width: $pf-global--breakpoint--lg) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--lg) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--xl);
+    }
+    /* stylelint-enable */
+
+    @media (min-width: $pf-global--breakpoint--xl) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--xl);
+    }
 
     &::after {
       background-image: url("../../img/RedHatLogo.png");
