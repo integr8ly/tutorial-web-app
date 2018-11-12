@@ -1,28 +1,50 @@
+:numbered:
+
 = A custom walkthrough
 
 A custom walkthrough that shows users how to do something.
 
 This walkthrough is so super awesome, wow! Everyone will learn so much from it.
 
+fdsfds
+fdsfdsf
+
+
+fdsfdsfds
+
+fd
+sfdsf
+dsf
 
 == First task
 
 This is the first task, super duper
 
+Some stuff will be done in this task
+
 === This is the first step
+
+This is the first task, super duper
 
 The first step needs you to do 
 
 [type=verification]
-- Check this thing.
-- Check that thing
+. Check this thing.
+. Check that thing
 
 === This is the second step
 
 The second step needs you to do this other thing.
 
+. One
+. Two
+
 [type=verification]
 Check that thing.
+
+[start=3]
+. Three
+. Four
 
 [type=verificationFail]
 Breathe. Calm down. Try again. Contact your admin.
@@ -38,13 +60,20 @@ Check one more thing
 [type=verificationFail]
 Heck 'em!
 
+This is a Che route, I hope: {che-url}
+
 [time=15]
 == Second task
 
-=== Second task, first step
+This task has no inner steps. Wow, what a cool feature.
 
-Bleep.
+It's just loads of text so I can copy/paste all the jazz I want and it'll just
+render ok. Super duper!
 
-=== Second task, second step
+==== What about adding a strange heading?
 
-Bloop.
+Well that should work too!
+
+=== Ok, now I'll add in a step, and it'll work?
+
+Yep, only h3's are treated as steps . . . that's pretty cool if you ask me
