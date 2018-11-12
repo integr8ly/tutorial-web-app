@@ -1,5 +1,19 @@
 import axios from 'axios';
 import serviceConfig from './config';
+import { getUser } from './openshiftServices';
+
+const initDeps = data => {
+  getUser().then(user => {
+    axios({
+      method: 'post',
+      url: `/initThread`,
+      headers: {
+        'X-Forwarded-Access-Token': user.access_token
+      },
+      data
+    });
+  });
+};
 
 const getThread = (language, id) =>
   axios(
@@ -20,6 +34,9 @@ const initCustomThread = id =>
     serviceConfig({
       url: `/walkthroughs/${id}/walkthrough.json`
     })
-  );
+  ).then(response => {
+    initDeps(response.data);
+    return response;
+  });
 
 export { getThread, getCustomThread, initCustomThread };

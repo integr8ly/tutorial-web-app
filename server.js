@@ -4,8 +4,12 @@ const fs = require('fs');
 const asciidoctor = require('asciidoctor.js');
 const adoc = asciidoctor();
 const Mustache = require('mustache');
+const bodyParser = require('body-parser');
+const { fetchOpenshiftUser } = require('./server_middleware');
 
 const app = express();
+app.use(bodyParser.json());
+
 const port = process.env.PORT || 5001;
 
 const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
@@ -37,6 +41,11 @@ app.get('/customConfig', (req, res) => {
     const compiledConfig = Mustache.render(JSON.stringify(config), req.query);
     res.json(JSON.parse(compiledConfig));
   });
+});
+
+app.post('/initThread', fetchOpenshiftUser, (req, res) => {
+  const { dependencies: { repos } } = req.body;
+  return res.sendStatus(200);
 });
 
 function loadCustomWalkthroughs(walkthroughsPath) {

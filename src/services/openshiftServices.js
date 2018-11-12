@@ -72,7 +72,7 @@ const getUser = () => {
   if (!user) {
     return startOAuth();
   }
-  return new Promise((resolve, reject) => resolve(user));
+  return new Promise(resolve => resolve(user));
 };
 
 /**
