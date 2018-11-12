@@ -1,5 +1,3 @@
-:numbered:
-
 = A custom walkthrough
 
 A custom walkthrough that shows users how to do something.
@@ -62,6 +60,16 @@ Heck 'em!
 
 This is a Che route, I hope: {che-url}
 
+[type=taskResource]
+=== Some resources
+
+Woop woop doop doop
+
+[type=taskResource]
+=== Some other resources
+
+This is super duper
+
 [time=15]
 == Second task
 
@@ -77,3 +85,4 @@ Well that should work too!
 === Ok, now I'll add in a step, and it'll work?
 
 Yep, only h3's are treated as steps . . . that's pretty cool if you ask me
+
