@@ -13,7 +13,7 @@
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
 
-. Log in to the link:{launcher-url}[{launcher-name}, window="_blank"] console.
+. Log in to the link:{launcher-url}[{launcher-name}, window={target}] console.
 
 . Select *LAUNCH YOUR PROJECT*.
 

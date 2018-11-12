@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
+import Iframe from 'react-iframe';
 import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
@@ -9,7 +10,6 @@ import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import AsciiDocTemplate from '../../../components/asciiDocTemplate/asciiDocTemplate';
-import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
@@ -278,6 +278,7 @@ class TaskPage extends React.Component {
       const totalTasks = thread.data.tasks.length;
       const loadingText = `We're initiating services for "${thread.data.title}".`;
       const standbyText = 'Please stand by.';
+      const target = 'currentApp';
       return (
         <React.Fragment>
           <Breadcrumb
@@ -296,7 +297,7 @@ class TaskPage extends React.Component {
               progress={!window.OPENSHIFT_CONFIG.mockData ? this.docsAttributesProgress(attrs) : 100}
             />
             <Grid.Row>
-              <Grid.Col xs={12} sm={9} className="integr8ly-module">
+              <Grid.Col xs={12} sm={3} className="integr8ly-module">
                 <div className="integr8ly-module-column">
                   <div className="integr8ly-module-column--steps">
                     {threadTask.steps.map((step, i) => (
@@ -304,7 +305,7 @@ class TaskPage extends React.Component {
                         <AsciiDocTemplate
                           adoc={step.stepDoc}
                           attributes={Object.assign(
-                            {},
+                            { target },
                             thread.data.attributes,
                             step.attributes,
                             this.getDocsAttributes()
@@ -532,10 +533,16 @@ class TaskPage extends React.Component {
                   </div>
                 </div>
               </Grid.Col>
-              <Grid.Col sm={3} className="integr8ly-module-frame">
+              <Grid.Col sm={9} className="integr8ly-module-frame">
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <WalkthroughResources resources={thread.data.resources} />
+                <Iframe
+                  name="currentApp"
+                  styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
+                  display="initial"
+                  position="middle"
+                  allowFullScreen
+                />
               </Grid.Col>
             </Grid.Row>
           </Grid>

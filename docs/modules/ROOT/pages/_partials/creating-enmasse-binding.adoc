@@ -16,7 +16,7 @@ endif::location[]
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
-. Log in to the link:{openshift-url}[OpenShift, window="_blank"] console.
+. Log in to the link:{openshift-url}[OpenShift, window={target}] console.
 
 . Click the *Create Binding* option beside *EnMasse (standard)*.
 
@@ -28,7 +28,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a binding related to *EnMasse (standard)*.
+Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window={target}] console for a binding related to *EnMasse (standard)*.
 // end::verification[]
 endif::location[]
 

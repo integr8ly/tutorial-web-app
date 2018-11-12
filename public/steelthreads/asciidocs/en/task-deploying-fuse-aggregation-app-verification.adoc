@@ -1,4 +1,4 @@
-. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window="_blank"]:
+. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window={target}]:
 +
 * fuse-flights-aggregator
 +
@@ -6,4 +6,4 @@
 +
 * departures
 // TODO: flights api links to /camel/flights
-. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
+. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window={target}] and check that the response includes details about 8 flights.

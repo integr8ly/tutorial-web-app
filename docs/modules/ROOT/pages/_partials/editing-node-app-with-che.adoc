@@ -14,7 +14,7 @@ endif::location[]
 
 :che-url: http://che-che.apps.city.openshiftworkshop.com/
 
-. Log in to the link:{launcher-url}[Che, window="_blank"] console.
+. Log in to the link:{launcher-url}[Che, window={target}] console.
 
 . Click *Create Workspace*.
 
@@ -65,7 +65,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a recent build.
+Check the *Builds* screen of the *my-node-app* project in the link:{openshift-url}[OpenShift, window={target}] console for a recent build.
 // end::verification[]
 endif::location[]
 

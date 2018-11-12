@@ -10,7 +10,7 @@ To receive messages from {messaging-service}, you create a connection in Red Hat
 endif::location[]
 
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 
 . Select *Connections* from the left hand menu.
 
@@ -55,7 +55,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window={target}] console to make sure the new connection exists.
 // end::verification[]
 
 .If your verification fails:

@@ -29,7 +29,7 @@ Provision an EnMasse service by selecting *EnMasse (standard)* from the OpenShif
 
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
-. Log in to the link:{openshift-url}[OpenShift, window="_blank"] console and navigate to the service catalog.
+. Log in to the link:{openshift-url}[OpenShift, window={target}] console and navigate to the service catalog.
 
 . Select *EnMasse (standard)* to start the provisioning wizard.
 
@@ -43,7 +43,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window="_blank"] console for a *Provisioned Service* named *EnMasse (standard)*.
+Check the *Overview* screen of the *eval* project in the link:{openshift-url}[OpenShift, window={target}] console for a *Provisioned Service* named *EnMasse (standard)*.
 // end::verification[]
 endif::location[]
 

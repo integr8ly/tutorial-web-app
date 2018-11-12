@@ -20,7 +20,7 @@ endif::location[]
 // TODO placeholders for product names
 // TODO append /launch/wizard/<project-name> to launcher url
 // TODO flights endpoint url
-. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window="_blank"] wizard.
+. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window={target}] wizard.
 
 . Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step.
 
@@ -47,7 +47,7 @@ ifdef::location[]
 
 .To verify this procedure:
 // tag::verification[]
-. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window="_blank"]:
+. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window={target}]:
 +
 * fuse-flights-aggregator
 +
@@ -55,7 +55,7 @@ ifdef::location[]
 +
 * departures
 // TODO: flights api links to /camel/flights
-. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
+. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window={target}] and check that the response includes details about 8 flights.
 
 // end::verification[]
 

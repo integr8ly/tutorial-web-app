@@ -9,7 +9,7 @@
 
 
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 
 . Select *Connections* from the left hand menu.
 

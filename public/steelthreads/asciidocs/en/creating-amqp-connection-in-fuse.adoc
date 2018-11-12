@@ -13,7 +13,7 @@
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
 
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window={target}] console.
 
 . Select *Connections* from the left hand menu.
 
