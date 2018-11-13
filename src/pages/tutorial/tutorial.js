@@ -72,7 +72,7 @@ class TutorialPage extends React.Component {
               <PfMasthead />
             </Grid.Row>
             <Grid.Row>
-              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
                   <h3 className="pf-c-title pf-m-2xl">{thread.data.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
@@ -96,10 +96,12 @@ class TutorialPage extends React.Component {
                 <h3 className="pf-c-title pf-m-2xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                    <Icon type="fa" name="clock" />
-                    <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                    <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
+                    <span>
                       {thread.data.estimatedTime}
-                      {t('tutorial.minutes')}
+                      <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                        {t('tutorial.minutes')}
+                      </span>
                     </span>
                   </div>
                 </h3>
@@ -124,7 +126,7 @@ class TutorialPage extends React.Component {
                     />
                   ))}
                 </ListView>
-                <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, thread.data.id)}>
                     {t('tutorial.getStarted')}
                   </Button>

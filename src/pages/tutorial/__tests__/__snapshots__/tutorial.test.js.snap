@@ -32,7 +32,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     >
       <Col
         bsClass="col"
-        className="integr8ly-task-container"
+        className="integr8ly-task-container pf-u-mt-lg"
         componentClass="div"
         sm={9}
         xs={12}
@@ -112,12 +112,19 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           >
             <Icon
               name="clock"
+              style={
+                Object {
+                  "marginRight": 5,
+                }
+              }
               type="fa"
             />
-            <span
-              className="integr8ly-task-dashboard-time-to-completion_minutes"
-            >
-              tutorial.minutes
+            <span>
+              <span
+                className="integr8ly-task-dashboard-time-to-completion_minutes"
+              >
+                tutorial.minutes
+              </span>
             </span>
           </div>
         </h3>
@@ -164,7 +171,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           />
         </ListView>
         <div
-          className="pull-right integr8ly-task-dashboard-time-to-completion"
+          className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
         >
           <Button
             active={false}
