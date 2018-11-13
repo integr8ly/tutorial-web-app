@@ -10,16 +10,14 @@
   width: 100%;
   z-index: 5;
 
-  $integr8ly-loading-image: "provisioning-bg.png";
-
-  --integr8ly-c-loading-image--BackgroundImage--xs: url("#{$pf-global--image-path}/pfbg_576.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/pfbg_576@2x.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--sm: url("#{$pf-global--image-path}/pfbg_768.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/pfbg_768@2x.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--md: url("#{$pf-global--image-path}/pfbg_992.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/pfbg_992@2x.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--lg: url("#{$pf-global--image-path}/pfbg_1200.jpg");
-  --integr8ly-c-loading-image--BackgroundImage--xl: url("#{$pf-global--image-path}/pfbg_2000.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--xs: url("#{$pf-global--image-path}/loading_576.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--sm: url("#{$pf-global--image-path}/loading_768.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/loading_768@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--md: url("#{$pf-global--image-path}/loading_992.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/loading_992@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--lg: url("#{$pf-global--image-path}/loading_1200.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--xl: url("#{$pf-global--image-path}/loading_2000.jpg");
 
   &::before {
     position: fixed;

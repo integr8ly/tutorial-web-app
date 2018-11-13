@@ -8,16 +8,14 @@
   margin-bottom: 0;
   text-align: center;
 
-  $integr8ly-congratulations-image: "congratulations_bg.png";
-
-  --integr8ly-c-congratulations-image--BackgroundImage--xs: url("#{$pf-global--image-path}/pfbg_576.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/pfbg_576@2x.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--sm: url("#{$pf-global--image-path}/pfbg_768.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/pfbg_768@2x.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--md: url("#{$pf-global--image-path}/pfbg_992.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/pfbg_992@2x.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--lg: url("#{$pf-global--image-path}/pfbg_1200.jpg");
-  --integr8ly-c-congratulations-image--BackgroundImage--xl: url("#{$pf-global--image-path}/pfbg_2000.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--xs: url("#{$pf-global--image-path}/congrats_576.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/congrats_576@2x.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--sm: url("#{$pf-global--image-path}/congrats_768.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/congrats_768@2x.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--md: url("#{$pf-global--image-path}/congrats_992.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/congrats_992@2x.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--lg: url("#{$pf-global--image-path}/congrats_1200.jpg");
+  --integr8ly-c-congratulations-image--BackgroundImage--xl: url("#{$pf-global--image-path}/congrats_2000.jpg");
 
   &::before {
     position: fixed;
