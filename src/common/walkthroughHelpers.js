@@ -3,6 +3,7 @@ import asciidoctor from 'asciidoctor.js';
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_SECTION = 'section';
 const CONTEXT_PARAGRAPH = 'paragraph';
+const CONTEXT_DOCUMENT = 'document';
 
 const BLOCK_ATTR_TYPE = 'type';
 const BLOCK_ATTR_TIME = 'time';
@@ -10,6 +11,10 @@ const BLOCK_ATTR_TIME = 'time';
 const BLOCK_TYPE_VERIFICATION = 'verification';
 const BLOCK_TYPE_VERIFICATION_FAIL = 'verificationFail';
 const BLOCK_TYPE_VERIFICATION_SUCCESS = 'verificationSuccess';
+const BLOCK_TYPE_TASK_RESOURCE = 'taskResource';
+
+const BLOCK_LEVEL_TASK = 1;
+const BLOCK_LEVEL_STEP = 2;
 
 class WalkthroughTextBlock {
   constructor(html) {
@@ -143,28 +148,54 @@ class WalkthroughStep {
     return this._blocks;
   }
 
+  static canConvert(adoc) {
+    return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_STEP;
+  }
+
   static fromAdoc(adoc) {
-    const blocks = adoc.blocks.map((b, i, blockList) => {
+    const title = adoc.numbered ? `${getNumberedTitle(adoc)}. ${adoc.title}` : adoc.title;
+    const blocks = adoc.blocks.reduce((acc, b, i, blockList) => {
       if (WalkthroughVerificationBlock.canConvert(b)) {
         const remainingBlocks = blockList.slice(i + 1, blockList.length);
         const successBlock = WalkthroughVerificationSuccessBlock.findNextForVerification(remainingBlocks);
         const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
-        return new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock);
+        acc.push(new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock));
       }
       if (WalkthroughTextBlock.canConvert(b)) {
-        return new WalkthroughTextBlock(b.convert());
+        acc.push(new WalkthroughTextBlock(b.convert()));
       }
-      return undefined;
-    });
-    return new WalkthroughStep(adoc.title, blocks);
+      return acc;
+    }, []);
+    return new WalkthroughStep(title, blocks);
+  }
+}
+
+class WalkthroughResourceStep {
+  constructor(html) {
+    this._html = html;
+  }
+
+  get html() {
+    return this._html;
+  }
+
+  static canConvert(adoc) {
+    return (
+      adoc.context === CONTEXT_SECTION &&
+      adoc.level === BLOCK_LEVEL_STEP &&
+      adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE
+    );
+  }
+
+  static fromAdoc(adoc) {
+    return new WalkthroughResourceStep(adoc.convert());
   }
 }
 
 class WalkthroughTask {
-  constructor(title, time, shortDescriptionHTML, html, steps) {
+  constructor(title, time, html, steps) {
     this._title = title;
     this._time = time;
-    this._shortDescriptionHTML = shortDescriptionHTML;
     this._html = html;
     this._steps = steps;
   }
@@ -182,46 +213,39 @@ class WalkthroughTask {
   }
 
   get steps() {
-    return this._steps;
+    return this._steps.filter(s => !(s instanceof WalkthroughResourceStep));
+  }
+
+  get resources() {
+    return this._steps.filter(s => s instanceof WalkthroughResourceStep);
   }
 
   static canConvert(adoc) {
-    return adoc.context === CONTEXT_SECTION;
-  }
-
-  static getShortDescription(adoc) {
-    if (adoc.blocks[0].context === CONTEXT_PARAGRAPH && adoc.blocks[0].lines.length !== 0) {
-      const {
-        blocks: [
-          {
-            lines: [shortDescription]
-          }
-        ]
-      } = adoc;
-      return shortDescription;
-    }
-    return '';
+    return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_TASK;
   }
 
   static fromAdoc(adoc) {
+    const title = adoc.numbered ? `${getNumberedTitle(adoc)}. ${adoc.title}` : adoc.title;
     const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10) || 0;
-
     const steps = adoc.blocks.reduce((acc, b) => {
-      if (b.context === CONTEXT_PARAGRAPH || b.context === CONTEXT_PREAMBLE) {
-        return acc;
+      if (WalkthroughResourceStep.canConvert(b)) {
+        acc.push(WalkthroughResourceStep.fromAdoc(b));
+      } else if (WalkthroughStep.canConvert(b)) {
+        acc.push(WalkthroughStep.fromAdoc(b));
+      } else if (WalkthroughTextBlock.canConvert(b)) {
+        acc.push(WalkthroughTextBlock.fromAdoc(b));
       }
-      acc.push(WalkthroughStep.fromAdoc(b));
       return acc;
     }, []);
 
-    return new WalkthroughTask(adoc.title, time, this.getShortDescription(adoc), adoc.convert(), steps);
+    return new WalkthroughTask(title, time, adoc.convert(), steps);
   }
 }
 
 class Walkthrough {
-  constructor(title, descriptionHTML, time, tasks) {
+  constructor(title, preamble, time, tasks) {
     this._title = title;
-    this._descriptionHTML = descriptionHTML;
+    this._preamble = preamble;
     this._time = time;
     this._tasks = tasks;
   }
@@ -230,8 +254,8 @@ class Walkthrough {
     return this._title;
   }
 
-  get descriptionHTML() {
-    return this._descriptionHTML;
+  get preamble() {
+    return this._preamble;
   }
 
   get time() {
@@ -244,19 +268,26 @@ class Walkthrough {
 
   static fromAdoc(adoc) {
     const title = adoc.getDocumentTitle();
-    const descriptionHTML = adoc.blocks[0].convert();
+    const preamble = adoc.blocks[0].convert();
     const tasks = adoc.blocks.filter(b => WalkthroughTask.canConvert(b)).map(b => WalkthroughTask.fromAdoc(b));
     const time = tasks.reduce((acc, t) => acc + t._time || 0, 0);
-    return new Walkthrough(title, descriptionHTML, time, tasks);
+    return new Walkthrough(title, preamble, time, tasks);
   }
 }
 
-const parseWalkthroughAdoc = rawAdoc => {
-  const parsedAdoc = parseAdoc(rawAdoc);
+const getNumberedTitle = block => {
+  if (block.context === CONTEXT_DOCUMENT || block.parent.context === CONTEXT_DOCUMENT) {
+    return `${block.numbered ? block.number : null}`;
+  }
+  return `${getNumberedTitle(block.parent)}.${block.numbered ? block.number : null}`;
+};
+
+const parseWalkthroughAdoc = (rawAdoc, attrs) => {
+  const parsedAdoc = parseAdoc(rawAdoc, attrs);
   return Walkthrough.fromAdoc(parsedAdoc);
 };
 
-const parseAdoc = rawAdoc => asciidoctor().load(rawAdoc);
+const parseAdoc = (rawAdoc, attrs) => asciidoctor().load(rawAdoc, { attributes: attrs });
 
 export {
   WalkthroughTextBlock,
