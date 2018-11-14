@@ -249,9 +249,9 @@ class TaskPage extends React.Component {
     if (block instanceof WalkthroughTextBlock) {
       return (
         <React.Fragment key={id}>
-          <div dangerouslySetInnerHTML={{ __html: block.html}}/>
+          <div dangerouslySetInnerHTML={{ __html: block.html }} />
         </React.Fragment>
-      )
+      );
     }
     if (block instanceof WalkthroughStep) {
       return (
@@ -259,15 +259,12 @@ class TaskPage extends React.Component {
           <h3>{block.title}</h3>
           {block.blocks.map((block, i) => (
             <React.Fragment key={`${id}-${i}`}>
-              {block instanceof WalkthroughTextBlock && (
-                <div dangerouslySetInnerHTML={{ __html: block.html }} />
-              )}
-              {block instanceof WalkthroughVerificationBlock &&
-                this.renderVerificationBlock(`${id}-${i}`, block)}
+              {block instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: block.html }} />}
+              {block instanceof WalkthroughVerificationBlock && this.renderVerificationBlock(`${id}-${i}`, block)}
             </React.Fragment>
           ))}
         </React.Fragment>
-      )
+      );
     }
     return null;
   }

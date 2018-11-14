@@ -180,7 +180,11 @@ class WalkthroughResourceStep {
   }
 
   static canConvert(adoc) {
-    return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_STEP && adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE;
+    return (
+      adoc.context === CONTEXT_SECTION &&
+      adoc.level === BLOCK_LEVEL_STEP &&
+      adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE
+    );
   }
 
   static fromAdoc(adoc) {
@@ -271,12 +275,12 @@ class Walkthrough {
   }
 }
 
-const getNumberedTitle = (block) => {
+const getNumberedTitle = block => {
   if (block.context === CONTEXT_DOCUMENT || block.parent.context === CONTEXT_DOCUMENT) {
     return `${block.numbered ? block.number : null}`;
   }
   return `${getNumberedTitle(block.parent)}.${block.numbered ? block.number : null}`;
-}
+};
 
 const parseWalkthroughAdoc = (rawAdoc, attrs) => {
   const parsedAdoc = parseAdoc(rawAdoc, attrs);

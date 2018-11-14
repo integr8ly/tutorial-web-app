@@ -22,7 +22,10 @@ const getDocsForWalkthrough = (walkthrough, middlewareServices, walkthroughServi
 const getUserAttrs = (walkthrough, username) => ({
   'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
   'project-namespace': buildValidProjectNamespaceName(username, 'walkthrough-projects'),
-  'walkthrough-namespace': buildValidProjectNamespaceName(username, (walkthrough && walkthrough.namespaceSuffix) || buildValidProjectNamespaceName(username, 'walkthrough-projects')),
+  'walkthrough-namespace': buildValidProjectNamespaceName(
+    username,
+    (walkthrough && walkthrough.namespaceSuffix) || buildValidProjectNamespaceName(username, 'walkthrough-projects')
+  ),
   'user-username': username,
   'user-sanitized-username': cleanUsername(username)
 });
