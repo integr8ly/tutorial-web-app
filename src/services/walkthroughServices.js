@@ -1,6 +1,7 @@
 import axios from 'axios';
 import serviceConfig from './config';
 import { watch, currentUser } from './openshiftServices';
+import { initCustomThread } from './threadServices';
 import { buildValidProjectNamespaceName, findOrCreateOpenshiftResource } from '../common/openshiftHelpers';
 import {
   buildServiceInstanceCompareFn,
@@ -20,7 +21,7 @@ import {
   serviceInstanceDef,
   routeDef
 } from '../common/openshiftResourceDefinitions';
-import { REJECTED_ACTION } from '../redux/helpers';
+import { REJECTED_ACTION, FULFILLED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
 
 const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A', TWO: '2' };
@@ -77,6 +78,41 @@ const walkthroughs = {
     ]
   }
 };
+
+const DEFAULT_SERVICE_INSTANCE = {
+  kind: 'ServiceInstance',
+  apiVersion: 'servicecatalog.k8s.io/v1beta1',
+  spec: {
+    clusterServicePlanExternalName: 'default'
+  }
+}
+
+const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
+  if (window.OPENSHIFT_CONFIG.mockData) {
+    return Promise.resolve([]);
+  }
+  return initCustomThread(walkthoughName)
+    .then(res => res.data)
+    .then(manifest => {
+      currentUser()
+        .then(user => {
+          const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
+          const namespaceObj = namespaceResource(userNamespace);
+          const namespaceRequestObj = namespaceRequestResource(userNamespace);
+
+          return findOrCreateOpenshiftResource(
+            namespaceDef,
+            namespaceObj,
+            resObj => resObj.metadata.name === userNamespace,
+            namespaceRequestDef,
+            namespaceRequestObj
+          ).then(() => {
+            const siObjs = manifest.dependencies.serviceInstances.map(siPartial => Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial));
+            return Promise.all(siObjs.map(siObj => findOrCreateOpenshiftResource(serviceInstanceDef(userNamespace), siObj, buildServiceInstanceCompareFn(siObj))));
+          });
+        });
+    });
+}
 
 /**
  * Prepare namespace for the given walkthrough:
@@ -180,5 +216,6 @@ export {
   prepareWalkthroughNamespace,
   walkthroughs,
   WALKTHROUGH_IDS,
-  getCustomWalkthroughs
+  getCustomWalkthroughs,
+  prepareCustomWalkthroughNamespace
 };
