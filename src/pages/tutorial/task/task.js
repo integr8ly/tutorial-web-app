@@ -9,7 +9,7 @@ import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
-import { prepareWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
+import { prepareWalkthroughNamespace, prepareCustomWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 import {
@@ -26,12 +26,14 @@ class TaskPage extends React.Component {
     const {
       getWalkthrough,
       initWalkthrough,
+      prepareCustomWalkthrough,
       match: {
         params: { id }
       }
     } = this.props;
     getWalkthrough(id);
     initWalkthrough(id);
+    prepareCustomWalkthrough(id)
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
@@ -287,7 +289,6 @@ class TaskPage extends React.Component {
         </div>
       );
     }
-
     if (thread.fulfilled && thread.data) {
       const {
         match: {
@@ -499,6 +500,7 @@ const mapDispatchToProps = dispatch => ({
     prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
   getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
   prepareWalkthroughTwo: () => prepareWalkthroughNamespace(dispatch, walkthroughs.two, null),
+  prepareCustomWalkthrough: id => prepareCustomWalkthroughNamespace(dispatch, id),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
   initWalkthrough: id => dispatch(reduxActions.threadActions.initCustomThread(id))

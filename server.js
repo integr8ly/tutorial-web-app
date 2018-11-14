@@ -159,7 +159,7 @@ function getConfigData(req) {
   };`
 }
 
-function getWalkthroughInfoFromAdoc(dirName, adoc) {
+function getWalkthroughInfoFromAdoc(dirName, adoc, json) {
   
   // Retrieve the short description. There must be a gap between the document title and the short description.
   // Otherwise it's counted as the author field. For example, see this adoc file:
@@ -181,7 +181,8 @@ function getWalkthroughInfoFromAdoc(dirName, adoc) {
     shortDescription: shortDescription,
     // description: getPreambleBlockContent(adoc),
     time: getTotalWalkthroughTime(adoc),
-    adoc: `/public/walkthroughs/${dirName}/walkthroughs.adoc`
+    adoc: `/public/walkthroughs/${dirName}/walkthroughs.adoc`,
+    json: `/public/walkthroughs/${dirName}/walkthroughs.json`
   }
 }
 
