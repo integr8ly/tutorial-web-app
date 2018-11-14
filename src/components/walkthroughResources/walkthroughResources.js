@@ -13,7 +13,7 @@ class WalkthroughResources extends React.Component {
   }
 
   componentDidMount() {
-    //this.buildResourceList();
+    // this.buildResourceList();
   }
 
   mapServiceLinks() {
@@ -118,7 +118,9 @@ class WalkthroughResources extends React.Component {
     return (
       <div>
         <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
-        {this.props.resources.map((resource, i) => <div key={i} dangerouslySetInnerHTML={{ __html: resource.html }}/>)}
+        {this.props.resources.map((resource, i) => (
+          <div key={i} dangerouslySetInnerHTML={{ __html: resource.html }} />
+        ))}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
       </div>
     );
