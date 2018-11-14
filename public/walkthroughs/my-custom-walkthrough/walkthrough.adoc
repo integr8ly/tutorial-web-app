@@ -1,88 +1,101 @@
 = A custom walkthrough
 
-A custom walkthrough that shows users how to do something.
+This is the first sentence of the walkthrough's preamble. It will be used as the
+short description for the walkthrough.
 
-This walkthrough is so super awesome, wow! Everyone will learn so much from it.
+These lines will be included in the long description of the walkthrough. Normally
+this content will be shown on the overview page for a walkthough. However, it is
+excluded from the short description.
 
-fdsfds
-fdsfdsf
-
-
-fdsfdsfds
-
-fd
-sfdsf
-dsf
+To start a task we need to use a h2 heading.
 
 == First task
 
-This is the first task, super duper
+This is the overview for the first task in the walkthrough.
 
-Some stuff will be done in this task
+It can be spread over multiple paragraphs. To start a step we need to use a h3
+heading.
 
-=== This is the first step
+=== Custom blocks
 
-This is the first task, super duper
-
-The first step needs you to do 
+This is the content of the first step. Steps can contain any asciidoc. However,
+it can also contain a number of walkthrough-specific blocks. For example, below
+is a verification block. This is a paragraph that has been annotated with
+`[type=verification]`.
 
 [type=verification]
+This block will render as a verification box with a yes/no checkbox.
++
 . Check this thing.
 . Check that thing
 
-=== This is the second step
+=== More custom blocks
 
-The second step needs you to do this other thing.
+This is the second step of the first task. It is started with a h3 heading. Below
+we'll include some arbitrary asciidoc, a list, with a verification block in the
+middle of it. We need to use `[start=3]` annotation to continue the numbering of
+the list that the verification block has broken.
 
-. One
-. Two
+Also in this step is the two other types of verification block. These are used to
+define content that is shown when a user selects either `yes` or `no` on the
+checkbox. These are blocks annotated with `[type=verificationSuccess]` and
+`[type=verificationFail]` respectively.
+
+. First item
+. Second item
 
 [type=verification]
-Check that thing.
+A second verification block.
 
 [start=3]
-. Three
-. Four
+. Third item, I should have a 3 beside me
+. Fourth item
 
 [type=verificationFail]
-Breathe. Calm down. Try again. Contact your admin.
+A message to show when the user clicks `no`.
 
 [type=verificationSuccess]
-Well done. You're clearly a good person.
+A message to show when the user clicks `yes`.
 
-Woop woop doop doop
+Note that each verification block is a single block. Meaning there cannot be
+newlines in the block itself. This can be worked around using `+` on newlines or
+by any other means that maintains a single block of text.
 
-[type=verification]
-Check one more thing
+=== Using walkthrough attributes
 
-[type=verificationFail]
-Heck 'em!
+By default, a number of attributes about the environment will be provided to us.
+These attributes will include information such as the URLs of services. One of
+these attributes is the URL of Eclipse Che running in the cluster. This attribute
+is named `che-url`. We can access it like any other attribute in asciidoc, by
+surrounding it with `{}`.
 
-This is a Che route, I hope: {che-url}
+For example, here is the Che URL: `{che-url}`.
 
 [type=taskResource]
-=== Some resources
+=== A task resource
 
-Woop woop doop doop
-
-[type=taskResource]
-=== Some other resources
-
-This is super duper
+A step-level annotation can be used to add resources to the right-hand side of
+the walkthrough in the extra resources section. Any step annotated with
+`[type=taskResource]` will be included on the right-hand side instead of being
+included in the main content. Note that verification blocks will not work in here,
+these steps are treated as raw asciidoc.
 
 [time=15]
 == Second task
 
-This task has no inner steps. Wow, what a cool feature.
+This is the second task of the walkthrough. On this task we have specified a time
+in minutes that the task will take. This can be done using the `[time=15]` annotation,
+where `15` is the amount of minutes the task will take. This information will be
+used when displaying any overview pages for the walkthrough. If a `time` is not
+set on a task, it will be treated as `0` minutes.
 
-It's just loads of text so I can copy/paste all the jazz I want and it'll just
-render ok. Super duper!
+Tasks do not need to be split into steps. They can just be raw asciidoc dropped into
+the file. So as long as we do not include a h3 section in this task, there will be
+no steps in the task.
 
-==== What about adding a strange heading?
+==== A h4 heading
 
-Well that should work too!
-
-=== Ok, now I'll add in a step, and it'll work?
-
-Yep, only h3's are treated as steps . . . that's pretty cool if you ask me
+Only h3 headings are treated as steps, so adding in a h4 heading is treated as
+raw asciidoc. This also means that verification blocks cannot be specified in
+these blocks.
 
