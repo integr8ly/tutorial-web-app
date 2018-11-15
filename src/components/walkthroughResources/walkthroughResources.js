@@ -23,13 +23,18 @@ class WalkthroughResources extends React.Component {
         let url = '';
         let gaStatus = '';
         let serviceStatus = '';
+        let provisionStatus = '';
 
         if (resource.serviceName === 'openshift') {
           url = `${window.OPENSHIFT_CONFIG.masterUri}/console`;
           serviceStatus = true;
           gaStatus = '';
+          provisionStatus = '';
         } else {
           const serviceStatusApi = middlewareServices.data[resource.serviceName].status.conditions[0].status;
+
+          const provisionStatusApi = middlewareServices.data[resource.serviceName].status.provisionStatus;
+
           const gaStatusApi = middlewareServices.data[resource.serviceName].productDetails.gaStatus;
           url = getDashboardUrl(middlewareServices.data[resource.serviceName]);
 
@@ -39,10 +44,14 @@ class WalkthroughResources extends React.Component {
           if (gaStatusApi) {
             gaStatus = gaStatusApi;
           }
+          if (provisionStatusApi) {
+            provisionStatus = provisionStatusApi;
+          }
         }
 
         resource.serviceStatus = serviceStatus;
         resource.gaStatus = gaStatus;
+        resource.provisionStatus = provisionStatus;
 
         resource.links.forEach(link => {
           if (link.type === 'console') {
@@ -58,6 +67,7 @@ class WalkthroughResources extends React.Component {
   buildResourceList() {
     const resources = this.mapServiceLinks();
     let resourceList = null;
+
     if (resources && resources.length !== 0) {
       resourceList = resources.map(resource => {
         const resourceLinks = resource.links.map(link => (
@@ -67,14 +77,19 @@ class WalkthroughResources extends React.Component {
             </a>
           </li>
         ));
+
         return (
           <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">
-              <Icon
-                className={resource.serviceStatus ? 'integr8ly-state-ready' : 'integr8ly-state-unavailable'}
-                type="pf"
-                name={resource.serviceStatus ? 'on-running' : 'error-circle-o'}
-              />
+              {resource.provisionStatus === 'Not Provisioned' ? (
+                <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />
+              ) : (
+                <Icon
+                  className={resource.serviceStatus ? 'integr8ly-state-ready' : 'integr8ly-state-provisioining'}
+                  type="pf"
+                  name={resource.serviceStatus ? 'on-running' : 'chart-pie'}
+                />
+              )}
               &nbsp;
               {resource.title}
               &nbsp;
