@@ -31,7 +31,7 @@ const normalizeUser = username => {
  * @returns {*}
  */
 const getUserIDByName = normalizedUser => {
-  const url = `${GITEA_HOST}/users/${normalizedUser}`;
+  const url = `${GITEA_HOST}/api/v1/users/${normalizedUser}`;
   return axios({
     url,
     headers: DEFAULT_HEADERS,
@@ -46,7 +46,7 @@ const getUserIDByName = normalizedUser => {
  * @returns {*}
  */
 const getRepoByName = ({ repoName }, normalizedUser) => {
-  const url = `${GITEA_HOST}/repos/${normalizedUser}/${repoName}`;
+  const url = `${GITEA_HOST}/api/v1/repos/${normalizedUser}/${repoName}`;
   return axios({
     url,
     headers: DEFAULT_HEADERS,
@@ -64,7 +64,7 @@ const getRepoByName = ({ repoName }, normalizedUser) => {
  * @returns {Promise<any>}
  */
 const cloneExternalRepo = ({ repoName, cloneUrl }, normalizedUser) => {
-  const url = `${GITEA_HOST}/repos/migrate`;
+  const url = `${GITEA_HOST}/api/v1/repos/migrate`;
 
   return new Promise((resolve, reject) => {
     getUserIDByName(normalizedUser)
@@ -84,13 +84,7 @@ const cloneExternalRepo = ({ repoName, cloneUrl }, normalizedUser) => {
           .then(resolve)
           .catch(reject);
       })
-      .catch(err => {
-        if (err.response && err.response.status === 422) {
-          console.log(`Skip creating repository ${repoName} because it already exists`);
-          return resolve();
-        }
-        return reject(err);
-      });
+      .catch(reject);
   });
 };
 
@@ -101,7 +95,7 @@ const cloneExternalRepo = ({ repoName, cloneUrl }, normalizedUser) => {
  * @returns {Promise<any>}
  */
 const createNewRepo = ({ repoName }, normalizedUser) => {
-  const url = `${GITEA_HOST}/admin/users/${normalizedUser}/repos`;
+  const url = `${GITEA_HOST}/api/v1/admin/users/${normalizedUser}/repos`;
   const data = {
     name: repoName
   };
