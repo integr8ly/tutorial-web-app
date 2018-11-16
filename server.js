@@ -6,6 +6,7 @@ const adoc = asciidoctor();
 const Mustache = require('mustache');
 const bodyParser = require('body-parser');
 const { fetchOpenshiftUser } = require('./server_middleware');
+const giteaClient = require('./gitea_client');
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,9 +44,23 @@ app.get('/customConfig', (req, res) => {
   });
 });
 
+// Init custom walkthroughs dependencies
 app.post('/initThread', fetchOpenshiftUser, (req, res) => {
-  const { dependencies: { repos } } = req.body;
-  return res.sendStatus(200);
+  const {
+    dependencies: { repos },
+    openshiftUser
+  } = req.body;
+
+  if (repos && repos.length > 0) {
+    Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
+      .then(() => res.sendStatus(200))
+      .catch(err => {
+        console.error(`Error creating repositories: ${err}`);
+        return res.sendStatus(500);
+      });
+  } else {
+    return res.sendStatus(200);
+  }
 });
 
 function loadCustomWalkthroughs(walkthroughsPath) {

@@ -11,7 +11,7 @@ exports.fetchOpenshiftUser = (req, res, next) => {
     return res.sendStatus(403);
   }
 
-  axios({
+  return axios({
     httpsAgent: insecureAgent,
     url: `https://${process.env.OPENSHIFT_HOST}/oapi/v1/users/~`,
     headers: {
@@ -25,7 +25,7 @@ exports.fetchOpenshiftUser = (req, res, next) => {
         metadata: { name }
       } = response.data;
       if (kind === 'User') {
-        req.body.username = name;
+        req.body.openshiftUser = name;
         return next();
       }
       return res.sendStatus(403);

@@ -35,6 +35,7 @@ const initCustomThread = id =>
       url: `/walkthroughs/${id}/walkthrough.json`
     })
   ).then(response => {
+    // Don't wait for initDeps, just fire it off in the background
     initDeps(response.data);
     return response;
   });
