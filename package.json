@@ -6,7 +6,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.4.2",
     "@patternfly/patternfly-next": "1.0.65",
-    "asciidoctor.js": "1.5.7-rc.1",
+    "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
     "classnames": "2.2.5",
     "client-oauth2": "4.2.1",
@@ -72,7 +72,7 @@
     "prebuild": "yarn clean",
     "build:css": "yarn lint:scss && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css",
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
-    "build:js": "CI=false react-scripts build",
+    "build:js": "react-scripts build",
     "start": "node server.js",
     "start:dev": "FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
     "start:local": "react-scripts start",
