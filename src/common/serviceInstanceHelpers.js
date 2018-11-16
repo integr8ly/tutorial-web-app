@@ -91,8 +91,7 @@ const DEFAULT_SERVICES = {
   THREESCALE: '3scale',
   CRUD_APP: 'spring-boot-rest-http-crud',
   MESSAGING_APP: 'nodejs-messaging-work-queue-frontend',
-  FUSE_AGGREGATOR: 'fuse-flights-aggregator',
-  GITEA: 'gitea'
+  FUSE_AGGREGATOR: 'fuse-flights-aggregator'
 };
 
 const DEFAULT_TRANSFORMS = [
