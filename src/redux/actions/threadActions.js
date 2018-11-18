@@ -16,4 +16,9 @@ const initCustomThread = id => ({
   payload: threadServices.initCustomThread(id)
 });
 
-export { getThread, getCustomThread, initCustomThread };
+const updateThreadProgress = (id, progress) => ({
+  type: threadTypes.UPDATE_THREAD_PROGRESS,
+  payload: threadServices.updateThreadProgress(id, progress)
+});
+
+export { getThread, getCustomThread, initCustomThread, updateThreadProgress };

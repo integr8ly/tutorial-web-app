@@ -1,21 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { connect } from '../../redux';
 import { getDashboardUrl } from '../../common/serviceInstanceHelpers';
 
 class WalkthroughResources extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      resourceList: null
-    };
-  }
-
-  componentDidMount() {
-    // this.buildResourceList();
-  }
-
   mapServiceLinks() {
     const { resources, middlewareServices } = this.props;
     if (resources.length !== 0) {
