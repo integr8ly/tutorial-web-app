@@ -15,9 +15,21 @@ const getCustomThread = id =>
     })
   );
 
-const initCustomThread = id => axios(
-  serviceConfig({
-    url: `/walkthroughs/${id}/walkthrough.json`
-  }));
+const initCustomThread = id =>
+  axios(
+    serviceConfig({
+      url: `/walkthroughs/${id}/walkthrough.json`
+    })
+  );
 
-export { getThread, getCustomThread, initCustomThread };
+const updateThreadProgress = (username, progress) => {
+  localStorage.setItem(buildUserProgressKey(username), JSON.stringify(progress));
+  console.log('update', progress);
+  return Promise.resolve(progress);
+};
+
+const getThreadProgress = username => JSON.parse(localStorage.getItem(buildUserProgressKey(username)));
+
+const buildUserProgressKey = username => `walkthroughProgress_${username}`;
+
+export { getThread, getCustomThread, initCustomThread, updateThreadProgress, getThreadProgress };

@@ -5,21 +5,12 @@ import { ConnectedTutorialPage, TutorialPage } from '../tutorial';
 
 const completeThread = {
   fulfilled: true,
-  data: {
-    roles: ['Developer'],
-    applications: ['OpenShift'],
-    prerequisites: ['Github account'],
-    tasks: [
-      {
-        title: 'Creating an EnMasse space',
-        description:
-          'EnMasse simplifies running messaging infrastructure for your organization. You use it to provide messaging services from a Node.js app to a Spring Boot app.',
-        estimatedTime: 6,
-        stepDoc: 'setting-up-enmasse.adoc',
-        stepDocInfo: 'complete-before-proceeding.adoc'
-      }
-    ]
-  }
+  data: `= Example
+  
+  This is a sample description
+
+  == First task
+  `
 };
 
 describe('TutorialPage Component', () => {
@@ -41,15 +32,5 @@ describe('TutorialPage Component', () => {
   it('should render the TutorialPage component fulfilled state', () => {
     const component = shallow(<TutorialPage t={s => s} thread={completeThread} />);
     expect(component).toMatchSnapshot();
-  });
-  it('should render the prerequisites', () => {
-    const component = shallow(<TutorialPage t={s => s} thread={completeThread} />);
-    expect(component.find('.integr8ly-tutorial-prereqs').exists()).toEqual(true);
-  });
-  it('should not render empty prerequisites', () => {
-    const simpleThread = { ...completeThread };
-    simpleThread.data.prerequisites = [];
-    const component = shallow(<TutorialPage t={s => s} thread={simpleThread} />);
-    expect(component.find('.integr8ly-tutorial-prereqs').exists()).toEqual(false);
   });
 });
