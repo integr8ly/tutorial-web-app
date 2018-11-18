@@ -21,7 +21,7 @@ import {
   serviceInstanceDef,
   routeDef
 } from '../common/openshiftResourceDefinitions';
-import { REJECTED_ACTION, FULFILLED_ACTION } from '../redux/helpers';
+import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
 
 const WALKTHROUGH_IDS = { ONE: '1', ONE_A: '1A', TWO: '2' };
@@ -85,7 +85,7 @@ const DEFAULT_SERVICE_INSTANCE = {
   spec: {
     clusterServicePlanExternalName: 'default'
   }
-}
+};
 
 const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
   if (window.OPENSHIFT_CONFIG.mockData) {
@@ -94,25 +94,34 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
   return initCustomThread(walkthoughName)
     .then(res => res.data)
     .then(manifest => {
-      currentUser()
-        .then(user => {
-          const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
-          const namespaceObj = namespaceResource(userNamespace);
-          const namespaceRequestObj = namespaceRequestResource(userNamespace);
+      currentUser().then(user => {
+        const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
+        const namespaceObj = namespaceResource(userNamespace);
+        const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
-          return findOrCreateOpenshiftResource(
-            namespaceDef,
-            namespaceObj,
-            resObj => resObj.metadata.name === userNamespace,
-            namespaceRequestDef,
-            namespaceRequestObj
-          ).then(() => {
-            const siObjs = manifest.dependencies.serviceInstances.map(siPartial => Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial));
-            return Promise.all(siObjs.map(siObj => findOrCreateOpenshiftResource(serviceInstanceDef(userNamespace), siObj, buildServiceInstanceCompareFn(siObj))));
-          });
+        return findOrCreateOpenshiftResource(
+          namespaceDef,
+          namespaceObj,
+          resObj => resObj.metadata.name === userNamespace,
+          namespaceRequestDef,
+          namespaceRequestObj
+        ).then(() => {
+          const siObjs = manifest.dependencies.serviceInstances.map(siPartial =>
+            Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial)
+          );
+          return Promise.all(
+            siObjs.map(siObj =>
+              findOrCreateOpenshiftResource(
+                serviceInstanceDef(userNamespace),
+                siObj,
+                buildServiceInstanceCompareFn(siObj)
+              )
+            )
+          );
         });
+      });
     });
-}
+};
 
 /**
  * Prepare namespace for the given walkthrough:

@@ -9,7 +9,13 @@ import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
-import { prepareWalkthroughNamespace, prepareCustomWalkthroughNamespace, walkthroughs, WALKTHROUGH_IDS } from '../../../services/walkthroughServices';
+import {
+  prepareWalkthroughNamespace,
+  prepareCustomWalkthroughNamespace,
+  walkthroughs,
+  WALKTHROUGH_IDS
+} from '../../../services/walkthroughServices';
+import { getThreadProgress } from '../../../services/threadServices';
 import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 import {
@@ -20,20 +26,19 @@ import {
 } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
-  state = { task: 0, verifications: {} };
-
   componentDidMount() {
     const {
       getWalkthrough,
       initWalkthrough,
       prepareCustomWalkthrough,
+      updateWalkthroughProgress,
       match: {
         params: { id }
       }
     } = this.props;
     getWalkthrough(id);
     initWalkthrough(id);
-    prepareCustomWalkthrough(id)
+    prepareCustomWalkthrough(id);
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
       prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
@@ -44,44 +49,49 @@ class TaskPage extends React.Component {
     if (this.props.match.params.id === WALKTHROUGH_IDS.TWO) {
       prepareWalkthroughTwo();
     }
-    const currentProgress = this.getStoredProgressForCurrentTask();
-    if (currentProgress) {
-      this.setState({ verifications: currentProgress });
-    }
+    const currentUsername = localStorage.getItem('currentUserName');
+    const currentUserProgress = getThreadProgress(currentUsername);
+    updateWalkthroughProgress(currentUsername, currentUserProgress);
+
+    // const currentProgress = this.getStoredProgressForCurrentTask();
+    // if (currentProgress) {
+    //   this.setState({ verifications: currentProgress });
+    // }
   }
 
   getStoredProgressForCurrentTask = () => {
     const {
+      threadProgress: { data },
       match: {
         params: { id, task }
       }
     } = this.props;
-    const currentUsername = window.localStorage.getItem('currentUserName');
-    const currentProgress = JSON.parse(localStorage.getItem(`walkthroughProgress_${currentUsername}`));
-    if (!currentProgress || !currentProgress[id] || !currentProgress[id][task]) {
+    if (!data || !data[id] || !data[id][task]) {
       return {};
     }
-    return currentProgress[id][task];
+    return data[id][task];
   };
 
   updateStoredProgressForCurrentTask = verificationState => {
     const {
+      updateWalkthroughProgress,
+      threadProgress,
       match: {
         params: { id, task }
       }
     } = this.props;
     const currentUsername = window.localStorage.getItem('currentUserName');
-    const oldProgressJSON = localStorage.getItem(`walkthroughProgress_${currentUsername}`);
-    const oldProgress = JSON.parse(oldProgressJSON) || {};
+    const oldProgress = Object.assign({}, threadProgress.data || {});
     if (!oldProgress[id]) {
       oldProgress[id] = {};
     }
     if (!oldProgress[id][task]) {
       oldProgress[id][task] = {};
     }
-    oldProgress[id][task] = verificationState;
+    const newCurrentProgress = Object.assign({}, oldProgress[id][task] || {}, verificationState);
+    oldProgress[id][task] = newCurrentProgress;
 
-    localStorage.setItem(`walkthroughProgress_${currentUsername}`, JSON.stringify(oldProgress));
+    updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
   getVerificationsForTask = task => {
@@ -191,11 +201,9 @@ class TaskPage extends React.Component {
   };
 
   handleVerificationInput = (e, id, isSuccess) => {
-    const o = Object.assign({}, this.state.verifications);
+    const o = Object.assign({}, this.getStoredProgressForCurrentTask());
     o[id] = isSuccess;
-    this.setState({ verifications: o }, () => {
-      this.updateStoredProgressForCurrentTask(this.state.verifications);
-    });
+    this.updateStoredProgressForCurrentTask(o);
   };
 
   taskVerificationStatus = (verifications, idsToVerify) => {
@@ -210,30 +218,31 @@ class TaskPage extends React.Component {
     return true;
   };
 
-  renderVerificationBlock(id, block) {
+  renderVerificationBlock(blockId, block) {
     const { t } = this.props;
-    const isNoChecked = this.state.verifications[id] !== undefined && !this.state.verifications[id];
-    const isYesChecked = this.state.verifications[id] !== undefined && !!this.state.verifications[id];
+    const currentThreadProgress = this.getStoredProgressForCurrentTask();
+    const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
+    const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
     return (
-      <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={id}>
+      <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={blockId}>
         <strong>{t('task.verificationTitle')}</strong>
         <div dangerouslySetInnerHTML={{ __html: block.html }} />
         {
           <React.Fragment>
             <Radio
-              name={id}
+              name={blockId}
               checked={isYesChecked}
               onChange={e => {
-                this.handleVerificationInput(e, id, true);
+                this.handleVerificationInput(e, blockId, true);
               }}
             >
               Yes
             </Radio>
             <Radio
-              name={id}
+              name={blockId}
               checked={isNoChecked}
               onChange={e => {
-                this.handleVerificationInput(e, id, false);
+                this.handleVerificationInput(e, blockId, false);
               }}
             >
               No
@@ -259,10 +268,10 @@ class TaskPage extends React.Component {
       return (
         <React.Fragment key={id}>
           <h3>{block.title}</h3>
-          {block.blocks.map((block, i) => (
+          {block.blocks.map((b, i) => (
             <React.Fragment key={`${id}-${i}`}>
-              {block instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: block.html }} />}
-              {block instanceof WalkthroughVerificationBlock && this.renderVerificationBlock(`${id}-${i}`, block)}
+              {b instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: b.html }} />}
+              {b instanceof WalkthroughVerificationBlock && this.renderVerificationBlock(`${id}-${i}`, b)}
             </React.Fragment>
           ))}
         </React.Fragment>
@@ -273,8 +282,7 @@ class TaskPage extends React.Component {
 
   render() {
     const attrs = this.getDocsAttributes();
-    const { t, thread, manifest } = this.props;
-    const { verifications } = this.state;
+    const { t, thread, manifest, threadProgress } = this.props;
 
     if (thread.pending || manifest.pending) {
       // todo: loading state
@@ -302,7 +310,7 @@ class TaskPage extends React.Component {
       const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
       const standbyText = ' Please stand by.';
       const taskVerificationComplete = this.taskVerificationStatus(
-        this.state.verifications,
+        this.getStoredProgressForCurrentTask(),
         this.getVerificationsForTask(threadTask)
       );
       return (
@@ -338,7 +346,7 @@ class TaskPage extends React.Component {
                           {step.infoVerifications &&
                             step.infoVerifications.map(
                               (verification, v) =>
-                                verifications[step.infoVerifications[0]] === undefined ? (
+                                threadProgress[step.infoVerifications[0]] === undefined ? (
                                   <Icon
                                     type="fa"
                                     className="far integr8ly-module-column--footer_status"
@@ -349,12 +357,12 @@ class TaskPage extends React.Component {
                                   <Icon
                                     type="fa"
                                     className={
-                                      step.infoVerifications && verifications[step.infoVerifications[0]]
+                                      step.infoVerifications && threadProgress[step.infoVerifications[0]]
                                         ? 'far integr8ly-module-column--footer_status-checked'
                                         : 'far integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
-                                    name={verifications[step.infoVerifications[0]] ? 'check-circle' : 'times-circle'}
+                                    name={threadProgress[step.infoVerifications[0]] ? 'check-circle' : 'times-circle'}
                                   />
                                 )
                             )}
@@ -362,16 +370,16 @@ class TaskPage extends React.Component {
                           {step.infoVerifications &&
                             step.infoVerifications.map(
                               (verification, v) =>
-                                verifications[step.infoVerifications[0]] === undefined ? (
+                                threadProgress[step.infoVerifications[0]] === undefined ? (
                                   <span className="integr8ly-module-column--footer_status" key={v}>
                                     {task + 1}.{l + 1}
                                   </span>
                                 ) : (
                                   <span
                                     className={
-                                      verifications[step.infoVerifications[0]]
-                                        ? 'integr8ly-module-column--footer_status-checked'
-                                        : 'integr8ly-module-column--footer_status-unchecked'
+                                      threadProgress[step.infoVerifications[0]]
+                                        ? 'far integr8ly-module-column--footer_status-checked'
+                                        : 'far integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
                                   >
@@ -462,7 +470,10 @@ TaskPage.propTypes = {
   manifest: PropTypes.object,
   // user: PropTypes.object,
   getWalkthrough: PropTypes.func,
-  initWalkthrough: PropTypes.func
+  initWalkthrough: PropTypes.func,
+  prepareCustomWalkthrough: PropTypes.func,
+  updateWalkthroughProgress: PropTypes.func,
+  threadProgress: PropTypes.object
 };
 
 TaskPage.defaultProps = {
@@ -486,11 +497,14 @@ TaskPage.defaultProps = {
   prepareWalkthroughOne: noop,
   prepareWalkthroughOneA: noop,
   prepareWalkthroughTwo: noop,
+  prepareCustomWalkthrough: noop,
   thread: null,
   manifest: null,
   // user: null,
   getWalkthrough: noop,
-  initWalkthrough: noop
+  initWalkthrough: noop,
+  updateWalkthroughProgress: noop,
+  threadProgress: { data: {} }
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -503,7 +517,9 @@ const mapDispatchToProps = dispatch => ({
   prepareCustomWalkthrough: id => prepareCustomWalkthroughNamespace(dispatch, id),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
-  initWalkthrough: id => dispatch(reduxActions.threadActions.initCustomThread(id))
+  initWalkthrough: id => dispatch(reduxActions.threadActions.initCustomThread(id)),
+  updateWalkthroughProgress: (username, progress) =>
+    dispatch(reduxActions.threadActions.updateThreadProgress(username, progress))
 });
 
 const mapStateToProps = state => ({

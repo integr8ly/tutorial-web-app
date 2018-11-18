@@ -1,8 +1,6 @@
 import asciidoctor from 'asciidoctor.js';
 
-const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_SECTION = 'section';
-const CONTEXT_PARAGRAPH = 'paragraph';
 const CONTEXT_DOCUMENT = 'document';
 
 const BLOCK_ATTR_TYPE = 'type';

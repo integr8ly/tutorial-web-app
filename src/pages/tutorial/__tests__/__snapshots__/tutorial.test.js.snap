@@ -3,6 +3,7 @@
 exports[`TutorialPage Component should render the ConnectedTutorialPage component 1`] = `
 <Component
   getThread={[Function]}
+  getWalkthrough={[Function]}
   thread={
     Object {
       "pending": true,
@@ -40,9 +41,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h1
-            className="pf-c-title pf-m-2xl"
-          />
+          <h3>
+            Example
+          </h3>
           <Button
             active={false}
             block={false}
@@ -55,33 +56,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           </Button>
         </div>
         <div
-          className="alert alert-info"
-          style={
+          dangerouslySetInnerHTML={
             Object {
-              "marginTop": 10,
+              "__html": "<div class=\\"literalblock\\">
+<div class=\\"content\\">
+<pre>This is a sample description</pre>
+</div>
+</div>",
             }
           }
-        >
-          <h3
-            className="integr8ly-tutorial-prereqs"
-          >
-            tutorial.prereq
-          </h3>
-          <ul
-            className="fa-ul"
-          >
-            <li
-              key="0"
-            >
-              <i
-                className="fa-li fa fa-check-square"
-              />
-              Github account
-            </li>
-          </ul>
-        </div>
-        <Component
-          attributes={Object {}}
         />
       </Col>
       <Col
@@ -130,46 +113,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         </h1>
         <ListView
           className="integr8ly-list-view-pf"
-        >
-          <ListViewItem
-            actions={
-              <div
-                className="integr8ly-task-dashboard-estimated-time"
-              >
-                <Icon
-                  name="clock-o"
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                  type="fa"
-                />
-                <span>
-                  6
-                  <span
-                    className="integr8ly-task-dashboard-estimated-time_minutes"
-                  >
-                    tutorial.minutes
-                  </span>
-                </span>
-              </div>
-            }
-            additionalInfo={null}
-            checkboxInput={null}
-            compoundExpand={false}
-            compoundExpanded={false}
-            description="EnMasse simplifies running messaging infrastructure for your organization. You use it to provide messaging services from a Node.js app to a Spring Boot app."
-            heading="1. Creating an EnMasse space"
-            hideCloseIcon={false}
-            key="0"
-            leftContent={null}
-            onCloseCompoundExpand={[Function]}
-            onExpand={[Function]}
-            onExpandClose={[Function]}
-            stacked={true}
-          />
-        </ListView>
+        />
         <div
           className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
         >

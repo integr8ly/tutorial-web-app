@@ -17,7 +17,8 @@ const initialState = {
     pending: false,
     fulfilled: false,
     data: {}
-  }
+  },
+  threadProgress: {}
 };
 
 const threadReducers = (state = initialState, action) => {
@@ -97,6 +98,18 @@ const threadReducers = (state = initialState, action) => {
           pending: false,
           fulfilled: true,
           data: action.payload.data
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
+    case FULFILLED_ACTION(threadTypes.UPDATE_THREAD_PROGRESS):
+      return setStateProp(
+        'threadProgress',
+        {
+          data: action.payload
         },
         {
           state,
