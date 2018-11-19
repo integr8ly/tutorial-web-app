@@ -3,7 +3,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import Iframe from 'react-iframe';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import {
+  noop,
+  Button,
+  ButtonGroup,
+  Grid,
+  Icon,
+  Radio,
+  TabContainer,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem
+} from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -534,15 +546,35 @@ class TaskPage extends React.Component {
                 </div>
               </Grid.Col>
               <Grid.Col sm={9} className="integr8ly-module-frame">
+                <div className="basic-tabs-pf">
+                  <TabContainer className="nav nav-tabs nav-tabs-pf" id="basic-tabs" defaultActiveKey={1}>
+                    <div>
+                      <Nav>
+                        <NavItem eventKey={1}>tab 1</NavItem>
+                        <NavItem eventKey={2}>tab 2</NavItem>
+                        <NavItem eventKey={3}>tab 3</NavItem>
+                      </Nav>
+                      <TabContent animation>
+                        <TabPane eventKey={1}>Tab 1 content</TabPane>
+                        <TabPane eventKey={2}>Tab 2 content</TabPane>
+                        <TabPane eventKey={3}>Tab 3 content</TabPane>
+                      </TabContent>
+                    </div>
+                  </TabContainer>
+                </div>
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <Iframe
-                  name="currentApp"
-                  styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
-                  display="initial"
-                  position="middle"
-                  allowFullScreen
-                />
+                {/* <TabContent>
+                  <TabPane eventKey={1}>
+                    <Iframe
+                      name="currentApp"
+                      styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
+                      display="initial"
+                      position="middle"
+                      allowFullScreen
+                    />
+                  </TabPane>
+                </TabContent> */}
               </Grid.Col>
             </Grid.Row>
           </Grid>
