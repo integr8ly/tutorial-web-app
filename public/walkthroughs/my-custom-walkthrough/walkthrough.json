@@ -2,30 +2,6 @@
   "dependencies": {
     "repos": [],
     "serviceInstances": [{
-      "metadata": { "name": "fuse" },
-      "spec": {
-        "clusterServiceClassExternalName": "fuse",
-        "clusterServicePlanExternalName": "default-fuse"
-      }
-    }, {
-      "metadata": { "name": "che" },
-      "spec": {
-        "clusterServiceClassExternalName": "che",
-        "clusterServicePlanExternalName": "default-che"
-      }
-    }, {
-      "metadata": { "name": "launcher" },
-      "spec": {
-        "clusterServiceClassExternalName": "launcher",
-        "clusterServicePlanExternalName": "default-launcher"
-      }
-    }, {
-      "metadata": { "name": "spring-boot-rest-http-crud" },
-      "spec": {
-        "clusterServiceClassExternalName": "spring-boot-rest-http-crud",
-        "clusterServicePlanExternalName": "default"
-      }
-    }, {
       "metadata": { "name": "nodejs-messaging-work-queue-frontend" },
       "spec": {
         "clusterServiceClassExternalName": "nodejs-messaging-work-queue-frontend",
