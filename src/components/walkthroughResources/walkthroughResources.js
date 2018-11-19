@@ -22,27 +22,28 @@ class WalkthroughResources extends React.Component {
       return resources.map(resource => {
         let url = '';
         let gaStatus = '';
-        let serviceStatus = '';
+        let icon = '';
+        const app = middlewareServices.data[resource.serviceName];
 
         if (resource.serviceName === 'openshift') {
           url = `${window.OPENSHIFT_CONFIG.masterUri}/console`;
-          serviceStatus = true;
           gaStatus = '';
+          icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
         } else {
-          const serviceStatusApi = middlewareServices.data[resource.serviceName].status.conditions[0].status;
-          const gaStatusApi = middlewareServices.data[resource.serviceName].productDetails.gaStatus;
-          url = getDashboardUrl(middlewareServices.data[resource.serviceName]);
+          const gaStatusApi = app.productDetails.gaStatus;
+          url = getDashboardUrl(app);
+          const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
-          if (serviceStatusApi) {
-            serviceStatus = serviceStatusApi;
-          }
           if (gaStatusApi) {
             gaStatus = gaStatusApi;
           }
+          if (statusIcon) {
+            icon = statusIcon;
+          }
         }
 
-        resource.serviceStatus = serviceStatus;
         resource.gaStatus = gaStatus;
+        resource.statusIcon = icon;
 
         resource.links.forEach(link => {
           if (link.type === 'console') {
@@ -55,9 +56,28 @@ class WalkthroughResources extends React.Component {
     return null;
   }
 
+  static assignSerivceIcon(app) {
+    const provisioningStatus = <Icon className="integr8ly-state-provisioining" type="fa" name="chart-pie" />;
+    const readyStatus = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
+    const unavailableStatus = <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />;
+
+    if (app.metadata && app.metadata.deletionTimestamp) {
+      return unavailableStatus;
+    }
+
+    if (app.status && app.status.conditions && app.status.conditions[0]) {
+      if (app.status.provisionStatus === 'NotProvisioned') {
+        return unavailableStatus;
+      }
+      return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
+    }
+    return provisioningStatus;
+  }
+
   buildResourceList() {
     const resources = this.mapServiceLinks();
     let resourceList = null;
+
     if (resources && resources.length !== 0) {
       resourceList = resources.map(resource => {
         const resourceLinks = resource.links.map(link => (
@@ -67,14 +87,11 @@ class WalkthroughResources extends React.Component {
             </a>
           </li>
         ));
+
         return (
           <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">
-              <Icon
-                className={resource.serviceStatus ? 'integr8ly-state-ready' : 'integr8ly-state-unavailable'}
-                type="pf"
-                name={resource.serviceStatus ? 'on-running' : 'error-circle-o'}
-              />
+              {resource.statusIcon}
               &nbsp;
               {resource.title}
               &nbsp;
