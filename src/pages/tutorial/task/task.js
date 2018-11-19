@@ -294,7 +294,8 @@ class TaskPage extends React.Component {
           loadingText="Initializing dependencies for your Walkthrough"
           standbyText=" Please stand by."
           progress={!window.OPENSHIFT_CONFIG.mockData ? this.dependenciesProgress() : 100}
-        />);
+        />
+      );
     }
 
     if (thread.error || manifest.error) {
