@@ -32,7 +32,7 @@ class WalkthroughResources extends React.Component {
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
           url = getDashboardUrl(app);
-          const statusIcon = this.assignSerivceIcon(app);
+          const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {
             gaStatus = gaStatusApi;
@@ -56,8 +56,7 @@ class WalkthroughResources extends React.Component {
     return null;
   }
 
-  assignSerivceIcon(app) {
-    const { resources, middlewareServices } = this.props;
+  static assignSerivceIcon(app) {
     const provisioningStatus = <Icon className="integr8ly-state-provisioining" type="fa" name="chart-pie" />;
     const readyStatus = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
     const unavailableStatus = <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />;
