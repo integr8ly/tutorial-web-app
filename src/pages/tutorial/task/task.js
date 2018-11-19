@@ -52,11 +52,6 @@ class TaskPage extends React.Component {
     const currentUsername = localStorage.getItem('currentUserName');
     const currentUserProgress = getThreadProgress(currentUsername);
     updateWalkthroughProgress(currentUsername, currentUserProgress);
-
-    // const currentProgress = this.getStoredProgressForCurrentTask();
-    // if (currentProgress) {
-    //   this.setState({ verifications: currentProgress });
-    // }
   }
 
   getStoredProgressForCurrentTask = () => {
