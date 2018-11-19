@@ -22,36 +22,28 @@ class WalkthroughResources extends React.Component {
       return resources.map(resource => {
         let url = '';
         let gaStatus = '';
-        let serviceStatus = '';
-        let provisionStatus = '';
+        let icon = '';
+        const app = middlewareServices.data[resource.serviceName];
 
         if (resource.serviceName === 'openshift') {
           url = `${window.OPENSHIFT_CONFIG.masterUri}/console`;
-          serviceStatus = true;
           gaStatus = '';
-          provisionStatus = '';
+          icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
         } else {
-          const serviceStatusApi = middlewareServices.data[resource.serviceName].status.conditions[0].status;
+          const gaStatusApi = app.productDetails.gaStatus;
+          url = getDashboardUrl(app);
+          const statusIcon = this.assignSerivceIcon(app);
 
-          const provisionStatusApi = middlewareServices.data[resource.serviceName].status.provisionStatus;
-
-          const gaStatusApi = middlewareServices.data[resource.serviceName].productDetails.gaStatus;
-          url = getDashboardUrl(middlewareServices.data[resource.serviceName]);
-
-          if (serviceStatusApi) {
-            serviceStatus = serviceStatusApi;
-          }
           if (gaStatusApi) {
             gaStatus = gaStatusApi;
           }
-          if (provisionStatusApi) {
-            provisionStatus = provisionStatusApi;
+          if (statusIcon) {
+            icon = statusIcon;
           }
         }
 
-        resource.serviceStatus = serviceStatus;
         resource.gaStatus = gaStatus;
-        resource.provisionStatus = provisionStatus;
+        resource.statusIcon = icon;
 
         resource.links.forEach(link => {
           if (link.type === 'console') {
@@ -62,6 +54,25 @@ class WalkthroughResources extends React.Component {
       });
     }
     return null;
+  }
+
+  assignSerivceIcon(app) {
+    const { resources, middlewareServices } = this.props;
+    const provisioningStatus = <Icon className="integr8ly-state-provisioining" type="fa" name="chart-pie" />;
+    const readyStatus = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
+    const unavailableStatus = <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />;
+
+    if (app.metadata && app.metadata.deletionTimestamp) {
+      return unavailableStatus;
+    }
+
+    if (app.status && app.status.conditions && app.status.conditions[0]) {
+      if (app.status.provisionStatus === 'NotProvisioned') {
+        return unavailableStatus;
+      }
+      return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
+    }
+    return provisioningStatus;
   }
 
   buildResourceList() {
@@ -81,15 +92,7 @@ class WalkthroughResources extends React.Component {
         return (
           <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">
-              {resource.provisionStatus === 'Not Provisioned' ? (
-                <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />
-              ) : (
-                <Icon
-                  className={resource.serviceStatus ? 'integr8ly-state-ready' : 'integr8ly-state-provisioining'}
-                  type="pf"
-                  name={resource.serviceStatus ? 'on-running' : 'chart-pie'}
-                />
-              )}
+              {resource.statusIcon}
               &nbsp;
               {resource.title}
               &nbsp;
