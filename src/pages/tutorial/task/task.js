@@ -113,6 +113,20 @@ class TaskPage extends React.Component {
     return totalSteps;
   };
 
+  dependenciesProgress() {
+    let progress = 0;
+
+    if (!this.props.thread.pending) {
+      progress += 50;
+    }
+
+    if (!this.props.manifest.pending) {
+      progress += 50;
+    }
+
+    return progress;
+  }
+
   docsAttributesProgress = attrs => {
     let found = 0;
     const requirements = {
@@ -275,15 +289,19 @@ class TaskPage extends React.Component {
     const { verifications } = this.state;
 
     if (thread.pending || manifest.pending) {
-      // todo: loading state
-      return null;
+      return (
+        <LoadingScreen
+          loadingText="Initializing dependencies for your Walkthrough"
+          standbyText=" Please stand by."
+          progress={!window.OPENSHIFT_CONFIG.mockData ? this.dependenciesProgress() : 100}
+        />);
     }
 
     if (thread.error || manifest.error) {
       return (
         <div>
           <PfMasthead />
-          <ErrorScreen />
+          <ErrorScreen errorText={thread.errorMessage || manifest.errorMessage} />
         </div>
       );
     }

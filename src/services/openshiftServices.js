@@ -4,7 +4,7 @@ import ClientOAuth2 from 'client-oauth2';
 axios.interceptors.response.use(
   response => response,
   err => {
-    if (err.response.status === 401) {
+    if (err.response && err.response.status === 401) {
       return startOAuth();
     }
     return err;

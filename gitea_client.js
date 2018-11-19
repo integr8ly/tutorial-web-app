@@ -65,7 +65,6 @@ const getRepoByName = ({ repoName }, normalizedUser) => {
  */
 const cloneExternalRepo = ({ repoName, cloneUrl }, normalizedUser) => {
   const url = `${GITEA_HOST}/api/v1/repos/migrate`;
-
   return new Promise((resolve, reject) => {
     getUserIDByName(normalizedUser)
       .then(({ data }) => {
@@ -123,7 +122,6 @@ const createNewRepo = ({ repoName }, normalizedUser) => {
  */
 exports.createRepoForUser = (username, repo) => {
   const normalizedUser = normalizeUser(username);
-
   return new Promise((resolve, reject) => {
     if (!GITEA_HOST || !GITEA_TOKEN) {
       return reject(new Error('Gitea not installed'));
