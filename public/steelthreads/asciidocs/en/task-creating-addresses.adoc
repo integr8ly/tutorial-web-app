@@ -28,7 +28,7 @@
 +
 [subs="attributes+"]
 ----
-work-queue/requests
+work-queue-requests
 ----
 .. Select *queue* as the type and click *Next*.
 .. Select *Pooled Queue* as the address plan and click *Next*.
