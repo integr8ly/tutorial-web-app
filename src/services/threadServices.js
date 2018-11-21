@@ -40,8 +40,8 @@ const initCustomThread = id =>
   axios(
     serviceConfig({
       url: `/walkthroughs/${id}/walkthrough.json`
-    }).then(response => initDeps(response))
-  );
+    })
+  ).then(response => initDeps(response));
 
 const updateThreadProgress = (username, progress) => {
   localStorage.setItem(buildUserProgressKey(username), JSON.stringify(progress));
