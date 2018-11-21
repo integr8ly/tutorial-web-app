@@ -4,10 +4,14 @@ const fs = require('fs');
 const asciidoctor = require('asciidoctor.js');
 const adoc = asciidoctor();
 const Mustache = require('mustache');
+const { fetchOpenshiftUser } = require('./server_middleware');
+const giteaClient = require('./gitea_client');
+const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 5001;
+app.use(bodyParser.json());
 
+const port = process.env.PORT || 5001;
 const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
 
 const DEFAULT_CUSTOM_CONFIG_DATA = {
@@ -20,6 +24,30 @@ const walkthroughs = [];
 
 app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
+});
+
+// Init custom walkthroughs dependencies
+app.post('/initThread', fetchOpenshiftUser, (req, res) => {
+  const {
+    dependencies: { repos },
+    openshiftUser
+  } = req.body;
+
+  // Return success in mock mode without actually creating any repositories
+  if (!process.env.OPENSHIFT_HOST) {
+    return res.sendStatus(200);
+  }
+
+  if (repos && repos.length > 0) {
+    return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
+      .then(() => res.sendStatus(200))
+      .catch(err => {
+        console.error(`Error creating repositories: ${err}`);
+        return res.sendStatus(500);
+      });
+  } else {
+    return res.sendStatus(200);
+  }
 });
 
 // Dynamic configuration for openshift API calls

@@ -1,5 +1,27 @@
 import axios from 'axios';
 import serviceConfig from './config';
+import { getUser } from './openshiftServices';
+
+const initDeps = response =>
+  new Promise((resolve, reject) => {
+    getUser().then(user =>
+      axios({
+        method: 'post',
+        url: `/initThread`,
+        headers: {
+          'X-Forwarded-Access-Token': user.access_token
+        },
+        data: response.data
+      })
+        .then(resp => {
+          if (resp.status !== 200) {
+            return reject(new Error('An error occurred while initializing the dependencies'));
+          }
+          return resolve(response);
+        })
+        .catch(err => reject(err))
+    );
+  });
 
 const getThread = (language, id) =>
   axios(
@@ -20,7 +42,7 @@ const initCustomThread = id =>
     serviceConfig({
       url: `/walkthroughs/${id}/walkthrough.json`
     })
-  );
+  ).then(response => initDeps(response));
 
 const updateThreadProgress = (username, progress) => {
   localStorage.setItem(buildUserProgressKey(username), JSON.stringify(progress));
