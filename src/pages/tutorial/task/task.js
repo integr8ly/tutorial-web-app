@@ -157,9 +157,7 @@ class TaskPage extends React.Component {
     return progress;
   };
 
-  totalLoadingProgress = attrs => {
-    return Math.ceil((this.resourcesProgress() + this.docsAttributesProgress(attrs)) / 2);
-  };
+  totalLoadingProgress = attrs => Math.ceil((this.resourcesProgress() + this.docsAttributesProgress(attrs)) / 2);
 
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
