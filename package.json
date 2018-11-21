@@ -8,6 +8,7 @@
     "@patternfly/patternfly-next": "1.0.65",
     "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
+    "body-parser": "^1.18.3",
     "classnames": "2.2.5",
     "client-oauth2": "4.2.1",
     "detect-browser": "3.0.0",
