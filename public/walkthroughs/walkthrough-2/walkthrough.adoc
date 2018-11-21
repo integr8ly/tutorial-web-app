@@ -1,0 +1,138 @@
+= Integrating API-driven applications
+
+:context: integrating-api-driven-applications
+
+Integrate an API that provides flight information, ensuring that the API is protected and rate limited.
+
+APIs are the ideal channel for organizations who want to reach audiences whenever, wherever, and however they choose.
+This enables innovation, mobile and partner development.
+However, it also exposes the hosting infrastructure and organization.
+It is possible to protect and limit access to an API using {api-mgmt-service} as part of your integration.
+
+This walkthrough describes how to create such an integration, using OpenShift, {launcher-service}, {che-service} and {api-mgmt-service}.
+
+++++
+<img src="/images/wt2.png" class="img-responsive" alt="integration">
+++++
+
+[time=5]
+
+== Deploying the Fuse Aggregation App
+
+The Fuse Aggregation App provides information about flights, you deploy it using Launcher.
+
+[id='deploying-fuse-aggregation-app_{context}']
+[.integr8ly-docs-header]
+=== Deploying the Fuse Aggregation App
+
+
+// TODO placeholders for product names
+// TODO append /launch/wizard/<project-name> to launcher url
+// TODO flights endpoint url
+. Log in to the link:{launcher-url}/launch/wizard/{walkthrough-namespace}[{launcher-service}, window="_blank"] wizard.
+
+. Select the option to *Code Locally, Build and Deploy* in the *Select Target Environment* step.
+
+. Select the *Authorize* button to allow Launcher create resources in the OpenShift cluster. This triggers an OAuth flow, and eventually redirects back to the {launcher-service} wizard.
+
+. Select the blue down-arrow icon to continue the wizard.
+
+. Select the *Aggregation* mission and *Fuse* runtime in the *Select Mission & Runtime* step
+
+. Select the blue down-arrow icon to continue the wizard.
+
+. Authorize your Github Account
+.. Select the *Log In & Authorize Account* button in the *Authorize Git Provider* step.
+.. This opens a Github OAuth page.
+.. Select the *Authorize <organisation/user>* button at the bottom.
+.. You will be redirected back to the {launcher-service} wizard.
+
+. Select all blue down-arrow icons to continue the wizard, accepting the git repository name.
+
+. Select the *Set Up Application* button to create a Git repository and provision the mission resources to OpenShift. A build for the *Fuse Aggregation App* is triggered and deployed.
+
+
+[type=verification]
+. Make sure following pods are running in the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project, window="_blank"]:
++
+* fuse-flights-aggregator
++
+* arrivals
++
+* departures
+// TODO: flights api links to /camel/flights
+. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+[time=10]
+== Modifying the Fuse Aggregation App
+
+Modify the Fuse Aggregation App to aggregate flights data from the Arrivals & Deparatures servers
+
+
+[id='modifying-fuse-aggregation-app_{context}']
+[.integr8ly-docs-header]
+=== 2.1 Modifying the Fuse Aggregation App
+
+
+// TODO placeholders for product names
+// TODO project name
+. Log in to the link:{che-url}[Che, window="_blank"] Dashboard
+
+. The *New Workspace* page is displayed. Create a new Workspace:
+.. Use the *Java* stack.
+.. Select the *Add or Import Project* button.
+.. Select the *Github* tab.
+.. Select the *Connect your Github Account* button.
+.. Select the checkbox beside the git repository named *{walkthrough-namespace}*. You may need to filter by account if you are a member of any Organizations.
+.. Select the *Add* button to add the repository to the workspace.
+.. Select the *Create* button at the bottom.
+.. Select *Open in IDE*.
++
+. Open the file at *src/main/java/com/redhat/fuse/boosters/rest/http/CamelRouter.java*.
++
+// TODO: explain what the app is doing and why we're modifying it
++
+. Comment out the routing code that talks to local java services.
+.. Navigate to the section of the file with a comment of `// COMMENT OUT THIS`.
+.. Comment out the line of code below this using double slashes *//*.
++
+. Uncomment the routing code that talks to remote services.
+.. Navigate to the section of the file with a comment of `// UNCOMMENT THIS`.
+.. Uncomment the line of code below this by removing the double slashes.
++
+. Before the changes can be commited and pushed to the repository, you must specify a name and email to associate with commits:
+.. Select the *Profile* menu, then *Preferences*.
+.. Choose the *Commiter* option under the *Git* heading.
+.. Set a *Name* and *Email*.
+.. Select *Save* then *Close*.
+
+. Commit and push the changes back to the repository:
+.. Select the *Git* menu, then *Commit*.
+.. Ensure the *CamelRouter.java* file is checked.
+.. Enter a commit message of *Switch to remote services* in the input area.
+.. Check the box for *Push commited changes to* and ensure the branch is set to *master*.
+.. Select the *Commit* button.
+.. A green notification *Pushed to Origin* is displayed.
+.. A new build will be triggered in OpenShift and rollout the new changes to the *Fuse Aggregation App*.
+
+[type=verification]
+// TODO: flights api links to /camel/flights
+After waiting for the build and depoyment to complete, check that link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] responds with more than 8 flights.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+
+[time=15]
+== Second task
+
+=== Second task, first step
+
+Bleep.
+
+=== Second task, second step
+
+Bloop.
