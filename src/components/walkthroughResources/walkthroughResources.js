@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'patternfly-react';
 import { connect } from '../../redux';
 import { getDashboardUrl } from '../../common/serviceInstanceHelpers';
 
