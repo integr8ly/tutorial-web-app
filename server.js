@@ -6,10 +6,12 @@ const adoc = asciidoctor();
 const Mustache = require('mustache');
 const { fetchOpenshiftUser } = require('./server_middleware');
 const giteaClient = require('./gitea_client');
+const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 5001;
+app.use(bodyParser.json());
 
+const port = process.env.PORT || 5001;
 const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
 
 const DEFAULT_CUSTOM_CONFIG_DATA = {
@@ -31,7 +33,7 @@ app.post('/initThread', fetchOpenshiftUser, (req, res) => {
     openshiftUser
   } = req.body;
   if (repos && repos.length > 0) {
-    Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
+    return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
       .then(() => res.sendStatus(200))
       .catch(err => {
         console.error(`Error creating repositories: ${err}`);
