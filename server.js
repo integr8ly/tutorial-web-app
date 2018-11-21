@@ -32,6 +32,12 @@ app.post('/initThread', fetchOpenshiftUser, (req, res) => {
     dependencies: { repos },
     openshiftUser
   } = req.body;
+
+  // Return success in mock mode without actually creating any repositories
+  if (!process.env.OPENSHIFT_HOST) {
+    return res.sendStatus(200);
+  }
+
   if (repos && repos.length > 0) {
     return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
       .then(() => res.sendStatus(200))
