@@ -24,7 +24,6 @@ const initCustomThread = id =>
 
 const updateThreadProgress = (username, progress) => {
   localStorage.setItem(buildUserProgressKey(username), JSON.stringify(progress));
-  console.log('update', progress);
   return Promise.resolve(progress);
 };
 

@@ -308,6 +308,7 @@ class TaskPage extends React.Component {
         this.getStoredProgressForCurrentTask(),
         this.getVerificationsForTask(threadTask)
       );
+      const currentThreadProgress = this.getStoredProgressForCurrentTask();
       return (
         <React.Fragment>
           <Breadcrumb
@@ -335,53 +336,48 @@ class TaskPage extends React.Component {
                   <div className="integr8ly-module-column--footer">
                     <h6>{t('task.CompleteAndCheck')}</h6>
                     <div className="integr8ly-module-column--footer_status">
-                      {threadTask.steps.map((step, l) => (
-                        <React.Fragment key={l}>
+                      {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
+                        <React.Fragment key={i}>
                           {/* Bottom footer icon */}
-                          {step.infoVerifications &&
-                            step.infoVerifications.map(
-                              (verification, v) =>
-                                threadProgress[step.infoVerifications[0]] === undefined ? (
-                                  <Icon
-                                    type="fa"
-                                    className="far integr8ly-module-column--footer_status"
-                                    key={v}
-                                    name="circle"
-                                  />
-                                ) : (
-                                  <Icon
-                                    type="fa"
-                                    className={
-                                      step.infoVerifications && threadProgress[step.infoVerifications[0]]
-                                        ? 'far integr8ly-module-column--footer_status-checked'
-                                        : 'far integr8ly-module-column--footer_status-unchecked'
-                                    }
-                                    key={v}
-                                    name={threadProgress[step.infoVerifications[0]] ? 'check-circle' : 'times-circle'}
-                                  />
-                                )
-                            )}
+                          {currentThreadProgress[verificationId] === undefined ? (
+                            <Icon
+                              type="fa"
+                              className="far integr8ly-module-column--footer_status"
+                              key={`verification-icon-${verificationId}`}
+                              name="circle"
+                            />
+                          ) : (
+                            <Icon
+                              type="fa"
+                              className={
+                                currentThreadProgress[verificationId]
+                                  ? 'far integr8ly-module-column--footer_status-checked'
+                                  : 'far integr8ly-module-column--footer_status-unchecked'
+                              }
+                              key={`verification-icon-${verificationId}`}
+                              name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}
+                            />
+                          )}
                           {/* Bottom footer number to the right of icon  */}
-                          {step.infoVerifications &&
-                            step.infoVerifications.map(
-                              (verification, v) =>
-                                threadProgress[step.infoVerifications[0]] === undefined ? (
-                                  <span className="integr8ly-module-column--footer_status" key={v}>
-                                    {task + 1}.{l + 1}
-                                  </span>
-                                ) : (
-                                  <span
-                                    className={
-                                      threadProgress[step.infoVerifications[0]]
-                                        ? 'far integr8ly-module-column--footer_status-checked'
-                                        : 'far integr8ly-module-column--footer_status-unchecked'
-                                    }
-                                    key={v}
-                                  >
-                                    {task + 1}.{l + 1}
-                                  </span>
-                                )
-                            )}
+                          {currentThreadProgress[verificationId] === undefined ? (
+                            <span
+                              className="integr8ly-module-column--footer_status"
+                              key={`verification-id-${verificationId}`}
+                            >
+                              {parseInt(task, 10) + 1}.{parseInt(i, 10) + 1}
+                            </span>
+                          ) : (
+                            <span
+                              className={
+                                currentThreadProgress[verificationId]
+                                  ? 'integr8ly-module-column--footer_status-checked'
+                                  : 'integr8ly-module-column--footer_status-unchecked'
+                              }
+                              key={`verification-id-${verificationId}`}
+                            >
+                              {parseInt(task, 10) + 1}.{parseInt(i, 10) + 1}
+                            </span>
+                          )}
                         </React.Fragment>
                       ))}
                     </div>
