@@ -143,6 +143,24 @@ class TaskPage extends React.Component {
     return 100 * (found / requirements[attrs['walkthrough-id']].length);
   };
 
+  resourcesProgress = () => {
+    let progress = 0;
+
+    if (!this.props.thread.pending) {
+      progress += 50;
+    }
+
+    if (!this.props.manifest.pending) {
+      progress += 50;
+    }
+
+    return progress;
+  };
+
+  totalLoadingProgress = attrs => {
+    return Math.ceil((this.resourcesProgress() + this.docsAttributesProgress(attrs)) / 2);
+  };
+
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
     const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
@@ -280,15 +298,19 @@ class TaskPage extends React.Component {
     const { t, thread, manifest } = this.props;
 
     if (thread.pending || manifest.pending) {
-      // todo: loading state
-      return null;
+      return (
+        <LoadingScreen
+          loadingText="We're initiating services and dependencies for your walkthrough"
+          standbyText=" Please stand by."
+          progress={!window.OPENSHIFT_CONFIG.mockData ? this.totalLoadingProgress(attrs) : 100}
+        />
+      );
     }
-
     if (thread.error || manifest.error) {
       return (
         <div>
           <PfMasthead />
-          <ErrorScreen />
+          <ErrorScreen errorText={thread.errorMessage || manifest.errorMessage} />
         </div>
       );
     }
@@ -302,8 +324,6 @@ class TaskPage extends React.Component {
       const parsedThread = parseWalkthroughAdoc(thread.data, attrs);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
-      const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
-      const standbyText = ' Please stand by.';
       const taskVerificationComplete = this.taskVerificationStatus(
         this.getStoredProgressForCurrentTask(),
         this.getVerificationsForTask(threadTask)
@@ -319,11 +339,6 @@ class TaskPage extends React.Component {
             homeClickedCallback={() => {}}
           />
           <Grid fluid>
-            <LoadingScreen
-              loadingText={loadingText}
-              standbyText={standbyText}
-              progress={!window.OPENSHIFT_CONFIG.mockData ? this.docsAttributesProgress(attrs) : 100}
-            />
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
