@@ -46,7 +46,7 @@ class EnMasseServiceInstanceTransform {
     defaultTransform.spec.parameters = {
       name: siInfo.username
     };
-    defaultTransform.spec.clusterServicePlanExternalName = 'unlimited-standard';
+    defaultTransform.spec.clusterServicePlanExternalName = 'standard-unlimited';
     return defaultTransform;
   }
 }
