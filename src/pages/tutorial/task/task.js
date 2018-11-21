@@ -277,7 +277,7 @@ class TaskPage extends React.Component {
 
   render() {
     const attrs = this.getDocsAttributes();
-    const { t, thread, manifest, threadProgress } = this.props;
+    const { t, thread, manifest } = this.props;
 
     if (thread.pending || manifest.pending) {
       // todo: loading state

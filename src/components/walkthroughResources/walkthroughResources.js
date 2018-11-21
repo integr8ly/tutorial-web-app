@@ -63,46 +63,6 @@ class WalkthroughResources extends React.Component {
     return provisioningStatus;
   }
 
-  buildResourceList() {
-    const resources = this.mapServiceLinks();
-    let resourceList = null;
-
-    if (resources && resources.length !== 0) {
-      resourceList = resources.map(resource => {
-        const resourceLinks = resource.links.map(link => (
-          <li key={link.name}>
-            <a href={link.url} target="top">
-              {link.name}
-            </a>
-          </li>
-        ));
-
-        return (
-          <div key={resource.title}>
-            <h4 className="integr8ly-helpful-links-product-title">
-              {resource.statusIcon}
-              &nbsp;
-              {resource.title}
-              &nbsp;
-              {resource.gaStatus === 'community' ? (
-                <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
-              ) : (
-                <span />
-              )}
-              {resource.gaStatus === 'preview' ? (
-                <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
-              ) : (
-                <span />
-              )}
-            </h4>
-            <ul className="list-unstyled">{resourceLinks}</ul>
-          </div>
-        );
-      });
-    }
-    this.setState({ resourceList });
-  }
-
   render() {
     return (
       <div>

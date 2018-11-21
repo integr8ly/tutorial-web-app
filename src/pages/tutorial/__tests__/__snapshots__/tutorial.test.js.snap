@@ -103,6 +103,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               type="fa"
             />
             <span>
+              0
               <span
                 className="integr8ly-task-dashboard-time-to-completion_minutes"
               >
