@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "repos": [],
+    "repos": [{
+      "repoName": "test",
+      "cloneUrl": "https://github.com/pb82/awesome-operators"
+    }],
     "serviceInstances": [{
       "metadata": { "name": "nodejs-messaging-work-queue-frontend" },
       "spec": {
