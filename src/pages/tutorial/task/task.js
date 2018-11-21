@@ -150,6 +150,8 @@ class TaskPage extends React.Component {
     return 100 * (found / requirements[attrs['walkthrough-id']].length);
   };
 
+  getProgress = attrs => (this.dependenciesProgress() + this.docsAttributesProgress(attrs)) / 2;
+
   // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = () => {
     const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
@@ -291,9 +293,9 @@ class TaskPage extends React.Component {
     if (thread.pending || manifest.pending) {
       return (
         <LoadingScreen
-          loadingText="Initializing dependencies for your Walkthrough"
+          loadingText="We're initiating services and dependencies for your walkthrough"
           standbyText=" Please stand by."
-          progress={!window.OPENSHIFT_CONFIG.mockData ? this.dependenciesProgress() : 100}
+          progress={!window.OPENSHIFT_CONFIG.mockData ? this.getProgress(attrs) : 100}
         />
       );
     }
@@ -317,8 +319,6 @@ class TaskPage extends React.Component {
       const parsedThread = parseWalkthroughAdoc(thread.data, attrs);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
-      const loadingText = `We're initiating services for " ${parsedThread.title} ".`;
-      const standbyText = ' Please stand by.';
       const taskVerificationComplete = this.taskVerificationStatus(
         this.state.verifications,
         this.getVerificationsForTask(threadTask)
@@ -333,11 +333,6 @@ class TaskPage extends React.Component {
             homeClickedCallback={() => {}}
           />
           <Grid fluid>
-            <LoadingScreen
-              loadingText={loadingText}
-              standbyText={standbyText}
-              progress={!window.OPENSHIFT_CONFIG.mockData ? this.docsAttributesProgress(attrs) : 100}
-            />
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
