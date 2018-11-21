@@ -2,7 +2,8 @@ import axios from 'axios';
 import serviceConfig from './config';
 import { getUser } from './openshiftServices';
 
-const initDeps = response => new Promise((resolve, reject) => {
+const initDeps = response =>
+  new Promise((resolve, reject) => {
     getUser().then(user =>
       axios({
         method: 'post',
