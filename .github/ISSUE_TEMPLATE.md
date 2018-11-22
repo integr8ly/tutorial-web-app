@@ -10,6 +10,7 @@
 ## Environment
 
 * Operating system: (E.g RHEL 7.6 )
+* Browser and version: (E.g Google Chrome Version 70.0.3538.102 (Official Build) (64-bit))
 * OpenShift version:
 <!-- Run the command `oc version` and add the result here. -->
 * Ansible version:
