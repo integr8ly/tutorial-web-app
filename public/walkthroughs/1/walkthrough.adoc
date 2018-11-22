@@ -199,6 +199,15 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::creating-http-connection[]
 
+[type=taskResource]
+****
+See the following:
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
+* link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
+****
+
+
 [time=5]
 [id='creating-an-integration']
 == Creating an integration
@@ -274,11 +283,12 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 [type=taskResource]
-=== Additional Information
+****
+See the following:
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
 * link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
-
+****
 
 [time=5]
 [id='using-the-application-integration']
@@ -325,4 +335,12 @@ View the activity log:
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
+
 // end::task-using-integration[]
+
+[type=taskResource]
+=== See the following:
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
+* link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
+
