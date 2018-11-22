@@ -1,3 +1,21 @@
+// Attributes
+:integreatly: Integreatly
+:messaging-service: Red Hat AMQ Online
+:messaging-service-version: 7.2
+:integration-service: Fuse
+:integration-service-version: 7.1
+:che-service: Che
+:launcher-service: Launcher
+:api-mgmt-service: 3Scale
+:AMQ-ProductLongName: Red Hat AMQ
+:AMQ-BrokerVersion: 7.2
+:Fuse-prodnamefull: Red Hat Fuse
+:Fuse-version: 7.1
+:3Scale-ProductName: Red Hat 3scale
+:3Scale-ProductVersion: 2.3
+:EnMasse-master-ProductLongName: EnMasse
+:walkthrough: Integrating API-driven applications
+
 = Integrating API-driven applications
 
 :context: integrating-api-driven-applications
@@ -15,8 +33,31 @@ This walkthrough describes how to create such an integration, using OpenShift, {
 <img src="/images/wt2.png" class="img-responsive" alt="integration">
 ++++
 
-[time=5]
+[type=walkthroughResource]
+=== Red Hat OpenShift
+* link:{openshift-host}/console[Open Console]
+* link:https://help.openshift.com/[Openshift Online Help Center]
+* link:https://blog.openshift.com/[Openshift Blog]
 
+[type=walkthroughResource]
+=== Launcher
+* link:{launcher-url}[Open Console]
+* link:https://developers.redhat.com/products/openshiftio/overview/[Launcher Overview]
+* link:https://launcher.fabric8.io/docs/[Launcher Documentation]
+
+[type=walkthroughResource]
+=== Eclipse Che
+* link:{che-url}[Open Console]
+* link:https://developers.redhat.com/products/che/overview/[Eclipse Che Overview]
+* link:https://www.eclipse.org/che/docs/index.html[Eclipse Che Documentation]
+
+[type=walkthroughResource]
+=== 3Scale
+* link:{api-management-url}[Open Console]
+* link:https://developers.redhat.com/products/3scale/overview/[3Scale Overview]
+* link:https://www.3scale.net[3Scale Website]
+
+[time=5]
 == Deploying the Fuse Aggregation App
 
 The Fuse Aggregation App provides information about flights, you deploy it using Launcher.
@@ -70,7 +111,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 == Modifying the Fuse Aggregation App
 
 Modify the Fuse Aggregation App to aggregate flights data from the Arrivals & Deparatures servers
-
 
 [id='modifying-fuse-aggregation-app_{context}']
 [.integr8ly-docs-header]
@@ -127,12 +167,374 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 [time=15]
-== Second task
+== Managing the Fuse Aggregation App endpoint
 
-=== Second task, first step
+=== 3.1 API Management Login
 
-Bleep.
+// TODO service & url placeholders
+. Open the link:{api-management-url}[{3Scale-ProductName} Login screen, window="_blank"].
 
-=== Second task, second step
+. Select the *Red Hat Single Sign On* option. This triggers an OAuth Flow and redirects you back to the {3Scale-ProductName} Dashboard.
 
-Bloop.
+. Dismiss the *How does 3Scale work?* option which is displayed the first time you log in to {3Scale-ProductName}. The main Dashboard is displayed.
+
+[type=verification]
+Make sure you can see the {3Scale-ProductName} Dashboard and can navigate the main menu.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+=== 3.2 Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
+
+. Select the *API* menu item from the top of the screen.
+
+. Select *Create Service* from the top right of the *API* screen.
++
+// TODO: dynamic fuse aggregation app name based on user id/email. "Only ASCII letters, numbers, dashes and underscores are allowed" for System name. e.g. fuse-aggregation-app-test01-example-com
+. Enter the following as the *Name* and *System name*:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+
+. Leave the *Description* field empty.
+
+. Leave the *Gateway* option as APIcast.
+
+. Leave the *Authentication* option as *API Key (user_key)*.
+
+. Select *Create Service* at the bottom of the screen.
+
+. After the service is created, expand the new *{fuse-aggregator-app-name}* API Service and select the *Configure APIcast* button.
+// The 'fuse-aggregation-app-url' should be the url of the Fuse Aggregation App e.g. https://fuse-flights-aggregator-ak49.cluster-lfa3xlh.opentry.me/
+. In the *Private Base URL* field, enter:
++
+[subs="attributes+"]
+----
+https://{fuse-aggregator-url}
+----
+// The '{fuse-aggregation-app-apicast-route-url}' shoudl be the apicast-staging route url for this specific user. It can be looked up or deterministicly set.
+. In the *Staging Public Base URL*, enter:
++
+[subs="attributes+"]
+----
+https://wt2-{user-sanitized-username}-3scale.{openshift-app-host}
+----
++
+Note that this route should point to the shared staging APIcast in the *3scale* project in OpenShift.  Your administrator should have created this route for you. If it does not exist, contact your administrator to create the route.
+
+. Select *Update & test in Staging Environment*
+
+[type=verification]
+Check that the API service is available.
+You might encounter a *403: Authentication failed* message. You can ignore this message, the issue is resolved in a later step.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+=== 3.3 Setting Fuse Aggregation App Endpoint Limits
+
+. Create a new *Application Plan*:
+.. Select *Application Plans* from the left menu.
+.. Select *Create Application Plan*.
+.. Enter the following for *Name* and *System name*:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+.. Select *Create Application Plan*.
+.. Select the *Publish* button to publish the Plan.
+
+. Select the *{fuse-aggregator-app-name}* plan to return to the edit screen.
+
+. Set a limit of 5 calls per hour:
+.. On the *Metrics, Methods, Limits & Pricing Rules* section, select the *Limits (0)* button.
+.. Select the *New usage limit* button.
+.. Set the *Period* to *hour*.
+.. Set the *Max. value* to *5*.
+.. Select *Create usage limit*.
+
+. Create a new *Application* for the *Developer* Group, assigned to the Plan:
+.. Select the *Developers* menu at the top.
+.. Select the *Developer* Account to open the *Account Summary* page.
+.. Select the *(num) Application* item from the breadcrumb to view Applications.
+.. Select the *Create Application* button in the top right.
+.. Select the *{fuse-aggregator-app-name}* Plan in the *Application plan* dropdown.
+.. Enter the following for *Name* and *Description*:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+.. Select *Create Application*.
+
+. Set a custom *User Key* for the application:
+.. On the *{fuse-aggregator-app-name}* application screen, scroll to the *API Credentials* section.
+.. Select *Set Custom Key*.
+.. In the *Custom User Key* field, enter:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+.. Select *Set Custom Key*.
+
+[type=verification]
+****
+. Select the *APIs* menu item at the top.
+
+. Expand the *{fuse-aggregator-app-name}* service.
+
+. Select the *Configure APIcast* button.
+
+. Select the *Update & test in Staging Environment* button at the bottom again.
+
+. Check that a success message is displayed, and a green line along the left side of the page.
+****
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+[id='fuse-aggregation-app-endpoint-activedocs_{context}']
+[.integr8ly-docs-header]
+=== 3.4 Create a new ActiveDocs Service
+
+. Select the *APIs* menu item at the top to return to the *APIs* Overview page.
+
+. Select the *ActiveDocs* tab.
+
+. Select *Create a new spec*.
+
+. Enter the following for *Name* and *System name*:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+
+. Enter the below content for the *API JSON Spec*.
++
+[subs="attributes"]
+----
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Airport Flights REST API"
+  },
+  "host" : "wt2-{user-sanitized-username}-3scale.{openshift-app-host}",
+  "basePath" : "/camel/",
+  "tags" : [ {
+    "name" : "flights",
+    "description" : "List all flights (arrivals & departures)"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/flights" : {
+      "get" : {
+        "tags" : [ "flights" ],
+        "operationId" : "flights-api",
+        "parameters" : [ {
+          "name" : "user_key",
+          "in" : "query",
+          "description" : "User Key, if calling the API in front of 3Scale.",
+          "required" : false,
+          "type" : "string",
+          "x-data-threescale-name": "user_keys"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "string",
+              "format" : "com.redhat.fuse.boosters.rest.http.FlightsList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Flight" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "flightType" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+----
+// TODO: spec from fuse aggregation app, with 2 modifications:
+//     - 'host' field set to the fuse-aggregation-app-apicast-route-url attribute
+//     - add a field to the 'user_key' parameter, 'x-data-threescale-name' with value of 'user_keys' (needed for autofill later)
+//
+// The swagger spec comes from the /camel/api-doc endpoint in the fuse-aggregation app. e.g.
++
+////
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Airport Flights REST API"
+  },
+  "host" : "wt2-f2-3scale-apicast-staging-3scale-3scale.cluster-lfa3xlh.opentry.me",
+  "basePath" : "/camel/",
+  "tags" : [ {
+    "name" : "flights",
+    "description" : "List all flights (arrivals & departures)"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/flights" : {
+      "get" : {
+        "tags" : [ "flights" ],
+        "operationId" : "flights-api",
+        "parameters" : [ {
+          "name" : "user_key",
+          "in" : "query",
+          "description" : "User Key, if calling the API in front of 3Scale.",
+          "required" : false,
+          "type" : "string",
+          "x-data-threescale-name": "user_keys"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "string",
+              "format" : "com.redhat.fuse.boosters.rest.http.FlightsList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Flight" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "flightType" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+////
++
+. Select the *Create Service* button.
+
+ifdef::location[]
+
+.To verify this procedure:
+// tag::verification[]
+The *Airport Flights REST API* ActiveDoc is created and has a *List all flights* API endpoint.
+// end::verification[]
+
+.If your verification fails:
+// tag::verificationNo[]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::verificationNo[]
+endif::location[]
+
+[type=verification]
+The *Airport Flights REST API* ActiveDoc is created and has a *List all flights* API endpoint.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+[time=30]
+== Calling Fuse Aggregation App endpoint
+
+=== 4.1 Checking the API Service is protected
+
+. From the *ActiveDocs* page for the *{fuse-aggregator-app-name}* Application, expand the *GET /flights* endpoint.
+. Leave the *user_key* field empty.
+. Select the *Try it out!* button.
+
+[type=verification]
+****
+Check that {3Scale-ProductName} is rejecting the request, as there is no `user_key` specified.
+
+* The *Response Body* is `no content`
+
+* The *Response Code* is 0
+****
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+=== 4.2 Validating access to the API Service
+
+. In the *user_key* field, enter:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+. Select the *Try it out!* button.
+
+[type=verification]
+****
+Check that:
+
+* the *Response Code* is 200
+
+* the *Response Body* shows a *JSON Array* of flights
+****
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+=== 4.3 Verifying access to the API Service is limited
+
+. In the *user_key* field, enter:
++
+[subs="attributes+"]
+----
+{fuse-aggregator-app-name}
+----
+. Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
+should require less than 5 clicks (the hourly limit set earlier).
+. Select the *Applications* tab from the top menu.
+. Select the *{fuse-aggregator-app-name}* application from the *Applications* list.
+. Scroll down to the *Current Utilization* section.
+
+[type=verification]
+****
+Check that the following is displayed:
+
+. *Hits %* in the *Current Utilization* section is `100%`.
+****
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+=== 4.4 Monitoring the API Service
+
+. Select the *Analytics* tab from the top menu.
+. Select *{fuse-aggregator-app-name}* from the *Monitoring* section.
+
+[type=verification]
+Check that analytics show the service requests.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
