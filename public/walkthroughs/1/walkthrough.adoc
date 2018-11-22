@@ -1,5 +1,6 @@
 // tag::master-1[]
 :walkthrough: Integrating event-driven and API-driven applications (AMQ)
+:fuse-version: 7.1
 
 
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
@@ -200,12 +201,15 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::creating-http-connection[]
 
 [type=taskResource]
-****
-See the following:
+=== Task resources
 
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
-* link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
-****
+* link:https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol[About AMQP]
+
+.Red Hat Documentation:
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/high-level-overview[High level overview of Fuse Online]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/connecting-to-applications#about-creating-connections[About creating connections from Fuse Online to applications]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html-single/connecting_fuse_online_to_applications_and_services/#supported-connectors[Connectors that are supported by Fuse Online]
+
 
 
 [time=5]
@@ -282,12 +286,13 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::task-creating-fuse-integration[]
 
 
+
 [type=taskResource]
-.Additional Information
-****
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
-* link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
-****
+=== Task resources
+
+.Red Hat Documentation:
+* https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/creating-integrations[Creating integrations]
+
 
 [time=5]
 [id='using-the-application-integration']
@@ -338,8 +343,15 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::task-using-integration[]
 
 [type=taskResource]
-=== See the following:
+=== Task resources
 
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
-* link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
+.Red Hat Documentation:
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/managing-integrations[Managing and monitoring integrations]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/[Fuse documentation set]
 
+[type=walkthroughResource]
+== Walkthrough resources
+
+* link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console
+* Example link:http://{node-js-url}[Node.js app, window="_blank"]
+* Example link:http://{spring-boot-url}[Spring Boot app, window="_blank"]
