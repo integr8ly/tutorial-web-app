@@ -1,5 +1,5 @@
 import { setStateProp, PENDING_ACTION, REJECTED_ACTION, FULFILLED_ACTION } from '../helpers';
-import { walkthroughTypes } from '../constants';
+import { walkthroughTypes, walkthroughServiceTypes } from '../constants';
 import { buildNamespacedServiceInstanceName } from '../../common/openshiftHelpers';
 
 const initialState = {
@@ -11,12 +11,33 @@ const initialState = {
     fulfilled: false,
     data: [],
     services: {}
-  }
+  },
+  walkthroughResources: {}
 };
 
 const walkthroughServiceReducers = (state = initialState, action) => {
   let createData;
   let siName;
+
+  if (action.type === FULFILLED_ACTION(walkthroughServiceTypes.ADD_RESOURCE)) {
+    const addResources = Object.assign({}, state.walkthroughResources);
+    if (!addResources[action.payload.id]) {
+      addResources[action.payload.id] = {};
+    }
+    addResources[action.payload.id][action.payload.resource.metadata.name] = action.payload.resource;
+    return setStateProp('walkthroughResources', addResources, {
+      state,
+      initialState
+    });
+  }
+  if (action.type === FULFILLED_ACTION(walkthroughServiceTypes.REMOVE_RESOURCE)) {
+    const removeResources = Object.assign({}, state.walkthroughResources);
+    delete removeResources[action.payload.metadata.name];
+    return setStateProp('walkthroughResources', removeResources, {
+      state,
+      initialState
+    });
+  }
 
   switch (action.type) {
     // Error/Rejected
