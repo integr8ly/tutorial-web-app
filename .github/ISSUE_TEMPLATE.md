@@ -13,8 +13,8 @@
 * Browser and version: (E.g Google Chrome Version 70.0.3538.102 (Official Build) (64-bit))
 * OpenShift version:
 <!-- Run the command `oc version` and add the result here. -->
-* Ansible version:
-<!-- Run the command `ansible --version` and add the result here. -->
+* Yarn version:
+<!-- Run the command `yarn --version` and add the result here. -->
 * Project Version/Tag: (E.g release-1.0.1)
 
 ## Steps to reproduce
