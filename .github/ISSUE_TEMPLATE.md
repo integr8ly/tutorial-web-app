@@ -15,6 +15,10 @@
 <!-- Run the command `oc version` and add the result here. -->
 * Yarn version:
 <!-- Run the command `yarn --version` and add the result here. -->
+* Node version:
+<!-- Run the command `node -v` and add the result here. -->
+* Npm version:
+<!-- Run the command `npm -v` and add the result here. -->
 * Project Version/Tag: (E.g release-1.0.1)
 
 ## Steps to reproduce
