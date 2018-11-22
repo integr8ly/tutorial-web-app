@@ -3,12 +3,14 @@ import * as userTypes from './userConstants';
 import * as threadTypes from './threadConstants';
 import * as middlewareTypes from './middlewareConstants';
 import * as walkthroughTypes from './walkthroughConstants';
+import * as walkthroughServiceTypes from './walkthroughServiceConstants';
 
 const reduxTypes = {
   aboutModalTypes,
   userTypes,
   threadTypes,
-  walkthroughTypes
+  walkthroughTypes,
+  walkthroughServiceTypes
 };
 
 export {
@@ -18,5 +20,6 @@ export {
   userTypes,
   threadTypes,
   middlewareTypes,
-  walkthroughTypes
+  walkthroughTypes,
+  walkthroughServiceTypes
 };

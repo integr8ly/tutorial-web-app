@@ -24,10 +24,12 @@ is a verification block. This is a paragraph that has been annotated with
 `[type=verification]`.
 
 [type=verification]
+****
 This block will render as a verification box with a yes/no checkbox.
-+
+
 . Check this thing.
 . Check that thing
+****
 
 === More custom blocks
 
@@ -58,8 +60,8 @@ A message to show when the user clicks `no`.
 A message to show when the user clicks `yes`.
 
 Note that each verification block is a single block. Meaning there cannot be
-newlines in the block itself. This can be worked around using `+` on newlines or
-by any other means that maintains a single block of text.
+newlines in the block itself. This can be worked around by surrounding the separate
+paragraphs with `\****` or by any other means that maintains a single block of text.
 
 === Using walkthrough attributes
 
@@ -69,7 +71,19 @@ these attributes is the URL of Eclipse Che running in the cluster. This attribut
 is named `che-url`. We can access it like any other attribute in asciidoc, by
 surrounding it with `{}`.
 
-For example, here is the Che URL: `{che-url}`.
+* OpenShift App Host: `{openshift-app-host}`
+* Che URL: `{che-url}`.
+* Fuse URL: `{fuse-url}`
+* Launcher URL: `{launcher-url}`
+* API Management URL: `{api-management-url}`
+* AMQ URL: `{amq-url}`
+* AMQ Broker URL: `{amq-broker-url}`
+* AMQ Credential Username: `{amq-credentials-username}`
+* AMQ Credential Password: `{amq-credentials-password}`
+* EnMasse URL: `{enmasse-url}`
+* EnMasse Broker URL: `{enmasse-broker-url}`
+* EnMasse Credential Username: `{enmasse-credentials-username}`
+* EnMasse Credential Password: `{enmasse-credentials-password}`
 
 [type=taskResource]
 === A task resource

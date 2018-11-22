@@ -2,21 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio, Alert } from 'patternfly-react';
+import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
-import {
-  prepareWalkthroughNamespace,
-  prepareCustomWalkthroughNamespace,
-  walkthroughs,
-  WALKTHROUGH_IDS
-} from '../../../services/walkthroughServices';
+import { prepareCustomWalkthroughNamespace } from '../../../services/walkthroughServices';
 import { getThreadProgress } from '../../../services/threadServices';
-import { buildNamespacedServiceInstanceName } from '../../../common/openshiftHelpers';
 import { getDocsForWalkthrough } from '../../../common/docsHelpers';
 import {
   parseWalkthroughAdoc,
@@ -39,16 +33,6 @@ class TaskPage extends React.Component {
     getWalkthrough(id);
     initWalkthrough(id);
     prepareCustomWalkthrough(id);
-    const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
-    if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
-      prepareWalkthroughOne(this.props.middlewareServices.amqCredentials);
-    }
-    if (this.props.match.params.id === WALKTHROUGH_IDS.ONE_A) {
-      prepareWalkthroughOneA(this.props.middlewareServices.enmasseCredentials);
-    }
-    if (this.props.match.params.id === WALKTHROUGH_IDS.TWO) {
-      prepareWalkthroughTwo();
-    }
     const currentUsername = localStorage.getItem('currentUserName');
     const currentUserProgress = getThreadProgress(currentUsername);
     updateWalkthroughProgress(currentUsername, currentUserProgress);
@@ -160,27 +144,14 @@ class TaskPage extends React.Component {
   totalLoadingProgress = attrs => Math.ceil((this.resourcesProgress() + this.docsAttributesProgress(attrs)) / 2);
 
   // Temporary fix for the Asciidoc renderer not being reactive.
-  getDocsAttributes = () => {
-    const walkthrough = Object.values(walkthroughs).find(w => w.id === this.props.match.params.id);
-    return getDocsForWalkthrough(walkthrough, this.props.middlewareServices, this.props.walkthroughServices);
-  };
+  getDocsAttributes = walkthroughId =>
+    getDocsForWalkthrough(walkthroughId, this.props.middlewareServices, this.props.walkthroughResources);
 
   getAMQCredential = (middlewareServices, name) => {
     if (!middlewareServices || !middlewareServices.amqCredentials || !middlewareServices.amqCredentials[name]) {
       return null;
     }
     return middlewareServices.amqCredentials[name];
-  };
-
-  getUrlFromWalkthroughServices = (walkthroughServices, serviceName) => {
-    if (
-      !walkthroughServices ||
-      !walkthroughServices.services ||
-      !walkthroughServices.services[buildNamespacedServiceInstanceName(walkthroughs.one.namespaceSuffix, serviceName)]
-    ) {
-      return null;
-    }
-    return walkthroughServices.services[serviceName].spec.host;
   };
 
   backToIntro = e => {
@@ -235,7 +206,8 @@ class TaskPage extends React.Component {
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
     return (
-      <Alert type="info" className="integr8ly-module-column--steps_alert-blue" key={blockId}>
+      <div className="alert integr8ly-alert integr8ly-module-column--steps_alert-blue" key={`verification-${blockId}`}>
+        <i className="integr8ly-alert-icon far fa-circle" />
         <strong>{t('task.verificationTitle')}</strong>
         <div dangerouslySetInnerHTML={{ __html: block.html }} />
         {
@@ -263,7 +235,7 @@ class TaskPage extends React.Component {
               block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
           </React.Fragment>
         }
-      </Alert>
+      </div>
     );
   }
 
@@ -292,7 +264,12 @@ class TaskPage extends React.Component {
   }
 
   render() {
-    const attrs = this.getDocsAttributes();
+    const {
+      match: {
+        params: { id, task }
+      }
+    } = this.props;
+    const attrs = this.getDocsAttributes(id);
     const { t, thread, manifest } = this.props;
 
     if (thread.pending || manifest.pending) {
@@ -313,11 +290,6 @@ class TaskPage extends React.Component {
       );
     }
     if (thread.fulfilled && thread.data) {
-      const {
-        match: {
-          params: { id, task }
-        }
-      } = this.props;
       const taskNum = parseInt(task, 10);
       const parsedThread = parseWalkthroughAdoc(thread.data, attrs);
       const threadTask = parsedThread.tasks[taskNum];
@@ -466,10 +438,6 @@ TaskPage.propTypes = {
     params: PropTypes.object
   }),
   middlewareServices: PropTypes.object,
-  walkthroughServices: PropTypes.object,
-  prepareWalkthroughOne: PropTypes.func,
-  prepareWalkthroughOneA: PropTypes.func,
-  prepareWalkthroughTwo: PropTypes.func,
   thread: PropTypes.object,
   manifest: PropTypes.object,
   // user: PropTypes.object,
@@ -477,7 +445,8 @@ TaskPage.propTypes = {
   initWalkthrough: PropTypes.func,
   prepareCustomWalkthrough: PropTypes.func,
   updateWalkthroughProgress: PropTypes.func,
-  threadProgress: PropTypes.object
+  threadProgress: PropTypes.object,
+  walkthroughResources: PropTypes.object
 };
 
 TaskPage.defaultProps = {
@@ -495,12 +464,6 @@ TaskPage.defaultProps = {
     amqCredentials: {},
     enmasseCredentials: {}
   },
-  walkthroughServices: {
-    services: {}
-  },
-  prepareWalkthroughOne: noop,
-  prepareWalkthroughOneA: noop,
-  prepareWalkthroughTwo: noop,
   prepareCustomWalkthrough: noop,
   thread: null,
   manifest: null,
@@ -508,16 +471,13 @@ TaskPage.defaultProps = {
   getWalkthrough: noop,
   initWalkthrough: noop,
   updateWalkthroughProgress: noop,
-  threadProgress: { data: {} }
+  threadProgress: { data: {} },
+  walkthroughResources: {}
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  prepareWalkthroughOne: amqCredentials => prepareWalkthroughNamespace(dispatch, walkthroughs.one, amqCredentials),
-  prepareWalkthroughOneA: enmasseCredentials =>
-    prepareWalkthroughNamespace(dispatch, walkthroughs.oneA, enmasseCredentials),
-  getProgress: progress => dispatch(reduxActions.userActions.getProgress()),
-  prepareWalkthroughTwo: () => prepareWalkthroughNamespace(dispatch, walkthroughs.two, null),
+  getProgress: () => dispatch(reduxActions.userActions.getProgress()),
   prepareCustomWalkthrough: id => prepareCustomWalkthroughNamespace(dispatch, id),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
