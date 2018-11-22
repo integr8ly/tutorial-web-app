@@ -205,9 +205,20 @@ class TaskPage extends React.Component {
     const currentThreadProgress = this.getStoredProgressForCurrentTask();
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
+
+    let verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-blue';
+    let verificationIcon = 'integr8ly-alert-icon far fa-circle';
+    if (isYesChecked) {
+      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-green';
+      verificationIcon = 'integr8ly-alert-icon far fa-check-circle';
+    }
+    if (isNoChecked) {
+      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-red';
+      verificationIcon = 'integr8ly-alert-icon far fa-times-circle';
+    }
     return (
-      <div className="alert integr8ly-alert integr8ly-module-column--steps_alert-blue" key={`verification-${blockId}`}>
-        <i className="integr8ly-alert-icon far fa-circle" />
+      <div className={verificationClasses} key={`verification-${blockId}`}>
+        <i className={verificationIcon} />
         <strong>{t('task.verificationTitle')}</strong>
         <div dangerouslySetInnerHTML={{ __html: block.html }} />
         {
