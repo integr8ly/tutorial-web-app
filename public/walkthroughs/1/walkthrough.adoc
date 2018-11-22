@@ -283,9 +283,8 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 [type=taskResource]
+.Additional Information
 ****
-See the following:
-
 * link:https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/[Documentation]
 * link:https://www.redhat.com/en/technologies/jboss-middleware/fuse[About Fuse]
 ****
