@@ -71,19 +71,22 @@ these attributes is the URL of Eclipse Che running in the cluster. This attribut
 is named `che-url`. We can access it like any other attribute in asciidoc, by
 surrounding it with `{}`.
 
-* OpenShift App Host: `{openshift-app-host}`
-* Che URL: `{che-url}`.
-* Fuse URL: `{fuse-url}`
-* Launcher URL: `{launcher-url}`
-* API Management URL: `{api-management-url}`
-* AMQ URL: `{amq-url}`
-* AMQ Broker URL: `{amq-broker-url}`
-* AMQ Credential Username: `{amq-credentials-username}`
-* AMQ Credential Password: `{amq-credentials-password}`
-* EnMasse URL: `{enmasse-url}`
-* EnMasse Broker URL: `{enmasse-broker-url}`
-* EnMasse Credential Username: `{enmasse-credentials-username}`
-* EnMasse Credential Password: `{enmasse-credentials-password}`
+* Default attributes:
+** OpenShift App Host: `{openshift-app-host}`
+** Che URL: `{che-url}`.
+** Fuse URL: `{fuse-url}`
+** Launcher URL: `{launcher-url}`
+** API Management URL: `{api-management-url}`
+** AMQ URL: `{amq-url}`
+** AMQ Broker URL: `{amq-broker-url}`
+** AMQ Credential Username: `{amq-credentials-username}`
+** AMQ Credential Password: `{amq-credentials-password}`
+** EnMasse URL: `{enmasse-url}`
+** EnMasse Broker URL: `{enmasse-broker-url}`
+** EnMasse Credential Username: `{enmasse-credentials-username}`
+** EnMasse Credential Password: `{enmasse-credentials-password}`
+* Custom attributes:
+** NodeJS Frontend App Route (provisioned from walkthrough.json): `{route-frontend-host}`
 
 [type=taskResource]
 === A task resource
