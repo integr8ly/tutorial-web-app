@@ -426,7 +426,8 @@ class TaskPage extends React.Component {
               <Grid.Col sm={3} className="integr8ly-module-frame">
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <WalkthroughResources resources={threadTask.resources} />
+                <WalkthroughResources resources={parsedThread.resources} />
+                <WalkthroughResources resources={threadTask.resources} noHeadline />
               </Grid.Col>
             </Grid.Row>
           </Grid>

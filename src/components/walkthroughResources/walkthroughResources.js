@@ -63,10 +63,17 @@ class WalkthroughResources extends React.Component {
     return provisioningStatus;
   }
 
+  renderHeading() {
+    if (!this.props.noHeadline) {
+      return <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>;
+    }
+    return null;
+  }
+
   render() {
     return (
       <div>
-        <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+        {this.renderHeading()}
         {this.props.resources.map((resource, i) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: resource.html }} />
         ))}
@@ -78,12 +85,14 @@ class WalkthroughResources extends React.Component {
 
 WalkthroughResources.propTypes = {
   resources: PropTypes.array,
-  middlewareServices: PropTypes.object
+  middlewareServices: PropTypes.object,
+  noHeadline: PropTypes.bool
 };
 
 WalkthroughResources.defaultProps = {
   resources: [],
-  middlewareServices: { data: {} }
+  middlewareServices: { data: {} },
+  noHeadline: false
 };
 
 const mapStateToProps = state => ({
