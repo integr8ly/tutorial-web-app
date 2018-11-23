@@ -1,6 +1,8 @@
 import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
 
+const KIND_ROUTE = 'Route';
+
 axios.interceptors.response.use(
   response => response,
   err => {
@@ -284,4 +286,17 @@ const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.ma
 
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
 
-export { finishOAuth, currentUser, get, create, list, watch, update, remove, OpenShiftWatchEvents, logout, getUser };
+export {
+  finishOAuth,
+  currentUser,
+  get,
+  create,
+  list,
+  watch,
+  update,
+  remove,
+  OpenShiftWatchEvents,
+  logout,
+  getUser,
+  KIND_ROUTE
+};
