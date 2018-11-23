@@ -73,7 +73,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         componentClass="div"
         sm={3}
       >
-        <Connect(WalkthroughResources) />
+        <Connect(WalkthroughResources)
+          resources={Array []}
+        />
       </Col>
     </Row>
     <Row
@@ -136,3 +138,126 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
 `;
 
 exports[`TutorialPage Component should render the TutorialPage component pending state 1`] = `""`;
+
+exports[`TutorialPage Component should render the walkthrouth resources 1`] = `
+<Fragment>
+  <Grid
+    bsClass="container"
+    componentClass="div"
+    fluid={true}
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <withRouter(Connect(Masthead)) />
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        className="integr8ly-task-container pf-u-mt-lg"
+        componentClass="div"
+        sm={9}
+        xs={12}
+      >
+        <div
+          className="integr8ly-task-dashboard-header"
+        >
+          <h3>
+            Example
+          </h3>
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            tutorial.getStarted
+          </Button>
+        </div>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<div class=\\"literalblock\\">
+<div class=\\"content\\">
+<pre>This is a sample description</pre>
+</div>
+</div>",
+            }
+          }
+        />
+      </Col>
+      <Col
+        bsClass="col"
+        className="integr8ly-module-frame"
+        componentClass="div"
+        sm={3}
+      >
+        <Connect(WalkthroughResources)
+          resources={Array []}
+        />
+      </Col>
+    </Row>
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        componentClass="div"
+        sm={9}
+        xs={12}
+      >
+        <h1
+          className="pf-c-title pf-m-2xl"
+        >
+          tutorial.tasksToComplete
+          <div
+            className="pull-right integr8ly-task-dashboard-time-to-completion"
+          >
+            <Icon
+              name="clock"
+              style={
+                Object {
+                  "marginRight": 5,
+                }
+              }
+              type="fa"
+            />
+            <span>
+              0
+              <span
+                className="integr8ly-task-dashboard-time-to-completion_minutes"
+              >
+                tutorial.minutes
+              </span>
+            </span>
+          </div>
+        </h1>
+        <ListView
+          className="integr8ly-list-view-pf"
+        />
+        <div
+          className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
+        >
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            tutorial.getStarted
+          </Button>
+        </div>
+      </Col>
+    </Row>
+  </Grid>
+</Fragment>
+`;
