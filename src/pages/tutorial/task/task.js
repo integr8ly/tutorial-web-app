@@ -31,7 +31,6 @@ class TaskPage extends React.Component {
       }
     } = this.props;
     getWalkthrough(id);
-    initWalkthrough(id);
     prepareCustomWalkthrough(id);
     const currentUsername = localStorage.getItem('currentUserName');
     const currentUserProgress = getThreadProgress(currentUsername);
