@@ -29,6 +29,7 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
       class="integr8ly-copy-input expanded form-control"
       id="test"
       readonly=""
+      style="height: 33px;"
       type="text"
       value="{\\"hello\\":\\"world\\"}"
     />
@@ -71,6 +72,7 @@ exports[`CopyField Component should render a single-line copy component: single-
       class="integr8ly-copy-input false form-control"
       id="test"
       readonly=""
+      style="height: 33px;"
       type="text"
       value="{\\"hello\\":\\"world\\"}"
     />
