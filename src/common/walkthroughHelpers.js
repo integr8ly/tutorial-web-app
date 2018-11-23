@@ -2,7 +2,6 @@ import asciidoctor from 'asciidoctor.js';
 
 const CONTEXT_SECTION = 'section';
 const CONTEXT_DOCUMENT = 'document';
-const CONTEXT_SIDEBAR = 'sidebar';
 
 const BLOCK_ATTR_TYPE = 'type';
 const BLOCK_ATTR_TIME = 'time';
@@ -291,11 +290,6 @@ class Walkthrough {
 
   get resources() {
     return this._resources;
-  }
-
-  // Remove any sidebar content before rendering the preamble
-  static cleanupPreamble(preamble) {
-    preamble.blocks = preamble.blocks.filter(b => b.context !== CONTEXT_SIDEBAR);
   }
 
   static fromAdoc(adoc) {
