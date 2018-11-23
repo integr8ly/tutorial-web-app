@@ -61,6 +61,10 @@ class OpenShiftWatchEventListener {
 }
 
 const getUser = () => {
+  // Don't start the OAuth flow when in mock mode. Just resolve an empty user
+  if (window.OPENSHIFT_CONFIG.mockData) {
+    return new Promise(resolve => resolve({}));
+  }
   let user;
   try {
     const userRaw = window.localStorage.getItem('OpenShiftUser');

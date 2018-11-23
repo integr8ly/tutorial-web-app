@@ -73,7 +73,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         componentClass="div"
         sm={3}
       >
-        <Connect(WalkthroughResources) />
+        <Connect(WalkthroughResources)
+          resources={Array []}
+        />
       </Col>
     </Row>
     <Row
