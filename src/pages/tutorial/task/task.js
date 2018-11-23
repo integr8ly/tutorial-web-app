@@ -37,7 +37,6 @@ class TaskPage extends React.Component {
       }
     } = this.props;
     getWalkthrough(id);
-    initWalkthrough(id);
     prepareCustomWalkthrough(id);
     const { prepareWalkthroughOne, prepareWalkthroughOneA, prepareWalkthroughTwo } = this.props;
     if (this.props.match.params.id === WALKTHROUGH_IDS.ONE) {
