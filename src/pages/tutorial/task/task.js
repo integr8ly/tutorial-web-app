@@ -23,7 +23,6 @@ class TaskPage extends React.Component {
   componentDidMount() {
     const {
       getWalkthrough,
-      initWalkthrough,
       prepareCustomWalkthrough,
       updateWalkthroughProgress,
       match: {
@@ -452,7 +451,6 @@ TaskPage.propTypes = {
   manifest: PropTypes.object,
   // user: PropTypes.object,
   getWalkthrough: PropTypes.func,
-  initWalkthrough: PropTypes.func,
   prepareCustomWalkthrough: PropTypes.func,
   updateWalkthroughProgress: PropTypes.func,
   threadProgress: PropTypes.object,
@@ -479,7 +477,6 @@ TaskPage.defaultProps = {
   manifest: null,
   // user: null,
   getWalkthrough: noop,
-  initWalkthrough: noop,
   updateWalkthroughProgress: noop,
   threadProgress: { data: {} },
   walkthroughResources: {}
@@ -491,7 +488,6 @@ const mapDispatchToProps = dispatch => ({
   prepareCustomWalkthrough: id => prepareCustomWalkthroughNamespace(dispatch, id),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
-  initWalkthrough: id => dispatch(reduxActions.threadActions.initCustomThread(id)),
   updateWalkthroughProgress: (username, progress) =>
     dispatch(reduxActions.threadActions.updateThreadProgress(username, progress))
 });
