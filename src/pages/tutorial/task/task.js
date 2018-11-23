@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CopyField from '../../../components/copyField/copyField';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
@@ -20,6 +19,7 @@ import {
   WalkthroughTextBlock,
   WalkthroughStep
 } from '../../../common/walkthroughHelpers';
+import CopyField from '../../../components/copyField/copyField';
 
 class TaskPage extends React.Component {
   constructor(props) {
