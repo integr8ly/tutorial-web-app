@@ -80,7 +80,7 @@
     "start:server": "nodemon --watch server.js --exec 'node server.js'",
     "commit:hash": "echo REACT_APP_UI_COMMIT_HASH=$(git rev-list -1 --all) > .env",
     "build": "yarn commit:hash && yarn build:css && yarn build:js && yarn postbuild",
-    "test": "yarn lint && react-scripts test --env=jsdom --coverage",
+    "test": "yarn lint && react-scripts test --updateSnapshot --env=jsdom --coverage",
     "test:watch": "react-scripts test --env=jsdom --watch",
     "eject": "react-scripts eject",
     "prettier": "prettier --write --single-quote --trailing-comma=none \"src/**/*.js\"",
