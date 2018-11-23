@@ -171,6 +171,7 @@ class CopyField extends React.Component {
             readOnly
             aria-label={expandDescription}
             onClick={this.onSelect}
+            style={{height: "33px"}}
           />
           <InputGroup.Button>{this.renderButton()}</InputGroup.Button>
         </InputGroup>

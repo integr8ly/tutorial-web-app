@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import CopyField from '../../../components/copyField/copyField';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
@@ -20,6 +22,20 @@ import {
 } from '../../../common/walkthroughHelpers';
 
 class TaskPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.rootDiv = React.createRef();
+  }
+
+  componentDidUpdate() {
+    if (this.rootDiv.current) {
+      const codeBlocks = this.rootDiv.current.querySelectorAll('pre');
+      codeBlocks.forEach(block => {
+        ReactDOM.render(<CopyField value={block.innerText} multiline={block.clientHeight > 40} />, block.parentNode);
+      });
+    }
+  }
+
   componentDidMount() {
     const {
       getWalkthrough,
@@ -29,6 +45,9 @@ class TaskPage extends React.Component {
         params: { id }
       }
     } = this.props;
+
+    this.rootDiv = React.createRef();
+
     getWalkthrough(id);
     prepareCustomWalkthrough(id);
     const currentUsername = localStorage.getItem('currentUserName');
@@ -322,7 +341,7 @@ class TaskPage extends React.Component {
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
                 <div className="integr8ly-module-column">
                   <h2>{threadTask.title}</h2>
-                  <div className="integr8ly-module-column--steps">
+                  <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                     {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
                   </div>
 
