@@ -30,6 +30,17 @@ it can also contain a number of walkthrough-specific blocks. For example, below
 is a verification block. This is a paragraph that has been annotated with
 `[type=verification]`.
 
+=== Code blocks
+
+Content wrapped in `----` becomes a code block. It retains spacing and offers
+copy and paste functionality.
+
+----
+this.is = {
+    "a": "code block"
+};
+----
+
 [type=verification]
 ****
 This block will render as a verification box with a yes/no checkbox.
