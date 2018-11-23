@@ -9,6 +9,13 @@ excluded from the short description.
 
 To start a task we need to use a h2 heading.
 
+[type=walkthroughResource]
+=== A Walkthrough resource
+
+Use annotations of type `[type=walkthroughResource]` in the preamble
+section to declare global resources that will be displayed on the tutorial
+overview page as well as on every task.
+
 == First task
 
 This is the overview for the first task in the walkthrough.
