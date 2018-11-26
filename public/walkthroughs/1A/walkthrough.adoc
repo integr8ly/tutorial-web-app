@@ -1,0 +1,373 @@
+// tag::master-1A[]
+:walkthrough: Integrating event-driven and API-driven applications (AMQ)
+:fuse-version: 7.2
+:messaging-service: EnMasse
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='integrating-eventdriven-and-apidriven-applications']
+// If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
+
+// Book Title
+= {walkthrough}
+
+//If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
+:context: integrating-eventdriven-and-apidriven-applications
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+
+//include::master-1-intro.adoc[ ]
+
+// word count range that fits best is 15-22, with 20 really being the sweet spot. Character count for that space would be 100-125
+Build a simple integration that connects a message queue with an API.
+
+In a multi-application system, you often find:
+
+* communication between the applications can be difficult due to differing technologies
+* custom solutions can be difficult to create and maintain
+* custom solutions require custom monitoring
+* understanding the relationship between the applications requires deep technical insight to the overall architecture
+
+A more structured approach involves:
+
+* a simple integration that developers can understand intuitively
+* simple provisioning and configuration
+* built-in monitoring
+
+This walkthrough describes how  to create such an integration, using OpenShift, {messaging-service} and API connectors in Fuse.
+
+++++
+<img src="/images/wt1.png" class="img-responsive" alt="integration">
+++++
+
+// end::master-1[]
+
+// tag:task-creating-addresses.adoc[]
+
+[time=6]
+
+[id='creating-addresses_{context}']
+
+
+// TODO: figure out enmasse url
+:enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
+// https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
+
+== Creating Addresses
+:context: creating-connections
+
+// tag::creating-api-connector[]
+
+[.integr8ly-docs-header]
+=== Creating an address in EnMasse space
+
+To route messages to the Spring Boot app, you create an address in EnMasse.
+
+. Log into link:{enmasse-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
+. Select *Addresses* from the left hand menu.
+
+. Create a *requests* address:
+.. Select the *Create* button to start the *Create new address* wizard.
+.. Enter the following as the address name:
++
+[subs="attributes+"]
+---- 
+work-queue-requests
+----
+.. Select *queue* as the type and click *Next*.
+.. Select *Small Queue* as the address plan and click *Next*.
+.. Select *Create* to complete the wizard.
+
+After the address is created a green check mark is displayed.
+
+[type=verification]
+Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank"] console to make sure the newly created address exists.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+// end::task-creating-addresses[]
+
+
+[time=5]
+[id='integrating-eventdriven-and-apidriven-applications']
+[id='creating-connections']
+== Creating connections
+:context: creating-connections
+
+// tag::creating-api-connector[]
+
+[id='creating-api-connector_{context}']
+[.integr8ly-docs-header]
+=== Creating an API Connector 
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Customizations* from the left hand menu.
+
+. Select the *Create API Connector* button to start the *API Client Connector* wizard.
+
+. When prompted to *Upload OpenAPI Specification*, select *Use a URL*:
+.. Enter the following in the URL field:
++
+[subs="attributes+"]
+---- 
+http://{spring-boot-url}/v2/api-docs
+----
+
+.. Click *Next*.
+
+. When prompted with *Review Actions*, select *Next*.
+
+. When prompted with *Specify Security*, select *Next*.
+
+. When prompted with *Review/Edit Connector Details*:
+.. Enter the following in the *Connector Name* field:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id} CRUD Connector
+----
+
+.. Click *Create API Connector*.
+
+[type=verification]
+Check the *Customizations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connector exists.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+// end::creating-api-connector[]
+
+// tag::creating-amqp-connection-in-fuse[]
+
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+:enmasse: Red Hat AMQ Online
+
+
+// tag::creating-http-connection[]
+
+[id='creating-http-connection-in-fuse_{context}']
+[.integr8ly-docs-header]
+=== Creating HTTP connection to CRUD App
+
+To send messages to the Spring Boot app, you create a connection in Red Hat Fuse Online.
+
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough {walkthrough-id} CRUD Connector*.
+
+. When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*:
+.. Enter the following in the *Connection Name* field:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id} CRUD App
+----
+.. Click *Create*.
+
+
+[type=verification]
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+
+// end::creating-http-connection[]
+
+[id='creating-amqp-connection-in-fuse_{context}']
+[.integr8ly-docs-header]
+=== Creating AMQP connection in Red Hat Fuse Online
+
+To receive messages from EnMasse, you create a connection in Red Hat Fuse Online.
+
+
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
+:openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. Select *AMQP* to configure an *AMQP Message Broker* connection.
+
+. Enter the connection URI relating to {enmasse}:
++
+[subs="attributes+"]
+----  
+amqp://{enmasse-broker-url}:5672?amqp.saslMechanisms=PLAIN
+----
+
+. Enter the username relating to {enmasse}:
++
+[subs="attributes+"]
+----  
+{enmasse-credentials-username}
+----
+
+. Enter the password relating to {enmasse}:
++
+[subs="attributes+"]
+----
+{enmasse-credentials-password}
+----
+
+. Set the value of *Check Certificates* to `Disable`.
+
+. Select the *Validate* button to check that the values are valid.
+
+. Click *Next* and enter a name for the connection, for example:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id} Messaging App
+----
+
+. Click *Create*.
+
+
+[type=verification]
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+
+// end::creating-amqp-connection-in-fuse[]
+
+
+
+[time=5]
+[id='creating-an-integration']
+== Creating an integration
+:context: creating-an-integration
+
+// end::task-creating-fuse-integration[]
+
+[id='creating-fuse-integration_{context}']
+[.integr8ly-docs-header]
+=== Creating an integration
+
+To use the Fuse connections, you create an integration in Red Hat Fuse Online.
+
+. Select *Integrations* from the left hand menu.
+
+. Select the *Create Integration* button to start the *Create Integration* wizard.
+
+. Choose *Walkthrough {walkthrough-id} Messaging App* as the *Start Connection*.
+
+. When prompted to *Choose an Action*, select *Subscribe for messages*.
+
+. When prompted for a *Destination Name*, enter:
++
+[subs="attributes+"]
+---- 
+work-queue/requests
+----
+
+. Choose *Queue* as the *Destination Type* and click *Next*.
+
+. When prompted to *Specify Output Data Type*:
+.. Select *JSON Schema* as the type.
+.. Enter the following in the *Definition* field:
++
+[subs="attributes+"]
+----
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+		"type": {
+			"type": "string"
+		}
+	}
+}
+----
+.. Click *Done*.
+
+. Choose *Walkthrough {walkthrough-id} CRUD App* as the *Finish Connection*.
+
+. When prompted to *Choose an Action*, select *Create a fruit*.
+
+. When prompted to *Add to Integration*, select *Add a Step*.
+
+. Select *Data Mapper* to map source and target fields in the corresponding JSON schemas:
+.. Click and drag *type* from the *Source* column to *body/name* in the *Target* column.
+.. Click *Done* to navigate back to the Integration screen.
+
+. Click *Publish*.
+. When prompted, enter a name, for example:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id}
+----
+
+[type=verification]
+Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+// end::task-creating-fuse-integration[]
+
+
+
+[time=5]
+[id='using-the-application-integration']
+== Using the application integration
+:context: using-the-application-integration
+
+// tag::task-using-integration[]
+[id='using-integration_{context}']
+[.integr8ly-docs-header]
+=== Using the application integration
+
+After setting up the integration between the Node.js and Spring Boot applications, we can use the integration to create a new fruit for the grocery inventory application.
+
+:node-url: http://frontend-node-app.apps.city.openshiftworkshop.com/
+:spring-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
+:fuse-url: https://eval.apps.city.openshiftworkshop.com/
+
+. Navigate to the link:http://{node-js-url}[Node.js app, window="_blank"].
+
+. Enter a value for *Fruit*, for example:
++
+----  
+Pineapple
+----
+
+. Click *Send Request*.
+
+. Navigate to the link:http://{spring-boot-url}[Spring Boot app, window="_blank"].
+
+. Check that the entry from the Node.js app is displayed.
+
+
+[type=verification]
+****
+View the activity log:
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+. Select *Integrations* from the left hand menu.
+. Select your integration.
+. Select the *Activity* tab.
+. Expand the log entry to display the steps performed.
+****
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+
+// end::task-using-integration[]
