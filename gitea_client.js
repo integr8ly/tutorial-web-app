@@ -124,7 +124,7 @@ exports.createRepoForUser = (username, repo) => {
   const normalizedUser = normalizeUser(username);
   return new Promise((resolve, reject) => {
     if (!GITEA_HOST || !GITEA_TOKEN) {
-      return reject(new Error('Gitea not installed'));
+      return reject(new Error('Gitea is not configured. Repositories cannot be created.'));
     }
 
     if (!repo || !repo.repoName) {

@@ -35,19 +35,22 @@ app.post('/initThread', fetchOpenshiftUser, (req, res) => {
 
   // Return success in mock mode without actually creating any repositories
   if (!process.env.OPENSHIFT_HOST) {
-    return res.sendStatus(200);
+    console.warn('OPENSHIFT_HOST not set. Skipping thread initialization.');
+    res.sendStatus(200);
+    return;
   }
 
-  if (repos && repos.length > 0) {
-    return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
-      .then(() => res.sendStatus(200))
-      .catch(err => {
-        console.error(`Error creating repositories: ${err}`);
-        return res.sendStatus(500);
-      });
-  } else {
-    return res.sendStatus(200);
+  if (!repos || repos.length === 0) {
+    res.sendStatus(200);
+    return;
   }
+
+  return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
+    .then(() => res.sendStatus(200))
+    .catch(err => {
+      console.error(`Error creating repositories: ${err}`);
+      return res.status(500).json({ error: err.message });
+    });
 });
 
 // Dynamic configuration for openshift API calls

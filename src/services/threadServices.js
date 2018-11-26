@@ -15,7 +15,11 @@ const initDeps = response =>
       })
         .then(resp => {
           if (resp.status !== 200) {
-            return reject(new Error('An error occurred while initializing the dependencies'));
+            const errorMsg =
+              resp.response && resp.response.data && resp.response.data.error
+                ? resp.response.data.error
+                : 'An error occurred while initializing the dependencies';
+            return reject(new Error(errorMsg));
           }
           return resolve(response);
         })
