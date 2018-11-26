@@ -13,6 +13,11 @@ import {
   routeDef
 } from '../common/openshiftResourceDefinitions';
 import { addWalkthroughService, removeWalkthroughService } from '../redux/actions/walkthroughServiceActions';
+import {
+  initCustomThreadPending,
+  initCustomThreadSuccess,
+  initCustomThreadFailure
+} from '../redux/actions/threadActions';
 
 const DEFAULT_SERVICE_INSTANCE = {
   kind: 'ServiceInstance',
@@ -34,9 +39,11 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
   if (window.OPENSHIFT_CONFIG.mockData) {
     return Promise.resolve([]);
   }
+  dispatch(initCustomThreadPending());
   return initCustomThread(walkthoughName)
     .then(res => res.data)
     .then(manifest => {
+      dispatch(initCustomThreadSuccess(manifest));
       currentUser().then(user => {
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
         const namespaceObj = namespaceResource(userNamespace);
@@ -67,7 +74,8 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
             );
         });
       });
-    });
+    })
+    .catch(e => dispatch(initCustomThreadFailure(e)));
 };
 
 /**
