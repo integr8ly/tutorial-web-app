@@ -145,6 +145,45 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 :enmasse: Red Hat AMQ Online
 
+
+// tag::creating-http-connection[]
+
+[id='creating-http-connection-in-fuse_{context}']
+[.integr8ly-docs-header]
+=== Creating HTTP connection to CRUD App
+
+To send messages to the Spring Boot app, you create a connection in Red Hat Fuse Online.
+
+
+. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
+
+. Select *Connections* from the left hand menu.
+
+. Select the *Create Connection* button to start the *Create Connection* wizard.
+
+. When prompted with *Select Connector*, select *Walkthrough {walkthrough-id} CRUD Connector*.
+
+. When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
+
+. When prompted with *Add Connection Details*:
+.. Enter the following in the *Connection Name* field:
++
+[subs="attributes+"]
+----  
+Walkthrough {walkthrough-id} CRUD App
+----
+.. Click *Create*.
+
+
+[type=verification]
+Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
+
+[type=verificationFail]
+Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
+
+
+// end::creating-http-connection[]
+
 [id='creating-amqp-connection-in-fuse_{context}']
 [.integr8ly-docs-header]
 === Creating AMQP connection in Red Hat Fuse Online
@@ -208,44 +247,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::creating-amqp-connection-in-fuse[]
 
-
-// tag::creating-http-connection[]
-
-[id='creating-http-connection-in-fuse_{context}']
-[.integr8ly-docs-header]
-=== Creating HTTP connection to CRUD App
-
-To send messages to the Spring Boot app, you create a connection in Red Hat Fuse Online.
-
-
-. Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
-
-. Select *Connections* from the left hand menu.
-
-. Select the *Create Connection* button to start the *Create Connection* wizard.
-
-. When prompted with *Select Connector*, select *Walkthrough {walkthrough-id} CRUD Connector*.
-
-. When prompted with *Walkthrough {walkthrough-id} CRUD Configuration*, click *Next*.
-
-. When prompted with *Add Connection Details*:
-.. Enter the following in the *Connection Name* field:
-+
-[subs="attributes+"]
-----  
-Walkthrough {walkthrough-id} CRUD App
-----
-.. Click *Create*.
-
-
-[type=verification]
-Check the *Connections* screen of the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console to make sure the new connection exists.
-
-[type=verificationFail]
-Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
-
-
-// end::creating-http-connection[]
 
 
 [time=5]
