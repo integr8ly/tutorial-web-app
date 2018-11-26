@@ -1,6 +1,6 @@
 // tag::master-1[]
 :walkthrough: Integrating event-driven and API-driven applications (AMQ)
-:fuse-version: 7.1
+:fuse-version: 7.2
 
 
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
@@ -120,21 +120,21 @@ To receive messages from EnMasse, you create a connection in Red Hat Fuse Online
 +
 [subs="attributes+"]
 ----  
-amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN
+amqp://{amq-broker-url}:5672?amqp.saslMechanisms=PLAIN
 ----
 
 . Enter the username relating to {enmasse}:
 +
 [subs="attributes+"]
 ----  
-{messaging-username}
+{amq-credentials-username}
 ----
 
 . Enter the password relating to {enmasse}:
 +
 [subs="attributes+"]
 ----
-{messaging-password}
+{amq-credentials-password}
 ----
 
 . Set the value of *Check Certificates* to `Disable`.
@@ -199,16 +199,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 // end::creating-http-connection[]
-
-[type=taskResource]
-=== Task resources
-
-* link:https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol[About AMQP]
-
-.Red Hat Documentation:
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/high-level-overview[High level overview of Fuse Online]
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/connecting-to-applications#about-creating-connections[About creating connections from Fuse Online to applications]
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html-single/connecting_fuse_online_to_applications_and_services/#supported-connectors[Connectors that are supported by Fuse Online]
 
 
 
@@ -287,13 +277,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 
-[type=taskResource]
-=== Task resources
-
-.Red Hat Documentation:
-* https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/creating-integrations[Creating integrations]
-
-
 [time=5]
 [id='using-the-application-integration']
 == Using the application integration
@@ -342,16 +325,3 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::task-using-integration[]
 
-[type=taskResource]
-=== Task resources
-
-.Red Hat Documentation:
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/managing-integrations[Managing and monitoring integrations]
-* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/[Fuse documentation set]
-
-[type=walkthroughResource]
-== Walkthrough resources
-
-* link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console
-* Example link:http://{node-js-url}[Node.js app, window="_blank"]
-* Example link:http://{spring-boot-url}[Spring Boot app, window="_blank"]
