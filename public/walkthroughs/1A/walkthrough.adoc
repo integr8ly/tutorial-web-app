@@ -61,7 +61,7 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 
 To route messages to the Spring Boot app, you create an address in EnMasse.
 
-. Log into link:{messaging-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
+. Log into link:{enmasse-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
 . Select *Addresses* from the left hand menu.
 
 . Create a *requests* address:
@@ -206,21 +206,21 @@ To receive messages from EnMasse, you create a connection in Red Hat Fuse Online
 +
 [subs="attributes+"]
 ----  
-amqp://{messaging-broker-url}:5672?amqp.saslMechanisms=PLAIN
+amqp://{enmasse-broker-url}:5672?amqp.saslMechanisms=PLAIN
 ----
 
 . Enter the username relating to {enmasse}:
 +
 [subs="attributes+"]
 ----  
-{messaging-username}
+{enmasse-credentials-username}
 ----
 
 . Enter the password relating to {enmasse}:
 +
 [subs="attributes+"]
 ----
-{messaging-password}
+{enmasse-credentials-password}
 ----
 
 . Set the value of *Check Certificates* to `Disable`.
