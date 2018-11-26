@@ -123,7 +123,7 @@ NOTE: Avoid choosing the similarly named *AMQP Message Broker*.
 +
 [subs="attributes+"]
 ----  
-tcp://{messaging-broker-url}:61616
+tcp://{amq-broker-url}:61616
 ----
 
 .. Enter the username relating to {enmasse}:
