@@ -547,34 +547,31 @@ class TaskPage extends React.Component {
               </Grid.Col>
               <Grid.Col sm={9} className="integr8ly-module-frame">
                 <div className="basic-tabs-pf">
-                  <TabContainer className="nav nav-tabs nav-tabs-pf" id="basic-tabs" defaultActiveKey={1}>
+                  <TabContainer id="basic-tabs" defaultActiveKey={1}>
                     <div>
-                      <Nav>
-                        <NavItem eventKey={1}>tab 1</NavItem>
-                        <NavItem eventKey={2}>tab 2</NavItem>
-                        <NavItem eventKey={3}>tab 3</NavItem>
+                      <Nav className="nav-tabs nav-tabs-pf">
+                        <NavItem eventKey={1}>Current App</NavItem>
+                        <NavItem eventKey={2}>Walkthrough Rescources</NavItem>
                       </Nav>
                       <TabContent animation>
-                        <TabPane eventKey={1}>Tab 1 content</TabPane>
-                        <TabPane eventKey={2}>Tab 2 content</TabPane>
-                        <TabPane eventKey={3}>Tab 3 content</TabPane>
+                        <TabPane eventKey={1}>
+                          <Iframe
+                            name="currentApp"
+                            className="integr8ly-iframe"
+                            display="initial"
+                            position="middle"
+                            height="90vh"
+                            allowFullScreen
+                          />
+                        </TabPane>
+                        <TabPane eventKey={2}>
+                          <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                          <img src="/images/st0.png" className="img-responsive" alt="integration" />
+                        </TabPane>
                       </TabContent>
                     </div>
                   </TabContainer>
                 </div>
-                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                {/* <TabContent>
-                  <TabPane eventKey={1}>
-                    <Iframe
-                      name="currentApp"
-                      styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
-                      display="initial"
-                      position="middle"
-                      allowFullScreen
-                    />
-                  </TabPane>
-                </TabContent> */}
               </Grid.Col>
             </Grid.Row>
           </Grid>
