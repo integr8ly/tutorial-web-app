@@ -68,8 +68,8 @@ const threadReducers = (state = initialState, action) => {
       return setStateProp(
         'manifest',
         {
-          error: action.error,
-          errorMessage: action.payload.message
+          error: action.payload.error,
+          errorMessage: action.payload.error.message
         },
         {
           state,
@@ -97,7 +97,7 @@ const threadReducers = (state = initialState, action) => {
         {
           pending: false,
           fulfilled: true,
-          data: action.payload.data
+          data: action.payload
         },
         {
           state,
