@@ -327,6 +327,7 @@ class TaskPage extends React.Component {
         this.getVerificationsForTask(threadTask)
       );
       const currentThreadProgress = this.getStoredProgressForCurrentTask();
+      const combinedResources = parsedThread.resources.concat(threadTask.resources);
       return (
         <React.Fragment>
           <Breadcrumb
@@ -445,8 +446,7 @@ class TaskPage extends React.Component {
               <Grid.Col sm={3} className="integr8ly-module-frame">
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <WalkthroughResources resources={parsedThread.resources} />
-                <WalkthroughResources resources={threadTask.resources} noHeadline />
+                <WalkthroughResources resources={combinedResources} />
               </Grid.Col>
             </Grid.Row>
           </Grid>
