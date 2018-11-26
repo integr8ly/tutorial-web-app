@@ -90,7 +90,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::creating-api-connector[]
 
-// tag::creating-amqp-connection-in-fuse[]
+// tag::creating-amq-connection-in-fuse[]
 
 // Module included in the following assemblies:
 //
@@ -98,9 +98,9 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 :enmasse: Red Hat AMQ Online
 
-[id='creating-amqp-connection-in-fuse_{context}']
+[id='creating-amq-connection-in-fuse_{context}']
 [.integr8ly-docs-header]
-=== Creating AMQP connection in Red Hat Fuse Online
+=== Creating AMQ connection in Red Hat Fuse Online
 
 To receive messages from EnMasse, you create a connection in Red Hat Fuse Online.
 
@@ -114,41 +114,40 @@ To receive messages from EnMasse, you create a connection in Red Hat Fuse Online
 
 . Select the *Create Connection* button to start the *Create Connection* wizard.
 
-. Select *AMQP* to configure an *AMQP Message Broker* connection.
+. When prompted with *Select Connector*, select *AMQ Message Broker*.
 
-. Enter the connection URI relating to {enmasse}:
+. When prompted with *AMQ Message Broker Configuration*:
+.. Enter the following into the *Broker URL* field:
 +
 [subs="attributes+"]
 ----  
-amqp://{amq-broker-url}:5672?amqp.saslMechanisms=PLAIN
+tcp://{messaging-broker-url}:61616
 ----
-
-. Enter the username relating to {enmasse}:
 +
 [subs="attributes+"]
 ----  
 {amq-credentials-username}
 ----
 
-. Enter the password relating to {enmasse}:
+.. Enter the password relating to {enmasse}:
 +
 [subs="attributes+"]
 ----
 {amq-credentials-password}
 ----
 
-. Set the value of *Check Certificates* to `Disable`.
+.. Select *Disable* from the *Check Certificates* list.
+.. Click *Validate*.
+.. Click *Next*.
 
-. Select the *Validate* button to check that the values are valid.
-
-. Click *Next* and enter a name for the connection, for example:
+. When prompted for *Add Connection Details*:
+.. Enter the following in the *Connection Name* field:
 +
 [subs="attributes+"]
 ----  
 Walkthrough {walkthrough-id} Messaging App
 ----
-
-. Click *Create*.
+.. Click *Create*.
 
 
 [type=verification]
