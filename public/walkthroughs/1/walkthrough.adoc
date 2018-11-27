@@ -67,7 +67,7 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 +
 [subs="attributes+"]
 ---- 
-http://{spring-boot-url}/v2/api-docs
+{route-crud-host}/v2/api-docs
 ----
 
 .. Click *Next*.
@@ -310,7 +310,7 @@ After setting up the integration between the Node.js and Spring Boot application
 :spring-url: http://spring-boot-rest-http-crud-spring-app.apps.city.openshiftworkshop.com/
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 
-. Navigate to the link:http://{node-js-url}[Node.js app, window="_blank"].
+. Navigate to the link:{route-frontend-host}[Node.js app, window="_blank"].
 
 . Enter a value for *Fruit*, for example:
 +
@@ -320,7 +320,7 @@ Pineapple
 
 . Click *Send Request*.
 
-. Navigate to the link:http://{spring-boot-url}[Spring Boot app, window="_blank"].
+. Navigate to the link:{route-crud-host}[Spring Boot app, window="_blank"].
 
 . Check that the entry from the Node.js app is displayed.
 
