@@ -66,7 +66,7 @@ class WalkthroughResources extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+        <h3 className="integr8ly-helpful-links-heading">Walkthrough Resources</h3>
         {this.props.resources.map((resource, i) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: resource.html }} />
         ))}
