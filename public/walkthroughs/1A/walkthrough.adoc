@@ -51,6 +51,10 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 :enmasse-url: https://console-enmasse.apps.city.openshiftworkshop.com/console/my-example-space
 // https://console-enmasse-my-example-space.apps.city.openshiftworkshop.com/#/dashboard
 
+
+:sectnums:
+
+
 == Creating Addresses
 :context: creating-connections
 
@@ -85,6 +89,13 @@ Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
 // end::task-creating-addresses[]
+
+
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
 
 
 [time=5]
@@ -250,6 +261,12 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::creating-amqp-connection-in-fuse[]
 
 
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
+
 
 [time=5]
 [id='creating-an-integration']
@@ -323,6 +340,12 @@ Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, wind
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::task-creating-fuse-integration[]
+
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
 
 
 
