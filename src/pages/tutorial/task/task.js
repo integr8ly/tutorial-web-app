@@ -339,7 +339,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate
                                     adoc={verification}
                                     attributes={Object.assign(
-                                      {},
+                                      { target },
                                       thread.data.attributes,
                                       step.attributes,
                                       this.getDocsAttributes()
@@ -385,7 +385,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate
                                     adoc={verification}
                                     attributes={Object.assign(
-                                      {},
+                                      { target },
                                       thread.data.attributes,
                                       step.attributes,
                                       this.getDocsAttributes()
@@ -429,7 +429,7 @@ class TaskPage extends React.Component {
                                     <AsciiDocTemplate
                                       adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
                                       attributes={Object.assign(
-                                        {},
+                                        { target },
                                         thread.data.attributes,
                                         step.attributes,
                                         this.getDocsAttributes()
@@ -556,6 +556,7 @@ class TaskPage extends React.Component {
                       <TabContent animation>
                         <TabPane eventKey={1}>
                           <Iframe
+                            url="/assets/contextView.html"
                             name="currentApp"
                             className="integr8ly-iframe"
                             display="initial"
