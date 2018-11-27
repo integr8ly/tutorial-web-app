@@ -76,7 +76,7 @@ class WalkthroughResources extends React.Component {
       resourceList = resources.map(resource => {
         console.log(resource);
         return (
-          <div key={resource.id}>
+          <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">
               {resource.statusIcon}
               &nbsp;

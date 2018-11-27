@@ -131,6 +131,11 @@
       border-left: var(--pf-global--BorderWidth--sm) solid;
       border-left-color: $pf-color-black-300;
 
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
       @media (max-width: var(--pf-global--breakpoint--md)) {
         display: none;
       }
