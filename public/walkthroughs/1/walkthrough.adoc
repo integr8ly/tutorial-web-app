@@ -10,6 +10,7 @@
 // Book Title
 = {walkthrough}
 
+
 //If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
 :context: integrating-eventdriven-and-apidriven-applications
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
@@ -40,6 +41,9 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 
 // end::master-1[]
 
+
+
+:sectnums:
 [time=5]
 [id='integrating-eventdriven-and-apidriven-applications']
 [id='creating-connections']
@@ -202,8 +206,11 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 // end::creating-http-connection[]
+:sectnums!:
 
+// Task resources go here
 
+:sectnums:
 
 [time=5]
 [id='creating-an-integration']
@@ -212,9 +219,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::task-creating-fuse-integration[]
 
-[id='creating-fuse-integration_{context}']
-[.integr8ly-docs-header]
-=== Creating an integration
 
 To use the Fuse connections, you create an integration in Red Hat Fuse Online.
 
@@ -278,6 +282,11 @@ Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, wind
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::task-creating-fuse-integration[]
 
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
 
 
 [time=5]
