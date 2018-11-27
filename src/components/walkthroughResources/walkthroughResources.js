@@ -5,22 +5,34 @@ import { connect } from '../../redux';
 import { getDashboardUrl } from '../../common/serviceInstanceHelpers';
 
 class WalkthroughResources extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resourceList: null
+    };
+  }
+
+  componentDidMount() {
+    this.buildResourcesList();
+  }
+
   mapServiceLinks() {
     const { resources, middlewareServices } = this.props;
     if (resources.length !== 0) {
       return resources.map(resource => {
-        let url = '';
+        if (!resource.serviceName) {
+          return resource;
+        }
+
         let gaStatus = '';
         let icon = '';
         const app = middlewareServices.data[resource.serviceName];
 
         if (resource.serviceName === 'openshift') {
-          url = `${window.OPENSHIFT_CONFIG.masterUri}/console`;
           gaStatus = '';
           icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
-          url = getDashboardUrl(app);
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {
@@ -33,12 +45,6 @@ class WalkthroughResources extends React.Component {
 
         resource.gaStatus = gaStatus;
         resource.statusIcon = icon;
-
-        resource.links.forEach(link => {
-          if (link.type === 'console') {
-            link.url = url;
-          }
-        });
         return resource;
       });
     }
@@ -63,13 +69,43 @@ class WalkthroughResources extends React.Component {
     return provisioningStatus;
   }
 
+  buildResourcesList() {
+    const resources = this.mapServiceLinks();
+    let resourceList = null;
+    if (resources && resources.length > 0) {
+      resourceList = resources.map(resource => {
+        console.log(resource);
+        return (
+          <div key={resource.id}>
+            <h4 className="integr8ly-helpful-links-product-title">
+              {resource.statusIcon}
+              &nbsp;
+              {resource.title}
+              &nbsp;
+              {resource.gaStatus === 'community' ? (
+                <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+              ) : (
+                <span />
+              )}
+              {resource.gaStatus === 'preview' ? (
+                <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+              ) : (
+                <span />
+              )}
+            </h4>
+            <div className="list-unstyled" dangerouslySetInnerHTML={{ __html: resource.html }} />
+          </div>
+        );
+      });
+    }
+    this.setState({ resourceList });
+  }
+
   render() {
     return (
       <div>
         <h3 className="integr8ly-helpful-links-heading">Walkthrough Resources</h3>
-        {this.props.resources.map((resource, i) => (
-          <div key={i} dangerouslySetInnerHTML={{ __html: resource.html }} />
-        ))}
+        {this.state.resourceList}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
       </div>
     );

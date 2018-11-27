@@ -170,12 +170,27 @@ class WalkthroughStep {
 }
 
 class WalkthroughResourceStep {
-  constructor(html) {
+  constructor(html, service, id, title) {
     this._html = html;
+    this._serviceName = service;
+    this._id = id;
+    this._title = title;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get html() {
     return this._html;
+  }
+
+  get serviceName() {
+    return this._serviceName;
   }
 
   static canConvert(adoc) {
@@ -187,29 +202,56 @@ class WalkthroughResourceStep {
   }
 
   static fromAdoc(adoc) {
-    return new WalkthroughResourceStep(adoc.convert());
+    const service = adoc.getAttribute('serviceName');
+    const { id, title } = adoc;
+    const html = adoc.blocks[0] ? adoc.blocks[0].convert() : '';
+    return new WalkthroughResourceStep(html, service, id, title);
   }
 }
 
 class WalkthroughResource {
-  constructor(html) {
+  constructor(html, service, id, title) {
     this._html = html;
+    this._serviceName = service;
+    this._id = id;
+    this._title = title;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get html() {
     return this._html;
   }
 
+  get serviceName() {
+    return this._serviceName;
+  }
+
   static canConvert(adoc) {
-    return (
+    const result = (
       adoc.context === CONTEXT_SECTION &&
       adoc.level === BLOCK_LEVEL_STEP &&
       adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_WALKTHROUGH_RESOURCE
     );
+
+    if (result) {
+      console.log('--- a walkthrough resource');
+      console.log(adoc);
+    }
+    return result;
   }
 
   static fromAdoc(adoc) {
-    return new WalkthroughResource(adoc.convert());
+    const service = adoc.getAttribute('serviceName');
+    const { id, title } = adoc;
+    const html = adoc.blocks[0] ? adoc.blocks[0].convert() : '';
+    return new WalkthroughResource(html, service, id, title);
   }
 }
 
