@@ -1,20 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
-<title>Contextual Viewport</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.37.10/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.37.10/css/patternfly-additions.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>Contextual Viewport</title>
+    <style>
+      body {
+        font-size: 16px;
+      }
 
-<body>
-<div class="container">
-When you click a link in the walkthrough, it loads in this panel.  Supplemental walkthrough resources are avaiable in another tab.
-</div>
+      h1 {
+        font-size: 36px;
+      }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
-</body>
+      .integr8ly-blank-slate {
+        background-color: transparent;
+        border: none;
+      }
 
+      .integr8ly-inner-icon {
+        position: relative;
+        top: -5px;
+        font-size: 3.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="blank-slate-pf integr8ly-blank-slate">
+        <div class="blank-slate-pf-icon">
+          <span class="fa-stack">
+            <i class="fas fa-columns fa-stack-1x"></i>
+            <i class="fas fa-long-arrow-alt-right integr8ly-inner-icon"></i>
+          </span>
+        </div>
+        <h1>
+          Contextual viewport
+        </h1>
+        <p>
+          When you click a link the walkthrough, it loads in this panel.
+        </p>
+        <p>
+          Supplemental walkthrough resources are available in another tab.
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.37.10/js/patternfly.min.js"></script>
+  </body>
 </html>
