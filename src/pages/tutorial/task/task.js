@@ -72,6 +72,7 @@ class TaskPage extends React.Component {
     const {
       updateWalkthroughProgress,
       threadProgress,
+      thread: { data },
       match: {
         params: { id, task }
       }
@@ -87,6 +88,13 @@ class TaskPage extends React.Component {
     const newCurrentProgress = Object.assign({}, oldProgress[id][task] || {}, verificationState);
     oldProgress[id][task] = newCurrentProgress;
 
+    const totalSteps = this.getTotalSteps(data);
+    const completedSteps = this.getCompletedSteps(oldProgress[id]);
+
+    // `progress` and `task` are used on the dashboard to let the user jump directly to
+    // the last task they worked on
+    oldProgress[id].progress = Math.floor((completedSteps / totalSteps) * 100);
+    oldProgress[id].task = task;
     updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
@@ -109,16 +117,19 @@ class TaskPage extends React.Component {
     return verificationIds;
   };
 
-  getTotalSteps = tasks => {
-    let totalSteps = 0;
-    tasks.forEach(task => {
-      task.steps.forEach(step => {
-        if (step.infoVerifications) {
-          totalSteps++;
-        }
-      });
-    });
-    return totalSteps;
+  // Returns the total steps that a walkthrough has. The number of steps is defined by the
+  // number of verifications it has. Because we only parse the actual walkthrough in render
+  // we have to rely on a regular expression to get the number of verification annotations
+  getTotalSteps = data => (data.match(/\[type=verification]/g) || []).length;
+
+  // Iterates through the threadProgress object and count every `true` value on every task
+  getCompletedSteps = threadProgress => {
+    // We need to filter `progress` and `task` because they are appended to the same object
+    const stepProgress = Object.keys(threadProgress).filter(s => s !== 'progress' && s !== 'task');
+    return stepProgress.reduce((acc, step) => {
+      const successfulVerifications = Object.values(threadProgress[step]).filter(s => s).length;
+      return acc + successfulVerifications;
+    }, 0);
   };
 
   docsAttributesProgress = attrs => {

@@ -24,7 +24,7 @@ class LandingPage extends React.Component {
           <section className="integr8ly-landing-page-tutorial-dashboard-section">
             <TutorialDashboard
               className="integr8ly-landing-page-tutorial-dashboard-section-left"
-              userProgress={user.userProgress.threads}
+              userProgress={user.userProgress}
               walkthroughs={walkthroughServices.data}
             />
             <InstalledAppsView
