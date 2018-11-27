@@ -170,12 +170,22 @@ class WalkthroughStep {
 }
 
 class WalkthroughResourceStep {
-  constructor(html) {
+  constructor(html, service, title) {
     this._html = html;
+    this._serviceName = service;
+    this._title = title;
+  }
+
+  get title() {
+    return this._title;
   }
 
   get html() {
     return this._html;
+  }
+
+  get serviceName() {
+    return this._serviceName;
   }
 
   static canConvert(adoc) {
@@ -187,17 +197,29 @@ class WalkthroughResourceStep {
   }
 
   static fromAdoc(adoc) {
-    return new WalkthroughResourceStep(adoc.convert());
+    const service = adoc.getAttribute('serviceName');
+    const html = adoc.blocks[0] ? adoc.blocks[0].convert() : '';
+    return new WalkthroughResourceStep(html, service, adoc.title);
   }
 }
 
 class WalkthroughResource {
-  constructor(html) {
+  constructor(html, service, title) {
     this._html = html;
+    this._serviceName = service;
+    this._title = title;
+  }
+
+  get title() {
+    return this._title;
   }
 
   get html() {
     return this._html;
+  }
+
+  get serviceName() {
+    return this._serviceName;
   }
 
   static canConvert(adoc) {
@@ -209,7 +231,9 @@ class WalkthroughResource {
   }
 
   static fromAdoc(adoc) {
-    return new WalkthroughResource(adoc.convert());
+    const service = adoc.getAttribute('serviceName');
+    const html = adoc.blocks[0] ? adoc.blocks[0].convert() : '';
+    return new WalkthroughResource(html, service, adoc.title);
   }
 }
 

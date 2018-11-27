@@ -33,25 +33,25 @@ This walkthrough describes how to create such an integration, using OpenShift, {
 <img src="/images/wt2.png" class="img-responsive" alt="integration">
 ++++
 
-[type=walkthroughResource]
+[type=walkthroughResource,serviceName=openshift]
 === Red Hat OpenShift
 * link:{openshift-host}/console[Open Console]
 * link:https://help.openshift.com/[Openshift Online Help Center]
 * link:https://blog.openshift.com/[Openshift Blog]
 
-[type=walkthroughResource]
+[type=walkthroughResource,serviceName=launcher]
 === Launcher
 * link:{launcher-url}[Open Console]
 * link:https://developers.redhat.com/products/openshiftio/overview/[Launcher Overview]
 * link:https://launcher.fabric8.io/docs/[Launcher Documentation]
 
-[type=walkthroughResource]
+[type=walkthroughResource,serviceName=che]
 === Eclipse Che
 * link:{che-url}[Open Console]
 * link:https://developers.redhat.com/products/che/overview/[Eclipse Che Overview]
 * link:https://www.eclipse.org/che/docs/index.html[Eclipse Che Documentation]
 
-[type=walkthroughResource]
+[type=walkthroughResource,serviceName=3scale]
 === 3Scale
 * link:{api-management-url}[Open Console]
 * link:https://developers.redhat.com/products/3scale/overview/[3Scale Overview]

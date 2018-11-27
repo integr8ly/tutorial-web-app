@@ -1,4 +1,11 @@
 .integr8ly-helpful {
+  &-resources-list {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+  }
+
   &-links {
     position: fixed;
     top: 0;
