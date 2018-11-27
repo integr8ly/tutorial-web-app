@@ -57,6 +57,8 @@ This walkthrough describes how to create such an integration, using OpenShift, {
 * link:https://developers.redhat.com/products/3scale/overview/[3Scale Overview]
 * link:https://www.3scale.net[3Scale Website]
 
+:sectnums:
+
 [time=5]
 == Deploying the Fuse Aggregation App
 
@@ -107,6 +109,12 @@ The Fuse Aggregation App provides information about flights, you deploy it using
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
+
 [time=10]
 == Modifying the Fuse Aggregation App
 
@@ -114,7 +122,7 @@ Modify the Fuse Aggregation App to aggregate flights data from the Arrivals & De
 
 [id='modifying-fuse-aggregation-app_{context}']
 [.integr8ly-docs-header]
-=== 2.1 Modifying the Fuse Aggregation App
+=== Modifying the Fuse Aggregation App
 
 
 // TODO placeholders for product names
@@ -165,11 +173,17 @@ After waiting for the build and depoyment to complete, check that link:https://{
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
+
 
 [time=15]
 == Managing the Fuse Aggregation App endpoint
 
-=== 3.1 API Management Login
+=== API Management Login
 
 // TODO service & url placeholders
 . Open the link:{api-management-url}[{3Scale-ProductName} Login screen, window="_blank"].
@@ -184,7 +198,7 @@ Make sure you can see the {3Scale-ProductName} Dashboard and can navigate the ma
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== 3.2 Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
+=== Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
 
 . Select the *API* menu item from the top of the screen.
 
@@ -233,7 +247,7 @@ You might encounter a *403: Authentication failed* message. You can ignore this 
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== 3.3 Setting Fuse Aggregation App Endpoint Limits
+=== Setting Fuse Aggregation App Endpoint Limits
 
 . Create a new *Application Plan*:
 .. Select *Application Plans* from the left menu.
@@ -299,7 +313,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 [id='fuse-aggregation-app-endpoint-activedocs_{context}']
 [.integr8ly-docs-header]
-=== 3.4 Create a new ActiveDocs Service
+=== Create a new ActiveDocs Service
 
 . Select the *APIs* menu item at the top to return to the *APIs* Overview page.
 
@@ -461,10 +475,16 @@ The *Airport Flights REST API* ActiveDoc is created and has a *List all flights*
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
+:sectnums!:
+
+// Task resources go here
+
+:sectnums:
+
 [time=30]
 == Calling Fuse Aggregation App endpoint
 
-=== 4.1 Checking the API Service is protected
+=== Checking the API Service is protected
 
 . From the *ActiveDocs* page for the *{fuse-aggregator-app-name}* Application, expand the *GET /flights* endpoint.
 . Leave the *user_key* field empty.
@@ -482,7 +502,7 @@ Check that {3Scale-ProductName} is rejecting the request, as there is no `user_k
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== 4.2 Validating access to the API Service
+=== Validating access to the API Service
 
 . In the *user_key* field, enter:
 +
@@ -504,7 +524,7 @@ Check that:
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== 4.3 Verifying access to the API Service is limited
+=== Verifying access to the API Service is limited
 
 . In the *user_key* field, enter:
 +
@@ -528,7 +548,7 @@ Check that the following is displayed:
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== 4.4 Monitoring the API Service
+=== Monitoring the API Service
 
 . Select the *Analytics* tab from the top menu.
 . Select *{fuse-aggregator-app-name}* from the *Monitoring* section.
