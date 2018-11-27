@@ -1,5 +1,8 @@
 .integr8ly-installed-apps-view {
+  height: 100vh;
   margin-bottom: 0;
+  border-bottom: 0;
+  box-shadow: none;
 
   @media (max-width: 1091px) {
     width: 100%;
@@ -14,7 +17,7 @@
 
     & h1 {
       flex-basis: 70%;
-      margin-top: 5px;
+      margin-top: 9px;
       color: $pf-color-black-800;
     }
 

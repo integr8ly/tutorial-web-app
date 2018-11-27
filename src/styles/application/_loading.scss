@@ -1,18 +1,96 @@
 .integr8ly-loadingscreen {
   display: flex;
   flex-direction: column;
-  height: 0;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
 
-  &-backdrop {
+  --integr8ly-c-loading-image--BackgroundImage--xs: url("#{$pf-global--image-path}/loading_576.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--xs-2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--sm: url("#{$pf-global--image-path}/loading_768.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/loading_768@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--md: url("#{$pf-global--image-path}/loading_992.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--md-2x: url("#{$pf-global--image-path}/loading_992@2x.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--lg: url("#{$pf-global--image-path}/loading_1200.jpg");
+  --integr8ly-c-loading-image--BackgroundImage--xl: url("#{$pf-global--image-path}/loading_2000.jpg");
+
+  &::before {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    content: "";
+    background-color: $pf-color-blue-600;
+    background-image: var(--integr8ly-c-loading-image--BackgroundImage--xs);
+    filter: var(--pf-c-background-image--Filter);
+    background-repeat: no-repeat;
     background-size: cover;
-    background-color: var(--pf-global--info-color--200);
-    background-image: url("../../img/provisioning-bg.png");
+
+    /* stylelint-disable */
+    @media (max-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
+      (max-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--xs-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--sm) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--sm);
+    }
+
+    @media (min-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--sm-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--md) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--md);
+    }
+
+    @media (min-width: $pf-global--breakpoint--md) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--md) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--md-2x);
+    }
+
+    @media (min-width: $pf-global--breakpoint--lg) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--lg);
+    }
+
+    @media (min-width: $pf-global--breakpoint--lg) and (-webkit-min-device-pixel-ratio: 2),
+      (min-width: $pf-global--breakpoint--lg) and (min-resolution: 192dpi) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--xl);
+    }
+    /* stylelint-enable */
+
+    @media (min-width: $pf-global--breakpoint--xl) {
+      background-image: var(--integr8ly-c-loading-image--BackgroundImage--xl);
+    }
+  }
+
+  &-spacer {
     z-index: 5;
+
+    @media (max-width: $pf-global--breakpoint--sm), (max-height: 550px) { // set height at max-width of 576px OR max-height of 550px
+      min-height: auto;
+    }
+  }
+
+  &-throbber {
+    min-height: 380px;
+    min-width: 464px;
+
+    @media (max-width: $pf-global--breakpoint--sm), (max-height: 550px) { // set display: none at max-width of 576px OR max-height of 550px
+      display: none;
+    }
+  }
+
+  &-throbber-static {
+    height: 380px;
+    width: 465px;
   }
 
   &-logo {
@@ -25,11 +103,6 @@
     background-image: url("../../img/RedHatLogo.png");
   }
 
-  &-throbber {
-    margin-top: 75px;
-    z-index: 5;
-  }
-
   &-text {
     color: $pf-color-white;
     text-align: center;
@@ -38,9 +111,7 @@
 
   &-progress {
     display: flex;
-    justify-content: center;
     width: 65%;
-    margin: 0 auto;
     z-index: 5;
   }
 

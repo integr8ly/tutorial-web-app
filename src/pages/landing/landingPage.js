@@ -20,18 +20,20 @@ class LandingPage extends React.Component {
       <div>
         <PfMasthead />
         <LandingPageMastHead />
-        <section className="integr8ly-landing-page-tutorial-dashboard-section">
-          <TutorialDashboard
-            className="integr8ly-landing-page-tutorial-dashboard-section-left"
-            userProgress={user.userProgress.threads}
-            walkthroughs={walkthroughServices.data.threads}
-          />
-          <InstalledAppsView
-            className="integr8ly-landing-page-tutorial-dashboard-section-right"
-            apps={Object.values(middlewareServices.data)}
-            customApps={middlewareServices.customServices}
-          />
-        </section>
+        <main>
+          <section className="integr8ly-landing-page-tutorial-dashboard-section">
+            <TutorialDashboard
+              className="integr8ly-landing-page-tutorial-dashboard-section-left"
+              userProgress={user.userProgress.threads}
+              walkthroughs={walkthroughServices.data.threads}
+            />
+            <InstalledAppsView
+              className="integr8ly-landing-page-tutorial-dashboard-section-right"
+              apps={Object.values(middlewareServices.data)}
+              customApps={middlewareServices.customServices}
+            />
+          </section>
+        </main>
       </div>
     );
   }

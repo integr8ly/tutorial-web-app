@@ -3,7 +3,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import Iframe from 'react-iframe';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import {
+  noop,
+  Button,
+  ButtonGroup,
+  Grid,
+  Icon,
+  Radio,
+  TabContainer,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem
+} from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -327,7 +339,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate
                                     adoc={verification}
                                     attributes={Object.assign(
-                                      {},
+                                      { target },
                                       thread.data.attributes,
                                       step.attributes,
                                       this.getDocsAttributes()
@@ -373,7 +385,7 @@ class TaskPage extends React.Component {
                                   <AsciiDocTemplate
                                     adoc={verification}
                                     attributes={Object.assign(
-                                      {},
+                                      { target },
                                       thread.data.attributes,
                                       step.attributes,
                                       this.getDocsAttributes()
@@ -417,7 +429,7 @@ class TaskPage extends React.Component {
                                     <AsciiDocTemplate
                                       adoc={step.infoVerificationsNo ? step.infoVerificationsNo[0] : null}
                                       attributes={Object.assign(
-                                        {},
+                                        { target },
                                         thread.data.attributes,
                                         step.attributes,
                                         this.getDocsAttributes()
@@ -466,15 +478,15 @@ class TaskPage extends React.Component {
                             step.infoVerifications.map(
                               (verification, v) =>
                                 verifications[step.infoVerifications[0]] === undefined ? (
-                                  <span className="far integr8ly-module-column--footer_status" key={v}>
+                                  <span className="integr8ly-module-column--footer_status" key={v}>
                                     {task + 1}.{l + 1}
                                   </span>
                                 ) : (
                                   <span
                                     className={
                                       verifications[step.infoVerifications[0]]
-                                        ? 'far integr8ly-module-column--footer_status-checked'
-                                        : 'far integr8ly-module-column--footer_status-unchecked'
+                                        ? 'integr8ly-module-column--footer_status-checked'
+                                        : 'integr8ly-module-column--footer_status-unchecked'
                                     }
                                     key={v}
                                   >
@@ -534,15 +546,33 @@ class TaskPage extends React.Component {
                 </div>
               </Grid.Col>
               <Grid.Col sm={9} className="integr8ly-module-frame">
-                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <Iframe
-                  name="currentApp"
-                  styles={{ padding: '5px', 'padding-top': '20px', width: '100%', height: '99%' }}
-                  display="initial"
-                  position="middle"
-                  allowFullScreen
-                />
+                <div className="basic-tabs-pf">
+                  <TabContainer id="basic-tabs" defaultActiveKey={1}>
+                    <div>
+                      <Nav className="nav-tabs nav-tabs-pf">
+                        <NavItem eventKey={1}>Current App</NavItem>
+                        <NavItem eventKey={2}>Walkthrough Rescources</NavItem>
+                      </Nav>
+                      <TabContent animation>
+                        <TabPane eventKey={1}>
+                          <Iframe
+                            url="/assets/contextView.html"
+                            name="currentApp"
+                            className="integr8ly-iframe"
+                            display="initial"
+                            position="middle"
+                            height="90vh"
+                            allowFullScreen
+                          />
+                        </TabPane>
+                        <TabPane eventKey={2}>
+                          <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                          <img src="/images/st0.png" className="img-responsive" alt="integration" />
+                        </TabPane>
+                      </TabContent>
+                    </div>
+                  </TabContainer>
+                </div>
               </Grid.Col>
             </Grid.Row>
           </Grid>
