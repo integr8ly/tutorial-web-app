@@ -7,7 +7,7 @@ const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
   const cards = [];
   walkthroughs.map((walkthrough, i) => {
-    const currentProgress = userProgress.find(thread => thread.threadId === walkthrough.id);
+    const currentProgress = userProgress[walkthrough.id];
     let startedText;
     if (currentProgress === undefined) startedText = 'Get Started';
     else if (currentProgress.progress === 100) startedText = 'Completed';
@@ -73,12 +73,12 @@ const TutorialDashboard = props => {
 };
 
 TutorialDashboard.propTypes = {
-  userProgress: PropTypes.array,
+  userProgress: PropTypes.object,
   walkthroughs: PropTypes.array
 };
 
 TutorialDashboard.defaultProps = {
-  userProgress: [],
+  userProgress: {},
   walkthroughs: []
 };
 
