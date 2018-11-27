@@ -79,7 +79,10 @@ function loadCustomWalkthroughs(walkthroughsPath) {
           process.exit(1);
         }
         const loadedAdoc = adoc.load(rawAdoc);
-        walkthroughs.push(getWalkthroughInfoFromAdoc(dirName, loadedAdoc));
+        // Don't show example walkthrough by default
+        if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
+          walkthroughs.push(getWalkthroughInfoFromAdoc(dirName, loadedAdoc));
+        }
       });
     });
   });
