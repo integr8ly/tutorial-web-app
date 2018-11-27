@@ -217,6 +217,11 @@ Verify that you followed each step in the procedure above.  If you are still hav
 == Creating an integration
 :context: creating-an-integration
 
+
+[.integr8ly-docs-header]
+=== Creating an integration
+
+
 // end::task-creating-fuse-integration[]
 
 
