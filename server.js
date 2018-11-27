@@ -72,6 +72,10 @@ app.get('/customConfig', (req, res) => {
 
 function loadCustomWalkthroughs(walkthroughsPath) {
   fs.readdir(walkthroughsPath, (err, files) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
     files.forEach((dirName) => {
       fs.readFile(`./public/walkthroughs/${dirName}/walkthrough.adoc`, (err, rawAdoc) => {
         if(err) {
@@ -193,7 +197,7 @@ function getConfigData(req) {
   };`
 }
 
-function getWalkthroughInfoFromAdoc(dirName, adoc, json) {
+function getWalkthroughInfoFromAdoc(dirName, adoc) {
   
   // Retrieve the short description. There must be a gap between the document title and the short description.
   // Otherwise it's counted as the author field. For example, see this adoc file:
