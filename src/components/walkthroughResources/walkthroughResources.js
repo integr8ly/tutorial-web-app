@@ -92,7 +92,7 @@ class WalkthroughResources extends React.Component {
                 <span />
               )}
             </h4>
-            <div className="list-unstyled" dangerouslySetInnerHTML={{ __html: resource.html }} />
+            <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
           </div>
         );
       });
