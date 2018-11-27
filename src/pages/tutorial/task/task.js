@@ -88,13 +88,14 @@ class TaskPage extends React.Component {
     const newCurrentProgress = Object.assign({}, oldProgress[id][task] || {}, verificationState);
     oldProgress[id][task] = newCurrentProgress;
 
+    // Update progress if the walkthrough has at least one step
     const totalSteps = this.getTotalSteps(data);
-    const completedSteps = this.getCompletedSteps(oldProgress[id]);
+    if (totalSteps > 0) {
+      const completedSteps = this.getCompletedSteps(oldProgress[id]);
+      oldProgress[id].progress = Math.floor((completedSteps / totalSteps) * 100);
+      oldProgress[id].task = task;
+    }
 
-    // `progress` and `task` are used on the dashboard to let the user jump directly to
-    // the last task they worked on
-    oldProgress[id].progress = Math.floor((completedSteps / totalSteps) * 100);
-    oldProgress[id].task = task;
     updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
