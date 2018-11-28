@@ -1,11 +1,47 @@
 = A custom walkthrough
 
-This is the first sentence of the walkthrough's preamble. It will be used as the
-short description for the walkthrough.
+The first sentence is used as the short description for the walkthrough.
 
-These lines will be included in the long description of the walkthrough. Normally
-this content will be shown on the overview page for a walkthough. However, it is
-excluded from the short description.
+----
+= Demonstrating a custom walkthrough // <1>
+
+A short description for the walkthrough. // <2>
+
+But this text is displayed on the {intro} page.
+
+== Doing a task <3>
+
+This is the overview for the first task in the walkthrough.
+
+=== Doing a step <4>
+
+. Do this first: <5>
+. Do this second: <5>
+
+[type=verification] <6>
+****
+This block will render as a verification box with a yes/no checkbox.
+
+. Check this thing.
+. Check that thing.
+****
+
+=== Doing a second step
+
+. Do first item.
+
+[type=verification]
+Notice that a single line verification does not require `****`.
+
+[type=verificationFail]
+If you have a workaround, put it here.
+
+[start=2]
+. Do third item.
+----
+
+<1> The walkthrough title
+
 
 To start a task we need to use a h2 heading.
 
