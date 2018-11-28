@@ -1,18 +1,25 @@
 ## Description
-Add a brief and meaningful description.
+<!-- Add a brief and meaningful description. -->
 
 ## Expected Behavior
+<!-- Describe the expected behaviour. -->
 
 ## Actual Behavior
+<!-- Describe the current/actual behaviour. -->
 
-## Steps to Reproduce
-1.
-2.
+## Environment
 
-## Specifications
-  - Browser:
-  - Browser version:
-  - OS: 
+* Operating system: (E.g RHEL 7.6 )
+* Browser and version: (E.g Google Chrome Version 70.0.3538.102 (Official Build) (64-bit))
+* OpenShift version:
+<!-- Run the command `oc version` and add the result here. -->
+* Yarn version:
+<!-- Run the command `yarn --version` and add the result here. -->
+* Node version:
+<!-- Run the command `node -v` and add the result here. -->
+* Npm version:
+<!-- Run the command `npm -v` and add the result here. -->
+* Project Version/Tag: (E.g release-1.0.1)
 
-## Additional Notes
-PS.: Add images and/or .gifs to illustrate the issue
+## Steps to reproduce
+<!-- Describe all steps and pre-requirements which are required to be performed in order to reproduce this scenario. ( E.g 1. Action, 2. Action ... ) -->

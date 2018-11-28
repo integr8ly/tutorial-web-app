@@ -1,6 +1,9 @@
 .integr8ly-tutorial-dashboard {
+  height: 100vh;
   margin-bottom: 0;
   background-color: $pf-color-black-150;
+  border: 0;
+  box-shadow: none;
 
   @media (max-width: 1091px) {
     width: 100%;

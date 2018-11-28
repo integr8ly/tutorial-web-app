@@ -37,9 +37,6 @@ class CongratulationsPage extends React.Component {
                 </p>
                 <div className="integr8ly-congratulations_buttons">
                   <Button onClick={e => this.exitTutorial(e)}>Return to Home Page</Button>
-                  <Button onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}>
-                    Launch OpenShift Console
-                  </Button>
                 </div>
               </div>
             </div>

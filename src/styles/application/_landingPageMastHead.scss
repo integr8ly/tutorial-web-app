@@ -1,14 +1,25 @@
 .integr8ly-landing-page {
   &-masthead {
-    background-image: url("../../img/Web_RH_Banner.png");
-    background-color: var(--pf-global--BackgroundColor--dark-100);
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: cover;
+    display: flex;
     height: 130px;
     width: 100%;
     margin: auto 0;
-    display: flex;
+    background-color: $pf-color-blue-600;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+
+    // replace this image name with the desired image
+    // only for use with single-size images
+    $integr8ly-banner-image: "Web_RH_Banner.png";
+
+    --integr8ly-c-masthead-image--BackgroundImage--md: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
+
+    /* stylelint-disable */
+    @media (min-width: $pf-global--breakpoint--md) {
+      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--md);
+    }
+    /* stylelint-enable */
 
     &::after {
       background-image: url("../../img/RedHatLogo.png");

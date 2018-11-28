@@ -24,7 +24,7 @@ To route messages to the Spring Boot app, you create an address in EnMasse.
 // end::intro[]
 endif::location[]
 
-. Log into link:{messaging-url}[EnMasse, window="_blank"] by selecting the *OpenShift* button on the log in screen and accepting the permissions request.
+. Log into link:{messaging-url}[EnMasse, window="_blank"].
 . Select *Addresses* from the left hand menu.
 
 . Create a *requests* address:
@@ -33,10 +33,10 @@ endif::location[]
 +
 [subs="attributes+"]
 ---- 
-work-queue/requests
+work-queue-requests
 ----
 .. Select *queue* as the type and click *Next*.
-.. Select *Pooled Queue* as the address plan and click *Next*.
+.. Select *Small Queue* as the address plan and click *Next*.
 .. Select *Create* to complete the wizard.
 
 After the address is created a green check mark is displayed.

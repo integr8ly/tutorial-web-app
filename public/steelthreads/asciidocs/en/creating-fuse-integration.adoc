@@ -109,7 +109,7 @@ Walkthrough {walkthrough-id} Messaging App
 +
 [subs="attributes+"]
 ----
-work-queue/requests
+work-queue-requests
 ----
 
 . Choose *Queue* as the *Destination Type* and click *Next*.

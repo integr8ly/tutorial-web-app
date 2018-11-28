@@ -77,7 +77,7 @@ function buildProvisioningScreen(WrappedComponent) {
     }
 
     static loadingScreen(services, servicesToProvision) {
-      const provisionProgress = Provisioning.getMiddlwareServiceProgress(services, servicesToProvision);
+      const provisionProgress = Math.ceil(Provisioning.getMiddlwareServiceProgress(services, servicesToProvision));
       return (
         <div className="integr8ly-loadingscreen">
           <div className="integr8ly-loadingscreen-backdrop">
