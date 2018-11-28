@@ -11,7 +11,7 @@ $pf-global--image-path: "/assets/images" !default;
 $img-path: "~patternfly/dist/img/";
 
 // PatternFly 4
-@import "application/fonts";
+// @import "application/fonts";
 @import "application/pf4Import";
 
 // Font Awesome 5 icons
@@ -49,9 +49,8 @@ $img-path: "~patternfly/dist/img/";
 
 /*!
 **
-** The following images are licensed under XXXX with attribution
+** The following images are licensed with attribution
 **
 ** assets/images/provisioning.jpg
-** by Adam
 **
 */
