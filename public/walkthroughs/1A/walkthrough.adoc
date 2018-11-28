@@ -1,5 +1,5 @@
 // tag::master-1A[]
-:walkthrough: Integrating event-driven and API-driven applications (AMQ)
+:walkthrough: Integrating event-driven and API-driven applications (EnMasse)
 :fuse-version: 7.2
 :messaging-service: EnMasse
 
