@@ -83,7 +83,7 @@ work-queue-requests
 After the address is created a green check mark is displayed.
 
 [type=verification]
-Check the *Addresses* screen of the link:{messaging-url}[EnMasse, window="_blank"] console to make sure the newly created address exists.
+Check the *Addresses* screen of the link:{enmasse-url}[EnMasse, window="_blank"] console to make sure the newly created address exists.
 
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
