@@ -154,9 +154,6 @@ Verify that you followed each step in the procedure above.  If you are still hav
 //
 // <List assemblies here, each on a new line>
 
-:enmasse: Red Hat AMQ Online
-
-
 // tag::creating-http-connection[]
 
 [id='creating-http-connection-in-fuse_{context}']
@@ -204,6 +201,7 @@ To receive messages from EnMasse, you create a connection in Red Hat Fuse Online
 
 :fuse-url: https://eval.apps.city.openshiftworkshop.com/
 :openshift-url: https://master.city.openshiftworkshop.com/console/project/eval/overview
+:enmasse: EnMasse
 
 . Log in to the link:{fuse-url}[Red Hat Fuse Online, window="_blank"] console.
 

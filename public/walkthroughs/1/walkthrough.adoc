@@ -42,7 +42,6 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 // end::master-1[]
 
 
-
 :sectnums:
 [time=5]
 [id='integrating-eventdriven-and-apidriven-applications']
