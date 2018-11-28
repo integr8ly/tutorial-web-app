@@ -123,7 +123,7 @@ class TutorialPage extends React.Component {
                   {parsedThread.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}
-                      heading={`${i + 1}. ${task.title}`}
+                      heading={`${task.title}`}
                       description={task.shortDescription}
                       actions={
                         <div className="integr8ly-task-dashboard-estimated-time">
