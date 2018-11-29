@@ -40,6 +40,25 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 
 // end::master-1[]
 
+
+[type=walkthroughResource]
+=== Fuse Online
+
+* link:{fuse-url}[Console]
+
+[type=walkthroughResource]
+=== AMQ
+
+* link:{amq-url}[Management Console]
+
+[type=walkthroughResource]
+=== Red Hat OpenShift
+
+* link:{openshift-host}/console[Console]
+
+
+
+
 // tag:task-creating-addresses.adoc[]
 
 [time=6]
@@ -91,11 +110,11 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::task-creating-addresses[]
 
 
-:sectnums!:
 
-// Task resources go here
+[type=taskResource]
+=== Task Resources
 
-:sectnums:
+* link:http://enmasse.io/documentation/openshift/master/#create-address-console-messaging[Creating addresses using the EnMasse Console]
 
 
 [time=5]
@@ -258,13 +277,13 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 // end::creating-amqp-connection-in-fuse[]
 
+[type=taskResource]
+=== Task Resources
 
-:sectnums!:
-
-// Task resources go here
-
-:sectnums:
-
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/high-level-overview[High level overview of Fuse Online]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/connecting-to-applications#about-creating-connections[About creating connections from Fuse Online to applications]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html-single/connecting_fuse_online_to_applications_and_services/#supported-connectors[Connectors that are supported by Fuse Online]
+* link:https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol[About AMQP]
 
 [time=5]
 [id='creating-an-integration']
@@ -339,11 +358,13 @@ Check the *Integrations* screen of the link:{fuse-url}[Red Hat Fuse Online, wind
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 // end::task-creating-fuse-integration[]
 
-:sectnums!:
 
-// Task resources go here
+[type=taskResource]
+=== Task Resources
 
-:sectnums:
+* https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/creating-integrations[Creating integrations]
+
+
 
 
 
@@ -394,3 +415,9 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 
 // end::task-using-integration[]
+
+[type=taskResource]
+=== Task Resources
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/html/integrating_applications_with_fuse_online/managing-integrations[Managing and monitoring integrations]
+* link:https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse-version}/[Fuse documentation set]
