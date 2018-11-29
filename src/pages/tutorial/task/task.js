@@ -49,7 +49,7 @@ class TaskPage extends React.Component {
     this.rootDiv = React.createRef();
 
     getWalkthrough(id);
-    prepareCustomWalkthrough(id);
+    prepareCustomWalkthrough(id, this.getDocsAttributes(id));
     const currentUsername = localStorage.getItem('currentUserName');
     const currentUserProgress = getThreadProgress(currentUsername);
     updateWalkthroughProgress(currentUsername, currentUserProgress);
@@ -517,7 +517,7 @@ TaskPage.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
   getProgress: () => dispatch(reduxActions.userActions.getProgress()),
-  prepareCustomWalkthrough: id => prepareCustomWalkthroughNamespace(dispatch, id),
+  prepareCustomWalkthrough: (id, attrs) => prepareCustomWalkthroughNamespace(dispatch, id, attrs),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
   updateWalkthroughProgress: (username, progress) =>

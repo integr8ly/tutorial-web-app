@@ -57,7 +57,8 @@ const getMiddlewareServiceAttrs = middlewareServices => ({
   'enmasse-broker-url': middlewareServices.enmasseCredentials.url,
   'enmasse-credentials-username': middlewareServices.enmasseCredentials.username,
   'enmasse-credentials-password': middlewareServices.enmasseCredentials.password,
-  'amq-broker-url': middlewareServices.amqCredentials.tcpUrl,
+  'amq-broker-tcp-url': middlewareServices.amqCredentials.tcpUrl,
+  'amq-broker-amqp-url': middlewareServices.amqCredentials.url,
   'amq-credentials-username': middlewareServices.amqCredentials.username,
   'amq-credentials-password': middlewareServices.amqCredentials.password
 });
