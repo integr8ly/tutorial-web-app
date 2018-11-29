@@ -44,7 +44,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           <h3
             className="pf-c-title pf-m-2xl"
           />
-          Example
+            Example
           <button
             className="pf-c-button pf-m-primary"
             onClick={[Function]}
