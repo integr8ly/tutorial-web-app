@@ -107,11 +107,7 @@ class InstalledAppsView extends React.Component {
         >
           <div className="integr8ly-installed-apps-view-title">
             <p>{prettyName}</p>
-            {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-              <span className={`pf-c-label integr8ly-label-${gaStatus}`}>{gaStatus}</span>
-            ) : (
-              <span />
-            )}
+            <span className="pf-c-label integr8ly-c-label">{gaStatus}</span>
           </div>
           {InstalledAppsView.getStatusForApp(app)}
           <small />
