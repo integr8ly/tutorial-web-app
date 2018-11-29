@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
+import { noop, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
@@ -94,7 +94,7 @@ class TutorialPage extends React.Component {
                   <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
-                  </Button>
+                  </button>
                 </div>
                 {this.renderPrereqs(thread)}
                 <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
@@ -147,7 +147,7 @@ class TutorialPage extends React.Component {
                 <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
-                  </Button>
+                  </button>
                 </div>
               </Grid.Col>
             </Grid.Row>

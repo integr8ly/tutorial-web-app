@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import { noop, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -432,7 +432,7 @@ class TaskPage extends React.Component {
                           <Button bsStyle="default" onClick={e => this.backToIntro(e)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.backToIntro')}
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {taskNum > 0 && (
@@ -440,7 +440,7 @@ class TaskPage extends React.Component {
                           <Button bsStyle="default" onClick={e => this.goToTask(e, taskNum - 1)}>
                             <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
                             {t('task.previousTask')}
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {taskNum + 1 < totalTasks && (
@@ -451,7 +451,7 @@ class TaskPage extends React.Component {
                             disabled={!taskVerificationComplete}
                           >
                             {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                       {taskNum + 1 === totalTasks && (
@@ -462,7 +462,7 @@ class TaskPage extends React.Component {
                             disabled={!taskVerificationComplete}
                           >
                             {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
+                          </button>
                         </ButtonGroup>
                       )}
                     </div>
