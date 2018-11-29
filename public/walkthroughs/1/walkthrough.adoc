@@ -42,6 +42,28 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 // end::master-1[]
 
 
+[type=walkthroughResource]
+=== Fuse
+
+<<<<<<< HEAD
+* link:{fuse-url}[Console]
+
+[type=walkthroughResource]
+=== AMQ
+
+* link:{amq-url}[Console]
+=======
+[type=walkthroughResource]
+=== AMQ
+* link:{amq-url}[Open Console]
+>>>>>>> update wt resources
+
+[type=walkthroughResource]
+=== Red Hat OpenShift
+
+* link:{openshift-host}/console[Console]
+
+
 :sectnums:
 [time=5]
 [id='integrating-eventdriven-and-apidriven-applications']
@@ -50,6 +72,7 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 :context: creating-connections
 
 // tag::creating-api-connector[]
+
 
 [id='creating-api-connector_{context}']
 [.integr8ly-docs-header]
@@ -206,7 +229,11 @@ Verify that you followed each step in the procedure above.  If you are still hav
 // end::creating-http-connection[]
 :sectnums!:
 
-// Task resources go here
+[type=taskResource]
+=== Task Resources
+
+* link:https://developers.redhat.com/products/fuse/connectors/[Fuse connectors]
+
 
 :sectnums:
 
