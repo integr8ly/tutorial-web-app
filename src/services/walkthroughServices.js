@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Mustache from 'mustache';
 import serviceConfig from './config';
 import { watch, currentUser, OpenShiftWatchEvents } from './openshiftServices';
 import { initCustomThread } from './threadServices';
@@ -35,7 +36,7 @@ const DEFAULT_SERVICE_INSTANCE = {
  * @param {Function} dispatch Redux dispatch.
  * @param {string} walkthoughName The identifier of the walkthrough to provision.
  */
-const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
+const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {}) => {
   if (window.OPENSHIFT_CONFIG.mockData) {
     return Promise.resolve([]);
   }
@@ -56,9 +57,10 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
           namespaceRequestDef,
           namespaceRequestObj
         ).then(() => {
-          const siObjs = manifest.dependencies.serviceInstances.map(siPartial =>
-            Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial)
-          );
+          const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
+            const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
+            return parseServiceInstanceTemplate(serviceInstance, attrs);
+          });
           return Promise.all(
             siObjs.map(siObj =>
               findOrCreateOpenshiftResource(
@@ -76,6 +78,17 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName) => {
       });
     })
     .catch(e => dispatch(initCustomThreadFailure(e)));
+};
+
+/**
+ * Replace template variables in a ServiceInstance with provided attributes.
+ *
+ * @param {Object} siTemplate ServiceInstance object.
+ * @param {Object} attrs Key-value map of attribute names and values to replace them with.
+ */
+const parseServiceInstanceTemplate = (siTemplate, attrs) => {
+  const rawServiceInstance = Mustache.render(JSON.stringify(siTemplate), attrs);
+  return JSON.parse(rawServiceInstance);
 };
 
 /**

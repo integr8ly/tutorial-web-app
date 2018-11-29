@@ -11,7 +11,12 @@
       "metadata": { "name": "nodejs-messaging-work-queue-frontend" },
       "spec": {
         "clusterServiceClassExternalName": "nodejs-messaging-work-queue-frontend",
-        "clusterServicePlanExternalName": "default"
+        "clusterServicePlanExternalName": "default",
+        "parameters": {
+          "MESSAGING_SERVICE_PASSWORD": "{{ enmasse-credentials-password }}",
+          "MESSAGING_SERVICE_USER": "{{ enmasse-credentials-username }}",
+          "MESSAGING_SERVICE_HOST": "{{ enmasse-broker-url }}"
+        }
       }
     }]
   }
