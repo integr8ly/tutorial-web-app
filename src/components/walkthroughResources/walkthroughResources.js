@@ -80,14 +80,13 @@ class WalkthroughResources extends React.Component {
               {resource.statusIcon}
               &nbsp;
               {resource.title}
-              &nbsp;
               {resource.gaStatus === 'community' ? (
-                <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+                <span className="pf-c-label integr8ly-c-label">community</span>
               ) : (
                 <span />
               )}
               {resource.gaStatus === 'preview' ? (
-                <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+                <span className="pf-c-label integr8ly-c-label">preview</span>
               ) : (
                 <span />
               )}
