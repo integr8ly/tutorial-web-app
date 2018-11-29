@@ -43,20 +43,14 @@ This walkthrough describes how  to create such an integration, using OpenShift, 
 
 
 [type=walkthroughResource]
-=== Fuse
+=== Fuse Online
 
-<<<<<<< HEAD
 * link:{fuse-url}[Console]
 
 [type=walkthroughResource]
 === AMQ
 
-* link:{amq-url}[Console]
-=======
-[type=walkthroughResource]
-=== AMQ
-* link:{amq-url}[Open Console]
->>>>>>> update wt resources
+* link:{amq-url}[Management Console]
 
 [type=walkthroughResource]
 === Red Hat OpenShift
