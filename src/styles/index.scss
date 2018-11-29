@@ -12,11 +12,13 @@ $img-path: "~patternfly/dist/img/";
 
 // PatternFly 4
 // @import "application/fonts";
+/* stylelint-disable */
 @import "application/pf4Import";
 
 // Font Awesome 5 icons
 @import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "@fortawesome/fontawesome-free/scss/regular.scss";
+/* stylelint-enable */
 
 // Utilized to overwrite PF3 typography settings
 @import "application/patternfly4";
