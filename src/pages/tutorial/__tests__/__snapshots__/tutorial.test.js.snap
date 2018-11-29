@@ -43,19 +43,14 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         >
           <h3
             className="pf-c-title pf-m-2xl"
-          >
-            Example
-          </h3>
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
+          />
+          Example
+          <button
+            className="pf-c-button pf-m-primary"
             onClick={[Function]}
           >
             tutorial.getStarted
-          </Button>
+          </button>
         </div>
         <div
           dangerouslySetInnerHTML={
@@ -122,16 +117,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
         >
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
+          <button
+            className="pf-c-button pf-m-primary"
             onClick={[Function]}
           >
             tutorial.getStarted
-          </Button>
+          </button>
         </div>
       </Col>
     </Row>
