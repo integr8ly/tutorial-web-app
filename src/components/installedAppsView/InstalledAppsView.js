@@ -107,7 +107,7 @@ class InstalledAppsView extends React.Component {
         >
           <div className="integr8ly-installed-apps-view-title">
             <p>{prettyName}</p>
-            <span className={`pf-c-label integr8ly-c-label`}>{gaStatus}</span>
+            <span className="pf-c-label integr8ly-c-label">{gaStatus}</span>
           </div>
           {InstalledAppsView.getStatusForApp(app)}
           <small />

@@ -48,7 +48,7 @@ const TutorialDashboard = props => {
               <span />
             )}
             {walkthrough.preview === true ? (
-              <span className="pf-c-label integr8ly-c-label">preview</span>
+              <span className="pf-c-label integr8ly-c-label integr8ly-preview">preview</span>
             ) : (
               <span />
             )}
