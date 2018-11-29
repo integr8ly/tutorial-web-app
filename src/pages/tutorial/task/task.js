@@ -445,8 +445,10 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum + 1 < totalTasks && (
                         <ButtonGroup>
-                          <Button
-                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
+                          <button
+                            className={
+                              taskVerificationComplete ? 'pf-c-button pf-m-primary' : 'pf-c-button pf-m-secondary'
+                            }
                             onClick={e => this.goToTask(e, taskNum + 1)}
                             disabled={!taskVerificationComplete}
                           >
@@ -456,8 +458,10 @@ class TaskPage extends React.Component {
                       )}
                       {taskNum + 1 === totalTasks && (
                         <ButtonGroup>
-                          <Button
-                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
+                          <button
+                            className={
+                              taskVerificationComplete ? 'pf-c-button pf-m-primary' : 'pf-c-button pf-m-secondary'
+                            }
                             onClick={e => this.exitTutorial(e)}
                             disabled={!taskVerificationComplete}
                           >

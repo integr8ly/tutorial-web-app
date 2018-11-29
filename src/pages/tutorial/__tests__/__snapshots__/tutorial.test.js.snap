@@ -47,12 +47,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           >
             Example
           </h3>
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
+          <button
+            className="pf-c-button pf-m-primary"
             onClick={[Function]}
           >
             tutorial.getStarted
