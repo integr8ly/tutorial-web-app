@@ -15,6 +15,7 @@
 :3Scale-ProductVersion: 2.3
 :EnMasse-master-ProductLongName: EnMasse
 :walkthrough: Integrating API-driven applications
+:fuse-flights-aggregator-app-name: fuse-flights-aggregator-{user-sanitized-username}
 
 = Integrating API-driven applications
 
@@ -104,7 +105,7 @@ The Fuse Aggregation App provides information about flights, you deploy it using
 +
 * departures
 // TODO: flights api links to /camel/flights
-. Navigate to the link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
+. Navigate to the link:{route-fuse-flights-aggregator-host}/camel/flights[Flights Endpoint, window="_blank"] and check that the response includes details about 8 flights.
 
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
@@ -168,7 +169,7 @@ Modify the Fuse Aggregation App to aggregate flights data from the Arrivals & De
 
 [type=verification]
 // TODO: flights api links to /camel/flights
-After waiting for the build and depoyment to complete, check that link:https://{fuse-aggregator-url}/camel/flights[Flights Endpoint, window="_blank"] responds with more than 8 flights.
+After waiting for the build and depoyment to complete, check that link:{route-fuse-flights-aggregator-host}/camel/flights[Flights Endpoint, window="_blank"] responds with more than 8 flights.
 
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
@@ -198,7 +199,7 @@ Make sure you can see the {3Scale-ProductName} Dashboard and can navigate the ma
 [type=verificationFail]
 Verify that you followed each step in the procedure above.  If you are still having issues, contact your administrator.
 
-=== Adding the Fuse Aggregation App Endpoint to {3Scale-ProductName}
+=== Adding the Fuse Aggregation App Endpoint to Red Hat 3scale
 
 . Select the *API* menu item from the top of the screen.
 
@@ -209,7 +210,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 
 . Leave the *Description* field empty.
@@ -220,13 +221,13 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 . Select *Create Service* at the bottom of the screen.
 
-. After the service is created, expand the new *{fuse-aggregator-app-name}* API Service and select the *Configure APIcast* button.
+. After the service is created, expand the new *{fuse-flights-aggregator-app-name}* API Service and select the *Configure APIcast* button.
 // The 'fuse-aggregation-app-url' should be the url of the Fuse Aggregation App e.g. https://fuse-flights-aggregator-ak49.cluster-lfa3xlh.opentry.me/
 . In the *Private Base URL* field, enter:
 +
 [subs="attributes+"]
 ----
-https://{fuse-aggregator-url}
+{route-fuse-flights-aggregator-host}
 ----
 // The '{fuse-aggregation-app-apicast-route-url}' shoudl be the apicast-staging route url for this specific user. It can be looked up or deterministicly set.
 . In the *Staging Public Base URL*, enter:
@@ -256,12 +257,12 @@ Verify that you followed each step in the procedure above.  If you are still hav
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 .. Select *Create Application Plan*.
 .. Select the *Publish* button to publish the Plan.
 
-. Select the *{fuse-aggregator-app-name}* plan to return to the edit screen.
+. Select the *{fuse-flights-aggregator-app-name}* plan to return to the edit screen.
 
 . Set a limit of 5 calls per hour:
 .. On the *Metrics, Methods, Limits & Pricing Rules* section, select the *Limits (0)* button.
@@ -275,23 +276,23 @@ Verify that you followed each step in the procedure above.  If you are still hav
 .. Select the *Developer* Account to open the *Account Summary* page.
 .. Select the *(num) Application* item from the breadcrumb to view Applications.
 .. Select the *Create Application* button in the top right.
-.. Select the *{fuse-aggregator-app-name}* Plan in the *Application plan* dropdown.
+.. Select the *{fuse-flights-aggregator-app-name}* Plan in the *Application plan* dropdown.
 .. Enter the following for *Name* and *Description*:
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 .. Select *Create Application*.
 
 . Set a custom *User Key* for the application:
-.. On the *{fuse-aggregator-app-name}* application screen, scroll to the *API Credentials* section.
+.. On the *{fuse-flights-aggregator-app-name}* application screen, scroll to the *API Credentials* section.
 .. Select *Set Custom Key*.
 .. In the *Custom User Key* field, enter:
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 .. Select *Set Custom Key*.
 
@@ -299,7 +300,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 ****
 . Select the *APIs* menu item at the top.
 
-. Expand the *{fuse-aggregator-app-name}* service.
+. Expand the *{fuse-flights-aggregator-app-name}* service.
 
 . Select the *Configure APIcast* button.
 
@@ -325,7 +326,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 
 . Enter the below content for the *API JSON Spec*.
@@ -486,7 +487,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 
 === Checking the API Service is protected
 
-. From the *ActiveDocs* page for the *{fuse-aggregator-app-name}* Application, expand the *GET /flights* endpoint.
+. From the *ActiveDocs* page for the *{fuse-flights-aggregator-app-name}* Application, expand the *GET /flights* endpoint.
 . Leave the *user_key* field empty.
 . Select the *Try it out!* button.
 
@@ -508,7 +509,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 . Select the *Try it out!* button.
 
@@ -530,12 +531,12 @@ Verify that you followed each step in the procedure above.  If you are still hav
 +
 [subs="attributes+"]
 ----
-{fuse-aggregator-app-name}
+{fuse-flights-aggregator-app-name}
 ----
 . Click the *Try it out!* button repeatedly until the *Response Code* is *0*, this
-should require less than 5 clicks (the hourly limit set earlier).
+should happen after the fifth click (the hourly limit set earlier).
 . Select the *Applications* tab from the top menu.
-. Select the *{fuse-aggregator-app-name}* application from the *Applications* list.
+. Select the *{fuse-flights-aggregator-app-name}* application from the *Applications* list.
 . Scroll down to the *Current Utilization* section.
 
 [type=verification]
@@ -551,7 +552,7 @@ Verify that you followed each step in the procedure above.  If you are still hav
 === Monitoring the API Service
 
 . Select the *Analytics* tab from the top menu.
-. Select *{fuse-aggregator-app-name}* from the *Monitoring* section.
+. Select *{fuse-flights-aggregator-app-name}* from the *Monitoring* section.
 
 [type=verification]
 Check that analytics show the service requests.
