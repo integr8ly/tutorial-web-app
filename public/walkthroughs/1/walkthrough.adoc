@@ -142,7 +142,7 @@ NOTE: Avoid choosing the similarly named *AMQP Message Broker*.
 +
 [subs="attributes+"]
 ----  
-tcp://{amq-broker-url}:61616
+tcp://{amq-broker-tcp-url}:61616
 ----
 
 .. Enter the username relating to {enmasse}:
@@ -257,7 +257,7 @@ To use the Fuse connections, you create an integration in Red Hat Fuse Online.
 +
 [subs="attributes+"]
 ---- 
-work-queue/requests
+work-queue-requests
 ----
 
 . Choose *Queue* as the *Destination Type* and click *Next*.
