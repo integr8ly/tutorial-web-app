@@ -1,46 +1,47 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, CardTitle, ProgressBar, noop } from 'patternfly-react';
+import { ProgressBar, noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const TutorialCard = props => (
-  <Card
-    matchHeight
-    className={props.progress === 100 ? 'integr8ly-tutorial-card integr8ly-card-complete' : 'integr8ly-tutorial-card'}
+  <div
+    className={
+      props.progress === 100 ? 'pf-c-card  integr8ly-c-card integr8ly-card-complete' : 'pf-c-card integr8ly-c-card'
+    }
     onClick={e => {
       e.preventDefault();
       props.history.push(props.getStartedLink);
     }}
   >
-    <CardTitle className="integr8ly-card-title">
-      <div> {props.title} </div>
-    </CardTitle>
-    <CardBody> {props.children} </CardBody>
-    <CardFooter className="integr8ly-tutorial-card-pf-footer">
-      <a
-        className={
-          props.progress === 100
-            ? 'integr8ly-tutorial-card-pf-footer-get-started integr8ly-text-complete'
-            : 'integr8ly-tutorial-card-pf-footer-get-started'
-        }
-        href={props.getStartedLink}
-      >
-        {props.getStartedIcon}
-        <span>{props.getStartedText}</span>
-      </a>
-      {props.progress === 0 ? (
-        <div className="integr8ly-tutorial-card-pf-footer-time-to-complete">
-          {props.minsIcon}
-          {props.mins} <span>min</span>
-        </div>
-      ) : (
-        <div className="progress-bar-table">
-          <ProgressBar now={props.progress} />
-          <span className="progress-label">{`${props.progress}%`} </span>
-        </div>
-      )}
-    </CardFooter>
-  </Card>
+    <div className="pf-c-card__header">
+      <h4 className="pf-c-title pf-m-xl">{props.title}</h4>
+    </div>
+    <div className="pf-c-card__body"> {props.children} </div>
+    <div className="pf-c-card__footer">
+      <div className="integr8ly-c-card__info">
+        <a
+          className={props.progress === 100 ? 'pf-c-button pf-m-link integr8ly-text-complete' : 'pf-c-button pf-m-link'}
+          href={props.getStartedLink}
+        >
+          {props.getStartedIcon}
+          <span>{props.getStartedText}</span>
+        </a>
+      </div>
+      <div className="integr8ly-c-card__time--progress">
+        {props.progress === 0 ? (
+          <div className="integr8ly-tutorial-card-pf-footer-time-to-complete">
+            {props.minsIcon}
+            {props.mins} <span>min</span>
+          </div>
+        ) : (
+          <div className="progress-bar-table">
+            <ProgressBar now={props.progress} />
+            <span className="progress-label">{`${props.progress}%`} </span>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
 );
 
 TutorialCard.propTypes = {
