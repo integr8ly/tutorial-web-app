@@ -93,7 +93,7 @@ class TutorialPage extends React.Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={9}>
-                <h1 className="pf-c-title pf-m-2xl">
+                <h1 className="pf-c-title pf-m-2xl integr8ly-header-after-diagram">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
