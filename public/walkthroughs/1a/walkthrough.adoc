@@ -230,7 +230,7 @@ To receive messages from EnMasse, you create a connection in Red Hat Fuse Online
 
 . Select *AMQP* to configure an *AMQP Message Broker* connection.
 +
-NOTE: Avoid choosing the similarly named *AMQP Message Broker*.
+NOTE: Avoid choosing the similarly named *AMQ Message Broker*.
 
 . Enter the connection URI relating to {enmasse}:
 +
