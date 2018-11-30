@@ -23,8 +23,10 @@ $img-path: "~patternfly/dist/img/";
 // Utilized to overwrite PF3 typography settings
 @import "application/patternfly4";
 
-// Application Overrides
+// Typography
 @import "application/typography";
+
+// Application Overrides
 @import "application/alerts";
 @import "application/lists";
 @import "application/labels";
@@ -33,8 +35,6 @@ $img-path: "~patternfly/dist/img/";
 @import "application/aboutModal";
 @import "application/landingPage";
 @import "application/landingPageMastHead";
-@import "application/loading";
-@import "application/errorScreen";
 @import "application/login";
 @import "application/nav";
 @import "application/sidePanel";
@@ -42,12 +42,15 @@ $img-path: "~patternfly/dist/img/";
 @import "application/tutorialCard";
 @import "application/taskLayout";
 @import "application/taskDashboard";
-@import "application/congratulations";
 @import "application/cards";
 @import "application/modules";
-@import "application/appLauncher";
 @import "application/installedAppsView";
 @import "application/copyField";
+
+// Loading and Status
+@import "application/congratulations";
+@import "application/errorScreen";
+@import "application/loading";
 
 /*!
 **
