@@ -104,7 +104,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         xs={12}
       >
         <h1
-          className="pf-c-title pf-m-2xl integr8ly-header-after-diagram"
+          className="pf-c-title pf-m-2xl pf-u-mt-xl"
         >
           tutorial.tasksToComplete
           <div
