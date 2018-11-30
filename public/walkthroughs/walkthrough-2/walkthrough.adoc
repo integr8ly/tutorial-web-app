@@ -15,7 +15,7 @@
 :3Scale-ProductVersion: 2.3
 :EnMasse-master-ProductLongName: EnMasse
 :walkthrough: Integrating API-driven applications
-:fuse-flights-aggregator-app-name: fuse-flights-aggregator
+:fuse-flights-aggregator-app-name: fuse-flights-aggregator-{user-sanitized-username}
 
 = Integrating API-driven applications
 
