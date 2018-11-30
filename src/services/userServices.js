@@ -195,7 +195,7 @@ const setProgress = progress => {
 };
 
 const getProgress = () =>
-  JSON.parse(window.localStorage.getItem(`userProgress-${window.localStorage.getItem('currentUserName')}`));
+  JSON.parse(window.localStorage.getItem(`walkthroughProgress_${window.localStorage.getItem('currentUserName')}`));
 
 export {
   checkUser,

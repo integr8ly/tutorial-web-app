@@ -9,7 +9,16 @@ const initialState = {
     pending: false,
     fulfilled: false,
     data: {}
-  }
+  },
+  manifest: {
+    error: false,
+    errorStatus: null,
+    errorMessage: null,
+    pending: false,
+    fulfilled: false,
+    data: {}
+  },
+  threadProgress: {}
 };
 
 const threadReducers = (state = initialState, action) => {
@@ -55,7 +64,58 @@ const threadReducers = (state = initialState, action) => {
           initialState
         }
       );
+    case REJECTED_ACTION(threadTypes.INIT_THREAD):
+      return setStateProp(
+        'manifest',
+        {
+          error: action.payload.error,
+          errorMessage: action.payload.error.message
+        },
+        {
+          state,
+          initialState
+        }
+      );
 
+    // Error/rejected
+    case PENDING_ACTION(threadTypes.INIT_THREAD):
+      return setStateProp(
+        'manifest',
+        {
+          pending: true
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
+    // Success/Fulfilled
+    case FULFILLED_ACTION(threadTypes.INIT_THREAD):
+      return setStateProp(
+        'manifest',
+        {
+          pending: false,
+          fulfilled: true,
+          data: action.payload
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
+    case FULFILLED_ACTION(threadTypes.UPDATE_THREAD_PROGRESS):
+      return setStateProp(
+        'threadProgress',
+        {
+          data: action.payload
+        },
+        {
+          state,
+          initialState
+        }
+      );
     default:
       return state;
   }

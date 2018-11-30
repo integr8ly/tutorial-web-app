@@ -6,9 +6,9 @@ const getWalkthrough = (language, id) => ({
   payload: walkthroughServices.getWalkthrough(language, id)
 });
 
-const getWalkthroughs = language => ({
+const getCustomWalkthroughs = () => ({
   type: walkthroughTypes.GET_WALKTHROUGHS,
-  payload: walkthroughServices.getWalkthroughs(language)
+  payload: walkthroughServices.getCustomWalkthroughs()
 });
 
-export { getWalkthrough, getWalkthroughs };
+export { getWalkthrough, getCustomWalkthroughs };

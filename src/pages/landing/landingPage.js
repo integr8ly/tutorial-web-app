@@ -9,8 +9,8 @@ import { connect, reduxActions } from '../../redux';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { getProgress, getWalkthroughs } = this.props;
-    getWalkthroughs('en');
+    const { getProgress, getCustomWalkthroughs } = this.props;
+    getCustomWalkthroughs();
     getProgress();
   }
 
@@ -24,8 +24,8 @@ class LandingPage extends React.Component {
           <section className="integr8ly-landing-page-tutorial-dashboard-section">
             <TutorialDashboard
               className="integr8ly-landing-page-tutorial-dashboard-section-left"
-              userProgress={user.userProgress.threads}
-              walkthroughs={walkthroughServices.data.threads}
+              userProgress={user.userProgress}
+              walkthroughs={walkthroughServices.data}
             />
             <InstalledAppsView
               className="integr8ly-landing-page-tutorial-dashboard-section-right"
@@ -41,7 +41,7 @@ class LandingPage extends React.Component {
 
 LandingPage.propTypes = {
   getProgress: PropTypes.func,
-  getWalkthroughs: PropTypes.func,
+  getCustomWalkthroughs: PropTypes.func,
   middlewareServices: PropTypes.object,
   walkthroughServices: PropTypes.object,
   user: PropTypes.object
@@ -49,7 +49,7 @@ LandingPage.propTypes = {
 
 LandingPage.defaultProps = {
   getProgress: noop,
-  getWalkthroughs: noop,
+  getCustomWalkthroughs: noop,
   middlewareServices: { data: {} },
   walkthroughServices: { data: {} },
   user: { userProgress: {} }
@@ -57,6 +57,7 @@ LandingPage.defaultProps = {
 
 const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
+  getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
   getProgress: () => dispatch(reduxActions.userActions.getProgress())
 });
 

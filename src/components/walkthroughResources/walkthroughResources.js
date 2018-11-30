@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'patternfly-react';
 import { connect } from '../../redux';
-import { getDashboardUrl } from '../../common/serviceInstanceHelpers';
 
 class WalkthroughResources extends React.Component {
   constructor(props) {
@@ -13,25 +12,26 @@ class WalkthroughResources extends React.Component {
   }
 
   componentDidMount() {
-    this.buildResourceList();
+    this.buildResourcesList();
   }
 
   mapServiceLinks() {
     const { resources, middlewareServices } = this.props;
     if (resources.length !== 0) {
       return resources.map(resource => {
-        let url = '';
+        if (!resource.serviceName) {
+          return resource;
+        }
+
         let gaStatus = '';
         let icon = '';
         const app = middlewareServices.data[resource.serviceName];
 
         if (resource.serviceName === 'openshift') {
-          url = `${window.OPENSHIFT_CONFIG.masterUri}/console`;
           gaStatus = '';
           icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
-          url = getDashboardUrl(app);
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {
@@ -44,12 +44,6 @@ class WalkthroughResources extends React.Component {
 
         resource.gaStatus = gaStatus;
         resource.statusIcon = icon;
-
-        resource.links.forEach(link => {
-          if (link.type === 'console') {
-            link.url = url;
-          }
-        });
         return resource;
       });
     }
@@ -74,20 +68,12 @@ class WalkthroughResources extends React.Component {
     return provisioningStatus;
   }
 
-  buildResourceList() {
+  buildResourcesList() {
     const resources = this.mapServiceLinks();
     let resourceList = null;
-
-    if (resources && resources.length !== 0) {
+    if (resources && resources.length > 0) {
       resourceList = resources.map(resource => {
-        const resourceLinks = resource.links.map(link => (
-          <li key={link.name}>
-            <a href={link.url} target="top">
-              {link.name}
-            </a>
-          </li>
-        ));
-
+        console.log(resource);
         return (
           <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">
@@ -106,7 +92,7 @@ class WalkthroughResources extends React.Component {
                 <span />
               )}
             </h4>
-            <ul className="list-unstyled">{resourceLinks}</ul>
+            <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
           </div>
         );
       });
@@ -117,9 +103,9 @@ class WalkthroughResources extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+        <h3 className="integr8ly-helpful-links-heading">Walkthrough Resources</h3>
         {this.state.resourceList}
-        <div className={this.state.resourceList ? 'hidden' : 'show'}>No resources available.</div>
+        <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
       </div>
     );
   }

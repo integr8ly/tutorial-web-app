@@ -1,4 +1,12 @@
 .integr8ly-copy {
+  button {
+    height: 32px;
+  }
+
+  input {
+    height: 32px;
+  }
+
   &-input {
     &.false { /* stylelint-disable-line selector-class-pattern */
       width: 200px;
