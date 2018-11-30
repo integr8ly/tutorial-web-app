@@ -1,4 +1,86 @@
-.integr8ly-card-title {
-  font-size: var(--pf-global--FontSize--md);
-  font-weight: var(--pf-global--FontWeight--bold);
+/*
+** Custom styles for Cards
+*/
+
+.integr8ly-c-card {
+  border-top: 2px solid;
+  border-color: transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -24px;
+    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+    &--community {
+      background-color: $pf-color-black-150;
+      color: $pf-color-black-600;
+    }
+  }
+
+  &__status--in-progress {
+    border-top: 2px solid;
+    border-color: var(--pf-global--info-color--100);
+  }
+
+  &__status--complete {
+    border-top: 2px solid;
+    border-color: var(--pf-global--success-color--100);
+  }
+
+  &__status--error {
+    border-top: 2px solid;
+    border-color: var(--pf-global--danger-color--100);
+  }
+
+  // remove styling for adding labels to inline elements
+  .integr8ly-c-label {
+    position: relative;
+    right: 0;
+  }
+
+  .pf-c-card__footer { /* stylelint-disable-line selector-class-pattern */
+    display: flex;
+    justify-content: space-between;
+
+    .integr8ly-c-card__info {
+      flex-basis: 50%;
+      margin-top: 7px;
+    }
+
+    .integr8ly-c-card__time {
+      flex-basis: 50%;
+      margin-top: 10px;
+      text-align: right;
+
+      &--progress {
+        display: flex;
+        flex-basis: 50%;
+        margin-top: 12px;
+      }
+    }
+
+    /* stylelint-disable selector-class-pattern */
+    .progress-bar-table {
+      display: flex;
+      flex-basis: 100%;
+
+      .progress,
+      .progress-label {
+        flex-basis: 50%;
+      }
+
+      .progress {
+        margin-bottom: 0;
+      }
+
+      .progress-label {
+        text-align: right;
+      }
+    }
+    /* stylelint-enable */
+  }
 }
