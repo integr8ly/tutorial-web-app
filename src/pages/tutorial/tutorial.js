@@ -4,13 +4,20 @@ import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
-import AsciiDocTemplate from '../../components/asciiDocTemplate/asciiDocTemplate';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
+import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
-    this.loadThread();
+    const {
+      getWalkthrough,
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    getWalkthrough(id);
+    // this.loadThread();
   }
 
   loadThread() {
@@ -65,6 +72,12 @@ class TutorialPage extends React.Component {
       return null;
     }
     if (thread.fulfilled && thread.data) {
+      const parsedThread = parseWalkthroughAdoc(thread.data);
+      const {
+        match: {
+          params: { id }
+        }
+      } = this.props;
       return (
         <React.Fragment>
           <Grid fluid>
@@ -74,48 +87,49 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
-                  <h3 className="pf-c-title pf-m-2xl">{thread.data.title}</h3>
-                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, thread.data.id)}>
+                  <h3 className="pf-c-title pf-m-2xl">{parsedThread.title}</h3>
+                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </button>
                 </div>
                 {this.renderPrereqs(thread)}
-                <AsciiDocTemplate
-                  adoc={thread.data.descriptionDoc}
+                <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
+                {/* <AsciiDocTemplate
+                  adoc={thread}
                   attributes={Object.assign({}, thread.data.attributes)}
-                />
+                /> */}
               </Grid.Col>
               <Grid.Col sm={3} className="integr8ly-module-frame">
                 {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                 <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <WalkthroughResources resources={thread.data.resources} />
+                <WalkthroughResources resources={parsedThread.resources} />
               </Grid.Col>
             </Grid.Row>
             <Grid.Row>
               <Grid.Col xs={12} sm={9}>
-                <h3 className="pf-c-title pf-m-2xl">
+                <h1 className="pf-c-title pf-m-2xl pf-u-mt-xl">
                   {t('tutorial.tasksToComplete')}
                   <div className="pull-right integr8ly-task-dashboard-time-to-completion">
                     <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
                     <span>
-                      {thread.data.estimatedTime}
+                      {parsedThread.time}
                       <span className="integr8ly-task-dashboard-time-to-completion_minutes">
                         {t('tutorial.minutes')}
                       </span>
                     </span>
                   </div>
-                </h3>
+                </h1>
                 <ListView className="integr8ly-list-view-pf">
-                  {thread.data.tasks.map((task, i) => (
+                  {parsedThread.tasks.map((task, i) => (
                     <ListView.Item
                       key={i}
-                      heading={`${i + 1}. ${task.title}`}
-                      description={task.description}
+                      heading={`${task.title}`}
+                      description={task.shortDescription}
                       actions={
                         <div className="integr8ly-task-dashboard-estimated-time">
                           <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
                           <span>
-                            {task.estimatedTime}
+                            {task.time}
                             <span className="integr8ly-task-dashboard-estimated-time_minutes">
                               {t('tutorial.minutes')}
                             </span>
@@ -151,7 +165,8 @@ TutorialPage.propTypes = {
     params: PropTypes.object
   }),
   getThread: PropTypes.func,
-  thread: PropTypes.object
+  thread: PropTypes.object,
+  getWalkthrough: PropTypes.func
 };
 
 TutorialPage.defaultProps = {
@@ -165,11 +180,13 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
-  thread: null
+  thread: null,
+  getWalkthrough: noop
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
+  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id))
 });
 
 const mapStateToProps = state => ({

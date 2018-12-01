@@ -1,4 +1,11 @@
 .integr8ly-helpful {
+  &-resources-list {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+  }
+
   &-links {
     position: fixed;
     top: 0;
@@ -9,7 +16,8 @@
     border-left-color: $pf-color-black-300;
 
     &-heading {
-      margin-bottom: 20px;
+      margin-top: 20px;
+      margin-bottom: 10px;
       font-weight: var(--pf-global--FontWeight--normal);
     }
 
