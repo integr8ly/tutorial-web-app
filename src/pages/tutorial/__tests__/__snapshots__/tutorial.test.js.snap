@@ -43,8 +43,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         >
           <h3
             className="pf-c-title pf-m-2xl"
-          />
+          >
             Example
+          </h3>
           <button
             className="pf-c-button pf-m-primary"
             onClick={[Function]}
@@ -110,7 +111,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               </span>
             </span>
           </div>
-        </h3>
+        </h1>
         <ListView
           className="integr8ly-list-view-pf"
         />
