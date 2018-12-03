@@ -17,8 +17,12 @@ const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customSe
 const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
 };
+
+const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walkthroughs';
+
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
+const LOCATION_SEPARATOR = ';';
 
 const walkthroughs = [];
 
@@ -70,22 +74,48 @@ app.get('/customConfig', (req, res) => {
   });
 });
 
+/**
+ * Load walkthroughs from the passed locations.
+ * @param location (string) Either a single path or a number of paths separated
+ * by semikolon
+ */
+function loadAllWalkthroughs(location) {
+  let locations = [];
+  if (location.indexOf(LOCATION_SEPARATOR) >= 0) {
+    locations = location.split(LOCATION_SEPARATOR);
+  } else {
+    locations.push(path.normalize(location));
+  }
+
+  locations.forEach(p => {
+    if (p && fs.existsSync(p)) {
+      return loadCustomWalkthroughs(p);
+    }
+    return console.log(`Ignoring invalid walkthrough location ${p}`);
+  });
+}
+
 function loadCustomWalkthroughs(walkthroughsPath) {
   fs.readdir(walkthroughsPath, (err, files) => {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    files.forEach((dirName) => {
-      fs.readFile(`./public/walkthroughs/${dirName}/walkthrough.adoc`, (err, rawAdoc) => {
-        if(err) {
+    console.log(`Importing walkthroughs from ${walkthroughsPath}`);
+    files.forEach(dirName => {
+      const fullpath = path.join(walkthroughsPath, dirName, 'walkthrough.adoc');
+      fs.readFile(fullpath, (readError, rawAdoc) => {
+        if (readError) {
           console.error(err);
           process.exit(1);
         }
         const loadedAdoc = adoc.load(rawAdoc);
         // Don't show example walkthrough by default
         if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
-          walkthroughs.push(getWalkthroughInfoFromAdoc(dirName, loadedAdoc));
+          const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, loadedAdoc);
+
+          // Don't allow duplicate walkthroughs
+          if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
+            console.error(`Duplicate walkthrough with id ${walkthroughInfo.id} (${walkthroughInfo.shortDescription})`);
+            process.exit(1);
+          }
+          walkthroughs.push(walkthroughInfo);
         }
       });
     });
@@ -198,7 +228,6 @@ function getConfigData(req) {
 }
 
 function getWalkthroughInfoFromAdoc(dirName, adoc) {
-  
   // Retrieve the short description. There must be a gap between the document title and the short description.
   // Otherwise it's counted as the author field. For example, see this adoc file:
   // ````
@@ -207,7 +236,7 @@ function getWalkthroughInfoFromAdoc(dirName, adoc) {
   // This would be the revision field or something
   // This is the short description.
   // ````
-  // So it's better to just tell the user to put a blank line between the title and short description. 
+  // So it's better to just tell the user to put a blank line between the title and short description
   let shortDescription = '';
   if (adoc.blocks[0] && adoc.blocks[0].context === 'preamble' && adoc.blocks[0].blocks.length > 0) {
     shortDescription = adoc.blocks[0].blocks[0].lines[0];
@@ -244,6 +273,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-loadCustomWalkthroughs('./public/walkthroughs');
+loadAllWalkthroughs(walkthroughLocations);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
