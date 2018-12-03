@@ -73,7 +73,6 @@ class WalkthroughResources extends React.Component {
     let resourceList = null;
     if (resources && resources.length > 0) {
       resourceList = resources.map(resource => {
-        console.log(resource);
         return (
           <div key={resource.title}>
             <h4 className="integr8ly-helpful-links-product-title">

@@ -1,5 +1,0 @@
-Check that:
-
-* the *Response Code* is 200
-
-* the *Response Body* shows a *JSON Array* of flights
