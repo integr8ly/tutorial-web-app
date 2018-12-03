@@ -72,29 +72,27 @@ class WalkthroughResources extends React.Component {
     const resources = this.mapServiceLinks();
     let resourceList = null;
     if (resources && resources.length > 0) {
-      resourceList = resources.map(resource => {
-        console.log(resource);
-        return (
-          <div key={resource.title}>
-            <h4 className="pf-c-title pf-m-xl integr8ly-helpful-links-product-title">
-              {resource.statusIcon}
-              &nbsp;
-              {resource.title}
-              {resource.gaStatus === 'community' ? (
-                <span className="pf-c-label integr8ly-c-label">community</span>
-              ) : (
-                <span />
-              )}
-              {resource.gaStatus === 'preview' ? (
-                <span className="pf-c-label integr8ly-c-label">preview</span>
-              ) : (
-                <span />
-              )}
-            </h4>
-            <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
-          </div>
-        );
-      });
+      resourceList = resources.map(resource => (
+        <div key={resource.title}>
+          <h4 className="pf-c-title pf-m-xl integr8ly-helpful-links-product-title">
+            {resource.statusIcon}
+            &nbsp;
+            {resource.title}
+            &nbsp;
+            {resource.gaStatus === 'community' ? (
+              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+            ) : (
+              <span />
+            )}
+            {resource.gaStatus === 'preview' ? (
+              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+            ) : (
+              <span />
+            )}
+          </h4>
+          <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
+        </div>
+      ));
     }
     this.setState({ resourceList });
   }
@@ -102,7 +100,7 @@ class WalkthroughResources extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="pf-c-title pf-m-xl integr8ly-helpful-links-heading">Walkthrough Resources</h4>
+        <h3 className="pf-c-title pf-m-xl integr8ly-helpful-links-heading">Walkthrough Resources</h3>
         {this.state.resourceList}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
       </div>

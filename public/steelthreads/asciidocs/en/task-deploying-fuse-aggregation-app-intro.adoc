@@ -1,1 +1,0 @@
-The Fuse Aggregation App provides information about flights, you deploy it using Launcher.
