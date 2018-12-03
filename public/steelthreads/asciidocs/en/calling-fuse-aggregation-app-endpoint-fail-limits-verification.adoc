@@ -1,3 +1,0 @@
-Check that the following is displayed:
-
-. *Hits %* in the *Current Utilization* section is `100%`.

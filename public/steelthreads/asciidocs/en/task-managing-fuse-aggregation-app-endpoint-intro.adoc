@@ -1,1 +1,0 @@
-You manage an API using 3Scale to set limits on the number of times the API can be accessed.
