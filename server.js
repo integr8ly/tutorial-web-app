@@ -22,7 +22,7 @@ const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walk
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
-const LOCATION_SEPARATOR = ';';
+const LOCATION_SEPARATOR = ',';
 
 const walkthroughs = [];
 
@@ -77,30 +77,32 @@ app.get('/customConfig', (req, res) => {
 /**
  * Load walkthroughs from the passed locations.
  * @param location (string) Either a single path or a number of paths separated
- * by semikolon
+ * by comma
  */
 function loadAllWalkthroughs(location) {
   let locations = [];
   if (location.indexOf(LOCATION_SEPARATOR) >= 0) {
     locations = location.split(LOCATION_SEPARATOR);
   } else {
-    locations.push(path.normalize(location));
+    locations.push(location);
   }
 
   locations.forEach(p => {
     if (p && fs.existsSync(p)) {
       return loadCustomWalkthroughs(p);
     }
-    return console.log(`Ignoring invalid walkthrough location ${p}`);
+    console.error(`Invalid walkthrough location ${p}`);
+    return process.exit(1);
   });
 }
 
 function loadCustomWalkthroughs(walkthroughsPath) {
   fs.readdir(walkthroughsPath, (err, files) => {
     console.log(`Importing walkthroughs from ${walkthroughsPath}`);
+
     files.forEach(dirName => {
-      const fullpath = path.join(walkthroughsPath, dirName, 'walkthrough.adoc');
-      fs.readFile(fullpath, (readError, rawAdoc) => {
+      const basePath = path.join(walkthroughsPath, dirName);
+      fs.readFile(path.join(basePath, 'walkthrough.adoc'), (readError, rawAdoc) => {
         if (readError) {
           console.error(err);
           process.exit(1);
@@ -108,7 +110,7 @@ function loadCustomWalkthroughs(walkthroughsPath) {
         const loadedAdoc = adoc.load(rawAdoc);
         // Don't show example walkthrough by default
         if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
-          const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, loadedAdoc);
+          const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, basePath, loadedAdoc);
 
           // Don't allow duplicate walkthroughs
           if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
@@ -224,10 +226,10 @@ function getConfigData(req) {
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
     ssoLogoutUri: 'https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}'
-  };`
+  };`;
 }
 
-function getWalkthroughInfoFromAdoc(dirName, adoc) {
+function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   // Retrieve the short description. There must be a gap between the document title and the short description.
   // Otherwise it's counted as the author field. For example, see this adoc file:
   // ````
@@ -238,31 +240,30 @@ function getWalkthroughInfoFromAdoc(dirName, adoc) {
   // ````
   // So it's better to just tell the user to put a blank line between the title and short description
   let shortDescription = '';
-  if (adoc.blocks[0] && adoc.blocks[0].context === 'preamble' && adoc.blocks[0].blocks.length > 0) {
-    shortDescription = adoc.blocks[0].blocks[0].lines[0];
+  if (doc.blocks[0] && doc.blocks[0].context === 'preamble' && doc.blocks[0].blocks.length > 0) {
+    shortDescription = doc.blocks[0].blocks[0].lines[0];
   }
 
   return {
-    id: dirName,
-    title: adoc.getDocumentTitle(),
-    shortDescription: shortDescription,
-    // description: getPreambleBlockContent(adoc),
-    time: getTotalWalkthroughTime(adoc),
-    adoc: `/public/walkthroughs/${dirName}/walkthroughs.adoc`,
-    json: `/public/walkthroughs/${dirName}/walkthroughs.json`
-  }
+    id,
+    title: doc.getDocumentTitle(),
+    shortDescription,
+    time: getTotalWalkthroughTime(doc),
+    adoc: path.join(dirName, 'walkthrough.adoc'),
+    json: path.join(dirName, 'walkthrough.json')
+  };
 }
 
-const getTotalWalkthroughTime = (adoc) => {
+const getTotalWalkthroughTime = (doc) => {
   let time = 0;
-  adoc.blocks.forEach(b => {
+  doc.blocks.forEach(b => {
     if (b.context === CONTEXT_PREAMBLE || b.context === CONTEXT_PARAGRAPH) {
       return;
     }
-    time += parseInt(b.getAttribute('time')) || 0;
+    time += parseInt(b.getAttribute('time'), 10) || 0;
   });
   return time;
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
