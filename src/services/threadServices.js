@@ -37,14 +37,14 @@ const getThread = (language, id) =>
 const getCustomThread = id =>
   axios(
     serviceConfig({
-      url: `/walkthroughs/${id}/walkthrough.adoc`
+      url: `/walkthroughs/${id}/files/walkthrough.adoc`
     })
   );
 
 const initCustomThread = id =>
   axios(
     serviceConfig({
-      url: `/walkthroughs/${id}/walkthrough.json`
+      url: `/walkthroughs/${id}/files/walkthrough.json`
     })
   ).then(response => initDeps(response));
 

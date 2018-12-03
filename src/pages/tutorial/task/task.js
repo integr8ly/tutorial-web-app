@@ -12,7 +12,7 @@ import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareCustomWalkthroughNamespace } from '../../../services/walkthroughServices';
 import { getThreadProgress } from '../../../services/threadServices';
-import { getDocsForWalkthrough } from '../../../common/docsHelpers';
+import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../../common/docsHelpers';
 import {
   parseWalkthroughAdoc,
   WalkthroughVerificationBlock,
@@ -331,7 +331,8 @@ class TaskPage extends React.Component {
     }
     if (thread.fulfilled && thread.data) {
       const taskNum = parseInt(task, 10);
-      const parsedThread = parseWalkthroughAdoc(thread.data, attrs);
+      const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
+      const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);
       const threadTask = parsedThread.tasks[taskNum];
       const totalTasks = parsedThread.tasks.filter(parsedTask => !parsedTask.isVerification).length;
       const taskVerificationComplete = this.taskVerificationStatus(
