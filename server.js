@@ -19,7 +19,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
 };
 
 const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walkthroughs';
-const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea'];
+const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
@@ -88,33 +88,7 @@ app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
   }
   // Dotpaths are not allowed by default, meaning an end-user shouldn't be able
   // to abuse the file system using the wildcard file param.
-  res.sendFile(path.resolve(__dirname, `${walkthrough.basePath}`, file));
-});
-
-/**
- * Returns the contents of adoc or json files from walkthroughs.
- * Since walkthroughs are not served from the assets directory of the webapp
- * anymore we need to allow the frontend to query a resource by walkthrough
- * id and resource type.
- */
-app.get('/walkthroughResource/:id/:type', (req, res) => {
-  const walkthroughId = req.param('id');
-  const resourceType = req.param('type');
-
-  if (['adoc', 'json'].indexOf(resourceType) < 0) {
-    const error = `Invalid resource type ${resourceType} requested`;
-    console.error(error);
-    return res.status(500).json({ error });
-  }
-
-  const walkthroughInfo = walkthroughs.find(wt => wt.id === walkthroughId);
-  if (!walkthroughInfo) {
-    const error = `No walkthrough with id ${walkthroughId} found`;
-    console.error(error);
-    return res.status(404).json({ error });
-  }
-
-  return res.sendFile(path.resolve(__dirname, walkthroughInfo[resourceType]));
+  return res.sendFile(path.resolve(__dirname, `${walkthrough.basePath}`, file));
 });
 
 /**
