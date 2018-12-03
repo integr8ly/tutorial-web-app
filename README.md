@@ -4,6 +4,14 @@ This web application provides the front door into the Inetgreatly initiative. It
 
 # Local Development
 
+First you need to clone the [walkthroughs repository](https://github.com/integr8ly/tutorial-web-app-walkthroughs) next to the tutorial web app:
+
+```
+git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+```
+
+Then change to the webapp directory, install its dependencies and run the development server:
+
 ```
 yarn install
 yarn start:dev
@@ -11,6 +19,8 @@ yarn start:dev
 
 The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
 When running locally, the available services list is mocked, and service urls set via env vars.
+
+The webapp will also automatically load the walkthroughs from `../tutorial-web-app-walkthroughs/walkthroughs`.
 
 # Local Development against existing Openshft
 ```
