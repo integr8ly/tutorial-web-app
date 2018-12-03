@@ -74,6 +74,22 @@ app.get('/customConfig', (req, res) => {
   });
 });
 
+// Dynamic static path for walkthrough assets. Based on the walkthrough ID
+// provided it'll look in different paths.
+app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
+  const {
+    params: { walkthroughId }
+  } = req;
+  const file = req.param(0);
+  const walkthrough = walkthroughs.find(wt => wt.id === walkthroughId);
+  if (!walkthrough) {
+    return res.status(404).json({ error: `Walkthrough with ID ${walkthroughId} is not found` });
+  }
+  // Dotpaths are not allowed by default, meaning an end-user shouldn't be able
+  // to abuse the file system using the wildcard file param.
+  res.sendFile(path.resolve(__dirname, `${walkthrough.basePath}`, file));
+});
+
 /**
  * Load walkthroughs from the passed locations.
  * @param location (string) Either a single path or a number of paths separated
@@ -98,7 +114,6 @@ function loadAllWalkthroughs(location) {
 
 function loadCustomWalkthroughs(walkthroughsPath) {
   fs.readdir(walkthroughsPath, (err, files) => {
-    console.log(`Importing walkthroughs from ${walkthroughsPath}`);
 
     files.forEach(dirName => {
       const basePath = path.join(walkthroughsPath, dirName);
@@ -111,7 +126,6 @@ function loadCustomWalkthroughs(walkthroughsPath) {
         // Don't show example walkthrough by default
         if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
           const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, basePath, loadedAdoc);
-
           // Don't allow duplicate walkthroughs
           if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
             console.error(`Duplicate walkthrough with id ${walkthroughInfo.id} (${walkthroughInfo.shortDescription})`);
@@ -250,7 +264,8 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
     shortDescription,
     time: getTotalWalkthroughTime(doc),
     adoc: path.join(dirName, 'walkthrough.adoc'),
-    json: path.join(dirName, 'walkthrough.json')
+    json: path.join(dirName, 'walkthrough.json'),
+    basePath: dirName
   };
 }
 

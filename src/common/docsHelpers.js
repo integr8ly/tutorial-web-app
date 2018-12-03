@@ -71,4 +71,8 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   return getDashboardUrl(service);
 };
 
-export { getDocsForWalkthrough };
+const getDefaultAdocAttrs = walkthroughId => ({
+  imagesdir: `/walkthroughs/${walkthroughId}/files/`
+});
+
+export { getDocsForWalkthrough, getDefaultAdocAttrs };

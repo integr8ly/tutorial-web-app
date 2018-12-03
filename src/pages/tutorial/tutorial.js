@@ -7,6 +7,7 @@ import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
+import { getDefaultAdocAttrs } from '../../common/docsHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -62,7 +63,13 @@ class TutorialPage extends React.Component {
   }
 
   render() {
-    const { t, thread } = this.props;
+    const {
+      t,
+      thread,
+      match: {
+        params: { id }
+      }
+    } = this.props;
     if (thread.pending) {
       // todo: loading state
       return null;
@@ -72,12 +79,7 @@ class TutorialPage extends React.Component {
       return null;
     }
     if (thread.fulfilled && thread.data) {
-      const parsedThread = parseWalkthroughAdoc(thread.data);
-      const {
-        match: {
-          params: { id }
-        }
-      } = this.props;
+      const parsedThread = parseWalkthroughAdoc(thread.data, getDefaultAdocAttrs(id));
       return (
         <React.Fragment>
           <Grid fluid>
