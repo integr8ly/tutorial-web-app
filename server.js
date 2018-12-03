@@ -19,6 +19,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
 };
 
 const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walkthroughs';
+const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea'];
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
@@ -91,6 +92,32 @@ app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
 });
 
 /**
+ * Returns the contents of adoc or json files from walkthroughs.
+ * Since walkthroughs are not served from the assets directory of the webapp
+ * anymore we need to allow the frontend to query a resource by walkthrough
+ * id and resource type.
+ */
+app.get('/walkthroughResource/:id/:type', (req, res) => {
+  const walkthroughId = req.param('id');
+  const resourceType = req.param('type');
+
+  if (['adoc', 'json'].indexOf(resourceType) < 0) {
+    const error = `Invalid resource type ${resourceType} requested`;
+    console.error(error);
+    return res.status(500).json({ error });
+  }
+
+  const walkthroughInfo = walkthroughs.find(wt => wt.id === walkthroughId);
+  if (!walkthroughInfo) {
+    const error = `No walkthrough with id ${walkthroughId} found`;
+    console.error(error);
+    return res.status(404).json({ error });
+  }
+
+  return res.sendFile(path.resolve(__dirname, walkthroughInfo[resourceType]));
+});
+
+/**
  * Load walkthroughs from the passed locations.
  * @param location (string) Either a single path or a number of paths separated
  * by comma
@@ -117,11 +144,23 @@ function loadCustomWalkthroughs(walkthroughsPath) {
 
     files.forEach(dirName => {
       const basePath = path.join(walkthroughsPath, dirName);
+
+      if (IGNORED_WALKTHROUGH_SEARCH_PATHS.indexOf(dirName) >= 0) {
+        console.log(`Skipping ignored search path ${dirName}`);
+        return;
+      }
+
+      if (!fs.statSync(basePath).isDirectory()) {
+        console.log(`Skipping non-directory location ${dirName}`);
+        return;
+      }
+
       fs.readFile(path.join(basePath, 'walkthrough.adoc'), (readError, rawAdoc) => {
         if (readError) {
-          console.error(err);
+          console.error(readError);
           process.exit(1);
         }
+
         const loadedAdoc = adoc.load(rawAdoc);
         // Don't show example walkthrough by default
         if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
