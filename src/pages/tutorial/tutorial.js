@@ -142,11 +142,7 @@ class TutorialPage extends React.Component {
                   ))}
                 </ListView>
                 <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-<<<<<<< HEAD
-                  <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-=======
                   <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, thread.data.id)}>
->>>>>>> Update buttons to match PF4 updates
                     {t('tutorial.getStarted')}
                   </button>
                 </div>
