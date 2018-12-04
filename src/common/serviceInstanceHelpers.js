@@ -83,7 +83,7 @@ class MessagingAppServiceInstanceTransform {
 }
 
 const DEFAULT_SERVICES = {
-  ENMASSE: 'enmasse-standard',
+  ENMASSE: 'amq-online-standard',
   AMQ: 'amq-broker-71-persistence',
   FUSE: 'fuse',
   CHE: 'che',
