@@ -212,7 +212,7 @@ const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
   }
 
   const secret = event.payload;
-  if (secret.metadata.name.includes('enmasse-standard') && secret.metadata.name.includes('credentials')) {
+  if (secret.metadata.name.includes('amq-online-standard') && secret.metadata.name.includes('credentials')) {
     const amqpHost = window.atob(secret.data.messagingHost);
     const username = window.atob(secret.data.username);
     const password = window.atob(secret.data.password);

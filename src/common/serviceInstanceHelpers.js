@@ -50,8 +50,8 @@ class EnMasseServiceInstanceTransform {
 }
 
 const DEFAULT_SERVICES = {
-  ENMASSE: 'enmasse-standard',
   AMQ: 'amq-broker-72-persistence',
+  ENMASSE: 'amq-online-standard',
   FUSE: 'fuse',
   CHE: 'che',
   LAUNCHER: 'launcher',
