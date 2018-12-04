@@ -22,7 +22,6 @@ class Masthead extends React.Component {
   };
 
   onLogoutUser = () => {
-    // TBD 092718 - placeholder until logout is implemented
     if (window.OPENSHIFT_CONFIG.mockData) {
       window.localStorage.clear();
       window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
