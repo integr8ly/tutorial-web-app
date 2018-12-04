@@ -268,7 +268,7 @@ function getMockConfigData() {
       serviceInstances: [
         {
           spec: {
-            clusterServiceClassExternalName: 'enmasse-standard'
+            clusterServiceClassExternalName: 'amq-online-standard'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
