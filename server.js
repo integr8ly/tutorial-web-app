@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
+const url = require('url');
 const fs = require('fs');
 const asciidoctor = require('asciidoctor.js');
 const adoc = asciidoctor();
 const Mustache = require('mustache');
 const { fetchOpenshiftUser } = require('./server_middleware');
 const giteaClient = require('./gitea_client');
+const gitClient = require('./git_client');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -24,6 +26,8 @@ const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
 const LOCATION_SEPARATOR = ',';
+const TMP_DIR = process.env.TMP_DIR || '/tmp';
+const TMP_DIR_PREFIX = require('uuid').v4();
 
 const walkthroughs = [];
 
@@ -93,8 +97,9 @@ app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
 
 /**
  * Load walkthroughs from the passed locations.
- * @param location (string) Either a single path or a number of paths separated
- * by comma
+ * @param location (string) A string that can contains one or more walkthrough locations.
+ * Locations can either be paths in the filesystem or URLs pointing to git repositories. IF
+ * multiple locations are provided they must be separated by LOCATION_SEPARATOR
  */
 function loadAllWalkthroughs(location) {
   let locations = [];
@@ -104,49 +109,111 @@ function loadAllWalkthroughs(location) {
     locations.push(location);
   }
 
-  locations.forEach(p => {
-    if (p && fs.existsSync(p)) {
-      return loadCustomWalkthroughs(p);
+  return resolveWalkthroughLocations(locations)
+    .then(l => Promise.all(l.map(lookupWalkthroughResources)))
+    .then(l => l.reduce((a, b) => a.concat(b)), []) // flatten walkthrough arrays of all locations
+    .then(l => l.map(importWalkthroughAdoc))
+    .then(l => Promise.all(l));
+}
+
+/**
+ * Parses the locations provided in the env var `WALKTHROUGH_LOCATIONS` and resolves them:
+ * If the location is a git repository it will be cloned and the path to the cloned repository
+ * will be returned.
+ * If the location is a path in the filesystem it will be returned directly.
+ * @param locations An array of paths or URLs
+ * @returns {Promise<any[]>}
+ */
+function resolveWalkthroughLocations(locations) {
+  function isGitRepo(p) {
+    if (!p) {
+      return false;
     }
-    console.error(`Invalid walkthrough location ${p}`);
-    return process.exit(1);
+    const parsed = url.parse(p);
+    return parsed.host && parsed.protocol;
+  }
+
+  function isPath(p) {
+    return p && fs.existsSync(p);
+  }
+
+  const mappedLocations = locations.map(location => {
+    return new Promise((resolve, reject) => {
+      if (!location) {
+        return reject(new Error(`Invalid location ${location}`));
+      } else if (isPath(location)) {
+        console.log(`Importing walkthrough from path ${location}`);
+        return resolve(location);
+      } else if (isGitRepo(location)) {
+        console.log(`Importing walkthrough from git ${location}`);
+        const clonePath = path.join(TMP_DIR, TMP_DIR_PREFIX);
+        const walkthroughsPath = path.join(clonePath, 'walkthroughs');
+        return gitClient.cloneRepo(location, clonePath)
+          .then(() => resolve(walkthroughsPath))
+          .catch(reject);
+      }
+      return reject(new Error(`${location} is neither a path nor a git repo`));
+    });
+  });
+
+  return Promise.all(mappedLocations);
+}
+
+/**
+ * Check if a walkthrough location is valid and contains `walkthrough.adoc`
+ * @param location Path to the walkthrough directory
+ * @returns {Promise<any>}
+ */
+function lookupWalkthroughResources(location) {
+  return new Promise((resolve, reject) => {
+    fs.readdir(location, (err, files) => {
+      if (err) {
+        return reject(err);
+      }
+
+      const adocInfo = files.reduce((acc, dirName) => {
+        const basePath = path.join(location, dirName);
+        const adocPath = path.join(basePath, 'walkthrough.adoc');
+        if (fs.existsSync(adocPath)) {
+          acc.push({
+            dirName,
+            basePath,
+            adocPath
+          });
+        } else {
+          console.log(`No walkthrough.adoc present in ${basePath}`);
+        }
+        return acc;
+      }, []);
+      return resolve(adocInfo);
+    });
   });
 }
 
-function loadCustomWalkthroughs(walkthroughsPath) {
-  fs.readdir(walkthroughsPath, (err, files) => {
+/**
+ * Load and process the Asciidoc of a walkthrough. Also checks if any of the walkthrough
+ * IDs are duplicate and rejects them in that case.
+ * @param adocContext (Object) Contains filesystem info about the walkthrough location
+ * @returns {Promise<any>}
+ */
+function importWalkthroughAdoc(adocContext) {
+  const { adocPath, dirName, basePath } = adocContext;
 
-    files.forEach(dirName => {
-      const basePath = path.join(walkthroughsPath, dirName);
-
-      if (IGNORED_WALKTHROUGH_SEARCH_PATHS.indexOf(dirName) >= 0) {
-        console.log(`Skipping ignored search path ${dirName}`);
-        return;
+  return new Promise((resolve, reject) => {
+    fs.readFile(adocPath, (err, rawAdoc) => {
+      if (err) {
+        return reject(err);
       }
-
-      if (!fs.statSync(basePath).isDirectory()) {
-        console.log(`Skipping non-directory location ${dirName}`);
-        return;
+      const loadedAdoc = adoc.load(rawAdoc);
+      const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, basePath, loadedAdoc);
+      // Don't allow duplicate walkthroughs
+      if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
+        return reject(
+          new Error(`Duplicate walkthrough with id ${walkthroughInfo.id} (${walkthroughInfo.shortDescription})`)
+        );
       }
-
-      fs.readFile(path.join(basePath, 'walkthrough.adoc'), (readError, rawAdoc) => {
-        if (readError) {
-          console.error(readError);
-          process.exit(1);
-        }
-
-        const loadedAdoc = adoc.load(rawAdoc);
-        // Don't show example walkthrough by default
-        if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
-          const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, basePath, loadedAdoc);
-          // Don't allow duplicate walkthroughs
-          if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
-            console.error(`Duplicate walkthrough with id ${walkthroughInfo.id} (${walkthroughInfo.shortDescription})`);
-            process.exit(1);
-          }
-          walkthroughs.push(walkthroughInfo);
-        }
-      });
+      walkthroughs.push(walkthroughInfo);
+      return resolve();
     });
   });
 }
@@ -311,6 +378,15 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-loadAllWalkthroughs(walkthroughLocations);
+function run() {
+  loadAllWalkthroughs(walkthroughLocations)
+    .then(() => {
+      app.listen(port, () => console.log(`Listening on port ${port}`));
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+}
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+run();
