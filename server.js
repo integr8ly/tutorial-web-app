@@ -19,6 +19,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
 };
 
 const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walkthroughs';
+const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
@@ -87,7 +88,7 @@ app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
   }
   // Dotpaths are not allowed by default, meaning an end-user shouldn't be able
   // to abuse the file system using the wildcard file param.
-  res.sendFile(path.resolve(__dirname, `${walkthrough.basePath}`, file));
+  return res.sendFile(path.resolve(__dirname, `${walkthrough.basePath}`, file));
 });
 
 /**
@@ -117,11 +118,23 @@ function loadCustomWalkthroughs(walkthroughsPath) {
 
     files.forEach(dirName => {
       const basePath = path.join(walkthroughsPath, dirName);
+
+      if (IGNORED_WALKTHROUGH_SEARCH_PATHS.indexOf(dirName) >= 0) {
+        console.log(`Skipping ignored search path ${dirName}`);
+        return;
+      }
+
+      if (!fs.statSync(basePath).isDirectory()) {
+        console.log(`Skipping non-directory location ${dirName}`);
+        return;
+      }
+
       fs.readFile(path.join(basePath, 'walkthrough.adoc'), (readError, rawAdoc) => {
         if (readError) {
-          console.error(err);
+          console.error(readError);
           process.exit(1);
         }
+
         const loadedAdoc = adoc.load(rawAdoc);
         // Don't show example walkthrough by default
         if (process.env.SHOW_EXAMPLE_WALKTHROUGH === 'true' || dirName !== 'my-custom-walkthrough') {
