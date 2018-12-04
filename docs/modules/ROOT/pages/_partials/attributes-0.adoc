@@ -1,3 +1,0 @@
-include::attributes.adoc[]
-
-:walkthrough: Configuring the environment

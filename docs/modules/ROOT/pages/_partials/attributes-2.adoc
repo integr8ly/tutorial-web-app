@@ -1,2 +1,0 @@
-include::attributes.adoc[]
-:walkthrough: Integrating API-driven applications

@@ -72,20 +72,6 @@ find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
 oc new-app --template react-demo-app -p SOURCE_REPOSITORY_URL=https://github.com/priley86/integr8ly-prototype -p SOURCE_REPOSITORY_REF=development
 ```
 
-# Documentation
-
-This project requires [asciidoctor](https://asciidoctor.org/). It uses asciidoctor.js to render adoc files at runtime.
-
-To write documentation for inclusion in the app, you only need to edit the files in the [pages](./docs/modules/ROOT/pages) directory.
-
-After making edits, run the [buildDocs.sh](.docs/bin/buildDocs.sh) script.
-
-Each walkthrough requires:
-
-* master-<id>.adoc
-* attributes-<id>.adoc
-* task-<task>.adoc
-* <step>.adoc (only if task consists of more than one step)
 
 # Running the tests
 
