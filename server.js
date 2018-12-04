@@ -20,7 +20,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
 };
 
-const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || './public/walkthroughs';
+const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || 'https://github.com/integr8ly/tutorial-web-app-walkthroughs';
 const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 
 const CONTEXT_PREAMBLE = 'preamble';
