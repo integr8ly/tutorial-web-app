@@ -147,9 +147,9 @@ function resolveWalkthroughLocations(locations) {
       } else if (isGitRepo(location)) {
         console.log(`Importing walkthrough from git ${location}`);
         const clonePath = path.join(TMP_DIR, TMP_DIR_PREFIX);
-        const walkthroughsPath = path.join(clonePath, 'walkthroughs');
-        return gitClient.cloneRepo(location, clonePath)
-          .then(() => resolve(walkthroughsPath))
+        return gitClient
+          .cloneRepo(location, clonePath)
+          .then(cloned => resolve(path.join(cloned, 'walkthroughs')))
           .catch(reject);
       }
       return reject(new Error(`${location} is neither a path nor a git repo`));
