@@ -23,5 +23,9 @@ export default {
   '3scale': {
     prettyName: 'Red Hat 3scale API Management Platform',
     gaStatus: 'GA'
+  },
+  apicurio: {
+    prettyName: 'Apicurio',
+    gaStatus: 'community'
   }
 };
