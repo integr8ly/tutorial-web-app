@@ -1,12 +1,15 @@
 import { create, list } from '../services/openshiftServices';
+import shajs from 'sha.js';
 
 /**
  * Construct a projects namespace from a given username.
  * Note that the namespace name might contain the full username as it is sanitized first.
+ * The namespace will be limited to 40 characters max so as to allow reasonable length route
+ * names to be created i.e. not hit a 65 character limit.
  * @param {string} username The username to create the namespace name from.
  * @param {string} suffix A suffix to append to the end of the users namespace.
  */
-const buildValidProjectNamespaceName = (username, suffix) => `${cleanUsername(username)}-${suffix}`;
+const buildValidProjectNamespaceName = (username, suffix) => trimAndHash(`${cleanUsername(username)}-${suffix}`);
 
 /**
  * Get a sanitized version of a username, so it can be used to name OpenShift.
@@ -17,6 +20,9 @@ const cleanUsername = username =>
     .replace(/@/g, '-')
     .replace(/\./g, '-')
     .replace(/\s/g, '-');
+
+const trimAndHash = namespace =>
+  namespace.length > 40 ? namespace.slice(0,35) + '-' + shajs('sha256').update(namespace).digest('hex').slice(-4) : namespace;
 
 const buildNamespacedServiceInstanceName = (prefix, si) => `${prefix}-${si.spec.to.name}`;
 
