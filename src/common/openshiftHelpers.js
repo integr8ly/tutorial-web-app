@@ -1,5 +1,5 @@
-import { create, list } from '../services/openshiftServices';
 import shajs from 'sha.js';
+import { create, list } from '../services/openshiftServices';
 
 /**
  * Construct a projects namespace from a given username.
@@ -21,8 +21,18 @@ const cleanUsername = username =>
     .replace(/\./g, '-')
     .replace(/\s/g, '-');
 
-const trimAndHash = namespace =>
-  namespace.length > 40 ? namespace.slice(0,35) + '-' + shajs('sha256').update(namespace).digest('hex').slice(-4) : namespace;
+const trimAndHash = namespace => {
+  if (namespace.length > 40) {
+    namespace = `${namespace.slice(0, 35)}-${trimmedHash(namespace)}`;
+  }
+  return namespace;
+};
+
+const trimmedHash = namespace =>
+  shajs('sha256')
+    .update(namespace)
+    .digest('hex')
+    .slice(-4);
 
 const buildNamespacedServiceInstanceName = (prefix, si) => `${prefix}-${si.spec.to.name}`;
 
