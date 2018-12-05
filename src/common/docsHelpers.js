@@ -60,7 +60,8 @@ const getMiddlewareServiceAttrs = middlewareServices => ({
   'amq-broker-tcp-url': middlewareServices.amqCredentials.tcpUrl,
   'amq-broker-amqp-url': middlewareServices.amqCredentials.url,
   'amq-credentials-username': middlewareServices.amqCredentials.username,
-  'amq-credentials-password': middlewareServices.amqCredentials.password
+  'amq-credentials-password': middlewareServices.amqCredentials.password,
+  'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO)
 });
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {

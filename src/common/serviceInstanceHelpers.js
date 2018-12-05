@@ -91,7 +91,8 @@ const DEFAULT_SERVICES = {
   THREESCALE: '3scale',
   CRUD_APP: 'spring-boot-rest-http-crud',
   MESSAGING_APP: 'nodejs-messaging-work-queue-frontend',
-  FUSE_AGGREGATOR: 'fuse-flights-aggregator'
+  FUSE_AGGREGATOR: 'fuse-flights-aggregator',
+  APICURIO: 'apicurio'
 };
 
 const DEFAULT_TRANSFORMS = [
