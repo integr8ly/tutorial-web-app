@@ -9,7 +9,8 @@ import { create, list } from '../services/openshiftServices';
  * @param {string} username The username to create the namespace name from.
  * @param {string} suffix A suffix to append to the end of the users namespace.
  */
-const buildValidProjectNamespaceName = (username, suffix) => trimAndHash(`${cleanUsername(username)}-${suffix}`);
+const buildValidProjectNamespaceName = (username, suffix) =>
+  trimAndHash(`${cleanUsername(username)}-${suffix}`).toLowerCase();
 
 /**
  * Get a sanitized version of a username, so it can be used to name OpenShift.
