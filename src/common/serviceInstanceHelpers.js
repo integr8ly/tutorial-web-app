@@ -1,7 +1,5 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
-import { OpenShiftWatchEvents } from '../services/openshiftServices';
-import { GET_WALKTHROUGH_SERVICE } from '../redux/constants/walkthroughConstants';
-import { FULFILLED_ACTION, REJECTED_ACTION } from '../redux/helpers';
+import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
 
 class DefaultServiceInstanceTransform {
@@ -51,37 +49,6 @@ class EnMasseServiceInstanceTransform {
   }
 }
 
-class CRUDAppInstanceTransform {
-  isTransformable(siInfo) {
-    return siInfo.name === DEFAULT_SERVICES.CRUD_APP;
-  }
-
-  transform(siInfo) {
-    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
-    defaultTransform.spec.clusterServicePlanExternalName = 'default';
-    return defaultTransform;
-  }
-}
-
-class MessagingAppServiceInstanceTransform {
-  isTransformable(siInfo) {
-    return siInfo.name === DEFAULT_SERVICES.MESSAGING_APP;
-  }
-
-  transform(siInfo) {
-    const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
-    defaultTransform.spec.clusterServicePlanExternalName = 'default';
-
-    defaultTransform.spec.parameters = {
-      MESSAGING_SERVICE_PASSWORD: siInfo.otherData.password,
-      MESSAGING_SERVICE_USER: siInfo.otherData.username,
-      MESSAGING_SERVICE_HOST: siInfo.otherData.url
-    };
-
-    return defaultTransform;
-  }
-}
-
 const DEFAULT_SERVICES = {
   ENMASSE: 'enmasse-standard',
   AMQ: 'amq-broker-71-persistence',
@@ -89,17 +56,12 @@ const DEFAULT_SERVICES = {
   CHE: 'che',
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
-  CRUD_APP: 'spring-boot-rest-http-crud',
-  MESSAGING_APP: 'nodejs-messaging-work-queue-frontend',
-  FUSE_AGGREGATOR: 'fuse-flights-aggregator',
   APICURIO: 'apicurio'
 };
 
 const DEFAULT_TRANSFORMS = [
   new EnMasseServiceInstanceTransform(),
   new AMQServiceInstanceTransform(),
-  new CRUDAppInstanceTransform(),
-  new MessagingAppServiceInstanceTransform(),
   new DefaultServiceInstanceTransform()
 ];
 
@@ -123,32 +85,6 @@ const buildServiceInstanceResourceObj = (siInfo, transforms = DEFAULT_TRANSFORMS
 
 const buildServiceInstanceCompareFn = si => res =>
   res.spec.clusterServiceClassExternalName === si.spec.clusterServiceClassExternalName;
-
-const handleWalkthroughOneRoutes = (namespacePrefix, dispatch, event) => {
-  if (
-    event.type === OpenShiftWatchEvents.OPENED ||
-    event.type === OpenShiftWatchEvents.CLOSED ||
-    event.type === OpenShiftWatchEvents.DELETED
-  ) {
-    return;
-  }
-
-  const route = event.payload;
-  if (
-    route &&
-    route.spec &&
-    route.spec.to &&
-    (route.spec.to.name === DEFAULT_SERVICES.CRUD_APP || route.spec.to.name === DEFAULT_SERVICES.MESSAGING_APP)
-  ) {
-    dispatch({
-      type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
-      payload: {
-        prefix: namespacePrefix,
-        data: route
-      }
-    });
-  }
-};
 
 const handleServiceInstancesProvision = (namespacePrefix, dispatch, event) => {
   const serviceInstance = event.payload;
@@ -184,37 +120,12 @@ const getDashboardUrl = si => {
   return '';
 };
 
-const handleWalkthroughTwoRoutes = (namespacePrefix, dispatch, event) => {
-  if (
-    event.type === OpenShiftWatchEvents.OPENED ||
-    event.type === OpenShiftWatchEvents.CLOSED ||
-    event.type === OpenShiftWatchEvents.DELETED
-  ) {
-    return;
-  }
-
-  const route = event.payload;
-  if (route && route.spec && route.spec.to && route.spec.to.name === DEFAULT_SERVICES.FUSE_AGGREGATOR) {
-    dispatch({
-      type: FULFILLED_ACTION(GET_WALKTHROUGH_SERVICE),
-      payload: {
-        prefix: namespacePrefix,
-        data: route
-      }
-    });
-  }
-};
-
 export {
   buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj,
-  CRUDAppInstanceTransform,
   DEFAULT_SERVICES,
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
-  handleWalkthroughOneRoutes,
   handleServiceInstancesProvision,
-  MessagingAppServiceInstanceTransform,
-  getDashboardUrl,
-  handleWalkthroughTwoRoutes
+  getDashboardUrl
 };
