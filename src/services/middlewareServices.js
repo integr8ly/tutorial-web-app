@@ -91,7 +91,7 @@ const manageMiddlewareServices = (dispatch, user, config) => {
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
     payload: { provisioningUser: user.username }
   });
-  const userNamespace = buildValidProjectNamespaceName(user.username, 'walkthrough-projects');
+  const userNamespace = buildValidProjectNamespaceName(user.username, 'shared');
   const namespaceObj = namespaceResource(userNamespace);
   const namespaceRequestObj = namespaceRequestResource(userNamespace);
 
