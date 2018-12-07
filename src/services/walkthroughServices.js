@@ -3,7 +3,11 @@ import Mustache from 'mustache';
 import serviceConfig from './config';
 import { watch, currentUser, OpenShiftWatchEvents } from './openshiftServices';
 import { initCustomThread } from './threadServices';
-import { buildValidProjectNamespaceName, findOrCreateOpenshiftResource } from '../common/openshiftHelpers';
+import {
+  buildValidProjectNamespaceName,
+  findOrCreateOpenshiftResource,
+  buildValidNamespaceDisplayName
+} from '../common/openshiftHelpers';
 import { buildServiceInstanceCompareFn } from '../common/serviceInstanceHelpers';
 import {
   namespaceResource,
@@ -47,8 +51,9 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
       dispatch(initCustomThreadSuccess(manifest));
       currentUser().then(user => {
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
-        const namespaceObj = namespaceResource(userNamespace);
-        const namespaceRequestObj = namespaceRequestResource(userNamespace);
+        const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, walkthoughName);
+        const namespaceObj = namespaceResource({ name: userNamespace });
+        const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
         return findOrCreateOpenshiftResource(
           namespaceDef,
