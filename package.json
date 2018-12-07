@@ -33,7 +33,8 @@
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
     "rimraf": "2.6.2",
-    "sha.js": "2.4.11"
+    "sha.js": "2.4.11",
+    "simple-git": "^1.107.0"
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
@@ -76,7 +77,7 @@
     "watch:css": "yarn build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/styles/index.scss -o src/styles/.css --watch --recursive",
     "build:js": "react-scripts build",
     "start": "node server.js",
-    "start:dev": "WALKTHROUGH_LOCATIONS=../tutorial-web-app-walkthroughs/walkthroughs SHOW_EXAMPLE_WALKTHROUGH=true FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 APICURIO_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
+    "start:dev": "FUSE_URL=http://localhost:3006 LAUNCHER_URL=http://localhost:3006 ENMASSE_URL=http://localhost:3006 CHE_URL=http://localhost:3006 APICURIO_URL=http://localhost:3006 OPENSHIFT_OAUTHCLIENT_ID=\"tutorial-web-app\" run-p -l watch:css start:local start:server",
     "start:local": "react-scripts start",
     "start:server": "nodemon --watch server.js --exec 'node server.js'",
     "commit:hash": "echo REACT_APP_UI_COMMIT_HASH=$(git rev-list -1 --all) > .env",
