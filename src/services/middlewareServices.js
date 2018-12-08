@@ -282,7 +282,7 @@ const handleAMQServiceInstanceWatchEvents = event => {
   }
   const routeResource = {
     metadata: {
-      name: 'console'
+      name: 'console-jolokia'
     }
   };
   findOpenshiftResource(routeDef(event.payload.metadata.namespace), routeResource).then(route => {
