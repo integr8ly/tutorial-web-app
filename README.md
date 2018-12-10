@@ -127,11 +127,14 @@ https://github.com/user/repo#branch-or-tag
 
 # Developing Walkthroughs on Openshift
 
-If you're a walkthrough developer and you are working against an the Webapp on an Openshift instance, you can point that instance to your custom Walkthrouhgs repository.
+If you're a walkthrough developer and you are working against an the Webapp on an Openshift instance, you can point that instance to your custom Walkthroughs repository.
 
 Open the `webapp` project on the cluster and within that project, open the `tutorial-web-app` deployment. Click `Edit` and switch to the `Environment` tab.
 
 You should see an env var named `WALKTHROUGH_LOCATIONS`. Either replace it's value with your repository URL or add your repository (the separator is `,`).
+
+When changes are made to your repository you can send a `POST` request to the `/sync-walkthroughs` endpoint. This will re-clone the repositories, the new
+walkthroughs will then be visible in the web app.
 
 # Deployment to OpenShift (Remote Development Setup)
 
