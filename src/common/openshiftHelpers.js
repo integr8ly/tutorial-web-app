@@ -1,6 +1,13 @@
 import shajs from 'sha.js';
 import { create, list } from '../services/openshiftServices';
 
+// The total length of a namespace name.
+const NAMESPACE_NAME_LENGTH = 20;
+// The length of the username part of a namespace.
+const NAMESPACE_USERNAME_LENGTH = 10;
+// The length of the hash appended to the end of the namespace.
+const NAMESPACE_HASH_LENGTH = 4;
+
 /**
  * Construct a projects namespace from a given username.
  * Note that the namespace name might contain the full username as it is sanitized first.
@@ -9,8 +16,18 @@ import { create, list } from '../services/openshiftServices';
  * @param {string} username The username to create the namespace name from.
  * @param {string} suffix A suffix to append to the end of the users namespace.
  */
-const buildValidProjectNamespaceName = (username, suffix) =>
-  trimAndHash(`${cleanUsername(username)}-${suffix}`).toLowerCase();
+const buildValidProjectNamespaceName = (username, suffix) => {
+  const safeUsername = cleanUsername(username);
+
+  const shortHash = trimmedHash(`${safeUsername}-${suffix}`, NAMESPACE_HASH_LENGTH);
+  const trimmedUsername = safeUsername.substring(0, NAMESPACE_USERNAME_LENGTH);
+  // The 2 accounts for the hyphens used.
+  const namespaceSuffixLength = NAMESPACE_NAME_LENGTH - trimmedUsername.length - NAMESPACE_HASH_LENGTH - 2;
+  const trimmedSuffix = suffix.substring(0, namespaceSuffixLength);
+  return `${trimmedUsername}-${trimmedSuffix}-${shortHash}`.toLowerCase();
+};
+
+const buildValidNamespaceDisplayName = (username, suffix) => `${username} - ${suffix}`;
 
 /**
  * Get a sanitized version of a username, so it can be used to name OpenShift.
@@ -22,18 +39,11 @@ const cleanUsername = username =>
     .replace(/\./g, '-')
     .replace(/\s/g, '-');
 
-const trimAndHash = namespace => {
-  if (namespace.length > 40) {
-    namespace = `${namespace.slice(0, 35)}-${trimmedHash(namespace)}`;
-  }
-  return namespace;
-};
-
-const trimmedHash = namespace =>
+const trimmedHash = (namespace, length) =>
   shajs('sha256')
     .update(namespace)
     .digest('hex')
-    .slice(-4);
+    .slice(-length);
 
 const buildNamespacedServiceInstanceName = (prefix, si) => `${prefix}-${si.spec.to.name}`;
 
@@ -82,5 +92,6 @@ export {
   findOrCreateOpenshiftResource,
   findOpenshiftResource,
   buildNamespacedServiceInstanceName,
-  cleanUsername
+  cleanUsername,
+  buildValidNamespaceDisplayName
 };

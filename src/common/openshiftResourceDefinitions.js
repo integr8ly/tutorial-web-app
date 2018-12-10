@@ -3,22 +3,19 @@ const namespaceRequestDef = {
   version: 'v1',
   group: 'project.openshift.io'
 };
-const namespaceRequestResource = name => ({
+const namespaceRequestResource = (displayName, metadata) => ({
   kind: 'ProjectRequest',
-  metadata: {
-    name
-  }
+  displayName,
+  metadata
 });
 const namespaceDef = {
   name: 'projects',
   version: 'v1',
   group: 'project.openshift.io'
 };
-const namespaceResource = name => ({
+const namespaceResource = metadata => ({
   kind: 'projects',
-  metadata: {
-    name
-  }
+  metadata
 });
 const statefulSetDef = namespace => ({
   name: 'statefulsets',
