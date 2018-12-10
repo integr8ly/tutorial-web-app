@@ -37,6 +37,11 @@ app.get('/customWalkthroughs', (req, res) => {
 
 // Init custom walkthroughs dependencies
 app.post('/initThread', fetchOpenshiftUser, (req, res) => {
+  if (!req.body || !req.body.dependencies) {
+    console.warn('Dependencies not provided in request body. Skipping thread initialization.')
+    res.sendStatus(200);
+    return;
+  }
   const {
     dependencies: { repos },
     openshiftUser

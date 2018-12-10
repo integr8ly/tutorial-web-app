@@ -46,7 +46,16 @@ const initCustomThread = id =>
     serviceConfig({
       url: `/walkthroughs/${id}/files/walkthrough.json`
     })
-  ).then(response => initDeps(response));
+  ).then(response => {
+    if (response && response.response && response.response.status !== 200) {
+      if (response.response.status === 404) {
+        console.warn(`walkthrough.json file was not found for walkthrough ${id}`);
+        return initDeps({});
+      }
+      return Promise.reject(response.response.data.error);
+    }
+    return initDeps(response);
+  });
 
 const updateThreadProgress = (username, progress) => {
   localStorage.setItem(buildUserProgressKey(username), JSON.stringify(progress));
