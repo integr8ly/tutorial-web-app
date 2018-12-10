@@ -155,17 +155,22 @@ function resolveWalkthroughLocations(locations) {
   const tmpDirPrefix = uuid.v4();
   const mappedLocations = locations.map(location => {
     return new Promise((resolve, reject) => {
+      const locationResultTemplate = { origin: location };
       if (!location) {
         return reject(new Error(`Invalid location ${location}`));
       } else if (isPath(location)) {
         console.log(`Importing walkthrough from path ${location}`);
-        return resolve(location);
+        const locationResult = Object.assign({}, locationResultTemplate, { local: location });
+        return resolve(locationResult);
       } else if (isGitRepo(location)) {
         console.log(`Importing walkthrough from git ${location}`);
         const clonePath = path.join(TMP_DIR, tmpDirPrefix);
         return gitClient
           .cloneRepo(location, clonePath)
-          .then(cloned => resolve(path.join(cloned, 'walkthroughs')))
+          .then(cloned => {
+            const locationResult = Object.assign({}, locationResultTemplate, { local: path.join(cloned, 'walkthroughs') });
+            return resolve(locationResult);
+          })
           .catch(reject);
       }
       return reject(new Error(`${location} is neither a path nor a git repo`));
@@ -182,13 +187,16 @@ function resolveWalkthroughLocations(locations) {
  */
 function lookupWalkthroughResources(location) {
   return new Promise((resolve, reject) => {
-    fs.readdir(location, (err, files) => {
+    if (!fs.existsSync(location.local)) {
+      reject(new Error(`Could not find walkthroughs directory in provided location: ${location.origin}`));
+    }
+    fs.readdir(location.local, (err, files) => {
       if (err) {
         return reject(err);
       }
 
       const adocInfo = files.reduce((acc, dirName) => {
-        const basePath = path.join(location, dirName);
+        const basePath = path.join(location.local, dirName);
         const adocPath = path.join(basePath, 'walkthrough.adoc');
         if (fs.existsSync(adocPath)) {
           acc.push({
