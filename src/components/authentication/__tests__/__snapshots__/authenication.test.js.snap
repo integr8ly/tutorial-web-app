@@ -13,25 +13,9 @@ Object {
 `;
 
 exports[`Authentication Component should render a basic component with login form: connected 1`] = `
-<Authentication
-  checkUser={[Function]}
-  loginUser={[Function]}
-  removeStoredData={[Function]}
-  session={
-    Object {
-      "error": false,
-      "loginFailed": false,
-      "pending": false,
-    }
-  }
-  storeData={[Function]}
->
-  <span
-    className="test"
-  >
-    lorem
-  </span>
-</Authentication>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;
 
 exports[`Authentication Component should render a basic component without login form: post-authorization 1`] = `

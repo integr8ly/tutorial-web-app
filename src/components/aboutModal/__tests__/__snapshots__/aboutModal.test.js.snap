@@ -1,18 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AboutModal Component should render a connected component with default props: connected 1`] = `
-<AboutModal
-  commitHash="1"
-  dispatch={[Function]}
-  onClose={null}
-  resetTimer={3000}
-  session={
-    Object {
-      "username": "test",
-    }
-  }
-  show={true}
-/>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;
 
 exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `

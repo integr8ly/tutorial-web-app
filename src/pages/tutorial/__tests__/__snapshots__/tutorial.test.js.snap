@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TutorialPage Component should render the ConnectedTutorialPage component 1`] = `
-<Component
-  getThread={[Function]}
-  getWalkthrough={[Function]}
-  thread={
-    Object {
-      "pending": true,
-    }
-  }
-/>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;
 
 exports[`TutorialPage Component should render the TutorialPage component error state 1`] = `""`;
@@ -46,12 +40,21 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           >
             Example
           </h3>
-          <button
-            className="pf-c-button pf-m-primary"
+          <Button
+            aria-label={null}
+            className=""
+            component="button"
+            isActive={false}
+            isBlock={false}
+            isDisabled={false}
+            isFocus={false}
+            isHover={false}
             onClick={[Function]}
+            type="button"
+            variant="primary"
           >
             tutorial.getStarted
-          </button>
+          </Button>
         </div>
         <div
           dangerouslySetInnerHTML={

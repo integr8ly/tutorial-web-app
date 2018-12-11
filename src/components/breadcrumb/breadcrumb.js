@@ -20,13 +20,12 @@ class Breadcrumb extends React.Component {
           <Icon className="fa-lg" type="fa" name="home" />
         </PfBreadcrumb.Item>
         {threadName && !taskPosition && <PfBreadcrumb.Item active>{threadName}</PfBreadcrumb.Item>}
-        {threadName &&
-          taskPosition && (
-            <React.Fragment>
-              <PfBreadcrumb.Item href={`/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
-              <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
-            </React.Fragment>
-          )}
+        {threadName && taskPosition && (
+          <React.Fragment>
+            <PfBreadcrumb.Item href={`/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
+            <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
+          </React.Fragment>
+        )}
       </PfBreadcrumb>
     );
   }

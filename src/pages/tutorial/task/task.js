@@ -271,8 +271,9 @@ class TaskPage extends React.Component {
               No
             </Radio>
             {isNoChecked && block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
-            {isYesChecked &&
-              block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+            {isYesChecked && block.hasSuccessBlock && (
+              <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />
+            )}
           </React.Fragment>
         }
       </div>

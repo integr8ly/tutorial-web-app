@@ -1,44 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Masthead Component should render a basic component: basic 1`] = `
-<Masthead
-  logoutUser={[Function]}
-/>
-`;
-
-exports[`Masthead Component should render a basic component: help dropdown 1`] = `null`;
-
-exports[`Masthead Component should render a basic component: user dropdown 1`] = `
-<MastheadDropdown
-  className=""
-  id="app-user-dropdown"
-  noCaret={false}
-  title={
-    <React.Fragment>
-      <Icon
-        name="user"
-        type="pf"
-      />
-       
-      <span
-        className="dropdown-title"
-      >
-         
-         
-      </span>
-    </React.Fragment>
-  }
->
-  <MenuItem
-    bsClass="dropdown"
-    disabled={false}
-    divider={false}
-    header={false}
-    onClick={[Function]}
-  >
-    Logout
-  </MenuItem>
-</MastheadDropdown>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;
 
 exports[`Masthead Component should render mobile navigation: mobile-nav 1`] = `
