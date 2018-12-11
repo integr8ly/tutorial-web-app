@@ -11,6 +11,9 @@ const gitClient = require('./git_client');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 
+const DEFAULT_WALKTHROUGH_REPOS = 'https://github.com/integr8ly/tutorial-web-app-walkthroughs.git,https://github.com/integr8ly/example-customisations.git';
+const DEFAULT_WALKTHROUGH_PATHS = '../tutorial-web-app-walkthroughs/walkthroughs';
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -21,7 +24,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
 };
 
-const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || (process.env.NODE_ENV === 'production' ? 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' : '../tutorial-web-app-walkthroughs/walkthroughs');
+const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || (process.env.NODE_ENV === 'production' ? DEFAULT_WALKTHROUGH_REPOS : DEFAULT_WALKTHROUGH_PATHS);
 const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 
 const CONTEXT_PREAMBLE = 'preamble';

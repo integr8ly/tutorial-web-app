@@ -46,6 +46,13 @@ First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkth
 $ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
 ----
 
+To include walkthroughs on how to develop custom walkthroughs, the https://github.com/integr8ly/tutorial-web-app-walkthroughs.git[tutorials repository] should be cloned next to the tutorial web app
+
+[source,shell]
+----
+$ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+----
+
 === Install dependencies
 Then change to the webapp directory, install its dependencies and run the development server:
 
@@ -59,6 +66,13 @@ IMPORTANT: The webapp will automatically open (http://localhost:3006) in your br
 When running locally, the available services list is mocked, and service urls set via env vars.
 
 The webapp will also automatically load the walkthroughs from `../tutorial-web-app-walkthroughs/walkthroughs`.
+
+To include the walkthroughs on how to add a custom walkthrough, override the `WALKTHROUGH_LOCATIONS` environment variable:
+
+[source,shell]
+----
+$ WALKTHROUGH_LOCATIONS=../tutorial-web-app-walkthroughs/walkthroughs,../example-customisations/walkthroughs yarn start:dev
+----
 
 === Setup Local Development of Walkthroughs
 
