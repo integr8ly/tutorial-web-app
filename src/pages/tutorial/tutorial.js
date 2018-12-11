@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
+import { Button } from '@patternfly/react-core';
 import { noop, Grid, Icon, ListView } from 'patternfly-react';
 import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
@@ -88,9 +89,7 @@ class TutorialPage extends React.Component {
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg">
                 <div className="integr8ly-task-dashboard-header">
                   <h3 className="pf-c-title pf-m-2xl">{parsedThread.title}</h3>
-                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, id)}>
-                    {t('tutorial.getStarted')}
-                  </button>
+                  <Button onClick={e => this.getStarted(e, id)}>{t('tutorial.getStarted')}</Button>
                 </div>
                 {this.renderPrereqs(thread)}
                 <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
