@@ -14,12 +14,11 @@ describe('Masthead Component', () => {
 
   afterAll(() => delete window.OPENSHIFT_CONFIG);
 
-  xit('should render a basic component', () => {
+  it('should render a basic component', () => {
     const store = generateEmptyStore({ userReducers: { session: { username: 'Admin' } } });
     const component = shallow(<ConnectedMasthead />, { context: { store } });
 
     expect(component).toMatchSnapshot('basic');
-    expect(component.dive().find('#app-user-dropdown')).toMatchSnapshot('user dropdown');
   });
 
   it('should render mobile navigation', () => {
