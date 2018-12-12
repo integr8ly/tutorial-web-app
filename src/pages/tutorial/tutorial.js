@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Grid, Icon, ListView } from 'patternfly-react';
+import { Button } from '@patternfly/react-core';
 import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
