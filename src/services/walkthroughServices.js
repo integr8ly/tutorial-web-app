@@ -62,6 +62,9 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
           namespaceRequestDef,
           namespaceRequestObj
         ).then(() => {
+          if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
+            return Promise.resolve([]);
+          }
           const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
             const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
             return parseServiceInstanceTemplate(serviceInstance, attrs);
