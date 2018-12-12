@@ -22,7 +22,6 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
 };
 
 const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || (process.env.NODE_ENV === 'production' ? 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' : '../tutorial-web-app-walkthroughs/walkthroughs');
-const IGNORED_WALKTHROUGH_SEARCH_PATHS = ['.git', '.idea', '.DS_Store'];
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
