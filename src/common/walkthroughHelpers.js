@@ -2,6 +2,7 @@ import asciidoctor from 'asciidoctor.js';
 
 const CONTEXT_SECTION = 'section';
 const CONTEXT_DOCUMENT = 'document';
+const CONTEXT_SIDEBAR = 'sidebar';
 
 const BLOCK_ATTR_TYPE = 'type';
 const BLOCK_ATTR_TIME = 'time';
@@ -12,6 +13,7 @@ const BLOCK_TYPE_VERIFICATION_SUCCESS = 'verificationSuccess';
 const BLOCK_TYPE_TASK_RESOURCE = 'taskResource';
 const BLOCK_TYPE_WALKTHROUGH_RESOURCE = 'walkthroughResource';
 
+const BLOCK_LEVEL_PREAMBLE = 0;
 const BLOCK_LEVEL_TASK = 1;
 const BLOCK_LEVEL_STEP = 2;
 
@@ -190,8 +192,8 @@ class WalkthroughResourceStep {
 
   static canConvert(adoc) {
     return (
-      adoc.context === CONTEXT_SECTION &&
-      adoc.level === BLOCK_LEVEL_STEP &&
+      adoc.context === CONTEXT_SIDEBAR &&
+      adoc.level === BLOCK_LEVEL_TASK &&
       adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE
     );
   }
@@ -224,8 +226,8 @@ class WalkthroughResource {
 
   static canConvert(adoc) {
     return (
-      adoc.context === CONTEXT_SECTION &&
-      adoc.level === BLOCK_LEVEL_STEP &&
+      adoc.context === CONTEXT_SIDEBAR &&
+      adoc.level === BLOCK_LEVEL_PREAMBLE &&
       adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_WALKTHROUGH_RESOURCE
     );
   }
@@ -316,11 +318,26 @@ class Walkthrough {
     return this._resources;
   }
 
+  static extractWalkthroughResources(preamble) {
+    const resources = [];
+    preamble.blocks = preamble.blocks.reduce((acc, block) => {
+      if (WalkthroughResource.canConvert(block)) {
+        resources.push(WalkthroughResource.fromAdoc(block));
+      } else {
+        acc.push(block);
+      }
+      return acc;
+    }, []);
+    return resources;
+  }
+
   static fromAdoc(adoc) {
     const title = adoc.getDocumentTitle();
-    const resources = adoc.blocks
-      .filter(b => WalkthroughResource.canConvert(b))
-      .map(b => WalkthroughResource.fromAdoc(b));
+    if (adoc.blocks.length < 1) {
+      throw new Error(`Invalid Walkthrough ${title}`);
+    }
+
+    const resources = this.extractWalkthroughResources(adoc.blocks[0]);
     const preamble = adoc.blocks[0].convert();
     const tasks = adoc.blocks.filter(b => WalkthroughTask.canConvert(b)).map(b => WalkthroughTask.fromAdoc(b));
     const time = tasks.reduce((acc, t) => acc + t._time || 0, 0);
