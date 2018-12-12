@@ -162,6 +162,9 @@ class WalkthroughStep {
         const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
         acc.push(new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock));
       }
+      if (WalkthroughResourceStep.canConvert(b)) {
+        return acc;
+      }
       if (WalkthroughTextBlock.canConvert(b)) {
         acc.push(new WalkthroughTextBlock(b.convert()));
       }
@@ -193,7 +196,7 @@ class WalkthroughResourceStep {
   static canConvert(adoc) {
     return (
       adoc.context === CONTEXT_SIDEBAR &&
-      adoc.level === BLOCK_LEVEL_TASK &&
+      (adoc.level === BLOCK_LEVEL_TASK || adoc.level === BLOCK_LEVEL_STEP) &&
       adoc.getAttribute(BLOCK_ATTR_TYPE) === BLOCK_TYPE_TASK_RESOURCE
     );
   }
@@ -240,11 +243,12 @@ class WalkthroughResource {
 }
 
 class WalkthroughTask {
-  constructor(title, time, html, steps) {
+  constructor(title, time, html, steps, resources) {
     this._title = title;
     this._time = time;
     this._html = html;
     this._steps = steps;
+    this._resources = resources;
   }
 
   get title() {
@@ -264,20 +268,30 @@ class WalkthroughTask {
   }
 
   get resources() {
-    return this._steps.filter(s => s instanceof WalkthroughResourceStep);
+    return this._resources;
   }
 
   static canConvert(adoc) {
     return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_TASK;
   }
 
+  static collectTaskResources(task, collected) {
+    task.blocks.forEach(block => {
+      if (WalkthroughResourceStep.canConvert(block)) {
+        collected.push(WalkthroughResourceStep.fromAdoc(block));
+      } else if (block.blocks.length > 0) {
+        this.collectTaskResources(block, collected);
+      }
+    });
+  }
+
   static fromAdoc(adoc) {
     const title = adoc.numbered ? `${getNumberedTitle(adoc)}. ${adoc.title}` : adoc.title;
     const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10) || 0;
+    const collectedResources = [];
+    this.collectTaskResources(adoc, collectedResources);
     const steps = adoc.blocks.reduce((acc, b) => {
-      if (WalkthroughResourceStep.canConvert(b)) {
-        acc.push(WalkthroughResourceStep.fromAdoc(b));
-      } else if (WalkthroughStep.canConvert(b)) {
+      if (WalkthroughStep.canConvert(b)) {
         acc.push(WalkthroughStep.fromAdoc(b));
       } else if (WalkthroughTextBlock.canConvert(b)) {
         acc.push(WalkthroughTextBlock.fromAdoc(b));
@@ -285,7 +299,7 @@ class WalkthroughTask {
       return acc;
     }, []);
 
-    return new WalkthroughTask(title, time, adoc.convert(), steps);
+    return new WalkthroughTask(title, time, adoc.convert(), steps, collectedResources);
   }
 }
 
