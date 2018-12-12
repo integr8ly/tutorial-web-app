@@ -275,6 +275,8 @@ class WalkthroughTask {
     return adoc.context === CONTEXT_SECTION && adoc.level === BLOCK_LEVEL_TASK;
   }
 
+  // Task resources can be defined at task or step level so we have to recursively check all blocks
+  // that are lower in the document hierarchy
   static collectTaskResources(task, collected) {
     task.blocks.forEach(block => {
       if (WalkthroughResourceStep.canConvert(block)) {
@@ -332,7 +334,8 @@ class Walkthrough {
     return this._resources;
   }
 
-  static extractWalkthroughResources(preamble) {
+  // Walkthrough resources are always defined at preamble level
+  static collectWalkthroughResources(preamble) {
     const resources = [];
     preamble.blocks = preamble.blocks.reduce((acc, block) => {
       if (WalkthroughResource.canConvert(block)) {
@@ -351,7 +354,7 @@ class Walkthrough {
       throw new Error(`Invalid Walkthrough ${title}`);
     }
 
-    const resources = this.extractWalkthroughResources(adoc.blocks[0]);
+    const resources = this.collectWalkthroughResources(adoc.blocks[0]);
     const preamble = adoc.blocks[0].convert();
     const tasks = adoc.blocks.filter(b => WalkthroughTask.canConvert(b)).map(b => WalkthroughTask.fromAdoc(b));
     const time = tasks.reduce((acc, t) => acc + t._time || 0, 0);
