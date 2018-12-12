@@ -67,6 +67,9 @@
   "resolutions": {
     "**/jest": "23.6.0"
   },
+  "resolutions": {
+    "**/jest": "23.6.0"
+  },
   "lint-staged": {
     "src/styles/**/*.scss}": [
       "stylelint --config=.stylelintrc --fix",
