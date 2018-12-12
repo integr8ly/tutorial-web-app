@@ -23,9 +23,9 @@
     "npm": "6.4.1",
     "patternfly-react": "2.22.1",
     "prop-types": "15.6.2",
-    "react": "16.4.0",
-    "react-dom": "16.4.0",
-    "react-i18next": "7.10.1",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "react-i18next": "8.3.8",
     "react-redux": "5.0.6",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",
-    "enzyme": "3.4.2",
+    "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.7.1",
-    "enzyme-to-json": "3.3.4",
+    "enzyme-to-json": "3.3.5",
     "eslint": "5.6.0",
     "eslint-plugin-patternfly-react": "0.1.1",
     "i18next-json-sync": "2.2.0",
@@ -59,6 +59,9 @@
     "stylelint-config-standard": "18.2.0",
     "stylelint-order": "1.0.0",
     "stylelint-scss": "3.3.0"
+  },
+  "resolutions": {
+    "**/jest": "23.6.0"
   },
   "lint-staged": {
     "src/styles/**/*.scss}": [
