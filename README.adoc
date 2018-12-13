@@ -177,7 +177,13 @@ If you're a walkthrough developer and you are working against an the Webapp on a
 
 Open the `webapp` project on the cluster and within that project, open the `tutorial-web-app` deployment. Click `Edit` and switch to the `Environment` tab.
 
-You should see an env var named `WALKTHROUGH_LOCATIONS`. Either replace it's value with your repository URL or add your repository (the separator is `,`).
+You should see an env var named `WALKTHROUGH_LOCATIONS`. Add your repository (the separator is `,`), for example:
+
+----
+https://github.com/integr8ly/tutorial-web-app-walkthroughs.git,https://github.com/integr8ly/example-customisations.git
+----
+
+You can refer to specific branches, for example, `#my-feature`.
 
 A git reference can be deployed to a remote OpenShift cluster.
 
