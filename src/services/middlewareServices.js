@@ -192,8 +192,8 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
     payload: {
       username: usernameEnv.value,
       password: passwordEnv.value,
-      tcpUrl: `broker-amq-tcp.${namespace}.svc`,
-      url: `broker-amq-amqp.${namespace}.svc`
+      tcpUrl: `broker-amq-headless.${namespace}.svc`,
+      url: `broker-amq-headless.${namespace}.svc`
     }
   });
 };
@@ -284,7 +284,7 @@ const handleAMQServiceInstanceWatchEvents = event => {
   }
   const routeResource = {
     metadata: {
-      name: 'console'
+      name: 'console-jolokia'
     }
   };
   findOpenshiftResource(routeDef(event.payload.metadata.namespace), routeResource).then(route => {
