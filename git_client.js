@@ -49,7 +49,6 @@ exports.cloneRepo = (repoUrl, targetDir) =>
   
     simpleGit
       // Disable terminal prompts, so Git does not prompt for username/password on a clone.
-      .env('GIT_TERMINAL_PROMPT', '0')
       .clone(cleanRepoUrl, clonePath, cloneOpts)
       .then(() => resolve(clonePath))
       .catch(reject);
