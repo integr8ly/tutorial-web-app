@@ -286,7 +286,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'amq-broker-71-persistence'
+            clusterServiceClassExternalName: 'amq-broker-72-persistence'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
