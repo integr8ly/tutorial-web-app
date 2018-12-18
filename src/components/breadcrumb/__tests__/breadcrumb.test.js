@@ -7,7 +7,6 @@ describe('Breadcrumb component', () => {
     history: [],
     t: (localString, localObj) => {
       const { taskPosition, totalTasks } = localObj;
-      // Verify proper localization objects are passed in.
       expect(localString).toEqual('breadcrumb.task');
       return `Task ${taskPosition} of ${totalTasks}`;
     },

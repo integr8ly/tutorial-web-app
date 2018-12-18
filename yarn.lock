@@ -1033,10 +1033,10 @@
   resolved "https://registry.yarnpkg.com/@patternfly/patternfly-next/-/patternfly-next-1.0.84.tgz#03f877875f739e3b294e7d476465830d41ffaf99"
   integrity sha512-sIRfo/tk4NSnaRwHIHLUf4XoqzNNa4MMa8ZWivzzSfdZ5pCbgvZtyEUqKnQAEH6zuaCM9S8HyhxcNXnm/xaYaQ==
 
-"@patternfly/react-core@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-2.0.0.tgz#84687d78ec1b407beb321fb89b62fb9444079c47"
-  integrity sha512-AUYCUa5UqA457YUBrKxEFKxWEPu2YJNK4PYS62TpKPNvek15UZ036PwfW2+aPnTv+BQHV0fla1Li0kLjkB8uCg==
+"@patternfly/react-core@^1.40.1":
+  version "1.40.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-1.40.1.tgz#f152943ac3d591853cd70c7ef25af81e3caf7964"
+  integrity sha512-47INwc469JzwdLBn5hTeUDCpoQtkXR75Nb6nGdLd/bHMpoyTkNpoVArJtdiV58WmS0v8THFqy3an0/iEnYtVYw==
   dependencies:
     "@patternfly/react-icons" "^2.9.3"
     "@patternfly/react-styles" "^2.3.0"
