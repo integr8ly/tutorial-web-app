@@ -18,13 +18,11 @@ describe('Breadcrumb component', () => {
   };
 
   test('should render default breadcrumb', () => {
+    console.error = jest.fn();
     const component = shallow(<Breadcrumb />);
-    const consoleOutput = jest.fn();
-    global.console = { warn: consoleOutput };
     expect(component).toMatchSnapshot();
-    expect(consoleOutput).toBeCalledWith(
-      'Failed prop type: The prop `t` is marked as required in `Breadcrumb`, but its value is `undefined`.'
-    );
+    expect(console.error).toBeCalled();
+    console.error.mockRestore();
   });
 
   test('should render breadcrumb with props', () => {
