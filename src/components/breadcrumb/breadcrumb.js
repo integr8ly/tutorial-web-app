@@ -34,12 +34,19 @@ class Breadcrumb extends React.Component {
 }
 
 Breadcrumb.propTypes = {
+  /**  Navigation history */
   history: PropTypes.object,
+  /** Translation function provided for i18n */
   t: PropTypes.func.isRequired,
+  /** Walkthrough name (thread) that will show up in the breadcrumb link */
   threadName: PropTypes.string,
+  /** Walkthrough ID (thread) */
   threadId: PropTypes.string,
+  /** Current task in the walkthrough that the user is on */
   taskPosition: PropTypes.number,
+  /** The total number of tasks for this walkthrough */
   totalTasks: PropTypes.number,
+  /** Called when the home button is clicked */
   homeClickedCallback: PropTypes.func
 };
 
