@@ -101,7 +101,11 @@ class InstalledAppsView extends React.Component {
       const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
       return (
         <li
-          onClick={() => window.open(InstalledAppsView.getRouteForApp(app), '_blank')}
+          onClick={() =>
+            prettyName === 'Red Hat AMQ'
+              ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
+              : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
+          }
           key={`${app.spec.clusterServiceClassExternalName}_${index}`}
           value={index}
         >
