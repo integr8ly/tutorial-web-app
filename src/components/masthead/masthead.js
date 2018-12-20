@@ -95,7 +95,7 @@ class Masthead extends React.Component {
 
     return (
       <PfMasthead.Dropdown id="app-user-dropdown" title={title}>
-        <MenuItem onClick={this.onLogoutUser}>Logout</MenuItem>
+        <MenuItem onClick={this.onLogoutUser}>Log Out</MenuItem>
       </PfMasthead.Dropdown>
     );
   }
