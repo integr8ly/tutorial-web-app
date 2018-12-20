@@ -36,7 +36,7 @@ exports[`Masthead Component should render a basic component: user dropdown 1`] =
     header={false}
     onClick={[Function]}
   >
-    Logout
+    Log Out
   </MenuItem>
 </MastheadDropdown>
 `;
