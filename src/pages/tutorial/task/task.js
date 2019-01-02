@@ -99,11 +99,16 @@ class TaskPage extends React.Component {
     updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
-  getVerificationsForTask = task => {
-    const stepVerifications = task.steps.map((step, i) => this.getVerificationsForStep(i, step));
-    // Flatten the array of arrays. Array.prototype.flat() is not IE/Edge compatible. (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat#Browser_compatibility)
-    return [].concat(...stepVerifications);
-  };
+  getVerificationsForTask = task =>
+    task.blocks.reduce((acc, b, i) => {
+      if (b instanceof WalkthroughStep) {
+        return acc.concat(this.getVerificationsForStep(i, b));
+      }
+      if (b instanceof WalkthroughVerificationBlock) {
+        return acc.concat(`${i}`);
+      }
+      return acc;
+    }, []);
 
   getVerificationsForStep = (stepId, step) => {
     if (!step.blocks) {
@@ -286,6 +291,9 @@ class TaskPage extends React.Component {
           <div dangerouslySetInnerHTML={{ __html: block.html }} />
         </React.Fragment>
       );
+    }
+    if (block instanceof WalkthroughVerificationBlock) {
+      return this.renderVerificationBlock(`${id}`, block);
     }
     if (block instanceof WalkthroughStep) {
       return (
