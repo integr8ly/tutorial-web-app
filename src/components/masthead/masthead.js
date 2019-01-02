@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
+import PropTypes from 'prop-types';
+import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
 import { aboutModalTypes } from '../../redux/constants';
@@ -33,7 +34,8 @@ class Masthead extends React.Component {
   };
 
   onTitleClick = () => {
-    window.location.href = '/';
+    const { history } = this.props;
+    history.push(`/`);
   };
 
   renderMobileNav() {
@@ -109,6 +111,18 @@ class Masthead extends React.Component {
     );
   }
 }
+
+Masthead.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
+};
+
+Masthead.defaultProps = {
+  history: {
+    push: noop
+  }
+};
 
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(reduxActions.userActions.logoutUser())
