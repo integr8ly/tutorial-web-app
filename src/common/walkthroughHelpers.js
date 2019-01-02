@@ -267,6 +267,10 @@ class WalkthroughTask {
     return this._steps.filter(s => !(s instanceof WalkthroughResourceStep));
   }
 
+  get blocks() {
+    return this._steps;
+  }
+
   get resources() {
     return this._resources;
   }
@@ -292,9 +296,14 @@ class WalkthroughTask {
     const time = parseInt(adoc.getAttribute(BLOCK_ATTR_TIME), 10) || 0;
     const collectedResources = [];
     this.collectTaskResources(adoc, collectedResources);
-    const steps = adoc.blocks.reduce((acc, b) => {
+    const steps = adoc.blocks.reduce((acc, b, i, blockList) => {
       if (WalkthroughStep.canConvert(b)) {
         acc.push(WalkthroughStep.fromAdoc(b));
+      } else if (WalkthroughVerificationBlock.canConvert(b)) {
+        const remainingBlocks = blockList.slice(i + 1, blockList.length);
+        const successBlock = WalkthroughVerificationSuccessBlock.findNextForVerification(remainingBlocks);
+        const failBlock = WalkthroughVerificationFailBlock.findNextForVerification(remainingBlocks);
+        acc.push(new WalkthroughVerificationBlock(b.convert(), successBlock, failBlock));
       } else if (WalkthroughTextBlock.canConvert(b)) {
         acc.push(WalkthroughTextBlock.fromAdoc(b));
       }

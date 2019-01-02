@@ -46,7 +46,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
       />
     }
     show={false}
-    trademarkText="Copyright (c) 2018 Red Hat Inc."
+    trademarkText="Copyright (c) 2019 Red Hat Inc."
   >
     <Modal
       animation={true}
@@ -139,7 +139,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
       />
     }
     show={false}
-    trademarkText="Copyright (c) 2018 Red Hat Inc."
+    trademarkText="Copyright (c) 2019 Red Hat Inc."
   >
     <Modal
       animation={true}
