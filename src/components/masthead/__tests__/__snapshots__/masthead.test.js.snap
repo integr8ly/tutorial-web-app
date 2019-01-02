@@ -2,6 +2,11 @@
 
 exports[`Masthead Component should render a basic component: basic 1`] = `
 <Masthead
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
   logoutUser={[Function]}
 />
 `;
