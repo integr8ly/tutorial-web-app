@@ -297,6 +297,9 @@ class WalkthroughTask {
     const collectedResources = [];
     this.collectTaskResources(adoc, collectedResources);
     const steps = adoc.blocks.reduce((acc, b, i, blockList) => {
+      if (WalkthroughResourceStep.canConvert(b)) {
+        return acc;
+      }
       if (WalkthroughStep.canConvert(b)) {
         acc.push(WalkthroughStep.fromAdoc(b));
       } else if (WalkthroughVerificationBlock.canConvert(b)) {
