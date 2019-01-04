@@ -1,6 +1,6 @@
 // This file needs to live inside src to be importable
 export default {
-  'enmasse-standard': {
+  'amq-online-standard': {
     prettyName: 'Red Hat AMQ Online',
     gaStatus: 'preview'
   },
