@@ -24,7 +24,9 @@ const buildValidProjectNamespaceName = (username, suffix) => {
   // The 2 accounts for the hyphens used.
   const namespaceSuffixLength = NAMESPACE_NAME_LENGTH - trimmedUsername.length - NAMESPACE_HASH_LENGTH - 2;
   const trimmedSuffix = suffix.substring(0, namespaceSuffixLength);
-  return `${trimmedUsername}-${trimmedSuffix}-${shortHash}`.toLowerCase();
+  const namespaceName = `${trimmedUsername}-${trimmedSuffix}-${shortHash}`.toLowerCase();
+  // Remove subsequent dashes before returning to avoid substitution for "em dash" by asciidoctor [INTLY-424]
+  return namespaceName.replace(/-{2,}/g, '-');
 };
 
 const buildValidNamespaceDisplayName = (username, suffix) => `${username} - ${suffix}`;
