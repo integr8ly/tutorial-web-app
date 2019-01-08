@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 484 400" style="enable-background:new 0 0 484 400;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;enable-background:new    ;}
+	.st1{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;}
+	.st2{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:378.52,378.52;}
+	.st3{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:376.09,376.09;}
+	.st4{opacity:0.9939;fill:none;stroke:#FFFFFF;stroke-linejoin:round;enable-background:new    ;}
+	.st5{fill:none;stroke:#FFFFFF;stroke-linejoin:round;}
+	.st6{opacity:0.9953;fill:none;stroke:#FFFFFF;stroke-linejoin:round;enable-background:new    ;}
+	.st7{fill:#00659C;fill-opacity:0;}
+	.st8{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:94.8,94.8;}
+	.st9{opacity:0.9979;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:94.9;enable-background:new    ;}
+	
+		.st10{opacity:0.9922;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:380,380;enable-background:new    ;}
+	.st11{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st12{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0;}
+	.st13{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;stroke-dashoffset:-45;}
+	.st14{opacity:0.6667;fill:none;stroke:#FFFFFF;stroke-linejoin:round;enable-background:new    ;}
+	.st15{opacity:0.3333;fill:none;stroke:#FFFFFF;stroke-linejoin:round;enable-background:new    ;}
+	.st16{fill:none;stroke:#FFFFFF;stroke-dasharray:96,96;stroke-dashoffset:67;}
+	.st17{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:96,96;stroke-dashoffset:28;}
+	.st18{fill:none;stroke:#FFFFFF;stroke-dasharray:96,96;stroke-dashoffset:9;}
+	.st19{fill:none;stroke:#FFFFFF;stroke-dasharray:96,96;stroke-dashoffset:48;}
+	.st20{fill:none;stroke:#FFFFFF;stroke-linejoin:round;stroke-opacity:0;}
+	.st21{opacity:0.2;fill:none;stroke:#FFFFFF;stroke-linejoin:round;enable-background:new    ;}
+	.st22{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;stroke-dashoffset:-21;}
+	.st23{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;}
+	.st24{fill:none;stroke:#FFFFFF;stroke-dasharray:96,96;stroke-dashoffset:28;}
+	.st25{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linejoin:round;stroke-opacity:0;}
+	.st26{opacity:0.2;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linejoin:round;enable-background:new    ;}
+	.st27{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;stroke-dashoffset:-23;}
+	.st28{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;stroke-dashoffset:-10;}
+	.st29{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-dasharray:107,107;stroke-dashoffset:-5;}
+</style>
+<title>DottedField_MotionTest2 2</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1" transform="translate(120.6,376.7) translate(-194,-341)">
+	<path id="Connector_1" class="st0" d="M275.5,177.5l162.8,95"/>
+	<path id="Connector2" class="st1" d="M192.5,225.5l164.2-95.2"/>
+	<g id="Parent" transform="translate(383,163)">
+		<path id="ParentLineBack" class="st2" d="M82.2,0.8v94.8"/>
+		<path id="ParentBase" class="st3" d="M81.9,189.5L0.7,142.1l81.2-47.4l81.2,47.4L81.9,189.5z"/>
+		<path id="ParentCoreRightBack" class="st4" d="M82.2,94.3l27.2,15.8V78.9l-0.3-0.1L82.2,63.2V94.3z"/>
+		<path id="ParentCoreLeftFront" class="st5" d="M55,78.9l27.2,15.8v31.1L55,110.1V78.9z"/>
+		<path id="ParentCoreLeftBack" class="st5" d="M82.2,94.3L55,110.1V78.9l0.3-0.1l26.9-15.6V94.3z"/>
+		<path id="ParentCoreRightFront" class="st6" d="M109.4,78.9L82.2,94.7v31.1l27.2-15.7V78.9z"/>
+		<path id="ParentFill" class="st7" d="M0.6,47.5l81.9-48l81,48v93.7l-82,48.3L0.6,141.2V47.5z"/>
+		<path id="ParentTop" class="st2" d="M81.9,94.8L0,47.4L81.9,0l81.9,47.4L81.9,94.8z"/>
+		<path id="ParentLineLeft" class="st8" d="M0,47.9v94.8"/>
+		<path id="ParentLineFront" class="st8" d="M82.2,95.1v94.8"/>
+		<path id="ParentLineRight" class="st9" d="M163.8,47.5v94.9"/>
+		<path id="ParentLineBack-2" class="st2" d="M82.2,0.8v94.8"/>
+	</g>
+	<path id="LeftBase" class="st10" d="M192.7,225.9l55,31.8l-82.2,47.6l-82.1-47.6l82.1-47.5L192.7,225.9"/>
+	<g id="LeftCopy" transform="translate(83,103)">
+		<path id="LeftBox2" class="st11" d="M82.5,186.2L0.4,138.7l82.1-47.6l82.2,47.6L82.5,186.2z"/>
+		<path id="LeftBox3" class="st11" d="M82.5,170.5L0.4,123l82.1-47.5l82.2,47.5L82.5,170.5z"/>
+		<path id="LeftBox4" class="st12" d="M82.5,154.8L0.4,107.3l82.1-47.5l82.2,47.5L82.5,154.8z"/>
+		<path id="LeftBoxLineBack" class="st13" d="M82.3,13.3v94"/>
+		<path id="LeftCore1" class="st5" d="M82.3,107.3l-26.9,15.6l27.1,15.4l0,0l27.1-15.4L82.3,107.3z"/>
+		<path id="LeftCore2" class="st5" d="M55.3,117.6l27.1-15.9l27.1,15.3c0,0-26.9,15.8-27.1,15.9L55.3,117.6z"/>
+		<path id="LeftCore3" class="st5" d="M55.3,112.4l27.1-15.9l27.1,15.3c0,0-26.9,15.8-27.1,15.9L55.3,112.4z"/>
+		<path id="LeftCore4" class="st5" d="M55.2,107.2l27.1-15.9l27.1,15.3c0,0-27,15.8-27.1,15.9L55.2,107.2z"/>
+		<path id="LeftCore5" class="st5" d="M55.2,102l27.1-15.9l27.1,15.3c0,0-27,15.9-27.1,15.9L55.2,102z"/>
+		<path id="LeftCore6" class="st14" d="M55.1,96.8l27.1-15.9l27.1,15.3c0,0-27,15.9-27.1,15.9L55.1,96.8z"/>
+		<path id="LeftCore7" class="st15" d="M109.3,92.6l-26.9,15.5L55.1,92.3L82.2,77L109.3,92.6z"/>
+		<path id="LeftBox5" class="st12" d="M82.5,139.2L0.4,91.6l82.1-47.5l82.2,47.5L82.5,139.2z"/>
+		<path id="LeftBox6" class="st12" d="M82.5,123.5L0.4,76l82.1-47.6L164.7,76L82.5,123.5z"/>
+		<path id="LeftCoreLineFront" class="st16" d="M82.3,75.1v95.6"/>
+		<path id="LeftCoreLineBack" class="st17" d="M82.3,44.1v95.6"/>
+		<path id="LeftCoreLineRight" class="st18" d="M109.2,59.7v95.7"/>
+		<path id="LeftCoreLineLeft" class="st19" d="M55.1,59.7v95.7"/>
+		<path id="LeftBoxFinal" class="st20" d="M0.8,59.3v95.4V59.3z M82.3,106.9v95.4V106.9z M164.4,60.9v95.3V60.9z M82.6,13.3v95.4
+			V13.3z M82.5,201.9L0.4,154.3l82.1-47.5l82.2,47.5L82.5,201.9z M82.5,107.8L0.4,60.3l82.1-47.6l82.2,47.6L82.5,107.8z"/>
+		<path id="LeftBoxFill" class="st7" d="M1.6,60.5L83.1,14L164,60.5v93.7l-81.5,47.3L1.6,154.2V60.5z"/>
+		<path id="LeftCoreFinal" class="st21" d="M55.1,92.3v30.5V92.3z M82.2,107.2v32.3v-37.3V107.2z M82.2,77.4v30.8V77.4z M109.3,92.6
+			v30.2V92.6z M82.2,107.2l-27.1,15.9l27.1,15.4l0.3-0.2l26.8-15.7L82.2,107.2z M109.3,92.6l-27.1,15.6L55.1,92.3L82.2,77
+			L109.3,92.6z"/>
+		<path id="LeftBoxLineLeft" class="st22" d="M0.8,61.3v93"/>
+		<path id="LeftBoxLineFront" class="st23" d="M82.3,108v94"/>
+		<path id="LeftBoxLineRight" class="st23" d="M164.4,61v93"/>
+		<path id="LeftBox7" class="st12" d="M82.5,108.1L0.4,60.6L82.5,13l82.2,47.6L82.5,108.1z"/>
+	</g>
+	<path id="RightBase" class="st10" d="M383.4,147.6l-55-31.8l82.2-47.6l82.1,47.6l-82.1,47.5L383.4,147.6"/>
+	<g id="RightCopy" transform="translate(328,-39)">
+		<path id="RightBox2" class="st11" d="M82.5,186.2L0.4,138.7l82.1-47.6l82.2,47.6L82.5,186.2z"/>
+		<path id="RightBox3" class="st11" d="M82.5,170.5L0.4,123l82.1-47.5l82.2,47.5L82.5,170.5z"/>
+		<path id="RightBox4" class="st12" d="M82.5,154.8L0.4,107.3l82.1-47.5l82.2,47.5L82.5,154.8z"/>
+		<path id="RightBoxLineBack" class="st23" d="M82.3,13.3v94"/>
+		<path id="RightCore1" class="st5" d="M82.3,107.3l-26.9,15.6l27.1,15.4l0,0l27.1-15.4L82.3,107.3z"/>
+		<path id="RightCore2" class="st5" d="M55.3,117.6l27.1-15.9l27.1,15.3c0,0-26.9,15.8-27.1,15.9L55.3,117.6z"/>
+		<path id="RightCore3" class="st5" d="M55.3,112.4l27.1-15.9l27.1,15.3c0,0-26.9,15.8-27.1,15.9L55.3,112.4z"/>
+		<path id="RightCore4" class="st5" d="M55.2,107.2l27.1-15.9l27.1,15.3c0,0-27,15.8-27.1,15.9L55.2,107.2z"/>
+		<path id="RightCore5" class="st5" d="M55.2,102l27.1-15.9l27.1,15.3c0,0-27,15.9-27.1,15.9L55.2,102z"/>
+		<path id="RightCore6" class="st14" d="M55.1,96.8l27.1-15.9l27.1,15.3c0,0-27,15.9-27.1,15.9L55.1,96.8z"/>
+		<path id="RightCore7" class="st15" d="M109.3,92.6l-26.9,15.5L55.1,92.3L82.2,77L109.3,92.6z"/>
+		<path id="RightBox5" class="st12" d="M82.5,139.2L0.4,91.6l82.1-47.5l82.2,47.5L82.5,139.2z"/>
+		<path id="RightBox6" class="st12" d="M82.5,123.5L0.4,76l82.1-47.6L164.7,76L82.5,123.5z"/>
+		<path id="RightCoreLineFront" class="st16" d="M82.3,75.1v95.6"/>
+		<path id="RightCoreLineBack" class="st24" d="M82.3,44.1v95.6"/>
+		<path id="RightCoreLineRight" class="st18" d="M109.2,59.7v95.7"/>
+		<path id="RightCoreLineLeft" class="st19" d="M55.1,59.7v95.7"/>
+		<path id="RightBoxFill" class="st7" d="M1.6,60.5L83.1,14L164,60.5v93.7l-81.5,47.3L1.6,154.2V60.5z"/>
+		<path id="RightBoxFinal" class="st25" d="M0.8,59.3v95.4V59.3z M82.3,106.9v95.4V106.9z M164.4,60.9v95.3V60.9z M82.6,13.3v95.4
+			V13.3z M82.5,201.9L0.4,154.3l82.1-47.5l82.2,47.5L82.5,201.9z M82.5,107.8L0.4,60.3l82.1-47.6l82.2,47.6L82.5,107.8z"/>
+		<path id="RightCoreFinal" class="st26" d="M55.1,92.3v30.5V92.3z M82.2,107.2v32.3v-37.3V107.2z M82.2,77.4v30.8V77.4z
+			 M109.3,92.6v30.2V92.6z M82.2,107.2l-27.1,15.9l27.1,15.4l0.3-0.2l26.8-15.7L82.2,107.2z M109.3,92.6l-27.1,15.6L55.1,92.3
+			L82.2,77L109.3,92.6z"/>
+		<path id="RightBoxLineLeft" class="st27" d="M0.8,61.3v93"/>
+		<path id="RightBoxLineFront" class="st28" d="M82.3,108v94"/>
+		<path id="RightBoxLineRight" class="st29" d="M164.4,61v93"/>
+		<path id="RightBox7" class="st12" d="M82.5,108.1L0.4,60.6L82.5,13l82.2,47.6L82.5,108.1z"/>
+	</g>
+</g>
+</svg>
