@@ -7,7 +7,7 @@ import { connect, reduxActions } from '../../redux';
 import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
-import { getDefaultAdocAttrs } from '../../common/docsHelpers';
+import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -79,7 +79,9 @@ class TutorialPage extends React.Component {
       return null;
     }
     if (thread.fulfilled && thread.data) {
-      const parsedThread = parseWalkthroughAdoc(thread.data, getDefaultAdocAttrs(id));
+      const attrs = getDocsForWalkthrough(id, this.props.middlewareServices, this.props.walkthroughResources);
+      const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
+      const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);
       return (
         <React.Fragment>
           <Grid fluid>
@@ -168,7 +170,9 @@ TutorialPage.propTypes = {
   }),
   getThread: PropTypes.func,
   thread: PropTypes.object,
-  getWalkthrough: PropTypes.func
+  getWalkthrough: PropTypes.func,
+  walkthroughResources: PropTypes.object,
+  middlewareServices: PropTypes.object
 };
 
 TutorialPage.defaultProps = {
@@ -183,7 +187,13 @@ TutorialPage.defaultProps = {
   },
   getThread: noop,
   thread: null,
-  getWalkthrough: noop
+  getWalkthrough: noop,
+  walkthroughResources: {},
+  middlewareServices: {
+    data: {},
+    amqCredentials: {},
+    enmasseCredentials: {}
+  }
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -192,7 +202,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  ...state.threadReducers
+  ...state.threadReducers,
+  ...state.middlewareReducers,
+  ...state.walkthroughServiceReducers
 });
 
 const ConnectedTutorialPage = connect(
