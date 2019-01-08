@@ -21,6 +21,7 @@ $img-path: "~patternfly/dist/img/";
 @import "application/patternfly4";
 
 // Application Overrides
+@import "application/provisioning";
 @import "application/typography";
 @import "application/alerts";
 @import "application/lists";
