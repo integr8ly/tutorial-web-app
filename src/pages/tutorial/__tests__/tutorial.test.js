@@ -14,6 +14,12 @@ const completeThread = {
 };
 
 describe('TutorialPage Component', () => {
+  beforeAll(() => {
+    window.OPENSHIFT_CONFIG = {
+      mockData: {}
+    };
+  });
+
   const generateEmptyStore = (obj = {}) => configureMockStore()(obj);
   it('should render the ConnectedTutorialPage component', () => {
     const store = generateEmptyStore({ threadReducers: { thread: { pending: true } } });
