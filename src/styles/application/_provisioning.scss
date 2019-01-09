@@ -114,6 +114,10 @@
       }
     }
 
+    .list-view-pf-main-info:hover {
+      cursor: default;
+    }
+
     .list-group-error-item {
       background-color: $pf-color-blue-50;
       border-color: $pf-color-blue-200;
@@ -121,8 +125,11 @@
 
       &:hover {
         background-color: $pf-color-blue-50;
-        cursor: default;
       }
+    }
+
+    .list-group-item-header {
+      cursor: default;
     }
 
     .list-group-error {
