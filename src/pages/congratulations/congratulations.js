@@ -26,10 +26,7 @@ class CongratulationsPage extends React.Component {
                 <span className="integr8ly-congratulations_logo" />
                 <span className="integr8ly-congratulations_icon" />
                 <h1 className="pf-c-title pf-m-3xl integr8ly-congratulations_heading">
-                  Congratulations, you completed the
-                  <br /> &quot;Integrating event-driven and API-driven applications
-                  {threadName}
-                  &quot; <br /> walkthrough!
+                  Congratulations, you completed the walkthrough!
                 </h1>
                 <p className="integr8ly-congratulations_paragraph">
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
