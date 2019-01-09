@@ -92,7 +92,7 @@ class TaskPage extends React.Component {
     const totalSteps = this.getTotalSteps(data);
     if (totalSteps > 0) {
       const completedSteps = this.getCompletedSteps(oldProgress[id]);
-      oldProgress[id].progress = Math.floor((completedSteps / totalSteps) * 100);
+      oldProgress[id].progress = Math.min(Math.floor((completedSteps / totalSteps) * 100), 100);
       oldProgress[id].task = task;
     }
 

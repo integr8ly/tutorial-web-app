@@ -10,7 +10,10 @@ const TutorialDashboard = props => {
     const currentProgress = userProgress[walkthrough.id];
     let startedText;
     if (currentProgress === undefined) startedText = 'Get Started';
-    else if (currentProgress.progress === 100) startedText = 'Completed';
+    else if (currentProgress.progress >= 100) {
+      currentProgress.progress = 100;
+      startedText = 'Completed';
+    }
     else startedText = 'Resume';
 
     return cards.push(
