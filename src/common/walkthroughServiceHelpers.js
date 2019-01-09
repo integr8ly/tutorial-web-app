@@ -8,6 +8,7 @@
  */
 const getWalkthroughServiceInfo = svcInstance => {
   const { productDetails, spec } = svcInstance;
+
   if (productDetails) {
     return productDetails;
   }
@@ -16,6 +17,52 @@ const getWalkthroughServiceInfo = svcInstance => {
   };
 };
 
+const isServiceProvisioned = svcInstance => {
+  const readyCondition = getReadyCondition(svcInstance);
+  if (!readyCondition) {
+    return false;
+  }
+  return readyCondition.status === 'True';
+};
+
+const isServiceProvisioning = svcInstance => {
+  const readyCondition = getReadyCondition(svcInstance);
+  if (!readyCondition) {
+    return false;
+  }
+  return (
+    readyCondition.status === 'False' &&
+    (readyCondition.reason === 'Provisioning' || readyCondition.reason === 'ProvisionRequestInFlight')
+  );
+};
+
+const isServiceProvisionFailed = svcInstance => {
+  const readyCondition = getReadyCondition(svcInstance);
+  if (!readyCondition) {
+    return false;
+  }
+  return readyCondition.status === 'False' && readyCondition.reason !== 'Provisioning';
+};
+
+const getServiceProvisionMessage = svcInstance => {
+  const readyCondition = getReadyCondition(svcInstance);
+  if (!readyCondition) {
+    return '';
+  }
+  return readyCondition.message;
+};
+
+const getReadyCondition = svcInstance => {
+  const {
+    status: { conditions = [] }
+  } = svcInstance;
+  return conditions.find(c => c.type === 'Ready');
+};
+
 module.exports = {
-  getWalkthroughServiceInfo
+  getWalkthroughServiceInfo,
+  isServiceProvisioned,
+  isServiceProvisioning,
+  isServiceProvisionFailed,
+  getServiceProvisionMessage
 };
