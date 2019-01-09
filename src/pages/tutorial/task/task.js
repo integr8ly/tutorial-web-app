@@ -347,6 +347,7 @@ class TaskPage extends React.Component {
         this.getStoredProgressForCurrentTask(),
         this.getVerificationsForTask(threadTask)
       );
+
       const currentThreadProgress = this.getStoredProgressForCurrentTask();
       const combinedResources = parsedThread.resources.concat(threadTask.resources);
       return (
@@ -399,7 +400,9 @@ class TaskPage extends React.Component {
                               className="integr8ly-module-column--footer_status"
                               key={`verification-id-${verificationId}`}
                             >
-                              {parseInt(task, 10) + 1}.{parseInt(i, 10) + 1}
+                              {threadTask.steps.length === 1
+                                ? parseInt(task, 10) + 1
+                                : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
                             </span>
                           ) : (
                             <span
@@ -410,7 +413,9 @@ class TaskPage extends React.Component {
                               }
                               key={`verification-id-${verificationId}`}
                             >
-                              {parseInt(task, 10) + 1}.{parseInt(i, 10) + 1}
+                              {threadTask.steps.length === 1
+                                ? parseInt(task, 10) + 1
+                                : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
                             </span>
                           )}
                         </React.Fragment>
