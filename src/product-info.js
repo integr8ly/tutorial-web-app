@@ -25,7 +25,7 @@ export default {
     gaStatus: 'GA'
   },
   apicurio: {
-    prettyName: 'Apicurio',
-    gaStatus: 'community'
+    prettyName: 'Apicurito',
+    gaStatus: 'GA'
   }
 };
