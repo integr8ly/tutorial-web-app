@@ -74,6 +74,7 @@
     width: 115px;
     background-image: url("../../img/RedHatLogo.png");
     background-repeat: no-repeat;
+
     @media (max-width: var(--pf-global--breakpoint--md)) {
       display: none;
     }
@@ -89,6 +90,7 @@
     background-position: center;
     background-size: contain;
     z-index: 5;
+
     @media (max-width: var(--pf-global--breakpoint--md)) {
       display: none;
     }
@@ -112,8 +114,29 @@
       }
     }
 
+    .list-group-error-item {
+      background-color: $pf-color-blue-50;
+      border-color: $pf-color-blue-200;
+      color: $pf-color-black-700;
+
+      &:hover {
+        background-color: $pf-color-blue-50;
+        cursor: default;
+      }
+    }
+
+    .list-group-error {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 55px;
+    }
+
     .list-view-pf-left .pficon {
       font-size: 1.6em;
+    }
+
+    .list-view-pf-expand {
+      visibility: hidden;
     }
 
     .list-group-item-heading {
@@ -132,11 +155,16 @@
   }
 }
 
-/* stylelint-enable */
-
 .integr8ly-status-ready {
-  color: $pf-color-light-green-400 !important; /* stylelint-disable-line declaration-no-important */
+  color: $pf-color-light-green-400 !important;
 }
+
+.integr8ly-status-error,
+.list-group-item-text.integr8ly-status-error {
+  color: $pf-color-red-100 !important;
+}
+
+/* stylelint-enable */
 
 .integr8ly-progress-bar-striped {
   background-image: linear-gradient(-45deg, rgba(3, 3, 3, .15) 25%, rgba(3, 3, 3, .15) 26%, transparent 27%, transparent 49%, rgba(3, 3, 3, .15) 50%, rgba(3, 3, 3, .15) 51%, transparent 52%, transparent 74%, rgba(3, 3, 3, .15) 75%, rgba(3, 3, 3, .15) 76%, transparent 77%);
