@@ -41,7 +41,11 @@ const isServiceProvisionFailed = svcInstance => {
   if (!readyCondition) {
     return false;
   }
-  return readyCondition.status === 'False' && readyCondition.reason !== 'Provisioning' && readyCondition.reason !== 'ProvisionRequestInFlight';
+  return (
+    readyCondition.status === 'False' &&
+    readyCondition.reason !== 'Provisioning' &&
+    readyCondition.reason !== 'ProvisionRequestInFlight'
+  );
 };
 
 const getServiceProvisionMessage = svcInstance => {
