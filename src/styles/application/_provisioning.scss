@@ -3,7 +3,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
-  height: calc(100vh - 40px);
+  height: calc(100vh);
   margin-bottom: 0;
 
   --integr8ly-c-provisioning-image--BackgroundImage--xs: url("#{$pf-global--image-path}/loading_576.jpg");
@@ -98,6 +98,7 @@
     color: $pf-color-white;
     text-align: center;
     z-index: 5;
+    padding-bottom: 40px;
   }
 
   &_list-view {
