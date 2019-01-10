@@ -13,7 +13,6 @@ class CongratulationsPage extends React.Component {
   };
 
   render() {
-    const { threadName } = this.props;
     return (
       <Grid fluid>
         <Grid.Row>
@@ -45,14 +44,12 @@ class CongratulationsPage extends React.Component {
 }
 
 CongratulationsPage.propTypes = {
-  threadName: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   })
 };
 
 CongratulationsPage.defaultProps = {
-  threadName: '',
   history: {
     push: noop
   }
