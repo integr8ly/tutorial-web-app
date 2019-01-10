@@ -196,9 +196,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@fortawesome/fontawesome-free@5.4.2":
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.2.tgz#b2d782da69c45ea61954291e2615a8f7741c96b2"
+"@fortawesome/fontawesome-free@5.6.3":
+  version "5.6.3"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.3.tgz#61c122c420d7a91613f393d6a06e5a4c6ae6abf3"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
