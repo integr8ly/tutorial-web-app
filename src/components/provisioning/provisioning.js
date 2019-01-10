@@ -151,7 +151,7 @@ function buildProvisioningScreen(WrappedComponent) {
       return (
         <div
           className={`list-group-item ${isProvisionFailed ? 'list-group-error-item' : null}`}
-          key={svc.metadata.name}
+          key={svc.spec.clusterServiceClassExternalName}
         >
           <div className="list-group-item-header">
             <div className="list-view-pf-main-info">
