@@ -55,11 +55,11 @@
     "react-scripts": "1.1.4",
     "redux-mock-store": "1.5.3",
     "source-map-explorer": "1.5.0",
-    "stylelint": "9.7.1",
+    "stylelint": "9.9.0",
     "stylelint-config-recommended-scss": "3.2.0",
     "stylelint-config-standard": "18.2.0",
-    "stylelint-order": "1.0.0",
-    "stylelint-scss": "3.3.0"
+    "stylelint-order": "2.0.0",
+    "stylelint-scss": "3.4.4"
   },
   "resolutions": {
     "**/jest": "23.5.0"
