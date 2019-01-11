@@ -11,11 +11,7 @@ $pf-global--load-pf-3: true !default;
 $pf-global--enable-reset: false !default;
 
 /* stylelint-disable */
-<<<<<<< HEAD
 @import '../node_modules/@patternfly/patternfly-next/patternfly-base.scss';
-=======
-@import "../node_modules/@patternfly/patternfly-next/patternfly-base.scss";
->>>>>>> 0eb4891... fix(css): code cleanup and postcss fixes
 
 // Components
 @import '../node_modules/@patternfly/patternfly-next/components/AboutModalBox/about-modal-box.scss';
