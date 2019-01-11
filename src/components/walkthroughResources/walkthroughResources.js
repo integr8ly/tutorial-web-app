@@ -98,7 +98,7 @@ class WalkthroughResources extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="integr8ly-walkthrough-resources">
         <h2>Walkthrough Resources</h2>
         {this.state.resourceList}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
