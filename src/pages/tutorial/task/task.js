@@ -380,7 +380,7 @@ class TaskPage extends React.Component {
                 <div className="integr8ly-module-column pf-c-content pf-u-mt-lg pf-u-px-lg">
 =======
             <Grid.Row className="pf-c-content">
-              <Grid.Col xs={12} sm={9} className="integr8ly-module pf-u-mt-xl pf-u-mb-3xl">
+              <Grid.Col xs={12} sm={9} className="integr8ly-module pf-u-mt-3xl pf-u-mb-3xl">
                 <div className="integr8ly-module-column">
 >>>>>>> feat(PF4): Introduce PatternFly 4
                   <h2>{threadTask.title}</h2>
