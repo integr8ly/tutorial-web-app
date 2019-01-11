@@ -99,8 +99,11 @@ class TaskPage extends React.Component {
     updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
-  getVerificationsForTask = task =>
-    task.blocks.reduce((acc, b, i) => {
+  getVerificationsForTask = task => {
+    if (!task || !task.blocks) {
+      return [];
+    }
+    return task.blocks.reduce((acc, b, i) => {
       if (b instanceof WalkthroughStep) {
         return acc.concat(this.getVerificationsForStep(i, b));
       }
@@ -109,6 +112,7 @@ class TaskPage extends React.Component {
       }
       return acc;
     }, []);
+  };
 
   getVerificationsForStep = (stepId, step) => {
     if (!step.blocks) {
@@ -223,7 +227,7 @@ class TaskPage extends React.Component {
   };
 
   taskVerificationStatus = (verifications, idsToVerify) => {
-    if (idsToVerify.length === 0) {
+    if (!idsToVerify || idsToVerify.length === 0) {
       return true;
     }
     for (const verificationId of idsToVerify) {

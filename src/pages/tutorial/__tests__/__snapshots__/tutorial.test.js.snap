@@ -2,6 +2,7 @@
 
 exports[`TutorialPage Component should render the ConnectedTutorialPage component 1`] = `
 <Component
+  getProgress={[Function]}
   getThread={[Function]}
   getWalkthrough={[Function]}
   thread={
