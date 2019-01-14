@@ -10,6 +10,7 @@ $pf-global--enable-font-overpass-cdn: true !default;
 $pf-global--load-pf-3: true !default;
 $pf-global--enable-reset: false !default;
 
+/* stylelint-disable */
 @import "../node_modules/@patternfly/patternfly-next/patternfly-base.scss";
 
 // Components
@@ -64,3 +65,4 @@ $pf-global--enable-reset: false !default;
 @import "../node_modules/@patternfly/patternfly-next/utilities/Flex/flex.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Sizing/sizing.scss";
 @import "../node_modules/@patternfly/patternfly-next/utilities/Spacing/spacing.scss";
+/* stylelint-enable */
