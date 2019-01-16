@@ -186,11 +186,22 @@ ol {
 }
 
 // Button / Form styling
-/* stylelint-disable selector-class-pattern */
+/* stylelint-disable */
 /* allows the override of default PF3/Bootstrap 3 styles */
 .btn,
 .form-control {
   font-size: $pf-global--FontSize--md;
+}
+
+.pf-c-content {
+  .btn-primary,
+  .btn-primary > .fa {
+    color: $pf-color-white;
+  }
+
+  .btn[disabled] > .fa {
+    color: #8b8d8f !important;
+  }
 }
 
 .form-control {
