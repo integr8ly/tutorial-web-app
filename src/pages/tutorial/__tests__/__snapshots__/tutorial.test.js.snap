@@ -34,7 +34,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     >
       <Col
         bsClass="col"
-        className="integr8ly-task-container pf-u-mt-lg"
+        className="integr8ly-task-container pf-u-mt-lg pf-u-px-lg"
         componentClass="div"
         sm={9}
         xs={12}
