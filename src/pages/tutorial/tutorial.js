@@ -83,13 +83,8 @@ class TutorialPage extends React.Component {
             <Grid.Row>
               <PfMasthead />
             </Grid.Row>
-<<<<<<< HEAD
             <Grid.Row>
               <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg pf-u-px-lg">
-=======
-            <Grid.Row className="pf-c-content">
-              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
->>>>>>> feat(PF4): Introduce PatternFly 4
                 <div className="integr8ly-task-dashboard-header">
                   <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
