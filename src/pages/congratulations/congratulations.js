@@ -134,7 +134,8 @@ class CongratulationsPage extends React.Component {
                   />
                   <Title size="4xl">Congratulations, you completed the walkthrough!</Title>
                   <EmptyStateBody>
-                    Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what you just built!
+                    Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
+                    you just built!
                   </EmptyStateBody>
                   <EmptyStateAction>
                     <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
@@ -143,14 +144,6 @@ class CongratulationsPage extends React.Component {
                   </EmptyStateAction>
                 </EmptyState>
               </Bullseye>
-              {/* <Text component="h1">Congratulations, you completed the walkthrough!</Text>
-              <Text component="p">
-                Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what you
-                just built!
-              </Text> */}
-              {/* <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
-                Return to Home Page
-              </Button>{' '} */}
             </TextContent>
           </PageSection>
         </Page>
