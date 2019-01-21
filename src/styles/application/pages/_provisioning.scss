@@ -7,7 +7,7 @@
   margin-bottom: 0;
 
   --integr8ly-c-provisioning-image--BackgroundImage: url("#{$pf-global--image-path}/loading_576.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
+  --integr8ly-c-provisioning-image--BackgroundImage-2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--sm: url("#{$pf-global--image-path}/loading_768.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/loading_768@2x.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--lg: url("#{$pf-global--image-path}/loading_2000.jpg");
@@ -28,7 +28,7 @@
     /* stylelint-disable */
     @media (max-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
       (max-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage2x);
+      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage-2x);
     }
 
     @media (min-width: $pf-global--breakpoint--sm) {
