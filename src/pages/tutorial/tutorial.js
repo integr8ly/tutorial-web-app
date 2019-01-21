@@ -95,7 +95,7 @@ class TutorialPage extends React.Component {
                   <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
-                  </button>
+                  </Button>
                 </div>
                 {this.renderPrereqs(thread)}
                 <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
@@ -123,7 +123,7 @@ class TutorialPage extends React.Component {
                       </span>
                     </span>
                   </div>
-                </h1>
+                </h3>
                 <ListView className="integr8ly-list-view-pf">
                   {parsedThread.tasks.map((task, i) => (
                     <ListView.Item
@@ -146,13 +146,9 @@ class TutorialPage extends React.Component {
                   ))}
                 </ListView>
                 <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-<<<<<<< HEAD
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-=======
-                  <button className="pf-c-button pf-m-primary" onClick={e => this.getStarted(e, thread.data.id)}>
->>>>>>> Update buttons to match PF4 updates
                     {t('tutorial.getStarted')}
-                  </button>
+                  </Button>
                 </div>
               </Grid.Col>
             </Grid.Row>

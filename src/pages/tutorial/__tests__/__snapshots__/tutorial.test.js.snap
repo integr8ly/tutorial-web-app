@@ -49,6 +49,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           </h3>
           <Button
             aria-label={null}
+            bsStyle="primary"
             className=""
             component="button"
             isActive={false}
@@ -122,7 +123,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               </span>
             </span>
           </div>
-        </h1>
+        </h3>
         <ListView
           className="integr8ly-list-view-pf"
         />
@@ -131,6 +132,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         >
           <Button
             aria-label={null}
+            bsStyle="primary"
             className=""
             component="button"
             isActive={false}
