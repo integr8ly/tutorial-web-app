@@ -43,9 +43,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         <div
           className="integr8ly-task-dashboard-header"
         >
-          <h3
-            className="pf-u-mt-lg"
-          >
+          <h3>
             Example
           </h3>
           <Button
