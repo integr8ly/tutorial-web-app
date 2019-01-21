@@ -20,7 +20,7 @@
     height: 100%;
     content: "";
     background-color: $pf-color-blue-600;
-    background-image: var(--integr8ly-c-provisioning-image--BackgroundImage--xs);
+    background-image: var(--integr8ly-c-provisioning-image--BackgroundImage);
     filter: var(--pf-c-background-image--Filter);
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +28,7 @@
     /* stylelint-disable */
     @media (max-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
       (max-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage-2x);
+      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage2x);
     }
 
     @media (min-width: $pf-global--breakpoint--sm) {
