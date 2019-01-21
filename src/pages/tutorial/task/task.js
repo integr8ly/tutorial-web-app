@@ -366,7 +366,7 @@ class TaskPage extends React.Component {
           <Grid fluid>
             <Grid.Row className="pf-c-content">
               <Grid.Col xs={12} sm={9} className="integr8ly-module">
-                <div className="integr8ly-module-column pf-c-content pf-u-mt-3xl">
+                <div className="integr8ly-module-column pf-c-content pf-u-my-3xl pf-u-pb-lg">
                   <h2>{threadTask.title}</h2>
                   <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                     {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
