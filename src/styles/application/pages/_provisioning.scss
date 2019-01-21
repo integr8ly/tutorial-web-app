@@ -7,7 +7,7 @@
   margin-bottom: 0;
 
   --integr8ly-c-provisioning-image--BackgroundImage: url("#{$pf-global--image-path}/loading_576.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
+  --integr8ly-c-provisioning-image--BackgroundImage-2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--sm: url("#{$pf-global--image-path}/loading_768.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/loading_768@2x.jpg");
   --integr8ly-c-provisioning-image--BackgroundImage--lg: url("#{$pf-global--image-path}/loading_2000.jpg");
@@ -20,7 +20,7 @@
     height: 100%;
     content: "";
     background-color: $pf-color-blue-600;
-    background-image: var(--integr8ly-c-provisioning-image--BackgroundImage--xs);
+    background-image: var(--integr8ly-c-provisioning-image--BackgroundImage);
     filter: var(--pf-c-background-image--Filter);
     background-repeat: no-repeat;
     background-size: cover;

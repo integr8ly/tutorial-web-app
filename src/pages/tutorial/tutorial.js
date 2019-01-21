@@ -13,11 +13,13 @@ class TutorialPage extends React.Component {
   componentDidMount() {
     const {
       getWalkthrough,
+      getProgress,
       match: {
         params: { id }
       }
     } = this.props;
     getWalkthrough(id);
+    getProgress();
     // this.loadThread();
   }
 
@@ -36,8 +38,15 @@ class TutorialPage extends React.Component {
 
   getStarted(e, id) {
     e.preventDefault();
-    const { history } = this.props;
-    history.push(`/tutorial/${id}/task/0`);
+    const {
+      user: { userProgress = {} },
+      history
+    } = this.props;
+    let currentTask = 0;
+    if (userProgress[id] && userProgress[id].task) {
+      currentTask = userProgress[id].task;
+    }
+    history.push(`/tutorial/${id}/task/${currentTask}`);
   }
 
   renderPrereqs(thread) {
@@ -89,9 +98,9 @@ class TutorialPage extends React.Component {
               <PfMasthead />
             </Grid.Row>
             <Grid.Row className="pf-c-content">
-              <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
+              <Grid.Col xs={12} sm={9} className="integr8ly-task-container pf-u-mt-lg pf-u-px-lg">
                 <div className="integr8ly-task-dashboard-header">
-                  <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
+                  <h3>{parsedThread.title}</h3>
                   <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
                     {t('tutorial.getStarted')}
                   </Button>
@@ -171,6 +180,8 @@ TutorialPage.propTypes = {
   getThread: PropTypes.func,
   thread: PropTypes.object,
   getWalkthrough: PropTypes.func,
+  getProgress: PropTypes.func,
+  user: PropTypes.object,
   walkthroughResources: PropTypes.object,
   middlewareServices: PropTypes.object
 };
@@ -186,6 +197,8 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getThread: noop,
+  getProgress: noop,
+  user: {},
   thread: null,
   getWalkthrough: noop,
   walkthroughResources: {},
@@ -198,13 +211,15 @@ TutorialPage.defaultProps = {
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id))
+  getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
+  getProgress: () => dispatch(reduxActions.userActions.getProgress())
 });
 
 const mapStateToProps = state => ({
   ...state.threadReducers,
   ...state.middlewareReducers,
-  ...state.walkthroughServiceReducers
+  ...state.walkthroughServiceReducers,
+  ...state.userReducers
 });
 
 const ConnectedTutorialPage = connect(

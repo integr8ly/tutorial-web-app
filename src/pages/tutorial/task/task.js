@@ -99,8 +99,11 @@ class TaskPage extends React.Component {
     updateWalkthroughProgress(currentUsername, oldProgress);
   };
 
-  getVerificationsForTask = task =>
-    task.blocks.reduce((acc, b, i) => {
+  getVerificationsForTask = task => {
+    if (!task || !task.blocks) {
+      return [];
+    }
+    return task.blocks.reduce((acc, b, i) => {
       if (b instanceof WalkthroughStep) {
         return acc.concat(this.getVerificationsForStep(i, b));
       }
@@ -109,6 +112,7 @@ class TaskPage extends React.Component {
       }
       return acc;
     }, []);
+  };
 
   getVerificationsForStep = (stepId, step) => {
     if (!step.blocks) {
@@ -223,7 +227,7 @@ class TaskPage extends React.Component {
   };
 
   taskVerificationStatus = (verifications, idsToVerify) => {
-    if (idsToVerify.length === 0) {
+    if (!idsToVerify || idsToVerify.length === 0) {
       return true;
     }
     for (const verificationId of idsToVerify) {
@@ -361,8 +365,8 @@ class TaskPage extends React.Component {
           />
           <Grid fluid>
             <Grid.Row className="pf-c-content">
-              <Grid.Col xs={12} sm={9} className="integr8ly-module pf-u-mt-3xl pf-u-mb-3xl">
-                <div className="integr8ly-module-column">
+              <Grid.Col xs={12} sm={9} className="integr8ly-module">
+                <div className="integr8ly-module-column pf-c-content pf-u-my-3xl pf-u-pb-lg">
                   <h2>{threadTask.title}</h2>
                   <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                     {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
