@@ -3,14 +3,18 @@ import {
   BackgroundImage,
   BackgroundImageSrc,
   Brand,
+  Bullseye,
   Dropdown,
   DropdownToggle,
   DropdownItem,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateAction,
   Page,
   PageHeader,
   PageSection,
   TextContent,
-  Text,
+  Title,
   Toolbar,
   ToolbarGroup,
   ToolbarItem
@@ -116,17 +120,38 @@ class CongratulationsPage extends React.Component {
       <React.Fragment>
         <Page header={Header}>
           <BackgroundImage src={bgImages} />
-          <PageSection>
+          <PageSection className="pf-m-dark-100 integr8ly-congratulations">
             <TextContent>
-              <Text component="h1">Congratulations, you completed the walkthrough!</Text>
+              <Bullseye>
+                <EmptyState>
+                  <img src="/assets/images/congratulations.svg" alt="congratulations" width="200px" height="200px" />
+                  <img
+                    src="/assets/images/RedHatLogo_white.svg"
+                    alt="Red Hat logo"
+                    height="38px"
+                    width="115px"
+                    className="integr8ly-rh-logo"
+                  />
+                  <Title size="4xl">Congratulations, you completed the walkthrough!</Title>
+                  <EmptyStateBody>
+                    Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what you just built!
+                  </EmptyStateBody>
+                  <EmptyStateAction>
+                    <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
+                      Return to Home Page
+                    </Button>{' '}
+                  </EmptyStateAction>
+                </EmptyState>
+              </Bullseye>
+              {/* <Text component="h1">Congratulations, you completed the walkthrough!</Text>
               <Text component="p">
                 Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what you
                 just built!
-              </Text>
+              </Text> */}
+              {/* <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
+                Return to Home Page
+              </Button>{' '} */}
             </TextContent>
-            <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
-              Return to Home Page
-            </Button>{' '}
           </PageSection>
         </Page>
       </React.Fragment>

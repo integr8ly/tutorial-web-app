@@ -199,7 +199,7 @@ th {
 }
 
 // Button / Form styling
-/* stylelint-disable selector-class-pattern */
+/* stylelint-disable */
 /* allows the override of default PF3/Bootstrap 3 styles */
 .btn,
 .form-control {
@@ -213,6 +213,10 @@ th {
     }
 
     color: $pf-color-white;
+  }
+
+  .btn-default {
+    color: $pf-color-black-900;
   }
 
   .btn[disabled] {
@@ -240,3 +244,4 @@ th {
     font-weight: $pf-global--FontWeight--normal;
   }
 }
+
