@@ -371,7 +371,11 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   // ````
   // So it's better to just tell the user to put a blank line between the title and short description
   let shortDescription = '';
-  if (doc.blocks[0] && doc.blocks[0].context === 'preamble' && doc.blocks[0].blocks.length > 0) {
+  if (doc.blocks[0]&& 
+    doc.blocks[0].context === 'preamble' &&
+    doc.blocks[0].blocks.length > 0 &&
+    doc.blocks[0].blocks[0].lines &&
+    doc.blocks[0].blocks[0].lines.length > 0) {
     shortDescription = doc.blocks[0].blocks[0].lines[0];
   }
 
