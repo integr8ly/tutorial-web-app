@@ -47,7 +47,17 @@ class TaskPage extends React.Component {
     } = this.props;
 
     this.rootDiv = React.createRef();
-
+    // If this is our current walkthrough and the data we need is available
+    // locally then we don't need to kick off a fetch of the walkthroughs.
+    if (
+      this.props.thread &&
+      this.props.thread.id &&
+      this.props.thread.id === id &&
+      this.props.manifest.fulfilled &&
+      this.props.thread.fulfilled
+    ) {
+      return;
+    }
     getWalkthrough(id);
     prepareCustomWalkthrough(id, this.getDocsAttributes(id));
     const currentUsername = localStorage.getItem('currentUserName');
@@ -341,7 +351,7 @@ class TaskPage extends React.Component {
         </div>
       );
     }
-    if (thread.fulfilled && thread.data) {
+    if (thread.fulfilled && thread.data && thread.id === id) {
       const taskNum = parseInt(task, 10);
       const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
       const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);

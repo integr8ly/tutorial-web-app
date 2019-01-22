@@ -32,14 +32,14 @@ const getThread = (language, id) =>
     serviceConfig({
       url: `${process.env.REACT_APP_STEELTHREAD_JSON_PATH}${language}/thread-${id}.json`
     })
-  );
+  ).then(resp => ({ response: resp, id }));
 
 const getCustomThread = id =>
   axios(
     serviceConfig({
       url: `/walkthroughs/${id}/files/walkthrough.adoc`
     })
-  );
+  ).then(resp => ({ data: resp.data, id }));
 
 const initCustomThread = id =>
   axios(

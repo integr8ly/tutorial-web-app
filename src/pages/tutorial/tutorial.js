@@ -20,20 +20,6 @@ class TutorialPage extends React.Component {
     } = this.props;
     getWalkthrough(id);
     getProgress();
-    // this.loadThread();
-  }
-
-  loadThread() {
-    const {
-      i18n,
-      match: {
-        params: { id }
-      },
-      getThread
-    } = this.props;
-    if (!Number.isNaN(id)) {
-      getThread(i18n.language, id);
-    }
   }
 
   getStarted(e, id) {
@@ -169,7 +155,6 @@ class TutorialPage extends React.Component {
 }
 
 TutorialPage.propTypes = {
-  i18n: PropTypes.object,
   t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
@@ -177,7 +162,6 @@ TutorialPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object
   }),
-  getThread: PropTypes.func,
   thread: PropTypes.object,
   getWalkthrough: PropTypes.func,
   getProgress: PropTypes.func,
@@ -187,16 +171,12 @@ TutorialPage.propTypes = {
 };
 
 TutorialPage.defaultProps = {
-  i18n: {
-    language: 'en'
-  },
   history: {
     push: noop
   },
   match: {
     params: {}
   },
-  getThread: noop,
   getProgress: noop,
   user: {},
   thread: null,
