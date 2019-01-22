@@ -113,26 +113,23 @@ class LandingPage extends React.Component {
     );
 
     const LandingPageMastHead = () => (
-      <header className="row integr8ly-landing-page-masthead pf-c-content">
+      <section className="pf-c-page__main-section pf-m-dark-100">
         <div className="col-xs-12">
-          <h1 className="pf-u-mt-lg">Welcome to the Red Hat Solution Explorer</h1>
+          <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
           <p>
             Get started with an end-to-end solution walkthrough or
             <br />
             use any of the available application services to create custom integrations.
           </p>
         </div>
-      </header>
+      </section>
     );
 
     return (
       <React.Fragment>
         <Page header={Header}>
-          <PageSection>
-            <TextContent>{LandingPageMastHead}</TextContent>
-          </PageSection>
-          <LandingPageMastHead />
           <BackgroundImage src={bgImages} />
+          <LandingPageMastHead />
           <PageSection>
             <TextContent>
               <main>
