@@ -1,5 +1,10 @@
 .integr8ly-installed-apps-view {
-  height: 116vh;
+  height: calc(100vh - 10rem); // Set full height (minus header) when viewport over 1000px tall
+
+  @media (max-height: 1000px) {
+    height: auto; // Set automatic height when viewport under 1000px tall
+  }
+
   margin-bottom: 0;
   border-bottom: 0;
   box-shadow: none;
@@ -14,6 +19,7 @@
 
   &-panel-title {
     display: flex;
+    background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
 
     & h3 {
       flex-basis: 70%;
@@ -36,6 +42,7 @@
     margin-top: 0;
     margin-left: 0;
     list-style: none;
+    background-color: $pf-color-white;
   }
 
   &-list {
