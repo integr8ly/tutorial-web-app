@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  BackgroundImage,
-  BackgroundImageSrc,
   Brand,
   Dropdown,
   DropdownToggle,
@@ -9,7 +7,6 @@ import {
   Page,
   PageHeader,
   PageSection,
-  TextContent,
   Toolbar,
   ToolbarGroup,
   ToolbarItem
@@ -23,7 +20,7 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { logout } from '../../services/openshiftServices';
-import brandImg from '../../img/brand-alt-solutions-explorer.svg';
+import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -90,14 +87,6 @@ class LandingPage extends React.Component {
         </ToolbarGroup>
       </Toolbar>
     );
-    const bgImages = {
-      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-    };
 
     const logoProps = {
       onClick: () => this.onTitleClick(),
@@ -114,46 +103,32 @@ class LandingPage extends React.Component {
 
     const LandingPageMastHead = () => (
       <section className="pf-c-page__main-section pf-m-dark-100">
-        <div className="col-xs-12">
-          <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
-          <p>
-            Get started with an end-to-end solution walkthrough or
-            <br />
-            use any of the available application services to create custom integrations.
-          </p>
-        </div>
-        <img
-          src="/assets/images/RedHatLogo_white.svg"
-          alt="Red Hat logo"
-          height="38px"
-          width="115px"
-          className="integr8ly-rh-logo"
-        />
+        <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
+        <p>
+          Get started with an end-to-end solution walkthrough or
+          <br />
+          use any of the available application services to create custom integrations.
+        </p>
       </section>
     );
 
     return (
       <React.Fragment>
         <Page header={Header}>
-          <BackgroundImage src={bgImages} />
           <LandingPageMastHead />
-          <PageSection>
-            <TextContent>
-              <main role="main" className="pf-c-page__main">
-                <section className="integr8ly-landing-page-tutorial-dashboard-section">
-                  <TutorialDashboard
-                    className="integr8ly-landing-page-tutorial-dashboard-section-left"
-                    userProgress={user.userProgress}
-                    walkthroughs={walkthroughServices.data}
-                  />
-                  <InstalledAppsView
-                    className="integr8ly-landing-page-tutorial-dashboard-section-right"
-                    apps={Object.values(middlewareServices.data)}
-                    customApps={middlewareServices.customServices}
-                  />
-                </section>
-              </main>
-            </TextContent>
+          <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+            <div className="integr8ly-landing-page-tutorial-dashboard-section">
+              <TutorialDashboard
+                className="integr8ly-landing-page-tutorial-dashboard-section-left"
+                userProgress={user.userProgress}
+                walkthroughs={walkthroughServices.data}
+              />
+              <InstalledAppsView
+                className="integr8ly-landing-page-tutorial-dashboard-section-right"
+                apps={Object.values(middlewareServices.data)}
+                customApps={middlewareServices.customServices}
+              />
+            </div>
           </PageSection>
         </Page>
       </React.Fragment>

@@ -54,10 +54,10 @@ const TutorialDashboard = props => {
   });
 
   return (
-    <div className="integr8ly-tutorial-dashboard panel panel-default">
+    <div className="integr8ly-tutorial-dashboard pf-u-mb-0 panel panel-default">
       <div className="panel-heading panel-title">
         <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
-        <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
+        <div className="walkthrough-counter pf-u-mt-md">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="panel-content cards-pf">
         <CardGrid className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm" matchHeight style={{ width: 'calc(100% - 40px)' }}>

@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  BackgroundImage,
-  BackgroundImageSrc,
   Brand,
   Dropdown,
   DropdownToggle,
@@ -23,7 +21,7 @@ import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
 
 import { logout } from '../../services/openshiftServices';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
-import brandImg from '../../img/brand-alt-solutions-explorer.svg';
+import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 import { connect, reduxActions } from '../../redux';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
@@ -130,26 +128,9 @@ class TutorialPage extends React.Component {
       return null;
     }
 
-    const Header = (
-      <PageHeader
-        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
-        logoProps={logoProps}
-        toolbar={PageToolbar}
-      />
-    );
-
     const logoProps = {
       onClick: () => this.onTitleClick(),
       target: '_blank'
-    };
-
-    const bgImages = {
-      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
     };
 
     const PageToolbar = (
@@ -173,6 +154,14 @@ class TutorialPage extends React.Component {
       </Toolbar>
     );
 
+    const Header = (
+      <PageHeader
+        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
+        logoProps={logoProps}
+        toolbar={PageToolbar}
+      />
+    );
+
     if (thread.fulfilled && thread.data) {
       const attrs = getDocsForWalkthrough(id, this.props.middlewareServices, this.props.walkthroughResources);
       const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
@@ -180,7 +169,6 @@ class TutorialPage extends React.Component {
       return (
         <React.Fragment>
           <Page header={Header}>
-            <BackgroundImage src={bgImages} />
             <PageSection>
               <TextContent>
                 <Grid fluid>

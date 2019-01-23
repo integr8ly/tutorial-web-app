@@ -6,7 +6,7 @@
 
 // These two variables control the usage/combination of PatternFly 3 and PatternFly 4
 // To remove PatternFly 3, set $pf-global--load-pf-3 to 'false'
-$pf-global--enable-font-overpass-cdn: true !default;
+$pf-global--enable-font-overpass-cdn: false !default;
 $pf-global--load-pf-3: true !default;
 $pf-global--enable-reset: false !default;
 

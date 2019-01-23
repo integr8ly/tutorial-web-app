@@ -1,6 +1,10 @@
-.pf-c-content 
 .integr8ly-installed-apps-view {
-  height: 116vh;
+  height: calc(100vh - 10rem); // Set full height (minus header) when viewport over 1000px tall
+
+  @media (max-height: 1000px) {
+    height: auto; // Set automatic height when viewport under 1000px tall
+  }
+
   margin-bottom: 0;
   border-bottom: 0;
   box-shadow: none;
@@ -15,6 +19,7 @@
 
   &-panel-title {
     display: flex;
+    background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
 
     & h3 {
       flex-basis: 70%;
@@ -37,6 +42,7 @@
     margin-top: 0;
     margin-left: 0;
     list-style: none;
+    background-color: $pf-color-white;
   }
 
   &-list {
@@ -52,11 +58,11 @@
       border-bottom: var(--pf-global--BorderWidth--sm) solid transparent;
       box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
       padding: 15px;
+    }
 
-      p {
-        margin-bottom: 0;
-        color: #282d33;
-      }
+    li p {
+      margin-bottom: 0;
+      color: #282d33;
     }
 
     & li:hover {
@@ -70,22 +76,20 @@
   }
 }
 
-.pf-c-content 
+/* stylelint-disable */
 .integr8ly-state-provisioining {
-  color: $pf-color-black-600;
+  color: $pf-color-black-600 !important;
 }
 
-.pf-c-content 
 .integr8ly-state-ready {
-  color: $pf-color-green-400;
+  color: $pf-color-green-400 !important;
 }
 
-.pf-c-content 
 .integr8ly-state-unavailable {
-  color: var(--pf-global--danger-color--100);
+  color: var(--pf-global--danger-color--100) !important;
 }
 
-.pf-c-content 
 .integr8ly-panel-title {
-  background-color: $pf-color-white;
+  background-color: $pf-color-white !important;
 }
+/* stylelint-enable */

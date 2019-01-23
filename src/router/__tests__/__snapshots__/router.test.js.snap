@@ -4,6 +4,19 @@ exports[`Router Component should render a basic component 1`] = `
 <div
   className="integr8ly-container"
 >
+  <BackgroundImage
+    className=""
+    src={
+      Object {
+        "filter": "/assets/images/background-filter.svg#image_overlay",
+        "lg": "/assets/images/pfbg_1200.jpg",
+        "sm": "/assets/images/pfbg_768.jpg",
+        "sm2x": "/assets/images/pfbg_768@2x.jpg",
+        "xs": "/assets/images/pfbg_576.jpg",
+        "xs2x": "/assets/images/pfbg_576@2x.jpg",
+      }
+    }
+  />
   <Switch>
     <Route
       component={[Function]}
