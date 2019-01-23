@@ -122,6 +122,13 @@ class LandingPage extends React.Component {
             use any of the available application services to create custom integrations.
           </p>
         </div>
+        <img
+          src="/assets/images/RedHatLogo_white.svg"
+          alt="Red Hat logo"
+          height="38px"
+          width="115px"
+          className="integr8ly-rh-logo"
+        />
       </section>
     );
 
@@ -132,7 +139,7 @@ class LandingPage extends React.Component {
           <LandingPageMastHead />
           <PageSection>
             <TextContent>
-              <main>
+              <main role="main" className="pf-c-page__main">
                 <section className="integr8ly-landing-page-tutorial-dashboard-section">
                   <TutorialDashboard
                     className="integr8ly-landing-page-tutorial-dashboard-section-left"
