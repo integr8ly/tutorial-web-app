@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  BackgroundImage,
-  BackgroundImageSrc,
   Brand,
   Bullseye,
   Dropdown,
@@ -26,7 +24,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Button } from 'patternfly-react';
 import { logout } from '../../services/openshiftServices';
-import brandImg from '../../img/brand-alt-solutions-explorer.svg';
+import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 
 import { connect, reduxActions } from '../../redux';
 
@@ -94,14 +92,6 @@ class CongratulationsPage extends React.Component {
         </ToolbarGroup>
       </Toolbar>
     );
-    const bgImages = {
-      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-    };
 
     const logoProps = {
       onClick: () => this.onTitleClick(),
@@ -119,19 +109,11 @@ class CongratulationsPage extends React.Component {
     return (
       <React.Fragment>
         <Page header={Header}>
-          <BackgroundImage src={bgImages} />
           <PageSection className="pf-m-dark-100 integr8ly-congratulations">
             <TextContent>
               <Bullseye>
                 <EmptyState>
                   <img src="/assets/images/congratulations.svg" alt="congratulations" width="200px" height="200px" />
-                  <img
-                    src="/assets/images/RedHatLogo_white.svg"
-                    alt="Red Hat logo"
-                    height="38px"
-                    width="115px"
-                    className="integr8ly-rh-logo"
-                  />
                   <Title size="4xl">Congratulations, you completed the walkthrough!</Title>
                   <EmptyStateBody>
                     Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
