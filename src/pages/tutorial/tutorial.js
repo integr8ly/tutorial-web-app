@@ -199,14 +199,8 @@ class TutorialPage extends React.Component {
                       </div>
                       {this.renderPrereqs(thread)}
                       <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
-                      {/* <AsciiDocTemplate
-                  adoc={thread}
-                  attributes={Object.assign({}, thread.data.attributes)}
-                /> */}
                     </Grid.Col>
                     <Grid.Col sm={3} className="integr8ly-module-frame">
-                      {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
                       <WalkthroughResources resources={parsedThread.resources} />
                     </Grid.Col>
                   </Grid.Row>
