@@ -16,128 +16,208 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
-  <Grid
-    bsClass="container"
-    componentClass="div"
-    fluid={true}
+  <Page
+    className=""
+    header={
+      <PageHeader
+        avatar={null}
+        className=""
+        logo={
+          <Brand
+            alt="Red Hat Solution Explorer"
+            className=""
+            src="Logo_RH_SolutionExplorer_White.png"
+          />
+        }
+        logoProps={
+          Object {
+            "onClick": [Function],
+            "target": "_blank",
+          }
+        }
+        onNavToggle={[Function]}
+        showNavToggle={false}
+        toolbar={
+          <Toolbar
+            className={null}
+          >
+            <ToolbarGroup
+              className=""
+            >
+              <ToolbarItem
+                className=""
+              >
+                <Dropdown
+                  className=""
+                  direction="down"
+                  dropdownItems={
+                    Array [
+                      <Item
+                        className=""
+                        component="a"
+                        href="#"
+                        isDisabled={false}
+                        isHovered={false}
+                        onClick={[Function]}
+                      >
+                        Log out
+                      </Item>,
+                    ]
+                  }
+                  isOpen={false}
+                  isPlain={true}
+                  onSelect={[Function]}
+                  position="right"
+                  toggle={
+                    <DropdownToggle
+                      className=""
+                      iconComponent={[Function]}
+                      id=""
+                      isActive={false}
+                      isFocused={false}
+                      isHovered={false}
+                      isOpen={false}
+                      isPlain={false}
+                      onToggle={[Function]}
+                      parentRef={null}
+                    />
+                  }
+                />
+              </ToolbarItem>
+            </ToolbarGroup>
+          </Toolbar>
+        }
+        topNav={null}
+      />
+    }
+    sidebar={null}
   >
-    <Row
-      bsClass="row"
-      componentClass="div"
+    <PageSection
+      className=""
+      variant="default"
     >
-      <withRouter(Connect(Masthead)) />
-    </Row>
-    <Row
-      bsClass="row"
-      className="pf-c-content"
-      componentClass="div"
-    >
-      <Col
-        bsClass="col"
-        className="integr8ly-task-container"
-        componentClass="div"
-        sm={9}
-        xs={12}
+      <TextContent
+        className=""
       >
-        <div
-          className="integr8ly-task-dashboard-header"
+        <Grid
+          bsClass="container"
+          componentClass="div"
+          fluid={true}
         >
-          <h3
-            className="pf-u-mt-lg"
+          <Row
+            bsClass="row"
+            className="pf-c-content"
+            componentClass="div"
           >
-            Example
-          </h3>
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
-            onClick={[Function]}
-          >
-            tutorial.getStarted
-          </Button>
-        </div>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<div class=\\"literalblock\\">
+            <Col
+              bsClass="col"
+              className="integr8ly-task-container"
+              componentClass="div"
+              sm={9}
+              xs={12}
+            >
+              <div
+                className="integr8ly-task-dashboard-header"
+              >
+                <h3
+                  className="pf-u-mt-lg"
+                >
+                  Example
+                </h3>
+                <Button
+                  active={false}
+                  block={false}
+                  bsClass="btn"
+                  bsStyle="primary"
+                  disabled={false}
+                  onClick={[Function]}
+                >
+                  tutorial.getStarted
+                </Button>
+              </div>
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<div class="literalblock">
 <div class=\\"content\\">
 <pre>This is a sample description</pre>
 </div>
 </div>",
-            }
-          }
-        />
-      </Col>
-      <Col
-        bsClass="col"
-        className="integr8ly-module-frame"
-        componentClass="div"
-        sm={3}
-      >
-        <Connect(WalkthroughResources)
-          resources={Array []}
-        />
-      </Col>
-    </Row>
-    <Row
-      bsClass="row"
-      className="pf-c-content"
-      componentClass="div"
-    >
-      <Col
-        bsClass="col"
-        componentClass="div"
-        sm={9}
-        xs={12}
-      >
-        <h3
-          className="pf-u-mt-xl"
-        >
-          tutorial.tasksToComplete
-          <div
-            className="pull-right integr8ly-task-dashboard-time-to-completion"
-          >
-            <Icon
-              name="clock"
-              style={
-                Object {
-                  "marginRight": 5,
+                  }
                 }
-              }
-              type="fa"
-            />
-            <span>
-              0
-              <span
-                className="integr8ly-task-dashboard-time-to-completion_minutes"
-              >
-                tutorial.minutes
-              </span>
-            </span>
-          </div>
-        </h3>
-        <ListView
-          className="integr8ly-list-view-pf"
-        />
-        <div
-          className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
-        >
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
-            onClick={[Function]}
+              />
+            </Col>
+            <Col
+              bsClass="col"
+              className="integr8ly-module-frame"
+              componentClass="div"
+              sm={3}
+            >
+              <Connect(WalkthroughResources)
+                resources={Array []}
+              />
+            </Col>
+          </Row>
+          <Row
+            bsClass="row"
+            className="pf-c-content"
+            componentClass="div"
           >
-            tutorial.getStarted
-          </Button>
-        </div>
-      </Col>
-    </Row>
-  </Grid>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              sm={9}
+              xs={12}
+            >
+              <h3
+                className="pf-u-mt-xl"
+              >
+                tutorial.tasksToComplete
+                <div
+                  className="pull-right integr8ly-task-dashboard-time-to-completion"
+                >
+                  <Icon
+                    name="clock"
+                    style={
+                      Object {
+                        "marginRight": 5,
+                      }
+                    }
+                    type="fa"
+                  />
+                  <span>
+                    0
+                    <span
+                      className="integr8ly-task-dashboard-time-to-completion_minutes"
+                    >
+                      tutorial.minutes
+                    </span>
+                  </span>
+                </div>
+              </h3>
+              <ListView
+                className="integr8ly-list-view-pf"
+              />
+              <div
+                className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
+              >
+                <Button
+                  active={false}
+                  block={false}
+                  bsClass="btn"
+                  bsStyle="primary"
+                  disabled={false}
+                  onClick={[Function]}
+                >
+                  tutorial.getStarted
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </TextContent>
+    </PageSection>
+  </Page>
 </Fragment>
 `;
 
