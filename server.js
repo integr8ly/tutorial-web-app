@@ -202,15 +202,16 @@ function lookupWalkthroughResources(location) {
       const adocInfo = files.reduce((acc, dirName) => {
         const basePath = path.join(location.local, dirName);
         const adocPath = path.join(basePath, 'walkthrough.adoc');
-        if (fs.existsSync(adocPath)) {
-          acc.push({
-            dirName,
-            basePath,
-            adocPath
-          });
-        } else {
-          console.log(`No walkthrough.adoc present in ${basePath}`);
+        const jsonPath = path.join(basePath, 'walkthrough.json');
+        if (!fs.existsSync(adocPath) || !fs.existsSync(jsonPath)) {
+          console.log(`walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`);
+          return acc;
         }
+        acc.push({
+          dirName,
+          basePath,
+          adocPath
+        });
         return acc;
       }, []);
       return resolve(adocInfo);
