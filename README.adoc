@@ -246,29 +246,41 @@ $ yarn test
 
 == Releasing
 
-=== To do a release
+=== Version & Tag repos
 
-Following the commands to do a release of the webapp and update the version in `package.json` file.
-
-[source,shell]
-----
-$ npm version x.y.z
-$ git tag x.y.z
-----
-
-=== Pushing the changes
-
-Following the commands to push the changes including the version tag to the repository.
+==== WebApp
 
 [source,shell]
 ----
-$ git push origin master
-$ git push --tags
+cd /tmp/
+git clone git@github.com:integr8ly/tutorial-web-app
+cd tutorial-web-app/
+
+npm version x.y.z
+git push origin master
+git push --tags
 ----
 
-=== Generating images
+==== Walkthroughs
+
+[source,shell]
+----
+cd /tmp
+git clone git@github.com:integr8ly/tutorial-web-app-walkthroughs
+cd tutorial-web-app-walkthroughs/
+
+npm version x.y.z
+git push origin master
+git push --tags
+----
+
+=== Build Images
 
 When the changes are pushed this will trigger a new release build. If the build is successful, a new image will be pushed to https://quay.io/repository/integreatly/tutorial-web-app.
 The new image will be tagged as `latest` and the version number `x.y.z`.
 
-TODO: Installing a released version of the webapp to OpenShift
+=== Update the WebApp Operator
+
+Update the version of the webapp image (DeploymentConfig) and walkthroughs tag (WALKTHROUGH_LOCATIONS param) in https://github.com/integr8ly/tutorial-web-app-operator/blob/master/deploy/template/tutorial-web-app.yml & create PR back to master.
+Once merged to master, these changes will be picked up in the next Integreatly (installation repo) release.
+
