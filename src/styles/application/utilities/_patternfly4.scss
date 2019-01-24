@@ -220,6 +220,24 @@ th {
       color: $pf-color-black-500;
     }
   }
+
+  .paragraph {
+    p {
+      margin-bottom: var(--pf-c-content--MarginBottom);
+    }
+  }
+
+  .admonitionblock.note {
+    margin-bottom: var(--pf-c-content--MarginBottom);
+    padding: var(--pf-global--spacer--md);
+    font-weight: var(--pf-c-content--blockquote--FontWeight);
+    color: var(--pf-c-content--blockquote--Color);
+    border-left: var(--pf-c-content--blockquote--BorderLeftWidth) solid var(--pf-c-content--blockquote--BorderLeftColor);
+
+    .icon .title { /* stylelint-disable-line */
+      margin-right: var(--pf-global--spacer--md);
+    }
+  }
 }
 
 .form-control {
