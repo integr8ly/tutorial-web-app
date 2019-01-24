@@ -70,8 +70,16 @@ th {
   padding: 0;
   text-align: left;
 }
+// Delete this file once PatternFly 3 is removed
+//
 
+// Since PF3 sets root font size to 10px, we need to unset it.
+// This doesn't affect PF3.
+// https://github.com/twbs/bootstrap/blob/v3.4.0-dev/less/scaffolding.less#L23
+
+/* stylelint-disable */
 html {
+  font-size: unset !important; // the important is needed because we don't know if pf3 will be loaded after pfnext
   font-family: sans-serif;
   line-height: 1.15;
 }
@@ -216,8 +224,7 @@ ol {
     color: var(--pf-c-content--blockquote--Color);
     border-left: var(--pf-c-content--blockquote--BorderLeftWidth) solid var(--pf-c-content--blockquote--BorderLeftColor);
     .icon .title {
-      margin-right: var(--pf-global--spacer--md);
-    }
+      margin-right: var(--pf-global--spacer--md);    }
   }
 }
 
