@@ -1,31 +1,20 @@
 import React from 'react';
 import {
-  Brand,
   Bullseye,
-  Dropdown,
-  DropdownToggle,
-  DropdownItem,
   EmptyState,
   EmptyStateBody,
   EmptyStateAction,
   Page,
-  PageHeader,
   PageSection,
   TextContent,
-  Title,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem
+  Title
 } from '@patternfly/react-core';
-import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
-import { css } from '@patternfly/react-styles';
 
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Button } from 'patternfly-react';
 import { logout } from '../../services/openshiftServices';
-import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
-
+import { Masthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
 class CongratulationsPage extends React.Component {
@@ -70,45 +59,10 @@ class CongratulationsPage extends React.Component {
   };
 
   render() {
-    const { isDropdownOpen } = this.state;
-    const userDropdownItems = [<DropdownItem onClick={this.onLogoutUser}>Log out</DropdownItem>];
-    const PageToolbar = (
-      <Toolbar>
-        <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
-          <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onDropdownSelect}
-              isOpen={isDropdownOpen}
-              toggle={
-                <DropdownToggle onToggle={this.onDropdownToggle}>
-                  {window.localStorage.getItem('currentUserName')}
-                </DropdownToggle>
-              }
-              dropdownItems={userDropdownItems}
-            />
-          </ToolbarItem>
-        </ToolbarGroup>
-      </Toolbar>
-    );
-
-    const logoProps = {
-      onClick: () => this.onTitleClick(),
-      target: '_blank'
-    };
-
-    const Header = (
-      <PageHeader
-        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
-        logoProps={logoProps}
-        toolbar={PageToolbar}
-      />
-    );
-
     return (
       <React.Fragment>
-        <Page header={Header}>
+        <Page>
+          <Masthead />
           <PageSection className="pf-m-dark-100 integr8ly-congratulations">
             <TextContent>
               <Bullseye>
