@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
+import {
+  Brand,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  PageHeader,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarItem
+} from '@patternfly/react-core';
+import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
+import { css } from '@patternfly/react-styles';
+import { noop, Icon, MenuItem } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
 import { connect, reduxActions, store } from '../../redux';
 import { aboutModalTypes } from '../../redux/constants';
-import titleImg from '../../img/brand-alt-solutions-explorer.svg';
 import { logout } from '../../services/openshiftServices';
+import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 
 class Masthead extends React.Component {
   state = {
@@ -36,6 +48,12 @@ class Masthead extends React.Component {
   onTitleClick = () => {
     const { history } = this.props;
     history.push(`/`);
+  };
+
+  onDropdownSelect = event => {
+    this.setState({
+      isDropdownOpen: !this.state.isDropdownOpen
+    });
   };
 
   renderMobileNav() {
@@ -74,14 +92,14 @@ class Masthead extends React.Component {
 
   renderActions() {
     return (
-      <PfMasthead.Dropdown id="app-help-dropdown" title={<span aria-hidden className="pficon pficon-help" />}>
+      <PageHeader.Dropdown id="app-help-dropdown" title={<span aria-hidden className="pficon pficon-help" />}>
         <MenuItem eventKey="1" onClick={this.onHelp}>
           Help
         </MenuItem>
         <MenuItem eventKey="2" onClick={this.onAbout}>
           About
         </MenuItem>
-      </PfMasthead.Dropdown>
+      </PageHeader.Dropdown>
     );
   }
 
@@ -96,18 +114,48 @@ class Masthead extends React.Component {
     );
 
     return (
-      <PfMasthead.Dropdown id="app-user-dropdown" title={title}>
+      <PageHeader.Dropdown id="app-user-dropdown" title={title}>
         <MenuItem onClick={this.onLogoutUser}>Log Out</MenuItem>
-      </PfMasthead.Dropdown>
+      </PageHeader.Dropdown>
     );
   }
 
   render() {
+    const { isDropdownOpen } = this.state;
+    const userDropdownItems = [<DropdownItem onClick={this.onLogoutUser}>Log out</DropdownItem>];
+
+    const PageToolbar = (
+      <Toolbar>
+        <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
+          <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+            <Dropdown
+              isPlain
+              position="right"
+              onSelect={this.onDropdownSelect}
+              isOpen={isDropdownOpen}
+              toggle={
+                <DropdownToggle onToggle={this.onDropdownToggle}>
+                  {window.localStorage.getItem('currentUserName')}
+                </DropdownToggle>
+              }
+              dropdownItems={userDropdownItems}
+            />
+          </ToolbarItem>
+        </ToolbarGroup>
+      </Toolbar>
+    );
+
+    const logoProps = {
+      onClick: () => this.onTitleClick(),
+      target: '_blank'
+    };
+
     return (
-      <PfMasthead titleImg={titleImg} navToggle={false} onTitleClick={this.onTitleClick}>
-        <PfMasthead.Collapse>{this.renderUserDropdown()}</PfMasthead.Collapse>
-        {this.renderMobileNav()}
-      </PfMasthead>
+      <PageHeader
+        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
+        logoProps={logoProps}
+        toolbar={PageToolbar}
+      />
     );
   }
 }

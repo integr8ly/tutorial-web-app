@@ -1,30 +1,15 @@
 import React from 'react';
-import {
-  Brand,
-  Dropdown,
-  DropdownToggle,
-  DropdownItem,
-  Page,
-  PageHeader,
-  PageSection,
-  TextContent,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem
-} from '@patternfly/react-core';
+import { Page, PageSection, TextContent } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
-import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
-import { css } from '@patternfly/react-styles';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
-
 import { logout } from '../../services/openshiftServices';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
-import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 import { connect, reduxActions } from '../../redux';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
+import { Masthead } from '../../components/masthead/masthead';
 
 class TutorialPage extends React.Component {
   constructor(props) {
@@ -61,6 +46,7 @@ class TutorialPage extends React.Component {
     const { history } = this.props;
     history.push(`/`);
   };
+
   componentDidMount() {
     const {
       getWalkthrough,
@@ -109,9 +95,6 @@ class TutorialPage extends React.Component {
   }
 
   render() {
-    const { isDropdownOpen } = this.state;
-    const userDropdownItems = [<DropdownItem onClick={this.onLogoutUser}>Log out</DropdownItem>];
-
     const {
       t,
       thread,
@@ -128,108 +111,78 @@ class TutorialPage extends React.Component {
       return null;
     }
 
-    const logoProps = {
-      onClick: () => this.onTitleClick(),
-      target: '_blank'
-    };
-
-    const PageToolbar = (
-      <Toolbar>
-        <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
-          <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onDropdownSelect}
-              isOpen={isDropdownOpen}
-              toggle={
-                <DropdownToggle onToggle={this.onDropdownToggle}>
-                  {window.localStorage.getItem('currentUserName')}
-                </DropdownToggle>
-              }
-              dropdownItems={userDropdownItems}
-            />
-          </ToolbarItem>
-        </ToolbarGroup>
-      </Toolbar>
-    );
-
-    const Header = (
-      <PageHeader
-        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
-        logoProps={logoProps}
-        toolbar={PageToolbar}
-      />
-    );
-
     if (thread.fulfilled && thread.data) {
       const attrs = getDocsForWalkthrough(id, this.props.middlewareServices, this.props.walkthroughResources);
       const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
       const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);
       return (
         <React.Fragment>
-          <Page header={Header}>
+          <Page>
+            <Masthead />
             <PageSection>
               <TextContent>
-                <Grid fluid>
+                {/* <Grid fluid>
                   <Grid.Row className="pf-c-content">
-                    <Grid.Col xs={12} sm={9} className="integr8ly-task-container">
-                      <div className="integr8ly-task-dashboard-header">
-                        <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
-                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-                          {t('tutorial.getStarted')}
-                        </Button>
-                      </div>
-                      {this.renderPrereqs(thread)}
-                      <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
-                    </Grid.Col>
-                    <Grid.Col sm={3} className="integr8ly-module-frame">
-                      <WalkthroughResources resources={parsedThread.resources} />
-                    </Grid.Col>
-                  </Grid.Row>
-                  <Grid.Row className="pf-c-content">
-                    <Grid.Col xs={12} sm={9}>
-                      <h3 className="pf-u-mt-xl">
-                        {t('tutorial.tasksToComplete')}
-                        <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                          <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
-                          <span>
-                            {parsedThread.time}
-                            <span className="integr8ly-task-dashboard-time-to-completion_minutes">
-                              {t('tutorial.minutes')}
-                            </span>
+                    <Grid.Col xs={12} sm={9} className="integr8ly-task-container"> */}
+                <div className="integr8ly-task-dashboard-header">
+                  <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
+                  <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                    {t('tutorial.getStarted')}
+                  </Button>
+                </div>
+                {this.renderPrereqs(thread)}
+                <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
+                {/* </Grid.Col> */}
+                {/* <Grid.Col sm={3} className="integr8ly-module-frame"> */}
+                <WalkthroughResources
+                  className="integr8ly-landing-page-tutorial-dashboard-section-right"
+                  resources={parsedThread.resources}
+                />
+                {/* </Grid.Col> */}
+                {/* </Grid.Row> */}
+                <Grid.Row className="pf-c-content">
+                  <Grid.Col xs={12} sm={9}>
+                    <h3 className="pf-u-mt-xl">
+                      {t('tutorial.tasksToComplete')}
+                      <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                        <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
+                        <span>
+                          {parsedThread.time}
+                          <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                            {t('tutorial.minutes')}
                           </span>
-                        </div>
-                      </h3>
-                      <ListView className="integr8ly-list-view-pf">
-                        {parsedThread.tasks.map((task, i) => (
-                          <ListView.Item
-                            key={i}
-                            heading={`${task.title}`}
-                            description={task.shortDescription}
-                            actions={
-                              <div className="integr8ly-task-dashboard-estimated-time">
-                                <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
-                                <span>
-                                  {task.time}
-                                  <span className="integr8ly-task-dashboard-estimated-time_minutes">
-                                    {t('tutorial.minutes')}
-                                  </span>
-                                </span>
-                              </div>
-                            }
-                            stacked
-                          />
-                        ))}
-                      </ListView>
-                      <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-                          {t('tutorial.getStarted')}
-                        </Button>
+                        </span>
                       </div>
-                    </Grid.Col>
-                  </Grid.Row>
-                </Grid>
+                    </h3>
+                    <ListView className="integr8ly-list-view-pf">
+                      {parsedThread.tasks.map((task, i) => (
+                        <ListView.Item
+                          key={i}
+                          heading={`${task.title}`}
+                          description={task.shortDescription}
+                          actions={
+                            <div className="integr8ly-task-dashboard-estimated-time">
+                              <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
+                              <span>
+                                {task.time}
+                                <span className="integr8ly-task-dashboard-estimated-time_minutes">
+                                  {t('tutorial.minutes')}
+                                </span>
+                              </span>
+                            </div>
+                          }
+                          stacked
+                        />
+                      ))}
+                    </ListView>
+                    <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
+                      <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                        {t('tutorial.getStarted')}
+                      </Button>
+                    </div>
+                  </Grid.Col>
+                </Grid.Row>
+                {/* </Grid> */}
               </TextContent>
             </PageSection>
           </Page>

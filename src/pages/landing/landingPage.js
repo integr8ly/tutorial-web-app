@@ -1,18 +1,5 @@
 import * as React from 'react';
-import {
-  Brand,
-  Dropdown,
-  DropdownToggle,
-  DropdownItem,
-  Page,
-  PageHeader,
-  PageSection,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem
-} from '@patternfly/react-core';
-import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
-import { css } from '@patternfly/react-styles';
+import { Page, PageSection } from '@patternfly/react-core';
 
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
@@ -20,7 +7,7 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { logout } from '../../services/openshiftServices';
-import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
+import { Masthead } from '../../components/masthead/masthead';
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -57,6 +44,7 @@ class LandingPage extends React.Component {
     const { history } = this.props;
     history.push(`/`);
   };
+
   componentDidMount() {
     const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
@@ -65,42 +53,6 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
-    const { isDropdownOpen } = this.state;
-    const userDropdownItems = [<DropdownItem onClick={this.onLogoutUser}>Log out</DropdownItem>];
-    const PageToolbar = (
-      <Toolbar>
-        <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
-          <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onDropdownSelect}
-              isOpen={isDropdownOpen}
-              toggle={
-                <DropdownToggle onToggle={this.onDropdownToggle}>
-                  {window.localStorage.getItem('currentUserName')}
-                </DropdownToggle>
-              }
-              dropdownItems={userDropdownItems}
-            />
-          </ToolbarItem>
-        </ToolbarGroup>
-      </Toolbar>
-    );
-
-    const logoProps = {
-      onClick: () => this.onTitleClick(),
-      target: '_blank'
-    };
-
-    const Header = (
-      <PageHeader
-        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
-        logoProps={logoProps}
-        toolbar={PageToolbar}
-      />
-    );
-
     const LandingPageMastHead = () => (
       <section className="pf-c-page__main-section pf-m-dark-100">
         <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
@@ -114,7 +66,8 @@ class LandingPage extends React.Component {
 
     return (
       <React.Fragment>
-        <Page header={Header}>
+        <Page>
+          <Masthead />
           <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <div className="integr8ly-landing-page-tutorial-dashboard-section">
