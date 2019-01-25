@@ -42,6 +42,7 @@ const DEFAULT_SERVICE_INSTANCE = {
  */
 const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {}) => {
   if (window.OPENSHIFT_CONFIG.mockData) {
+    dispatch(initCustomThreadSuccess({}));
     return Promise.resolve([]);
   }
   dispatch(initCustomThreadPending());

@@ -8,7 +8,8 @@ const initialState = {
     errorMessage: null,
     pending: false,
     fulfilled: false,
-    data: {}
+    data: {},
+    id: null
   },
   manifest: {
     error: false,
@@ -57,7 +58,8 @@ const threadReducers = (state = initialState, action) => {
         {
           pending: false,
           fulfilled: true,
-          data: action.payload.data
+          data: action.payload.data,
+          id: action.payload.id
         },
         {
           state,
