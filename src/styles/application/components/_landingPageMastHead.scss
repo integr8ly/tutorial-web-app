@@ -1,42 +1,19 @@
-.integr8ly-landing-page {
-  &-masthead {
-    display: flex;
-    height: 130px;
-    width: 100%;
-    margin: auto 0;
-    background-color: $pf-color-blue-600;
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: cover;
+// .integr8ly-landing-page {
+//   &-masthead {
+//     display: flex;
+//     height: 130px;
+//     width: 100%;
+//     margin: auto 0;
+//     background-repeat: no-repeat;
+//     background-position: top right;
+//     background-size: cover;
 
-    // replace this image name with the desired image
-    // only for use with single-size images
-    $integr8ly-banner-image: "Web_RH_Banner.png";
+//     h1 {
+//       color: $pf-color-white;
+//     }
 
-    --integr8ly-c-masthead-image--BackgroundImage--md: url("#{$pf-global--image-path}/#{$integr8ly-banner-image}");
-
-    /* stylelint-disable */
-    @media (min-width: $pf-global--breakpoint--md) {
-      background-image: var(--integr8ly-c-masthead-image--BackgroundImage--md);
-    }
-    /* stylelint-enable */
-
-    &::after {
-      background-image: url("../../img/RedHatLogo.png");
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 85px;
-      right: 25px;
-      height: 38px;
-      width: 115px;
-    }
-
-    h1 {
-      color: $pf-color-white;
-    }
-
-    p:first-of-type {
-      color: $pf-color-white;
-    }
-  }
-}
+//     p:first-of-type {
+//       color: $pf-color-white;
+//     }
+//   }
+// }

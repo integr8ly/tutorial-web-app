@@ -69,7 +69,7 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderServiceLoadingLabels(svc) {
       const { gaStatus } = getWalkthroughServiceInfo(svc);
       if (gaStatus === 'preview' || gaStatus === 'community') {
-        return <span className={`integr8ly-label-${gaStatus}`}>{gaStatus}</span>;
+        return <span className="integr8ly-label">{gaStatus}</span>;
       }
       return null;
     }

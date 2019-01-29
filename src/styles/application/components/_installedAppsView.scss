@@ -1,5 +1,4 @@
 .integr8ly-installed-apps-view {
-  height: 100vh;
   margin-bottom: 0;
   border-bottom: 0;
   box-shadow: none;
@@ -8,23 +7,16 @@
     width: 100%;
   }
 
-  @media (min-width: 1092px) {
-    width: 33.3%;
-  }
-
   &-panel-title {
     display: flex;
 
-    & h3 {
+    & h2 {
       flex-basis: 70%;
       margin-top: 9px;
-      color: $pf-color-black-800;
     }
 
     & div {
       flex-basis: 30%;
-      margin-top: 10px;
-      color: $pf-color-black-800;
       font-size: var(--pf-global--FontSize--sm);
       font-weight: var(--pf-global--FontWeight--bold);
       text-align: right;
@@ -34,6 +26,7 @@
   &-list {
     list-style-type: none;
     padding: 0;
+    background-color: $pf-color-white;
 
     i {
       margin-left: 5px;
@@ -47,7 +40,7 @@
 
       p {
         margin-bottom: 0;
-        color: #282d33;
+        color: $pf-color-black-900;
       }
     }
 
@@ -57,21 +50,25 @@
     }
   }
 
-  &-title {
+  &-list-item {
     display: flex;
+  }
+
+  &-list-item-title {
+    margin-right: var(--pf-global--spacer--lg);
   }
 }
 
 .integr8ly-state-provisioining {
-  color: $pf-color-black-600;
+  color: $pf-color-black-600 !important; /* stylelint-disable-line */
 }
 
 .integr8ly-state-ready {
-  color: $pf-color-green-400;
+  color: $pf-color-green-400 !important; /* stylelint-disable-line */
 }
 
 .integr8ly-state-unavailable {
-  color: var(--pf-global--danger-color--100);
+  color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line */
 }
 
 .integr8ly-panel-title {

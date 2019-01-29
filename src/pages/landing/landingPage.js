@@ -1,9 +1,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
+import {
+  BackgroundImage,
+  BackgroundImageSrc,
+  Grid,
+  GridItem,
+  Page,
+  PageSection,
+  PageSectionVariants
+} from '@patternfly/react-core';
 import PfMasthead from '../../components/masthead/masthead';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
-import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 
@@ -16,25 +24,38 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
+
+    const bgImages = {
+      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
+      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
+      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
+      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
+      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
+      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
+    };
     return (
-      <div>
-        <PfMasthead />
-        <LandingPageMastHead />
-        <main>
-          <section className="integr8ly-landing-page-tutorial-dashboard-section">
-            <TutorialDashboard
-              className="integr8ly-landing-page-tutorial-dashboard-section-left"
-              userProgress={user.userProgress}
-              walkthroughs={walkthroughServices.data}
-            />
-            <InstalledAppsView
-              className="integr8ly-landing-page-tutorial-dashboard-section-right"
-              apps={Object.values(middlewareServices.data)}
-              customApps={middlewareServices.customServices}
-            />
-          </section>
-        </main>
-      </div>
+      <React.Fragment>
+        <BackgroundImage src={bgImages} />
+        <Page>
+          <PfMasthead />
+          <PageSection
+            variant={PageSectionVariants.dark}
+            className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
+          >
+            <Grid>
+              <GridItem sm={12} md={9}>
+                <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+              </GridItem>
+              <GridItem sm={12} md={3}>
+                <InstalledAppsView
+                  apps={Object.values(middlewareServices.data)}
+                  customApps={middlewareServices.customServices}
+                />
+              </GridItem>
+            </Grid>
+          </PageSection>
+        </Page>
+      </React.Fragment>
     );
   }
 }
