@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TextContent, Text, TextVariants } from '@patternfly/react-core';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -74,17 +75,15 @@ class WalkthroughResources extends React.Component {
       resourceList = resources.map(resource => (
         <div key={resource.title}>
           <h4>
-            {resource.statusIcon}
-            &nbsp;
-            {resource.title}
-            &nbsp;
+            <span className="pf-u-mr-xs">{resource.statusIcon}</span>
+            <span className="pf-u-mr-md">{resource.title}</span>
             {resource.gaStatus === 'community' ? (
-              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
+              <span className="integr8ly-label integr8ly-walkthrough-labels-tag">community</span>
             ) : (
               <span />
             )}
             {resource.gaStatus === 'preview' ? (
-              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
+              <span className="integr8ly-label integr8ly-walkthrough-labels-tag">preview</span>
             ) : (
               <span />
             )}
@@ -98,11 +97,11 @@ class WalkthroughResources extends React.Component {
 
   render() {
     return (
-      <div className="integr8ly-walkthrough-resources">
-        <h2>Walkthrough Resources</h2>
+      <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
+        <Text component={TextVariants.h2}>Walkthrough Resources</Text>
         {this.state.resourceList}
         <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
-      </div>
+      </TextContent>
     );
   }
 }
