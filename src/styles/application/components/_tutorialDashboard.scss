@@ -1,7 +1,14 @@
 .integr8ly-tutorial-dashboard {
-  background-color: $pf-color-black-200;
+  height: 100vh;
+  margin-bottom: 0;
+
+  // background-color: $pf-color-black-150;
   border: 0;
   box-shadow: none;
+
+  .cards-pf { /* stylelint-disable-line selector-class-pattern */
+    background-color: transparent;
+  }
 
   @media (max-width: 1091px) {
     width: 100%;
@@ -12,45 +19,41 @@
   }
 
   @media (min-width: 1092px) {
-    width: 66.6%;
-
     .card-pf-body { /* stylelint-disable-line selector-class-pattern */
       min-height: 250px;
     }
   }
 
-  /* stylelint-disable */
-  & .panel-heading,
-  .cards-pf {
-    background-color: $pf-color-black-200;
-  }
-  /* stylelint-enable */
-
-  & .panel-title { /* stylelint-disable-line selector-class-pattern */
+  &-title {
     display: flex;
     border: none;
 
     & h2 {
       flex-basis: 50%;
-      color: $pf-color-black-900;
-    }
 
-    .walkthrough-counter { /* stylelint-disable-line selector-class-pattern */
-      flex-basis: 50%;
-      text-align: right;
-      color: $pf-color-black-800;
-      font-size: var(--pf-global--FontSize--sm);
-      font-weight: var(--pf-global--FontWeight--bold);
+      // color: $pf-color-black-900;
     }
   }
 }
 
-.integr8ly-walkthrough-labels {
-  float: left;
-}
+.integr8ly-walkthrough {
+  &-counter {
+    flex-basis: 50%;
+    margin-top: 16px;
+    text-align: right;
 
-.integr8ly-walkthrough-labels-tag {
-  display: inline;
-  position: inherit;
-  margin-right: 10px;
+    // color: $pf-color-black-800;
+    font-size: var(--pf-global--FontSize--sm);
+    font-weight: var(--pf-global--FontWeight--bold);
+  }
+
+  &-labels {
+    float: left;
+  }
+
+  &-labels-tag {
+    display: inline;
+    position: inherit;
+    margin-right: 10px;
+  }
 }
