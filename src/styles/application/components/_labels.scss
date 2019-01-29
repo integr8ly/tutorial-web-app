@@ -1,23 +1,10 @@
 .integr8ly-label {
-  &-community {
-    margin-left: var(--pf-global--spacer--lg);
-    padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--sm);
-    border: var(--pf-global--BorderWidth--sm) solid;
-    border-color: $pf-color-black-300;
-    background-color: $pf-color-black-300;
-    color: $pf-color-black-900;
-    font-size: var(--pf-global--FontSize--xs) !important; /* stylelint-disable-line declaration-no-important */
-    font-weight: var(--pf-global--FontWeight--bold);
-  }
-
-  &-preview {
-    margin-left: var(--pf-global--spacer--lg);
-    padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--sm);
-    border: var(--pf-global--BorderWidth--sm) solid;
-    border-color: $pf-color-black-300;
-    background-color: $pf-color-black-300;
-    color: $pf-color-black-900;
-    font-size: var(--pf-global--FontSize--xs) !important; /* stylelint-disable-line declaration-no-important */
-    font-weight: var(--pf-global--FontWeight--bold);
-  }
+  display: inline-table;
+  padding: var(--pf-global--spacer--xs) var(--pf-global--spacer--sm);
+  border: var(--pf-global--BorderWidth--sm) solid;
+  border-color: $pf-color-black-300;
+  background-color: $pf-color-black-300;
+  color: $pf-color-black-900;
+  font-size: var(--pf-global--FontSize--xs) !important; /* stylelint-disable-line declaration-no-important */
+  font-weight: var(--pf-global--FontWeight--bold);
 }

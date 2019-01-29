@@ -23,6 +23,7 @@
         border-bottom-color: $pf-color-black-300;
         margin: 0 -20px;
         padding: 1px 20px;
+        height: 100vh;
         min-height: 48px;
 
         /* stylelint-disable */
@@ -98,7 +99,6 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 75%;
         text-align: center;
         z-index: 3;
 
@@ -109,7 +109,7 @@
         &_status {
           margin-bottom: 10px;
           padding-right: 15px;
-          color: $pf-color-blue-400;
+          color: $pf-color-blue-400 !important;
 
           .far {
             padding-right: 5px;
@@ -118,13 +118,13 @@
           &-checked {
             margin-bottom: 10px;
             padding-right: 15px;
-            color: $pf-color-green-400;
+            color: $pf-color-green-400 !important;
           }
 
           &-unchecked {
             margin-bottom: 10px;
             padding-right: 15px;
-            color: var(--pf-global--danger-color--100);
+            color: var(--pf-global--danger-color--100) !important;
           }
 
           &-step {
@@ -136,17 +136,13 @@
     }
 
     &-frame {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      padding-top: 60px;
-      overflow-y: auto;
       background-color: $pf-color-black-150;
+      border-bottom: var(--pf-global--BorderWidth--sm) solid;
+      border-bottom-color: $pf-color-black-300;
       border-left: var(--pf-global--BorderWidth--sm) solid;
       border-left-color: $pf-color-black-300;
 
-      @media (max-width: var(--pf-global--breakpoint--md)) {
+      @media screen and (max-width: $pf-global--breakpoint--md) {
         display: none;
       }
     }

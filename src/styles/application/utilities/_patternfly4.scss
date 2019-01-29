@@ -19,56 +19,6 @@ html {
 }
 /* stylelint-enable */
 
-html,
-body,
-p,
-ol,
-ul,
-li,
-dl,
-dt,
-dd,
-blockquote,
-figure,
-fieldset,
-legend,
-textarea,
-pre,
-iframe,
-hr,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  padding: 0;
-  margin: 0;
-}
-
-// Body / Paragraph styling
-body {
-  font-family: var(--pf-global--FontFamily--sans-serif);
-  font-size: var(--pf-global--FontSize--md);
-  font-size: var(--pf-global--FontSize--md);
-  font-weight: var(--pf-global--FontWeight--normal);
-  line-height: var(--pf-global--LineHeight--md);
-  text-align: left;
-  background-color: var(--pf-global--BackgroundColor-100);
-}
-
-// Links styles
-a {
-  font-weight: var(--pf-global--link--FontWeight);
-  color: var(--pf-global--link--Color);
-  text-decoration: var(--pf-global--link--TextDecoration);
-
-  &:hover {
-    color: var(--pf-global--link--Color--hover);
-    text-decoration: var(--pf-global--link--TextDecoration--hover);
-  }
-}
-
 // Button styles
 button,
 a {
@@ -87,93 +37,6 @@ button,
 
 p {
   font-size: $pf-global--FontSize--md;
-}
-
-// Header styling
-h1,
-.integr8ly-h1 {
-  font-size: $h1-font-size;
-}
-
-h2,
-.integr8ly-h2 {
-  font-size: $h2-font-size;
-}
-
-h3,
-.integr8ly-h3 {
-  font-size: $h3-font-size;
-}
-
-h4,
-.integr8ly-h4 {
-  font-size: $h4-font-size;
-}
-
-h5,
-.integr8ly-h5 {
-  font-size: $h5-font-size;
-}
-
-h6,
-.integr8ly-h6 {
-  font-size: $h6-font-size;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.integr8ly-h1,
-.integr8ly-h2,
-.integr8ly-h3,
-.integr8ly-h4,
-.integr8ly-h5,
-.integr8ly-h6 {
-  font-size: 100%;
-  font-weight: var(--pf-global--FontWeight--semi-bold);
-}
-
-h1,
-h2,
-h3 {
-  .integr8ly-small,
-  small {
-    font-weight: var(--pf-global--FontWeight--normal);
-    font-size: 65%;
-  }
-}
-
-h4,
-h5,
-h6 {
-  .integr8ly-small,
-  small {
-    font-weight: var(--pf-global--FontWeight--normal);
-    font-size: 75%;
-  }
-}
-
-h1,
-h2,
-h3,
-.integr8ly-h1,
-.integr8ly-h2,
-.integr8ly-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-h4,
-h5,
-h6,
-.integr8ly-h4,
-.integr8ly-h5,
-.integr8ly-h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 small,
@@ -207,24 +70,6 @@ th {
 }
 
 .pf-c-content {
-  .btn-primary {
-    & > .fa {
-      color: $pf-color-white;
-    }
-
-    color: $pf-color-white;
-  }
-
-  .btn-default {
-    color: $pf-color-black-900;
-  }
-
-  .btn[disabled] {
-    & > .fa {
-      color: $pf-color-black-500;
-    }
-  }
-
   .paragraph {
     p {
       margin-bottom: var(--pf-c-content--MarginBottom);
@@ -247,6 +92,31 @@ th {
 .form-control {
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
+
+.pf-l-gallery.pf-m-gutter {
+  grid-gap: 48px !important; /* stylelint-disable-line */
+}
+
+.pf-c-content { /* stylelint-disable-line */
+  .btn-primary {
+    & > .fa {
+      color: $pf-color-white;
+    }
+
+    color: $pf-color-white;
+  }
+
+  .btn-default {
+    color: $pf-color-black-900;
+  }
+
+  .btn[disabled] {
+    & > .fa {
+      color: $pf-color-black-500;
+    }
+  }
+}
+
 /* stylelint-enable */
 
 .integr8ly-docs-header {

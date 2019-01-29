@@ -1,6 +1,10 @@
 .integr8ly-tutorial-card {
   min-width: 100px;
 
+  & > * {
+    color: $pf-color-black-1000;
+  }
+
   &:hover {
     box-shadow: 0 1px 6px rgba(3, 3, 3, .35);
     cursor: pointer;

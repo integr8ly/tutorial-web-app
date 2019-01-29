@@ -85,9 +85,9 @@ class InstalledAppsView extends React.Component {
   static createCustomAppElem(i, customApp) {
     return (
       <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
-        <div className="integr8ly-installed-apps-view-title">
-          <p>{customApp.name}</p>
-          <span className="label integr8ly-label-community">custom</span>
+        <div className="integr8ly-installed-apps-view-list-item">
+          <p className="integr8ly-installed-apps-view-list-item-title">{customApp.name}</p>
+          <span className="label integr8ly-label">custom</span>
         </div>
         <div className="integr8ly-state-ready">
           <Icon type="fa" name="bolt" /> &nbsp;Ready for use
@@ -109,10 +109,10 @@ class InstalledAppsView extends React.Component {
           key={`${app.spec.clusterServiceClassExternalName}_${index}`}
           value={index}
         >
-          <div className="integr8ly-installed-apps-view-title">
-            <p>{prettyName}</p>
+          <div className="integr8ly-installed-apps-view-list-item">
+            <p className="integr8ly-installed-apps-view-list-item-title">{prettyName}</p>
             {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-              <span className={`label integr8ly-label-${gaStatus}`}>{gaStatus}</span>
+              <span className="label integr8ly-label">{gaStatus}</span>
             ) : (
               <span />
             )}
@@ -132,12 +132,12 @@ class InstalledAppsView extends React.Component {
   render() {
     const appList = InstalledAppsView.createMasterList(this.props.apps, this.props.customApps);
     return (
-      <div className="panel panel-default integr8ly-installed-apps-view">
-        <div className="panel-heading panel-title integr8ly-installed-apps-view-panel-title">
-          <h3 className="pf-c-title pf-m-2xl">Applications</h3>
-          <div>{appList.props.children.length} applications</div>
+      <div className="integr8ly-installed-apps-view">
+        <div className="integr8ly-installed-apps-view-panel-title pf-u-mt-sm">
+          <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
+          <div className="pf-u-mt-md pf-u-pr-sm">{appList.props.children.length} applications</div>
         </div>
-        <div className="panel-content">{appList}</div>
+        <div>{appList}</div>
       </div>
     );
   }

@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Page, PageSection } from '@patternfly/react-core';
-
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
+import { Page, PageSection } from '@patternfly/react-core';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
