@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardGrid, Col, Row, Icon } from 'patternfly-react';
+import { CardGrid, Icon } from 'patternfly-react';
+import { Gallery, GalleryItem } from '@patternfly/react-core';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -14,7 +15,7 @@ const TutorialDashboard = props => {
     else startedText = 'Resume';
 
     return cards.push(
-      <Col xs={12} sm={4} key={walkthrough.id}>
+      <GalleryItem key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
@@ -41,27 +42,27 @@ const TutorialDashboard = props => {
           <p>{walkthrough.shortDescription}</p>
 
           <div className="integr8ly-walkthrough-labels">
-            {walkthrough.community === true ? <span className="label integr8ly-c-label">community</span> : <span />}
-            {walkthrough.preview === true ? (
-              <span className="label integr8ly-c-label integr8ly-preview">preview</span>
-            ) : (
-              <span />
-            )}
+            {walkthrough.community === true ? <span className="label integr8ly-label">community</span> : <span />}
+            {walkthrough.preview === true ? <span className="label integr8ly-label">preview</span> : <span />}
           </div>
         </TutorialCard>
-      </Col>
+      </GalleryItem>
     );
   });
 
   return (
-    <div className="integr8ly-tutorial-dashboard panel panel-default">
-      <div className="panel-heading panel-title">
-        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
-        <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
+    <div className="integr8ly-tutorial-dashboard pf-u-px-sm">
+      <div className="integr8ly-tutorial-dashboard-title pf-u-py-sm">
+        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-ml-md">Start with a walkthrough</h2>
+        <div className="integr8ly-walkthrough-counter pf-u-mr-md">{walkthroughs.length} walkthroughs</div>
       </div>
-      <div className="panel-content cards-pf">
-        <CardGrid className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm" matchHeight style={{ width: 'calc(100% - 40px)' }}>
-          <Row>{cards}</Row>
+      <div className="cards-pf">
+        <CardGrid
+          className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm pf-u-pr-0"
+          matchHeight
+          style={{ width: 'calc(100% - 40px)' }}
+        >
+          <Gallery gutter="md">{cards}</Gallery>
         </CardGrid>
       </div>
     </div>
