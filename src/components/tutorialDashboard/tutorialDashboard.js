@@ -29,7 +29,7 @@ const TutorialDashboard = props => {
               type="fa"
               name={
                 currentProgress !== undefined && currentProgress.progress === 100
-                  ? 'check-circle'
+                  ? 'check-circle integr8ly-c-card__status--complete-icon'
                   : 'arrow-circle-right'
               }
               className="fa-lg"
@@ -56,15 +56,9 @@ const TutorialDashboard = props => {
         <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
         <div className="walkthrough-counter pf-u-mt-md">{walkthroughs.length} walkthroughs</div>
       </div>
-      <div className="cards-pf">
-        <CardGrid
-          className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm pf-u-pr-0"
-          matchHeight
-          style={{ width: 'calc(100% - 40px)' }}
-        >
-          <Gallery gutter="md">{cards}</Gallery>
-        </CardGrid>
-      </div>
+      <CardGrid className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm pf-u-pr-0" style={{ width: 'calc(100% - 40px)' }}>
+        <Gallery gutter="md">{cards}</Gallery>
+      </CardGrid>
     </div>
   );
 };
