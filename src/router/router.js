@@ -44,12 +44,10 @@ class Router extends React.Component {
     const { renderRoutes, redirectRoot } = Router.renderRoutes();
 
     return (
-      <div className="integr8ly-container">
-        <Switch>
-          {renderRoutes}
-          {redirectRoot}
-        </Switch>
-      </div>
+      <Switch>
+        {renderRoutes}
+        {redirectRoot}
+      </Switch>
     );
   }
 }

@@ -137,7 +137,7 @@ class InstalledAppsView extends React.Component {
           <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
           <div className="pf-u-mt-md pf-u-pr-sm">{appList.props.children.length} applications</div>
         </div>
-        <div>{appList}</div>
+        {appList}
       </div>
     );
   }

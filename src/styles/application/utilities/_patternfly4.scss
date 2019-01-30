@@ -93,10 +93,6 @@ th {
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
 
-.pf-l-gallery.pf-m-gutter {
-  grid-gap: 48px !important; /* stylelint-disable-line */
-}
-
 .pf-c-content { /* stylelint-disable-line */
   .btn-primary {
     & > .fa {
@@ -116,7 +112,6 @@ th {
     }
   }
 }
-
 /* stylelint-enable */
 
 .integr8ly-docs-header {

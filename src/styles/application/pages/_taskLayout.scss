@@ -10,128 +10,107 @@
       margin-top: 0;
     }
 
-    &-column {
-      &--status {
-        background-color: $pf-color-black-100;
-        border-bottom: var(--pf-global--BorderWidth--sm) solid;
-        border-bottom-color: $pf-color-black-300;
-        margin: 0 -20px;
-        padding: 1px 20px;
-        height: 100vh;
-        min-height: 48px;
-
-        /* stylelint-disable */
-        /* fix depth of nesting - should be no more than 3 */
-        .progress.progress-label-left {
-          width: 80%;
-          margin-top: 15px;
-          margin-bottom: 10px;
-          margin-left: 100px;
-
-          span {
-            position: absolute;
-            top: -3px;
-            margin-left: -100px;
-          }
-        }
-
-        &-next {
-          background-color: $pf-color-black-100;
-          border-top: var(--pf-global--BorderWidth--sm) solid;
-          border-top-color: $pf-color-black-300;
-          margin: 0 -20px;
-          padding: 10px 20px 20px;
-        }
+    &-column--status {
+      .progress.progress-label-left { /* stylelint-disable-line selector-class-pattern */
+        width: 80%;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        margin-left: 100px;
       }
 
-      &--steps {
-        margin-right: -20px;
-        margin-bottom: 56px;
-        margin-left: -20px;
-        padding: 15px 20px 0;
-        background-color: $pf-color-white;
-
-        &_alert-blue {
-          background-color: $pf-color-blue-50;
-          border-color: $pf-color-blue-200;
-          color: $pf-color-black-1000;
-
-          i {
-            color: $pf-color-blue-400;
-          }
-        }
-
-        &_alert-red {
-          background-color: lighten($pf-color-red-100, 55%);
-          border-color: var(--pf-global--danger-color--100);
-          color: $pf-color-black-1000;
-
-          i {
-            color: var(--pf-global--danger-color--100);
-          }
-        }
-
-        &_alert-green {
-          background-color: lighten($pf-color-green-100, 10%);
-          border-color: $pf-color-green-200;
-          color: $pf-color-black-1000;
-
-          i {
-            color: $pf-color-green-400;
-          }
-        }
+      .progress.progress-label-left span { /* stylelint-disable-line selector-class-pattern */
+        position: absolute;
+        top: -3px;
+        margin-left: -100px;
       }
 
-      &--footer {
+      &-next {
         background-color: $pf-color-black-100;
         border-top: var(--pf-global--BorderWidth--sm) solid;
         border-top-color: $pf-color-black-300;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        text-align: center;
-        z-index: 3;
-
-        @media (max-width: 768px) {
-          width: 100%;
-        }
-
-        &_status {
-          margin-bottom: 10px;
-          padding-right: 15px;
-          color: $pf-color-blue-400 !important;
-
-          .far {
-            padding-right: 5px;
-          }
-
-          &-checked {
-            margin-bottom: 10px;
-            padding-right: 15px;
-            color: $pf-color-green-400 !important;
-          }
-
-          &-unchecked {
-            margin-bottom: 10px;
-            padding-right: 15px;
-            color: var(--pf-global--danger-color--100) !important;
-          }
-
-          &-step {
-            margin-right: 15px;
-          }
-        }
-        /* stylelint-enable */
+        margin: 0 -20px;
+        padding: 10px 20px 20px;
       }
     }
 
-    &-frame {
-      background-color: $pf-color-black-150;
-      border-bottom: var(--pf-global--BorderWidth--sm) solid;
-      border-bottom-color: $pf-color-black-300;
-      border-left: var(--pf-global--BorderWidth--sm) solid;
-      border-left-color: $pf-color-black-300;
+    &-column--steps_alert-blue {
+      background-color: $pf-color-blue-50;
+      border-color: $pf-color-blue-200;
+      color: $pf-color-black-1000;
+    }
 
+    &-column--steps_alert-blue i {
+      color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--steps_alert-red {
+      background-color: lighten($pf-color-red-100, 55%);
+      border-color: var(--pf-global--danger-color--100);
+      color: $pf-color-black-1000;
+    }
+
+    &-column--steps_alert-red i {
+      color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--steps_alert-green {
+      background-color: lighten($pf-color-green-100, 10%);
+      border-color: $pf-color-green-200;
+      color: $pf-color-black-1000;
+    }
+
+    &-column--steps_alert-green i {
+      color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--footer {
+      background-color: $pf-color-black-100;
+      border-top: var(--pf-global--BorderWidth--sm) solid;
+      border-top-color: $pf-color-black-300;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+      z-index: 3;
+
+      /* stylelint-disable max-nesting-depth */
+      h6 {
+        color: $pf-color-black-700;
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      &_status {
+        margin-bottom: 10px;
+        padding-right: 15px;
+        color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+
+        .far { /* stylelint-disable-line selector-class-pattern */
+          padding-right: 5px;
+        }
+
+        &-checked {
+          margin-bottom: 10px;
+          padding-right: 15px;
+          color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+        }
+
+        &-unchecked {
+          margin-bottom: 10px;
+          padding-right: 15px;
+          color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+        }
+
+        &-step {
+          margin-right: 15px;
+        }
+      }
+      /* stylelint-enable */
+    }
+
+    &-frame {
       @media screen and (max-width: $pf-global--breakpoint--md) {
         display: none;
       }

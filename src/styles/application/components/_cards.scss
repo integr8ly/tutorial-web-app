@@ -1,77 +1,68 @@
-/*
-** Custom styles for Cards
-*/
+/* stylelint-disable declaration-no-important */
+.integr8ly-c-card--content {
+  background-color: $pf-color-white !important;
+
+  & * {
+    color: $pf-color-black-1000 !important;
+  }
+
+  a {
+    color: $pf-color-blue-400 !important;
+  }
+
+  .btn.btn-primary { /* stylelint-disable-line selector-class-pattern */
+    color: $pf-color-white !important;
+  }
+}
+/* stylelint-enable */
 
 .integr8ly-c-card {
-  border-top: 2px solid;
-  border-color: transparent;
+  height: 100%;
 
   &:hover {
     cursor: pointer;
   }
 
-  &__label {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: -24px;
-    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
-    &--community {
-      background-color: $pf-color-black-150;
-      color: $pf-color-black-600;
+  &__status--in-progress-icon {
+    color: var(--pf-global--info-color--200) !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  &__status--complete-icon {
+    color: var(--pf-global--success-color--200) !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  &__info {
+    display: contents;
+    width: 100%;
+  }
+
+  &__time {
+    &--progress {
+      flex-basis: 50%;
+      text-align: left;
     }
   }
 
-  &__status--in-progress {
-    border-top: 2px solid;
-    border-color: var(--pf-global--info-color--100);
-  }
+  /* stylelint-disable selector-class-pattern */
+  .pf-c-card__footer {
+    .progress {
+      width: 70%;
+      margin-top: -2px;
+      margin-bottom: 0;
+      vertical-align: middle;
 
-  &__status--complete {
-    border-top: 2px solid;
-    border-color: var(--pf-global--success-color--100);
-  }
-
-  &__status--error {
-    border-top: 2px solid;
-    border-color: var(--pf-global--danger-color--100);
-  }
-
-  // remove styling for adding labels to inline elements
-  .integr8ly-c-label {
-    position: relative;
-    right: 0;
-  }
-
-  .pf-c-card__footer { /* stylelint-disable-line selector-class-pattern */
-    display: flex;
-    justify-content: space-between;
-
-    .integr8ly-c-card__info {
-      flex-basis: 50%;
-      margin-top: 7px;
-    }
-
-    .integr8ly-c-card__time {
-      flex-basis: 50%;
-      margin-top: 10px;
-      text-align: right;
-
-      &--progress {
-        display: flex;
-        flex-basis: 50%;
-        margin-top: 12px;
+      .progress-bar[aria-valuenow="100"] {
+        background-color: var(--pf-global--success-color--100);
       }
     }
 
-    /* stylelint-disable selector-class-pattern */
+    .progress-label-completed {
+      color: var(--pf-global--success-color--200);
+    }
+
     .progress-bar-table {
       display: flex;
-      flex-basis: 100%;
-
-      .progress,
-      .progress-label {
-        flex-basis: 50%;
-      }
+      align-items: center;
 
       .progress {
         margin-bottom: 0;
@@ -81,6 +72,6 @@
         text-align: right;
       }
     }
-    /* stylelint-enable */
   }
+  /* stylelint-enable */
 }

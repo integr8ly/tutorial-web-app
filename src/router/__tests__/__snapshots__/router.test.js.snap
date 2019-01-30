@@ -1,51 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Router Component should render a basic component 1`] = `
-<div
-  className="integr8ly-container"
->
-  <Switch>
-    <Route
-      component={[Function]}
-      exact={true}
-      key="/"
-      path="/"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      key="/help"
-      path="/help"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      key="/tutorial/:id"
-      path="/tutorial/:id"
-    />
-    <Route
-      component={[Function]}
-      exact={false}
-      key="/tutorial/:id/task/:task/:step?"
-      path="/tutorial/:id/task/:task/:step?"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      key="/oauth/callback"
-      path="/oauth/callback"
-    />
-    <Route
-      component={[Function]}
-      exact={false}
-      key="/congratulations/:id"
-      path="/congratulations/:id"
-    />
-    <Redirect
-      from="/"
-      push={false}
-      to="/"
-    />
-  </Switch>
-</div>
+<Switch>
+  <Route
+    component={[Function]}
+    exact={true}
+    key="/"
+    path="/"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    key="/help"
+    path="/help"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    key="/tutorial/:id"
+    path="/tutorial/:id"
+  />
+  <Route
+    component={[Function]}
+    exact={false}
+    key="/tutorial/:id/task/:task/:step?"
+    path="/tutorial/:id/task/:task/:step?"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    key="/oauth/callback"
+    path="/oauth/callback"
+  />
+  <Route
+    component={[Function]}
+    exact={false}
+    key="/congratulations/:id"
+    path="/congratulations/:id"
+  />
+  <Redirect
+    from="/"
+    push={false}
+    to="/"
+  />
+</Switch>
 `;
