@@ -13,45 +13,10 @@ import {
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Button } from 'patternfly-react';
-import { logout } from '../../services/openshiftServices';
 import { Masthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
 class CongratulationsPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDropdownOpen: false
-    };
-  }
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
-
-  onLogoutUser = () => {
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      window.localStorage.clear();
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-      return;
-    }
-    logout().then(() => {
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-    });
-  };
-
-  onTitleClick = () => {
-    const { history } = this.props;
-    history.push(`/`);
-  };
-
   exitTutorial = e => {
     e.preventDefault();
     const { history } = this.props;

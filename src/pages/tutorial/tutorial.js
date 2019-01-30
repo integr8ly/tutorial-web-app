@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Button, Grid, Icon, ListView } from 'patternfly-react';
-import { logout } from '../../services/openshiftServices';
+// import { logout } from '../../services/openshiftServices';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { connect, reduxActions } from '../../redux';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
@@ -12,41 +12,6 @@ import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHel
 import { Masthead } from '../../components/masthead/masthead';
 
 class TutorialPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDropdownOpen: false
-    };
-  }
-
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
-
-  onLogoutUser = () => {
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      window.localStorage.clear();
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-      return;
-    }
-    logout().then(() => {
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-    });
-  };
-
-  onTitleClick = () => {
-    const { history } = this.props;
-    history.push(`/`);
-  };
-
   componentDidMount() {
     const {
       getWalkthrough,
