@@ -20,41 +20,6 @@ import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
 
 class TutorialPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDropdownOpen: false
-    };
-  }
-
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
-
-  onLogoutUser = () => {
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      window.localStorage.clear();
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-      return;
-    }
-    logout().then(() => {
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-    });
-  };
-
-  onTitleClick = () => {
-    const { history } = this.props;
-    history.push(`/`);
-  };
-
   componentDidMount() {
     const {
       getWalkthrough,

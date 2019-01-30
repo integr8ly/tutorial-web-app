@@ -6,44 +6,8 @@ import PfMasthead from '../../components/masthead/masthead';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
-import { logout } from '../../services/openshiftServices';
 
 class LandingPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDropdownOpen: false
-    };
-  }
-
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
-
-  onLogoutUser = () => {
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      window.localStorage.clear();
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-      return;
-    }
-    logout().then(() => {
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
-    });
-  };
-
-  onTitleClick = () => {
-    const { history } = this.props;
-    history.push(`/`);
-  };
-
   componentDidMount() {
     const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
