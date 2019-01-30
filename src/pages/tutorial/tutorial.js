@@ -14,8 +14,8 @@ import {
   PageSection
 } from '@patternfly/react-core';
 import PfMasthead from '../../components/masthead/masthead';
-import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { connect, reduxActions } from '../../redux';
+import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
 
@@ -102,17 +102,25 @@ class TutorialPage extends React.Component {
           <BackgroundImage src={bgImages} />
           <Page>
             <PfMasthead />
-            <PageSection>
+            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0">
               <Grid gutter="md" className="pf-c-content">
-                <GridItem sm={12} md={9} className="integr8ly-task-container pf-u-px-lg">
-                  <div className="integr8ly-task-dashboard-header">
-                    <h3 className="pf-u-mt-lg">{parsedThread.title}</h3>
-                    <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-                      {t('tutorial.getStarted')}
-                    </Button>
-                  </div>
-                  {this.renderPrereqs(thread)}
-                  <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
+                <GridItem sm={12} md={9} className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg">
+                  <Card className="integr8ly-c-card--content pf-u-mb-xl">
+                    <CardBody>
+                      <div className="integr8ly-task-dashboard-header">
+                        <h3>{parsedThread.title}</h3>
+                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                          {t('tutorial.getStarted')}
+                        </Button>
+                      </div>
+                      {this.renderPrereqs(thread)}
+                      <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
+                      {/* <AsciiDocTemplate
+                        adoc={thread}
+                        attributes={Object.assign({}, thread.data.attributes)}
+                      /> */}
+                    </CardBody>
+                  </Card>
                 </GridItem>
                 <GridItem md={3} rowSpan={2} className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg">
                   <WalkthroughResources
@@ -121,44 +129,48 @@ class TutorialPage extends React.Component {
                   />
                 </GridItem>
                 <GridItem sm={12} md={9} className="pf-u-px-lg">
-                  <h3 className="pf-u-mt-xl">
-                    {t('tutorial.tasksToComplete')}
-                    <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                      <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
-                      <span>
-                        {parsedThread.time}
-                        <span className="integr8ly-task-dashboard-time-to-completion_minutes">
-                          {t('tutorial.minutes')}
-                        </span>
-                      </span>
-                    </div>
-                  </h3>
-                  <ListView className="integr8ly-list-view-pf">
-                    {parsedThread.tasks.map((task, i) => (
-                      <ListView.Item
-                        key={i}
-                        heading={`${task.title}`}
-                        description={task.shortDescription}
-                        actions={
-                          <div className="integr8ly-task-dashboard-estimated-time">
-                            <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
-                            <span>
-                              {task.time}
-                              <span className="integr8ly-task-dashboard-estimated-time_minutes">
-                                {t('tutorial.minutes')}
-                              </span>
+                  <Card className="integr8ly-card pf-u-mb-xl">
+                    <CardBody>
+                      <h3 className="pf-u-mt-xl">
+                        {t('tutorial.tasksToComplete')}
+                        <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                          <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
+                          <span>
+                            {parsedThread.time}
+                            <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                              {t('tutorial.minutes')}
                             </span>
-                          </div>
-                        }
-                        stacked
-                      />
-                    ))}
-                  </ListView>
-                  <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-                    <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
-                      {t('tutorial.getStarted')}
-                    </Button>
-                  </div>
+                          </span>
+                        </div>
+                      </h3>
+                      <ListView className="integr8ly-list-view-pf">
+                        {parsedThread.tasks.map((task, i) => (
+                          <ListView.Item
+                            key={i}
+                            heading={`${task.title}`}
+                            description={task.shortDescription}
+                            actions={
+                              <div className="integr8ly-task-dashboard-estimated-time">
+                                <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
+                                <span>
+                                  {task.time}
+                                  <span className="integr8ly-task-dashboard-estimated-time_minutes">
+                                    {t('tutorial.minutes')}
+                                  </span>
+                                </span>
+                              </div>
+                            }
+                            stacked
+                          />
+                        ))}
+                      </ListView>
+                      <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
+                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                          {t('tutorial.getStarted')}
+                        </Button>
+                      </div>
+                    </CardBody>
+                  </Card>
                 </GridItem>
               </Grid>
             </PageSection>

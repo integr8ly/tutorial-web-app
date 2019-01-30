@@ -1,31 +1,8 @@
 .integr8ly-tutorial-dashboard {
-  background-color: $pf-color-black-200;
+  height: 100vh;
+  margin-bottom: 0;
   border: 0;
   box-shadow: none;
-
-  /* stylelint-disable */
-  .cards-pf {
-    background-color: transparent;
-  }
-
-  @media (max-width: 1091px) {
-    width: 100%;
-
-    .card-pf-body {
-      min-height: 270px;
-    }
-  }
-
-  @media (min-width: 1092px) {
-    .card-pf-body {
-      min-height: 250px;
-    }
-  }
-
-  & .panel-heading,
-  .cards-pf {
-    background-color: $pf-color-black-200;
-  }
 
   &-title {
     display: flex;
@@ -35,16 +12,16 @@
       flex-basis: 50%;
     }
   }
-  /* stylelint-enable */
+}
 
-  .integr8ly-walkthrough {
-    &-counter {
-      flex-basis: 50%;
-      margin-top: 16px;
-      text-align: right;
-      font-size: var(--pf-global--FontSize--sm);
-      font-weight: var(--pf-global--FontWeight--bold);
-    }
+.integr8ly-walkthrough {
+  &-counter {
+    flex-basis: 50%;
+    margin-top: 16px;
+    text-align: right;
+    font-size: var(--pf-global--FontSize--sm);
+    font-weight: var(--pf-global--FontWeight--bold);
+  }
 
     &-labels {
       float: left;
