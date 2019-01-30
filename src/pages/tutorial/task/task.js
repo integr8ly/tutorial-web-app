@@ -5,11 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Button, ButtonGroup, Icon, Radio } from 'patternfly-react';
 import {
+  Card,
+  CardBody,
+  BackgroundImage,
+  BackgroundImageSrc,
   Grid,
   GridItem,
   Page,
   PageSection,
-  PageSectionVariants,
   TextContent,
   Text,
   TextVariants
@@ -264,14 +267,14 @@ class TaskPage extends React.Component {
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
 
-    let verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-blue';
+    let verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-blue pf-u-mt-md';
     let verificationIcon = 'integr8ly-alert-icon far fa-circle';
     if (isYesChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-green';
+      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-green pf-u-mt-md';
       verificationIcon = 'integr8ly-alert-icon far fa-check-circle';
     }
     if (isNoChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-red';
+      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-red pf-u-mt-md';
       verificationIcon = 'integr8ly-alert-icon far fa-times-circle';
     }
     return (
@@ -374,10 +377,19 @@ class TaskPage extends React.Component {
 
       const currentThreadProgress = this.getStoredProgressForCurrentTask();
       const combinedResources = parsedThread.resources.concat(threadTask.resources);
+      const bgImages = {
+        [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
+        [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
+        [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
+        [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
+        [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
+        [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
+      };
       return (
         <React.Fragment>
+          <BackgroundImage src={bgImages} />
           <Page>
-            <PageSection variant={PageSectionVariants.light} className="pf-u-p-0">
+            <PageSection className="pf-u-p-0">
               <Breadcrumb
                 threadName={parsedThread.title}
                 threadId={id}
@@ -386,18 +398,19 @@ class TaskPage extends React.Component {
                 homeClickedCallback={() => {}}
               />
             </PageSection>
-            <PageSection
-              variant={PageSectionVariants.light}
-              className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
-            >
+            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0">
               <Grid className="pf-u-mb-xl">
                 <GridItem sm={12} md={9} className="pf-u-pt-lg pf-u-px-lg">
-                  <TextContent className="integr8ly-module-column pf-u-pb-lg">
-                    <Text component={TextVariants.h2}>{threadTask.title}</Text>
-                    <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
-                      {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
-                    </div>
-                  </TextContent>
+                  <Card className="integr8ly-c-card--content pf-u-mb-xl">
+                    <CardBody>
+                      <TextContent className="integr8ly-module-column pf-u-pb-sm">
+                        <Text component={TextVariants.h2}>{threadTask.title}</Text>
+                        <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
+                          {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
+                        </div>
+                      </TextContent>
+                    </CardBody>
+                  </Card>
                 </GridItem>
                 <GridItem sm={12} md={3} rowSpan={2} className="integr8ly-module-frame pf-u-pt-lg">
                   {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
@@ -406,7 +419,7 @@ class TaskPage extends React.Component {
                 </GridItem>
               </Grid>
             </PageSection>
-            <PageSection variant={PageSectionVariants.light}>
+            <PageSection>
               {/* Bottom footer */}
               <div className="integr8ly-module-column--footer">
                 <TextContent>

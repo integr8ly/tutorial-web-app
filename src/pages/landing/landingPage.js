@@ -1,15 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-import {
-  BackgroundImage,
-  BackgroundImageSrc,
-  Grid,
-  GridItem,
-  Page,
-  PageSection,
-  PageSectionVariants
-} from '@patternfly/react-core';
+import { BackgroundImage, BackgroundImageSrc, Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
 import PfMasthead from '../../components/masthead/masthead';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -74,10 +66,7 @@ class LandingPage extends React.Component {
         <BackgroundImage src={bgImages} />
         <Page>
           <PfMasthead />
-          <PageSection
-            variant={PageSectionVariants.dark}
-            className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
-          >
+          <PageSection className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0">
             <Grid>
               <GridItem sm={12} md={9}>
                 <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
