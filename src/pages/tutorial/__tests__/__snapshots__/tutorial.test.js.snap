@@ -17,6 +17,19 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
+  <BackgroundImage
+    className=""
+    src={
+      Object {
+        "filter": "/assets/images/background-filter.svg#image_overlay",
+        "lg": "/assets/images/pfbg_1200.jpg",
+        "sm": "/assets/images/pfbg_768.jpg",
+        "sm2x": "/assets/images/pfbg_768@2x.jpg",
+        "xs": "/assets/images/pfbg_576.jpg",
+        "xs2x": "/assets/images/pfbg_576@2x.jpg",
+      }
+    }
+  />
   <Page
     className=""
     header={null}
@@ -30,7 +43,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       }
     />
     <PageSection
-      className=""
+      className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
       variant="default"
     >
       <Grid
@@ -60,36 +73,44 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlOffset={null}
           xlRowSpan={null}
         >
-          <div
-            className="integr8ly-task-dashboard-header"
+          <Card
+            className="integr8ly-c-card--content pf-u-mb-xl"
+            component="article"
           >
-            <h3
-              className="pf-u-mt-lg"
+            <CardBody
+              className=""
+              component="div"
             >
-              Example
-            </h3>
-            <Button
-              active={false}
-              block={false}
-              bsClass="btn"
-              bsStyle="primary"
-              disabled={false}
-              onClick={[Function]}
-            >
-              tutorial.getStarted
-            </Button>
-          </div>
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<div class=\\"literalblock\\">
+              <div
+                className="integr8ly-task-dashboard-header"
+              >
+                <h3>
+                  Example
+                </h3>
+                <Button
+                  active={false}
+                  block={false}
+                  bsClass="btn"
+                  bsStyle="primary"
+                  disabled={false}
+                  onClick={[Function]}
+                >
+                  tutorial.getStarted
+                </Button>
+              </div>
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<div class=\\"literalblock\\">
 <div class=\\"content\\">
 <pre>This is a sample description</pre>
 </div>
 </div>",
-              }
-            }
-          />
+                  }
+                }
+              />
+            </CardBody>
+          </Card>
         </GridItem>
         <GridItem
           className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg"
@@ -132,49 +153,59 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlOffset={null}
           xlRowSpan={null}
         >
-          <h3
-            className="pf-u-mt-xl"
+          <Card
+            className="integr8ly-card pf-u-mb-xl"
+            component="article"
           >
-            tutorial.tasksToComplete
-            <div
-              className="pull-right integr8ly-task-dashboard-time-to-completion"
+            <CardBody
+              className=""
+              component="div"
             >
-              <Icon
-                name="clock"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-                type="fa"
-              />
-              <span>
-                0
-                <span
-                  className="integr8ly-task-dashboard-time-to-completion_minutes"
+              <h3
+                className="pf-u-mt-xl"
+              >
+                tutorial.tasksToComplete
+                <div
+                  className="pull-right integr8ly-task-dashboard-time-to-completion"
                 >
-                  tutorial.minutes
-                </span>
-              </span>
-            </div>
-          </h3>
-          <ListView
-            className="integr8ly-list-view-pf"
-          />
-          <div
-            className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
-          >
-            <Button
-              active={false}
-              block={false}
-              bsClass="btn"
-              bsStyle="primary"
-              disabled={false}
-              onClick={[Function]}
-            >
-              tutorial.getStarted
-            </Button>
-          </div>
+                  <Icon
+                    name="clock"
+                    style={
+                      Object {
+                        "marginRight": 5,
+                      }
+                    }
+                    type="fa"
+                  />
+                  <span>
+                    0
+                    <span
+                      className="integr8ly-task-dashboard-time-to-completion_minutes"
+                    >
+                      tutorial.minutes
+                    </span>
+                  </span>
+                </div>
+              </h3>
+              <ListView
+                className="integr8ly-list-view-pf"
+              />
+              <div
+                className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
+              >
+                <Button
+                  active={false}
+                  block={false}
+                  bsClass="btn"
+                  bsStyle="primary"
+                  disabled={false}
+                  onClick={[Function]}
+                >
+                  tutorial.getStarted
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         </GridItem>
       </Grid>
     </PageSection>

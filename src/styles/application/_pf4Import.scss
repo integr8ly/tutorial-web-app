@@ -8,7 +8,7 @@
 // To remove PatternFly 3, set $pf-global--load-pf-3 to 'false'
 $pf-global--enable-font-overpass-cdn: false !default;
 $pf-global--load-pf-3: true !default;
-$pf-global--enable-reset: false !default;
+$pf-global--enable-reset: true !default;
 
 /* stylelint-disable */
 @import '../node_modules/@patternfly/patternfly-next/patternfly-base.scss';
