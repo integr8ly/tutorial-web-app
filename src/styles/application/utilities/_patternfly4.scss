@@ -116,13 +116,13 @@ th {
     }
   }
 
-  .paragraph {
-    p {
+  .paragraph { /* stylelint-disable-line */
+    p { /* stylelint-disable-line */
       margin-bottom: var(--pf-c-content--MarginBottom);
     }
   }
 
-  .admonitionblock.note {
+  .admonitionblock.note { /* stylelint-disable-line */
     margin-bottom: var(--pf-c-content--MarginBottom);
     padding: var(--pf-global--spacer--md);
     font-weight: var(--pf-c-content--blockquote--FontWeight);
