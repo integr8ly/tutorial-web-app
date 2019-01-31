@@ -23,14 +23,13 @@
     font-weight: var(--pf-global--FontWeight--bold);
   }
 
-    &-labels {
-      float: left;
-    }
+  &-labels {
+    float: left;
+  }
 
-    &-labels-tag {
-      display: inline;
-      position: inherit;
-      margin-right: 10px;
-    }
+  &-labels-tag {
+    display: inline;
+    position: inherit;
+    margin-right: 10px;
   }
 }
