@@ -45,14 +45,9 @@ class Masthead extends React.Component {
   };
 
   onTitleClick = () => {
-    // debugger;
-    console.log('Logo clicked');
     const { history } = this.props;
-    console.log(history);
     history.push(`/`);
-    console.log(history);
-    // this.props.history.push('/');
-    // console.log(this.props.history);
+    window.location.href = '/';
   };
 
   onUserDropdownToggle(isUserDropdownOpen) {
@@ -120,12 +115,6 @@ Masthead.defaultProps = {
     push: noop
   }
 };
-
-// function mapStateToProps(state) {
-//   return {
-//     history: this.props.history
-//   };
-// }
 
 const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(reduxActions.userActions.logoutUser())
