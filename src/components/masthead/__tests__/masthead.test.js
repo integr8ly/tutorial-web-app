@@ -40,8 +40,6 @@ describe('Masthead Component', () => {
     const component = mount(<Masthead />);
     const componentInstance = component.instance();
 
-    expect(componentInstance.onAbout).toBeDefined();
-    expect(componentInstance.onHelp).toBeDefined();
     expect(componentInstance.onLogoutUser).toBeDefined();
   });
 
