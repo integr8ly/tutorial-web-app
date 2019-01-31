@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
+import { Label } from '@patternfly/react-core';
 import get from 'lodash.get';
 import { connect } from '../../redux';
 import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
@@ -69,7 +70,7 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderServiceLoadingLabels(svc) {
       const { gaStatus } = getWalkthroughServiceInfo(svc);
       if (gaStatus === 'preview' || gaStatus === 'community') {
-        return <span className="integr8ly-label">{gaStatus}</span>;
+        return <Label isCompact>{gaStatus}</Label>;
       }
       return null;
     }

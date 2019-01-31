@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'patternfly-react';
+import { Label } from '@patternfly/react-core';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -87,7 +88,7 @@ class InstalledAppsView extends React.Component {
       <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
         <div className="integr8ly-installed-apps-view-list-item">
           <p className="integr8ly-installed-apps-view-list-item-title">{customApp.name}</p>
-          <span className="label integr8ly-label">custom</span>
+          <Label isCompact>custom</Label>
         </div>
         <div className="integr8ly-state-ready">
           <Icon type="fa" name="bolt" /> &nbsp;Ready for use
@@ -112,7 +113,7 @@ class InstalledAppsView extends React.Component {
           <div className="integr8ly-installed-apps-view-list-item">
             <p className="integr8ly-installed-apps-view-list-item-title">{prettyName}</p>
             {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-              <span className="label integr8ly-label">{gaStatus}</span>
+              <Label isCompact>{gaStatus}</Label>
             ) : (
               <span />
             )}

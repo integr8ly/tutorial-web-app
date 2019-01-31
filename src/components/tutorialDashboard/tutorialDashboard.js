@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardGrid, Icon } from 'patternfly-react';
-import { Gallery, GalleryItem } from '@patternfly/react-core';
+import { Gallery, GalleryItem, Label } from '@patternfly/react-core';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -42,8 +42,8 @@ const TutorialDashboard = props => {
           <p>{walkthrough.shortDescription}</p>
 
           <div className="integr8ly-walkthrough-labels">
-            {walkthrough.community === true ? <span className="label integr8ly-label">community</span> : <span />}
-            {walkthrough.preview === true ? <span className="label integr8ly-label">preview</span> : <span />}
+            {walkthrough.community === true ? <Label isCompact>community</Label> : <span />}
+            {walkthrough.preview === true ? <Label isCompact>preview</Label> : <span />}
           </div>
         </TutorialCard>
       </GalleryItem>
