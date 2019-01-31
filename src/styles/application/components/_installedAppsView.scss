@@ -76,20 +76,18 @@
   }
 }
 
-/* stylelint-disable */
 .integr8ly-state-provisioining {
-  color: $pf-color-black-600 !important;
+  color: $pf-color-black-600 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-state-ready {
-  color: $pf-color-green-400 !important;
+  color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-state-unavailable {
-  color: var(--pf-global--danger-color--100) !important;
+  color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-panel-title {
-  background-color: $pf-color-white !important;
+  background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
 }
-/* stylelint-enable */
