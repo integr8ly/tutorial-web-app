@@ -107,6 +107,10 @@ th {
       color: $pf-color-black-500;
     }
   }
+
+  .pf-c-label {
+    color: var(--pf-c-label--Color) !important; /* stylelint-disable declaration-no-important */
+  }
 }
 /* stylelint-enable */
 
