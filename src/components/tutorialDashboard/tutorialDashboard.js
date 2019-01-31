@@ -51,10 +51,15 @@ const TutorialDashboard = props => {
   });
 
   return (
-    <div className="integr8ly-tutorial-dashboard pf-u-px-sm">
-      <div className="integr8ly-tutorial-dashboard-title pf-u-py-sm">
-        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-ml-md">Start with a walkthrough</h2>
-        <div className="integr8ly-walkthrough-counter pf-u-mr-md">{walkthroughs.length} walkthroughs</div>
+    // head
+    // <div className="integr8ly-tutorial-dashboard pf-u-px-sm">
+    //   <div className="integr8ly-tutorial-dashboard-title pf-u-py-sm">
+    //     <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-ml-md">Start with a walkthrough</h2>
+    //     <div className="integr8ly-walkthrough-counter pf-u-mr-md">{walkthroughs.length} walkthroughs</div>
+    <div className="integr8ly-tutorial-dashboard pf-u-mb-0 panel panel-default">
+      <div className="panel-heading panel-title">
+        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
+        <div className="walkthrough-counter pf-u-mt-md">{walkthroughs.length} walkthroughs</div>
       </div>
       <div className="cards-pf">
         <CardGrid

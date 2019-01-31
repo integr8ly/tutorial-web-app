@@ -22,19 +22,19 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     header={null}
     sidebar={null}
   >
-    <withRouter(Connect(Masthead)) />
+    <Masthead
+      history={
+        Object {
+          "push": [Function],
+        }
+      }
+    />
     <PageSection
-      className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
-      variant="light"
+      className=""
+      variant="default"
     >
-      <Grid
-        className="pf-c-content"
-        gutter="md"
-        lg={null}
-        md={null}
-        sm={null}
-        span={null}
-        xl={null}
+      <TextContent
+        className=""
       >
         <GridItem
           className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg"
@@ -81,93 +81,69 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
 </div>",
               }
             }
-          />
-        </GridItem>
-        <GridItem
-          className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={3}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={2}
-          sm={null}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
+          }
+        />
+        <Connect(WalkthroughResources)
+          className="integr8ly-landing-page-tutorial-dashboard-section-right"
+          resources={Array []}
+        />
+        <Row
+          bsClass="row"
+          className="pf-c-content"
+          componentClass="div"
         >
-          <Connect(WalkthroughResources)
-            resources={Array []}
-          />
-        </GridItem>
-        <GridItem
-          className="pf-u-px-lg"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
-          sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
-        >
-          <h3
-            className="pf-u-mt-xl"
+          <Col
+            bsClass="col"
+            componentClass="div"
+            sm={9}
+            xs={12}
           >
-            tutorial.tasksToComplete
-            <div
-              className="pull-right integr8ly-task-dashboard-time-to-completion"
+            <h3
+              className="pf-u-mt-xl"
             >
-              <Icon
-                name="clock"
-                style={
-                  Object {
-                    "marginRight": 5,
+              tutorial.tasksToComplete
+              <div
+                className="pull-right integr8ly-task-dashboard-time-to-completion"
+              >
+                <Icon
+                  name="clock"
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
                   }
-                }
-                type="fa"
-              />
-              <span>
-                0
-                <span
-                  className="integr8ly-task-dashboard-time-to-completion_minutes"
-                >
-                  tutorial.minutes
+                  type="fa"
+                />
+                <span>
+                  0
+                  <span
+                    className="integr8ly-task-dashboard-time-to-completion_minutes"
+                  >
+                    tutorial.minutes
+                  </span>
                 </span>
-              </span>
-            </div>
-          </h3>
-          <ListView
-            className="integr8ly-list-view-pf"
-          />
-          <div
-            className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
-          >
-            <Button
-              active={false}
-              block={false}
-              bsClass="btn"
-              bsStyle="primary"
-              disabled={false}
-              onClick={[Function]}
+              </div>
+            </h3>
+            <ListView
+              className="integr8ly-list-view-pf"
+            />
+            <div
+              className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
             >
-              tutorial.getStarted
-            </Button>
-          </div>
-        </GridItem>
-      </Grid>
+              <Button
+                active={false}
+                block={false}
+                bsClass="btn"
+                bsStyle="primary"
+                disabled={false}
+                onClick={[Function]}
+              >
+                tutorial.getStarted
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </TextContent>
     </PageSection>
   </Page>
 </Fragment>

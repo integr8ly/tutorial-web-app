@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Bullseye,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateAction,
+  Page,
+  PageSection,
+  TextContent,
+  Title
+} from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
-import { noop, Button, Grid } from 'patternfly-react';
+import { noop, Button } from 'patternfly-react';
+import { Masthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
-import PfMasthead from '../../components/masthead/masthead';
 
 class CongratulationsPage extends React.Component {
   exitTutorial = e => {
@@ -14,31 +24,30 @@ class CongratulationsPage extends React.Component {
 
   render() {
     return (
-      <Grid fluid>
-        <Grid.Row>
-          <PfMasthead />
-        </Grid.Row>
-        <Grid.Row className="pf-c-content">
-          <Grid.Col xs={12} className="integr8ly-module integr8ly-module-congratulations pf-u-mb-0">
-            <div className="integr8ly-module-column">
-              <div className="integr8ly-module-column--steps integr8ly-congratulations pf-u-m-0 pf-u-p-0">
-                <span className="integr8ly-congratulations_logo" />
-                <span className="integr8ly-congratulations_icon" />
-                <h1 className="integr8ly-congratulations_heading">Congratulations, you completed the walkthrough!</h1>
-                <p className="integr8ly-congratulations_paragraph">
-                  Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
-                  you just built!
-                </p>
-                <div className="integr8ly-congratulations_buttons">
-                  <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
-                    Return to Home Page
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Grid.Col>
-        </Grid.Row>
-      </Grid>
+      <React.Fragment>
+        <Page>
+          <Masthead />
+          <PageSection className="pf-m-dark-100 integr8ly-congratulations">
+            <TextContent>
+              <Bullseye>
+                <EmptyState>
+                  <img src="/assets/images/congratulations.svg" alt="congratulations" width="200px" height="200px" />
+                  <Title size="4xl">Congratulations, you completed the walkthrough!</Title>
+                  <EmptyStateBody>
+                    Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
+                    you just built!
+                  </EmptyStateBody>
+                  <EmptyStateAction>
+                    <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
+                      Return to Home Page
+                    </Button>{' '}
+                  </EmptyStateAction>
+                </EmptyState>
+              </Bullseye>
+            </TextContent>
+          </PageSection>
+        </Page>
+      </React.Fragment>
     );
   }
 }
