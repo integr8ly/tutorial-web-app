@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Bullseye,
   EmptyState,
@@ -9,8 +10,6 @@ import {
   TextContent,
   Title
 } from '@patternfly/react-core';
-
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { noop, Button } from 'patternfly-react';
 import { Masthead } from '../../components/masthead/masthead';
