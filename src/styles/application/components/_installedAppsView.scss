@@ -54,17 +54,15 @@
       padding: 15px;
     }
 
-      p {
-        margin-bottom: 0;
-        color: $pf-color-black-900;
-      }
-
+    p {
+      margin-bottom: 0;
+      color: $pf-color-black-900;
     }
+  }
 
-    & li:hover {
-      background-color: $pf-color-blue-50;
-      cursor: pointer;
-    }
+  & li:hover {
+    background-color: $pf-color-blue-50;
+    cursor: pointer;
   }
 
   &-list-item {
@@ -78,15 +76,15 @@
 
 /* stylelint-disable */
 .integr8ly-state-provisioining {
-  color: $pf-color-black-600 !important; /* stylelint-disable-line */
+  color: $pf-color-black-600 !important;
 }
 
 .integr8ly-state-ready {
-  color: $pf-color-green-400 !important; /* stylelint-disable-line */
+  color: $pf-color-green-400 !important;
 }
 
 .integr8ly-state-unavailable {
-  color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line */
+  color: var(--pf-global--danger-color--100) !important;
 }
 
 .integr8ly-panel-title {

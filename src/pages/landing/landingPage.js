@@ -1,20 +1,7 @@
 import * as React from 'react';
 import { Page, PageSection } from '@patternfly/react-core';
-
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-// head
-// import {
-//   BackgroundImage,
-//   BackgroundImageSrc,
-//   Grid,
-//   GridItem,
-//   Page,
-//   PageSection,
-//   PageSectionVariants
-// } from '@patternfly/react-core';
-// import PfMasthead from '../../components/masthead/masthead';
-
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
@@ -30,36 +17,6 @@ class LandingPage extends React.Component {
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
 
-    // head    <<<<<<< HEAD
-
-    // const bgImages = {
-    //   [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-    //   [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-    //   [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-    //   [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-    //   [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-    //   [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-    // };
-    // return (
-    //   <React.Fragment>
-    //     <BackgroundImage src={bgImages} />
-    //     <Page>
-    //       <PfMasthead />
-    //       <PageSection
-    //         variant={PageSectionVariants.dark}
-    //         className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
-    //       >
-    //         <Grid>
-    //           <GridItem sm={12} md={9}>
-    //             <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
-    //           </GridItem>
-    //           <GridItem sm={12} md={3}>
-    //             <InstalledAppsView
-    //               apps={Object.values(middlewareServices.data)}
-    //               customApps={middlewareServices.customServices}
-    //             />
-    //           </GridItem>
-    //         </Grid>
     const LandingPageMastHead = () => (
       <section className="pf-c-page__main-section pf-m-dark-100">
         <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
