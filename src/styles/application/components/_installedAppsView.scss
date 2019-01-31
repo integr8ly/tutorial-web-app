@@ -55,17 +55,17 @@
       padding: 15px;
     }
 
-      p {
-        margin-bottom: 0;
-        color: $pf-color-black-900;
-      }
-    }
-
-    & li:hover {
-      background-color: $pf-color-blue-50;
-      cursor: pointer;
+    p {
+      margin-bottom: 0;
+      color: $pf-color-black-900;
     }
   }
+
+  & li:hover {
+    background-color: $pf-color-blue-50;
+    cursor: pointer;
+  }
+}
 
 /* stylelint-disable */
 .integr8ly-state-provisioining {

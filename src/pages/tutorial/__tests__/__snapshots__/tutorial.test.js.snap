@@ -49,80 +49,44 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         span={null}
         xl={null}
       >
-        <GridItem
-          className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
-          sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
+        <div
+          className="integr8ly-task-dashboard-header"
         >
-          <Card
-            className="integr8ly-c-card--content pf-u-mb-xl"
-            component="article"
+          <h3
+            className="pf-u-mt-lg"
           >
-            <CardBody
-              className=""
-              component="div"
-            >
-              <div
-                className="integr8ly-task-dashboard-header"
-              >
-                <h3>
-                  Example
-                </h3>
-                <Button
-                  active={false}
-                  block={false}
-                  bsClass="btn"
-                  bsStyle="primary"
-                  disabled={false}
-                  onClick={[Function]}
-                >
-                  tutorial.getStarted
-                </Button>
-              </div>
-              <div
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "<div class=\\"literalblock\\">
+            Example
+          </h3>
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            tutorial.getStarted
+          </Button>
+        </div>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<div class=\\"literalblock\\">
 <div class=\\"content\\">
 <pre>This is a sample description</pre>
 </div>
 </div>",
-                  }
-                }
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem
-          className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={3}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={2}
-          sm={null}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
+            }
+          }
+        />
+        <Connect(WalkthroughResources)
+          className="integr8ly-landing-page-tutorial-dashboard-section-right"
+          resources={Array []}
+        />
+        <Row
+          bsClass="row"
+          className="pf-c-content"
+          componentClass="div"
         >
           <Connect(WalkthroughResources)
             resources={Array []}
