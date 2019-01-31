@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { Card, CardBody, TextContent, Text, TextVariants } from '@patternfly/react-core';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -97,11 +97,15 @@ class WalkthroughResources extends React.Component {
 
   render() {
     return (
-      <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
-        <Text component={TextVariants.h2}>Walkthrough Resources</Text>
-        {this.state.resourceList}
-        <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
-      </TextContent>
+      <Card>
+        <CardBody>
+          <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
+            <Text component={TextVariants.h2}>Walkthrough Resources</Text>
+            {this.state.resourceList}
+            <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
+          </TextContent>
+        </CardBody>
+      </Card>
     );
   }
 }

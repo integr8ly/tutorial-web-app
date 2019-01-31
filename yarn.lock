@@ -903,9 +903,9 @@
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
 
-"@fortawesome/fontawesome-free@5.6.3":
-  version "5.6.3"
-  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.3.tgz#61c122c420d7a91613f393d6a06e5a4c6ae6abf3"
+"@fortawesome/fontawesome-free@5.7.0":
+  version "5.7.0"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.0.tgz#d28fd6248837ae5142c567f7ff50605824207e34"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
