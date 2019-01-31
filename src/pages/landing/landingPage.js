@@ -1,12 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-<<<<<<< HEAD
 import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
-=======
-import { BackgroundImage, BackgroundImageSrc, Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
-import PfMasthead from '../../components/masthead/masthead';
->>>>>>> feat(cards): Update cards and layouts to use PF4 cards
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';

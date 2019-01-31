@@ -91,7 +91,7 @@ th {
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
 
-.pf-c-content { /* stylelint-disable-line */
+.pf-c-content {
   .btn-primary {
     & > .fa {
       color: $pf-color-white;
