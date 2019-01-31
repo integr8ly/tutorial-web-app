@@ -1,8 +1,6 @@
-//
 // Additional variables for font weights,
 // transitions, and timings to match PatternFly 4
 // Delete this file once PatternFly 3 is removed
-//
 
 // Since PF3 sets root font size to 10px, we need to unset it.
 // This doesn't affect PF3.
@@ -69,6 +67,10 @@ th {
   font-size: $pf-global--FontSize--md;
 }
 
+.form-control {
+  height: 32px; // accounts for increase in base font size from 12px to 16px
+}
+
 .pf-c-content {
   .paragraph {
     p {
@@ -83,17 +85,11 @@ th {
     color: var(--pf-c-content--blockquote--Color);
     border-left: var(--pf-c-content--blockquote--BorderLeftWidth) solid var(--pf-c-content--blockquote--BorderLeftColor);
 
-    .icon .title { /* stylelint-disable-line */
+    .icon .title {
       margin-right: var(--pf-global--spacer--md);
     }
   }
-}
 
-.form-control {
-  height: 32px; // accounts for increase in base font size from 12px to 16px
-}
-
-.pf-c-content { /* stylelint-disable-line */
   .btn-primary {
     & > .fa {
       color: $pf-color-white;

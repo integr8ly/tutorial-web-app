@@ -16,6 +16,7 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
+
     const LandingPageMastHead = () => (
       <section className="pf-c-page__main-section pf-m-dark-100">
         <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>

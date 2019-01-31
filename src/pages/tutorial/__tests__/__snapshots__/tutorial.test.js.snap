@@ -49,23 +49,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         span={null}
         xl={null}
       >
-        <GridItem
-          className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
-          sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
+        <div
+          className="integr8ly-task-dashboard-header"
         >
           <Card
             className="integr8ly-c-card--content pf-u-mb-xl"
