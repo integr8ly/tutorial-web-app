@@ -49,46 +49,75 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         span={null}
         xl={null}
       >
-        <div
-          className="integr8ly-task-dashboard-header"
+        <GridItem
+          className="integr8ly-task-container pf-u-px-lg"
+          lg={null}
+          lgOffset={null}
+          lgRowSpan={null}
+          md={9}
+          mdOffset={null}
+          mdRowSpan={null}
+          offset={null}
+          rowSpan={null}
+          sm={12}
+          smOffset={null}
+          smRowSpan={null}
+          span={null}
+          xl={null}
+          xlOffset={null}
+          xlRowSpan={null}
         >
-          <h3
-            className="pf-u-mt-lg"
+          <div
+            className="integr8ly-task-dashboard-header"
           >
-            Example
-          </h3>
-          <Button
-            active={false}
-            block={false}
-            bsClass="btn"
-            bsStyle="primary"
-            disabled={false}
-            onClick={[Function]}
-          >
-            tutorial.getStarted
-          </Button>
-        </div>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<div class=\\"literalblock\\">
+            <h3
+              className="pf-u-mt-lg"
+            >
+              Example
+            </h3>
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              tutorial.getStarted
+            </Button>
+          </div>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<div class=\\"literalblock\\">
 <div class=\\"content\\">
 <pre>This is a sample description</pre>
 </div>
 </div>",
+              }
             }
-          }
-        />
-        <Connect(WalkthroughResources)
-          className="integr8ly-landing-page-tutorial-dashboard-section-right"
-          resources={Array []}
-        />
-        <Row
-          bsClass="row"
-          className="pf-c-content"
-          componentClass="div"
+          />
+        </GridItem>
+        <GridItem
+          className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg"
+          lg={null}
+          lgOffset={null}
+          lgRowSpan={null}
+          md={3}
+          mdOffset={null}
+          mdRowSpan={null}
+          offset={null}
+          rowSpan={2}
+          sm={null}
+          smOffset={null}
+          smRowSpan={null}
+          span={null}
+          xl={null}
+          xlOffset={null}
+          xlRowSpan={null}
         >
           <Connect(WalkthroughResources)
+            className="integr8ly-landing-page-tutorial-dashboard-section-right"
             resources={Array []}
           />
         </GridItem>
@@ -110,59 +139,49 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlOffset={null}
           xlRowSpan={null}
         >
-          <Card
-            className="integr8ly-card pf-u-mb-xl"
-            component="article"
+          <h3
+            className="pf-u-mt-xl"
           >
-            <CardBody
-              className=""
-              component="div"
+            tutorial.tasksToComplete
+            <div
+              className="pull-right integr8ly-task-dashboard-time-to-completion"
             >
-              <h3
-                className="pf-u-mt-xl"
-              >
-                tutorial.tasksToComplete
-                <div
-                  className="pull-right integr8ly-task-dashboard-time-to-completion"
-                >
-                  <Icon
-                    name="clock"
-                    style={
-                      Object {
-                        "marginRight": 5,
-                      }
-                    }
-                    type="fa"
-                  />
-                  <span>
-                    0
-                    <span
-                      className="integr8ly-task-dashboard-time-to-completion_minutes"
-                    >
-                      tutorial.minutes
-                    </span>
-                  </span>
-                </div>
-              </h3>
-              <ListView
-                className="integr8ly-list-view-pf"
+              <Icon
+                name="clock"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+                type="fa"
               />
-              <div
-                className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
-              >
-                <Button
-                  active={false}
-                  block={false}
-                  bsClass="btn"
-                  bsStyle="primary"
-                  disabled={false}
-                  onClick={[Function]}
+              <span>
+                0
+                <span
+                  className="integr8ly-task-dashboard-time-to-completion_minutes"
                 >
-                  tutorial.getStarted
-                </Button>
-              </div>
-            </CardBody>
-          </Card>
+                  tutorial.minutes
+                </span>
+              </span>
+            </div>
+          </h3>
+          <ListView
+            className="integr8ly-list-view-pf"
+          />
+          <div
+            className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
+          >
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              tutorial.getStarted
+            </Button>
+          </div>
         </GridItem>
       </Grid>
     </PageSection>
