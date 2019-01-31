@@ -27,20 +27,12 @@
     background-color: $pf-color-black-200;
   }
 
-  & .panel-title {
+  &-title {
     display: flex;
     border: none;
 
     & h2 {
       flex-basis: 50%;
-
-      .walkthrough-counter {
-        flex-basis: 50%;
-        text-align: right;
-        color: $pf-color-black-800;
-        font-size: var(--pf-global--FontSize--sm);
-        font-weight: var(--pf-global--FontWeight--bold);
-      }
     }
   }
   /* stylelint-enable */
@@ -50,8 +42,6 @@
       flex-basis: 50%;
       margin-top: 16px;
       text-align: right;
-
-      // color: $pf-color-black-800;
       font-size: var(--pf-global--FontSize--sm);
       font-weight: var(--pf-global--FontWeight--bold);
     }

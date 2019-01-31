@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Page, PageSection } from '@patternfly/react-core';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
+import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
@@ -18,7 +18,7 @@ class LandingPage extends React.Component {
     const { walkthroughServices, middlewareServices, user } = this.props;
 
     const LandingPageMastHead = () => (
-      <section className="pf-c-page__main-section pf-m-dark-100">
+      <section className="pf-c-page__main-section pf-m-dark-100 integr8ly-landing-page-masthead">
         <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
         <p>
           Get started with an end-to-end solution walkthrough or
@@ -34,18 +34,17 @@ class LandingPage extends React.Component {
           <Masthead />
           <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <div className="integr8ly-landing-page-tutorial-dashboard-section">
-              <TutorialDashboard
-                className="integr8ly-landing-page-tutorial-dashboard-section-left"
-                userProgress={user.userProgress}
-                walkthroughs={walkthroughServices.data}
-              />
-              <InstalledAppsView
-                className="integr8ly-landing-page-tutorial-dashboard-section-right"
-                apps={Object.values(middlewareServices.data)}
-                customApps={middlewareServices.customServices}
-              />
-            </div>
+            <Grid>
+              <GridItem sm={12} md={9}>
+                <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+              </GridItem>
+              <GridItem sm={12} md={3}>
+                <InstalledAppsView
+                  apps={Object.values(middlewareServices.data)}
+                  customApps={middlewareServices.customServices}
+                />
+              </GridItem>
+            </Grid>
           </PageSection>
         </Page>
       </React.Fragment>
