@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Icon, Radio } from 'patternfly-react';
+import { noop, Icon, Radio } from 'patternfly-react';
 import {
-  Card,
-  CardBody,
   BackgroundImage,
   BackgroundImageSrc,
+  Button,
+  Card,
+  CardBody,
   Grid,
   GridItem,
   Page,
@@ -17,6 +18,7 @@ import {
   Text,
   TextVariants
 } from '@patternfly/react-core';
+// import { AngleLeftIcon, AngleRightIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -421,97 +423,89 @@ class TaskPage extends React.Component {
             </PageSection>
             <PageSection>
               {/* Bottom footer */}
-              <div className="integr8ly-module-column--footer">
+              <div className="integr8ly-module-column--footer pf-u-pl-2xl">
                 <TextContent>
-                  <Text component={TextVariants.h6}>{t('task.CompleteAndCheck')}</Text>
-                  <div className="integr8ly-module-column--footer_status">
-                    {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
-                      <React.Fragment key={i}>
-                        {/* Bottom footer icon */}
-                        {currentThreadProgress[verificationId] === undefined ? (
-                          <Icon
-                            type="fa"
-                            className="far integr8ly-module-column--footer_status"
-                            key={`verification-icon-${verificationId}`}
-                            name="circle"
-                          />
-                        ) : (
-                          <Icon
-                            type="fa"
-                            className={
-                              currentThreadProgress[verificationId]
-                                ? 'far integr8ly-module-column--footer_status-checked'
-                                : 'far integr8ly-module-column--footer_status-unchecked'
-                            }
-                            key={`verification-icon-${verificationId}`}
-                            name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}
-                          />
-                        )}
-                        {/* Bottom footer number to the right of icon  */}
-                        {currentThreadProgress[verificationId] === undefined ? (
-                          <span
-                            className="integr8ly-module-column--footer_status"
-                            key={`verification-id-${verificationId}`}
-                          >
-                            {threadTask.steps.length === 1
-                              ? parseInt(task, 10) + 1
-                              : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
-                          </span>
-                        ) : (
-                          <span
-                            className={
-                              currentThreadProgress[verificationId]
-                                ? 'integr8ly-module-column--footer_status-checked'
-                                : 'integr8ly-module-column--footer_status-unchecked'
-                            }
-                            key={`verification-id-${verificationId}`}
-                          >
-                            {threadTask.steps.length === 1
-                              ? parseInt(task, 10) + 1
-                              : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
-                          </span>
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </div>
-                  <div className="btn-group btn-group-justified" role="group" aria-label="module step progress buttons">
+                  <Text component={TextVariants.h4} className="pf-u-my-md">
+                    {t('task.CompleteAndCheck')}
+                  </Text>
+                  <div className="pf-u-mb-lg">
                     {taskNum === 0 && (
-                      <ButtonGroup>
-                        <Button bsStyle="default" onClick={e => this.backToIntro(e)}>
-                          <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
-                          {t('task.backToIntro')}
-                        </Button>
-                      </ButtonGroup>
+                      <Button variant="secondary" onClick={e => this.backToIntro(e)}>
+                        {t('task.backToIntro')}
+                      </Button>
                     )}
                     {taskNum > 0 && (
-                      <ButtonGroup>
-                        <Button bsStyle="default" onClick={e => this.goToTask(e, taskNum - 1)}>
-                          <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
-                          {t('task.previousTask')}
-                        </Button>
-                      </ButtonGroup>
+                      <Button variant="secondary" onClick={e => this.goToTask(e, taskNum - 1)}>
+                        {t('task.previousTask')}
+                      </Button>
                     )}
+                    <span className="integr8ly-module-column--footer_status pf-u-mx-xl">
+                      {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
+                        <React.Fragment key={i}>
+                          {/* Bottom footer icon */}
+                          {currentThreadProgress[verificationId] === undefined ? (
+                            <Icon
+                              type="fa"
+                              className="far integr8ly-module-column--footer_status"
+                              key={`verification-icon-${verificationId}`}
+                              name="circle"
+                            />
+                          ) : (
+                            <Icon
+                              type="fa"
+                              className={
+                                currentThreadProgress[verificationId]
+                                  ? 'far integr8ly-module-column--footer_status-checked'
+                                  : 'far integr8ly-module-column--footer_status-unchecked'
+                              }
+                              key={`verification-icon-${verificationId}`}
+                              name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}
+                            />
+                          )}
+                          {/* Bottom footer number to the right of icon  */}
+                          {currentThreadProgress[verificationId] === undefined ? (
+                            <span
+                              className="integr8ly-module-column--footer_status"
+                              key={`verification-id-${verificationId}`}
+                            >
+                              {threadTask.steps.length === 1
+                                ? parseInt(task, 10) + 1
+                                : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
+                            </span>
+                          ) : (
+                            <span
+                              className={
+                                currentThreadProgress[verificationId]
+                                  ? 'integr8ly-module-column--footer_status-checked'
+                                  : 'integr8ly-module-column--footer_status-unchecked'
+                              }
+                              key={`verification-id-${verificationId}`}
+                            >
+                              {threadTask.steps.length === 1
+                                ? parseInt(task, 10) + 1
+                                : `${parseInt(task, 10) + 1}.${parseInt(i, 10) + 1}`}
+                            </span>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </span>
                     {taskNum + 1 < totalTasks && (
-                      <ButtonGroup>
-                        <Button
-                          bsStyle={taskVerificationComplete ? 'primary' : 'default'}
-                          onClick={e => this.goToTask(e, taskNum + 1)}
-                          disabled={!taskVerificationComplete}
-                        >
-                          {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                        </Button>
-                      </ButtonGroup>
+                      <Button
+                        variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        onClick={e => this.goToTask(e, taskNum + 1)}
+                        isDisabled={!taskVerificationComplete}
+                      >
+                        {t('task.nextTask')}
+                      </Button>
                     )}
                     {taskNum + 1 === totalTasks && (
-                      <ButtonGroup>
-                        <Button
-                          bsStyle={taskVerificationComplete ? 'primary' : 'default'}
-                          onClick={e => this.exitTutorial(e)}
-                          disabled={!taskVerificationComplete}
-                        >
-                          {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                        </Button>
-                      </ButtonGroup>
+                      <Button
+                        variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        onClick={e => this.exitTutorial(e)}
+                        isDisabled={!taskVerificationComplete}
+                      >
+                        {t('task.exitTutorial')}
+                      </Button>
                     )}
                   </div>
                 </TextContent>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProgressBar, noop } from 'patternfly-react';
-import { Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { Button, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -20,17 +20,18 @@ const TutorialCard = props => (
     <CardBody>{props.children}</CardBody>
     <CardFooter>
       <div className="integr8ly-c-card__info">
-        <a
+        <Button
+          variant="link"
           className={
             props.progress === 100
-              ? 'pf-c-button pf-m-link pf-u-pl-0 integr8ly-c-card__status--complete-icon'
-              : 'pf-c-button pf-m-link pf-u-pl-0 integr8ly-c-card__status--in-progress-icon'
+              ? 'pf-u-pl-0 integr8ly-c-card__status--complete-icon'
+              : 'pf-u-pl-0 integr8ly-c-card__status--in-progress-icon'
           }
           href={props.getStartedLink}
         >
           <span className="pf-u-mr-xs">{props.getStartedIcon}</span>
           {props.getStartedText}
-        </a>
+        </Button>
         {props.progress === 0 ? (
           <div className="integr8ly-c-card__time">
             <span className="pf-u-mr-xs">{props.minsIcon}</span>
