@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, Icon, ListView } from 'patternfly-react';
+import { noop, Icon, ListView } from 'patternfly-react';
 import {
   BackgroundImage,
   BackgroundImageSrc,
+  Button,
   Card,
   CardBody,
   Grid,
@@ -109,7 +110,7 @@ class TutorialPage extends React.Component {
                     <CardBody>
                       <div className="integr8ly-task-dashboard-header">
                         <h3>{parsedThread.title}</h3>
-                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                        <Button variant="primary" onClick={e => this.getStarted(e, id)}>
                           {t('tutorial.getStarted')}
                         </Button>
                       </div>
@@ -165,7 +166,7 @@ class TutorialPage extends React.Component {
                         ))}
                       </ListView>
                       <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-                        <Button bsStyle="primary" onClick={e => this.getStarted(e, id)}>
+                        <Button variant="primary" onClick={e => this.getStarted(e, id)}>
                           {t('tutorial.getStarted')}
                         </Button>
                       </div>
