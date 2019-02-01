@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Bullseye,
+  Button,
   EmptyState,
   EmptyStateBody,
   EmptyStateAction,
@@ -11,7 +12,7 @@ import {
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
-import { noop, Button } from 'patternfly-react';
+import { noop } from 'patternfly-react';
 import { Masthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
@@ -38,7 +39,7 @@ class CongratulationsPage extends React.Component {
                     you just built!
                   </EmptyStateBody>
                   <EmptyStateAction>
-                    <Button bsStyle="default" onClick={e => this.exitTutorial(e)}>
+                    <Button variant="primary" onClick={e => this.exitTutorial(e)}>
                       Return to Home Page
                     </Button>{' '}
                   </EmptyStateAction>
