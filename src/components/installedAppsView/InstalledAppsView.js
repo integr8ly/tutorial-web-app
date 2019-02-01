@@ -71,11 +71,12 @@ class InstalledAppsView extends React.Component {
   static getOpenshiftConsole(index) {
     return (
       <li
+        className="pf-u-p-md"
         onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
         key={`openshift_console_${index}`}
         value={index}
       >
-        <p>Red Hat OpenShift</p>
+        <p className="pf-u-mb-0">Red Hat OpenShift</p>
         <div className="integr8ly-state-ready">
           <Icon type="fa" name="bolt" /> &nbsp;Ready for use
         </div>
@@ -85,9 +86,14 @@ class InstalledAppsView extends React.Component {
 
   static createCustomAppElem(i, customApp) {
     return (
-      <li onClick={() => window.open(`${customApp.url}`, '_blank')} key={`openshift_console_${i}`} value={i}>
-        <div className="integr8ly-installed-apps-view-list-item">
-          <p className="integr8ly-installed-apps-view-list-item-title">{customApp.name}</p>
+      <li
+        className="pf-u-p-md"
+        onClick={() => window.open(`${customApp.url}`, '_blank')}
+        key={`openshift_console_${i}`}
+        value={i}
+      >
+        <div className="pf-u-display-flex">
+          <p className="pf-u-mr-lg">{customApp.name}</p>
           <Label isCompact>custom</Label>
         </div>
         <div className="integr8ly-state-ready">
@@ -102,6 +108,7 @@ class InstalledAppsView extends React.Component {
       const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
       return (
         <li
+          className="pf-u-p-md"
           onClick={() =>
             prettyName === 'Red Hat AMQ'
               ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
@@ -110,8 +117,8 @@ class InstalledAppsView extends React.Component {
           key={`${app.spec.clusterServiceClassExternalName}_${index}`}
           value={index}
         >
-          <div className="integr8ly-installed-apps-view-list-item">
-            <p className="integr8ly-installed-apps-view-list-item-title">{prettyName}</p>
+          <div className="pf-u-display-flex">
+            <p className="pf-u-mr-lg">{prettyName}</p>
             {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
               <Label isCompact>{gaStatus}</Label>
             ) : (
@@ -127,16 +134,18 @@ class InstalledAppsView extends React.Component {
     if (customApps) {
       customApps.forEach(app => masterList.push(this.createCustomAppElem(masterList.length, app)));
     }
-    return <ul className="integr8ly-installed-apps-view-list">{masterList}</ul>;
+    return <ul className="integr8ly-installed-apps-view-list pf-u-p-0 pf-u-mt-0 pf-u-ml-0">{masterList}</ul>;
   }
 
   render() {
     const appList = InstalledAppsView.createMasterList(this.props.apps, this.props.customApps);
     return (
-      <div className="integr8ly-installed-apps-view">
-        <div className="integr8ly-installed-apps-view-panel-title pf-u-mt-sm">
-          <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
-          <div className="pf-u-mt-md pf-u-pr-sm">{appList.props.children.length} applications</div>
+      <div className="integr8ly-installed-apps-view pf-u-mb-0">
+        <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-mt-xs">
+          <h2 className="pf-c-title pf-m-3xl pf-u-mt-md pf-u-mb-sm pf-u-ml-md">Applications</h2>
+          <div className="pf-u-mt-lg pf-u-pr-sm pf-u-text-align-right pf-m-sm">
+            <strong>{appList.props.children.length} applications</strong>
+          </div>
         </div>
         {appList}
       </div>

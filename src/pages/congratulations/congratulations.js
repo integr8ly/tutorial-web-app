@@ -27,7 +27,7 @@ class CongratulationsPage extends React.Component {
       <React.Fragment>
         <Page>
           <Masthead />
-          <PageSection className="pf-m-dark-100 integr8ly-congratulations">
+          <PageSection className="pf-m-dark-100 pf-u-display-flex pf-u-justify-content-center">
             <TextContent>
               <Bullseye>
                 <EmptyState>
