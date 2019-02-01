@@ -6,11 +6,11 @@
 @import "./application/variables";
 
 // PatternFly 4
-@import "application/fonts";
+@import "./application/fonts";
 
 /* stylelint-disable */
 // Prevent stylelint from checking imported code
-@import "application/pf4Import";
+@import "./application/pf4Import";
 
 // Font Awesome 5 icons
 // Import Font Awesome 5, but ignore any inherited stylelint issues
