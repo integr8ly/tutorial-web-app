@@ -5,14 +5,15 @@ import {
   Button,
   EmptyState,
   EmptyStateBody,
-  EmptyStateAction,
+  EmptyStateIcon,
   Page,
   PageSection,
-  TextContent,
+  PageSectionVariants,
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
+import { FlagCheckeredIcon } from '@patternfly/react-icons';
 import { Masthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
@@ -28,24 +29,20 @@ class CongratulationsPage extends React.Component {
       <React.Fragment>
         <Page>
           <Masthead />
-          <PageSection className="pf-m-dark-100 integr8ly-congratulations">
-            <TextContent>
-              <Bullseye>
-                <EmptyState>
-                  <img src="/assets/images/congratulations.svg" alt="congratulations" width="200px" height="200px" />
-                  <Title size="4xl">Congratulations, you completed the walkthrough!</Title>
-                  <EmptyStateBody>
-                    Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
-                    you just built!
-                  </EmptyStateBody>
-                  <EmptyStateAction>
-                    <Button variant="primary" onClick={e => this.exitTutorial(e)}>
-                      Return to Home Page
-                    </Button>{' '}
-                  </EmptyStateAction>
-                </EmptyState>
-              </Bullseye>
-            </TextContent>
+          <PageSection variant={PageSectionVariants.darker}>
+            <Bullseye>
+              <EmptyState>
+                <EmptyStateIcon icon={FlagCheckeredIcon} />
+                <Title size="lg">Congratulations, you completed the walkthrough!</Title>
+                <EmptyStateBody>
+                  Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
+                  you just built!
+                </EmptyStateBody>
+                <Button variant="primary" onClick={e => this.exitTutorial(e)}>
+                  Return to Home Page
+                </Button>{' '}
+              </EmptyState>
+            </Bullseye>
           </PageSection>
         </Page>
       </React.Fragment>

@@ -54,7 +54,7 @@ class Router extends React.Component {
     };
 
     return (
-      <div className="integr8ly-container">
+      <div>
         <BackgroundImage src={bgImages} />
         <Switch>
           {renderRoutes}

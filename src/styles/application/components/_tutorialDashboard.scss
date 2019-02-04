@@ -1,11 +1,8 @@
 .integr8ly-tutorial-dashboard {
-  height: 100vh;
-  margin-bottom: 0;
   border: 0;
   box-shadow: none;
 
   &-title {
-    display: flex;
     border: none;
 
     & h2 {
@@ -17,19 +14,5 @@
 .integr8ly-walkthrough {
   &-counter {
     flex-basis: 50%;
-    margin-top: 16px;
-    text-align: right;
-    font-size: var(--pf-global--FontSize--sm);
-    font-weight: var(--pf-global--FontWeight--bold);
-  }
-
-  &-labels {
-    float: left;
-  }
-
-  &-labels-tag {
-    display: inline;
-    position: inherit;
-    margin-right: 10px;
   }
 }

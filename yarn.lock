@@ -903,9 +903,9 @@
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
 
-"@fortawesome/fontawesome-free@5.7.0":
-  version "5.7.0"
-  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.0.tgz#d28fd6248837ae5142c567f7ff50605824207e34"
+"@fortawesome/fontawesome-free@5.7.1":
+  version "5.7.1"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.1.tgz#e4bdc6fd2a7b5a41d5b599bcb62cf22c78f7f535"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -918,24 +918,24 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@patternfly/patternfly-next@1.0.158":
-  version "1.0.158"
-  resolved "https://registry.yarnpkg.com/@patternfly/patternfly-next/-/patternfly-next-1.0.158.tgz#ce33e6308f5adb416deb471cd85f654e5ae6d03e"
+"@patternfly/patternfly@1.0.188":
+  version "1.0.188"
+  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-1.0.188.tgz#d9c675ff24fd4ae1eb29fb8387221c4045582c5d"
 
-"@patternfly/react-core@1.49.6":
-  version "1.49.6"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-1.49.6.tgz#09b3f87f0e011121afda9d3adb4af107202e6a22"
+"@patternfly/react-core@1.51.6":
+  version "1.51.6"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-1.51.6.tgz#2ed675031f1e2b328e773742411d1b7fc62c3554"
   dependencies:
-    "@patternfly/react-icons" "^2.10.1"
+    "@patternfly/react-icons" "^2.10.5"
     "@patternfly/react-styles" "^2.3.0"
-    "@patternfly/react-tokens" "^1.10.0"
+    "@patternfly/react-tokens" "^1.10.2"
     "@tippy.js/react" "^1.1.1"
     exenv "^1.2.2"
     focus-trap-react "^4.0.1"
 
-"@patternfly/react-icons@^2.10.1":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-2.10.1.tgz#8aee5f242d38edfe5961332f2a9e4144406df4f3"
+"@patternfly/react-icons@^2.10.5":
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-2.10.5.tgz#d0ca26b9d1a7aa01f4a65a97e682f1e6b9031fd9"
 
 "@patternfly/react-styles@^2.3.0":
   version "2.3.0"
@@ -954,9 +954,9 @@
     relative "^3.0.2"
     resolve-from "^4.0.0"
 
-"@patternfly/react-tokens@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-1.10.0.tgz#ccf485643039ae92439cf7e099b9fd550647421e"
+"@patternfly/react-tokens@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-1.10.2.tgz#16429a1093aa239b353d5f32dfca90d80074fc54"
 
 "@svgr/core@^2.4.1":
   version "2.4.1"

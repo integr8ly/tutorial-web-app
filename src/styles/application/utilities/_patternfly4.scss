@@ -7,20 +7,9 @@
 // https://github.com/twbs/bootstrap/blob/v3.4.0-dev/less/scaffolding.less#L23
 
 /* stylelint-disable */
+/* allows the override of default styles */
 html {
   font-size: unset !important; // the important is needed because we don't know if pf3 will be loaded after pfnext
-}
-
-html {
-  font-family: sans-serif;
-  line-height: 1.15;
-}
-/* stylelint-enable */
-
-// Button styles
-button,
-a {
-  cursor: pointer;
 }
 
 button,
@@ -34,37 +23,22 @@ button,
 }
 
 p {
-  font-size: $pf-global--FontSize--md;
+  font-size: var(--pf-global--FontSize--md);
 }
 
-small,
-.integr8ly-small {
-  font-size: 91%;
-}
-
-// List styling
-ul {
-  list-style: none;
-}
-
-// Tables
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-td,
-th {
-  padding: 0;
-  text-align: left;
+.pf-c-page {
+  height: 100vh !important;
 }
 
 // Button / Form styling
-/* stylelint-disable */
-/* allows the override of default PF3/Bootstrap 3 styles */
+// remove once Copy-to-Clipboard is part of PF4
 .btn,
 .form-control {
-  font-size: $pf-global--FontSize--md;
+  font-size: var(--pf-global--FontSize--md);
+}
+
+.form-control {
+  height: 32px; // accounts for increase in base font size from 12px to 16px
 }
 
 .pf-c-content {
@@ -85,23 +59,17 @@ th {
       margin-right: var(--pf-global--spacer--md);
     }
   }
-}
 
-.form-control {
-  height: 32px; // accounts for increase in base font size from 12px to 16px
-}
-
-.pf-c-content {
   .btn-primary {
     & > .fa {
-      color: $pf-color-white;
+      color: var(--pf-global--Color--light-100);
     }
 
-    color: $pf-color-white;
+    color: var(--pf-global--Color--light-100);
   }
 
   .btn-default {
-    color: $pf-color-black-900;
+    color: var(--pf-global--Color--100);
   }
 
   .btn[disabled] {
@@ -119,14 +87,14 @@ th {
 .integr8ly-docs-header {
   h5 {
     font-size: $h3-font-size;
-    font-weight: $pf-global--FontWeight--semi-bold;
+    font-weight: var(--pf-global--FontWeight--semi-bold);
     margin-top: 20px;
     margin-bottom: 10px;
   }
 
   .olist { /* stylelint-disable-line selector-class-pattern */
-    font-size: $pf-global--FontSize--md;
-    font-weight: $pf-global--FontWeight--normal;
+    font-size: var(--pf-global--FontSize--md);
+    font-weight: var(--pf-global--FontWeight--normal);
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardGrid, Icon } from 'patternfly-react';
-import { Gallery, GalleryItem, Label } from '@patternfly/react-core';
+import { Gallery, GalleryItem } from '@patternfly/react-core';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -40,23 +40,20 @@ const TutorialDashboard = props => {
           mins={walkthrough.time}
         >
           <p>{walkthrough.shortDescription}</p>
-
-          <div className="integr8ly-walkthrough-labels">
-            {walkthrough.community === true ? <Label isCompact>community</Label> : <span />}
-            {walkthrough.preview === true ? <Label isCompact>preview</Label> : <span />}
-          </div>
         </TutorialCard>
       </GalleryItem>
     );
   });
 
   return (
-    <div className="integr8ly-tutorial-dashboard pf-u-px-sm">
-      <div className="integr8ly-tutorial-dashboard-title pf-u-py-sm">
-        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-ml-md">Start with a walkthrough</h2>
-        <div className="integr8ly-walkthrough-counter pf-u-mr-md">{walkthroughs.length} walkthroughs</div>
+    <div className="integr8ly-tutorial-dashboard pf-u-mb-0">
+      <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
+        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
+        <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-mr-md pf-u-text-align-right pf-m-sm">
+          <strong>{walkthroughs.length} walkthroughs</strong>
+        </div>
       </div>
-      <CardGrid className="pf-u-mt-0 pf-u-ml-md pf-u-pl-sm pf-u-pr-0" style={{ width: 'calc(100% - 40px)' }}>
+      <CardGrid className="pf-u-mt-0" style={{ width: 'calc(100% - 40px)' }}>
         <Gallery gutter="md">{cards}</Gallery>
       </CardGrid>
     </div>
