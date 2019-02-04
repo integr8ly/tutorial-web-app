@@ -37,7 +37,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
   >
     <withRouter(Connect(Masthead)) />
     <PageSection
-      className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0"
+      className="integr8ly-landing-page-tutorial-dashboard-section"
       variant="default"
     >
       <Grid
@@ -50,7 +50,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         xl={null}
       >
         <GridItem
-          className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg"
+          className="integr8ly-task-container"
           lg={null}
           lgOffset={null}
           lgRowSpan={null}
@@ -78,9 +78,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               <div
                 className="integr8ly-task-dashboard-header"
               >
-                <h3>
+                <h1>
                   Example
-                </h3>
+                </h1>
                 <Button
                   aria-label={null}
                   className=""
@@ -112,7 +112,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           </Card>
         </GridItem>
         <GridItem
-          className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg"
+          className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
           lg={null}
           lgOffset={null}
           lgRowSpan={null}
@@ -135,7 +135,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           />
         </GridItem>
         <GridItem
-          className="pf-u-px-lg"
+          className=""
           lg={null}
           lgOffset={null}
           lgRowSpan={null}
@@ -153,7 +153,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlRowSpan={null}
         >
           <Card
-            className="integr8ly-card pf-u-mb-xl"
+            className="integr8ly-card"
             component="article"
           >
             <CardBody

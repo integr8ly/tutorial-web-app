@@ -34,7 +34,7 @@ class LandingPage extends React.Component {
           <PfMasthead />
           <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <Grid>
+            <Grid gutter="md">
               <GridItem sm={12} md={9}>
                 <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
               </GridItem>

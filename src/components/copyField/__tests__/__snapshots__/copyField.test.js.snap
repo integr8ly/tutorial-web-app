@@ -8,7 +8,7 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
   class="integr8ly-copy form-group"
 >
   <span
-    class="input-group"
+    class="pf-u-display-flex input-group"
   >
     <span
       class="input-group-btn"
@@ -49,10 +49,9 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
   </span>
   <textarea
     aria-hidden="true"
-    class="integr8ly-copy-display"
+    class="integr8ly-copy-display pf-u-p-md pf-u-w-100"
     disabled=""
     rows="5"
-    style="width: 100%;"
   >
     {"hello":"world"}
   </textarea>
@@ -65,7 +64,7 @@ exports[`CopyField Component should render a single-line copy component: single-
   class="integr8ly-copy form-group"
 >
   <span
-    class="input-group"
+    class="pf-u-display-flex input-group"
   >
     <input
       class="integr8ly-copy-input false form-control"
