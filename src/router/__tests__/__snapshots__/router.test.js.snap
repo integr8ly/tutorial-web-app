@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Router Component should render a basic component 1`] = `
-<div
-  className="integr8ly-container"
->
+<div>
   <BackgroundImage
     className=""
     src={

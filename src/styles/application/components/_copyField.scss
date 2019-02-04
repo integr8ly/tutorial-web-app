@@ -25,8 +25,6 @@
   }
 
   &-display {
-    width: 100%;
-    padding: 15px;
     border: var(--pf-global--BorderWidth--sm) solid;
     border-color: var(--pf-global--BorderColor--light);
     border-top-width: 0;
@@ -36,8 +34,6 @@
 
   /* stylelint-disable selector-class-pattern */
   & > .input-group {
-    display: flex;
-
     .input-group-addon,
     .input-group-btn {
       width: auto;
