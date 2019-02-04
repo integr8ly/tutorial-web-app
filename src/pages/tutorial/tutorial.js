@@ -103,13 +103,13 @@ class TutorialPage extends React.Component {
           <BackgroundImage src={bgImages} />
           <Page>
             <PfMasthead />
-            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0">
+            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md" className="pf-c-content">
-                <GridItem sm={12} md={9} className="integr8ly-task-container pf-u-pt-xl pf-u-px-lg">
+                <GridItem sm={12} md={9} className="integr8ly-task-container">
                   <Card className="integr8ly-c-card--content pf-u-mb-xl">
                     <CardBody>
                       <div className="integr8ly-task-dashboard-header">
-                        <h3>{parsedThread.title}</h3>
+                        <h1>{parsedThread.title}</h1>
                         <Button variant="primary" onClick={e => this.getStarted(e, id)}>
                           {t('tutorial.getStarted')}
                         </Button>
@@ -123,13 +123,18 @@ class TutorialPage extends React.Component {
                     </CardBody>
                   </Card>
                 </GridItem>
-                <GridItem md={3} rowSpan={2} className="integr8ly-module-frame pf-u-pt-xl pf-u-px-lg">
-                  {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                  <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                  <WalkthroughResources resources={parsedThread.resources} />
+                <GridItem
+                  md={3}
+                  rowSpan={2}
+                  className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
+                >
+                  <WalkthroughResources
+                    className="integr8ly-landing-page-tutorial-dashboard-section-right"
+                    resources={parsedThread.resources}
+                  />
                 </GridItem>
-                <GridItem sm={12} md={9} className="pf-u-px-lg">
-                  <Card className="integr8ly-card pf-u-mb-xl">
+                <GridItem sm={12} md={9}>
+                  <Card className="integr8ly-card">
                     <CardBody>
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}

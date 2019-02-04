@@ -269,21 +269,21 @@ class TaskPage extends React.Component {
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
 
-    let verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-blue pf-u-mt-md';
-    let verificationIcon = 'integr8ly-alert-icon far fa-circle';
+    let verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-blue';
+    let verificationIcon = 'integr8ly-alert-icon far fa-circle fa-lg';
     if (isYesChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-green pf-u-mt-md';
-      verificationIcon = 'integr8ly-alert-icon far fa-check-circle';
+      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-green';
+      verificationIcon = 'integr8ly-alert-icon fa fa-check-circle fa-lg';
     }
     if (isNoChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-red pf-u-mt-md';
-      verificationIcon = 'integr8ly-alert-icon far fa-times-circle';
+      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-red';
+      verificationIcon = 'integr8ly-alert-icon fa fa-times-circle fa-lg';
     }
     return (
       <div className={verificationClasses} key={`verification-${blockId}`}>
         <i className={verificationIcon} />
         <strong>{t('task.verificationTitle')}</strong>
-        <div dangerouslySetInnerHTML={{ __html: block.html }} />
+        <span dangerouslySetInnerHTML={{ __html: block.html }} />
         {
           <React.Fragment>
             <Radio
@@ -292,6 +292,7 @@ class TaskPage extends React.Component {
               onChange={e => {
                 this.handleVerificationInput(e, blockId, true);
               }}
+              label="Yes"
             >
               Yes
             </Radio>
@@ -301,6 +302,7 @@ class TaskPage extends React.Component {
               onChange={e => {
                 this.handleVerificationInput(e, blockId, false);
               }}
+              label="No"
             >
               No
             </Radio>
@@ -391,7 +393,7 @@ class TaskPage extends React.Component {
         <React.Fragment>
           <BackgroundImage src={bgImages} />
           <Page>
-            <PageSection className="pf-u-p-0">
+            <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
                 threadId={id}
@@ -400,9 +402,9 @@ class TaskPage extends React.Component {
                 homeClickedCallback={() => {}}
               />
             </PageSection>
-            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section pf-u-p-0">
-              <Grid className="pf-u-mb-xl">
-                <GridItem sm={12} md={9} className="pf-u-pt-lg pf-u-px-lg">
+            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
+              <Grid gutter="md" className="pf-c-content">
+                <GridItem sm={12} md={9}>
                   <Card className="integr8ly-c-card--content pf-u-mb-xl">
                     <CardBody>
                       <TextContent className="integr8ly-module-column pf-u-pb-sm">
@@ -414,7 +416,12 @@ class TaskPage extends React.Component {
                     </CardBody>
                   </Card>
                 </GridItem>
-                <GridItem sm={12} md={3} rowSpan={2} className="integr8ly-module-frame pf-u-pt-lg">
+                <GridItem
+                  sm={12}
+                  md={3}
+                  rowSpan={2}
+                  className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
+                >
                   {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
                   <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
                   <WalkthroughResources resources={combinedResources} />
@@ -423,7 +430,7 @@ class TaskPage extends React.Component {
             </PageSection>
             <PageSection>
               {/* Bottom footer */}
-              <div className="integr8ly-module-column--footer pf-u-pl-2xl">
+              <div className="integr8ly-module-column--footer pf-u-w-100 pf-u-pl-2xl">
                 <TextContent>
                   <Text component={TextVariants.h4} className="pf-u-my-md">
                     {t('task.CompleteAndCheck')}
@@ -439,14 +446,14 @@ class TaskPage extends React.Component {
                         {t('task.previousTask')}
                       </Button>
                     )}
-                    <span className="integr8ly-module-column--footer_status pf-u-mx-xl">
+                    <span className="integr8ly-module-column--footer_status pf-u-mx-lg">
                       {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
                         <React.Fragment key={i}>
                           {/* Bottom footer icon */}
                           {currentThreadProgress[verificationId] === undefined ? (
                             <Icon
                               type="fa"
-                              className="far integr8ly-module-column--footer_status"
+                              className="integr8ly-module-column--footer_status icon pf-u-ml-md pf-u-pr-sm"
                               key={`verification-icon-${verificationId}`}
                               name="circle"
                             />
@@ -455,8 +462,8 @@ class TaskPage extends React.Component {
                               type="fa"
                               className={
                                 currentThreadProgress[verificationId]
-                                  ? 'far integr8ly-module-column--footer_status-checked'
-                                  : 'far integr8ly-module-column--footer_status-unchecked'
+                                  ? 'integr8ly-module-column--footer_status-checked icon pf-u-ml-md pf-u-pr-sm'
+                                  : 'integr8ly-module-column--footer_status-unchecked icon pf-u-ml-md pf-u-pr-sm'
                               }
                               key={`verification-icon-${verificationId}`}
                               name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}

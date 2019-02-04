@@ -74,12 +74,12 @@ class WalkthroughResources extends React.Component {
     if (resources && resources.length > 0) {
       resourceList = resources.map(resource => (
         <div key={resource.title}>
-          <h4>
+          <div className="pf-u-pb-sm">
             <span className="pf-u-mr-xs">{resource.statusIcon}</span>
             <span className="pf-u-mr-md">{resource.title}</span>
             {resource.gaStatus === 'community' ? <Label isCompact>community</Label> : <span />}
             {resource.gaStatus === 'preview' ? <Label isCompact>preview</Label> : <span />}
-          </h4>
+          </div>
           <div dangerouslySetInnerHTML={{ __html: resource.html }} />
         </div>
       ));

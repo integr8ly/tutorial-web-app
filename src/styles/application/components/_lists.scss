@@ -9,6 +9,14 @@
   &-description {
     flex: 1 !important; /* stylelint-disable-line declaration-no-important */
   }
+
+  .list-view-pf-description { /* stylelint-disable-line selector-class-pattern */
+    flex: 1 !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  .list-group-item:hover { /* stylelint-disable-line selector-class-pattern */
+    background-color: $pf-color-white;
+  }
 }
 
 .module-list { /* stylelint-disable selector-class-pattern */

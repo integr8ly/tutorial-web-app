@@ -155,7 +155,7 @@ class CopyField extends React.Component {
 
     return (
       <Form.FormGroup className="integr8ly-copy" controlId={setId} aria-live="polite">
-        <InputGroup>
+        <InputGroup className="pf-u-display-flex">
           {multiline && (
             <InputGroup.Button>
               <Button onClick={this.onExpand} className="integr8ly-copy-display-button" aria-hidden tabIndex={-1}>
@@ -176,13 +176,12 @@ class CopyField extends React.Component {
         </InputGroup>
         {expanded && (
           <textarea
-            className="integr8ly-copy-display"
+            className="integr8ly-copy-display pf-u-p-md pf-u-w-100"
             rows={5}
             aria-label={expandDescription}
             disabled
             value={value}
             aria-hidden
-            style={{ width: '100%' }}
           />
         )}
       </Form.FormGroup>

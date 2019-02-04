@@ -5,7 +5,6 @@
     height: auto; // Set automatic height when viewport under 1000px tall
   }
 
-  margin-bottom: 0;
   border-bottom: 0;
   box-shadow: none;
 
@@ -14,34 +13,20 @@
   }
 
   &-panel-title {
-    display: flex;
     background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
 
     & h2 {
       flex-basis: 70%;
-      margin-top: 9px;
     }
 
     & div {
       flex-basis: 30%;
-      font-size: var(--pf-global--FontSize--sm);
-      font-weight: var(--pf-global--FontWeight--bold);
       white-space: nowrap;
-      text-align: right;
     }
-  }
-
-  & ul {
-    padding-left: 0;
-    margin-top: 0;
-    margin-left: 0;
-    list-style: none;
-    background-color: $pf-color-white;
   }
 
   &-list {
     list-style-type: none;
-    padding: 0;
     background-color: $pf-color-white;
 
     i {
@@ -52,27 +37,16 @@
       border-top: var(--pf-global--BorderWidth--sm) solid transparent;
       border-bottom: var(--pf-global--BorderWidth--sm) solid transparent;
       box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-      padding: 15px;
     }
 
-      p {
-        margin-bottom: 0;
-        color: $pf-color-black-900;
-      }
+    p {
+      color: $pf-color-black-900;
     }
   }
 
   & li:hover {
     background-color: $pf-color-blue-50;
     cursor: pointer;
-  }
-
-  &-list-item {
-    display: flex;
-  }
-
-  &-list-item-title {
-    margin-right: var(--pf-global--spacer--lg);
   }
 }
 

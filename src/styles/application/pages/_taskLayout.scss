@@ -12,10 +12,6 @@
   }
 
   &module {
-    &-congratulations {
-      margin-top: 0;
-    }
-
     &-column--status {
       .progress.progress-label-left { /* stylelint-disable-line selector-class-pattern */
         width: 80%;
@@ -76,7 +72,6 @@
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
       z-index: 3;
 
       /* stylelint-disable max-nesting-depth */
@@ -91,8 +86,8 @@
       &_status {
         color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
 
-        .far { /* stylelint-disable-line selector-class-pattern */
-          padding-right: 5px;
+        .icon:first-child { /* stylelint-disable-line selector-class-pattern */
+          margin-left: 0;
         }
 
         &-checked {
@@ -102,18 +97,8 @@
         &-unchecked {
           color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
         }
-
-        &-step {
-          margin-right: 15px;
-        }
       }
       /* stylelint-enable */
-    }
-
-    &-frame {
-      @media screen and (max-width: $pf-global--breakpoint--md) {
-        display: none;
-      }
     }
   }
 }

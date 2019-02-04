@@ -13,30 +13,12 @@
 /* stylelint-enable */
 
 .integr8ly-c-card {
-  height: 100%;
-
   &:hover {
     cursor: pointer;
   }
 
-  &__status--in-progress-icon {
-    color: var(--pf-global--info-color--200) !important; /* stylelint-disable-line declaration-no-important */
-  }
-
-  &__status--complete-icon {
-    color: var(--pf-global--success-color--200) !important; /* stylelint-disable-line declaration-no-important */
-  }
-
   &__info {
     display: contents;
-    width: 100%;
-  }
-
-  &__time {
-    &--progress {
-      flex-basis: 50%;
-      text-align: left;
-    }
   }
 
   /* stylelint-disable selector-class-pattern */

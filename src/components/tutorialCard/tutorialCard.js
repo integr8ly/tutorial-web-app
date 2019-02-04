@@ -8,8 +8,8 @@ const TutorialCard = props => (
   <Card
     className={
       props.progress === 100
-        ? 'integr8ly-c-card integr8ly-c-card__status--complete'
-        : 'integr8ly-c-card integr8ly-c-card__status--in-progress'
+        ? 'integr8ly-c-card pf-u-h-100 integr8ly-c-card__status--complete'
+        : 'integr8ly-c-card pf-u-h-100 integr8ly-c-card__status--in-progress'
     }
     onClick={e => {
       e.preventDefault();
@@ -19,7 +19,7 @@ const TutorialCard = props => (
     <CardHeader>{props.title}</CardHeader>
     <CardBody>{props.children}</CardBody>
     <CardFooter>
-      <div className="integr8ly-c-card__info">
+      <div className="integr8ly-c-card__info pf-u-w-100">
         <Button
           variant="link"
           className={

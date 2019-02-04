@@ -4,9 +4,9 @@
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.7.0",
-    "@patternfly/react-core": "1.49.6",
-    "@patternfly/patternfly-next": "1.0.158",
+    "@fortawesome/fontawesome-free": "5.7.1",
+    "@patternfly/react-core": "1.51.6",
+    "@patternfly/patternfly": "1.0.188",
     "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
     "body-parser": "^1.18.3",
