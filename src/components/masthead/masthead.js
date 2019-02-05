@@ -14,7 +14,8 @@ import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibilit
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
-import { connect, reduxActions } from '../../redux';
+import { connect, reduxActions, store } from '../../redux';
+import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
 import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 
@@ -23,7 +24,8 @@ class Masthead extends React.Component {
     super(props);
 
     this.state = {
-      isUserDropdownOpen: false
+      isUserDropdownOpen: false,
+      isModalOpen: false
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -44,6 +46,18 @@ class Masthead extends React.Component {
     });
   };
 
+  closeAbout() {
+    this.setState(({ isModalOpen }) => ({
+      isModalOpen: !isModalOpen
+    }));
+  }
+
+  handleModalToggle = () => {
+    this.setState(({ isModalOpen }) => ({
+      isModalOpen: !isModalOpen
+    }));
+  };
+
   onTitleClick = () => {
     const { history } = this.props;
     history.push(`/`);
@@ -57,7 +71,6 @@ class Masthead extends React.Component {
   }
 
   onUserDropdownSelect = () => {
-    console.log('Dropdown selected');
     this.setState({
       isUserDropdownOpen: !this.state.isUserDropdownOpen
     });
@@ -71,27 +84,33 @@ class Masthead extends React.Component {
     };
 
     const MastheadToolbar = (
-      <Toolbar>
-        <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
-          <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={this.onUserDropdownSelect}
-              isOpen={isUserDropdownOpen}
-              toggle={
-                <DropdownToggle onToggle={this.onUserDropdownToggle}>
-                  {window.localStorage.getItem('currentUserName')}
-                </DropdownToggle>
-              }
-            >
-              <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
-                Log out
-              </DropdownItem>
-            </Dropdown>
-          </ToolbarItem>
-        </ToolbarGroup>
-      </Toolbar>
+      <React.Fragment>
+        <Toolbar>
+          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+              <Dropdown
+                isPlain
+                position="right"
+                onSelect={this.onUserDropdownSelect}
+                isOpen={isUserDropdownOpen}
+                toggle={
+                  <DropdownToggle onToggle={this.onUserDropdownToggle}>
+                    {window.localStorage.getItem('currentUserName')}
+                  </DropdownToggle>
+                }
+              >
+                <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
+                  Log out
+                </DropdownItem>
+                <DropdownItem key="about" component="button" href="#about" onClick={this.handleModalToggle}>
+                  About
+                </DropdownItem>
+              </Dropdown>
+            </ToolbarItem>
+          </ToolbarGroup>
+        </Toolbar>
+        {this.state.isModalOpen && <AboutModal isOpen={this.state.isModalOpen} closeAbout={this.closeAbout} />}
+      </React.Fragment>
     );
 
     return (
