@@ -16,8 +16,8 @@ class Breadcrumb extends React.Component {
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
     return (
-      <PfBreadcrumb className="integr8ly-breadcrumb">
-        <BreadcrumbItem onClick={this.homeClicked} className="integr8ly-breadcrumb-home">
+      <PfBreadcrumb>
+        <BreadcrumbItem onClick={this.homeClicked} >
           <Icon className="fa-lg" type="fa" name="home" />
         </BreadcrumbItem>
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
