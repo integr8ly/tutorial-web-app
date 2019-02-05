@@ -22,6 +22,7 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
 };
 
 const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || (process.env.NODE_ENV === 'production' ? 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' : '../tutorial-web-app-walkthroughs/walkthroughs');
+const walkthroughContextDir = process.env.WALKTHROUGH_CONTEXT_DIR || (process.env.NODE_ENV === 'production' ? 'walkthroughs' : 'walkthroughs');
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
@@ -172,7 +173,10 @@ function resolveWalkthroughLocations(locations) {
         return gitClient
           .cloneRepo(location, clonePath)
           .then(cloned => {
-            const locationResult = Object.assign({}, locationResultTemplate, { local: path.join(cloned, 'walkthroughs') });
+            if (process.env.WALKTHROUGH_CONTEXT_DIR) {
+              console.log(`Custom context dir ${walkthroughContextDir}`);
+            }
+            const locationResult = Object.assign({}, locationResultTemplate, { local: path.join(cloned, walkthroughContextDir) });
             return resolve(locationResult);
           })
           .catch(reject);
