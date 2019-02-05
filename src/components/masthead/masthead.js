@@ -14,7 +14,7 @@ import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibilit
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
-import { connect, reduxActions, store } from '../../redux';
+import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
 import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';

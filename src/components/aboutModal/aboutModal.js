@@ -44,9 +44,11 @@ class AboutModal extends React.Component {
               <TextListItem component="dt">User Role</TextListItem>
               <TextListItem component="dd">TBD</TextListItem>
               <TextListItem component="dt">Browser Version</TextListItem>
-              <TextListItem component="dd">{`${browser.name} ${browser.version}`}</TextListItem>
+              <TextListItem component="dd">
+                {browser ? browser.name : ' '} {browser ? browser.version : ' '}
+              </TextListItem>
               <TextListItem component="dt">Browser OS</TextListItem>
-              <TextListItem component="dd">{browser.os || ''}</TextListItem>
+              <TextListItem component="dd">{browser ? browser.os : ' '}</TextListItem>
             </TextList>
           </TextContent>
         </PfAboutModal>
