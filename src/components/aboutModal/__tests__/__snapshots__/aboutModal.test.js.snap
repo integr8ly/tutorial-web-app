@@ -161,7 +161,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                          
                          
                          
-                         
                       </dd>
                       <dt
                         class=""
@@ -465,7 +464,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                                     className=""
                                     data-pf-content={true}
                                   >
-                                     
                                      
                                      
                                      
@@ -687,7 +685,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
                          
                          
                          
-                         
                       </dd>
                       <dt
                         class=""
@@ -991,7 +988,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
                                     className=""
                                     data-pf-content={true}
                                   >
-                                     
                                      
                                      
                                      
