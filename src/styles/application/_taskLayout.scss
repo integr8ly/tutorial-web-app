@@ -1,5 +1,11 @@
 .integr8ly- {
-  &img-responsive {
+  &img-not-responsive {
+    img {
+      max-width: inherit;
+    }
+  }
+
+  &task-overview {
     img {
       max-width: 100%;
     }
@@ -47,6 +53,10 @@
       }
 
       &--steps {
+        .imageblock .content img {
+          max-width: 100%;
+        }
+
         margin-right: -20px;
         margin-bottom: 56px;
         margin-left: -20px;
