@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Icon, Breadcrumb as PfBreadcrumb } from 'patternfly-react';
+import { Icon } from 'patternfly-react';
+import { BreadcrumbItem, Breadcrumb as PfBreadcrumb } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 
 class Breadcrumb extends React.Component {
@@ -15,16 +16,16 @@ class Breadcrumb extends React.Component {
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
     return (
-      <PfBreadcrumb className="integr8ly-breadcrumb pf-u-pl-lg">
-        <PfBreadcrumb.Item onClick={this.homeClicked}>
+      <PfBreadcrumb>
+        <BreadcrumbItem onClick={this.homeClicked} id="breadcrumb-home">
           <Icon className="fa-lg" type="fa" name="home" />
-        </PfBreadcrumb.Item>
-        {threadName && !taskPosition && <PfBreadcrumb.Item active>{threadName}</PfBreadcrumb.Item>}
+        </BreadcrumbItem>
+        {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&
           taskPosition && (
             <React.Fragment>
-              <PfBreadcrumb.Item href={`/tutorial/${threadId}`}>{threadName}</PfBreadcrumb.Item>
-              <PfBreadcrumb.Item active>{t('breadcrumb.task', { taskPosition, totalTasks })}</PfBreadcrumb.Item>
+              <BreadcrumbItem to={`/tutorial/${threadId}`}>{threadName}</BreadcrumbItem>
+              <BreadcrumbItem isActive>{t('breadcrumb.task', { taskPosition, totalTasks })}</BreadcrumbItem>
             </React.Fragment>
           )}
       </PfBreadcrumb>
@@ -33,12 +34,19 @@ class Breadcrumb extends React.Component {
 }
 
 Breadcrumb.propTypes = {
+  /**  Navigation history */
   history: PropTypes.object,
+  /** Translation function provided for i18n */
   t: PropTypes.func.isRequired,
+  /** Walkthrough name (thread) that will show up in the breadcrumb link */
   threadName: PropTypes.string,
+  /** Walkthrough ID (thread) */
   threadId: PropTypes.string,
+  /** Current task in the walkthrough that the user is on */
   taskPosition: PropTypes.number,
+  /** The total number of tasks for this walkthrough */
   totalTasks: PropTypes.number,
+  /** Called when the home button is clicked */
   homeClickedCallback: PropTypes.func
 };
 
