@@ -3,11 +3,12 @@
 exports[`Breadcrumb component should handle home clicked 1`] = `
 <Breadcrumb
   aria-label="breadcrumb"
-  className="integr8ly-breadcrumb"
+  className=""
 >
   <BreadcrumbItem
-    className="integr8ly-breadcrumb-home"
+    className=""
     component="a"
+    id="breadcrumb-home"
     isActive={false}
     onClick={[Function]}
     target={null}
@@ -48,6 +49,7 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
   <BreadcrumbItem
     className=""
     component="a"
+    id="breadcrumb-home"
     isActive={false}
     onClick={[Function]}
     target={null}
@@ -88,6 +90,7 @@ exports[`Breadcrumb component should render default breadcrumb 1`] = `
   <BreadcrumbItem
     className=""
     component="a"
+    id="breadcrumb-home"
     isActive={false}
     onClick={[Function]}
     target={null}
