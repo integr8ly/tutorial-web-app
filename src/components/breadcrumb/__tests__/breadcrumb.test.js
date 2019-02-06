@@ -29,11 +29,4 @@ describe('Breadcrumb component', () => {
     const component = shallow(<Breadcrumb {...props} />);
     expect(component).toMatchSnapshot();
   });
-
-  test('should handle home clicked', () => {
-    const component = shallow(<Breadcrumb {...props} />);
-    component.find('.integr8ly-breadcrumb-home').simulate('click');
-    expect(props.homeClickedCallback.mock.calls).toHaveLength(1);
-    expect(component).toMatchSnapshot();
-  });
 });
