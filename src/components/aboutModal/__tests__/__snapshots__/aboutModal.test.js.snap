@@ -12,12 +12,12 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
   }
 >
   <AboutModal
-    brandImageAlt="Patternfly Logo"
+    brandImageAlt="Red Hat logo"
     brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
     heroImageAlt=""
     isOpen={true}
-    logoImageAlt="Patternfly Logo"
+    logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
     onClose={[Function]}
     productName="Red Hat Solution Explorer"
@@ -43,7 +43,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                   class="pf-c-about-modal-box__brand"
                 >
                   <img
-                    alt="Patternfly Logo"
+                    alt="Red Hat logo"
                     class="pf-c-about-modal-box__brand-image"
                     src="Logo_RH_RGB_Reverse.png"
                   />
@@ -118,36 +118,12 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                         class=""
                         data-pf-content="true"
                       >
-                        Server name
-                      </dt>
-                      <dd
-                        class=""
-                        data-pf-content="true"
-                      >
-                        TBD
-                      </dd>
-                      <dt
-                        class=""
-                        data-pf-content="true"
-                      >
                         User Name
                       </dt>
                       <dd
                         class=""
                         data-pf-content="true"
                       />
-                      <dt
-                        class=""
-                        data-pf-content="true"
-                      >
-                        User Role
-                      </dt>
-                      <dd
-                        class=""
-                        data-pf-content="true"
-                      >
-                        TBD
-                      </dd>
                       <dt
                         class=""
                         data-pf-content="true"
@@ -195,12 +171,12 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
       <ModalContent
         ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
-        brandImageAlt="Patternfly Logo"
+        brandImageAlt="Red Hat logo"
         brandImageSrc="Logo_RH_RGB_Reverse.png"
         className=""
         heroImageAlt=""
         isOpen={true}
-        logoImageAlt="Patternfly Logo"
+        logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
         onClose={[Function]}
         productName="Red Hat Solution Explorer"
@@ -232,7 +208,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                     role="dialog"
                   >
                     <AboutModalBoxBrand
-                      alt="Patternfly Logo"
+                      alt="Red Hat logo"
                       className=""
                       src="Logo_RH_RGB_Reverse.png"
                     >
@@ -240,7 +216,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                         className="pf-c-about-modal-box__brand"
                       >
                         <img
-                          alt="Patternfly Logo"
+                          alt="Red Hat logo"
                           className="pf-c-about-modal-box__brand-image"
                           src="Logo_RH_RGB_Reverse.png"
                         />
@@ -389,28 +365,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                                     className=""
                                     data-pf-content={true}
                                   >
-                                    Server name
-                                  </dt>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dd"
-                                >
-                                  <dd
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    TBD
-                                  </dd>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dt"
-                                >
-                                  <dt
-                                    className=""
-                                    data-pf-content={true}
-                                  >
                                     User Name
                                   </dt>
                                 </TextListItem>
@@ -422,28 +376,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
                                     className=""
                                     data-pf-content={true}
                                   />
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dt"
-                                >
-                                  <dt
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    User Role
-                                  </dt>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dd"
-                                >
-                                  <dd
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    TBD
-                                  </dd>
                                 </TextListItem>
                                 <TextListItem
                                   className=""
@@ -536,12 +468,12 @@ exports[`AboutModal Component should render a non-connected component: show moda
   }
 >
   <AboutModal
-    brandImageAlt="Patternfly Logo"
+    brandImageAlt="Red Hat logo"
     brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
     heroImageAlt=""
     isOpen={true}
-    logoImageAlt="Patternfly Logo"
+    logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
     onClose={[Function]}
     productName="Red Hat Solution Explorer"
@@ -567,7 +499,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
                   class="pf-c-about-modal-box__brand"
                 >
                   <img
-                    alt="Patternfly Logo"
+                    alt="Red Hat logo"
                     class="pf-c-about-modal-box__brand-image"
                     src="Logo_RH_RGB_Reverse.png"
                   />
@@ -642,36 +574,12 @@ exports[`AboutModal Component should render a non-connected component: show moda
                         class=""
                         data-pf-content="true"
                       >
-                        Server name
-                      </dt>
-                      <dd
-                        class=""
-                        data-pf-content="true"
-                      >
-                        TBD
-                      </dd>
-                      <dt
-                        class=""
-                        data-pf-content="true"
-                      >
                         User Name
                       </dt>
                       <dd
                         class=""
                         data-pf-content="true"
                       />
-                      <dt
-                        class=""
-                        data-pf-content="true"
-                      >
-                        User Role
-                      </dt>
-                      <dd
-                        class=""
-                        data-pf-content="true"
-                      >
-                        TBD
-                      </dd>
                       <dt
                         class=""
                         data-pf-content="true"
@@ -719,12 +627,12 @@ exports[`AboutModal Component should render a non-connected component: show moda
       <ModalContent
         ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
-        brandImageAlt="Patternfly Logo"
+        brandImageAlt="Red Hat logo"
         brandImageSrc="Logo_RH_RGB_Reverse.png"
         className=""
         heroImageAlt=""
         isOpen={true}
-        logoImageAlt="Patternfly Logo"
+        logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
         onClose={[Function]}
         productName="Red Hat Solution Explorer"
@@ -756,7 +664,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
                     role="dialog"
                   >
                     <AboutModalBoxBrand
-                      alt="Patternfly Logo"
+                      alt="Red Hat logo"
                       className=""
                       src="Logo_RH_RGB_Reverse.png"
                     >
@@ -764,7 +672,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
                         className="pf-c-about-modal-box__brand"
                       >
                         <img
-                          alt="Patternfly Logo"
+                          alt="Red Hat logo"
                           className="pf-c-about-modal-box__brand-image"
                           src="Logo_RH_RGB_Reverse.png"
                         />
@@ -913,28 +821,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
                                     className=""
                                     data-pf-content={true}
                                   >
-                                    Server name
-                                  </dt>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dd"
-                                >
-                                  <dd
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    TBD
-                                  </dd>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dt"
-                                >
-                                  <dt
-                                    className=""
-                                    data-pf-content={true}
-                                  >
                                     User Name
                                   </dt>
                                 </TextListItem>
@@ -946,28 +832,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
                                     className=""
                                     data-pf-content={true}
                                   />
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dt"
-                                >
-                                  <dt
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    User Role
-                                  </dt>
-                                </TextListItem>
-                                <TextListItem
-                                  className=""
-                                  component="dd"
-                                >
-                                  <dd
-                                    className=""
-                                    data-pf-content={true}
-                                  >
-                                    TBD
-                                  </dd>
                                 </TextListItem>
                                 <TextListItem
                                   className=""

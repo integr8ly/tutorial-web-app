@@ -29,20 +29,16 @@ class AboutModal extends React.Component {
           productName="Red Hat Solution Explorer"
           trademark={`Copyright (c) ${new Date().getFullYear()} Red Hat, Inc.`}
           brandImageSrc={redHatLogo}
-          brandImageAlt="Patternfly Logo"
+          brandImageAlt="Red Hat logo"
           logoImageSrc={solutionsExplorerLogo}
-          logoImageAlt="Patternfly Logo"
+          logoImageAlt="Red Hat Solutions Explorer logo"
         >
           <TextContent>
             <TextList component="dl">
               <TextListItem component="dt">Webapp version</TextListItem>
               <TextListItem component="dd">{pkgJson.version}</TextListItem>
-              <TextListItem component="dt">Server name</TextListItem>
-              <TextListItem component="dd">TBD</TextListItem>
               <TextListItem component="dt">User Name</TextListItem>
               <TextListItem component="dd">{window.localStorage.getItem('currentUserName')}</TextListItem>
-              <TextListItem component="dt">User Role</TextListItem>
-              <TextListItem component="dd">TBD</TextListItem>
               <TextListItem component="dt">Browser Version</TextListItem>
               <TextListItem component="dd">
                 {browser ? browser.name : ' '} {browser ? browser.version : ' '}
