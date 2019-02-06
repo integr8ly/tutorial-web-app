@@ -57,6 +57,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           </Button>
         </div>
         <div
+          className="integr8ly-task-overview"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<div class=\\"literalblock\\">
