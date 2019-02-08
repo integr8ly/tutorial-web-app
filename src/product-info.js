@@ -13,8 +13,8 @@ export default {
     gaStatus: 'GA'
   },
   che: {
-    prettyName: 'Eclipse Che',
-    gaStatus: 'community'
+    prettyName: 'CodeReady',
+    gaStatus: 'GA'
   },
   launcher: {
     prettyName: 'Red Hat Developer Launcher',
