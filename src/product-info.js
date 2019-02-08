@@ -12,7 +12,7 @@ export default {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA'
   },
-  che: {
+  codeready: {
     prettyName: 'CodeReady',
     gaStatus: 'GA'
   },
