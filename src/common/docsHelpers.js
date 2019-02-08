@@ -44,10 +44,10 @@ const retrieveRouteAttributes = (resourceId, route) => {
 };
 
 const getMiddlewareServiceAttrs = middlewareServices => {
-  const threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE)
+  const threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
 
   return {
-    'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') :  threescaleUrl,
+    'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl,
     'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
@@ -62,7 +62,7 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     'amq-credentials-username': middlewareServices.amqCredentials.username,
     'amq-credentials-password': middlewareServices.amqCredentials.password,
     'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO)
-  }
+  };
 };
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
