@@ -199,9 +199,8 @@ function resolveWalkthroughLocations(locations) {
         const clonePath = path.join(TMP_DIR, tmpDirPrefix);
 
         // Need to parse out query params for walkthroughs, e.g custom directory
-        const locationParts = location.split('?')
-        const cloneUrl = locationParts[0]
-        const walkthroughParams = querystring.parse(locationParts[1])
+        const cloneUrl = generateCloneUrlFromLocation(location)
+        const walkthroughParams = querystring.parse(url.parse(location).query)
 
         return gitClient
           .cloneRepo(cloneUrl, clonePath)
@@ -215,6 +214,19 @@ function resolveWalkthroughLocations(locations) {
     }));
 
   return Promise.all(mappedLocations);
+}
+
+/**
+ * Given a URL to a repository, strip the query and rebuild the URL
+ * @param {String} location 
+ */
+function generateCloneUrlFromLocation (location) {
+  const locationParsed = url.parse(location)
+  
+  // Need to nullify query params since these are just used by us
+  locationParsed.search = locationParsed.query = null
+
+  return url.format(locationParsed)
 }
 
 /**

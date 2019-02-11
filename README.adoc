@@ -192,7 +192,7 @@ WALKTHROUGH_LOCATIONS="https://github.com/user/repo#branch-or-tag"
 If the walkthroughs are not inside the typical `walkthroughs/` folder in your repository you can specify the directory via a querystring param like so:
 
 ----
-WALKTHROUGH_LOCATIONS="https://github.com/user/repo#branch-or-tag?walkthroughsFolder=/custom/location"
+WALKTHROUGH_LOCATIONS="https://github.com/user/repo?walkthroughsFolder=/custom/location#branch-or-tag"
 ----
 ====
 
