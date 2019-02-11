@@ -12,9 +12,9 @@ export default {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA'
   },
-  che: {
-    prettyName: 'Eclipse Che',
-    gaStatus: 'community'
+  codeready: {
+    prettyName: 'CodeReady',
+    gaStatus: 'GA'
   },
   launcher: {
     prettyName: 'Red Hat Developer Launcher',
