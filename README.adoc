@@ -189,7 +189,7 @@ By default the master branch of the repository gets cloned. But you can specify 
 WALKTHROUGH_LOCATIONS="https://github.com/user/repo#branch-or-tag"
 ----
 
-If your walkthroughs are not inside the typical `walkthroughs/` folder in your repository you can specify the directory via querystring params like so:
+If the walkthroughs are not inside the typical `walkthroughs/` folder in your repository you can specify the directory via a querystring param like so:
 
 ----
 WALKTHROUGH_LOCATIONS="https://github.com/user/repo#branch-or-tag?walkthroughsFolder=/custom/location"
