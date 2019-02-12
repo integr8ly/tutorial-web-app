@@ -10,7 +10,7 @@ import {
   ToolbarGroup,
   ToolbarItem
 } from '@patternfly/react-core';
-import accessibleStyles from '@patternfly/patternfly-next/utilities/Accessibility/accessibility.css';
+import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';

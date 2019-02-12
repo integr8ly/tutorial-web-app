@@ -30,7 +30,7 @@ class LandingPage extends React.Component {
 
     return (
       <React.Fragment>
-        <Page>
+        <Page className="pf-u-h-100vh">
           <Masthead />
           <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
