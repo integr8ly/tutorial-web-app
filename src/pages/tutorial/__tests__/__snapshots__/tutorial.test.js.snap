@@ -31,8 +31,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     }
   />
   <Page
-    className=""
+    className="pf-u-h-100vh"
     header={null}
+    isManagedSidebar={false}
+    onPageResize={null}
     sidebar={null}
   >
     <Masthead

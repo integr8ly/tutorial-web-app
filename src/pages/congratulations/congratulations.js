@@ -27,7 +27,7 @@ class CongratulationsPage extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Page>
+        <Page className="pf-u-h-100vh">
           <Masthead />
           <PageSection variant={PageSectionVariants.darker}>
             <Bullseye>
