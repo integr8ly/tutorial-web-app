@@ -101,7 +101,7 @@ class TutorialPage extends React.Component {
       return (
         <React.Fragment>
           <BackgroundImage src={bgImages} />
-          <Page>
+          <Page className="pf-u-h-100vh">
             <PfMasthead />
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md" className="pf-c-content">

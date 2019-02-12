@@ -392,7 +392,7 @@ class TaskPage extends React.Component {
       return (
         <React.Fragment>
           <BackgroundImage src={bgImages} />
-          <Page>
+          <Page className="pf-u-h-100vh">
             <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
