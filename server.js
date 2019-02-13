@@ -217,7 +217,6 @@ function resolveWalkthroughLocations(locations) {
               console.log(`Git walkthrough (${cloneUrl}) specified folder: ${l}`)
               resolve(Object.assign({ parentId: `${repoName}-${path.basename(l)}` }, locationResultTemplate, { local: path.join(cloned, l) }));
             }
-            // return resolve(locationResult);
           })
           .catch(reject);
       }
