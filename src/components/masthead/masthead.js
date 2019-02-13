@@ -25,7 +25,7 @@ class Masthead extends React.Component {
 
     this.state = {
       isUserDropdownOpen: false,
-      isModalOpen: false
+      showAboutModal: false
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -33,6 +33,9 @@ class Masthead extends React.Component {
 
     this.onUserDropdownToggle = this.onUserDropdownToggle.bind(this);
     this.onUserDropdownSelect = this.onUserDropdownSelect.bind(this);
+
+    this.onAboutModal = this.onAboutModal.bind(this);
+    this.closeAboutModal = this.closeAboutModal.bind(this);
   }
 
   onLogoutUser = () => {
@@ -46,17 +49,14 @@ class Masthead extends React.Component {
     });
   };
 
-  closeAbout() {
-    this.setState(({ isModalOpen }) => ({
-      isModalOpen: !isModalOpen
-    }));
+  onAboutModal(e) {
+    e.preventDefault();
+    this.setState({ showAboutModal: true });
   }
 
-  handleModalToggle = () => {
-    this.setState(({ isModalOpen }) => ({
-      isModalOpen: !isModalOpen
-    }));
-  };
+  closeAboutModal() {
+    this.setState({ showAboutModal: false });
+  }
 
   onTitleClick = () => {
     const { history } = this.props;
@@ -77,7 +77,7 @@ class Masthead extends React.Component {
   };
 
   render() {
-    const { isUserDropdownOpen } = this.state;
+    const { isUserDropdownOpen, showAboutModal } = this.state;
 
     const logoProps = {
       onClick: () => this.onTitleClick()
@@ -98,18 +98,19 @@ class Masthead extends React.Component {
                     {window.localStorage.getItem('currentUserName')}
                   </DropdownToggle>
                 }
-              >
-                <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
-                  Log out
-                </DropdownItem>
-                <DropdownItem key="about" component="button" href="#about" onClick={this.handleModalToggle}>
-                  About
-                </DropdownItem>
-              </Dropdown>
+                dropdownItems={[
+                  <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
+                    Log out
+                  </DropdownItem>,
+                  <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
+                    About
+                  </DropdownItem>
+                ]}
+              />
             </ToolbarItem>
           </ToolbarGroup>
         </Toolbar>
-        {this.state.isModalOpen && <AboutModal isOpen={this.state.isModalOpen} closeAbout={this.closeAbout} />}
+        {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
 
