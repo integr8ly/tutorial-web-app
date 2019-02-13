@@ -194,6 +194,12 @@ If the walkthroughs are not inside the typical `walkthroughs/` folder in your re
 ----
 WALKTHROUGH_LOCATIONS="https://github.com/user/repo?walkthroughsFolder=/custom/location#branch-or-tag"
 ----
+
+You can specify multiple walkthrough folders in same repo if you want:
+
+----
+WALKTHROUGH_LOCATIONS="https://github.com/user/repo?walkthroughsFolder=/custom/location?walkthroughsFolder=/another/custom/location#branch-or-tag"
+----
 ====
 
 === Developing Walkthroughs on Openshift
