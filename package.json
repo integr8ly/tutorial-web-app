@@ -19,6 +19,7 @@
     "i18next": "11.6.0",
     "i18next-xhr-backend": "1.5.1",
     "js-cookie": "2.2.0",
+    "lodash.flattendeep": "^4.4.0",
     "lodash.get": "4.4.2",
     "mustache": "^3.0.0",
     "npm": "6.4.1",
