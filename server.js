@@ -191,7 +191,7 @@ function resolveWalkthroughLocations(locations) {
         return reject(new Error(`Invalid location ${location}`));
       } else if (isPath(location)) {
         console.log(`Importing walkthrough from path ${location}`);
-        const locationResult = Object.assign({ parentId: 'local' }, locationResultTemplate, { local: location });
+        const locationResult = Object.assign({ parentId: path.basename(location) }, locationResultTemplate, { local: location });
         return resolve(locationResult);
       } else if (isGitRepo(location)) {
         const clonePath = path.join(TMP_DIR, tmpDirPrefix);
