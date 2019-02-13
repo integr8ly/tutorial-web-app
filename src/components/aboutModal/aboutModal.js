@@ -6,6 +6,7 @@ import { AboutModal as PfAboutModal, TextContent, TextList, TextListItem } from 
 import { detect } from 'detect-browser';
 import solutionsExplorerLogo from '../../img/logo-alt.svg';
 import redHatLogo from '../../img/Logo_RH_RGB_Reverse.png';
+import pfBackgroundImage from '../../img/pfbg_992.jpg';
 
 const pkgJson = require('../../../package.json');
 
@@ -27,8 +28,8 @@ class AboutModal extends React.Component {
           onClose={closeAboutModal}
           productName="Red Hat Solution Explorer"
           trademark={`Copyright (c) ${new Date().getFullYear()} Red Hat, Inc.`}
-          heroImageSrc=""
-          heroImageAlt=""
+          heroImageSrc={pfBackgroundImage}
+          heroImageAlt="Red Hat Solutions Explorer background image"
           brandImageSrc={redHatLogo}
           brandImageAlt="Red Hat logo"
           logoImageSrc={solutionsExplorerLogo}
