@@ -22,6 +22,8 @@ const TutorialCard = props => (
       <div className="integr8ly-c-card__info pf-u-w-100">
         <Button
           variant="link"
+          type="button"
+          aria-label="Navigate to Walkthrough"
           className={
             props.progress === 100
               ? 'pf-u-pl-0 integr8ly-c-card__status--complete-icon'

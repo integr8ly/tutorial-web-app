@@ -437,12 +437,12 @@ class TaskPage extends React.Component {
                   </Text>
                   <div className="pf-u-mb-lg">
                     {taskNum === 0 && (
-                      <Button variant="secondary" onClick={e => this.backToIntro(e)}>
+                      <Button variant="secondary" type="button" onClick={e => this.backToIntro(e)}>
                         {t('task.backToIntro')}
                       </Button>
                     )}
                     {taskNum > 0 && (
-                      <Button variant="secondary" onClick={e => this.goToTask(e, taskNum - 1)}>
+                      <Button variant="secondary" type="button" onClick={e => this.goToTask(e, taskNum - 1)}>
                         {t('task.previousTask')}
                       </Button>
                     )}
@@ -499,6 +499,7 @@ class TaskPage extends React.Component {
                     {taskNum + 1 < totalTasks && (
                       <Button
                         variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        type="button"
                         onClick={e => this.goToTask(e, taskNum + 1)}
                         isDisabled={!taskVerificationComplete}
                       >
@@ -508,6 +509,7 @@ class TaskPage extends React.Component {
                     {taskNum + 1 === totalTasks && (
                       <Button
                         variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        type="button"
                         onClick={e => this.exitTutorial(e)}
                         isDisabled={!taskVerificationComplete}
                       >
