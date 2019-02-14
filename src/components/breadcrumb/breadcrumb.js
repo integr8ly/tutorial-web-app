@@ -18,14 +18,16 @@ class Breadcrumb extends React.Component {
     return (
       <PfBreadcrumb>
         <BreadcrumbItem onClick={this.homeClicked} id="breadcrumb-home">
-          <Icon className="fa-lg" type="fa" name="home" />
+          <Icon className="fa-lg" type="fa" name="home" aria-label="Back to the Dashboard" />
         </BreadcrumbItem>
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&
           taskPosition && (
             <React.Fragment>
               <BreadcrumbItem to={`/tutorial/${threadId}`}>{threadName}</BreadcrumbItem>
-              <BreadcrumbItem isActive>{t('breadcrumb.task', { taskPosition, totalTasks })}</BreadcrumbItem>
+              <BreadcrumbItem isActive aria-current="page">
+                {t('breadcrumb.task', { taskPosition, totalTasks })}
+              </BreadcrumbItem>
             </React.Fragment>
           )}
       </PfBreadcrumb>
