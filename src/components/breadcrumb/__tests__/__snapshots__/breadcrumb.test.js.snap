@@ -15,6 +15,7 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
     to={null}
   >
     <Icon
+      aria-label="Back to the Dashboard"
       className="fa-lg"
       name="home"
       type="fa"
@@ -30,6 +31,7 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
     Unit Test Walkthrough
   </BreadcrumbItem>
   <BreadcrumbItem
+    aria-current="page"
     className=""
     component="a"
     isActive={true}
@@ -56,6 +58,7 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
     to={null}
   >
     <Icon
+      aria-label="Back to the Dashboard"
       className="fa-lg"
       name="home"
       type="fa"
@@ -71,6 +74,7 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
     Unit Test Walkthrough
   </BreadcrumbItem>
   <BreadcrumbItem
+    aria-current="page"
     className=""
     component="a"
     isActive={true}
@@ -97,6 +101,7 @@ exports[`Breadcrumb component should render default breadcrumb 1`] = `
     to={null}
   >
     <Icon
+      aria-label="Back to the Dashboard"
       className="fa-lg"
       name="home"
       type="fa"
