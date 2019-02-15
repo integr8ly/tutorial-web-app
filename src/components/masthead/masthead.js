@@ -60,8 +60,7 @@ class Masthead extends React.Component {
 
   onTitleClick = () => {
     const { history } = this.props;
-    history.push(`/`);
-    window.location.href = '/';
+    history.push('/');
   };
 
   onUserDropdownToggle(isUserDropdownOpen) {
@@ -147,4 +146,4 @@ const ConnectedMasthead = connect(
 
 const RoutedConnectedMasthead = withRouter(ConnectedMasthead);
 
-export { RoutedConnectedMasthead as default, ConnectedMasthead, Masthead };
+export { Masthead as default, ConnectedMasthead, RoutedConnectedMasthead, Masthead };

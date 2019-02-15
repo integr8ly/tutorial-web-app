@@ -2,10 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
 import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
-import PfMasthead from '../../components/masthead/masthead';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
+import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 
 class LandingPage extends React.Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ class LandingPage extends React.Component {
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
-          <PfMasthead />
+          <RoutedConnectedMasthead />
           <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <Grid gutter="md">
