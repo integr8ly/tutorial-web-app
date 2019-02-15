@@ -15,10 +15,10 @@ import {
   PageSection
 } from '@patternfly/react-core';
 import { connect, reduxActions } from '../../redux';
-import PfMasthead from '../../components/masthead/masthead';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
+import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -102,7 +102,7 @@ class TutorialPage extends React.Component {
         <React.Fragment>
           <BackgroundImage src={bgImages} />
           <Page className="pf-u-h-100vh">
-            <PfMasthead />
+            <RoutedConnectedMasthead />
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md" className="pf-c-content">
                 <GridItem sm={12} md={9} className="integr8ly-task-container">

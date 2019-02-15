@@ -14,7 +14,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
 import { FlagCheckeredIcon } from '@patternfly/react-icons';
-import { Masthead } from '../../components/masthead/masthead';
+import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
 class CongratulationsPage extends React.Component {
@@ -28,7 +28,7 @@ class CongratulationsPage extends React.Component {
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
-          <Masthead />
+          <RoutedConnectedMasthead />
           <PageSection variant={PageSectionVariants.darker}>
             <Bullseye>
               <EmptyState>
