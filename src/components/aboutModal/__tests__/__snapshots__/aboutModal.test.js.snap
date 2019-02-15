@@ -24,7 +24,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     logoImageSrc="logo-alt.svg"
     onClose={null}
     productName="Red Hat Solution Explorer"
-    trademark="Copyright (c) 2019 Red Hat, Inc."
+    trademark=""
   >
     <Portal
       containerInfo={<div />}
@@ -42,7 +42,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         logoImageSrc="logo-alt.svg"
         onClose={null}
         productName="Red Hat Solution Explorer"
-        trademark="Copyright (c) 2019 Red Hat, Inc."
+        trademark=""
       />
     </Portal>
   </AboutModal>
@@ -73,7 +73,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
     logoImageSrc="logo-alt.svg"
     onClose={null}
     productName="Red Hat Solution Explorer"
-    trademark="Copyright (c) 2019 Red Hat, Inc."
+    trademark=""
   >
     <Portal
       containerInfo={<div />}
@@ -91,7 +91,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
         logoImageSrc="logo-alt.svg"
         onClose={null}
         productName="Red Hat Solution Explorer"
-        trademark="Copyright (c) 2019 Red Hat, Inc."
+        trademark=""
       />
     </Portal>
   </AboutModal>
