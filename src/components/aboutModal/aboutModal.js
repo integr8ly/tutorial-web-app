@@ -27,7 +27,6 @@ class AboutModal extends React.Component {
           isOpen={isOpen}
           onClose={closeAboutModal}
           productName="Red Hat Solution Explorer"
-          trademark={`Copyright (c) ${new Date().getFullYear()} Red Hat, Inc.`}
           heroImageSrc={pfBackgroundImage}
           heroImageAlt="Red Hat Solutions Explorer background image"
           brandImageSrc={redHatLogo}
