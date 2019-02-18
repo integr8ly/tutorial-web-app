@@ -132,6 +132,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlRowSpan={null}
         >
           <Connect(WalkthroughResources)
+            className="integr8ly-landing-page-tutorial-dashboard-section-right"
             resources={Array []}
           />
         </GridItem>

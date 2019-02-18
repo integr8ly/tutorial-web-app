@@ -1,11 +1,5 @@
 .integr8ly- {
-  &img-not-responsive {
-    img {
-      max-width: inherit;
-    }
-  }
-
-  &task-overview {
+  &img-responsive {
     img {
       max-width: 100%;
     }
