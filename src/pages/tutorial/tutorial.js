@@ -31,7 +31,6 @@ class TutorialPage extends React.Component {
     } = this.props;
     getWalkthrough(id);
     getProgress();
-    // this.loadThread();
   }
 
   getStarted(e, id) {

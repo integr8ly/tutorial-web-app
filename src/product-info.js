@@ -4,17 +4,13 @@ export default {
     prettyName: 'Red Hat AMQ Online',
     gaStatus: 'preview'
   },
-  'amq-broker-72-persistence': {
-    prettyName: 'Red Hat AMQ',
-    gaStatus: 'GA'
-  },
   fuse: {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA'
   },
-  che: {
-    prettyName: 'Eclipse Che',
-    gaStatus: 'community'
+  codeready: {
+    prettyName: 'CodeReady',
+    gaStatus: 'GA'
   },
   launcher: {
     prettyName: 'Red Hat Developer Launcher',

@@ -287,15 +287,6 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'amq-broker-72-persistence'
-          },
-          status: {
-            dashboardURL:'${process.env.OPENSHIFT_URL}',
-            conditions: [{ status: 'True' }]
-          }
-        },
-        {
-          spec: {
             clusterServiceClassExternalName: 'fuse'
           },
           status: {
@@ -314,7 +305,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'che'
+            clusterServiceClassExternalName: 'codeready'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
@@ -372,7 +363,7 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   // ````
   // So it's better to just tell the user to put a blank line between the title and short description
   let shortDescription = '';
-  if (doc.blocks[0]&& 
+  if (doc.blocks[0]&&
     doc.blocks[0].context === 'preamble' &&
     doc.blocks[0].blocks.length > 0 &&
     doc.blocks[0].blocks[0].lines &&

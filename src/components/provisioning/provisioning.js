@@ -16,7 +16,6 @@ import {
 } from '../../common/walkthroughServiceHelpers';
 
 const PROVISION_SERVICES = [
-  DEFAULT_SERVICES.AMQ,
   DEFAULT_SERVICES.ENMASSE,
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
