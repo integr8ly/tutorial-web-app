@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.7.1",
+    "@fortawesome/fontawesome-free": "5.7.2",
     "@patternfly/react-core": "2.1.4",
     "@patternfly/patternfly": "1.0.203",
     "asciidoctor.js": "1.5.7",
@@ -34,6 +34,7 @@
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
     "rimraf": "2.6.2",
+    "rfs": "8.0.1",
     "sha.js": "2.4.11",
     "simple-git": "^1.107.0"
   },
