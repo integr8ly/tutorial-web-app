@@ -17,22 +17,10 @@ class LandingPage extends React.Component {
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
 
-    const LandingPageMastHead = () => (
-      <section className="pf-c-page__main-section pf-m-dark-100 integr8ly-landing-page-masthead">
-        <h1 className="pf-c-title pf-m-4xl">Welcome to the Red Hat Solution Explorer</h1>
-        <p>
-          Get started with an end-to-end solution walkthrough or
-          <br />
-          use any of the available application services to create custom integrations.
-        </p>
-      </section>
-    );
-
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
-          <LandingPageMastHead />
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <Grid gutter="md">
               <GridItem sm={12} md={9}>
