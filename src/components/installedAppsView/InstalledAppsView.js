@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'patternfly-react';
-import { Label } from '@patternfly/react-core';
+import { Label, DataList, DataListItem } from '@patternfly/react-core';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -70,36 +70,42 @@ class InstalledAppsView extends React.Component {
 
   static getOpenshiftConsole(index) {
     return (
-      <li
-        className="pf-u-p-md"
-        onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
-        key={`openshift_console_${index}`}
-        value={index}
-      >
-        <p className="pf-u-mb-0">Red Hat OpenShift</p>
-        <div className="integr8ly-state-ready">
-          <Icon type="fa" name="bolt" /> &nbsp;Ready for use
-        </div>
-      </li>
+      <DataList>
+        <DataListItem
+          className="pf-u-p-md"
+          onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+          key={`openshift_console_${index}`}
+          value={index}
+        >
+          <div className="pf-u-display-flex pf-u-flex-direction-column">
+            <p className="pf-u-mr-lg">Red Hat OpenShift</p>
+            <div className="integr8ly-state-ready">
+              <Icon type="fa" name="bolt" /> &nbsp;Ready for use
+            </div>
+          </div>
+        </DataListItem>
+      </DataList>
     );
   }
 
   static createCustomAppElem(i, customApp) {
     return (
-      <li
-        className="pf-u-p-md"
-        onClick={() => window.open(`${customApp.url}`, '_blank')}
-        key={`openshift_console_${i}`}
-        value={i}
-      >
-        <div className="pf-u-display-flex">
-          <p className="pf-u-mr-lg">{customApp.name}</p>
-          <Label isCompact>custom</Label>
-        </div>
-        <div className="integr8ly-state-ready">
-          <Icon type="fa" name="bolt" /> &nbsp;Ready for use
-        </div>
-      </li>
+      <DataList>
+        <DataListItem
+          className="pf-u-p-md"
+          onClick={() => window.open(`${customApp.url}`, '_blank')}
+          key={`openshift_console_${i}`}
+          value={i}
+        >
+          <div className="pf-u-display-flex pf-u-flex-direction-column">
+            <p className="pf-u-mr-lg">{customApp.name}</p>
+            <Label isCompact>custom</Label>
+            <div className="integr8ly-state-ready">
+              <Icon type="fa" name="bolt" /> &nbsp;Ready for use
+            </div>
+          </div>
+        </DataListItem>
+      </DataList>
     );
   }
 
@@ -107,27 +113,33 @@ class InstalledAppsView extends React.Component {
     const masterList = apps.map((app, index) => {
       const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
       return (
-        <li
-          className="pf-u-p-md"
-          onClick={() =>
-            prettyName === 'Red Hat AMQ'
-              ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
-              : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
-          }
-          key={`${app.spec.clusterServiceClassExternalName}_${index}`}
-          value={index}
-        >
-          <div className="pf-u-display-flex">
-            <p className="pf-u-mr-lg">{prettyName}</p>
-            {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-              <Label isCompact>{gaStatus}</Label>
-            ) : (
-              <span />
-            )}
-          </div>
-          {InstalledAppsView.getStatusForApp(app)}
-          <small />
-        </li>
+        <DataList>
+          <DataListItem
+            className="pf-u-p-md"
+            onClick={() =>
+              prettyName === 'Red Hat AMQ'
+                ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
+                : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
+            }
+            key={`${app.spec.clusterServiceClassExternalName}_${index}`}
+            value={index}
+          >
+            {' '}
+            <div className="pf-u-display-flex pf-u-flex-direction-column">
+              <p className="pf-u-mr-lg">
+                {prettyName}{' '}
+                {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
+                  <Label isCompact>{gaStatus}</Label>
+                ) : (
+                  <span />
+                )}
+              </p>
+              <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+            </div>
+            <br />
+            <small />
+          </DataListItem>
+        </DataList>
       );
     });
     masterList.unshift(this.getOpenshiftConsole(masterList.length));
