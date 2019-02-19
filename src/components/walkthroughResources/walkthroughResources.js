@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, Label, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { Card, CardBody, Label, TextContent } from '@patternfly/react-core';
 import { BoltIcon, ChartPieIcon, ExclamationCircleIcon } from '@patternfly/react-icons';
 import { connect } from '../../redux';
 
@@ -93,7 +93,7 @@ class WalkthroughResources extends React.Component {
       <Card>
         <CardBody>
           <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
-            <Text component={TextVariants.h2}>Walkthrough Resources</Text>
+            <h2>Walkthrough Resources</h2>
             {this.state.resourceList}
             <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
           </TextContent>

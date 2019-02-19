@@ -950,9 +950,9 @@
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
 
-"@fortawesome/fontawesome-free@5.7.1":
-  version "5.7.1"
-  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.1.tgz#e4bdc6fd2a7b5a41d5b599bcb62cf22c78f7f535"
+"@fortawesome/fontawesome-free@5.7.2":
+  version "5.7.2"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.2.tgz#1498c3eb78ee7c78c5488418707de90aaf58d5d7"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -983,8 +983,8 @@
     tippy.js "^3.4.1"
 
 "@patternfly/react-icons@^3.0.0":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.0.2.tgz#259ca46374b7558addb36f72e9a66a4c8f93259a"
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.0.1.tgz#47d0184f40686f3fb6a0b9b0e835013d95320f06"
 
 "@patternfly/react-styles@^2.3.2":
   version "2.3.2"
@@ -11344,6 +11344,10 @@ retry@^0.10.0:
 retry@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/retry/-/retry-0.12.0.tgz#1b42a6266a21f07421d1b0b54b7dc167b01c013b"
+
+rfs@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/rfs/-/rfs-8.0.1.tgz#14219282aa3d4cb0c2e890b517057830ba0f7391"
 
 rgb-hex@^2.1.0:
   version "2.1.0"
