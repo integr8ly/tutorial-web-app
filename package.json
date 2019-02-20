@@ -21,7 +21,7 @@
     "lodash.get": "4.4.2",
     "mustache": "^3.0.0",
     "npm": "6.4.1",
-    "patternfly-react": "2.22.1",
+    "patternfly-react": "2.29.13",
     "prop-types": "15.6.2",
     "react": "16.6.3",
     "react-dom": "16.6.3",
