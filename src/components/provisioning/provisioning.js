@@ -91,14 +91,15 @@ function buildProvisioningScreen(WrappedComponent) {
         return (
           <div>
             <CheckCircleIcon className="integr8ly-provisioning-check" />
-            <span className="integr8ly-provisioning-text"> Ready to use</span>
+            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Ready to use</span>
           </div>
         );
       }
       if (isServiceProvisioning(svc)) {
         return (
           <div className="integr8ly-provisioning-spinner">
-            <CircleNotchIcon className="fa-spin" /> <span className="integr8ly-provisioning-text"> Provisioning</span>
+            <CircleNotchIcon className="fa-spin" />{' '}
+            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Provisioning</span>
           </div>
         );
       }
