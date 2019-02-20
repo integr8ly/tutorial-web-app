@@ -143,16 +143,34 @@
 .integr8ly-provissioning-icon {
   color: rgba(144, 148, 150, .8);
   font-size: 64px;
-  margin: 16px;
+  margin: 32px;
   text-align: center;
   z-index: 5;
+}
+
+.integr8ly-provisioning-datalist {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.integr8ly-provisioning-label {
+  margin-left: 16px
+}
+
+.integr8ly-provisioned-bar .pf-c-progress__indicator {
+  background-color: $pf-color-green-300;
+}
+
+.integr8ly-provisioning-check {
+  color: $pf-color-green-300;
 }
 
 .integr8ly-provisioning-spinner {
   color: $pf-color-blue-400;
 }
 
-.integr8ly-provisioning-spinner-text {
+.integr8ly-provisioning-text {
+  margin-left: 8px;
   color: $pf-color-black-900;
 }
 
