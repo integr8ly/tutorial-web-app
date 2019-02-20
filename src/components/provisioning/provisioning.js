@@ -1,7 +1,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-import { Label } from '@patternfly/react-core';
+import {
+  DataList,
+  DataListItem,
+  DataListCell,
+  Label,
+  Progress,
+  ProgressMeasureLocation,
+  ProgressSize
+} from '@patternfly/react-core';
+import { BoxesIcon, CheckCircleIcon, CircleNotchIcon } from '@patternfly/react-icons';
 import get from 'lodash.get';
 import { connect } from '../../redux';
 import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
@@ -11,8 +20,7 @@ import {
   getWalkthroughServiceInfo,
   isServiceProvisioned,
   isServiceProvisioning,
-  isServiceProvisionFailed,
-  getServiceProvisionMessage
+  isServiceProvisionFailed
 } from '../../common/walkthroughServiceHelpers';
 
 const PROVISION_SERVICES = [
@@ -69,17 +77,31 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderServiceLoadingLabels(svc) {
       const { gaStatus } = getWalkthroughServiceInfo(svc);
       if (gaStatus === 'preview' || gaStatus === 'community') {
-        return <Label isCompact>{gaStatus}</Label>;
+        return (
+          <Label className="integr8ly-provisioning-label" isCompact>
+            {gaStatus}
+          </Label>
+        );
       }
       return null;
     }
 
     static renderServiceLoadingIcon(svc) {
       if (isServiceProvisioned(svc)) {
-        return <i className="pficon pficon-on-running integr8ly-status-ready" />;
+        return (
+          <div>
+            <CheckCircleIcon className="integr8ly-provisioning-check" />
+            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Ready to use</span>
+          </div>
+        );
       }
       if (isServiceProvisioning(svc)) {
-        return <div className="spinner spinner-inverse" />;
+        return (
+          <div className="integr8ly-provisioning-spinner">
+            <CircleNotchIcon className="fa-spin" />{' '}
+            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Provisioning</span>
+          </div>
+        );
       }
       if (isServiceProvisionFailed(svc)) {
         return <div className="pficon pficon-error-circle-o" />;
@@ -103,19 +125,12 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderServiceLoadingBar(svc) {
       if (isServiceProvisioned(svc)) {
         return (
-          <div
-            className="pf-c-progress pf-m-success"
-            role="progressbar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="100"
-            aria-describedby="progress-simple-example-description"
-            style={{ width: '100%' }}
-          >
-            <div className="pf-c-progress__bar">
-              <div className="pf-c-progress__indicator" style={{ width: '100%' }} />
-            </div>
-          </div>
+          <Progress
+            className="pf-m-singleline integr8ly-provisioned-bar"
+            value={100}
+            measureLocation={ProgressMeasureLocation.outside}
+            size={ProgressSize.lg}
+          />
         );
       }
       if (isServiceProvisionFailed(svc)) {
@@ -125,22 +140,12 @@ function buildProvisioningScreen(WrappedComponent) {
       }
       if (isServiceProvisioning(svc)) {
         return (
-          <div
-            className="pf-c-progress"
-            role="progressbar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="100"
-            aria-describedby="progress-simple-example-description"
-            style={{ width: '100%' }}
-          >
-            <div className="pf-c-progress__bar">
-              <div
-                className="pf-c-progress__indicator integr8ly-progress-bar-striped active"
-                style={{ width: '100%' }}
-              />
-            </div>
-          </div>
+          <Progress
+            className="pf-m-singleline"
+            value={60}
+            measureLocation={ProgressMeasureLocation.outside}
+            size={ProgressSize.lg}
+          />
         );
       }
       return null;
@@ -149,62 +154,33 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderServiceStatusBar(svc) {
       const isProvisionFailed = isServiceProvisionFailed(svc);
       return (
-        <div
-          className={`list-group-item ${isProvisionFailed ? 'list-group-error-item' : null}`}
+        <DataListItem
+          className={`${isProvisionFailed ? 'list-group-error-item' : null}`}
           key={svc.spec.clusterServiceClassExternalName}
         >
-          <div className="list-group-item-header">
-            <div className="list-view-pf-main-info">
-              <div className="list-view-pf-left">{Provisioning.renderServiceLoadingIcon(svc)}</div>
-              <div className="list-view-pf-body">
-                <div className="list-view-pf-description">
-                  {Provisioning.renderServiceLoadingText(svc)}
-                  <div className={`list-group-item-text ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
-                    {svc.productDetails.prettyName}
-                    {Provisioning.renderServiceLoadingLabels(svc)}
-                  </div>
-                </div>
-                <div className="list-view-pf-additional-info">
-                  <div className="list-view-pf-additional-info-item" style={{ width: '100%' }}>
-                    {Provisioning.renderServiceLoadingBar(svc)}
-                  </div>
-                </div>
-              </div>
+          <DataListCell>{Provisioning.renderServiceLoadingIcon(svc)}</DataListCell>
+          <DataListCell>
+            {Provisioning.renderServiceLoadingText(svc)}
+            <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
+              {svc.productDetails.prettyName}
+              {Provisioning.renderServiceLoadingLabels(svc)}
             </div>
-          </div>
-          <div
-            className={`list-group-item-container container-fluid list-group-error-item list-group-error-item list-group-error ${
-              !isProvisionFailed ? 'hidden' : null
-            }`}
-          >
-            {getServiceProvisionMessage(svc)}
-          </div>
-        </div>
+          </DataListCell>
+          <DataListCell>{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>
+        </DataListItem>
       );
     }
 
     static renderLoadingScreen(services) {
       return (
-        <div className="integr8ly-container">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="integr8ly-module integr8ly-module-provisioning pf-u-mt-0 pf-u-mb-0 col-xs-12">
-                <div className="integr8ly-module-column">
-                  <div className="integr8ly-module-column--steps integr8ly-provisioning pf-u-p-0 pf-u-m-0">
-                    <span className="integr8ly-provisioning_logo" />
-                    <span />
-                    <span className="integr8ly-provisioning_icon" />
-                    <h2 className="pf-c-title pf-m-3xl integr8ly-provisioning_heading">
-                      Provisioning services for your new environment.
-                    </h2>
-                    <div className="list-group list-view-pf list-view-pf-equalized-column integr8ly-provisioning_list-view pf-u-mb-0">
-                      {services.map(Provisioning.renderServiceStatusBar)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h2 className="pf-c-title pf-m-xl integr8ly-provisioning_heading">
+            <BoxesIcon className="integr8ly-provissioning-icon" /> <br />
+            Provisioning services for your new environment.
+          </h2>
+          <DataList className="integr8ly-provisioning-datalist" aria-label="Simple data list example">
+            {services.map(Provisioning.renderServiceStatusBar)}
+          </DataList>
         </div>
       );
     }
