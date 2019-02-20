@@ -2,7 +2,7 @@
 
 exports[`Breadcrumb component should handle home clicked 1`] = `
 <Breadcrumb
-  aria-label="breadcrumb"
+  aria-label="Breadcrumb"
   className=""
 >
   <BreadcrumbItem
@@ -45,7 +45,7 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
 
 exports[`Breadcrumb component should render breadcrumb with props 1`] = `
 <Breadcrumb
-  aria-label="breadcrumb"
+  aria-label="Breadcrumb"
   className=""
 >
   <BreadcrumbItem
@@ -88,7 +88,7 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
 
 exports[`Breadcrumb component should render default breadcrumb 1`] = `
 <Breadcrumb
-  aria-label="breadcrumb"
+  aria-label="Breadcrumb"
   className=""
 >
   <BreadcrumbItem
