@@ -974,10 +974,10 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@patternfly/patternfly@1.0.199":
-  version "1.0.199"
-  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-1.0.199.tgz#bb17baedd03bfc5ca1d2fac54bae75c533c0537f"
-  integrity sha512-YunqPDHnUz0o2YtgXdcRP61kRY+FtoFOSdNBqztAXuAKXZBqIwngGXsqmjCGCRYg0Y76Xh9xh8A9Zq7r9iJWVA==
+"@patternfly/patternfly@1.0.200":
+  version "1.0.200"
+  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-1.0.200.tgz#7c5ed392529b9faeaf559c777f5a9448c87cbb3f"
+  integrity sha512-eyJyLRqB/b0Vhwf5WGWQkIQYmBkC02dV5Zm7/Z+rBBdCdc9QJngMUWrznfztqayheAdDbbNQdCXCTxFTmPA91A==
 
 "@patternfly/react-core@2.1.4":
   version "2.1.4"
@@ -994,9 +994,9 @@
     tippy.js "^3.4.1"
 
 "@patternfly/react-icons@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.0.1.tgz#47d0184f40686f3fb6a0b9b0e835013d95320f06"
-  integrity sha512-A/ACY0zCpIvNR8bzR21hKghqFTkFNIUX4pksDoMH8MY2tdCkJVZwkGAVy9jQ98H9DnyMnaNDd4KZuaoyicmlug==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.0.2.tgz#259ca46374b7558addb36f72e9a66a4c8f93259a"
+  integrity sha512-VJQWugCosecct5CUKNbgez1bbA4bnKpTE7BH5CGfe66Z6/UT71VhPnOGixJao2qpH7de2LYB5IPXJgRmDRzMOg==
 
 "@patternfly/react-styles@^2.3.2":
   version "2.3.2"

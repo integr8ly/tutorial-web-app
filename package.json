@@ -6,7 +6,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.1",
     "@patternfly/react-core": "2.1.4",
-    "@patternfly/patternfly": "1.0.199",
+    "@patternfly/patternfly": "1.0.200",
     "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
     "body-parser": "^1.18.3",

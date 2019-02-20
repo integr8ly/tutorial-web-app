@@ -87,13 +87,9 @@
 
   &_list-view {
     & > .list-group-item {
-      background-color: rgba(0, 67, 104, .75);
+      background-color: $pf-color-white;
       border-color: $pf-color-blue-200 transparent;
-      color: $pf-color-white;
-
-      &:hover {
-        background-color: rgba(0, 67, 104, .75);
-      }
+      max-height: 100px;  
     }
 
     .list-view-pf-main-info:hover {
@@ -144,6 +140,39 @@
   }
 }
 
+.integr8ly-provissioning-icon {
+  color: rgba(144, 148, 150, .8);
+  font-size: 64px;
+  margin: 32px;
+  text-align: center;
+  z-index: 5;
+}
+
+.integr8ly-provisioning-datalist {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.integr8ly-provisioning-label {
+  margin-left: 16px
+}
+
+.integr8ly-provisioned-bar .pf-c-progress__indicator {
+  background-color: $pf-color-green-300;
+}
+
+.integr8ly-provisioning-check {
+  color: $pf-color-green-300;
+}
+
+.integr8ly-provisioning-spinner {
+  color: $pf-color-blue-400;
+}
+
+.integr8ly-provisioning-text {
+  color: $pf-color-black-900;
+}
+
 .integr8ly-status-ready {
   color: $pf-color-light-green-400 !important;
   font-size: 1.5em !important;
@@ -155,17 +184,3 @@
   color: $pf-color-red-100 !important;
 }
 
-/* stylelint-enable */
-
-.integr8ly-progress-bar-striped {
-  background-image: linear-gradient(-45deg, rgba(3, 3, 3, .15) 25%, rgba(3, 3, 3, .15) 26%, transparent 27%, transparent 49%, rgba(3, 3, 3, .15) 50%, rgba(3, 3, 3, .15) 51%, transparent 52%, transparent 74%, rgba(3, 3, 3, .15) 75%, rgba(3, 3, 3, .15) 76%, transparent 77%);
-  background-size: 40px 40px;
-
-  /* stylelint-disable */
-  &.active {
-    // Unexpected vendor-prefix "-webkit-animation"
-    // -webkit-animation: progress-bar-stripes 2s linear infinite;
-    animation: progress-bar-stripes 2s linear infinite;
-  }
-  /* stylelint-enable */
-}
