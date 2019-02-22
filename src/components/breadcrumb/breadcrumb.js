@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Icon } from 'patternfly-react';
 import { BreadcrumbItem, Breadcrumb as PfBreadcrumb } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
+import { HomeIcon } from '@patternfly/react-icons';
 
 class Breadcrumb extends React.Component {
   homeClicked = () => {
@@ -18,7 +18,7 @@ class Breadcrumb extends React.Component {
     return (
       <PfBreadcrumb>
         <BreadcrumbItem onClick={this.homeClicked} id="breadcrumb-home">
-          <Icon className="fa-lg" type="fa" name="home" aria-label="Back to the Dashboard" />
+          <HomeIcon className="fa-lg" aria-label="Back to the Dashboard" />
         </BreadcrumbItem>
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&

@@ -31,12 +31,12 @@ const TutorialCard = props => (
           }
           href={props.getStartedLink}
         >
-          <span className="pf-u-mr-xs">{props.getStartedIcon}</span>
+          {props.getStartedIcon}
           {props.getStartedText}
         </Button>
         {props.progress === 0 ? (
           <div className="integr8ly-c-card__time">
-            <span className="pf-u-mr-xs">{props.minsIcon}</span>
+            {props.minsIcon}
             {props.mins} <span>min</span>
           </div>
         ) : (

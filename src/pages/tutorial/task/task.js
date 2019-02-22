@@ -455,7 +455,7 @@ class TaskPage extends React.Component {
                               type="fa"
                               className="integr8ly-module-column--footer_status icon pf-u-ml-md pf-u-pr-sm"
                               key={`verification-icon-${verificationId}`}
-                              name="circle"
+                              name="circle-thin"
                             />
                           ) : (
                             <Icon

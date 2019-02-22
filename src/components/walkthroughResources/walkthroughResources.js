@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardBody, Label, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { BoltIcon, ChartPieIcon, ExclamationCircleIcon } from '@patternfly/react-icons';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -29,7 +30,7 @@ class WalkthroughResources extends React.Component {
 
         if (resource.serviceName === 'openshift') {
           gaStatus = '';
-          icon = <i className="fas fa-bolt integr8ly-state-ready" />;
+          icon = <BoltIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
@@ -51,9 +52,9 @@ class WalkthroughResources extends React.Component {
   }
 
   static assignSerivceIcon(app) {
-    const provisioningStatus = <i className="fas fa-chart-pie integr8ly-state-provisioining" />;
-    const readyStatus = <i className="fas fa-bolt integr8ly-state-ready" />;
-    const unavailableStatus = <i className="fas fa-exclamation-circle integr8ly-state-unavailable" />;
+    const provisioningStatus = <ChartPieIcon className="pf-u-mr-xs integr8ly-state-provisioining" />;
+    const readyStatus = <BoltIcon className="pf-u-mr-xs integr8ly-state-ready" />;
+    const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 
     if (app.metadata && app.metadata.deletionTimestamp) {
       return unavailableStatus;
@@ -75,7 +76,7 @@ class WalkthroughResources extends React.Component {
       resourceList = resources.map(resource => (
         <div key={resource.title}>
           <div className="pf-u-pb-sm">
-            <span className="pf-u-mr-xs">{resource.statusIcon}</span>
+            {resource.statusIcon}
             <span className="pf-u-mr-md">{resource.title}</span>
             {resource.gaStatus === 'community' ? <Label isCompact>community</Label> : <span />}
             {resource.gaStatus === 'preview' ? <Label isCompact>preview</Label> : <span />}
