@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CardGrid, Icon } from 'patternfly-react';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
+import { ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -29,13 +30,13 @@ const TutorialDashboard = props => {
               type="fa"
               name={
                 currentProgress !== undefined && currentProgress.progress === 100
-                  ? 'check-circle integr8ly-c-card__status--complete-icon'
-                  : 'arrow-circle-right'
+                  ? 'check-circle pf-u-mr-xs integr8ly-c-card__status--complete-icon'
+                  : 'arrow-circle-right pf-u-mr-xs'
               }
               className="fa-lg"
             />
           }
-          minsIcon={<Icon type="fa" name="clock" className="fa-lg" arrow-alt-circle-right="true" />}
+          minsIcon={<ClockIcon className="fa-lg pf-u-mr-xs" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.time}
         >

@@ -139,7 +139,7 @@ class TutorialPage extends React.Component {
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
                         <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                          <Icon type="fa" name="clock" style={{ marginRight: 5 }} />
+                          <Icon type="fa" name="clock" className="pf-u-mr-xs" />
                           <span>
                             {parsedThread.time}
                             <span className="integr8ly-task-dashboard-time-to-completion_minutes">
@@ -156,7 +156,7 @@ class TutorialPage extends React.Component {
                             description={task.shortDescription}
                             actions={
                               <div className="integr8ly-task-dashboard-estimated-time">
-                                <Icon type="fa" name="clock-o" style={{ marginRight: 5 }} />
+                                <Icon type="fa" name="clock" className="pf-u-mr-xs" />
                                 <span>
                                   {task.time}
                                   <span className="integr8ly-task-dashboard-estimated-time_minutes">

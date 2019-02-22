@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { Label, DataList, DataListItem } from '@patternfly/react-core';
+import { BoltIcon, ChartPieIcon, ErrorCircleOIcon } from '@patternfly/react-icons';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -31,17 +31,17 @@ class InstalledAppsView extends React.Component {
   static getStatusForApp(app) {
     const provisioningStatus = (
       <div className="integr8ly-state-provisioining">
-        <Icon type="fa" name="chart-pie" /> &nbsp;Provisioning
+        <ChartPieIcon /> &nbsp;Provisioning
       </div>
     );
     const readyStatus = (
       <div className="integr8ly-state-ready">
-        <Icon type="fa" name="bolt" /> &nbsp;Ready for use
+        <BoltIcon /> &nbsp;Ready for use
       </div>
     );
     const unavailableStatus = (
       <div className="integr8ly-state-unavailable">
-        <Icon type="pf" name="error-circle-o" /> &nbsp;Unavailable
+        <ErrorCircleOIcon /> &nbsp;Unavailable
       </div>
     );
 
@@ -80,7 +80,7 @@ class InstalledAppsView extends React.Component {
           <div className="pf-u-display-flex pf-u-flex-direction-column">
             <p className="pf-u-mr-lg">Red Hat OpenShift</p>
             <div className="integr8ly-state-ready">
-              <Icon type="fa" name="bolt" /> &nbsp;Ready for use
+              <BoltIcon /> &nbsp;Ready for use
             </div>
           </div>
         </DataListItem>
@@ -101,7 +101,7 @@ class InstalledAppsView extends React.Component {
             <p className="pf-u-mr-lg">{customApp.name}</p>
             <Label isCompact>custom</Label>
             <div className="integr8ly-state-ready">
-              <Icon type="fa" name="bolt" /> &nbsp;Ready for use
+              <BoltIcon /> &nbsp;Ready for use
             </div>
           </div>
         </DataListItem>
