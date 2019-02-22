@@ -14,11 +14,12 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
     target={null}
     to={null}
   >
-    <Icon
+    <HomeIcon
       aria-label="Back to the Dashboard"
       className="fa-lg"
-      name="home"
-      type="fa"
+      color="currentColor"
+      size="sm"
+      title={null}
     />
   </BreadcrumbItem>
   <BreadcrumbItem
@@ -57,11 +58,12 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
     target={null}
     to={null}
   >
-    <Icon
+    <HomeIcon
       aria-label="Back to the Dashboard"
       className="fa-lg"
-      name="home"
-      type="fa"
+      color="currentColor"
+      size="sm"
+      title={null}
     />
   </BreadcrumbItem>
   <BreadcrumbItem
@@ -100,11 +102,12 @@ exports[`Breadcrumb component should render default breadcrumb 1`] = `
     target={null}
     to={null}
   >
-    <Icon
+    <HomeIcon
       aria-label="Back to the Dashboard"
       className="fa-lg"
-      name="home"
-      type="fa"
+      color="currentColor"
+      size="sm"
+      title={null}
     />
   </BreadcrumbItem>
 </Breadcrumb>

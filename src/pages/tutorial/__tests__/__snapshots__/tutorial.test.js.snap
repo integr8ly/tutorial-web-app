@@ -170,12 +170,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   className="pull-right integr8ly-task-dashboard-time-to-completion"
                 >
                   <Icon
+                    className="pf-u-mr-xs"
                     name="clock"
-                    style={
-                      Object {
-                        "marginRight": 5,
-                      }
-                    }
                     type="fa"
                   />
                   <span>
