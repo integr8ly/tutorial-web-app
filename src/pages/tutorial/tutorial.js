@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Icon } from 'patternfly-react';
+import { noop } from 'patternfly-react';
 import {
   BackgroundImage,
   BackgroundImageSrc,
@@ -17,6 +17,7 @@ import {
   Page,
   PageSection
 } from '@patternfly/react-core';
+import { ClockIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../redux';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
@@ -124,12 +125,10 @@ class TutorialPage extends React.Component {
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
                         <div className="pull-right integr8ly-task-dashboard-time-to-completion">
-                          <Icon type="fa" name="clock" className="pf-u-mr-xs" />
-                          <span>
-                            {parsedThread.time}
-                            <span className="integr8ly-task-dashboard-time-to-completion_minutes">
-                              {t('tutorial.minutes')}
-                            </span>
+                          <ClockIcon className="pf-u-mr-xs" />
+                          {parsedThread.time}
+                          <span className="integr8ly-task-dashboard-time-to-completion_minutes">
+                            {t('tutorial.minutes')}
                           </span>
                         </div>
                       </h3>
@@ -139,12 +138,10 @@ class TutorialPage extends React.Component {
                             <DataListCell width={5}>{`${task.title}`}</DataListCell>
                             <DataListCell width={1}>
                               <div className="integr8ly-task-dashboard-estimated-time">
-                                <Icon type="fa" name="clock" className="pf-u-mr-xs" />
-                                <span>
-                                  {task.time}
-                                  <span className="integr8ly-task-dashboard-estimated-time_minutes">
-                                    {t('tutorial.minutes')}
-                                  </span>
+                                <ClockIcon className="pf-u-mr-xs" />
+                                {task.time}
+                                <span className="integr8ly-task-dashboard-estimated-time_minutes">
+                                  {t('tutorial.minutes')}
                                 </span>
                               </div>
                             </DataListCell>
