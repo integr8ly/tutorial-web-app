@@ -15,6 +15,7 @@ const TutorialCard = props => (
       e.preventDefault();
       props.history.push(props.getStartedLink);
     }}
+    aria-hidden="true"
   >
     <CardHeader>
       <h4 className="pf-c-title pf-m-lg">{props.title}</h4>
