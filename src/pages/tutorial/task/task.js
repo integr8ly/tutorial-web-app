@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Icon, Radio } from 'patternfly-react';
+import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
 import {
   BackgroundImage,
   BackgroundImageSrc,
@@ -286,29 +286,36 @@ class TaskPage extends React.Component {
         <span dangerouslySetInnerHTML={{ __html: block.html }} />
         {
           <React.Fragment>
-            <Radio
-              name={blockId}
-              checked={isYesChecked}
-              onChange={e => {
-                this.handleVerificationInput(e, blockId, true);
-              }}
-              label="Yes"
-            >
-              Yes
-            </Radio>
-            <Radio
-              name={blockId}
-              checked={isNoChecked}
-              onChange={e => {
-                this.handleVerificationInput(e, blockId, false);
-              }}
-              label="No"
-            >
-              No
-            </Radio>
-            {isNoChecked && block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
-            {isYesChecked &&
-              block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+            <Form>
+              <FormGroup controlId="radio" disabled={false} bsSize="small">
+                <Radio
+                  name={blockId}
+                  checked={isYesChecked}
+                  onChange={e => {
+                    this.handleVerificationInput(e, blockId, true);
+                  }}
+                  label="Yes"
+                  aria-label="Yes"
+                >
+                  Yes
+                </Radio>
+                <Radio
+                  name={blockId}
+                  checked={isNoChecked}
+                  onChange={e => {
+                    this.handleVerificationInput(e, blockId, false);
+                  }}
+                  label="No"
+                  aria-label="No"
+                >
+                  No
+                </Radio>
+                {isNoChecked &&
+                  block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
+                {isYesChecked &&
+                  block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+              </FormGroup>
+            </Form>
           </React.Fragment>
         }
       </div>

@@ -48,8 +48,8 @@ const TutorialDashboard = props => {
   return (
     <div className="integr8ly-tutorial-dashboard pf-u-mb-0">
       <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
-        <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
-        <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-text-align-right pf-m-sm">
+        <h1 className="pf-c-title pf-m-4xl pf-u-mt-sm">Start with a walkthrough</h1>
+        <div className="integr8ly-walkthrough-counter pf-u-mt-lg pf-u-mr-md pf-u-text-align-right pf-m-sm">
           <strong>{walkthroughs.length} walkthroughs</strong>
         </div>
       </div>
