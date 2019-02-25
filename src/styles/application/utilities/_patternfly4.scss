@@ -15,29 +15,6 @@ html {
   font-size: unset !important; // the important is needed because we don't know if pf3 will be loaded after pfnext
 }
 
-$rfs-base-font-size: 16;
-
-:root {
-  --pf-global--FontSize--4xl: $pf-global--FontSize--4xl;
-  --pf-global--FontSize--3xl: $pf-global--FontSize--3xl;
-  --pf-global--FontSize--2xl: $pf-global--FontSize--2xl;
-  --pf-global--FontSize--xl: $pf-global--FontSize--xl;
-  --pf-global--FontSize--lg: $pf-global--FontSize--lg;
-  --pf-global--FontSize--md: $pf-global--FontSize--md;
-  --pf-global--FontSize--sm: $pf-global--FontSize--sm;
-  --pf-global--FontSize--xs: $pf-global--FontSize--xs;
-}
-
-h1, .pf-m-4xl, .pf-c-title.pf-m-4xl, .pf-c-content h1, .pf-c-content h1[data-pf-content] { @include font-size(2.25rem); }
-h2, .pf-m-3xl, .pf-c-title.pf-m-3xl, .pf-c-content h2 { @include font-size(1.75rem); }
-.pf-c-content h2[data-pf-content] { @include font-size(1.75rem); }
-h3, .pf-m-2xl, .pf-c-title.pf-m-2xl, .pf-c-content h3, .pf-c-content h3[data-pf-content] { @include font-size(1.5rem); }
-h4, .pf-m-xl, .pf-c-title.pf-m-xl, .pf-c-content h4, .pf-c-content h4[data-pf-content] { @include font-size(1.3125rem); }
-h5, .pf-m-lg, .pf-c-title.pf-m-lg, .pf-c-content h5, .pf-c-content h5[data-pf-content] { @include font-size(1.125rem); }
-p, .pf-c-content p, .pf-c-content .paragraph p { @include font-size(1rem); }
-.pf-c-label, .pf-c-button { @include font-size(1rem); }
-.pf-c-label.pf-m-compact { @include font-size(0.875rem); }
-
 // Button / Form styling
 // remove once Copy-to-Clipboard is part of PF4
 button,
