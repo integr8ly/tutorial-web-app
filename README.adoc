@@ -39,21 +39,63 @@ TIP: Use https://github.com/creationix/nvm/blob/master/README.md[nvm] to manage 
 :numbered:
 === Clone the project
 
-First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkthroughs[walkthroughs repository] next to the tutorial web app
+First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkthroughs[walkthroughs repository] next to the tutorial web app:
 
 [source,shell]
 ----
-$ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+home:$ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+home:$ cd tutorial-web-app-walkthroughs
+home:~/tutorial-web-app-walkthroughs$ install yarn
+home:~/tutorial-web-app-walkthroughs$ cd ..
 ----
 
 === Install dependencies
-Then change to the webapp directory, install its dependencies and run the development server:
+Then change to the webapp directory, install its dependencies and run the development server.  
+[source,shell]
+----
+home:$ cd tutorial-web-app
+home:~/tutorial-web-app$ yarn install
+home:~/tutorial-web-app$ yarn start:dev
+----
+
+=== Cluster configuration
+If you are running tutorial-web-app against your cluster, then you will need to configure your cluster to allow callback to your localhost:
+
+
 
 [source,shell]
 ----
-$ yarn install
-$ yarn start:dev
+$ ssh -i ~/.ssh/ocp-workshop.pem user@bastion.example.openshiftworkshop.com
+[user@bastion ~]# sudo -s
+[root@bastion user]# oc edit oauthclient tutorial-web-app
 ----
+This will open the file in vim for editing. The line 'http://localhost:3006' should be added to the bottom of the oauthclient tutorial-web-app and the file saved
+----
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: oauth.openshift.io/v1
+grantMethod: auto
+kind: OAuthClient
+metadata:
+  creationTimestamp: 2019-02-25T13:11:51Z
+  name: tutorial-web-app
+  resourceVersion: "23196"
+  selfLink: /apis/oauth.openshift.io/v1/oauthclients/tutorial-web-app
+  uid: ea3dc674-38fe-11e9-9ca1-0601b82a88d2
+redirectURIs:
+- https://tutorial-web-app-webapp.apps.tonydavidson-750a.openshiftworkshop.com
+- http://localhost:3006
+~                                                                                                                                                                                                                                                                                         
+~                                                                                                                                                                                                                                                                                         
+~                                                                                                                                                                                                                                                                       
+"/tmp/oc-edit-qrles.yaml" 16L, 613C
+----
+----
+[root@bastion user]# exit
+----
+
 
 IMPORTANT: The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
 When running locally, the available services list is mocked, and service urls set via env vars.
