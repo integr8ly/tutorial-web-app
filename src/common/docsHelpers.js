@@ -25,7 +25,8 @@ const getUserAttrs = (walkthroughId, username) => ({
     walkthroughId || buildValidProjectNamespaceName(username, 'shared')
   ),
   'user-username': username,
-  'user-sanitized-username': cleanUsername(username)
+  'user-sanitized-username': cleanUsername(username),
+  'walkthrough-locations': process.env.WALKTHROUGH_LOCATIONS
 });
 
 const getWalkthroughSpecificAttrs = (walkthroughId, walkthroughResources) =>
