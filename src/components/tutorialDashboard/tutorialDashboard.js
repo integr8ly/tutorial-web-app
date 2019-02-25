@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardGrid, Icon } from 'patternfly-react';
+import { Icon } from 'patternfly-react';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
 import { ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
@@ -50,13 +50,11 @@ const TutorialDashboard = props => {
     <div className="integr8ly-tutorial-dashboard pf-u-mb-0">
       <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
         <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm">Start with a walkthrough</h2>
-        <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-mr-md pf-u-text-align-right pf-m-sm">
+        <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-text-align-right pf-m-sm">
           <strong>{walkthroughs.length} walkthroughs</strong>
         </div>
       </div>
-      <CardGrid className="pf-u-mt-0" style={{ width: 'calc(100% - 40px)' }}>
-        <Gallery gutter="md">{cards}</Gallery>
-      </CardGrid>
+      <Gallery gutter="md">{cards}</Gallery>
     </div>
   );
 };
