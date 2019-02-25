@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardBody, Label, TextContent } from '@patternfly/react-core';
-import { BoltIcon, ChartPieIcon, ExclamationCircleIcon } from '@patternfly/react-icons';
+import { ChartPieIcon, ExclamationCircleIcon, OnRunningIcon } from '@patternfly/react-icons';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -30,7 +30,7 @@ class WalkthroughResources extends React.Component {
 
         if (resource.serviceName === 'openshift') {
           gaStatus = '';
-          icon = <BoltIcon className="pf-u-mr-xs integr8ly-state-ready" />;
+          icon = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
@@ -53,7 +53,7 @@ class WalkthroughResources extends React.Component {
 
   static assignSerivceIcon(app) {
     const provisioningStatus = <ChartPieIcon className="pf-u-mr-xs integr8ly-state-provisioining" />;
-    const readyStatus = <BoltIcon className="pf-u-mr-xs integr8ly-state-ready" />;
+    const readyStatus = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
     const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 
     if (app.metadata && app.metadata.deletionTimestamp) {
