@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 5001;
-const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || './etc/webapp/customServerConfig.json';
+const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
 
 const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
