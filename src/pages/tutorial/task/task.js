@@ -446,7 +446,7 @@ class TaskPage extends React.Component {
                         {t('task.previousTask')}
                       </Button>
                     )}
-                    <span className="integr8ly-module-column--footer_status pf-u-mx-lg">
+                    <span className="integr8ly-module-column--footer_status pf-u-ml-sm pf-u-mr-lg">
                       {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
                         <React.Fragment key={i}>
                           {/* Bottom footer icon */}
