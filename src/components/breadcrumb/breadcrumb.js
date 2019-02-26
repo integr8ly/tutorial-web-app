@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { BreadcrumbItem, Breadcrumb as PfBreadcrumb } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
-import { HomeIcon } from '@patternfly/react-icons';
 
 class Breadcrumb extends React.Component {
   homeClicked = () => {
@@ -17,8 +16,8 @@ class Breadcrumb extends React.Component {
     const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
     return (
       <PfBreadcrumb>
-        <BreadcrumbItem onClick={this.homeClicked} id="breadcrumb-home">
-          <HomeIcon className="fa-lg" aria-label="Back to the Dashboard" />
+        <BreadcrumbItem to="#" onClick={this.homeClicked} id="breadcrumb-home">
+          Home
         </BreadcrumbItem>
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&
