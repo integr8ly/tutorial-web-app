@@ -78,7 +78,7 @@ class InstalledAppsView extends React.Component {
           value={index}
         >
           <div className="pf-u-display-flex pf-u-flex-direction-column">
-            <p className="pf-u-mr-lg">Red Hat OpenShift</p>
+            <p>Red Hat OpenShift</p>
             <div className="integr8ly-state-ready">
               <OnRunningIcon /> &nbsp;Ready for use
             </div>
@@ -98,8 +98,10 @@ class InstalledAppsView extends React.Component {
           value={i}
         >
           <div className="pf-u-display-flex pf-u-flex-direction-column">
-            <p className="pf-u-mr-lg">{customApp.name}</p>
-            <Label isCompact>custom</Label>
+            <p>{customApp.name}</p>
+            <Label isCompact className="pf-u-ml-lg">
+              custom
+            </Label>
             <div className="integr8ly-state-ready">
               <OnRunningIcon /> &nbsp;Ready for use
             </div>
@@ -126,10 +128,12 @@ class InstalledAppsView extends React.Component {
           >
             {' '}
             <div className="pf-u-display-flex pf-u-flex-direction-column">
-              <p className="pf-u-mr-lg">
+              <p>
                 {prettyName}{' '}
                 {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                  <Label isCompact>{gaStatus}</Label>
+                  <Label isCompact className="pf-u-ml-lg">
+                    {gaStatus}
+                  </Label>
                 ) : (
                   <span />
                 )}
@@ -153,7 +157,7 @@ class InstalledAppsView extends React.Component {
     const appList = InstalledAppsView.createMasterList(this.props.apps, this.props.customApps);
     return (
       <div className="integr8ly-installed-apps-view pf-u-mb-0">
-        <div className="integr8ly-installed-apps-view-panel-title pf-u-mt-sm pf-u-display-flex">
+        <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-mt-sm pf-u-box-shadow-md">
           <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
           <div className="pf-u-mt-md pf-u-pr-sm pf-m-sm pf-u-text-align-right">
             <strong>{appList.props.children.length} applications</strong>
