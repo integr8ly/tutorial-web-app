@@ -55,6 +55,9 @@ $ yarn install
 $ yarn start:dev
 ----
 
+IMPORTANT: The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
+When running locally, the available services list is mocked, and service urls set via env vars.
+
 === Cluster configuration
 If you are running tutorial-web-app against your cluster, then you will need to configure your cluster to allow callback to your localhost:
 
@@ -72,13 +75,7 @@ redirectURIs:
 - http://localhost:3006
 
 ----
-----
-$ exit
-----
 
-
-IMPORTANT: The webapp will automatically open (http://localhost:3006) in your browser and watch for file changes.
-When running locally, the available services list is mocked, and service urls set via env vars.
 
 The webapp will also automatically load the walkthroughs from `../tutorial-web-app-walkthroughs/walkthroughs`.
 
