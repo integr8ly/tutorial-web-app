@@ -16,7 +16,9 @@ const TutorialCard = props => (
       props.history.push(props.getStartedLink);
     }}
   >
-    <CardHeader>{props.title}</CardHeader>
+    <CardHeader>
+      <h4 className="pf-c-title pf-m-lg">{props.title}</h4>
+    </CardHeader>
     <CardBody>{props.children}</CardBody>
     <CardFooter>
       <div className="integr8ly-c-card__info pf-u-w-100">
