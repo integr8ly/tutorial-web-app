@@ -31,12 +31,11 @@ const TutorialDashboard = props => {
               name={
                 currentProgress !== undefined && currentProgress.progress === 100
                   ? 'check-circle pf-u-mr-xs integr8ly-c-card__status--complete-icon'
-                  : 'arrow-circle-right pf-u-mr-xs'
+                  : 'arrow-circle-right pf-u-mr-sm'
               }
-              className="fa-lg"
             />
           }
-          minsIcon={<ClockIcon className="fa-lg pf-u-mr-xs" />}
+          minsIcon={<ClockIcon className="pf-u-mr-sm" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.time}
         >
