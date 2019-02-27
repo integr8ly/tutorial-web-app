@@ -5,7 +5,6 @@ import {
   DataList,
   DataListItem,
   DataListCell,
-  Label,
   Progress,
   ProgressMeasureLocation,
   ProgressSize
@@ -17,7 +16,6 @@ import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } fro
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 import {
-  getWalkthroughServiceInfo,
   isServiceProvisioned,
   isServiceProvisioning,
   isServiceProvisionFailed
@@ -72,18 +70,6 @@ function buildProvisioningScreen(WrappedComponent) {
         return svc.status.conditions[0].status === 'True';
       }
       return false;
-    }
-
-    static renderServiceLoadingLabels(svc) {
-      const { gaStatus } = getWalkthroughServiceInfo(svc);
-      if (gaStatus === 'preview' || gaStatus === 'community') {
-        return (
-          <Label className="integr8ly-provisioning-label" isCompact>
-            {gaStatus}
-          </Label>
-        );
-      }
-      return null;
     }
 
     static renderServiceLoadingIcon(svc) {
@@ -163,7 +149,6 @@ function buildProvisioningScreen(WrappedComponent) {
             {Provisioning.renderServiceLoadingText(svc)}
             <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
               {svc.productDetails.prettyName}
-              {Provisioning.renderServiceLoadingLabels(svc)}
             </div>
           </DataListCell>
           <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>
