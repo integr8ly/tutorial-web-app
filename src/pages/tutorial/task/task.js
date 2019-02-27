@@ -415,7 +415,8 @@ class TaskPage extends React.Component {
                   <Card className="integr8ly-c-card--content pf-u-mb-xl">
                     <CardBody>
                       <TextContent className="integr8ly-module-column pf-u-pb-sm">
-                        <h2>{threadTask.title}</h2>
+                        <h1 className="pf-u-screen-reader">{parsedThread.title}</h1>
+                        <h2 className="pf-u-mt-0">{threadTask.title}</h2>
                         <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                           {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
                         </div>
