@@ -13,7 +13,7 @@ import {
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
-import { FlagCheckeredIcon } from '@patternfly/react-icons';
+import { AwardIcon } from '@patternfly/react-icons';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 
@@ -29,10 +29,10 @@ class CongratulationsPage extends React.Component {
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
-          <PageSection variant={PageSectionVariants.darker}>
+          <PageSection variant={PageSectionVariants.default}>
             <Bullseye>
               <EmptyState>
-                <EmptyStateIcon icon={FlagCheckeredIcon} />
+                <EmptyStateIcon icon={AwardIcon} />
                 <Title size="lg">Congratulations, you completed the walkthrough!</Title>
                 <EmptyStateBody>
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
