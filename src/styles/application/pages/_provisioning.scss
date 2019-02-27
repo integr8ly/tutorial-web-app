@@ -1,186 +1,24 @@
 .integr8ly-provisioning {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  height: calc(100vh);
-  margin-bottom: 0;
-
-  --integr8ly-c-provisioning-image--BackgroundImage: url("#{$pf-global--image-path}/loading_576.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage-2x: url("#{$pf-global--image-path}/loading_576@2x.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage--sm: url("#{$pf-global--image-path}/loading_768.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage--sm-2x: url("#{$pf-global--image-path}/loading_768@2x.jpg");
-  --integr8ly-c-provisioning-image--BackgroundImage--lg: url("#{$pf-global--image-path}/loading_2000.jpg");
-
-  &::before {
+  &-datalist {
     position: fixed;
-    top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background-color: $pf-color-blue-600;
-    background-image: var(--integr8ly-c-provisioning-image--BackgroundImage);
-    filter: var(--pf-c-background-image--Filter);
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    /* stylelint-disable */
-    @media (max-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
-      (max-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage-2x);
-    }
-
-    @media (min-width: $pf-global--breakpoint--sm) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage--sm);
-    }
-
-    @media (min-width: $pf-global--breakpoint--sm) and (-webkit-min-device-pixel-ratio: 2),
-      (min-width: $pf-global--breakpoint--sm) and (min-resolution: 192dpi) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage--sm-2x);
-    }
-
-    @media (min-width: $pf-global--breakpoint--lg) {
-      --integr8ly-c-provisioning-image--BackgroundImage: var(--integr8ly-c-provisioning-image--BackgroundImage--lg);
-    }
-    /* stylelint-enable */
   }
 
-  &_logo {
-    position: absolute;
-    top: 45px;
-    right: 25px;
-    height: 38px;
-    width: 115px;
-    background-image: url("/public/assets/images/RedHatLogo.png");
-    background-repeat: no-repeat;
-
-    @media (max-width: var(--pf-global--breakpoint--md)) {
-      display: none;
-    }
+  &-check {
+    color: var(--pf-global--success-color--100);
   }
 
-  &_icon {
-    height: 100%;
-    width: 20%;
-    margin: 0 auto;
-    background-image: url("../../img/StartingServicesStill.svg");
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    z-index: 5;
-
-    @media (max-width: var(--pf-global--breakpoint--md)) {
-      display: none;
-    }
+  &-spinner {
+    color: var(--pf-global--active-color--100);
   }
 
-  &_heading {
-    color: $pf-color-white;
-    text-align: center;
-    z-index: 5;
-    padding-bottom: 40px;
-  }
-
-  /* stylelint-disable */
-
-  &_list-view {
-    & > .list-group-item {
-      background-color: $pf-color-white;
-      border-color: $pf-color-blue-200 transparent;
-      max-height: 100px;  
-    }
-
-    .list-view-pf-main-info:hover {
-      cursor: default;
-    }
-
-    .list-group-error-item {
-      background-color: $pf-color-blue-50;
-      border-color: $pf-color-blue-200;
-      color: $pf-color-black-700;
-
-      &:hover {
-        background-color: $pf-color-blue-50;
-      }
-    }
-
-    .list-group-item-header {
-      cursor: default;
-    }
-
-    .list-group-error {
-      padding-top: 20px;
-      padding-bottom: 20px;
-      padding-left: 55px;
-    }
-
-    .list-view-pf-left .pficon {
-      font-size: 1.6em;
-    }
-
-    .list-view-pf-expand {
-      visibility: hidden;
-    }
-
-    .list-group-item-heading {
-      font-size: 16px;
-      font-weight: 500;
-      border-right: 1px solid $pf-color-blue-200;
-    }
-
-    .list-view-pf-additional-info-item {
-      text-align: left;
-    }
-
-    .pf-c-progress {
-      grid-gap: 0;
-    }
+  &-text {
+    color: var(--pf-global--Color--100);
   }
 }
 
-.integr8ly-provissioning-icon {
-  color: rgba(144, 148, 150, .8);
-  font-size: 64px;
-  margin: 32px;
-  text-align: center;
-  z-index: 5;
+.integr8ly-provisioned-bar .pf-c-progress__indicator { /* stylelint-disable-line */
+  background-color: var(--pf-global--success-color--100);
 }
-
-.integr8ly-provisioning-datalist {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.integr8ly-provisioning-label {
-  margin-left: 16px
-}
-
-.integr8ly-provisioned-bar .pf-c-progress__indicator {
-  background-color: $pf-color-green-300;
-}
-
-.integr8ly-provisioning-check {
-  color: $pf-color-green-300;
-}
-
-.integr8ly-provisioning-spinner {
-  color: $pf-color-blue-400;
-}
-
-.integr8ly-provisioning-text {
-  color: $pf-color-black-900;
-}
-
-.integr8ly-status-ready {
-  color: $pf-color-light-green-400 !important;
-  font-size: 1.5em !important;
-  display: block;
-}
-
-.integr8ly-status-error,
-.list-group-item-text.integr8ly-status-error {
-  color: $pf-color-red-100 !important;
-}
-
