@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Icon, ListView } from 'patternfly-react';
+import { noop, Icon } from 'patternfly-react';
 import {
   BackgroundImage,
   BackgroundImageSrc,
   Button,
   Card,
   CardBody,
+  DataList,
+  DataListItem,
+  DataListCell,
   Grid,
   GridItem,
   Page,
@@ -148,13 +151,11 @@ class TutorialPage extends React.Component {
                           </span>
                         </div>
                       </h3>
-                      <ListView className="integr8ly-list-view-pf">
+                      <DataList>
                         {parsedThread.tasks.map((task, i) => (
-                          <ListView.Item
-                            key={i}
-                            heading={`${task.title}`}
-                            description={task.shortDescription}
-                            actions={
+                          <DataListItem key={i}>
+                            <DataListCell width={5}>{`${task.title}`}</DataListCell>
+                            <DataListCell width={1}>
                               <div className="integr8ly-task-dashboard-estimated-time">
                                 <Icon type="fa" name="clock" className="pf-u-mr-xs" />
                                 <span>
@@ -164,11 +165,10 @@ class TutorialPage extends React.Component {
                                   </span>
                                 </span>
                               </div>
-                            }
-                            stacked
-                          />
+                            </DataListCell>
+                          </DataListItem>
                         ))}
-                      </ListView>
+                      </DataList>
                       <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
                         <Button variant="primary" type="button" onClick={e => this.getStarted(e, id)}>
                           {t('tutorial.getStarted')}

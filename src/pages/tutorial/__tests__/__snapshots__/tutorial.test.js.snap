@@ -184,8 +184,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   </span>
                 </div>
               </h3>
-              <ListView
-                className="integr8ly-list-view-pf"
+              <DataList
+                className=""
               />
               <div
                 className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
