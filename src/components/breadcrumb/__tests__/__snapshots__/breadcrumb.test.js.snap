@@ -12,15 +12,9 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
     isActive={false}
     onClick={[Function]}
     target={null}
-    to={null}
+    to="#"
   >
-    <HomeIcon
-      aria-label="Back to the Dashboard"
-      className="fa-lg"
-      color="currentColor"
-      size="sm"
-      title={null}
-    />
+    Home
   </BreadcrumbItem>
   <BreadcrumbItem
     className=""
@@ -56,15 +50,9 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
     isActive={false}
     onClick={[Function]}
     target={null}
-    to={null}
+    to="#"
   >
-    <HomeIcon
-      aria-label="Back to the Dashboard"
-      className="fa-lg"
-      color="currentColor"
-      size="sm"
-      title={null}
-    />
+    Home
   </BreadcrumbItem>
   <BreadcrumbItem
     className=""
@@ -100,15 +88,9 @@ exports[`Breadcrumb component should render default breadcrumb 1`] = `
     isActive={false}
     onClick={[Function]}
     target={null}
-    to={null}
+    to="#"
   >
-    <HomeIcon
-      aria-label="Back to the Dashboard"
-      className="fa-lg"
-      color="currentColor"
-      size="sm"
-      title={null}
-    />
+    Home
   </BreadcrumbItem>
 </Breadcrumb>
 `;
