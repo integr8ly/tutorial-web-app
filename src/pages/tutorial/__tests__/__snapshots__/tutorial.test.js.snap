@@ -111,53 +111,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 }
               />
             </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem
-          className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={3}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={2}
-          sm={null}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
-        >
-          <Connect(WalkthroughResources)
-            className="integr8ly-landing-page-tutorial-dashboard-section-right"
-            resources={Array []}
-          />
-        </GridItem>
-        <GridItem
-          className=""
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
-          md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
-          sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
-        >
-          <Card
-            className="integr8ly-card"
-            component="article"
-          >
             <CardBody
               className=""
               component="div"
@@ -208,6 +161,29 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               </div>
             </CardBody>
           </Card>
+        </GridItem>
+        <GridItem
+          className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
+          lg={null}
+          lgOffset={null}
+          lgRowSpan={null}
+          md={3}
+          mdOffset={null}
+          mdRowSpan={null}
+          offset={null}
+          rowSpan={2}
+          sm={null}
+          smOffset={null}
+          smRowSpan={null}
+          span={null}
+          xl={null}
+          xlOffset={null}
+          xlRowSpan={null}
+        >
+          <Connect(WalkthroughResources)
+            className="integr8ly-landing-page-tutorial-dashboard-section-right"
+            resources={Array []}
+          />
         </GridItem>
       </Grid>
     </PageSection>

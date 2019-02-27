@@ -119,25 +119,7 @@ class TutorialPage extends React.Component {
                       </div>
                       {this.renderPrereqs(thread)}
                       <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
-                      {/* <AsciiDocTemplate
-                        adoc={thread}
-                        attributes={Object.assign({}, thread.data.attributes)}
-                      /> */}
                     </CardBody>
-                  </Card>
-                </GridItem>
-                <GridItem
-                  md={3}
-                  rowSpan={2}
-                  className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
-                >
-                  <WalkthroughResources
-                    className="integr8ly-landing-page-tutorial-dashboard-section-right"
-                    resources={parsedThread.resources}
-                  />
-                </GridItem>
-                <GridItem sm={12} md={9}>
-                  <Card className="integr8ly-card">
                     <CardBody>
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
@@ -176,6 +158,16 @@ class TutorialPage extends React.Component {
                       </div>
                     </CardBody>
                   </Card>
+                </GridItem>
+                <GridItem
+                  md={3}
+                  rowSpan={2}
+                  className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
+                >
+                  <WalkthroughResources
+                    className="integr8ly-landing-page-tutorial-dashboard-section-right"
+                    resources={parsedThread.resources}
+                  />
                 </GridItem>
               </Grid>
             </PageSection>
