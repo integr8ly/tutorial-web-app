@@ -36,6 +36,10 @@ button,
   height: 32px; // accounts for increase in base font size from 12px to 16px
 }
 
+.pf-c-dropdown__menu-item:hover {
+  color: var(--pf-c-dropdown__menu-item--hover--Color);
+}
+
 .pf-c-content {
 
   .paragraph {
