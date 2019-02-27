@@ -60,7 +60,7 @@ function buildProvisioningScreen(WrappedComponent) {
           return false;
         }
       }
-      return true;
+      return false;
     }
 
     static getServiceInstanceByClassName(services, classToFind) {
@@ -158,15 +158,15 @@ function buildProvisioningScreen(WrappedComponent) {
           className={`${isProvisionFailed ? 'list-group-error-item' : null}`}
           key={svc.spec.clusterServiceClassExternalName}
         >
-          <DataListCell>{Provisioning.renderServiceLoadingIcon(svc)}</DataListCell>
-          <DataListCell>
+          <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingIcon(svc)}</DataListCell>
+          <DataListCell className="pf-u-py-md">
             {Provisioning.renderServiceLoadingText(svc)}
             <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
               {svc.productDetails.prettyName}
               {Provisioning.renderServiceLoadingLabels(svc)}
             </div>
           </DataListCell>
-          <DataListCell>{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>
+          <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>
         </DataListItem>
       );
     }
