@@ -2,12 +2,19 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
 import {
+  Bullseye,
+  EmptyState,
+  EmptyStateIcon,
   DataList,
   DataListItem,
   DataListCell,
+  Page,
+  PageSection,
+  PageSectionVariants,
   Progress,
   ProgressMeasureLocation,
-  ProgressSize
+  ProgressSize,
+  Title
 } from '@patternfly/react-core';
 import { BoxesIcon, CheckCircleIcon, CircleNotchIcon } from '@patternfly/react-icons';
 import get from 'lodash.get';
@@ -58,7 +65,7 @@ function buildProvisioningScreen(WrappedComponent) {
           return false;
         }
       }
-      return false;
+      return true;
     }
 
     static getServiceInstanceByClassName(services, classToFind) {
@@ -158,15 +165,19 @@ function buildProvisioningScreen(WrappedComponent) {
 
     static renderLoadingScreen(services) {
       return (
-        <div>
-          <h2 className="pf-c-title pf-m-xl integr8ly-provisioning_heading">
-            <BoxesIcon className="integr8ly-provissioning-icon" /> <br />
-            Provisioning services for your new environment.
-          </h2>
-          <DataList className="integr8ly-provisioning-datalist" aria-label="Simple data list example">
-            {services.map(Provisioning.renderServiceStatusBar)}
-          </DataList>
-        </div>
+        <Page className="pf-u-h-100vh">
+          <PageSection variant={PageSectionVariants.default}>
+            <Bullseye>
+              <EmptyState>
+                <EmptyStateIcon icon={BoxesIcon} />
+                <Title size="lg">Provisioning services for your new environment.</Title>
+              </EmptyState>
+            </Bullseye>
+            <DataList className="integr8ly-provisioning-datalist" aria-label="Simple data list example">
+              {services.map(Provisioning.renderServiceStatusBar)}
+            </DataList>
+          </PageSection>
+        </Page>
       );
     }
 
