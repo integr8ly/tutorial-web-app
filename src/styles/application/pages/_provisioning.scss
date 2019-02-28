@@ -1,9 +1,6 @@
 .integr8ly-provisioning {
-  &-datalist {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  &-empty-state {
+    margin: 0 auto;
   }
 
   &-check {
