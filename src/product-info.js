@@ -2,14 +2,14 @@
 export default {
   'amq-online-standard': {
     prettyName: 'Red Hat AMQ Online',
-    gaStatus: 'preview'
+    gaStatus: 'GA'
   },
   fuse: {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA'
   },
   codeready: {
-    prettyName: 'CodeReady',
+    prettyName: 'Red Hat CodeReady Workspaces',
     gaStatus: 'GA'
   },
   launcher: {
