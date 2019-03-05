@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
 import {
-  Bullseye,
   EmptyState,
   EmptyStateIcon,
   DataList,
@@ -166,14 +165,16 @@ function buildProvisioningScreen(WrappedComponent) {
     static renderLoadingScreen(services) {
       return (
         <Page className="pf-u-h-100vh">
-          <PageSection variant={PageSectionVariants.default}>
-            <Bullseye>
-              <EmptyState>
-                <EmptyStateIcon icon={BoxesIcon} />
-                <Title size="lg">Provisioning services for your new environment.</Title>
-              </EmptyState>
-            </Bullseye>
-            <DataList className="integr8ly-provisioning-datalist" aria-label="Simple data list example">
+          <PageSection
+            variant={PageSectionVariants.default}
+            className="pf-u-display-flex pf-l-flex pf-m-column-tablet-plus pf-m-justify-content-space-between"
+          >
+            <div />
+            <EmptyState className="pf-m-align-self-center">
+              <EmptyStateIcon icon={BoxesIcon} />
+              <Title size="lg">Provisioning services for your new environment.</Title>
+            </EmptyState>
+            <DataList className="pf-u-w-100" aria-label="Provisioned services datalist">
               {services.map(Provisioning.renderServiceStatusBar)}
             </DataList>
           </PageSection>
