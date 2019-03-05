@@ -1,4 +1,4 @@
-FROM bucharestgold/centos7-s2i-nodejs:10.x
+FROM docker.io/nodeshift/centos7-s2i-nodejs:10.x
 
 EXPOSE 5001
 
