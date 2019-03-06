@@ -13,7 +13,7 @@ COPY . ./
 
 USER root
 
-RUN yum -y install git
+RUN yum -y install git httpd24-libcurl
 
 RUN chmod g+w yarn.lock
 
