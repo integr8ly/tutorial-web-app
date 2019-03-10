@@ -39,7 +39,7 @@ TIP: Use https://github.com/creationix/nvm/blob/master/README.md[nvm] to manage 
 :numbered:
 === Clone the project
 
-First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkthroughs[walkthroughs repository] next to the tutorial web app
+First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkthroughs[walkthroughs repository] next to the tutorial web app:
 
 [source,shell]
 ----
@@ -47,10 +47,10 @@ $ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
 ----
 
 === Install dependencies
-Then change to the webapp directory, install its dependencies and run the development server:
-
+Then change to the webapp directory, install its dependencies and run the development server.  
 [source,shell]
 ----
+$ cd tutorial-web-app
 $ yarn install
 $ yarn start:dev
 ----
@@ -59,6 +59,25 @@ IMPORTANT: The webapp will automatically open (http://localhost:3006) in your br
 When running locally, the available services list is mocked, and service urls set via env vars.
 
 The webapp will also automatically load the walkthroughs from `../tutorial-web-app-walkthroughs/walkthroughs`.
+
+=== Cluster configuration
+If you are running tutorial-web-app against your cluster, then you will need to configure your cluster to allow callback to your localhost:
+
+
+
+[source,shell]
+----
+$ oc login <my-cluster>
+$ oc edit oauthclient tutorial-web-app
+----
+This will open the file in vim for editing. The line 'http://localhost:3006' should be added to the bottom of the oauthclient tutorial-web-app and the file saved
+----
+redirectURIs:
+- ...
+- http://localhost:3006
+
+----
+
 
 === Setup Local Development of Walkthroughs
 

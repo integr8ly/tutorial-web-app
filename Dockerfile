@@ -1,4 +1,4 @@
-FROM bucharestgold/centos7-s2i-nodejs:10.x
+FROM registry.access.redhat.com/rhoar-nodejs/nodejs-10
 
 EXPOSE 5001
 
@@ -12,8 +12,6 @@ USER default
 COPY . ./
 
 USER root
-
-RUN yum -y install git
 
 RUN chmod g+w yarn.lock
 
