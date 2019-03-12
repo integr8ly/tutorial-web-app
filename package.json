@@ -4,8 +4,9 @@
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.6.3",
-    "@patternfly/patternfly-next": "1.0.110",
+    "@fortawesome/fontawesome-free": "5.7.2",
+    "@patternfly/react-core": "2.1.4",
+    "@patternfly/patternfly": "1.0.208",
     "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
     "body-parser": "^1.18.3",
@@ -20,11 +21,11 @@
     "lodash.get": "4.4.2",
     "mustache": "^3.0.0",
     "npm": "6.4.1",
-    "patternfly-react": "2.22.1",
+    "patternfly-react": "2.29.13",
     "prop-types": "15.6.2",
-    "react": "16.4.0",
-    "react-dom": "16.4.0",
-    "react-i18next": "7.10.1",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "react-i18next": "8.3.8",
     "react-redux": "5.0.6",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
@@ -33,26 +34,29 @@
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
     "rimraf": "2.6.2",
+    "rfs": "8.0.1",
     "sha.js": "2.4.11",
     "simple-git": "^1.107.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
-    "enzyme": "3.4.2",
-    "enzyme-adapter-react-16": "1.2.0",
-    "enzyme-to-json": "3.3.4",
-    "eslint": "4.19.1",
+    "babel-eslint": "9.0.0",
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "1.7.1",
+    "enzyme-to-json": "3.3.5",
+    "eslint": "5.6.0",
     "eslint-plugin-patternfly-react": "0.1.1",
     "i18next-json-sync": "2.2.0",
-    "jest": "23.5.0",
-    "jest-cli": "23.5.0",
+    "jest": "23.6.0",
+    "jest-cli": "23.6.0",
     "moxios": "0.4.0",
     "ncp": "2.0.0",
     "node-sass-chokidar": "1.3.0",
     "nodemon": "1.18.7",
     "npm-run-all": "4.1.5",
+    "postcss-cssnext": "3.1.0",
+    "precss": "4.0.0",
     "prettier": "1.14.2",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.1.1",
     "redux-mock-store": "1.5.3",
     "source-map-explorer": "1.5.0",
     "stylelint": "9.9.0",
@@ -62,7 +66,7 @@
     "stylelint-scss": "3.4.4"
   },
   "resolutions": {
-    "**/jest": "23.5.0"
+    "**/jest": "23.6.0"
   },
   "lint-staged": {
     "src/styles/**/*.scss}": [
@@ -109,5 +113,11 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

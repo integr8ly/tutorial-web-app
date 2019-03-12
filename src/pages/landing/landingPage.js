@@ -1,11 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-import PfMasthead from '../../components/masthead/masthead';
+import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
-import LandingPageMastHead from './landingPageMastHead';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
+import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 
 class LandingPage extends React.Component {
   componentDidMount() {
@@ -16,25 +16,26 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
+
     return (
-      <div>
-        <PfMasthead />
-        <LandingPageMastHead />
-        <main>
-          <section className="integr8ly-landing-page-tutorial-dashboard-section">
-            <TutorialDashboard
-              className="integr8ly-landing-page-tutorial-dashboard-section-left"
-              userProgress={user.userProgress}
-              walkthroughs={walkthroughServices.data}
-            />
-            <InstalledAppsView
-              className="integr8ly-landing-page-tutorial-dashboard-section-right"
-              apps={Object.values(middlewareServices.data)}
-              customApps={middlewareServices.customServices}
-            />
-          </section>
-        </main>
-      </div>
+      <React.Fragment>
+        <Page className="pf-u-h-100vh">
+          <RoutedConnectedMasthead />
+          <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+            <Grid gutter="md">
+              <GridItem sm={12} md={9}>
+                <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+              </GridItem>
+              <GridItem sm={12} md={3}>
+                <InstalledAppsView
+                  apps={Object.values(middlewareServices.data)}
+                  customApps={middlewareServices.customServices}
+                />
+              </GridItem>
+            </Grid>
+          </PageSection>
+        </Page>
+      </React.Fragment>
     );
   }
 }
@@ -44,7 +45,10 @@ LandingPage.propTypes = {
   getCustomWalkthroughs: PropTypes.func,
   middlewareServices: PropTypes.object,
   walkthroughServices: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
 };
 
 LandingPage.defaultProps = {
@@ -52,7 +56,10 @@ LandingPage.defaultProps = {
   getCustomWalkthroughs: noop,
   middlewareServices: { data: {} },
   walkthroughServices: { data: {} },
-  user: { userProgress: {} }
+  user: { userProgress: {} },
+  history: {
+    push: noop
+  }
 };
 
 const mapDispatchToProps = dispatch => ({

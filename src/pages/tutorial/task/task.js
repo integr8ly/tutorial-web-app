@@ -3,7 +3,22 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Button, ButtonGroup, Grid, Icon, Radio } from 'patternfly-react';
+import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
+import {
+  BackgroundImage,
+  BackgroundImageSrc,
+  Button,
+  Card,
+  CardBody,
+  Grid,
+  GridItem,
+  Page,
+  PageSection,
+  TextContent,
+  Text,
+  TextVariants
+} from '@patternfly/react-core';
+// import { AngleLeftIcon, AngleRightIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
@@ -254,44 +269,53 @@ class TaskPage extends React.Component {
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
 
-    let verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-blue';
-    let verificationIcon = 'integr8ly-alert-icon far fa-circle';
+    let verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-blue';
+    let verificationIcon = 'integr8ly-alert-icon far fa-circle fa-lg';
     if (isYesChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-green';
-      verificationIcon = 'integr8ly-alert-icon far fa-check-circle';
+      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-green';
+      verificationIcon = 'integr8ly-alert-icon fa fa-check-circle fa-lg';
     }
     if (isNoChecked) {
-      verificationClasses = 'alert integr8ly-alert integr8ly-module-column--steps_alert-red';
-      verificationIcon = 'integr8ly-alert-icon far fa-times-circle';
+      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-red';
+      verificationIcon = 'integr8ly-alert-icon fa fa-times-circle fa-lg';
     }
     return (
       <div className={verificationClasses} key={`verification-${blockId}`}>
         <i className={verificationIcon} />
         <strong>{t('task.verificationTitle')}</strong>
-        <div dangerouslySetInnerHTML={{ __html: block.html }} />
+        <span dangerouslySetInnerHTML={{ __html: block.html }} />
         {
           <React.Fragment>
-            <Radio
-              name={blockId}
-              checked={isYesChecked}
-              onChange={e => {
-                this.handleVerificationInput(e, blockId, true);
-              }}
-            >
-              Yes
-            </Radio>
-            <Radio
-              name={blockId}
-              checked={isNoChecked}
-              onChange={e => {
-                this.handleVerificationInput(e, blockId, false);
-              }}
-            >
-              No
-            </Radio>
-            {isNoChecked && block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
-            {isYesChecked &&
-              block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+            <Form>
+              <FormGroup controlId="radio" disabled={false} bsSize="small">
+                <Radio
+                  name={blockId}
+                  checked={isYesChecked}
+                  onChange={e => {
+                    this.handleVerificationInput(e, blockId, true);
+                  }}
+                  label="Yes"
+                  aria-label="Yes"
+                >
+                  Yes
+                </Radio>
+                <Radio
+                  name={blockId}
+                  checked={isNoChecked}
+                  onChange={e => {
+                    this.handleVerificationInput(e, blockId, false);
+                  }}
+                  label="No"
+                  aria-label="No"
+                >
+                  No
+                </Radio>
+                {isNoChecked &&
+                  block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
+                {isYesChecked &&
+                  block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+              </FormGroup>
+            </Form>
           </React.Fragment>
         }
       </div>
@@ -364,45 +388,90 @@ class TaskPage extends React.Component {
 
       const currentThreadProgress = this.getStoredProgressForCurrentTask();
       const combinedResources = parsedThread.resources.concat(threadTask.resources);
+      const bgImages = {
+        [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
+        [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
+        [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
+        [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
+        [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
+        [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
+      };
       return (
         <React.Fragment>
-          <Breadcrumb
-            threadName={parsedThread.title}
-            threadId={id}
-            taskPosition={taskNum + 1}
-            totalTasks={totalTasks}
-            homeClickedCallback={() => {}}
-          />
-          <Grid fluid>
-            <Grid.Row>
-              <Grid.Col xs={12} sm={9} className="integr8ly-module">
-                <div className="integr8ly-module-column pf-c-content pf-u-mt-lg pf-u-px-lg">
-                  <h2>{threadTask.title}</h2>
-                  <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
-                    {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
-                  </div>
-
-                  {/* Bottom footer */}
-                  <div className="integr8ly-module-column--footer">
-                    <h6>{t('task.CompleteAndCheck')}</h6>
-                    <div className="integr8ly-module-column--footer_status">
+          <BackgroundImage src={bgImages} />
+          <Page className="pf-u-h-100vh">
+            <PageSection variant="light">
+              <Breadcrumb
+                threadName={parsedThread.title}
+                threadId={id}
+                taskPosition={taskNum + 1}
+                totalTasks={totalTasks}
+                homeClickedCallback={() => {}}
+              />
+            </PageSection>
+            <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
+              <Grid gutter="md" className="pf-c-content">
+                <GridItem sm={12} md={9}>
+                  <Card className="integr8ly-c-card--content pf-u-mb-xl">
+                    <CardBody>
+                      <TextContent className="integr8ly-module-column pf-u-pb-sm">
+                        <h1 className="pf-u-screen-reader">{parsedThread.title}</h1>
+                        <h2 className="pf-u-mt-0">{threadTask.title}</h2>
+                        <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
+                          {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
+                        </div>
+                      </TextContent>
+                    </CardBody>
+                  </Card>
+                </GridItem>
+                <GridItem
+                  sm={12}
+                  md={3}
+                  rowSpan={2}
+                  className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
+                >
+                  {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
+                  <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
+                  <WalkthroughResources resources={combinedResources} />
+                </GridItem>
+              </Grid>
+            </PageSection>
+            <PageSection>
+              {/* Bottom footer */}
+              <div className="integr8ly-module-column--footer pf-u-w-100 pf-u-pl-2xl">
+                <TextContent>
+                  <Text component={TextVariants.h4} className="pf-u-my-md">
+                    {t('task.CompleteAndCheck')}
+                  </Text>
+                  <div className="pf-u-mb-lg">
+                    {taskNum === 0 && (
+                      <Button variant="secondary" type="button" onClick={e => this.backToIntro(e)}>
+                        {t('task.backToIntro')}
+                      </Button>
+                    )}
+                    {taskNum > 0 && (
+                      <Button variant="secondary" type="button" onClick={e => this.goToTask(e, taskNum - 1)}>
+                        {t('task.previousTask')}
+                      </Button>
+                    )}
+                    <span className="integr8ly-module-column--footer_status pf-u-ml-sm pf-u-mr-lg">
                       {this.getVerificationsForTask(threadTask).map((verificationId, i) => (
                         <React.Fragment key={i}>
                           {/* Bottom footer icon */}
                           {currentThreadProgress[verificationId] === undefined ? (
                             <Icon
                               type="fa"
-                              className="far integr8ly-module-column--footer_status"
+                              className="integr8ly-module-column--footer_status icon pf-u-ml-md pf-u-pr-sm"
                               key={`verification-icon-${verificationId}`}
-                              name="circle"
+                              name="circle-thin"
                             />
                           ) : (
                             <Icon
                               type="fa"
                               className={
                                 currentThreadProgress[verificationId]
-                                  ? 'far integr8ly-module-column--footer_status-checked'
-                                  : 'far integr8ly-module-column--footer_status-unchecked'
+                                  ? 'integr8ly-module-column--footer_status-checked icon pf-u-ml-md pf-u-pr-sm'
+                                  : 'integr8ly-module-column--footer_status-unchecked icon pf-u-ml-md pf-u-pr-sm'
                               }
                               key={`verification-icon-${verificationId}`}
                               name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}
@@ -434,62 +503,32 @@ class TaskPage extends React.Component {
                           )}
                         </React.Fragment>
                       ))}
-                    </div>
-
-                    <div
-                      className="btn-group btn-group-justified"
-                      role="group"
-                      aria-label="module step progress buttons"
-                    >
-                      {taskNum === 0 && (
-                        <ButtonGroup>
-                          <Button onClick={e => this.backToIntro(e)}>
-                            <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
-                            {t('task.backToIntro')}
-                          </Button>
-                        </ButtonGroup>
-                      )}
-                      {taskNum > 0 && (
-                        <ButtonGroup>
-                          <Button onClick={e => this.goToTask(e, taskNum - 1)}>
-                            <Icon type="fa" name="angle-left" style={{ paddingRight: 5 }} />
-                            {t('task.previousTask')}
-                          </Button>
-                        </ButtonGroup>
-                      )}
-                      {taskNum + 1 < totalTasks && (
-                        <ButtonGroup>
-                          <Button
-                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
-                            onClick={e => this.goToTask(e, taskNum + 1)}
-                            disabled={!taskVerificationComplete}
-                          >
-                            {t('task.nextTask')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
-                        </ButtonGroup>
-                      )}
-                      {taskNum + 1 === totalTasks && (
-                        <ButtonGroup>
-                          <Button
-                            bsStyle={taskVerificationComplete ? 'primary' : 'default'}
-                            onClick={e => this.exitTutorial(e)}
-                            disabled={!taskVerificationComplete}
-                          >
-                            {t('task.exitTutorial')} <Icon type="fa" name="angle-right" style={{ paddingLeft: 5 }} />
-                          </Button>
-                        </ButtonGroup>
-                      )}
-                    </div>
+                    </span>
+                    {taskNum + 1 < totalTasks && (
+                      <Button
+                        variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        type="button"
+                        onClick={e => this.goToTask(e, taskNum + 1)}
+                        isDisabled={!taskVerificationComplete}
+                      >
+                        {t('task.nextTask')}
+                      </Button>
+                    )}
+                    {taskNum + 1 === totalTasks && (
+                      <Button
+                        variant={taskVerificationComplete ? 'primary' : 'secondary'}
+                        type="button"
+                        onClick={e => this.exitTutorial(e)}
+                        isDisabled={!taskVerificationComplete}
+                      >
+                        {t('task.exitTutorial')}
+                      </Button>
+                    )}
                   </div>
-                </div>
-              </Grid.Col>
-              <Grid.Col sm={3} className="integr8ly-module-frame">
-                {/* <h4 className="integr8ly-helpful-links-heading">Walkthrough Diagram</h4>
-                <img src="/images/st0.png" className="img-responsive" alt="integration" /> */}
-                <WalkthroughResources resources={combinedResources} />
-              </Grid.Col>
-            </Grid.Row>
-          </Grid>
+                </TextContent>
+              </div>
+            </PageSection>
+          </Page>
         </React.Fragment>
       );
     }

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardGrid, Col, Row, Icon } from 'patternfly-react';
+import { Icon } from 'patternfly-react';
+import { Gallery, GalleryItem } from '@patternfly/react-core';
+import { ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -14,7 +16,7 @@ const TutorialDashboard = props => {
     else startedText = 'Resume';
 
     return cards.push(
-      <Col xs={12} sm={4} key={walkthrough.id}>
+      <GalleryItem key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
@@ -28,46 +30,30 @@ const TutorialDashboard = props => {
               type="fa"
               name={
                 currentProgress !== undefined && currentProgress.progress === 100
-                  ? 'check-circle'
-                  : 'arrow-circle-right'
+                  ? 'check-circle pf-u-mr-xs integr8ly-c-card__status--complete-icon'
+                  : 'arrow-circle-right pf-u-mr-sm'
               }
-              className="fa-lg"
             />
           }
-          minsIcon={<Icon type="fa" name="clock" className="fa-lg" arrow-alt-circle-right="true" />}
+          minsIcon={<ClockIcon className="pf-u-mr-sm" />}
           progress={currentProgress === undefined ? 0 : currentProgress.progress}
           mins={walkthrough.time}
         >
           <p>{walkthrough.shortDescription}</p>
-
-          <div className="integr8ly-walkthrough-labels">
-            {walkthrough.community === true ? (
-              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
-            ) : (
-              <span />
-            )}
-            {walkthrough.preview === true ? (
-              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
-            ) : (
-              <span />
-            )}
-          </div>
         </TutorialCard>
-      </Col>
+      </GalleryItem>
     );
   });
 
   return (
-    <div className="integr8ly-tutorial-dashboard panel panel-default">
-      <div className="panel-heading panel-title">
-        <h1 className="pf-c-title pf-m-3xl">Start with a walkthrough</h1>
-        <div className="walkthrough-counter">{walkthroughs.length} walkthroughs</div>
+    <div className="integr8ly-tutorial-dashboard pf-u-mb-0">
+      <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
+        <h1 className="pf-c-title pf-m-4xl pf-u-mt-sm">Start with a walkthrough</h1>
+        <div className="integr8ly-walkthrough-counter pf-u-mt-lg pf-u-mr-md pf-u-text-align-right pf-m-sm">
+          <strong>{walkthroughs.length} walkthroughs</strong>
+        </div>
       </div>
-      <div className="panel-content cards-pf">
-        <CardGrid matchHeight style={{ width: 'calc(100% - 40px)' }}>
-          <Row>{cards}</Row>
-        </CardGrid>
-      </div>
+      <Gallery gutter="md">{cards}</Gallery>
     </div>
   );
 };

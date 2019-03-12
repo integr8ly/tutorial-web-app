@@ -1,57 +1,33 @@
-// Variables
-// Font path
-$pf-global--font-path: "/assets/fonts" !default;
+/*!
+ * Integreatly Tutorial Web App
+ * License - https://github.com/integr8ly/tutorial-web-app/blob/master/LICENSE (Apache License 2.0)
+ */
 
-// Icon path
-$fa-font-path: "/assets/fonts/webfonts" !default;
-$icon-font-path: "~patternfly/dist/fonts/";
-
-// Image path
-$pf-global--image-path: "/assets/images" !default;
-$img-path: "~patternfly/dist/img/";
+@import "./application/variables";
 
 // PatternFly 4
-@import "application/pf4Import";
+/* stylelint-disable */
+// Prevent stylelint from checking imported code
+
+// PatternFly 4 Base & Components
+@import '../node_modules/@patternfly/patternfly/patternfly.scss';
+
+// PatternFly 4 Add-ons
+@import '../node_modules/@patternfly/patternfly/patternfly-addons.scss';
 
 // Font Awesome 5 icons
-@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "@fortawesome/fontawesome-free/scss/regular.scss";
+// Import Font Awesome 5, but ignore any inherited stylelint issues
+@import "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/v4-shims.scss";
+/* stylelint-enable */
 
-// Utilized to overwrite PF3 typography settings
-@import "application/patternfly4";
+// Utilities
+@import "./application/utilities";
 
-// Application Overrides
-@import "application/provisioning";
-@import "application/typography";
-@import "application/alerts";
-@import "application/lists";
-@import "application/labels";
-@import "application/breadcrumbs";
-@import "application/overrides";
-@import "application/aboutModal";
-@import "application/landingPage";
-@import "application/landingPageMastHead";
-@import "application/loading";
-@import "application/errorScreen";
-@import "application/login";
-@import "application/nav";
-@import "application/sidePanel";
-@import "application/tutorialDashboard";
-@import "application/tutorialCard";
-@import "application/taskLayout";
-@import "application/taskDashboard";
-@import "application/congratulations";
-@import "application/cards";
-@import "application/modules";
-@import "application/appLauncher";
-@import "application/installedAppsView";
-@import "application/copyField";
+// Components
+@import "./application/components";
 
-/*!
-**
-** The following images are licensed under XXXX with attribution
-**
-** assets/images/provisioning.jpg
-** by Adam
-**
-*/
+// Pages
+@import "./application/pages";

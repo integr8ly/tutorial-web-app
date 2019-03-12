@@ -1,0 +1,21 @@
+.integr8ly-provisioning {
+  &-empty-state {
+    margin: 0 auto;
+  }
+
+  &-check {
+    color: var(--pf-global--success-color--100);
+  }
+
+  &-spinner {
+    color: var(--pf-global--active-color--100);
+  }
+
+  &-text {
+    color: var(--pf-global--Color--100);
+  }
+}
+
+.integr8ly-provisioned-bar .pf-c-progress__indicator { /* stylelint-disable-line */
+  background-color: var(--pf-global--success-color--100);
+}

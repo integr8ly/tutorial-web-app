@@ -1,0 +1,55 @@
+/* stylelint-disable declaration-no-important */
+.integr8ly-c-card--content {
+  background-color: $pf-color-white !important;
+
+  a {
+    color: $pf-color-blue-400 !important;
+  }
+
+  .btn.btn-primary { /* stylelint-disable-line selector-class-pattern */
+    color: $pf-color-white !important;
+  }
+}
+/* stylelint-enable */
+
+.integr8ly-c-card {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__info {
+    display: contents;
+  }
+
+  /* stylelint-disable selector-class-pattern */
+  .pf-c-card__footer {
+    .progress {
+      width: 70%;
+      margin-top: -2px;
+      margin-bottom: 0;
+      vertical-align: middle;
+
+      .progress-bar[aria-valuenow="100"] {
+        background-color: var(--pf-global--success-color--100);
+      }
+    }
+
+    .progress-label-completed {
+      color: var(--pf-global--success-color--200);
+    }
+
+    .progress-bar-table {
+      display: flex;
+      align-items: center;
+
+      .progress {
+        margin-bottom: 0;
+      }
+
+      .progress-label {
+        text-align: right;
+      }
+    }
+  }
+  /* stylelint-enable */
+}

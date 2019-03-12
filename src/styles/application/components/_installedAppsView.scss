@@ -1,0 +1,67 @@
+.integr8ly-installed-apps-view {
+  height: calc(100vh - 10rem); // Set full height (minus header) when viewport over 1000px tall
+
+  @media (max-height: 1000px) {
+    height: auto; // Set automatic height when viewport under 1000px tall
+  }
+
+  border-bottom: 0;
+  box-shadow: none;
+
+  @media (max-width: 1091px) {
+    width: 100%;
+  }
+
+  &-panel-title {
+    background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
+
+    & h2 {
+      flex-basis: 70%;
+    }
+
+    & div {
+      flex-basis: 30%;
+      white-space: nowrap;
+    }
+  }
+
+  &-list {
+    list-style-type: none;
+    background-color: $pf-color-white;
+
+    i {
+      margin-left: 5px;
+    }
+
+    & li {
+      border-top: var(--pf-global--BorderWidth--sm) solid transparent;
+      border-bottom: var(--pf-global--BorderWidth--sm) solid transparent;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    }
+
+    p {
+      color: $pf-color-black-900;
+    }
+  }
+
+  & li:hover {
+    background-color: $pf-color-blue-50;
+    cursor: pointer;
+  }
+}
+
+.integr8ly-state-provisioining {
+  color: $pf-color-black-600 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.integr8ly-state-ready {
+  color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.integr8ly-state-unavailable {
+  color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.integr8ly-panel-title {
+  background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
+}

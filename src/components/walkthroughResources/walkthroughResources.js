@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
+import { Card, CardBody, Label, TextContent } from '@patternfly/react-core';
+import { ChartPieIcon, ExclamationCircleIcon, OnRunningIcon } from '@patternfly/react-icons';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -29,7 +30,7 @@ class WalkthroughResources extends React.Component {
 
         if (resource.serviceName === 'openshift') {
           gaStatus = '';
-          icon = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
+          icon = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
           const gaStatusApi = app.productDetails.gaStatus;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
@@ -51,9 +52,9 @@ class WalkthroughResources extends React.Component {
   }
 
   static assignSerivceIcon(app) {
-    const provisioningStatus = <Icon className="integr8ly-state-provisioining" type="fa" name="chart-pie" />;
-    const readyStatus = <Icon className="integr8ly-state-ready" type="fa" name="bolt" />;
-    const unavailableStatus = <Icon className="integr8ly-state-unavailable" type="pf" name="error-circle-o" />;
+    const provisioningStatus = <ChartPieIcon className="pf-u-mr-xs integr8ly-state-provisioining" />;
+    const readyStatus = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
+    const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 
     if (app.metadata && app.metadata.deletionTimestamp) {
       return unavailableStatus;
@@ -74,23 +75,13 @@ class WalkthroughResources extends React.Component {
     if (resources && resources.length > 0) {
       resourceList = resources.map(resource => (
         <div key={resource.title}>
-          <h4 className="integr8ly-helpful-links-product-title">
+          <div className="pf-u-pb-sm">
             {resource.statusIcon}
-            &nbsp;
-            {resource.title}
-            &nbsp;
-            {resource.gaStatus === 'community' ? (
-              <span className="integr8ly-label-community integr8ly-walkthrough-labels-tag">community</span>
-            ) : (
-              <span />
-            )}
-            {resource.gaStatus === 'preview' ? (
-              <span className="integr8ly-label-preview integr8ly-walkthrough-labels-tag">preview</span>
-            ) : (
-              <span />
-            )}
-          </h4>
-          <div className="integr8ly-helpful-resources-list" dangerouslySetInnerHTML={{ __html: resource.html }} />
+            <span className="pf-u-mr-md">{resource.title}</span>
+            {resource.gaStatus === 'community' ? <Label isCompact>community</Label> : <span />}
+            {resource.gaStatus === 'preview' ? <Label isCompact>preview</Label> : <span />}
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: resource.html }} />
         </div>
       ));
     }
@@ -99,11 +90,15 @@ class WalkthroughResources extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3 className="integr8ly-helpful-links-heading">Walkthrough Resources</h3>
-        {this.state.resourceList}
-        <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
-      </div>
+      <Card>
+        <CardBody>
+          <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
+            <h2>Walkthrough Resources</h2>
+            {this.state.resourceList}
+            <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
+          </TextContent>
+        </CardBody>
+      </Card>
     );
   }
 }

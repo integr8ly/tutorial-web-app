@@ -1,0 +1,18 @@
+.integr8ly-tutorial-dashboard {
+  border: 0;
+  box-shadow: none;
+
+  &-title {
+    border: none;
+
+    & h1 {
+      flex-basis: 50%;
+    }
+  }
+}
+
+.integr8ly-walkthrough {
+  &-counter {
+    flex-basis: 50%;
+  }
+}

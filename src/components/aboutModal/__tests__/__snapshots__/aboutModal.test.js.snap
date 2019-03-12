@@ -1,30 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AboutModal Component should render a connected component with default props: connected 1`] = `
-<AboutModal
-  commitHash="1"
-  dispatch={[Function]}
-  onClose={null}
-  resetTimer={3000}
-  session={
-    Object {
-      "username": "test",
-    }
-  }
-  show={true}
-/>
-`;
-
 exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `
 <AboutModal
-  commitHash="1"
-  onClose={null}
-  resetTimer={3000}
-  session={
-    Object {
-      "username": null,
-    }
-  }
+  closeAboutModal={null}
+  isOpen={false}
   show={false}
   userReducers={
     Object {
@@ -35,89 +14,45 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
   }
 >
   <AboutModal
-    altLogo="PatternFly Enterprise Application"
+    brandImageAlt="Red Hat logo"
+    brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
-    logo="logo-alt.svg"
-    onHide={[Function]}
-    productTitle={
-      <img
-        alt="PatternFly Enterprise Application"
-        src="brand-alt.svg"
-      />
-    }
-    show={false}
-    trademarkText="Copyright (c) 2019 Red Hat Inc."
+    heroImageAlt="Red Hat Solutions Explorer background image"
+    heroImageSrc="pfbg_992.jpg"
+    isOpen={false}
+    logoImageAlt="Red Hat Solutions Explorer logo"
+    logoImageSrc="logo-alt.svg"
+    onClose={null}
+    productName="Red Hat Solution Explorer"
+    trademark=""
   >
-    <Modal
-      animation={true}
-      autoFocus={true}
-      backdrop={true}
-      bsClass="modal"
-      className=""
-      contentClassName="about-modal-pf"
-      dialogComponentClass={[Function]}
-      enforceFocus={true}
-      keyboard={true}
-      manager={
-        ModalManager {
-          "add": [Function],
-          "containers": Array [],
-          "data": Array [],
-          "handleContainerOverflow": true,
-          "hideSiblingNodes": true,
-          "isTopModal": [Function],
-          "modals": Array [],
-          "remove": [Function],
-        }
-      }
-      onHide={[Function]}
-      renderBackdrop={[Function]}
-      restoreFocus={true}
-      show={false}
+    <Portal
+      containerInfo={<div />}
     >
-      <Modal
-        autoFocus={true}
-        backdrop={true}
-        backdropClassName="modal-backdrop"
-        backdropTransition={[Function]}
-        containerClassName="modal-open"
-        enforceFocus={true}
-        keyboard={true}
-        manager={
-          ModalManager {
-            "add": [Function],
-            "containers": Array [],
-            "data": Array [],
-            "handleContainerOverflow": true,
-            "hideSiblingNodes": true,
-            "isTopModal": [Function],
-            "modals": Array [],
-            "remove": [Function],
-          }
-        }
-        onEntering={[Function]}
-        onExited={[Function]}
-        onHide={[Function]}
-        renderBackdrop={[Function]}
-        restoreFocus={true}
-        show={false}
-        transition={[Function]}
+      <ModalContent
+        ariaDescribedById="pf-about-modal-content-1"
+        ariaLabelledbyId="pf-about-modal-title-0"
+        brandImageAlt="Red Hat logo"
+        brandImageSrc="Logo_RH_RGB_Reverse.png"
+        className=""
+        heroImageAlt="Red Hat Solutions Explorer background image"
+        heroImageSrc="pfbg_992.jpg"
+        isOpen={false}
+        logoImageAlt="Red Hat Solutions Explorer logo"
+        logoImageSrc="logo-alt.svg"
+        onClose={null}
+        productName="Red Hat Solution Explorer"
+        trademark=""
       />
-    </Modal>
+    </Portal>
   </AboutModal>
 </AboutModal>
 `;
 
 exports[`AboutModal Component should render a non-connected component: show modal 1`] = `
 <AboutModal
-  commitHash="1"
-  onClose={null}
-  resetTimer={3000}
-  session={
-    Object {
-      "username": null,
-    }
-  }
+  closeAboutModal={null}
+  isOpen={false}
   show={false}
   userReducers={
     Object {
@@ -128,75 +63,37 @@ exports[`AboutModal Component should render a non-connected component: show moda
   }
 >
   <AboutModal
-    altLogo="PatternFly Enterprise Application"
+    brandImageAlt="Red Hat logo"
+    brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
-    logo="logo-alt.svg"
-    onHide={[Function]}
-    productTitle={
-      <img
-        alt="PatternFly Enterprise Application"
-        src="brand-alt.svg"
-      />
-    }
-    show={false}
-    trademarkText="Copyright (c) 2019 Red Hat Inc."
+    heroImageAlt="Red Hat Solutions Explorer background image"
+    heroImageSrc="pfbg_992.jpg"
+    isOpen={false}
+    logoImageAlt="Red Hat Solutions Explorer logo"
+    logoImageSrc="logo-alt.svg"
+    onClose={null}
+    productName="Red Hat Solution Explorer"
+    trademark=""
   >
-    <Modal
-      animation={true}
-      autoFocus={true}
-      backdrop={true}
-      bsClass="modal"
-      className=""
-      contentClassName="about-modal-pf"
-      dialogComponentClass={[Function]}
-      enforceFocus={true}
-      keyboard={true}
-      manager={
-        ModalManager {
-          "add": [Function],
-          "containers": Array [],
-          "data": Array [],
-          "handleContainerOverflow": true,
-          "hideSiblingNodes": true,
-          "isTopModal": [Function],
-          "modals": Array [],
-          "remove": [Function],
-        }
-      }
-      onHide={[Function]}
-      renderBackdrop={[Function]}
-      restoreFocus={true}
-      show={false}
+    <Portal
+      containerInfo={<div />}
     >
-      <Modal
-        autoFocus={true}
-        backdrop={true}
-        backdropClassName="modal-backdrop"
-        backdropTransition={[Function]}
-        containerClassName="modal-open"
-        enforceFocus={true}
-        keyboard={true}
-        manager={
-          ModalManager {
-            "add": [Function],
-            "containers": Array [],
-            "data": Array [],
-            "handleContainerOverflow": true,
-            "hideSiblingNodes": true,
-            "isTopModal": [Function],
-            "modals": Array [],
-            "remove": [Function],
-          }
-        }
-        onEntering={[Function]}
-        onExited={[Function]}
-        onHide={[Function]}
-        renderBackdrop={[Function]}
-        restoreFocus={true}
-        show={false}
-        transition={[Function]}
+      <ModalContent
+        ariaDescribedById="pf-about-modal-content-1"
+        ariaLabelledbyId="pf-about-modal-title-0"
+        brandImageAlt="Red Hat logo"
+        brandImageSrc="Logo_RH_RGB_Reverse.png"
+        className=""
+        heroImageAlt="Red Hat Solutions Explorer background image"
+        heroImageSrc="pfbg_992.jpg"
+        isOpen={false}
+        logoImageAlt="Red Hat Solutions Explorer logo"
+        logoImageSrc="logo-alt.svg"
+        onClose={null}
+        productName="Red Hat Solution Explorer"
+        trademark=""
       />
-    </Modal>
+    </Portal>
   </AboutModal>
 </AboutModal>
 `;

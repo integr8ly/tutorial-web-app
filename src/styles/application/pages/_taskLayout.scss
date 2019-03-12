@@ -1,0 +1,98 @@
+.integr8ly- {
+  &img-responsive {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &module {
+    &-column--status {
+      .progress.progress-label-left { /* stylelint-disable-line selector-class-pattern */
+        width: 80%;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        margin-left: 100px;
+      }
+
+      .progress.progress-label-left span { /* stylelint-disable-line selector-class-pattern */
+        position: absolute;
+        top: -3px;
+        margin-left: -100px;
+      }
+
+      &-next {
+        background-color: $pf-color-black-100;
+        border-top: var(--pf-global--BorderWidth--sm) solid;
+        border-top-color: $pf-color-black-300;
+        margin: 0 -20px;
+        padding: 10px 20px 20px;
+      }
+    }
+
+    &-column--steps_alert-blue {
+      background-color: $pf-color-blue-50;
+      border-color: $pf-color-blue-200;
+      color: $pf-color-black-1000;
+    }
+
+    &-column--steps_alert-blue i {
+      color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--steps_alert-red {
+      background-color: lighten($pf-color-red-100, 55%);
+      border-color: var(--pf-global--danger-color--100);
+      color: $pf-color-black-1000;
+    }
+
+    &-column--steps_alert-red i {
+      color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--steps_alert-green {
+      background-color: lighten($pf-color-green-100, 10%);
+      border-color: $pf-color-green-200;
+      color: $pf-color-black-1000;
+    }
+
+    &-column--steps_alert-green i {
+      color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+    }
+
+    &-column--footer {
+      background-color: $pf-color-white;
+      border-top: var(--pf-global--BorderWidth--sm) solid;
+      border-top-color: $pf-color-black-700;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+
+      /* stylelint-disable max-nesting-depth */
+      h6 {
+        color: $pf-color-black-700;
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      &_status {
+        color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+
+        .icon:first-child { /* stylelint-disable-line selector-class-pattern */
+          margin-left: 0;
+        }
+
+        &-checked {
+          color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+        }
+
+        &-unchecked {
+          color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+        }
+      }
+      /* stylelint-enable */
+    }
+  }
+}

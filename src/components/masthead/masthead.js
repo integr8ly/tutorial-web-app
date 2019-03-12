@@ -1,31 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { noop, Icon, Masthead as PfMasthead, MenuItem } from 'patternfly-react';
+import {
+  Brand,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  PageHeader,
+  Toolbar,
+  ToolbarGroup,
+  ToolbarItem
+} from '@patternfly/react-core';
+import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
+import { css } from '@patternfly/react-styles';
+import { noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
-import { connect, reduxActions, store } from '../../redux';
-import { aboutModalTypes } from '../../redux/constants';
-import titleImg from '../../img/brand-alt-solutions-explorer.svg';
+import { connect, reduxActions } from '../../redux';
+import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
+import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
 
 class Masthead extends React.Component {
-  state = {
-    mobileToggle: true
-  };
+  constructor(props) {
+    super(props);
 
-  onAbout = () => {
-    store.dispatch({
-      type: aboutModalTypes.ABOUT_MODAL_SHOW
-    });
-  };
+    this.state = {
+      isUserDropdownOpen: false,
+      showAboutModal: false
+    };
 
-  onHelp = () => {
-    window.location.href = '/help';
-  };
+    this.onTitleClick = this.onTitleClick.bind(this);
+    this.onLogoutUser = this.onLogoutUser.bind(this);
+
+    this.onUserDropdownToggle = this.onUserDropdownToggle.bind(this);
+    this.onUserDropdownSelect = this.onUserDropdownSelect.bind(this);
+
+    this.onAboutModal = this.onAboutModal.bind(this);
+    this.closeAboutModal = this.closeAboutModal.bind(this);
+  }
 
   onLogoutUser = () => {
     if (window.OPENSHIFT_CONFIG.mockData) {
       window.localStorage.clear();
-      window.location.href = window.OPENSHIFT_CONFIG.ssoLogoutUri;
+      window.location.href = '/';
       return;
     }
     logout().then(() => {
@@ -33,81 +49,76 @@ class Masthead extends React.Component {
     });
   };
 
+  onAboutModal(e) {
+    e.preventDefault();
+    this.setState({ showAboutModal: true });
+  }
+
+  closeAboutModal() {
+    this.setState({ showAboutModal: false });
+  }
+
   onTitleClick = () => {
     const { history } = this.props;
-    history.push(`/`);
+    history.push('/');
   };
 
-  renderMobileNav() {
-    const { mobileToggle } = this.state;
-
-    if (mobileToggle) {
-      return null;
-    }
-
-    return (
-      <div
-        role="menu"
-        className="nav-pf-vertical nav-pf-vertical-with-sub-menus nav-pf-vertical-with-badges hidden show-mobile-nav"
-        aria-live="polite"
-      >
-        <ul className="list-group">
-          <li className="list-group-item">
-            <a role="menuitem" href="#about" onClick={this.onAbout}>
-              <span className="list-group-item-value">About</span>
-            </a>
-          </li>
-          <li className="list-group-item">
-            <a role="menuitem" href="#help" onClick={this.onHelp}>
-              <span className="list-group-item-value">Help</span>
-            </a>
-          </li>
-          <li className="list-group-item">
-            <a role="menuitem" href="#logout" onClick={this.onLogoutUser}>
-              <span className="list-group-item-value">Logout</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    );
+  onUserDropdownToggle(isUserDropdownOpen) {
+    this.setState({
+      isUserDropdownOpen
+    });
   }
 
-  renderActions() {
-    return (
-      <PfMasthead.Dropdown id="app-help-dropdown" title={<span aria-hidden className="pficon pficon-help" />}>
-        <MenuItem eventKey="1" onClick={this.onHelp}>
-          Help
-        </MenuItem>
-        <MenuItem eventKey="2" onClick={this.onAbout}>
-          About
-        </MenuItem>
-      </PfMasthead.Dropdown>
-    );
-  }
+  onUserDropdownSelect = () => {
+    this.setState({
+      isUserDropdownOpen: !this.state.isUserDropdownOpen
+    });
+  };
 
-  renderUserDropdown() {
-    const title = (
+  render() {
+    const { isUserDropdownOpen, showAboutModal } = this.state;
+
+    const logoProps = {
+      onClick: () => this.onTitleClick()
+    };
+
+    const MastheadToolbar = (
       <React.Fragment>
-        <Icon type="pf" name="user" key="user-icon" />{' '}
-        <span className="dropdown-title" key="dropdown-title">
-          {window.localStorage.getItem('currentUserName')} {` `}
-        </span>
+        <Toolbar>
+          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+              <Dropdown
+                isPlain
+                position="right"
+                onSelect={this.onUserDropdownSelect}
+                isOpen={isUserDropdownOpen}
+                toggle={
+                  <DropdownToggle onToggle={this.onUserDropdownToggle}>
+                    {window.localStorage.getItem('currentUserName')}
+                  </DropdownToggle>
+                }
+                dropdownItems={[
+                  <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
+                    Log out
+                  </DropdownItem>,
+                  <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
+                    About
+                  </DropdownItem>
+                ]}
+              />
+            </ToolbarItem>
+          </ToolbarGroup>
+        </Toolbar>
+        {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
 
     return (
-      <PfMasthead.Dropdown id="app-user-dropdown" title={title}>
-        <MenuItem onClick={this.onLogoutUser}>Log Out</MenuItem>
-      </PfMasthead.Dropdown>
-    );
-  }
-
-  render() {
-    return (
-      <PfMasthead titleImg={titleImg} navToggle={false} onTitleClick={this.onTitleClick}>
-        <PfMasthead.Collapse>{this.renderUserDropdown()}</PfMasthead.Collapse>
-        {this.renderMobileNav()}
-      </PfMasthead>
+      <PageHeader
+        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
+        logoProps={logoProps}
+        toolbar={MastheadToolbar}
+      />
     );
   }
 }
@@ -135,4 +146,4 @@ const ConnectedMasthead = connect(
 
 const RoutedConnectedMasthead = withRouter(ConnectedMasthead);
 
-export { RoutedConnectedMasthead as default, ConnectedMasthead, Masthead };
+export { Masthead as default, ConnectedMasthead, RoutedConnectedMasthead, Masthead };
