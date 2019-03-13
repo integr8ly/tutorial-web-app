@@ -3,16 +3,29 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 const asciidoctor = require('asciidoctor.js');
-const adoc = asciidoctor();
 const Mustache = require('mustache');
 const { fetchOpenshiftUser } = require('./server_middleware');
 const giteaClient = require('./gitea_client');
 const gitClient = require('./git_client');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
+const promMid = require('express-prometheus-middleware');
+const Prometheus = require('prom-client');
 
 const app = express();
+
+const adoc = asciidoctor();
+
 app.use(bodyParser.json());
+
+// prometheus metrics endpoint
+app.use(
+  promMid({
+    metricsPath: '/metrics',
+    collectDefaultMetrics: true,
+    requestDurationBuckets: [0.1, 0.5, 1, 1.5]
+  })
+);
 
 const port = process.env.PORT || 5001;
 const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
@@ -21,7 +34,11 @@ const DEFAULT_CUSTOM_CONFIG_DATA = {
   services: []
 };
 
-const walkthroughLocations = process.env.WALKTHROUGH_LOCATIONS || (process.env.NODE_ENV === 'production' ? 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' : '../tutorial-web-app-walkthroughs/walkthroughs');
+const walkthroughLocations =
+  process.env.WALKTHROUGH_LOCATIONS ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://github.com/integr8ly/tutorial-web-app-walkthroughs'
+    : '../tutorial-web-app-walkthroughs/walkthroughs');
 
 const CONTEXT_PREAMBLE = 'preamble';
 const CONTEXT_PARAGRAPH = 'paragraph';
@@ -34,10 +51,16 @@ app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
 });
 
+// metric endpoint
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', Prometheus.register.contentType);
+  res.end(Prometheus.register.metrics());
+});
+
 // Init custom walkthroughs dependencies
 app.post('/initThread', fetchOpenshiftUser, (req, res) => {
   if (!req.body || !req.body.dependencies) {
-    console.warn('Dependencies not provided in request body. Skipping thread initialization.')
+    console.warn('Dependencies not provided in request body. Skipping thread initialization.');
     res.sendStatus(200);
     return;
   }
@@ -58,6 +81,7 @@ app.post('/initThread', fetchOpenshiftUser, (req, res) => {
     return;
   }
 
+  // eslint-disable-next-line consistent-return
   return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
     .then(() => res.sendStatus(200))
     .catch(err => {
@@ -107,7 +131,8 @@ app.post('/sync-walkthroughs', (_, res) => {
   loadAllWalkthroughs(walkthroughLocations)
     .then(() => {
       res.json(walkthroughs);
-    }).catch(err => {
+    })
+    .catch(err => {
       console.error('An error occurred when syncing walkthroughs', err);
       res.json(500, { error: 'Failed to sync walkthroughs' });
     });
@@ -157,8 +182,7 @@ function resolveWalkthroughLocations(locations) {
   }
 
   const tmpDirPrefix = uuid.v4();
-  const mappedLocations = locations.map(location => {
-    return new Promise((resolve, reject) => {
+  const mappedLocations = locations.map(location => new Promise((resolve, reject) => {
       const locationResultTemplate = { origin: location };
       if (!location) {
         return reject(new Error(`Invalid location ${location}`));
@@ -178,8 +202,7 @@ function resolveWalkthroughLocations(locations) {
           .catch(reject);
       }
       return reject(new Error(`${location} is neither a path nor a git repo`));
-    });
-  });
+    }));
 
   return Promise.all(mappedLocations);
 }
@@ -204,7 +227,9 @@ function lookupWalkthroughResources(location) {
         const adocPath = path.join(basePath, 'walkthrough.adoc');
         const jsonPath = path.join(basePath, 'walkthrough.json');
         if (!fs.existsSync(adocPath) || !fs.existsSync(jsonPath)) {
-          console.log(`walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`);
+          console.log(
+            `walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`
+          );
           return acc;
         }
         acc.push({
@@ -248,7 +273,7 @@ function importWalkthroughAdoc(adocContext) {
 }
 
 function getCustomConfigData(configPath) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     if (!configPath) {
       return resolve(DEFAULT_CUSTOM_CONFIG_DATA);
     }
@@ -323,7 +348,7 @@ function getMockConfigData() {
         }
       ]
     }
-  };`
+  };`;
 }
 
 function getConfigData(req) {
@@ -348,7 +373,9 @@ function getConfigData(req) {
     scopes: ['user:full'],
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
-    ssoLogoutUri: 'https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}'
+    ssoLogoutUri: 'https://${
+      process.env.SSO_ROUTE
+    }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}'
   };`;
 }
 
@@ -363,11 +390,13 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   // ````
   // So it's better to just tell the user to put a blank line between the title and short description
   let shortDescription = '';
-  if (doc.blocks[0]&&
+  if (
+    doc.blocks[0] &&
     doc.blocks[0].context === 'preamble' &&
     doc.blocks[0].blocks.length > 0 &&
     doc.blocks[0].blocks[0].lines &&
-    doc.blocks[0].blocks[0].lines.length > 0) {
+    doc.blocks[0].blocks[0].lines.length > 0
+  ) {
     shortDescription = doc.blocks[0].blocks[0].lines[0];
   }
 
@@ -382,7 +411,7 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   };
 }
 
-const getTotalWalkthroughTime = (doc) => {
+const getTotalWalkthroughTime = doc => {
   let time = 0;
   doc.blocks.forEach(b => {
     if (b.context === CONTEXT_PREAMBLE || b.context === CONTEXT_PARAGRAPH) {
