@@ -185,7 +185,7 @@ function resolveWalkthroughLocations(locations) {
 
   const tmpDirPrefix = uuid.v4();
   const mappedLocations = locations.map(location => {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const locationResultTemplate = { origin: location };
       if (!location) {
         return reject(new Error(`Invalid location ${location}`));
