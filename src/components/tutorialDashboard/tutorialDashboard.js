@@ -22,7 +22,7 @@ const TutorialDashboard = props => {
     else if (currentProgress.progress === 100) startedText = 'Completed';
     else startedText = 'Resume';
 
-    return cards.push(
+    return (
       <GalleryItem key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
