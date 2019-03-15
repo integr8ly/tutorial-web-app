@@ -1,4 +1,4 @@
-const simpleGit = require('simple-git/promise')(__dirname);
+const simpleGit = require('simple-git/promise');
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
@@ -10,7 +10,7 @@ function getRepoName(repoUrl) {
 
 /**
  * Retrieve the base git repo URL from a provided URL.
- * 
+ *
  * A URL could contain a hash, which we're interpreting as a branch/tag separator,
  * we shouldn't include this.
  **/
@@ -21,7 +21,7 @@ function cleanupRepoUrl(repoUrl) {
 
 /**
  * Retrieve the options for the clone, given the URL.
- * 
+ *
  * If the URL has a hash at the end of it then this is used as the branch name.
  */
 function getCloneOptionsForRepo(repoUrl) {
@@ -35,6 +35,12 @@ function getCloneOptionsForRepo(repoUrl) {
   return cloneOptions;
 }
 
+exports.latestLog = (repoPath) => {
+  return simpleGit(repoPath)
+    .log([ '--max-count', 1 ])
+    .catch(err => console.error(err));
+}
+
 exports.cloneRepo = (repoUrl, targetDir) =>
   new Promise((resolve, reject) => {
     // Ensure directory exists
@@ -46,10 +52,13 @@ exports.cloneRepo = (repoUrl, targetDir) =>
     const clonePath = path.join(targetDir, repoName);
     const cleanRepoUrl = cleanupRepoUrl(repoUrl);
     const cloneOpts = getCloneOptionsForRepo(repoUrl);
-  
-    simpleGit
+
+    simpleGit(__dirname)
       // Disable terminal prompts, so Git does not prompt for username/password on a clone.
       .clone(cleanRepoUrl, clonePath, cloneOpts)
-      .then(() => resolve(clonePath))
+      .then(() => resolve({
+        localDir: clonePath,
+        repoName: cleanRepoUrl
+      }))
       .catch(reject);
   });
