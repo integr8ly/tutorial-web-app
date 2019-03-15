@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
+const querystring = require('querystring')
+const flattenDeep = require('lodash.flattendeep')
 
 const app = express();
 
@@ -182,29 +184,68 @@ function resolveWalkthroughLocations(locations) {
   }
 
   const tmpDirPrefix = uuid.v4();
-  const mappedLocations = locations.map(location => new Promise((resolve, reject) => {
+  const mappedLocations = locations.map(location => {
+    return new Promise((resolve, reject) => {
       const locationResultTemplate = { origin: location };
       if (!location) {
         return reject(new Error(`Invalid location ${location}`));
       } else if (isPath(location)) {
         console.log(`Importing walkthrough from path ${location}`);
-        const locationResult = Object.assign({}, locationResultTemplate, { local: location });
+        const locationResult = Object.assign({ parentId: path.basename(location) }, locationResultTemplate, { local: location });
         return resolve(locationResult);
       } else if (isGitRepo(location)) {
-        console.log(`Importing walkthrough from git ${location}`);
         const clonePath = path.join(TMP_DIR, tmpDirPrefix);
+
+        // Need to parse out query params for walkthroughs, e.g custom directory
+        const cloneUrl = generateCloneUrlFromLocation(location)
+        const repoName = retWalkthroughRepoNameFromLocation(location)
+        const walkthroughParams = querystring.parse(url.parse(location).query)
+
+        console.log(`Importing walkthrough from git ${cloneUrl}`);
         return gitClient
-          .cloneRepo(location, clonePath)
+          .cloneRepo(cloneUrl, clonePath)
           .then(cloned => {
-            const locationResult = Object.assign({}, locationResultTemplate, { local: path.join(cloned, 'walkthroughs') });
-            return resolve(locationResult);
+            if (walkthroughParams.walkthroughsFolder && Array.isArray(walkthroughParams.walkthroughsFolder)) {
+              console.log(`Git walkthrough (${cloneUrl}) specified folders: ${walkthroughParams.walkthroughsFolder.join(', ')}`);
+              resolve(
+                walkthroughParams.walkthroughsFolder.map(l => {
+                  return Object.assign({ parentId: `${repoName}-${path.basename(l)}` }, locationResultTemplate, { local: path.join(cloned, l) })
+                })
+              )
+            } else {
+              const l = walkthroughParams.walkthroughsFolder ? walkthroughParams.walkthroughsFolder : 'walkthroughs'
+              console.log(`Git walkthrough (${cloneUrl}) specified folder: ${l}`)
+              resolve(Object.assign({ parentId: `${repoName}-${path.basename(l)}` }, locationResultTemplate, { local: path.join(cloned, l) }));
+            }
           })
           .catch(reject);
       }
       return reject(new Error(`${location} is neither a path nor a git repo`));
-    }));
 
-  return Promise.all(mappedLocations);
+    });
+  });
+  
+  return Promise.all(mappedLocations).then(flattenDeep);
+}
+
+/**
+ * Given a URL to a repository, strip the query and rebuild the URL
+ * @param {String} location 
+ */
+function generateCloneUrlFromLocation (location) {
+  const locationParsed = url.parse(location)
+  
+  // Need to nullify query params since these are just used by us
+  locationParsed.search = locationParsed.query = null
+
+  return url.format(locationParsed)
+}
+
+function retWalkthroughRepoNameFromLocation (location) {
+  const locationParsed = url.parse(location)
+
+  // Return the repository name, i.e the highest-level identifier
+  return path.basename(locationParsed.path.split('?')[0])
 }
 
 /**
@@ -226,17 +267,21 @@ function lookupWalkthroughResources(location) {
         const basePath = path.join(location.local, dirName);
         const adocPath = path.join(basePath, 'walkthrough.adoc');
         const jsonPath = path.join(basePath, 'walkthrough.json');
+        
         if (!fs.existsSync(adocPath) || !fs.existsSync(jsonPath)) {
           console.log(
             `walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`
           );
           return acc;
-        }
+        } 
+
         acc.push({
+          parentId: location.parentId,
           dirName,
           basePath,
           adocPath
         });
+
         return acc;
       }, []);
       return resolve(adocInfo);
@@ -251,7 +296,7 @@ function lookupWalkthroughResources(location) {
  * @returns {Promise<any>}
  */
 function importWalkthroughAdoc(adocContext) {
-  const { adocPath, dirName, basePath } = adocContext;
+  const { parentId, adocPath, dirName, basePath } = adocContext;
 
   return new Promise((resolve, reject) => {
     fs.readFile(adocPath, (err, rawAdoc) => {
@@ -259,7 +304,7 @@ function importWalkthroughAdoc(adocContext) {
         return reject(err);
       }
       const loadedAdoc = adoc.load(rawAdoc);
-      const walkthroughInfo = getWalkthroughInfoFromAdoc(dirName, basePath, loadedAdoc);
+      const walkthroughInfo = getWalkthroughInfoFromAdoc(parentId, dirName, basePath, loadedAdoc);
       // Don't allow duplicate walkthroughs
       if (walkthroughs.find(wt => wt.id === walkthroughInfo.id)) {
         return reject(
@@ -379,7 +424,7 @@ function getConfigData(req) {
   };`;
 }
 
-function getWalkthroughInfoFromAdoc(id, dirName, doc) {
+function getWalkthroughInfoFromAdoc(parentId, id, dirName, doc) {
   // Retrieve the short description. There must be a gap between the document title and the short description.
   // Otherwise it's counted as the author field. For example, see this adoc file:
   // ````
@@ -401,7 +446,8 @@ function getWalkthroughInfoFromAdoc(id, dirName, doc) {
   }
 
   return {
-    id,
+    // Using the repo name plus folder name should be sufficiently unique
+    id: `${parentId}-${id}`,
     title: doc.getDocumentTitle(),
     shortDescription,
     time: getTotalWalkthroughTime(doc),
