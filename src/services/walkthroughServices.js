@@ -145,4 +145,15 @@ const getCustomWalkthroughs = () =>
     })
   );
 
+// /**
+//  * Retrieves the GitHub info for the installed walkthrough from the backend.
+//  */
+// const getWalkthroughInfo = () =>
+//   axios(
+//     serviceConfig({
+//       url: `/about`
+//     })
+//   );
+
+// export { getGitHubInfo, getWalkthrough, getCustomWalkthroughs, getWalkthroughInfo, prepareCustomWalkthroughNamespace };
 export { getWalkthrough, getCustomWalkthroughs, prepareCustomWalkthroughNamespace };

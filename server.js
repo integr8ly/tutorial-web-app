@@ -11,8 +11,8 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
-const querystring = require('querystring')
-const flattenDeep = require('lodash.flattendeep')
+const querystring = require('querystring');
+const flattenDeep = require('lodash.flattendeep');
 
 const app = express();
 
@@ -304,16 +304,16 @@ function generateCloneUrlFromLocation (location) {
   const locationParsed = url.parse(location)
 
   // Need to nullify query params since these are just used by us
-  locationParsed.search = locationParsed.query = null
+  locationParsed.search = locationParsed.query = null;
 
-  return url.format(locationParsed)
+  return url.format(locationParsed);
 }
 
 function getWalkthroughRepoNameFromLocation (location) {
   const locationParsed = url.parse(location)
 
   // Return the repository name, i.e the highest-level identifier
-  return path.basename(locationParsed.path.split('?')[0])
+  return path.basename(locationParsed.path.split('?')[0]);
 }
 
 /**
@@ -335,7 +335,6 @@ function lookupWalkthroughResources(location) {
         const basePath = path.join(location.local, dirName);
         const adocPath = path.join(basePath, 'walkthrough.adoc');
         const jsonPath = path.join(basePath, 'walkthrough.json');
-
         if (!fs.existsSync(adocPath) || !fs.existsSync(jsonPath)) {
           console.log(
             `walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`
