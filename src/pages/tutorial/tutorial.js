@@ -19,7 +19,7 @@ import {
 } from '@patternfly/react-core';
 import { ClockIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../redux';
-import WalkthroughDetails from '../../components/walkthroughDetails/walkthroughDetails';
+import ConnectedWalkthroughDetails from '../../components/walkthroughDetails/walkthroughDetails';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
@@ -162,7 +162,7 @@ class TutorialPage extends React.Component {
                   rowSpan={2}
                   className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
                 >
-                  <WalkthroughDetails
+                  <ConnectedWalkthroughDetails
                     className="integr8ly-landing-page-tutorial-dashboard-section-right"
                     resources={parsedThread.resources}
                   />

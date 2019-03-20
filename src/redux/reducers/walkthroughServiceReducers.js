@@ -85,6 +85,20 @@ const walkthroughServiceReducers = (state = initialState, action) => {
         }
       );
 
+    case FULFILLED_ACTION(walkthroughTypes.GET_WALKTHROUGH_INFO):
+      return setStateProp(
+        'walkthroughInfo',
+        {
+          pending: false,
+          fulfilled: true,
+          data: action.payload.data
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
     case FULFILLED_ACTION(walkthroughTypes.GET_WALKTHROUGH_SERVICE):
       createData = Object.assign({}, state.walkthroughServices.services);
       siName = buildNamespacedServiceInstanceName(action.payload.prefix, action.payload.data);

@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Card, CardBody, TextContent } from '@patternfly/react-core';
+import { connect, reduxActions } from '../../redux';
 
 class WalkthroughDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   getGitHubURL = () => {
     const repoUrl = 'https://github.com/integr8ly/tutorial-web-app-walkthroughs';
     return repoUrl;
@@ -19,17 +26,21 @@ class WalkthroughDetails extends React.Component {
     this.url = url;
 
     sourceLabel = (
-      <a href={this.url} target="_blank">
-        {this.url === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' ? 'Red Hat' : 'Custom'}
+      <a href={this.url} target="_blank" rel="noopener noreferrer">
+        {this.url === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' ? 'Red Hat' : 'Community'}
       </a>
     );
 
     return sourceLabel;
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    // const { walkthroughInfo } = this.props.getWalkthroughInfo();
+    // this.props.getWalkthroughInfo();
+  }
 
   render() {
+    // const { walkthroughInfo } = this.props;
     return (
       <Card>
         <CardBody>
@@ -53,4 +64,27 @@ class WalkthroughDetails extends React.Component {
   }
 }
 
-export { WalkthroughDetails as default, WalkthroughDetails };
+WalkthroughDetails.propTypes = {
+  getWalkthroughInfo: PropTypes.func,
+  walkthroughInfo: PropTypes.object
+};
+
+WalkthroughDetails.defaultProps = {
+  getWalkthroughInfo: null,
+  walkthroughInfo: { data: {} }
+};
+
+const mapDispatchToProps = dispatch => ({
+  getWalkthroughInfo: () => dispatch(reduxActions.walkthroughActions.getWalkthroughInfo())
+});
+
+const mapStateToProps = state => ({
+  ...state.walkthroughServiceReducers
+});
+
+const ConnectedWalkthroughDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WalkthroughDetails);
+
+export { ConnectedWalkthroughDetails as default, WalkthroughDetails };
