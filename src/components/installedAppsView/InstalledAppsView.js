@@ -113,8 +113,8 @@ class InstalledAppsView extends React.Component {
 
   static createMasterList(apps, customApps) {
     const masterList = apps.map((app, index) => {
-      const { prettyName, gaStatus } = InstalledAppsView.getProductDetails(app);
-      return (
+      const { prettyName, gaStatus, hidden } = InstalledAppsView.getProductDetails(app);
+      return hidden ? null : (
         <DataList>
           <DataListItem
             className="pf-u-p-md"

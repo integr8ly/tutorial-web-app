@@ -224,17 +224,17 @@ function resolveWalkthroughLocations(locations) {
 
     });
   });
-  
+
   return Promise.all(mappedLocations).then(flattenDeep);
 }
 
 /**
  * Given a URL to a repository, strip the query and rebuild the URL
- * @param {String} location 
+ * @param {String} location
  */
 function generateCloneUrlFromLocation (location) {
   const locationParsed = url.parse(location)
-  
+
   // Need to nullify query params since these are just used by us
   locationParsed.search = locationParsed.query = null
 
@@ -267,13 +267,13 @@ function lookupWalkthroughResources(location) {
         const basePath = path.join(location.local, dirName);
         const adocPath = path.join(basePath, 'walkthrough.adoc');
         const jsonPath = path.join(basePath, 'walkthrough.json');
-        
+
         if (!fs.existsSync(adocPath) || !fs.existsSync(jsonPath)) {
           console.log(
             `walkthrough.json and walkthrough.adoc must be included in walkthrough directory, skipping importing ${basePath}`
           );
           return acc;
-        } 
+        }
 
         acc.push({
           parentId: location.parentId,
@@ -358,6 +358,15 @@ function getMockConfigData() {
         {
           spec: {
             clusterServiceClassExternalName: 'fuse'
+          },
+          status: {
+            dashboardURL:'${process.env.OPENSHIFT_URL}',
+            conditions: [{ status: 'True' }]
+          }
+        },
+        {
+          spec: {
+            clusterServiceClassExternalName: 'fuse-managed'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
