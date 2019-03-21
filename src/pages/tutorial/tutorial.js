@@ -162,10 +162,7 @@ class TutorialPage extends React.Component {
                   rowSpan={2}
                   className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
                 >
-                  <ConnectedWalkthroughDetails
-                    className="integr8ly-landing-page-tutorial-dashboard-section-right"
-                    resources={parsedThread.resources}
-                  />
+                  <ConnectedWalkthroughDetails className="integr8ly-landing-page-tutorial-dashboard-section-right" />
                   <WalkthroughResources
                     className="integr8ly-landing-page-tutorial-dashboard-section-right"
                     resources={parsedThread.resources}

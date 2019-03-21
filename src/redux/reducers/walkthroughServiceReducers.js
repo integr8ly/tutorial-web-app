@@ -12,6 +12,15 @@ const initialState = {
     data: [],
     services: {}
   },
+  walkthroughInfo: {
+    error: false,
+    errorStatus: null,
+    errorMessage: null,
+    pending: false,
+    fulfilled: false,
+    gitUrl: '',
+    commitDate: null
+  },
   walkthroughResources: {}
 };
 
@@ -84,18 +93,29 @@ const walkthroughServiceReducers = (state = initialState, action) => {
           initialState
         }
       );
-
+    case REJECTED_ACTION(walkthroughTypes.GET_WALKTHROUGH_INFO):
+      return setStateProp(
+        'walkthroughInfo',
+        {
+          error: action.error,
+          errorMessage: action.payload.message
+        },
+        {
+          state,
+          initialState
+        }
+      );
     case FULFILLED_ACTION(walkthroughTypes.GET_WALKTHROUGH_INFO):
       return setStateProp(
         'walkthroughInfo',
         {
           pending: false,
           fulfilled: true,
-          data: action.payload.data
+          gitUrl: action.payload.data.walkthroughLocations[0].remote,
+          commitDate: action.payload.data.walkthroughLocations[0].commitDate
         },
         {
-          state,
-          initialState
+          state
         }
       );
 

@@ -153,6 +153,6 @@ const getWalkthroughInfo = () =>
     serviceConfig({
       url: `/about`
     })
-  ).then(resp => ({ data: resp.data }));
+  );
 
 export { getWalkthrough, getWalkthroughInfo, getCustomWalkthroughs, prepareCustomWalkthroughNamespace };

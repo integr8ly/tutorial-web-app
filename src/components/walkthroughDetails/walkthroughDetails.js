@@ -10,37 +10,12 @@ class WalkthroughDetails extends React.Component {
     this.state = {};
   }
 
-  getGitHubURL = () => {
-    const repoUrl = 'https://github.com/integr8ly/tutorial-web-app-walkthroughs';
-    return repoUrl;
-  };
-
-  getSourceDate = () => {
-    let repoDate = '2019-03-08 17:12:10 -0800';
-    repoDate = repoDate.slice(0, 11);
-    return repoDate;
-  };
-
-  getSourceLabel = url => {
-    let sourceLabel = '';
-    this.url = url;
-
-    sourceLabel = (
-      <a href={this.url} target="_blank" rel="noopener noreferrer">
-        {this.url === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs' ? 'Red Hat' : 'Community'}
-      </a>
-    );
-
-    return sourceLabel;
-  };
-
   componentDidMount() {
-    // const { walkthroughInfo } = this.props.getWalkthroughInfo();
-    // this.props.getWalkthroughInfo();
+    this.props.getWalkthroughInfo();
   }
 
   render() {
-    // const { walkthroughInfo } = this.props;
+    const { walkthroughInfo } = this.props;
     return (
       <Card>
         <CardBody>
@@ -49,12 +24,18 @@ class WalkthroughDetails extends React.Component {
             <h3>Details</h3>
             <div className="pf-u-pb-sm">
               <div className="pf-u-display-flex pf-u-justify-content-space-between">
-                <div>Source</div>
-                <div>{this.getSourceLabel(this.getGitHubURL())}</div>
+                <div>Source: </div>
+                <div>
+                  <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
+                    {walkthroughInfo.gitUrl === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs.git'
+                      ? 'Red Hat'
+                      : 'Community'}
+                  </a>
+                </div>
               </div>
               <div className="pf-u-display-flex pf-u-justify-content-space-between">
-                <div>Last updated</div>
-                <div>{this.getSourceDate(this.getGitHubURL())}</div>
+                <div>Last updated: </div>
+                <div>{new Date(walkthroughInfo.commitDate).toLocaleDateString()}</div>
               </div>
             </div>
           </TextContent>
