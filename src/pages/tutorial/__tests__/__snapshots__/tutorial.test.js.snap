@@ -180,6 +180,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           xlOffset={null}
           xlRowSpan={null}
         >
+          <Connect(WalkthroughDetails)
+            className="integr8ly-landing-page-tutorial-dashboard-section-right"
+          />
           <Connect(WalkthroughResources)
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
             resources={Array []}
