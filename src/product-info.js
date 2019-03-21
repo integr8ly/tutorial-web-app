@@ -6,6 +6,13 @@ export default {
   },
   fuse: {
     prettyName: 'Red Hat Fuse Online',
+    gaStatus: 'GA',
+    // Don't show the fuse instance only intended for walkthroughs
+    // in the installed apps list
+    hidden: true
+  },
+  'fuse-managed': {
+    prettyName: 'Red Hat Fuse Online (Shared)',
     gaStatus: 'GA'
   },
   codeready: {

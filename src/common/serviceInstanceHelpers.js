@@ -55,7 +55,8 @@ const DEFAULT_SERVICES = {
   CHE: 'codeready',
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
-  APICURIO: 'apicurio'
+  APICURIO: 'apicurio',
+  FUSE_MANAGED: 'fuse-managed'
 };
 
 const DEFAULT_TRANSFORMS = [
