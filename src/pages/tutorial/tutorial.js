@@ -132,7 +132,7 @@ class TutorialPage extends React.Component {
                           </span>
                         </div>
                       </h3>
-                      <DataList>
+                      <DataList aria-label="Task breakdown by time">
                         {parsedThread.tasks.map((task, i) => (
                           <DataListItem key={i}>
                             <DataListCell width={5}>{`${task.title}`}</DataListCell>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, DataList, DataListItem } from '@patternfly/react-core';
+import { Badge, DataList, DataListItem } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon } from '@patternfly/react-icons';
 
 class InstalledAppsView extends React.Component {
@@ -99,9 +99,9 @@ class InstalledAppsView extends React.Component {
         >
           <div className="pf-u-display-flex pf-u-flex-direction-column">
             <p>{customApp.name}</p>
-            <Label isCompact className="pf-u-ml-lg">
+            <Badge isRead className="pf-u-ml-lg">
               custom
-            </Label>
+            </Badge>
             <div className="integr8ly-state-ready">
               <OnRunningIcon /> &nbsp;Ready for use
             </div>
@@ -131,9 +131,9 @@ class InstalledAppsView extends React.Component {
               <p>
                 {prettyName}{' '}
                 {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                  <Label isCompact className="pf-u-ml-lg">
+                  <Badge isRead className="pf-u-ml-lg">
                     {gaStatus}
-                  </Label>
+                  </Badge>
                 ) : (
                   <span />
                 )}
