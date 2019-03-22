@@ -18,7 +18,6 @@ import {
   Text,
   TextVariants
 } from '@patternfly/react-core';
-// import { AngleLeftIcon, AngleRightIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import LoadingScreen from '../../../components/loadingScreen/loadingScreen';

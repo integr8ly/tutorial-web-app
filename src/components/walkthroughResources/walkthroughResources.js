@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, Label, TextContent } from '@patternfly/react-core';
+import { Badge, Card, CardBody, TextContent } from '@patternfly/react-core';
 import { ChartPieIcon, ExclamationCircleIcon, OnRunningIcon } from '@patternfly/react-icons';
 import { connect } from '../../redux';
 
@@ -78,8 +78,8 @@ class WalkthroughResources extends React.Component {
           <div className="pf-u-pb-sm">
             {resource.statusIcon}
             <span className="pf-u-mr-md">{resource.title}</span>
-            {resource.gaStatus === 'community' ? <Label isCompact>community</Label> : <span />}
-            {resource.gaStatus === 'preview' ? <Label isCompact>preview</Label> : <span />}
+            {resource.gaStatus === 'community' ? <Badge isRead>community</Badge> : <span />}
+            {resource.gaStatus === 'preview' ? <Badge isRead>preview</Badge> : <span />}
           </div>
           <div dangerouslySetInnerHTML={{ __html: resource.html }} />
         </div>
