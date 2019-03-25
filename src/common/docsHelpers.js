@@ -44,7 +44,12 @@ const retrieveRouteAttributes = (resourceId, route) => {
 };
 
 const getMiddlewareServiceAttrs = middlewareServices => {
-  const threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
+  let threescaleUrl;
+  if (window.OPENSHIFT_CONFIG.threescaleWildcardDomain && window.OPENSHIFT_CONFIG.threescaleWildcardDomain.length > 0) {
+    threescaleUrl = window.OPENSHIFT_CONFIG.threescaleWildcardDomain;
+  } else {
+    threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
+  }
 
   return {
     'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl,
