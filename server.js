@@ -380,6 +380,7 @@ function getCustomConfigData(configPath) {
 function getMockConfigData() {
   return `window.OPENSHIFT_CONFIG = {
     masterUri: 'mock-openshift-console-url',
+    threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     mockData: {
       serviceInstances: [
         {
@@ -474,7 +475,8 @@ function getConfigData(req) {
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
     ssoLogoutUri: 'https://${
       process.env.SSO_ROUTE
-    }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}'
+    }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
+    threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}'
   };`;
 }
 
