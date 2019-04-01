@@ -10,10 +10,6 @@ class WalkthroughDetails extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.getWalkthroughInfo();
-  }
-
   render() {
     const { walkthroughInfo } = this.props;
     return (
@@ -26,16 +22,28 @@ class WalkthroughDetails extends React.Component {
               <div className="pf-u-display-flex pf-u-justify-content-space-between">
                 <div>Source: </div>
                 <div>
-                  <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
-                    {walkthroughInfo.gitUrl === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs.git'
-                      ? 'Red Hat'
-                      : 'Community'}
-                  </a>
+                  {walkthroughInfo.type === 'path' ? (
+                    <div>---</div>
+                  ) : (
+                    <div>
+                      <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
+                        {walkthroughInfo.gitUrl === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs.git'
+                          ? 'Red Hat'
+                          : 'Community'}
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="pf-u-display-flex pf-u-justify-content-space-between">
                 <div>Last updated: </div>
-                <div>{new Date(walkthroughInfo.commitDate).toLocaleDateString()}</div>
+                <div>
+                  {walkthroughInfo.type === 'path' ? (
+                    <div>---</div>
+                  ) : (
+                    <div>{new Date(walkthroughInfo.commitDate).toLocaleDateString()}</div>
+                  )}
+                </div>
               </div>
             </div>
           </TextContent>
@@ -56,7 +64,7 @@ WalkthroughDetails.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getWalkthroughInfo: () => dispatch(reduxActions.walkthroughActions.getWalkthroughInfo())
+  getWalkthroughInfo: id => dispatch(reduxActions.walkthroughActions.getWalkthroughInfo(id))
 });
 
 const mapStateToProps = state => ({

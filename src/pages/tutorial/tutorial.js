@@ -30,12 +30,14 @@ class TutorialPage extends React.Component {
     const {
       getWalkthrough,
       getProgress,
+      getWalkthroughInfo,
       match: {
         params: { id }
       }
     } = this.props;
     getWalkthrough(id);
     getProgress();
+    getWalkthroughInfo(id);
   }
 
   getStarted(e, id) {
@@ -189,6 +191,7 @@ TutorialPage.propTypes = {
   thread: PropTypes.object,
   getWalkthrough: PropTypes.func,
   getProgress: PropTypes.func,
+  getWalkthroughInfo: PropTypes.func,
   user: PropTypes.object,
   walkthroughResources: PropTypes.object,
   middlewareServices: PropTypes.object
@@ -202,6 +205,7 @@ TutorialPage.defaultProps = {
     params: {}
   },
   getProgress: noop,
+  getWalkthroughInfo: noop,
   user: {},
   thread: null,
   getWalkthrough: noop,
@@ -216,7 +220,8 @@ TutorialPage.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
-  getProgress: () => dispatch(reduxActions.userActions.getProgress())
+  getProgress: () => dispatch(reduxActions.userActions.getProgress()),
+  getWalkthroughInfo: id => dispatch(reduxActions.walkthroughActions.getWalkthroughInfo(id))
 });
 
 const mapStateToProps = state => ({

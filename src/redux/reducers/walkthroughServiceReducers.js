@@ -112,16 +112,13 @@ const walkthroughServiceReducers = (state = initialState, action) => {
         {
           pending: false,
           fulfilled: true,
-          // MF 033119 - New, test on server
           type: action.payload.data.walkthroughLocation.type,
           gitUrl: action.payload.data.walkthroughLocation.remote,
-          commitDate: action.payload.data.walkthroughLocations.commitDate
-          // MF 033119 - old version, test new and delete
-          // gitUrl: action.payload.data.walkthroughLocations[0].remote,
-          // commitDate: action.payload.data.walkthroughLocations[0].commitDate
+          commitDate: action.payload.data.walkthroughLocation.commitDate
         },
         {
-          state
+          state,
+          initialState
         }
       );
 
