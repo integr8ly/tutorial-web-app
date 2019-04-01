@@ -54,12 +54,10 @@ class WalkthroughDetails extends React.Component {
 }
 
 WalkthroughDetails.propTypes = {
-  getWalkthroughInfo: PropTypes.func,
   walkthroughInfo: PropTypes.object
 };
 
 WalkthroughDetails.defaultProps = {
-  getWalkthroughInfo: null,
   walkthroughInfo: { data: {} }
 };
 
