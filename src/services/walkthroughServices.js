@@ -148,11 +148,20 @@ const getCustomWalkthroughs = () =>
 /**
  * Retrieves the GitHub info for the installed walkthrough from the backend.
  */
-const getWalkthroughInfo = () =>
+
+// MF 033119 - New, test on server
+const getWalkthroughInfo = id =>
   axios(
     serviceConfig({
-      url: `/about`
+      url: `/about/walkthrough/${id}`
     })
   );
+// MF 033119 - old version, test new and delete
+// const getWalkthroughInfo = () =>
+//   axios(
+//     serviceConfig({
+//       url: `/about`
+//     })
+//   );
 
 export { getWalkthrough, getWalkthroughInfo, getCustomWalkthroughs, prepareCustomWalkthroughNamespace };
