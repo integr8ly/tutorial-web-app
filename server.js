@@ -50,6 +50,13 @@ const TMP_DIR = process.env.TMP_DIR || '/tmp';
 // Types of walkthrough location that can be provided.
 const WALKTHROUGH_LOCATION_TYPE_GIT = 'git';
 const WALKTHROUGH_LOCATION_TYPE_PATH = 'path';
+const WALKTHROUGH_LOCATION_DEFAULT = {
+  type: WALKTHROUGH_LOCATION_TYPE_GIT,
+  commitHash: null,
+  commitDate: null,
+  remote: null,
+  directory: null
+};
 
 const walkthroughs = [];
 
@@ -113,7 +120,7 @@ app.get('/customConfig', (req, res) => {
   });
 });
 
-app.get('/about', (req, res) => {
+app.get('/about', (_, res) => {
   const packageJson = require('./package.json');
   res.json({
     version: packageJson.version || 'Not Available',
@@ -121,14 +128,32 @@ app.get('/about', (req, res) => {
   });
 });
 
+app.get('/about/walkthrough/:walkthroughId', (req, res) => {
+  const { walkthroughId } = req.params;
+  res.json({
+    walkthroughId,
+    walkthroughLocation: getWalkthroughLocationInfoForWalkthrough(walkthroughId)
+  });
+});
+
+function getWalkthroughLocationInfoForWalkthrough(walkthroughId) {
+  const walkthrough = walkthroughs.find(w => w.id === walkthroughId);
+  return walkthrough.walkthroughLocationInfo;
+}
+
 function getUniqueWalkthroughLocationInfos(walkthroughs) {
   const infos = {};
   walkthroughs.forEach((walkthrough) => {
     const { walkthroughLocationInfo } = walkthrough;
-    if (!walkthroughLocationInfo || walkthroughLocationInfo.type != WALKTHROUGH_LOCATION_TYPE_GIT) {
-      return;
+    const walkthroughLocationId = `${walkthroughLocationInfo.remote}-${walkthroughLocationInfo.directory}`;
+
+    if (!infos[walkthroughLocationId]) {
+      infos[walkthroughLocationId] = Object.assign({ walkthroughs: [] }, walkthroughLocationInfo);
     }
-    infos[walkthroughLocationInfo.remote || walkthroughLocationInfo.local] = walkthroughLocationInfo;
+    infos[walkthroughLocationId].walkthroughs.push({
+      id: walkthrough.id,
+      title: walkthrough.title
+    });
   });
   return Object.values(infos);
 }
@@ -217,10 +242,10 @@ function resolveWalkthroughLocations(locations) {
         console.log(`Importing walkthrough from path ${location}`);
         const locationResult = Object.assign({
           parentId: path.basename(location),
-          walkthroughLocationInfo: {
+          walkthroughLocationInfo: Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
             type: WALKTHROUGH_LOCATION_TYPE_PATH,
-            local: location
-          },
+            directory: path.basename(location)
+          }),
         }, locationResultTemplate, { local: location });
         return resolve(locationResult);
       } else if (isGitRepo(location)) {
@@ -244,13 +269,13 @@ function resolveWalkthroughLocations(locations) {
                 walkthroughFolders.push(...walkthroughParams.walkthroughsFolder);
               }
               const walkthroughInfos = walkthroughFolders.map(folder => {
-                const walkthroughLocationInfo = {
+                const walkthroughLocationInfo = Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
                   type: WALKTHROUGH_LOCATION_TYPE_GIT,
                   commitHash: log.latest.hash,
                   commitDate: log.latest.date,
                   remote: cloned.repoName,
-                  folder: folder
-                };
+                  directory: folder
+                });
 
                 return Object.assign({}, locationResultTemplate, {
                   parentId: `${repoName}-${path.basename(folder)}`,
