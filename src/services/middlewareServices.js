@@ -347,9 +347,4 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
   }
 };
 
-export {
-  manageMiddlewareServices,
-  mockMiddlewareServices,
-  getCustomConfig,
-  handleEnmasseServiceInstanceWatchEvents
-};
+export { manageMiddlewareServices, mockMiddlewareServices, getCustomConfig, handleEnmasseServiceInstanceWatchEvents };

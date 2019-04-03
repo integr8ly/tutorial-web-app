@@ -5,7 +5,7 @@ import { ProgressBar } from 'patternfly-react';
 class LoadingScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { show: true, complete: false };
+    this.state = { show: true };
   }
   render() {
     if (!this.state.show) {
@@ -47,12 +47,10 @@ LoadingScreen.propTypes = {
   staticThrobberImage: PropTypes.string,
   throbberImage: PropTypes.string,
   loadingText: PropTypes.string,
-  standbyText: PropTypes.string,
-  hideDelay: PropTypes.number
+  standbyText: PropTypes.string
 };
 
 LoadingScreen.defaultProps = {
-  hideDelay: 2500,
   progress: 0,
   staticThrobberImage: require('./resources/StartingServices_Final.png'),
   throbberImage: require('./resources/StartingServices_Final.svg'),

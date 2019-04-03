@@ -65,37 +65,40 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
           resObj => resObj.metadata.name === userNamespace,
           namespaceRequestDef,
           namespaceRequestObj
-        ).then(() => {
-          if (!manifest || !manifest.dependencies || !manifest.dependencies.managedServices) {
-            return Promise.resolve([]);
-          }
-          return provisionManagedServiceSlices(dispatch, manifest.dependencies.managedServices, user.username, {
-            displayName: namespaceDisplayName,
-            name: userNamespace
+        )
+          .then(() => {
+            if (!manifest || !manifest.dependencies || !manifest.dependencies.managedServices) {
+              return Promise.resolve([]);
+            }
+            return provisionManagedServiceSlices(dispatch, manifest.dependencies.managedServices, user.username, {
+              displayName: namespaceDisplayName,
+              name: userNamespace
+            });
           })
-        }).then((additionalAttrs) => {
-          const mergedAttrs = Object.assign({}, attrs, ...additionalAttrs);
-          if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
-            return Promise.resolve([]);
-          }
-          const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
-            const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
-            return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
-          });
-          return Promise.all(
-            siObjs.map(siObj =>
-              findOrCreateOpenshiftResource(
-                serviceInstanceDef(userNamespace),
-                siObj,
-                buildServiceInstanceCompareFn(siObj)
+          .then(additionalAttrs => {
+            const mergedAttrs = Object.assign({}, attrs, ...additionalAttrs);
+            if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
+              return Promise.resolve([]);
+            }
+            const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
+              const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
+              return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
+            });
+            return Promise.all(
+              siObjs.map(siObj =>
+                findOrCreateOpenshiftResource(
+                  serviceInstanceDef(userNamespace),
+                  siObj,
+                  buildServiceInstanceCompareFn(siObj)
+                )
               )
             )
-          )
-            .then(() => watch(routeDef(userNamespace)))
-            .then(watchListener =>
-              watchListener.onEvent(handleResourceWatchEvent.bind(null, dispatch, walkthoughName))
-            ).then(() => dispatch(initCustomThreadSuccess(manifest)));
-        });
+              .then(() => watch(routeDef(userNamespace)))
+              .then(watchListener =>
+                watchListener.onEvent(handleResourceWatchEvent.bind(null, dispatch, walkthoughName))
+              )
+              .then(() => dispatch(initCustomThreadSuccess(manifest)));
+          });
       });
     })
     .catch(e => dispatch(initCustomThreadFailure(e)));
@@ -107,28 +110,32 @@ const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
   }
   const svcProvisions = svcList.reduce((acc, svc) => {
     if (svc.name === DEFAULT_SERVICES.FUSE) {
-      acc.push(provisionFuseOnline(user, namespace).then(provision => {
-        dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
-          payload: provision.event.payload
-        });
-        return provision.attrs;
-      }));
+      acc.push(
+        provisionFuseOnline(user, namespace).then(provision => {
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
+            payload: provision.event.payload
+          });
+          return provision.attrs;
+        })
+      );
     }
     if (svc.name === DEFAULT_SERVICES.ENMASSE) {
-      acc.push(provisionAMQOnline(user, namespace).then(attrs => {
-        // Perform a dispatch so the Redux store will pick up on these attrs
-        // and they can be used in the UI.
-        dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
-          payload: {
-            url: attrs['enmasse-broker-url'],
-            username: attrs['enmasse-credentials-username'],
-            password: attrs['enmasse-credentials-password']
-          }
-        });
-        return attrs;
-      }));
+      acc.push(
+        provisionAMQOnline(user, namespace).then(attrs => {
+          // Perform a dispatch so the Redux store will pick up on these attrs
+          // and they can be used in the UI.
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
+            payload: {
+              url: attrs['enmasse-broker-url'],
+              username: attrs['enmasse-credentials-username'],
+              password: attrs['enmasse-credentials-password']
+            }
+          });
+          return attrs;
+        })
+      );
     }
     return acc;
   }, []);
@@ -136,7 +143,7 @@ const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
   // containing any additional attributes that should be included in
   // ServiceInstance provisioning.
   return Promise.all(svcProvisions);
-}
+};
 
 /**
  * Replace template variables in a ServiceInstance with provided attributes.

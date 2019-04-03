@@ -32,7 +32,7 @@ class WalkthroughResources extends React.Component {
           gaStatus = '';
           icon = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
-          const gaStatusApi = (app && app.productDetails) ?app.productDetails.gaStatus : null;
+          const gaStatusApi = app && app.productDetails ? app.productDetails.gaStatus : null;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {
