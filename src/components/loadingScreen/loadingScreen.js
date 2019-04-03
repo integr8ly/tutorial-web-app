@@ -8,11 +8,6 @@ class LoadingScreen extends React.Component {
     this.state = { show: true, complete: false };
   }
   render() {
-    if (this.props.progress === 100 && !this.state.complete) {
-      setTimeout(() => {
-        this.setState({ show: false, complete: true });
-      }, this.props.hideDelay);
-    }
     if (!this.state.show) {
       return '';
     }

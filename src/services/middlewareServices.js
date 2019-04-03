@@ -27,9 +27,7 @@ import {
 import productDetails from '../product-info';
 
 const WALKTHROUGH_SERVICES = [
-  DEFAULT_SERVICES.ENMASSE,
   DEFAULT_SERVICES.CHE,
-  DEFAULT_SERVICES.FUSE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.APICURIO,
@@ -314,6 +312,9 @@ const buildServiceBindingDef = namespace => ({
  */
 const handleEnmasseServiceInstanceWatchEvents = event => {
   const siObj = event.payload;
+  if (event.payload.spec.clusterServiceClassExternalName !== DEFAULT_SERVICES.ENMASSE) {
+    return;
+  }
   if (siObj.status.provisionStatus === 'Provisioned') {
     const enmasseBindParams = {
       consoleAccess: true,
@@ -346,4 +347,9 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
   }
 };
 
-export { manageMiddlewareServices, mockMiddlewareServices, getCustomConfig };
+export {
+  manageMiddlewareServices,
+  mockMiddlewareServices,
+  getCustomConfig,
+  handleEnmasseServiceInstanceWatchEvents
+};

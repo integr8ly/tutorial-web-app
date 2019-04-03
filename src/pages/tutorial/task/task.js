@@ -357,15 +357,6 @@ class TaskPage extends React.Component {
     const attrs = this.getDocsAttributes(id);
     const { t, thread, manifest } = this.props;
 
-    if (thread.pending || manifest.pending) {
-      return (
-        <LoadingScreen
-          loadingText="We're initiating services and dependencies for your walkthrough"
-          standbyText=" Please stand by."
-          progress={!window.OPENSHIFT_CONFIG.mockData ? this.totalLoadingProgress(attrs) : 100}
-        />
-      );
-    }
     if (thread.error || manifest.error) {
       return (
         <div>
@@ -374,7 +365,7 @@ class TaskPage extends React.Component {
         </div>
       );
     }
-    if (thread.fulfilled && thread.data && thread.id === id) {
+    if (thread.fulfilled && manifest.fulfilled && thread.data && thread.id === id) {
       const taskNum = parseInt(task, 10);
       const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
       const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);
@@ -531,7 +522,13 @@ class TaskPage extends React.Component {
         </React.Fragment>
       );
     }
-    return null;
+    return (
+      <LoadingScreen
+        loadingText="We're initiating services and dependencies for your walkthrough"
+        standbyText=" Please stand by."
+        progress={!window.OPENSHIFT_CONFIG.mockData ? this.totalLoadingProgress(attrs) : 100}
+      />
+    );
   }
 }
 

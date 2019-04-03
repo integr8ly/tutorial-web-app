@@ -32,7 +32,7 @@ class WalkthroughResources extends React.Component {
           gaStatus = '';
           icon = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
-          const gaStatusApi = app.productDetails.gaStatus;
+          const gaStatusApi = (app && app.productDetails) ?app.productDetails.gaStatus : null;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {
@@ -56,7 +56,7 @@ class WalkthroughResources extends React.Component {
     const readyStatus = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
     const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 
-    if (app.metadata && app.metadata.deletionTimestamp) {
+    if (!app || !app.metadata || (app.metadata && app.metadata.deletionTimestamp)) {
       return unavailableStatus;
     }
 
