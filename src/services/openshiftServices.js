@@ -278,6 +278,7 @@ const watch = res =>
   });
 
 const _buildOpenshiftApiUrl = (baseUrl, res) => (res.group ? `${baseUrl}/apis/${res.group}` : `${baseUrl}/api`);
+
 const _buildOpenShiftUrl = (baseUrl, res) => {
   const urlBegin = `${_buildOpenshiftApiUrl(baseUrl, res)}/${res.version}`;
   if (res.namespace) {
