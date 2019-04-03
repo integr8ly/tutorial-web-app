@@ -30,5 +30,9 @@ export default {
   apicurio: {
     prettyName: 'Apicurito',
     gaStatus: 'GA'
+  },
+  rhsso: {
+    prettyName: 'Red Hat Single Sign-On',
+    gaStatus: 'GA'
   }
 };

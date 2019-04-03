@@ -145,7 +145,7 @@ class InstalledAppsView extends React.Component {
           </DataListItem>
         </DataList>
       );
-    });
+    }).filter(app => app != null);
     masterList.unshift(this.getOpenshiftConsole(masterList.length));
     if (customApps) {
       customApps.forEach(app => masterList.push(this.createCustomAppElem(masterList.length, app)));
