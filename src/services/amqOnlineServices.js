@@ -1,11 +1,4 @@
-import {
-  namespaceDef,
-  namespaceRequestDef,
-  namespaceRequestResource,
-  serviceInstanceDef,
-  secretDef,
-  namespaceResource
-} from '../common/openshiftResourceDefinitions';
+import { serviceInstanceDef, secretDef } from '../common/openshiftResourceDefinitions';
 import {
   buildServiceInstanceResourceObj,
   DEFAULT_SERVICES,
@@ -15,33 +8,19 @@ import { handleEnmasseServiceInstanceWatchEvents } from '../services/middlewareS
 import { watch, OpenShiftWatchEvents } from './openshiftServices';
 import { findOrCreateOpenshiftResource } from '../common/openshiftHelpers';
 
-const provisionAMQOnline = (username, namespace) =>
+const provisionAMQOnline = (dispatch, username, namespace) =>
   new Promise((resolve, reject) => {
-    provisionNamespace(namespace)
+    provisionServiceInstance(username, namespace.name)
       .then(() => {
         watch(serviceInstanceDef(namespace.name)).then(watchListener => {
-          watchListener.onEvent(handleEnmasseServiceInstanceWatchEvents);
+          watchListener.onEvent(handleEnmasseServiceInstanceWatchEvents.bind(null, dispatch));
         });
         watch(secretDef(namespace.name)).then(watchListener => {
           watchListener.onEvent(handleCredentialsSecretEvent.bind(null, resolve));
         });
       })
-      .then(() => provisionServiceInstance(username, namespace.name))
       .catch(err => reject(err));
   });
-
-const provisionNamespace = namespace => {
-  const namespaceRes = namespaceResource({ name: namespace.name });
-  const namespaceReqRes = namespaceRequestResource(namespace.displayName, { name: namespace.name });
-  const namespaceCompare = resObj => resObj.metadata.name === namespace.name;
-  return findOrCreateOpenshiftResource(
-    namespaceDef,
-    namespaceRes,
-    namespaceCompare,
-    namespaceRequestDef,
-    namespaceReqRes
-  );
-};
 
 const provisionServiceInstance = (username, namespace) => {
   const siRes = buildServiceInstanceResourceObj({ namespace, name: DEFAULT_SERVICES.ENMASSE, username });
