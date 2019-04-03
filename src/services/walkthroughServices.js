@@ -122,7 +122,7 @@ const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
     }
     if (svc.name === DEFAULT_SERVICES.ENMASSE) {
       acc.push(
-        provisionAMQOnline(user, namespace).then(attrs => {
+        provisionAMQOnline(dispatch, user, namespace).then(attrs => {
           // Perform a dispatch so the Redux store will pick up on these attrs
           // and they can be used in the UI.
           dispatch({
