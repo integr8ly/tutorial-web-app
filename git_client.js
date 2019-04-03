@@ -13,7 +13,7 @@ function getRepoName(repoUrl) {
  *
  * A URL could contain a hash, which we're interpreting as a branch/tag separator,
  * we shouldn't include this.
- **/
+ * */
 function cleanupRepoUrl(repoUrl) {
   const parsed = url.parse(repoUrl);
   return `${parsed.protocol}//${parsed.host}${parsed.path}`;
@@ -25,9 +25,9 @@ function cleanupRepoUrl(repoUrl) {
  * If the URL has a hash at the end of it then this is used as the branch name.
  */
 function getCloneOptionsForRepo(repoUrl) {
-  let cloneOptions = [ '--depth', 1, '--single-branch' ];
+  let cloneOptions = ['--depth', 1, '--single-branch'];
   const parsed = url.parse(repoUrl);
-  if (!!parsed.hash) {
+  if (parsed.hash) {
     // From experimenting, parsed.hash starts with a hash symbol. Just in case.
     const branchName = parsed.hash[0] === '#' ? parsed.hash.substring(1) : parsed.hash;
     cloneOptions = cloneOptions.concat(['--branch', branchName]);
@@ -35,11 +35,10 @@ function getCloneOptionsForRepo(repoUrl) {
   return cloneOptions;
 }
 
-exports.latestLog = (repoPath) => {
-  return simpleGit(repoPath)
-    .log([ '--max-count', 1 ])
+exports.latestLog = repoPath =>
+  simpleGit(repoPath)
+    .log(['--max-count', 1])
     .catch(err => console.error(err));
-}
 
 exports.cloneRepo = (repoUrl, targetDir) =>
   new Promise((resolve, reject) => {
@@ -56,9 +55,11 @@ exports.cloneRepo = (repoUrl, targetDir) =>
     simpleGit(__dirname)
       // Disable terminal prompts, so Git does not prompt for username/password on a clone.
       .clone(cleanRepoUrl, clonePath, cloneOpts)
-      .then(() => resolve({
-        localDir: clonePath,
-        repoName: cleanRepoUrl
-      }))
+      .then(() =>
+        resolve({
+          localDir: clonePath,
+          repoName: cleanRepoUrl
+        })
+      )
       .catch(reject);
   });

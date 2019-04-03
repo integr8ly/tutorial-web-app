@@ -93,7 +93,7 @@ class WalkthroughResources extends React.Component {
       <Card>
         <CardBody>
           <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
-            <h2>Walkthrough Resources</h2>
+            <h3>Resources</h3>
             {this.state.resourceList}
             <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
           </TextContent>

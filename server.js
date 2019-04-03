@@ -446,6 +446,15 @@ function getMockConfigData() {
         },
         {
           spec: {
+            clusterServiceClassExternalName: 'fuse-managed'
+          },
+          status: {
+            dashboardURL:'${process.env.OPENSHIFT_URL}',
+            conditions: [{ status: 'True' }]
+          }
+        },
+        {
+          spec: {
             clusterServiceClassExternalName: 'launcher'
           },
           status: {
