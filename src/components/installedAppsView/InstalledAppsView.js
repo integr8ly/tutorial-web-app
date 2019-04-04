@@ -112,40 +112,42 @@ class InstalledAppsView extends React.Component {
   }
 
   static createMasterList(apps, customApps) {
-    const masterList = apps.map((app, index) => {
-      const { prettyName, gaStatus, hidden } = InstalledAppsView.getProductDetails(app);
-      return hidden ? null : (
-        <DataList>
-          <DataListItem
-            className="pf-u-p-md"
-            onClick={() =>
-              prettyName === 'Red Hat AMQ'
-                ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
-                : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
-            }
-            key={`${app.spec.clusterServiceClassExternalName}_${index}`}
-            value={index}
-          >
-            {' '}
-            <div className="pf-u-display-flex pf-u-flex-direction-column">
-              <p>
-                {prettyName}{' '}
-                {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                  <Badge isRead className="pf-u-ml-lg">
-                    {gaStatus}
-                  </Badge>
-                ) : (
-                  <span />
-                )}
-              </p>
-              <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
-            </div>
-            <br />
-            <small />
-          </DataListItem>
-        </DataList>
-      );
-    });
+    const masterList = apps
+      .map((app, index) => {
+        const { prettyName, gaStatus, hidden } = InstalledAppsView.getProductDetails(app);
+        return hidden ? null : (
+          <DataList>
+            <DataListItem
+              className="pf-u-p-md"
+              onClick={() =>
+                prettyName === 'Red Hat AMQ'
+                  ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
+                  : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
+              }
+              key={`${app.spec.clusterServiceClassExternalName}_${index}`}
+              value={index}
+            >
+              {' '}
+              <div className="pf-u-display-flex pf-u-flex-direction-column">
+                <p>
+                  {prettyName}{' '}
+                  {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
+                    <Badge isRead className="pf-u-ml-lg">
+                      {gaStatus}
+                    </Badge>
+                  ) : (
+                    <span />
+                  )}
+                </p>
+                <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+              </div>
+              <br />
+              <small />
+            </DataListItem>
+          </DataList>
+        );
+      })
+      .filter(app => app != null);
     masterList.unshift(this.getOpenshiftConsole(masterList.length));
     if (customApps) {
       customApps.forEach(app => masterList.push(this.createCustomAppElem(masterList.length, app)));

@@ -56,7 +56,8 @@ const DEFAULT_SERVICES = {
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
   APICURIO: 'apicurio',
-  FUSE_MANAGED: 'fuse-managed'
+  FUSE_MANAGED: 'fuse-managed',
+  RHSSO: 'rhsso'
 };
 
 const DEFAULT_TRANSFORMS = [
