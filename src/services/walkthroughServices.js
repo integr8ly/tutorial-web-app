@@ -6,7 +6,9 @@ import { initCustomThread } from './threadServices';
 import {
   buildValidProjectNamespaceName,
   findOrCreateOpenshiftResource,
-  buildValidNamespaceDisplayName
+  buildValidNamespaceDisplayName,
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName
 } from '../common/openshiftHelpers';
 import { buildServiceInstanceCompareFn, DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
 import {
@@ -56,6 +58,8 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
       currentUser().then(user => {
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
         const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, walkthoughName);
+        const usersSharedNamespaceName = getUsersSharedNamespaceName(user.username);
+        const usersSharedNamespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);      
         const namespaceObj = namespaceResource({ name: userNamespace });
         const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
@@ -71,8 +75,8 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
               return Promise.resolve([]);
             }
             return provisionManagedServiceSlices(dispatch, manifest.dependencies.managedServices, user.username, {
-              displayName: namespaceDisplayName,
-              name: userNamespace
+              displayName: usersSharedNamespaceDisplayName,
+              name: usersSharedNamespaceName
             });
           })
           .then(additionalAttrs => {
