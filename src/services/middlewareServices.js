@@ -7,8 +7,8 @@ import {
   DEFAULT_SERVICES
 } from '../common/serviceInstanceHelpers';
 import {
-  buildValidProjectNamespaceName,
-  buildValidNamespaceDisplayName,
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName,
   cleanUsername,
   findOrCreateOpenshiftResource
 } from '../common/openshiftHelpers';
@@ -89,8 +89,8 @@ const manageMiddlewareServices = (dispatch, user, config) => {
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
     payload: { provisioningUser: user.username }
   });
-  const userNamespace = buildValidProjectNamespaceName(user.username, 'shared');
-  const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, 'Shared Services');
+  const userNamespace = getUsersSharedNamespaceName(user.username);
+  const namespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);
   const namespaceObj = namespaceResource({ name: userNamespace });
   const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
