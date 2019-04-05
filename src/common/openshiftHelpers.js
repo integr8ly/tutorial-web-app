@@ -11,12 +11,12 @@ const NAMESPACE_HASH_LENGTH = 4;
 /**
  * Same as `buildValidProjectNamespaceName`, but with a hardcoded suffix
  */
-const getUsersSharedNamespaceName = (username) => buildValidProjectNamespaceName(username, 'shared');
+const getUsersSharedNamespaceName = username => buildValidProjectNamespaceName(username, 'shared');
 
 /**
  * Same as `buildValidNamespaceDisplayName`, but with a hardcoded suffix
  */
-const getUsersSharedNamespaceDisplayName = (username) => buildValidNamespaceDisplayName(username, 'Shared Services');
+const getUsersSharedNamespaceDisplayName = username => buildValidNamespaceDisplayName(username, 'Shared Services');
 
 /**
  * Construct a projects namespace from a given username.
