@@ -27,9 +27,7 @@ class WalkthroughDetails extends React.Component {
                   ) : (
                     <div>
                       <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
-                        {walkthroughInfo.gitUrl === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs'
-                          ? 'Red Hat'
-                          : 'Community'}
+                        {walkthroughInfo.gitUrl.includes('https://github.com/integr8ly/') ? 'Red Hat' : 'Community'}
                       </a>
                     </div>
                   )}
