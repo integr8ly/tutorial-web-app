@@ -59,7 +59,7 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
         const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, walkthoughName);
         const usersSharedNamespaceName = getUsersSharedNamespaceName(user.username);
-        const usersSharedNamespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);      
+        const usersSharedNamespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);
         const namespaceObj = namespaceResource({ name: userNamespace });
         const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
