@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Badge, DataList, DataListItem } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon } from '@patternfly/react-icons';
+import { getProductDetails } from '../../services/middlewareServices';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -16,16 +17,6 @@ class InstalledAppsView extends React.Component {
 
   handleAppNameClicked(e) {
     this.setState({ currentApp: e.target.value });
-  }
-
-  static getProductDetails(app) {
-    const { productDetails, spec } = app;
-    if (productDetails) {
-      return productDetails;
-    }
-    return {
-      prettyName: spec.clusterServiceClassExternalName
-    };
   }
 
   static getStatusForApp(app) {
@@ -113,8 +104,21 @@ class InstalledAppsView extends React.Component {
 
   static createMasterList(apps, customApps) {
     const masterList = apps
+      .sort((cur, next) => {
+        const curDetails = getProductDetails(cur);
+        const nextDetails = getProductDetails(next);
+        // Try to push any non-pretty names to the bottom. Although, all names
+        // should be pretty in this section.
+        if (!curDetails || nextDetails.prettyName > curDetails.prettyName) {
+          return -1;
+        }
+        if (!nextDetails || curDetails.prettyName > nextDetails.prettyName) {
+          return 1;
+        }
+        return 0;
+      })
       .map((app, index) => {
-        const { prettyName, gaStatus, hidden } = InstalledAppsView.getProductDetails(app);
+        const { prettyName, gaStatus, hidden } = getProductDetails(app);
         return hidden ? null : (
           <DataList>
             <DataListItem

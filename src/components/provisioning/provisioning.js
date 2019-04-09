@@ -18,23 +18,19 @@ import {
 import { BoxesIcon, CheckCircleIcon, CircleNotchIcon } from '@patternfly/react-icons';
 import get from 'lodash.get';
 import { connect } from '../../redux';
-import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
+import {
+  PROVISION_SERVICES,
+  getCustomConfig,
+  manageMiddlewareServices,
+  mockMiddlewareServices,
+  getProductDetails
+} from '../../services/middlewareServices';
 import { currentUser } from '../../services/openshiftServices';
-import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 import {
   isServiceProvisioned,
   isServiceProvisioning,
   isServiceProvisionFailed
 } from '../../common/walkthroughServiceHelpers';
-
-const PROVISION_SERVICES = [
-  DEFAULT_SERVICES.CHE,
-  DEFAULT_SERVICES.LAUNCHER,
-  DEFAULT_SERVICES.APICURIO,
-  DEFAULT_SERVICES.THREESCALE,
-  DEFAULT_SERVICES.FUSE_MANAGED,
-  DEFAULT_SERVICES.RHSSO
-];
 
 function buildProvisioningScreen(WrappedComponent) {
   class Provisioning extends React.Component {
@@ -154,7 +150,7 @@ function buildProvisioningScreen(WrappedComponent) {
           <DataListCell className="pf-u-py-md">
             {Provisioning.renderServiceLoadingText(svc)}
             <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
-              {svc.productDetails.prettyName}
+              {getProductDetails(svc).prettyName}
             </div>
           </DataListCell>
           <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>

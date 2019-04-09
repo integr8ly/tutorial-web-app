@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Badge, Card, CardBody, TextContent } from '@patternfly/react-core';
 import { ChartPieIcon, ExclamationCircleIcon, OnRunningIcon } from '@patternfly/react-icons';
+import { getProductDetails } from '../../services/middlewareServices';
 import { connect } from '../../redux';
 
 class WalkthroughResources extends React.Component {
@@ -32,7 +33,8 @@ class WalkthroughResources extends React.Component {
           gaStatus = '';
           icon = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
         } else {
-          const gaStatusApi = app && app.productDetails ? app.productDetails.gaStatus : null;
+          const productDetails = getProductDetails(app);
+          const gaStatusApi = productDetails && productDetails.gaStatus ? productDetails.gaStatus : null;
           const statusIcon = WalkthroughResources.assignSerivceIcon(app);
 
           if (gaStatusApi) {

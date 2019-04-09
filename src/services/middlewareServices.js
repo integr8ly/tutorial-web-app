@@ -24,11 +24,24 @@ import {
 
 import productDetails from '../product-info';
 
-const WALKTHROUGH_SERVICES = [
+// The default services to watch.
+const WATCH_SERVICES = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.FUSE_MANAGED,
+  DEFAULT_SERVICES.FUSE,
+  DEFAULT_SERVICES.ENMASSE,
+  DEFAULT_SERVICES.RHSSO
+];
+
+// The default services to provision.
+const PROVISION_SERVICES = [
+  DEFAULT_SERVICES.CHE,
+  DEFAULT_SERVICES.LAUNCHER,
+  DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.FUSE_MANAGED,
   DEFAULT_SERVICES.RHSSO
 ];
@@ -38,11 +51,18 @@ const WALKTHROUGH_SERVICES = [
  * service instance object
  * @param serviceInstance Service instance retrieved from Openshift
  */
-const setProductDetails = serviceInstance => {
+const getProductDetails = serviceInstance => {
   const { spec } = serviceInstance;
-  if (spec) {
-    serviceInstance.productDetails = productDetails[spec.clusterServiceClassExternalName];
+  if (!spec) {
+    return null;
   }
+  const storedDetails = productDetails[spec.clusterServiceClassExternalName];
+  if (!storedDetails) {
+    return {
+      prettyName: spec.clusterServiceClassExternalName
+    };
+  }
+  return storedDetails;
 };
 
 /**
@@ -57,7 +77,6 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   const mockUsername = 'mockuser';
   window.localStorage.setItem('currentUserName', mockUsername);
   mockData.serviceInstances.forEach(si => {
-    setProductDetails(si);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: si
@@ -84,7 +103,7 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  * @param {Object} dispatch Redux dispatch.
  */
 const manageMiddlewareServices = (dispatch, user, config) => {
-  const walkthroughServices = config.servicesToProvision || WALKTHROUGH_SERVICES;
+  const walkthroughServices = config.servicesToProvision || PROVISION_SERVICES;
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
     payload: { provisioningUser: user.username }
@@ -115,7 +134,9 @@ const manageMiddlewareServices = (dispatch, user, config) => {
     })
     .then(() => {
       watch(serviceInstanceDef(userNamespace)).then(watchListener =>
-        watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch, walkthroughServices))
+        watchListener.onEvent(
+          handleServiceInstanceWatchEvents.bind(null, dispatch, WATCH_SERVICES.concat(walkthroughServices))
+        )
       );
       if (walkthroughServices.includes(DEFAULT_SERVICES.AMQ)) {
         watch(statefulSetDef(userNamespace)).then(watchListener =>
@@ -237,7 +258,6 @@ const handleServiceInstanceWatchEvents = (dispatch, toWatch, event) => {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
-    setProductDetails(event.payload);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: event.payload
@@ -305,4 +325,12 @@ const handleEnmasseServiceInstanceWatchEvents = (dispatch, event) => {
   }
 };
 
-export { manageMiddlewareServices, mockMiddlewareServices, getCustomConfig, handleEnmasseServiceInstanceWatchEvents };
+export {
+  PROVISION_SERVICES,
+  WATCH_SERVICES,
+  manageMiddlewareServices,
+  mockMiddlewareServices,
+  getCustomConfig,
+  handleEnmasseServiceInstanceWatchEvents,
+  getProductDetails
+};
