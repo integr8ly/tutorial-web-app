@@ -27,9 +27,7 @@ class WalkthroughDetails extends React.Component {
                   ) : (
                     <div>
                       <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
-                        {walkthroughInfo.gitUrl === 'https://github.com/integr8ly/tutorial-web-app-walkthroughs.git'
-                          ? 'Red Hat'
-                          : 'Community'}
+                        {walkthroughInfo.gitUrl.includes('https://github.com/integr8ly/') ? 'Red Hat' : 'Community'}
                       </a>
                     </div>
                   )}
@@ -41,7 +39,7 @@ class WalkthroughDetails extends React.Component {
                   {walkthroughInfo.type === 'path' ? (
                     <div>---</div>
                   ) : (
-                    <div>{new Date(walkthroughInfo.commitDate).toLocaleDateString()}</div>
+                    <div>{new Date(walkthroughInfo.commitDate).toISOString().slice(0, 10)}</div>
                   )}
                 </div>
               </div>
