@@ -20,7 +20,6 @@ import {
 } from '@patternfly/react-core';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
-import LoadingScreen from '../../../components/loadingScreen/loadingScreen';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
@@ -33,7 +32,10 @@ import {
   WalkthroughTextBlock,
   WalkthroughStep
 } from '../../../common/walkthroughHelpers';
+import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
 import CopyField from '../../../components/copyField/copyField';
+import { findServices } from '../../../common/serviceInstanceHelpers';
+import get from 'lodash.get';
 
 class TaskPage extends React.Component {
   constructor(props) {
@@ -205,7 +207,6 @@ class TaskPage extends React.Component {
 
   totalLoadingProgress = attrs => Math.ceil((this.resourcesProgress() + this.docsAttributesProgress(attrs)) / 2);
 
-  // Temporary fix for the Asciidoc renderer not being reactive.
   getDocsAttributes = walkthroughId =>
     getDocsForWalkthrough(walkthroughId, this.props.middlewareServices, this.props.walkthroughResources);
 
@@ -350,6 +351,7 @@ class TaskPage extends React.Component {
 
   render() {
     const {
+      middlewareServices,
       match: {
         params: { id, task }
       }
@@ -522,12 +524,10 @@ class TaskPage extends React.Component {
         </React.Fragment>
       );
     }
+    const svcNamesToWatch = get(manifest, 'data.dependencies.managedServices', []).map(svc => svc.name);
+    const svcToWatch = findServices(svcNamesToWatch, Object.values(middlewareServices.data));
     return (
-      <LoadingScreen
-        loadingText="We're initiating services and dependencies for your walkthrough"
-        standbyText=" Please stand by."
-        progress={!window.OPENSHIFT_CONFIG.mockData ? this.totalLoadingProgress(attrs) : 100}
-      />
+      <ProvisioningScreen message="Provisioning additional services." provisioningServices={svcToWatch || []}/>
     );
   }
 }

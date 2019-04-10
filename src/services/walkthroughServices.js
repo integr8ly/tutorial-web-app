@@ -55,6 +55,7 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
   return initCustomThread(walkthoughName)
     .then(res => res.data)
     .then(manifest => {
+      dispatch(initCustomThreadPending(manifest));
       currentUser().then(user => {
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
         const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, walkthoughName);
