@@ -36,17 +36,9 @@ const WATCH_SERVICES = [
   DEFAULT_SERVICES.RHSSO
 ];
 
-// The default services to show in any user-facing manner.
-const DISPLAY_SERVICES = [
-  DEFAULT_SERVICES.CHE,
-  DEFAULT_SERVICES.LAUNCHER,
-  DEFAULT_SERVICES.THREESCALE,
-  DEFAULT_SERVICES.APICURIO,
-  DEFAULT_SERVICES.FUSE_MANAGED,
-  DEFAULT_SERVICES.FUSE,
-  DEFAULT_SERVICES.ENMASSE,
-  DEFAULT_SERVICES.RHSSO
-];
+// The default services to show in any user-facing manner, even if they aren't
+// available. This is the opposite of the "hidden" flag in product info.
+const DISPLAY_SERVICES = [DEFAULT_SERVICES.ENMASSE];
 
 // The default services to provision.
 const PROVISION_SERVICES = [
@@ -174,10 +166,8 @@ const getCustomConfig = (dispatch, user) => {
     .then(config => {
       if (config && config.services) {
         dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
-          payload: {
-            services: config.services
-          }
+          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_CONFIG),
+          payload: config
         });
       }
       return config;

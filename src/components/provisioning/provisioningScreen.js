@@ -23,9 +23,7 @@ import {
 import { getProductDetails } from '../../services/middlewareServices';
 
 class ProvisioningScreen extends React.Component {
-  componentDidMount() {
-    console.log('ProvisioningScreen mounted');
-  }
+  componentDidMount() {}
 
   static isMiddlewareServiceProvisioned(svc) {
     if (svc.status && svc.status.conditions && svc.status.conditions[0]) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Badge, DataList, DataListItem, Button } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
-import { getProductDetails, DISPLAY_SERVICES } from '../../services/middlewareServices';
+import { getProductDetails } from '../../services/middlewareServices';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -124,8 +124,18 @@ class InstalledAppsView extends React.Component {
   }
 
   static createMasterList(displayServices, apps, customApps, launchHandler) {
-    const completeSvcList = displayServices.map(svcName => {
-      const provisionedSvc = apps.find(app => app.spec.clusterServiceClassExternalName === svcName);
+    const completeSvcNames = apps
+      .map(svc => {
+        if (!svc.spec || !svc.spec.clusterServiceClassExternalName) {
+          return null;
+        }
+        return svc.spec.clusterServiceClassExternalName;
+      })
+      .filter(svcName => !!svcName)
+      .concat(displayServices);
+
+    const completeSvcList = [...new Set(completeSvcNames)].map(svcName => {
+      const provisionedSvc = apps.find(svc => svc.spec.clusterServiceClassExternalName === svcName);
       if (!provisionedSvc) {
         return {
           spec: {
@@ -192,7 +202,7 @@ class InstalledAppsView extends React.Component {
                 {InstalledAppsView.isServiceUnready(app) ? (
                   <div className="pf-u-display-flex pf-u-justify-content-flex-end">
                     <Button onClick={() => launchHandler(app)} variant="link">
-                      Launch
+                      Start service
                     </Button>
                   </div>
                 ) : null}
@@ -213,7 +223,7 @@ class InstalledAppsView extends React.Component {
 
   render() {
     const appList = InstalledAppsView.createMasterList(
-      DISPLAY_SERVICES,
+      this.props.showUnready,
       this.props.apps,
       this.props.customApps,
       this.handleLaunchClicked.bind(this)
@@ -245,7 +255,12 @@ InstalledAppsView.propTypes = {
       url: PropTypes.string
     })
   ).isRequired,
+  showUnready: PropTypes.array,
   handleLaunch: PropTypes.func.isRequired
+};
+
+InstalledAppsView.defaultProps = {
+  showUnready: []
 };
 
 export default InstalledAppsView;

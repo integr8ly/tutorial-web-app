@@ -10,6 +10,7 @@ import { provisionAMQOnline } from '../../services/amqOnlineServices';
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 import { getUsersSharedNamespaceName, getUsersSharedNamespaceDisplayName } from '../../common/openshiftHelpers';
+import { DISPLAY_SERVICES } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
   componentDidMount() {
@@ -48,7 +49,8 @@ class LandingPage extends React.Component {
               <GridItem sm={12} md={3}>
                 <InstalledAppsView
                   apps={Object.values(middlewareServices.data)}
-                  customApps={middlewareServices.customServices}
+                  showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
+                  customApps={middlewareServices.customServices.services}
                   handleLaunch={svcName => this.handleServiceLaunch(svcName)}
                 />
               </GridItem>
@@ -75,7 +77,10 @@ LandingPage.propTypes = {
 LandingPage.defaultProps = {
   getProgress: noop,
   getCustomWalkthroughs: noop,
-  middlewareServices: { data: {} },
+  middlewareServices: {
+    customServices: {},
+    data: {}
+  },
   walkthroughServices: { data: {} },
   user: { userProgress: {} },
   history: {
