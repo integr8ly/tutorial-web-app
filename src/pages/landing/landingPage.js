@@ -49,6 +49,7 @@ class LandingPage extends React.Component {
               <GridItem sm={12} md={3}>
                 <InstalledAppsView
                   apps={Object.values(middlewareServices.data)}
+                  enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
                   showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
                   customApps={middlewareServices.customServices.services}
                   handleLaunch={svcName => this.handleServiceLaunch(svcName)}

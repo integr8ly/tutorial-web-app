@@ -123,7 +123,7 @@ class InstalledAppsView extends React.Component {
     this.props.handleLaunch(svc.spec.clusterServiceClassExternalName);
   }
 
-  static createMasterList(displayServices, apps, customApps, launchHandler) {
+  static createMasterList(displayServices, apps, customApps, enableLaunch, launchHandler) {
     const completeSvcNames = apps
       .map(svc => {
         if (!svc.spec || !svc.spec.clusterServiceClassExternalName) {
@@ -199,7 +199,7 @@ class InstalledAppsView extends React.Component {
                   </p>
                   <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
                 </div>
-                {InstalledAppsView.isServiceUnready(app) ? (
+                {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
                   <div className="pf-u-display-flex pf-u-justify-content-flex-end">
                     <Button onClick={() => launchHandler(app)} variant="link">
                       Start service
@@ -226,6 +226,7 @@ class InstalledAppsView extends React.Component {
       this.props.showUnready,
       this.props.apps,
       this.props.customApps,
+      this.props.enableLaunch,
       this.handleLaunchClicked.bind(this)
     );
     return (
@@ -256,11 +257,13 @@ InstalledAppsView.propTypes = {
     })
   ).isRequired,
   showUnready: PropTypes.array,
-  handleLaunch: PropTypes.func.isRequired
+  handleLaunch: PropTypes.func.isRequired,
+  enableLaunch: PropTypes.bool
 };
 
 InstalledAppsView.defaultProps = {
-  showUnready: []
+  showUnready: [],
+  enableLaunch: true
 };
 
 export default InstalledAppsView;

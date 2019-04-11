@@ -21,7 +21,7 @@ export default {
   },
   launcher: {
     prettyName: 'Red Hat Developer Launcher',
-    gaStatus: 'community'
+    gaStatus: 'GA'
   },
   '3scale': {
     prettyName: 'Red Hat 3scale API Management Platform',

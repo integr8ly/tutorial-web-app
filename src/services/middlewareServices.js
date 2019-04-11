@@ -56,11 +56,10 @@ const PROVISION_SERVICES = [
  * @param serviceInstance Service instance retrieved from Openshift
  */
 const getProductDetails = serviceInstance => {
-  const { spec } = serviceInstance;
-  if (!spec) {
+  if (!serviceInstance || !serviceInstance.spec) {
     return null;
   }
-  return getProductDetailsForServiceClass(spec.clusterServiceClassExternalName);
+  return getProductDetailsForServiceClass(serviceInstance.spec.clusterServiceClassExternalName);
 };
 
 const getProductDetailsForServiceClass = serviceClassName => {
