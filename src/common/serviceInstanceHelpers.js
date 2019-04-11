@@ -1,7 +1,7 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
+import get from 'lodash.get';
 import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
-import get from 'lodash.get';
 
 class DefaultServiceInstanceTransform {
   isTransformable() {
@@ -127,14 +127,14 @@ const findService = (svcName, svcList) => {
     return null;
   }
   return svcList.find(svc => get(svc, 'spec.clusterServiceClassExternalName') === svcName);
-}
+};
 
 const findServices = (svcNames, svcList) => {
   if (!svcNames || !svcList) {
     return [];
   }
   return svcNames.map(svcName => findService(svcName, svcList)).filter(svc => !!svc);
-}
+};
 
 export {
   buildServiceInstanceCompareFn,

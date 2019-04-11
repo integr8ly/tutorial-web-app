@@ -19,7 +19,7 @@ const initCustomThread = id => ({
 
 const initCustomThreadPending = payload => ({
   type: PENDING_ACTION(threadTypes.INIT_THREAD),
-  payload: payload
+  payload
 });
 
 const initCustomThreadSuccess = payload => ({

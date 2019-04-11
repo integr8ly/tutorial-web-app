@@ -57,14 +57,16 @@ function buildProvisioningScreen(WrappedComponent) {
 
     render() {
       const { middlewareServices } = this.props;
-      if (!Provisioning.areMiddlewareServicesReady(
-        Object.values(middlewareServices.data),
-        this.state.servicesToProvision
-      )) {
-        const svcToWatch = findServices(this.state.servicesToProvision || PROVISION_SERVICES, Object.values(middlewareServices.data));
-        return <ProvisioningScreen provisioningServices={svcToWatch || []}/>
+      if (
+        !Provisioning.areMiddlewareServicesReady(Object.values(middlewareServices.data), this.state.servicesToProvision)
+      ) {
+        const svcToWatch = findServices(
+          this.state.servicesToProvision || PROVISION_SERVICES,
+          Object.values(middlewareServices.data)
+        );
+        return <ProvisioningScreen provisioningServices={svcToWatch || []} />;
       }
-      return <WrappedComponent/>
+      return <WrappedComponent />;
     }
   }
 

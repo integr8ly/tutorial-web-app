@@ -6,12 +6,31 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
+import { provisionAMQOnline } from '../../services/amqOnlineServices';
+import { currentUser } from '../../services/openshiftServices';
+import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
+import { getUsersSharedNamespaceName, getUsersSharedNamespaceDisplayName } from '../../common/openshiftHelpers';
 
 class LandingPage extends React.Component {
   componentDidMount() {
     const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
     getProgress();
+  }
+
+  handleServiceLaunch(svcName) {
+    const { launchAMQOnline } = this.props;
+
+    currentUser().then(user => {
+      const userSharedNamespace = {
+        displayName: getUsersSharedNamespaceDisplayName(user.username),
+        name: getUsersSharedNamespaceName(user.username)
+      };
+
+      if (svcName === DEFAULT_SERVICES.ENMASSE) {
+        launchAMQOnline(user.username, userSharedNamespace);
+      }
+    });
   }
 
   render() {
@@ -30,6 +49,7 @@ class LandingPage extends React.Component {
                 <InstalledAppsView
                   apps={Object.values(middlewareServices.data)}
                   customApps={middlewareServices.customServices}
+                  handleLaunch={svcName => this.handleServiceLaunch(svcName)}
                 />
               </GridItem>
             </Grid>
@@ -48,7 +68,8 @@ LandingPage.propTypes = {
   user: PropTypes.object,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  })
+  }),
+  launchAMQOnline: PropTypes.func
 };
 
 LandingPage.defaultProps = {
@@ -59,13 +80,15 @@ LandingPage.defaultProps = {
   user: { userProgress: {} },
   history: {
     push: noop
-  }
+  },
+  launchAMQOnline: noop
 };
 
 const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
   getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
-  getProgress: () => dispatch(reduxActions.userActions.getProgress())
+  getProgress: () => dispatch(reduxActions.userActions.getProgress()),
+  launchAMQOnline: (username, namespace) => provisionAMQOnline(dispatch, username, namespace)
 });
 
 const mapStateToProps = state => ({

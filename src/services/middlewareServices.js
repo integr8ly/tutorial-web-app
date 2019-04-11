@@ -36,6 +36,18 @@ const WATCH_SERVICES = [
   DEFAULT_SERVICES.RHSSO
 ];
 
+// The default services to show in any user-facing manner.
+const DISPLAY_SERVICES = [
+  DEFAULT_SERVICES.CHE,
+  DEFAULT_SERVICES.LAUNCHER,
+  DEFAULT_SERVICES.THREESCALE,
+  DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.FUSE_MANAGED,
+  DEFAULT_SERVICES.FUSE,
+  DEFAULT_SERVICES.ENMASSE,
+  DEFAULT_SERVICES.RHSSO
+];
+
 // The default services to provision.
 const PROVISION_SERVICES = [
   DEFAULT_SERVICES.CHE,
@@ -56,10 +68,14 @@ const getProductDetails = serviceInstance => {
   if (!spec) {
     return null;
   }
-  const storedDetails = productDetails[spec.clusterServiceClassExternalName];
+  return getProductDetailsForServiceClass(spec.clusterServiceClassExternalName);
+};
+
+const getProductDetailsForServiceClass = serviceClassName => {
+  const storedDetails = productDetails[serviceClassName];
   if (!storedDetails) {
     return {
-      prettyName: spec.clusterServiceClassExternalName
+      prettyName: serviceClassName
     };
   }
   return storedDetails;
@@ -328,9 +344,11 @@ const handleEnmasseServiceInstanceWatchEvents = (dispatch, event) => {
 export {
   PROVISION_SERVICES,
   WATCH_SERVICES,
+  DISPLAY_SERVICES,
   manageMiddlewareServices,
   mockMiddlewareServices,
   getCustomConfig,
   handleEnmasseServiceInstanceWatchEvents,
-  getProductDetails
+  getProductDetails,
+  getProductDetailsForServiceClass
 };

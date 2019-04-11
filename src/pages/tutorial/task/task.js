@@ -18,6 +18,7 @@ import {
   Text,
   TextVariants
 } from '@patternfly/react-core';
+import get from 'lodash.get';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
@@ -35,7 +36,6 @@ import {
 import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
 import CopyField from '../../../components/copyField/copyField';
 import { findServices } from '../../../common/serviceInstanceHelpers';
-import get from 'lodash.get';
 
 class TaskPage extends React.Component {
   constructor(props) {
@@ -526,9 +526,7 @@ class TaskPage extends React.Component {
     }
     const svcNamesToWatch = get(manifest, 'data.dependencies.managedServices', []).map(svc => svc.name);
     const svcToWatch = findServices(svcNamesToWatch, Object.values(middlewareServices.data));
-    return (
-      <ProvisioningScreen message="Provisioning additional services." provisioningServices={svcToWatch || []}/>
-    );
+    return <ProvisioningScreen message="Provisioning additional services." provisioningServices={svcToWatch || []} />;
   }
 }
 

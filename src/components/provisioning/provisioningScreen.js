@@ -128,7 +128,7 @@ class ProvisioningScreen extends React.Component {
           <div />
           <EmptyState className="pf-m-align-self-center">
             <EmptyStateIcon icon={BoxesIcon} />
-            <Title size="lg">{ message }</Title>
+            <Title size="lg">{message}</Title>
           </EmptyState>
           <DataList className="pf-u-w-100" aria-label="Provisioned services datalist">
             {provisioningServices.map(ProvisioningScreen.renderServiceStatusBar)}
@@ -151,7 +151,7 @@ ProvisioningScreen.propTypes = {
 
 ProvisioningScreen.defaultProps = {
   provisioningServices: [],
-  message: "Provisioning services for your new environment."
+  message: 'Provisioning services for your new environment.'
 };
 
-export { ProvisioningScreen as default, ProvisioningScreen }
+export { ProvisioningScreen as default, ProvisioningScreen };
