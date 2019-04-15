@@ -10,8 +10,18 @@ class WalkthroughDetails extends React.Component {
     this.state = {};
   }
 
+  static validWalkthroughDate(dateString) {
+    try {
+      // We need to modify the returned string to allow for Firefox compatibility. This just keeps the date section, removes the time and everything after.
+      return new Date(dateString.split(' ')[0]).toISOString().slice(0, 10);
+    } catch (e) {
+      return null;
+    }
+  }
+
   render() {
     const { walkthroughInfo } = this.props;
+
     return (
       <Card>
         <CardBody>
@@ -22,7 +32,8 @@ class WalkthroughDetails extends React.Component {
               <div className="pf-u-display-flex pf-u-justify-content-space-between">
                 <div>Source: </div>
                 <div>
-                  {walkthroughInfo.type === 'path' ? (
+                  {walkthroughInfo.type === 'path' ||
+                  !WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate) ? (
                     <div>---</div>
                   ) : (
                     <div>
@@ -39,7 +50,7 @@ class WalkthroughDetails extends React.Component {
                   {walkthroughInfo.type === 'path' ? (
                     <div>---</div>
                   ) : (
-                    <div>{new Date(walkthroughInfo.commitDate).toISOString().slice(0, 10)}</div>
+                    <div>{WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate)}</div>
                   )}
                 </div>
               </div>
