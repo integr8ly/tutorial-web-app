@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, DataList, DataListItem } from '@patternfly/react-core';
-import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon } from '@patternfly/react-icons';
+import { Badge, DataList, DataListItem, Button } from '@patternfly/react-core';
+import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
+import { getProductDetails } from '../../services/middlewareServices';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -18,14 +19,14 @@ class InstalledAppsView extends React.Component {
     this.setState({ currentApp: e.target.value });
   }
 
-  static getProductDetails(app) {
-    const { productDetails, spec } = app;
-    if (productDetails) {
-      return productDetails;
-    }
-    return {
-      prettyName: spec.clusterServiceClassExternalName
-    };
+  static isServiceUnready(svc) {
+    return !svc.metadata;
+  }
+
+  static isServiceProvisioned(svc) {
+    return (
+      svc.status && svc.status.conditions && svc.status.conditions[0] && svc.status.conditions[0].status === 'True'
+    );
   }
 
   static getStatusForApp(app) {
@@ -44,6 +45,11 @@ class InstalledAppsView extends React.Component {
         <ErrorCircleOIcon /> &nbsp;Unavailable
       </div>
     );
+    const unreadyStatus = (
+      <div className="integr8ly-state-provisioining">
+        <OffIcon /> &nbsp;Not ready
+      </div>
+    );
 
     if (app.metadata && app.metadata.deletionTimestamp) {
       return unavailableStatus;
@@ -55,14 +61,14 @@ class InstalledAppsView extends React.Component {
       }
       return app.status.conditions[0].status === 'True' ? readyStatus : provisioningStatus;
     }
-    return provisioningStatus;
+    return unreadyStatus;
   }
 
   static getRouteForApp(app) {
     if (app.status.dashboardURL) {
       return app.status.dashboardURL;
     }
-    if (app.metadata.annotations && app.metadata.annotations['integreatly/dashboard-url']) {
+    if (app.metadata && app.metadata.annotations && app.metadata.annotations['integreatly/dashboard-url']) {
       return app.metadata.annotations['integreatly/dashboard-url'];
     }
     return null;
@@ -72,7 +78,7 @@ class InstalledAppsView extends React.Component {
     return (
       <DataList>
         <DataListItem
-          className="pf-u-p-md"
+          className="pf-u-p-md integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
@@ -92,16 +98,18 @@ class InstalledAppsView extends React.Component {
     return (
       <DataList>
         <DataListItem
-          className="pf-u-p-md"
+          className="pf-u-p-md integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${customApp.url}`, '_blank')}
           key={`openshift_console_${i}`}
           value={i}
         >
           <div className="pf-u-display-flex pf-u-flex-direction-column">
-            <p>{customApp.name}</p>
-            <Badge isRead className="pf-u-ml-lg">
-              custom
-            </Badge>
+            <p>
+              {customApp.name}
+              <Badge isRead className="pf-u-ml-lg">
+                custom
+              </Badge>
+            </p>
             <div className="integr8ly-state-ready">
               <OnRunningIcon /> &nbsp;Ready for use
             </div>
@@ -111,35 +119,93 @@ class InstalledAppsView extends React.Component {
     );
   }
 
-  static createMasterList(apps, customApps) {
-    const masterList = apps
+  handleLaunchClicked(svc) {
+    this.props.handleLaunch(svc.spec.clusterServiceClassExternalName);
+  }
+
+  static createMasterList(displayServices, apps, customApps, enableLaunch, launchHandler) {
+    const completeSvcNames = apps
+      .map(svc => {
+        if (!svc.spec || !svc.spec.clusterServiceClassExternalName) {
+          return null;
+        }
+        return svc.spec.clusterServiceClassExternalName;
+      })
+      .filter(svcName => !!svcName)
+      .concat(displayServices);
+
+    const completeSvcList = [...new Set(completeSvcNames)].map(svcName => {
+      const provisionedSvc = apps.find(svc => svc.spec.clusterServiceClassExternalName === svcName);
+      if (!provisionedSvc) {
+        return {
+          spec: {
+            clusterServiceClassExternalName: svcName
+          },
+          status: {
+            dashboardURL: null
+          }
+        };
+      }
+      return provisionedSvc;
+    });
+
+    const masterList = completeSvcList
+      .sort((cur, next) => {
+        const curDetails = getProductDetails(cur);
+        const nextDetails = getProductDetails(next);
+        // Try to push any non-pretty names to the bottom. Although, all names
+        // should be pretty in this section.
+        if (!curDetails || nextDetails.prettyName > curDetails.prettyName) {
+          return -1;
+        }
+        if (!nextDetails || curDetails.prettyName > nextDetails.prettyName) {
+          return 1;
+        }
+        return 0;
+      })
       .map((app, index) => {
-        const { prettyName, gaStatus, hidden } = InstalledAppsView.getProductDetails(app);
+        const { prettyName, gaStatus, hidden } = getProductDetails(app);
         return hidden ? null : (
           <DataList>
             <DataListItem
-              className="pf-u-p-md"
-              onClick={() =>
+              className={
+                InstalledAppsView.isServiceProvisioned(app)
+                  ? 'pf-u-p-md integr8ly-installed-apps-view-list-item-enabled'
+                  : 'pf-u-p-md'
+              }
+              onClick={() => {
+                if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
+                  return;
+                }
                 prettyName === 'Red Hat AMQ'
                   ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
-                  : window.open(InstalledAppsView.getRouteForApp(app), '_blank')
-              }
+                  : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
+              }}
               key={`${app.spec.clusterServiceClassExternalName}_${index}`}
               value={index}
             >
               {' '}
-              <div className="pf-u-display-flex pf-u-flex-direction-column">
-                <p>
-                  {prettyName}{' '}
-                  {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                    <Badge isRead className="pf-u-ml-lg">
-                      {gaStatus}
-                    </Badge>
-                  ) : (
-                    <span />
-                  )}
-                </p>
-                <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+              <div className="pf-u-display-flex pf-u-justify-content-space-between" style={{ width: '100%' }}>
+                <div className="pf-u-flex-direction-column">
+                  <p>
+                    {prettyName}{' '}
+                    {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
+                      <Badge isRead className="pf-u-ml-lg">
+                        {gaStatus}
+                      </Badge>
+                    ) : (
+                      <span />
+                    )}
+                  </p>
+                  <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+                </div>
+                {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
+                  <div className="pf-u-display-flex pf-u-justify-content-flex-end">
+                    <Button onClick={() => launchHandler(app)} variant="link">
+                      Start service
+                    </Button>
+                  </div>
+                ) : null}
               </div>
               <br />
               <small />
@@ -156,7 +222,13 @@ class InstalledAppsView extends React.Component {
   }
 
   render() {
-    const appList = InstalledAppsView.createMasterList(this.props.apps, this.props.customApps);
+    const appList = InstalledAppsView.createMasterList(
+      this.props.showUnready,
+      this.props.apps,
+      this.props.customApps,
+      this.props.enableLaunch,
+      this.handleLaunchClicked.bind(this)
+    );
     return (
       <div className="integr8ly-installed-apps-view pf-u-mb-0">
         <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-mt-sm pf-u-box-shadow-md">
@@ -183,7 +255,15 @@ InstalledAppsView.propTypes = {
       name: PropTypes.string,
       url: PropTypes.string
     })
-  ).isRequired
+  ).isRequired,
+  showUnready: PropTypes.array,
+  handleLaunch: PropTypes.func.isRequired,
+  enableLaunch: PropTypes.bool
+};
+
+InstalledAppsView.defaultProps = {
+  showUnready: [],
+  enableLaunch: true
 };
 
 export default InstalledAppsView;

@@ -1,4 +1,5 @@
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["isTransformable", "transform"] }] */
+import get from 'lodash.get';
 import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
 
@@ -121,6 +122,20 @@ const getDashboardUrl = si => {
   return '';
 };
 
+const findService = (svcName, svcList) => {
+  if (!svcName || !svcList) {
+    return null;
+  }
+  return svcList.find(svc => get(svc, 'spec.clusterServiceClassExternalName') === svcName);
+};
+
+const findServices = (svcNames, svcList) => {
+  if (!svcNames || !svcList) {
+    return [];
+  }
+  return svcNames.map(svcName => findService(svcName, svcList)).filter(svc => !!svc);
+};
+
 export {
   buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj,
@@ -128,5 +143,7 @@ export {
   DefaultServiceInstanceTransform,
   EnMasseServiceInstanceTransform,
   handleServiceInstancesProvision,
-  getDashboardUrl
+  getDashboardUrl,
+  findService,
+  findServices
 };

@@ -12,7 +12,9 @@ const initialState = {
     amqCredentials: {},
     provisioningUser: null,
     data: {},
-    customServices: []
+    customServices: {
+      services: []
+    }
   }
 };
 
@@ -67,11 +69,11 @@ const middlewareReducers = (state = initialState, action) => {
     });
   }
 
-  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES)) {
+  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_CONFIG)) {
     return Object.assign({}, state, {
       middlewareServices: {
         ...state.middlewareServices,
-        customServices: action.payload.services
+        customServices: action.payload
       }
     });
   }

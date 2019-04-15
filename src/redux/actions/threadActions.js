@@ -17,8 +17,9 @@ const initCustomThread = id => ({
   payload: threadServices.initCustomThread(id)
 });
 
-const initCustomThreadPending = () => ({
-  type: PENDING_ACTION(threadTypes.INIT_THREAD)
+const initCustomThreadPending = payload => ({
+  type: PENDING_ACTION(threadTypes.INIT_THREAD),
+  payload
 });
 
 const initCustomThreadSuccess = payload => ({

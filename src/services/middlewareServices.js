@@ -1,4 +1,4 @@
-import { watch, update, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, OpenShiftWatchEvents } from './openshiftServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 import {
@@ -7,10 +7,9 @@ import {
   DEFAULT_SERVICES
 } from '../common/serviceInstanceHelpers';
 import {
-  buildValidProjectNamespaceName,
-  buildValidNamespaceDisplayName,
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName,
   cleanUsername,
-  findOpenshiftResource,
   findOrCreateOpenshiftResource
 } from '../common/openshiftHelpers';
 import {
@@ -20,19 +19,33 @@ import {
   namespaceRequestDef,
   serviceInstanceDef,
   statefulSetDef,
-  secretDef,
-  routeDef
+  secretDef
 } from '../common/openshiftResourceDefinitions';
 
 import productDetails from '../product-info';
 
-const WALKTHROUGH_SERVICES = [
-  DEFAULT_SERVICES.ENMASSE,
+// The default services to watch.
+const WATCH_SERVICES = [
   DEFAULT_SERVICES.CHE,
-  DEFAULT_SERVICES.FUSE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.FUSE_MANAGED,
+  DEFAULT_SERVICES.FUSE,
+  DEFAULT_SERVICES.ENMASSE,
+  DEFAULT_SERVICES.RHSSO
+];
+
+// The default services to show in any user-facing manner, even if they aren't
+// available. This is the opposite of the "hidden" flag in product info.
+const DISPLAY_SERVICES = [DEFAULT_SERVICES.ENMASSE];
+
+// The default services to provision.
+const PROVISION_SERVICES = [
+  DEFAULT_SERVICES.CHE,
+  DEFAULT_SERVICES.LAUNCHER,
+  DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.FUSE_MANAGED,
   DEFAULT_SERVICES.RHSSO
 ];
@@ -42,11 +55,21 @@ const WALKTHROUGH_SERVICES = [
  * service instance object
  * @param serviceInstance Service instance retrieved from Openshift
  */
-const setProductDetails = serviceInstance => {
-  const { spec } = serviceInstance;
-  if (spec) {
-    serviceInstance.productDetails = productDetails[spec.clusterServiceClassExternalName];
+const getProductDetails = serviceInstance => {
+  if (!serviceInstance || !serviceInstance.spec) {
+    return null;
   }
+  return getProductDetailsForServiceClass(serviceInstance.spec.clusterServiceClassExternalName);
+};
+
+const getProductDetailsForServiceClass = serviceClassName => {
+  const storedDetails = productDetails[serviceClassName];
+  if (!storedDetails) {
+    return {
+      prettyName: serviceClassName
+    };
+  }
+  return storedDetails;
 };
 
 /**
@@ -61,7 +84,6 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   const mockUsername = 'mockuser';
   window.localStorage.setItem('currentUserName', mockUsername);
   mockData.serviceInstances.forEach(si => {
-    setProductDetails(si);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: si
@@ -88,13 +110,13 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  * @param {Object} dispatch Redux dispatch.
  */
 const manageMiddlewareServices = (dispatch, user, config) => {
-  const walkthroughServices = config.servicesToProvision || WALKTHROUGH_SERVICES;
+  const walkthroughServices = config.servicesToProvision || PROVISION_SERVICES;
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
     payload: { provisioningUser: user.username }
   });
-  const userNamespace = buildValidProjectNamespaceName(user.username, 'shared');
-  const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, 'Shared Services');
+  const userNamespace = getUsersSharedNamespaceName(user.username);
+  const namespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);
   const namespaceObj = namespaceResource({ name: userNamespace });
   const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
@@ -119,7 +141,9 @@ const manageMiddlewareServices = (dispatch, user, config) => {
     })
     .then(() => {
       watch(serviceInstanceDef(userNamespace)).then(watchListener =>
-        watchListener.onEvent(handleServiceInstanceWatchEvents.bind(null, dispatch, walkthroughServices))
+        watchListener.onEvent(
+          handleServiceInstanceWatchEvents.bind(null, dispatch, WATCH_SERVICES.concat(walkthroughServices))
+        )
       );
       if (walkthroughServices.includes(DEFAULT_SERVICES.AMQ)) {
         watch(statefulSetDef(userNamespace)).then(watchListener =>
@@ -141,10 +165,8 @@ const getCustomConfig = (dispatch, user) => {
     .then(config => {
       if (config && config.services) {
         dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_SERVICES),
-          payload: {
-            services: config.services
-          }
+          type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_CONFIG),
+          payload: config
         });
       }
       return config;
@@ -241,29 +263,10 @@ const handleServiceInstanceWatchEvents = (dispatch, toWatch, event) => {
     return;
   }
   if (event.type === OpenShiftWatchEvents.ADDED || event.type === OpenShiftWatchEvents.MODIFIED) {
-    setProductDetails(event.payload);
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
       payload: event.payload
     });
-
-    // We know that the AMQ ServiceInstance will not have a dashboardURL associated with it.
-    // The reason for this is that the Template Service Broker doesn't allow for dashboardURLs.
-    // Because of this, for AMQ, we need to set an annotation on the ServiceInstance with
-    // the route specified there instead.
-    if (
-      event.payload.kind === 'ServiceInstance' &&
-      event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.AMQ
-    ) {
-      handleAMQServiceInstanceWatchEvents(event);
-    }
-
-    if (
-      event.payload.kind === 'ServiceInstance' &&
-      event.payload.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.ENMASSE
-    ) {
-      handleEnmasseServiceInstanceWatchEvents(event);
-    }
   }
   if (event.type === OpenShiftWatchEvents.DELETED) {
     dispatch({
@@ -271,33 +274,6 @@ const handleServiceInstanceWatchEvents = (dispatch, toWatch, event) => {
       payload: event.payload
     });
   }
-};
-
-/**
- * Handle an event for an AMQ ServiceInstance.
- * Creates a required annotation on the ServiceInstance for routing.
- * @param {Object} event The event to handle.
- */
-const handleAMQServiceInstanceWatchEvents = event => {
-  const dashboardUrl = 'integreatly/dashboard-url';
-  if (event.payload.metadata.annotations && event.payload.metadata.annotations[dashboardUrl]) {
-    return;
-  }
-  const routeResource = {
-    metadata: {
-      name: 'console-jolokia'
-    }
-  };
-  findOpenshiftResource(routeDef(event.payload.metadata.namespace), routeResource).then(route => {
-    if (!route) {
-      return;
-    }
-    if (!event.payload.metadata.annotations) {
-      event.payload.metadata.annotations = {};
-    }
-    event.payload.metadata.annotations[dashboardUrl] = `http://${route.spec.host}`;
-    update(serviceInstanceDef(event.payload.metadata.namespace), event.payload);
-  });
 };
 
 const buildServiceBindingDef = namespace => ({
@@ -312,9 +288,17 @@ const buildServiceBindingDef = namespace => ({
  * Creates a service binding once Enmasse is provisioned
  * @param {Object} event The event to handle.
  */
-const handleEnmasseServiceInstanceWatchEvents = event => {
+const handleEnmasseServiceInstanceWatchEvents = (dispatch, event) => {
   const siObj = event.payload;
+  if (event.payload.spec.clusterServiceClassExternalName !== DEFAULT_SERVICES.ENMASSE) {
+    return;
+  }
   if (siObj.status.provisionStatus === 'Provisioned') {
+    dispatch({
+      type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
+      payload: event.payload
+    });
+
     const enmasseBindParams = {
       consoleAccess: true,
       consoleAdmin: true,
@@ -346,4 +330,14 @@ const handleEnmasseServiceInstanceWatchEvents = event => {
   }
 };
 
-export { manageMiddlewareServices, mockMiddlewareServices, getCustomConfig };
+export {
+  PROVISION_SERVICES,
+  WATCH_SERVICES,
+  DISPLAY_SERVICES,
+  manageMiddlewareServices,
+  mockMiddlewareServices,
+  getCustomConfig,
+  handleEnmasseServiceInstanceWatchEvents,
+  getProductDetails,
+  getProductDetailsForServiceClass
+};

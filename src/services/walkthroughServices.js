@@ -6,9 +6,11 @@ import { initCustomThread } from './threadServices';
 import {
   buildValidProjectNamespaceName,
   findOrCreateOpenshiftResource,
-  buildValidNamespaceDisplayName
+  buildValidNamespaceDisplayName,
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName
 } from '../common/openshiftHelpers';
-import { buildServiceInstanceCompareFn } from '../common/serviceInstanceHelpers';
+import { buildServiceInstanceCompareFn, DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
 import {
   namespaceResource,
   namespaceRequestResource,
@@ -23,6 +25,10 @@ import {
   initCustomThreadSuccess,
   initCustomThreadFailure
 } from '../redux/actions/threadActions';
+import { provisionAMQOnline } from '../services/amqOnlineServices';
+import { provisionFuseOnline } from '../services/fuseOnlineServices';
+import { middlewareTypes } from '../redux/constants';
+import { FULFILLED_ACTION } from '../redux/helpers';
 
 const DEFAULT_SERVICE_INSTANCE = {
   kind: 'ServiceInstance',
@@ -49,10 +55,12 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
   return initCustomThread(walkthoughName)
     .then(res => res.data)
     .then(manifest => {
-      dispatch(initCustomThreadSuccess(manifest));
+      dispatch(initCustomThreadPending(manifest));
       currentUser().then(user => {
         const userNamespace = buildValidProjectNamespaceName(user.username, walkthoughName);
         const namespaceDisplayName = buildValidNamespaceDisplayName(user.username, walkthoughName);
+        const usersSharedNamespaceName = getUsersSharedNamespaceName(user.username);
+        const usersSharedNamespaceDisplayName = getUsersSharedNamespaceDisplayName(user.username);
         const namespaceObj = namespaceResource({ name: userNamespace });
         const namespaceRequestObj = namespaceRequestResource(namespaceDisplayName, { name: userNamespace });
 
@@ -62,31 +70,84 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
           resObj => resObj.metadata.name === userNamespace,
           namespaceRequestDef,
           namespaceRequestObj
-        ).then(() => {
-          if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
-            return Promise.resolve([]);
-          }
-          const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
-            const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
-            return parseServiceInstanceTemplate(serviceInstance, attrs);
-          });
-          return Promise.all(
-            siObjs.map(siObj =>
-              findOrCreateOpenshiftResource(
-                serviceInstanceDef(userNamespace),
-                siObj,
-                buildServiceInstanceCompareFn(siObj)
+        )
+          .then(() => {
+            if (!manifest || !manifest.dependencies || !manifest.dependencies.managedServices) {
+              return Promise.resolve([]);
+            }
+            return provisionManagedServiceSlices(dispatch, manifest.dependencies.managedServices, user.username, {
+              displayName: usersSharedNamespaceDisplayName,
+              name: usersSharedNamespaceName
+            });
+          })
+          .then(additionalAttrs => {
+            const mergedAttrs = Object.assign({}, attrs, ...additionalAttrs);
+            if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
+              return Promise.resolve([]);
+            }
+            const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
+              const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
+              return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
+            });
+            return Promise.all(
+              siObjs.map(siObj =>
+                findOrCreateOpenshiftResource(
+                  serviceInstanceDef(userNamespace),
+                  siObj,
+                  buildServiceInstanceCompareFn(siObj)
+                )
               )
             )
-          )
-            .then(() => watch(routeDef(userNamespace)))
-            .then(watchListener =>
-              watchListener.onEvent(handleResourceWatchEvent.bind(null, dispatch, walkthoughName))
-            );
-        });
+              .then(() => watch(routeDef(userNamespace)))
+              .then(watchListener =>
+                watchListener.onEvent(handleResourceWatchEvent.bind(null, dispatch, walkthoughName))
+              )
+              .then(() => dispatch(initCustomThreadSuccess(manifest)));
+          });
       });
     })
     .catch(e => dispatch(initCustomThreadFailure(e)));
+};
+
+const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
+  if (!svcList) {
+    return Promise.resolve([]);
+  }
+  const svcProvisions = svcList.reduce((acc, svc) => {
+    if (svc.name === DEFAULT_SERVICES.FUSE) {
+      acc.push(
+        provisionFuseOnline(user, namespace).then(provision => {
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),
+            payload: provision.event.payload
+          });
+          return provision.attrs;
+        })
+      );
+    }
+    if (svc.name === DEFAULT_SERVICES.ENMASSE) {
+      acc.push(
+        provisionAMQOnline(dispatch, user, namespace).then(attrs => {
+          // Perform a dispatch so the Redux store will pick up on these attrs
+          // and they can be used in the UI.
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
+            payload: {
+              url: attrs['enmasse-broker-url'],
+              username: attrs['enmasse-credentials-username'],
+              password: attrs['enmasse-credentials-password']
+            }
+          });
+          return attrs;
+        })
+      );
+    }
+    return acc;
+  }, []);
+  // Each of these svcProvisions promises is expected to resolve to an Object
+  // containing any additional attributes that should be included in
+  // ServiceInstance provisioning.
+  return Promise.all(svcProvisions);
 };
 
 /**

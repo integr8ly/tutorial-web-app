@@ -9,6 +9,16 @@ const NAMESPACE_USERNAME_LENGTH = 10;
 const NAMESPACE_HASH_LENGTH = 4;
 
 /**
+ * Same as `buildValidProjectNamespaceName`, but with a hardcoded suffix
+ */
+const getUsersSharedNamespaceName = username => buildValidProjectNamespaceName(username, 'shared');
+
+/**
+ * Same as `buildValidNamespaceDisplayName`, but with a hardcoded suffix
+ */
+const getUsersSharedNamespaceDisplayName = username => buildValidNamespaceDisplayName(username, 'Shared Services');
+
+/**
  * Construct a projects namespace from a given username.
  * Note that the namespace name might contain the full username as it is sanitized first.
  * The namespace will be limited to 40 characters max so as to allow reasonable length route
@@ -95,5 +105,7 @@ export {
   findOpenshiftResource,
   buildNamespacedServiceInstanceName,
   cleanUsername,
-  buildValidNamespaceDisplayName
+  buildValidNamespaceDisplayName,
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName
 };

@@ -1,42 +1,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'patternfly-react';
-import {
-  EmptyState,
-  EmptyStateIcon,
-  DataList,
-  DataListItem,
-  DataListCell,
-  Page,
-  PageSection,
-  PageSectionVariants,
-  Progress,
-  ProgressMeasureLocation,
-  ProgressSize,
-  Title
-} from '@patternfly/react-core';
-import { BoxesIcon, CheckCircleIcon, CircleNotchIcon } from '@patternfly/react-icons';
 import get from 'lodash.get';
 import { connect } from '../../redux';
-import { getCustomConfig, manageMiddlewareServices, mockMiddlewareServices } from '../../services/middlewareServices';
-import { currentUser } from '../../services/openshiftServices';
-import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 import {
-  isServiceProvisioned,
-  isServiceProvisioning,
-  isServiceProvisionFailed
-} from '../../common/walkthroughServiceHelpers';
-
-const PROVISION_SERVICES = [
-  DEFAULT_SERVICES.ENMASSE,
-  DEFAULT_SERVICES.CHE,
-  DEFAULT_SERVICES.LAUNCHER,
-  DEFAULT_SERVICES.FUSE,
-  DEFAULT_SERVICES.APICURIO,
-  DEFAULT_SERVICES.THREESCALE,
-  DEFAULT_SERVICES.FUSE_MANAGED,
-  DEFAULT_SERVICES.RHSSO
-];
+  PROVISION_SERVICES,
+  getCustomConfig,
+  manageMiddlewareServices,
+  mockMiddlewareServices
+} from '../../services/middlewareServices';
+import { currentUser } from '../../services/openshiftServices';
+import ProvisioningScreen from './provisioningScreen';
+import { findServices } from '../../common/serviceInstanceHelpers';
 
 function buildProvisioningScreen(WrappedComponent) {
   class Provisioning extends React.Component {
@@ -80,124 +55,18 @@ function buildProvisioningScreen(WrappedComponent) {
       return false;
     }
 
-    static renderServiceLoadingIcon(svc) {
-      if (isServiceProvisioned(svc)) {
-        return (
-          <div>
-            <CheckCircleIcon className="integr8ly-provisioning-check" />
-            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Ready to use</span>
-          </div>
-        );
-      }
-      if (isServiceProvisioning(svc)) {
-        return (
-          <div className="integr8ly-provisioning-spinner">
-            <CircleNotchIcon className="fa-spin" />{' '}
-            <span className="integr8ly-provisioning-text pf-u-ml-sm"> Provisioning</span>
-          </div>
-        );
-      }
-      if (isServiceProvisionFailed(svc)) {
-        return <div className="pficon pficon-error-circle-o" />;
-      }
-      return null;
-    }
-
-    static renderServiceLoadingText(svc) {
-      if (isServiceProvisioned(svc)) {
-        return <div className="list-group-item-heading">Ready to use</div>;
-      }
-      if (isServiceProvisioning(svc)) {
-        return <div className="list-group-item-heading">Provisioning</div>;
-      }
-      if (isServiceProvisionFailed(svc)) {
-        return <div className="list-group-item-heading integr8ly-status-error">Error</div>;
-      }
-      return null;
-    }
-
-    static renderServiceLoadingBar(svc) {
-      if (isServiceProvisioned(svc)) {
-        return (
-          <Progress
-            className="pf-m-singleline integr8ly-provisioned-bar"
-            value={100}
-            measureLocation={ProgressMeasureLocation.outside}
-            size={ProgressSize.lg}
-          />
-        );
-      }
-      if (isServiceProvisionFailed(svc)) {
-        return (
-          <div className="integr8ly-status-error">Unable to provision. Please contact your Red Hat representative.</div>
-        );
-      }
-      if (isServiceProvisioning(svc)) {
-        return (
-          <Progress
-            className="pf-m-singleline"
-            value={60}
-            measureLocation={ProgressMeasureLocation.outside}
-            size={ProgressSize.lg}
-          />
-        );
-      }
-      return null;
-    }
-
-    static renderServiceStatusBar(svc) {
-      const isProvisionFailed = isServiceProvisionFailed(svc);
-      return (
-        <DataListItem
-          className={`${isProvisionFailed ? 'list-group-error-item' : null}`}
-          key={svc.spec.clusterServiceClassExternalName}
-        >
-          <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingIcon(svc)}</DataListCell>
-          <DataListCell className="pf-u-py-md">
-            {Provisioning.renderServiceLoadingText(svc)}
-            <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
-              {svc.productDetails.prettyName}
-            </div>
-          </DataListCell>
-          <DataListCell className="pf-u-py-md">{Provisioning.renderServiceLoadingBar(svc)}</DataListCell>
-        </DataListItem>
-      );
-    }
-
-    static renderLoadingScreen(services) {
-      return (
-        <Page className="pf-u-h-100vh">
-          <PageSection
-            variant={PageSectionVariants.default}
-            className="pf-u-display-flex pf-l-flex pf-m-column-tablet-plus pf-m-justify-content-space-between"
-          >
-            <div />
-            <EmptyState className="pf-m-align-self-center">
-              <EmptyStateIcon icon={BoxesIcon} />
-              <Title size="lg">Provisioning services for your new environment.</Title>
-            </EmptyState>
-            <DataList className="pf-u-w-100" aria-label="Provisioned services datalist">
-              {services.map(Provisioning.renderServiceStatusBar)}
-            </DataList>
-          </PageSection>
-        </Page>
-      );
-    }
-
     render() {
       const { middlewareServices } = this.props;
-      return (
-        <div>
-          {!Provisioning.areMiddlewareServicesReady(
-            Object.values(middlewareServices.data),
-            this.state.servicesToProvision
-          ) && Provisioning.renderLoadingScreen(Object.values(middlewareServices.data))}
-          {Provisioning.areMiddlewareServicesReady(
-            Object.values(middlewareServices.data),
-            this.state.servicesToProvision
-          ) && <WrappedComponent />}
-        </div>
-      );
+      if (
+        !Provisioning.areMiddlewareServicesReady(Object.values(middlewareServices.data), this.state.servicesToProvision)
+      ) {
+        const svcToWatch = findServices(
+          this.state.servicesToProvision || PROVISION_SERVICES,
+          Object.values(middlewareServices.data)
+        );
+        return <ProvisioningScreen provisioningServices={svcToWatch || []} />;
+      }
+      return <WrappedComponent />;
     }
   }
 
