@@ -37,12 +37,21 @@ const TutorialDashboard = props => {
     return a < b ? -1 : 1;
   }
 
+  // this needs to check for the json file
   function addCategory(walkthroughs) {
-    const repo = walkthroughs[0].walkthroughLocationInfo.remote;
-    const repoParts = repo.split('/');
-    const repoLastPart = repoParts.length - 1;
-    const repoCategory = repoParts[repoLastPart];
-    const htmlCategory = <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">{repoCategory} Solution Patterns</h3>;
+    const repoInfo = walkthroughs[0].walkthroughLocationInfo;
+    let htmlCategory = '';
+    if (repoInfo.type === 'path') {
+      htmlCategory = <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Locally Installed Solution Patterns</h3>;
+    } else if (repoInfo.header === null) {
+      const repo = walkthroughs[0].walkthroughLocationInfo.remote;
+      const repoParts = repo.split('/');
+      const repoLastPart = repoParts.length - 1;
+      const repoCategory = repoParts[repoLastPart];
+      htmlCategory = <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">{repoCategory} Solution Patterns</h3>;
+    } else {
+      htmlCategory = <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">{repoInfo.header}</h3>;
+    }
     return htmlCategory;
   }
 
