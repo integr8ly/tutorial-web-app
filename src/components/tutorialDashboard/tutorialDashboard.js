@@ -17,11 +17,11 @@ const TutorialDashboard = props => {
     return result;
   }
 
-  function getRepos(walkthroughs) {
+  function getRepos(walkthrus) {
     const repos = [];
 
-    for (let i = 0; i < walkthroughs.length; i++) {
-      const currentWalkthrough = walkthroughs[i];
+    for (let i = 0; i < walkthrus.length; i++) {
+      const currentWalkthrough = walkthrus[i];
       const repo = currentWalkthrough.walkthroughLocationInfo.remote;
       if (!repos.includes(repo)) {
         repos.push(repo);
@@ -46,15 +46,16 @@ const TutorialDashboard = props => {
     if (a[0] !== undefined && b[0] === undefined) {
       return a > b ? -1 : 1;
     }
+    return a[1] < b[1] ? -1 : 1;
   }
 
-  function addCategory(walkthroughs) {
-    const repoInfo = walkthroughs[0].walkthroughLocationInfo;
+  function addCategory(walkthrus) {
+    const repoInfo = walkthrus[0].walkthroughLocationInfo;
     let htmlCategory = '';
     if (repoInfo.type === 'path') {
       htmlCategory = <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Locally Installed Solution Patterns</h3>;
     } else if (repoInfo.header === null) {
-      const repo = walkthroughs[0].walkthroughLocationInfo.remote;
+      const repo = walkthrus[0].walkthroughLocationInfo.remote;
       const repoParts = repo.split('/');
       const repoLastPart = repoParts.length - 1;
       const repoCategory = repoParts[repoLastPart];
@@ -65,14 +66,14 @@ const TutorialDashboard = props => {
     return htmlCategory;
   }
 
-  function addAll(walkthroughs) {
-    const allRepos = getRepos(walkthroughs);
+  function addAll(walkthrus) {
+    const allRepos = getRepos(walkthrus);
     const htmlSnippet = [];
 
     for (let i = 0; i < allRepos.length; i++) {
-      const filteredWalkthroughs = filterWalkthroughs(walkthroughs, allRepos[i]);
+      const filteredWalkthroughs = filterWalkthroughs(walkthrus, allRepos[i]);
 
-      const cards = filteredWalkthroughs.sort(wtSortByProgress).map((walkthrough, i) => {
+      const cards = filteredWalkthroughs.sort(wtSortByProgress).map(walkthrough => {
         const currentProgress = userProgress[walkthrough.id];
         let startedText;
         if (currentProgress === undefined) startedText = 'Get Started';
