@@ -30,14 +30,24 @@ const TutorialDashboard = props => {
     return repos;
   }
 
-  function walkthroughSorter(w1, w2) {
-    const a = `${w1.id} ${w1.title}`;
-    const b = `${w2.id} ${w2.title}`;
+  function wtSortByProgress(w1, w2) {
+    const a = [userProgress[w1.id], w1.title];
+    const b = [userProgress[w2.id], w2.title];
 
-    return a < b ? -1 : 1;
+    if (a[0] === undefined && b[0] === undefined) {
+      return a[1] < b[1] ? -1 : 1;
+    }
+    if (a[0] !== undefined && b[0] !== undefined) {
+      return a[0].progress > b[0].progress ? -1 : 1;
+    }
+    if (a[0] === undefined && b[0] !== undefined) {
+      return a > b ? -1 : 1;
+    }
+    if (a[0] !== undefined && b[0] === undefined) {
+      return a > b ? -1 : 1;
+    }
   }
 
-  // this needs to check for the json file
   function addCategory(walkthroughs) {
     const repoInfo = walkthroughs[0].walkthroughLocationInfo;
     let htmlCategory = '';
@@ -62,7 +72,7 @@ const TutorialDashboard = props => {
     for (let i = 0; i < allRepos.length; i++) {
       const filteredWalkthroughs = filterWalkthroughs(walkthroughs, allRepos[i]);
 
-      const cards = filteredWalkthroughs.sort(walkthroughSorter).map((walkthrough, i) => {
+      const cards = filteredWalkthroughs.sort(wtSortByProgress).map((walkthrough, i) => {
         const currentProgress = userProgress[walkthrough.id];
         let startedText;
         if (currentProgress === undefined) startedText = 'Get Started';
