@@ -163,7 +163,7 @@ const getCustomConfig = (dispatch, user) => {
   return fetch(`/customConfig?username=${parsedUsername}`)
     .then(res => res.json())
     .then(config => {
-      if (config && config.services) {
+      if (config) {
         dispatch({
           type: FULFILLED_ACTION(middlewareTypes.GET_CUSTOM_CONFIG),
           payload: config
