@@ -135,9 +135,9 @@ class TutorialPage extends React.Component {
                           </span>
                         </div>
                       </h3>
-                      <DataList aria-label="Task breakdown by time">
+                      <DataList aria-label="task-breakdowns-by-time">
                         {parsedThread.tasks.map((task, i) => (
-                          <DataListItem key={i}>
+                          <DataListItem key={i} aria-labelledby={`task-breakdown-by-time-${i}`}>
                             <DataListCell width={5}>{`${task.title}`}</DataListCell>
                             <DataListCell width={1}>
                               <div className="integr8ly-task-dashboard-estimated-time">
