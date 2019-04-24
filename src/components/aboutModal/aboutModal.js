@@ -27,8 +27,8 @@ class AboutModal extends React.Component {
           isOpen={isOpen}
           onClose={closeAboutModal}
           productName="Red Hat Solution Explorer"
-          heroImageSrc={pfBackgroundImage}
-          heroImageAlt="Red Hat Solutions Explorer background image"
+          heroimagesrc={pfBackgroundImage}
+          heroimagealt="Red Hat Solutions Explorer background image"
           brandImageSrc={redHatLogo}
           brandImageAlt="Red Hat logo"
           logoImageSrc={solutionsExplorerLogo}
@@ -36,7 +36,7 @@ class AboutModal extends React.Component {
         >
           <TextContent>
             <TextList component="dl">
-              <TextListItem component="dt">Webapp version</TextListItem>
+              <TextListItem component="dt">Web App Version</TextListItem>
               <TextListItem component="dd">{pkgJson.version}</TextListItem>
               <TextListItem component="dt">User Name</TextListItem>
               <TextListItem component="dd">{window.localStorage.getItem('currentUserName')}</TextListItem>
