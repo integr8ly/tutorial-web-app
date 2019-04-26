@@ -27,7 +27,7 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
     </span>
     <input
       class="integr8ly-copy-input expanded form-control"
-      id="test"
+      id="copyField_null"
       readonly=""
       type="text"
       value="{\\"hello\\":\\"world\\"}"
@@ -38,6 +38,7 @@ exports[`CopyField Component should render a multi-line copy component: multi-li
       <button
         aria-label="Copy to Clipboard"
         class="btn btn-default"
+        id="copyButton_null"
         type="button"
       >
         <span
@@ -68,7 +69,7 @@ exports[`CopyField Component should render a single-line copy component: single-
   >
     <input
       class="integr8ly-copy-input false form-control"
-      id="test"
+      id="copyField_null"
       readonly=""
       type="text"
       value="{\\"hello\\":\\"world\\"}"
@@ -79,6 +80,7 @@ exports[`CopyField Component should render a single-line copy component: single-
       <button
         aria-label="Copy to Clipboard"
         class="btn btn-default"
+        id="copyButton_null"
         type="button"
       >
         <span
