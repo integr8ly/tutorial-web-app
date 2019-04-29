@@ -117,7 +117,12 @@ class TutorialPage extends React.Component {
                     <CardBody>
                       <div className="integr8ly-task-dashboard-header">
                         <h1>{parsedThread.title}</h1>
-                        <Button variant="primary" type="button" onClick={e => this.getStarted(e, id)}>
+                        <Button
+                          id="get-started-01"
+                          variant="primary"
+                          type="button"
+                          onClick={e => this.getStarted(e, id)}
+                        >
                           {t('tutorial.getStarted')}
                         </Button>
                       </div>
@@ -152,7 +157,12 @@ class TutorialPage extends React.Component {
                         ))}
                       </DataList>
                       <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
-                        <Button variant="primary" type="button" onClick={e => this.getStarted(e, id)}>
+                        <Button
+                          id="get-started-02"
+                          variant="primary"
+                          type="button"
+                          onClick={e => this.getStarted(e, id)}
+                        >
                           {t('tutorial.getStarted')}
                         </Button>
                       </div>

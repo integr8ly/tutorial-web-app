@@ -107,7 +107,11 @@ class CopyField extends React.Component {
               overlay={<PFTooltip id={setToolTipId}>{labelClickedDescription}</PFTooltip>}
               placement={tooltipPlacement}
             >
-              <Button onClick={this.onCopy} aria-label={labelClickedDescription}>
+              <Button
+                id={`copyButton_${this.props.copySequenceId}`}
+                onClick={this.onCopy}
+                aria-label={labelClickedDescription}
+              >
                 {labelClicked}
               </Button>
             </OverlayTrigger>
@@ -117,7 +121,11 @@ class CopyField extends React.Component {
               overlay={<PFTooltip id={setToolTipId}>{labelDescription}</PFTooltip>}
               placement={tooltipPlacement}
             >
-              <Button onClick={this.onCopy} aria-label={labelDescription}>
+              <Button
+                id={`copyButton_${this.props.copySequenceId}`}
+                onClick={this.onCopy}
+                aria-label={labelDescription}
+              >
                 {label}
               </Button>
             </OverlayTrigger>
@@ -165,6 +173,7 @@ class CopyField extends React.Component {
             </InputGroup.Button>
           )}
           <Form.FormControl
+            id={`copyField_${this.props.copySequenceId}`}
             type="text"
             value={value}
             className={`integr8ly-copy-input ${expanded && 'expanded'}`}
@@ -191,6 +200,7 @@ class CopyField extends React.Component {
 
 CopyField.propTypes = {
   id: PropTypes.string,
+  copySequenceId: PropTypes.string,
   expandDescription: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   labelClicked: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -204,6 +214,7 @@ CopyField.propTypes = {
 
 CopyField.defaultProps = {
   id: null,
+  copySequenceId: null,
   expandDescription: null,
   label: <Icon type="fa" name="paste" />,
   labelClicked: <Icon type="fa" name="check" />,

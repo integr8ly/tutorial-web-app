@@ -21,9 +21,8 @@ const TutorialDashboard = props => {
     if (currentProgress === undefined) startedText = 'Get Started';
     else if (currentProgress.progress === 100) startedText = 'Completed';
     else startedText = 'Resume';
-
     return (
-      <GalleryItem key={walkthrough.id}>
+      <GalleryItem id={walkthrough.id} key={walkthrough.id}>
         <TutorialCard
           title={walkthrough.title}
           getStartedLink={
