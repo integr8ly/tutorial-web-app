@@ -88,6 +88,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   aria-label={null}
                   className=""
                   component="button"
+                  id="get-started-01"
                   isActive={false}
                   isBlock={false}
                   isDisabled={false}
@@ -138,7 +139,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 </div>
               </h3>
               <DataList
-                aria-label="Task breakdown by time"
+                aria-label="task-breakdowns-by-time"
                 className=""
               />
               <div
@@ -148,6 +149,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   aria-label={null}
                   className=""
                   component="button"
+                  id="get-started-02"
                   isActive={false}
                   isBlock={false}
                   isDisabled={false}

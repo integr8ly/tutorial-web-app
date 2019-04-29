@@ -46,8 +46,13 @@ class TaskPage extends React.Component {
   componentDidUpdate() {
     if (this.rootDiv.current) {
       const codeBlocks = this.rootDiv.current.querySelectorAll('pre');
+      let sequenceNumber = 1;
       codeBlocks.forEach(block => {
-        ReactDOM.render(<CopyField value={block.innerText} multiline={block.clientHeight > 40} />, block.parentNode);
+        ReactDOM.render(
+          <CopyField copySequenceId={sequenceNumber} value={block.innerText} multiline={block.clientHeight > 40} />,
+          block.parentNode
+        );
+        sequenceNumber++;
       });
     }
   }
@@ -289,6 +294,7 @@ class TaskPage extends React.Component {
             <Form>
               <FormGroup controlId="radio" disabled={false} bsSize="small">
                 <Radio
+                  id={`${blockId}verificationYes`}
                   name={blockId}
                   checked={isYesChecked}
                   onChange={e => {
@@ -300,6 +306,7 @@ class TaskPage extends React.Component {
                   Yes
                 </Radio>
                 <Radio
+                  id={`${blockId}verificationNo`}
                   name={blockId}
                   checked={isNoChecked}
                   onChange={e => {
@@ -437,12 +444,17 @@ class TaskPage extends React.Component {
                   </Text>
                   <div className="pf-u-mb-lg">
                     {taskNum === 0 && (
-                      <Button variant="secondary" type="button" onClick={e => this.backToIntro(e)}>
+                      <Button id="introReturn" variant="secondary" type="button" onClick={e => this.backToIntro(e)}>
                         {t('task.backToIntro')}
                       </Button>
                     )}
                     {taskNum > 0 && (
-                      <Button variant="secondary" type="button" onClick={e => this.goToTask(e, taskNum - 1)}>
+                      <Button
+                        id="previousPartWalkthrough"
+                        variant="secondary"
+                        type="button"
+                        onClick={e => this.goToTask(e, taskNum - 1)}
+                      >
                         {t('task.previousTask')}
                       </Button>
                     )}
@@ -498,6 +510,7 @@ class TaskPage extends React.Component {
                     </span>
                     {taskNum + 1 < totalTasks && (
                       <Button
+                        id="nextPartWalkthrough"
                         variant={taskVerificationComplete ? 'primary' : 'secondary'}
                         type="button"
                         onClick={e => this.goToTask(e, taskNum + 1)}
@@ -508,6 +521,7 @@ class TaskPage extends React.Component {
                     )}
                     {taskNum + 1 === totalTasks && (
                       <Button
+                        id="exitButton"
                         variant={taskVerificationComplete ? 'primary' : 'secondary'}
                         type="button"
                         onClick={e => this.exitTutorial(e)}

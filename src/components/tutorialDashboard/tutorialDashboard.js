@@ -81,7 +81,7 @@ const TutorialDashboard = props => {
         else startedText = 'Resume';
 
         return (
-          <GalleryItem key={walkthrough.id}>
+          <GalleryItem id={walkthrough.id} key={walkthrough.id}>
             <TutorialCard
               title={walkthrough.title}
               getStartedLink={

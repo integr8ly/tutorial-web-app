@@ -76,12 +76,13 @@ class InstalledAppsView extends React.Component {
 
   static getOpenshiftConsole(index) {
     return (
-      <DataList>
+      <DataList aria-label="openshift-console-datalist" key="openshift_console">
         <DataListItem
           className="pf-u-p-md integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
+          aria-labelledby={`openshift-console-datalistitem-${index}`}
         >
           <div className="pf-u-display-flex pf-u-flex-direction-column">
             <p>Red Hat OpenShift</p>
@@ -166,7 +167,7 @@ class InstalledAppsView extends React.Component {
       .map((app, index) => {
         const { prettyName, gaStatus, hidden } = getProductDetails(app);
         return hidden ? null : (
-          <DataList>
+          <DataList aria-label="cluster-services-datalist" key={`${app.spec.clusterServiceClassExternalName}`}>
             <DataListItem
               className={
                 InstalledAppsView.isServiceProvisioned(app)
@@ -183,6 +184,7 @@ class InstalledAppsView extends React.Component {
               }}
               key={`${app.spec.clusterServiceClassExternalName}_${index}`}
               value={index}
+              aria-labelledby={`cluster-service-datalistitem-${index}`}
             >
               {' '}
               <div className="pf-u-display-flex pf-u-justify-content-space-between" style={{ width: '100%' }}>
