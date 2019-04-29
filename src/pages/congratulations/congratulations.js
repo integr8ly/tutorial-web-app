@@ -9,7 +9,8 @@ import {
   Page,
   PageSection,
   PageSectionVariants,
-  Title
+  Title,
+  EmptyStateVariant
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
@@ -31,14 +32,16 @@ class CongratulationsPage extends React.Component {
           <RoutedConnectedMasthead />
           <PageSection variant={PageSectionVariants.default}>
             <Bullseye>
-              <EmptyState>
+              <EmptyState variant={EmptyStateVariant.large}>
                 <EmptyStateIcon icon={AwardIcon} />
-                <Title size="lg">Congratulations, you completed the walkthrough!</Title>
+                <Title headingLevel="h5" size="lg">
+                  Congratulations, you completed the walkthrough!
+                </Title>
                 <EmptyStateBody>
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
                   you just built!
                 </EmptyStateBody>
-                <Button id="congratulations-button" variant="primary" type="button" onClick={e => this.exitTutorial(e)}>
+                <Button id="congratulations-button" variant="primary" onClick={e => this.exitTutorial(e)}>
                   Return to Home Page
                 </Button>{' '}
               </EmptyState>

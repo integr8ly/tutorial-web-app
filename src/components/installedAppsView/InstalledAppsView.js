@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Badge, DataList, DataListItem, Button } from '@patternfly/react-core';
+import {
+  Badge,
+  Button,
+  DataList,
+  DataListItem,
+  DataListItemCells,
+  DataListItemRow,
+  DataListCell
+} from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails } from '../../services/middlewareServices';
 
@@ -78,18 +86,26 @@ class InstalledAppsView extends React.Component {
     return (
       <DataList aria-label="openshift-console-datalist" key="openshift_console">
         <DataListItem
-          className="pf-u-p-md integr8ly-installed-apps-view-list-item-enabled"
+          className="integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
           aria-labelledby={`openshift-console-datalistitem-${index}`}
         >
-          <div className="pf-u-display-flex pf-u-flex-direction-column">
-            <p>Red Hat OpenShift</p>
-            <div className="integr8ly-state-ready">
-              <OnRunningIcon /> &nbsp;Ready for use
-            </div>
-          </div>
+          <DataListItemRow>
+            <DataListItemCells
+              dataListCells={[
+                <DataListCell key="primary content">
+                  <span id="{`openshift-console-datalistitem-${index}`}">Red Hat OpenShift</span>
+                </DataListCell>,
+                <DataListCell key="secondary content" className="pf-u-text-align-right">
+                  <div className="integr8ly-state-ready">
+                    <OnRunningIcon /> &nbsp;Ready for use
+                  </div>
+                </DataListCell>
+              ]}
+            />
+          </DataListItemRow>
         </DataListItem>
       </DataList>
     );
@@ -97,24 +113,31 @@ class InstalledAppsView extends React.Component {
 
   static createCustomAppElem(i, customApp) {
     return (
-      <DataList>
+      <DataList aria-label="OpenShift service item">
         <DataListItem
-          className="pf-u-p-md integr8ly-installed-apps-view-list-item-enabled"
+          className="integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${customApp.url}`, '_blank')}
           key={`openshift_console_${i}`}
           value={i}
+          aria-labelledby="OpenShift-service"
         >
-          <div className="pf-u-display-flex pf-u-flex-direction-column">
-            <p>
-              {customApp.name}
-              <Badge isRead className="pf-u-ml-lg">
-                custom
-              </Badge>
-            </p>
-            <div className="integr8ly-state-ready">
-              <OnRunningIcon /> &nbsp;Ready for use
-            </div>
-          </div>
+          <DataListItemRow>
+            <DataListItemCells
+              dataListCells={[
+                <DataListCell key="primary content">
+                  {customApp.name}
+                  <Badge isRead className="pf-u-ml-lg">
+                    custom
+                  </Badge>
+                </DataListCell>,
+                <DataListCell key="secondary content" className="pf-u-text-align-right">
+                  <div className="integr8ly-state-ready">
+                    <OnRunningIcon /> &nbsp;Ready for use
+                  </div>
+                </DataListCell>
+              ]}
+            />
+          </DataListItemRow>
         </DataListItem>
       </DataList>
     );
@@ -171,8 +194,8 @@ class InstalledAppsView extends React.Component {
             <DataListItem
               className={
                 InstalledAppsView.isServiceProvisioned(app)
-                  ? 'pf-u-p-md integr8ly-installed-apps-view-list-item-enabled'
-                  : 'pf-u-p-md'
+                  ? 'integr8ly-installed-apps-view-list-item-enabled'
+                  : '&nbsp;'
               }
               onClick={() => {
                 if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
@@ -186,31 +209,35 @@ class InstalledAppsView extends React.Component {
               value={index}
               aria-labelledby={`cluster-service-datalistitem-${index}`}
             >
-              {' '}
-              <div className="pf-u-display-flex pf-u-justify-content-space-between" style={{ width: '100%' }}>
-                <div className="pf-u-flex-direction-column">
-                  <p>
-                    {prettyName}{' '}
-                    {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                      <Badge isRead className="pf-u-ml-lg">
-                        {gaStatus}
-                      </Badge>
-                    ) : (
-                      <span />
-                    )}
-                  </p>
-                  <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+              <DataListItemRow>
+                <DataListItemCells
+                  dataListCells={[
+                    <DataListCell key="primary content">
+                      <span id="appName">
+                        {' '}
+                        {prettyName}{' '}
+                        {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
+                          <Badge isRead className="pf-u-ml-lg">
+                            {gaStatus}
+                          </Badge>
+                        ) : (
+                          <span />
+                        )}
+                      </span>
+                    </DataListCell>,
+                    <DataListCell key="secondary content" className="pf-u-text-align-right">
+                      <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+                    </DataListCell>
+                  ]}
+                />
+              </DataListItemRow>
+              {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
+                <div className="pf-u-display-flex pf-u-justify-content-flex-end">
+                  <Button onClick={() => launchHandler(app)} variant="link">
+                    Start service
+                  </Button>
                 </div>
-                {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
-                  <div className="pf-u-display-flex pf-u-justify-content-flex-end">
-                    <Button onClick={() => launchHandler(app)} variant="link">
-                      Start service
-                    </Button>
-                  </div>
-                ) : null}
-              </div>
-              <br />
-              <small />
+              ) : null}
             </DataListItem>
           </DataList>
         );

@@ -4,13 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop } from 'patternfly-react';
 import {
-  BackgroundImage,
-  BackgroundImageSrc,
   Button,
   Card,
   CardBody,
   DataList,
   DataListItem,
+  DataListItemCells,
+  DataListItemRow,
   DataListCell,
   Grid,
   GridItem,
@@ -96,18 +96,9 @@ class TutorialPage extends React.Component {
       const attrs = getDocsForWalkthrough(id, this.props.middlewareServices, this.props.walkthroughResources);
       const parsedAttrs = Object.assign({}, getDefaultAdocAttrs(id), attrs);
       const parsedThread = parseWalkthroughAdoc(thread.data, parsedAttrs);
-      const bgImages = {
-        [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-        [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-        [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-        [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-        [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-        [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-      };
 
       return (
         <React.Fragment>
-          <BackgroundImage src={bgImages} />
           <Page className="pf-u-h-100vh">
             <RoutedConnectedMasthead />
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
@@ -143,16 +134,24 @@ class TutorialPage extends React.Component {
                       <DataList aria-label="task-breakdowns-by-time">
                         {parsedThread.tasks.map((task, i) => (
                           <DataListItem key={i} aria-labelledby={`task-breakdown-by-time-${i}`}>
-                            <DataListCell width={5}>{`${task.title}`}</DataListCell>
-                            <DataListCell width={1}>
-                              <div className="integr8ly-task-dashboard-estimated-time">
-                                <ClockIcon className="pf-u-mr-xs" />
-                                {task.time}
-                                <span className="integr8ly-task-dashboard-estimated-time_minutes">
-                                  {t('tutorial.minutes')}
-                                </span>
-                              </div>
-                            </DataListCell>
+                            <DataListItemRow>
+                              <DataListItemCells
+                                dataListCells={[
+                                  <DataListCell key="primary content">
+                                    <span id="task-breakdown-by-time-${i}">{`${task.title}`}</span>
+                                  </DataListCell>,
+                                  <DataListCell key="secondary content" className="pf-u-text-align-right">
+                                    <div className="integr8ly-task-dashboard-estimated-time">
+                                      <ClockIcon className="pf-u-mr-xs" />
+                                      {task.time}
+                                      <span className="integr8ly-task-dashboard-estimated-time_minutes">
+                                        {t('tutorial.minutes')}
+                                      </span>
+                                    </div>
+                                  </DataListCell>
+                                ]}
+                              />
+                            </DataListItemRow>
                           </DataListItem>
                         ))}
                       </DataList>

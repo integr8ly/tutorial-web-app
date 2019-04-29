@@ -903,9 +903,19 @@
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.8.2.tgz#576ff7fb1230185b619a75d258cbc98f0867a8dc"
 
+"@fortawesome/fontawesome-common-types@^0.2.18":
+  version "0.2.18"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.18.tgz#c0d8f073a5116b2de0a2c8a7aba66093a6956ce7"
+
 "@fortawesome/fontawesome-free@5.7.2":
   version "5.7.2"
   resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.2.tgz#1498c3eb78ee7c78c5488418707de90aaf58d5d7"
+
+"@fortawesome/free-brands-svg-icons@^5.8.1":
+  version "5.8.2"
+  resolved "https://npm.fontawesome.com/4A831275-95CD-4498-B07A-83658138807C/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.8.2.tgz#e68a509c986d5d197cc5bd9ae8d966eff513468d"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.18"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -918,30 +928,31 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@patternfly/patternfly@1.0.244":
-  version "1.0.244"
-  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-1.0.244.tgz#cadce7bc60e8cef40e098468d2ab285eee2e65c3"
+"@patternfly/patternfly@2.6.11":
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-2.6.11.tgz#6c3d1aba5c613eca0aff844831ed6c8630c809dd"
 
-"@patternfly/react-core@2.3.6":
-  version "2.3.6"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-2.3.6.tgz#644949d36f87a52b328f20ac0af210463856e0eb"
+"@patternfly/react-core@3.16.10":
+  version "3.16.10"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-3.16.10.tgz#32b9e29345c9fc8a1b8b1ffbec14196ef7d55dda"
   dependencies:
-    "@patternfly/react-icons" "^3.1.1"
-    "@patternfly/react-styles" "^2.3.5"
-    "@patternfly/react-tokens" "^2.0.4"
+    "@patternfly/react-icons" "^3.8.1"
+    "@patternfly/react-styles" "^3.2.0"
+    "@patternfly/react-tokens" "^2.5.1"
     "@tippy.js/react" "^1.1.1"
     emotion "^9.2.9"
     exenv "^1.2.2"
     focus-trap-react "^4.0.1"
-    tippy.js "^3.4.1"
 
-"@patternfly/react-icons@^3.1.1":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.6.1.tgz#e5c55bd0f52c5b48e17117a9db30233eb2f242af"
+"@patternfly/react-icons@^3.8.1":
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.9.2.tgz#8a4959a6cdf59929e89f2627a2e3a97e4cb5d798"
+  dependencies:
+    "@fortawesome/free-brands-svg-icons" "^5.8.1"
 
-"@patternfly/react-styles@^2.3.5":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-styles/-/react-styles-2.3.5.tgz#c5a020de2ca2a66489a195be74adbbf3babf5df9"
+"@patternfly/react-styles@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-styles/-/react-styles-3.2.0.tgz#c3008b472767109ff5127b14da9cad6506c6bf4f"
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0-beta.48"
     camel-case "^3.0.0"
@@ -956,9 +967,9 @@
     relative "^3.0.2"
     resolve-from "^4.0.0"
 
-"@patternfly/react-tokens@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.0.4.tgz#9f80bf761b16a622e57a30bf037368aacf6deeaa"
+"@patternfly/react-tokens@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.5.1.tgz#f0b1d526ad19999f9ff7cbac733c94a258c714ab"
 
 "@svgr/core@^2.4.1":
   version "2.4.1"
@@ -12448,12 +12459,6 @@ tiny-relative-date@^1.3.0:
 tippy.js@^3.2.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-3.4.0.tgz#adc8a106eb990ed055b84c9b41404ec8c1cb4541"
-  dependencies:
-    popper.js "^1.14.6"
-
-tippy.js@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-3.4.1.tgz#f0eb3081824ad6c5d364336451ad77ae2f543da8"
   dependencies:
     popper.js "^1.14.6"
 
