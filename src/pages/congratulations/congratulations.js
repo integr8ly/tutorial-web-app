@@ -38,7 +38,7 @@ class CongratulationsPage extends React.Component {
                   Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
                   you just built!
                 </EmptyStateBody>
-                <Button variant="primary" type="button" onClick={e => this.exitTutorial(e)}>
+                <Button id="congratulations-button" variant="primary" type="button" onClick={e => this.exitTutorial(e)}>
                   Return to Home Page
                 </Button>{' '}
               </EmptyState>
