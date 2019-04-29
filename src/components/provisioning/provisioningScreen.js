@@ -103,6 +103,7 @@ class ProvisioningScreen extends React.Component {
       <DataListItem
         className={`${isProvisionFailed ? 'list-group-error-item' : null}`}
         key={svc.spec.clusterServiceClassExternalName}
+        aria-labelledby={`service-statusbar-datalistitem-${svc.spec.clusterServiceClassExternalName}`}
       >
         <DataListCell className="pf-u-py-md">{ProvisioningScreen.renderServiceLoadingIcon(svc)}</DataListCell>
         <DataListCell className="pf-u-py-md">
