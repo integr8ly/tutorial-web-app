@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
 import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
 import {
-  BackgroundImage,
-  BackgroundImageSrc,
   Button,
   Card,
   CardBody,
@@ -390,17 +388,8 @@ class TaskPage extends React.Component {
 
       const currentThreadProgress = this.getStoredProgressForCurrentTask();
       const combinedResources = parsedThread.resources.concat(threadTask.resources);
-      const bgImages = {
-        [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-        [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-        [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-        [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-        [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-        [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-      };
       return (
         <React.Fragment>
-          <BackgroundImage src={bgImages} />
           <Page className="pf-u-h-100vh">
             <PageSection variant="light">
               <Breadcrumb

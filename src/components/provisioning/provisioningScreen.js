@@ -5,6 +5,8 @@ import {
   EmptyStateIcon,
   DataList,
   DataListItem,
+  DataListItemCells,
+  DataListItemRow,
   DataListCell,
   Page,
   PageSection,
@@ -12,7 +14,8 @@ import {
   Progress,
   ProgressMeasureLocation,
   ProgressSize,
-  Title
+  Title,
+  EmptyStateVariant
 } from '@patternfly/react-core';
 import { BoxesIcon, CheckCircleIcon, CircleNotchIcon } from '@patternfly/react-icons';
 import {
@@ -105,14 +108,24 @@ class ProvisioningScreen extends React.Component {
         key={svc.spec.clusterServiceClassExternalName}
         aria-labelledby={`service-statusbar-datalistitem-${svc.spec.clusterServiceClassExternalName}`}
       >
-        <DataListCell className="pf-u-py-md">{ProvisioningScreen.renderServiceLoadingIcon(svc)}</DataListCell>
-        <DataListCell className="pf-u-py-md">
-          {ProvisioningScreen.renderServiceLoadingText(svc)}
-          <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
-            {getProductDetails(svc).prettyName}
-          </div>
-        </DataListCell>
-        <DataListCell className="pf-u-py-md">{ProvisioningScreen.renderServiceLoadingBar(svc)}</DataListCell>
+        <DataListItemRow>
+          <DataListItemCells
+            dataListCells={[
+              <DataListCell key="primary content" className="pf-u-py-md">
+                {ProvisioningScreen.renderServiceLoadingIcon(svc)}
+              </DataListCell>,
+              <DataListCell key="secondary content" className="pf-u-py-md">
+                {ProvisioningScreen.renderServiceLoadingText(svc)}
+                <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
+                  {getProductDetails(svc).prettyName}
+                </div>
+              </DataListCell>,
+              <DataListCell key="tertiary content" className="pf-u-py-md">
+                {ProvisioningScreen.renderServiceLoadingBar(svc)}
+              </DataListCell>
+            ]}
+          />
+        </DataListItemRow>
       </DataListItem>
     );
   }
@@ -122,12 +135,14 @@ class ProvisioningScreen extends React.Component {
       <Page className="pf-u-h-100vh">
         <PageSection
           variant={PageSectionVariants.default}
-          className="pf-u-display-flex pf-l-flex pf-m-column-tablet-plus pf-m-justify-content-space-between"
+          className="pf-u-display-flex pf-l-flex pf-u-justify-content-center"
         >
           <div />
-          <EmptyState className="pf-m-align-self-center">
+          <EmptyState variant={EmptyStateVariant.full} className="pf-m-align-self-center">
             <EmptyStateIcon icon={BoxesIcon} />
-            <Title size="lg">{message}</Title>
+            <Title headingLevel="h5" size="lg">
+              {message}
+            </Title>
           </EmptyState>
           <DataList className="pf-u-w-100" aria-label="Provisioned services datalist">
             {provisioningServices.map(ProvisioningScreen.renderServiceStatusBar)}

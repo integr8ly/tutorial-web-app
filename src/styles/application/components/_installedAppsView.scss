@@ -13,6 +13,7 @@
   }
 
   &-panel-title {
+    margin-bottom: 1px;
     background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
 
     & h2 {
@@ -26,9 +27,6 @@
   }
 
   &-list {
-    list-style-type: none;
-    background-color: $pf-color-white;
-
     i {
       margin-left: 5px;
     }
