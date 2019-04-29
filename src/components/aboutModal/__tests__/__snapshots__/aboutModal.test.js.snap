@@ -17,8 +17,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     brandImageAlt="Red Hat logo"
     brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
-    heroImageAlt="Red Hat Solutions Explorer background image"
-    heroImageSrc="pfbg_992.jpg"
+    heroimagealt="Red Hat Solutions Explorer background image"
+    heroimagesrc="pfbg_992.jpg"
     isOpen={false}
     logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
@@ -35,8 +35,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         brandImageAlt="Red Hat logo"
         brandImageSrc="Logo_RH_RGB_Reverse.png"
         className=""
-        heroImageAlt="Red Hat Solutions Explorer background image"
-        heroImageSrc="pfbg_992.jpg"
+        heroimagealt="Red Hat Solutions Explorer background image"
+        heroimagesrc="pfbg_992.jpg"
         isOpen={false}
         logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
@@ -66,8 +66,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
     brandImageAlt="Red Hat logo"
     brandImageSrc="Logo_RH_RGB_Reverse.png"
     className=""
-    heroImageAlt="Red Hat Solutions Explorer background image"
-    heroImageSrc="pfbg_992.jpg"
+    heroimagealt="Red Hat Solutions Explorer background image"
+    heroimagesrc="pfbg_992.jpg"
     isOpen={false}
     logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
@@ -84,8 +84,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
         brandImageAlt="Red Hat logo"
         brandImageSrc="Logo_RH_RGB_Reverse.png"
         className=""
-        heroImageAlt="Red Hat Solutions Explorer background image"
-        heroImageSrc="pfbg_992.jpg"
+        heroimagealt="Red Hat Solutions Explorer background image"
+        heroimagesrc="pfbg_992.jpg"
         isOpen={false}
         logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
