@@ -11,8 +11,8 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
-const querystring = require('querystring')
-const flattenDeep = require('lodash.flattendeep')
+const querystring = require('querystring');
+const flattenDeep = require('lodash.flattendeep');
 
 const app = express();
 
@@ -55,7 +55,8 @@ const WALKTHROUGH_LOCATION_DEFAULT = {
   commitHash: null,
   commitDate: null,
   remote: null,
-  directory: null
+  directory: null,
+  header: null
 };
 
 const walkthroughs = [];
@@ -143,7 +144,7 @@ function getWalkthroughLocationInfoForWalkthrough(walkthroughId) {
 
 function getUniqueWalkthroughLocationInfos(walkthroughs) {
   const infos = {};
-  walkthroughs.forEach((walkthrough) => {
+  walkthroughs.forEach(walkthrough => {
     const { walkthroughLocationInfo } = walkthrough;
     const walkthroughLocationId = `${walkthroughLocationInfo.remote}-${walkthroughLocationInfo.directory}`;
 
@@ -233,65 +234,81 @@ function resolveWalkthroughLocations(locations) {
   }
 
   const tmpDirPrefix = uuid.v4();
-  const mappedLocations = locations.map(location => {
-    return new Promise((resolve, reject) => {
-      const locationResultTemplate = { origin: location };
-      if (!location) {
-        return reject(new Error(`Invalid location ${location}`));
-      } else if (isPath(location)) {
-        console.log(`Importing walkthrough from path ${location}`);
-        const locationResult = Object.assign({
-          parentId: path.basename(location),
-          walkthroughLocationInfo: Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
-            type: WALKTHROUGH_LOCATION_TYPE_PATH,
-            directory: path.basename(location)
-          }),
-        }, locationResultTemplate, { local: location });
-        return resolve(locationResult);
-      } else if (isGitRepo(location)) {
-        const clonePath = path.join(TMP_DIR, tmpDirPrefix);
+  const mappedLocations = locations.map(
+    location =>
+      new Promise((resolve, reject) => {
+        const locationResultTemplate = { origin: location };
+        if (!location) {
+          return reject(new Error(`Invalid location ${location}`));
+        } else if (isPath(location)) {
+          console.log(`Importing walkthrough from path ${location}`);
+          const locationResult = Object.assign(
+            {
+              parentId: path.basename(location),
+              walkthroughLocationInfo: Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
+                type: WALKTHROUGH_LOCATION_TYPE_PATH,
+                directory: path.basename(location)
+              })
+            },
+            locationResultTemplate,
+            { local: location }
+          );
+          return resolve(locationResult);
+        } else if (isGitRepo(location)) {
+          const clonePath = path.join(TMP_DIR, tmpDirPrefix);
 
-        // Need to parse out query params for walkthroughs, e.g custom directory
-        const cloneUrl = generateCloneUrlFromLocation(location)
-        const repoName = getWalkthroughRepoNameFromLocation(location)
-        const walkthroughParams = querystring.parse(url.parse(location).query)
+          // Need to parse out query params for walkthroughs, e.g custom directory
+          const cloneUrl = generateCloneUrlFromLocation(location);
+          const repoName = getWalkthroughRepoNameFromLocation(location);
+          const walkthroughParams = querystring.parse(url.parse(location).query);
 
-        console.log(`Importing walkthrough from git ${cloneUrl}`);
-        return gitClient
-          .cloneRepo(cloneUrl, clonePath)
-          .then(cloned => {
-            gitClient.latestLog(cloned.localDir).then(log => {
-              // Get the folders to import in the repository.
-              const walkthroughFolders = [];
-              if (!Array.isArray(walkthroughParams.walkthroughsFolder)) {
-                walkthroughFolders.push(walkthroughParams.walkthroughsFolder || 'walkthroughs');
-              } else {
-                walkthroughFolders.push(...walkthroughParams.walkthroughsFolder);
-              }
-              const walkthroughInfos = walkthroughFolders.map(folder => {
-                const walkthroughLocationInfo = Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
-                  type: WALKTHROUGH_LOCATION_TYPE_GIT,
-                  commitHash: log.latest.hash,
-                  commitDate: log.latest.date,
-                  remote: cloned.repoName,
-                  directory: folder
-                });
+          console.log(`Importing walkthrough from git ${cloneUrl}`);
+          return gitClient
+            .cloneRepo(cloneUrl, clonePath)
+            .then(cloned => {
+              gitClient.latestLog(cloned.localDir).then(log => {
+                getWalkthroughHeader(cloned.localDir)
+                  .then(head => {
+                    let wtHeader;
+                    if (head === null) {
+                      wtHeader = null;
+                    } else {
+                      wtHeader = head.prettyName;
+                    }
+                    const walkthroughFolders = [];
+                    if (!Array.isArray(walkthroughParams.walkthroughsFolder)) {
+                      walkthroughFolders.push(walkthroughParams.walkthroughsFolder || 'walkthroughs');
+                    } else {
+                      walkthroughFolders.push(...walkthroughParams.walkthroughsFolder);
+                    }
+                    // Get the folders to import in the repository.
+                    const walkthroughInfos = walkthroughFolders.map(folder => {
+                      const walkthroughLocationInfo = Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
+                        type: WALKTHROUGH_LOCATION_TYPE_GIT,
+                        commitHash: log.latest.hash,
+                        commitDate: log.latest.date,
+                        remote: cloned.repoName,
+                        directory: folder,
+                        header: wtHeader
+                      });
 
-                return Object.assign({}, locationResultTemplate, {
-                  parentId: `${repoName}-${path.basename(folder)}`,
-                  walkthroughLocationInfo: walkthroughLocationInfo,
-                  local: path.join(cloned.localDir, folder)
-                });
+                      return Object.assign({}, locationResultTemplate, {
+                        parentId: `${repoName}-${path.basename(folder)}`,
+                        walkthroughLocationInfo,
+                        local: path.join(cloned.localDir, folder)
+                      });
+                    });
+                    resolve(walkthroughInfos);
+                  })
+                  .catch(reject);
               });
-              resolve(walkthroughInfos);
-            });
-          })
-          .catch(reject);
-      }
-      return reject(new Error(`${location} is neither a path nor a git repo`));
+            })
+            .catch(reject);
+        }
 
-    });
-  });
+        return reject(new Error(`${location} is neither a path nor a git repo`));
+      })
+  );
 
   return Promise.all(mappedLocations).then(flattenDeep);
 }
@@ -300,20 +317,20 @@ function resolveWalkthroughLocations(locations) {
  * Given a URL to a repository, strip the query and rebuild the URL
  * @param {String} location
  */
-function generateCloneUrlFromLocation (location) {
-  const locationParsed = url.parse(location)
+function generateCloneUrlFromLocation(location) {
+  const locationParsed = url.parse(location);
 
   // Need to nullify query params since these are just used by us
-  locationParsed.search = locationParsed.query = null
+  locationParsed.search = locationParsed.query = null;
 
-  return url.format(locationParsed)
+  return url.format(locationParsed);
 }
 
-function getWalkthroughRepoNameFromLocation (location) {
-  const locationParsed = url.parse(location)
+function getWalkthroughRepoNameFromLocation(location) {
+  const locationParsed = url.parse(location);
 
   // Return the repository name, i.e the highest-level identifier
-  return path.basename(locationParsed.path.split('?')[0])
+  return path.basename(locationParsed.path.split('?')[0]);
 }
 
 /**
@@ -397,6 +414,26 @@ function getCustomConfigData(configPath) {
         console.error(`Failed to read extra configuration file: ${err}`);
         return resolve(DEFAULT_CUSTOM_CONFIG_DATA);
       }
+      return resolve(JSON.parse(data));
+    });
+  });
+}
+
+// Function to get the header of the repo-based walkthroughs
+function getWalkthroughHeader(basePath) {
+  const jsonPath = path.join(basePath, 'walkthroughs-config.json');
+  return new Promise(resolve => {
+    if (!fs.existsSync(jsonPath)) {
+      console.log(`FAIL: walkthroughs-config.json is not included in the following directory: ${basePath}`);
+      return resolve(null);
+    }
+    console.log(`SUCCESS: Found walkthroughs-config.json in the following directory: ${basePath}`);
+    fs.readFile(jsonPath, 'utf8', (err, data) => {
+      if (err) {
+        console.error(`Failed to read header: ${err}`);
+        return resolve(null);
+      }
+      console.log(`getWalkthroughHeader returning: ${data}`);
       return resolve(JSON.parse(data));
     });
   });
