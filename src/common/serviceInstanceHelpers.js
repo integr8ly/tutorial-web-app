@@ -44,7 +44,7 @@ class EnMasseServiceInstanceTransform {
     const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
     defaultTransform.spec.parameters = {
       name: siInfo.username,
-      namespace: siInfo.username
+      namespace: siInfo.namespace
     };
     defaultTransform.spec.clusterServicePlanExternalName = 'standard-unlimited';
     return defaultTransform;
