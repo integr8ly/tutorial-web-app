@@ -173,7 +173,7 @@ class CopyField extends React.Component {
             </InputGroup.Button>
           )}
           <Form.FormControl
-            id={`copyField_${this.props.copySequenceId}`}
+            copyfieldid={`copyField_${this.props.copySequenceId}`}
             type="text"
             value={value}
             className={`integr8ly-copy-input ${expanded && 'expanded'}`}
