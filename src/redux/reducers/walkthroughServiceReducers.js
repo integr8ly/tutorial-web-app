@@ -107,6 +107,9 @@ const walkthroughServiceReducers = (state = initialState, action) => {
         }
       );
     case FULFILLED_ACTION(walkthroughTypes.GET_WALKTHROUGH_INFO):
+      if (!action.payload.data || !action.payload.data.walkthroughLocation) {
+        return state;
+      }
       return setStateProp(
         'walkthroughInfo',
         {

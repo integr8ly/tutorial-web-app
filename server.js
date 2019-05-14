@@ -131,16 +131,17 @@ app.get('/about', (_, res) => {
 
 app.get('/about/walkthrough/:walkthroughId', (req, res) => {
   const { walkthroughId } = req.params;
+  const walkthrough = walkthroughs.find(w => w.id === walkthroughId);
+  if (!walkthrough) {
+    console.error('Could not find walkthrough with ID', walkthroughId);
+    res.sendStatus(404);
+    return;
+  }
   res.json({
     walkthroughId,
-    walkthroughLocation: getWalkthroughLocationInfoForWalkthrough(walkthroughId)
+    walkthroughLocation: walkthrough.walkthroughLocationInfo
   });
 });
-
-function getWalkthroughLocationInfoForWalkthrough(walkthroughId) {
-  const walkthrough = walkthroughs.find(w => w.id === walkthroughId);
-  return walkthrough.walkthroughLocationInfo;
-}
 
 function getUniqueWalkthroughLocationInfos(walkthroughs) {
   const infos = {};
