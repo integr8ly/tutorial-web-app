@@ -49,7 +49,11 @@ class TaskPage extends React.Component {
       let sequenceNumber = 1;
       codeBlocks.forEach(block => {
         ReactDOM.render(
-          <CopyField copySequenceId={sequenceNumber} value={block.innerText} multiline={block.clientHeight > 40} />,
+          <CopyField
+            copySequenceId={sequenceNumber.toString()}
+            value={block.innerText}
+            multiline={block.clientHeight > 40}
+          />,
           block.parentNode
         );
         sequenceNumber++;
@@ -365,7 +369,6 @@ class TaskPage extends React.Component {
     } = this.props;
     const attrs = this.getDocsAttributes(id);
     const { t, thread, manifest } = this.props;
-
     if (thread.error || manifest.error) {
       return (
         <div>
@@ -434,6 +437,8 @@ class TaskPage extends React.Component {
                   <WalkthroughResources resources={combinedResources} />
                 </GridItem>
               </Grid>
+              {/* The div below is needed for automated testing with Nightwatch.js */}
+              <div id="pushIntoView" />
             </PageSection>
             <PageSection>
               {/* Bottom footer */}
@@ -521,7 +526,7 @@ class TaskPage extends React.Component {
                     )}
                     {taskNum + 1 === totalTasks && (
                       <Button
-                        id="exitButton"
+                        id="nextPartWalkthrough"
                         variant={taskVerificationComplete ? 'primary' : 'secondary'}
                         type="button"
                         onClick={e => this.exitTutorial(e)}
