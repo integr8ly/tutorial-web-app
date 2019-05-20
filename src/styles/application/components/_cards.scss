@@ -1,17 +1,3 @@
-/* stylelint-disable declaration-no-important */
-.integr8ly-c-card--content {
-  background-color: $pf-color-white !important;
-
-  a {
-    color: $pf-color-blue-400 !important;
-  }
-
-  .btn.btn-primary { /* stylelint-disable-line selector-class-pattern */
-    color: $pf-color-white !important;
-  }
-}
-/* stylelint-enable */
-
 .integr8ly-c-card {
   &:hover {
     cursor: pointer;
@@ -35,13 +21,12 @@
       }
 
       .progress-bar[aria-valuenow="100"] {
-        background-color: var(--pf-global--primary-color--100);
+        background-color: var(--pf-global--success-color--100);
       }
     }
 
-
     .progress-label-completed {
-      color: var(--pf-global--Color--100);
+      color: var(--pf-global--success-color--100);
     }
 
     .progress-bar-table {

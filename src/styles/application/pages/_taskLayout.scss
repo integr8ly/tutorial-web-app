@@ -60,7 +60,7 @@
     }
 
     &-column--footer {
-      background-color: $pf-color-white;
+      background-color: var(--pf-global--Color--light-100);
       border-top: var(--pf-global--BorderWidth--sm) solid;
       border-top-color: $pf-color-black-700;
       position: fixed;

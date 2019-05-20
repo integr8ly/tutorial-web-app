@@ -14,7 +14,7 @@
 
   &-panel-title {
     margin-bottom: 1px;
-    background-color: $pf-color-white !important; /* stylelint-disable-line declaration-no-important */
+    background-color: var(--pf-global--Color--light-100) !important; /* stylelint-disable-line declaration-no-important */
 
     & h2 {
       flex-basis: 70%;
@@ -27,22 +27,11 @@
   }
 
   &-list {
-    i {
-      margin-left: 5px;
-    }
-
     & li {
-      border-top: var(--pf-global--BorderWidth--sm) solid transparent;
-      border-bottom: var(--pf-global--BorderWidth--sm) solid transparent;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-    }
-
-    p {
-      color: $pf-color-black-900;
+      box-shadow: var(--pf-global--BoxShadow--sm);
     }
 
     &-item-enabled:hover {
-      background-color: $pf-color-blue-50;
       cursor: pointer;
     }
   }
