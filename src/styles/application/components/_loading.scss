@@ -84,7 +84,7 @@
   }
 
   &-text {
-    color: $pf-color-white;
+    color: var(--pf-global--Color--light-100);
     text-align: center;
     z-index: 5;
   }
@@ -98,17 +98,17 @@
   &-progressbar {
     width: 85%;
     background-color: transparent;
-    border: var(--pf-global--BorderWidth--md) solid $pf-color-white;
-    color: $pf-color-white;
+    border: var(--pf-global--BorderWidth--md) solid var(--pf-global--Color--light-100);
+    color: var(--pf-global--Color--light-100);
 
     & .progress-bar { /* stylelint-disable-line selector-class-pattern */
-      background-color: $pf-color-white;
+      background-color: var(--pf-global--Color--light-100);
       background-image: none;
     }
   }
 
   &-progress-label {
     margin-left: 15px;
-    color: $pf-color-white;
+    color: var(--pf-global--Color--light-100);
   }
 }

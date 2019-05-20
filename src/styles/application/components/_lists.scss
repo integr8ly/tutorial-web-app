@@ -1,8 +1,8 @@
 .integr8ly-list-view-pf {
   & > .list-group-item { /* stylelint-disable-line selector-class-pattern */
     &:hover {
-      border-right-color: $pf-color-white;
-      border-left-color: $pf-color-white;
+      border-right-color: var(--pf-global--Color--light-100);
+      border-left-color: var(--pf-global--Color--light-100);
     }
   }
 
@@ -15,7 +15,7 @@
   }
 
   .list-group-item:hover { /* stylelint-disable-line selector-class-pattern */
-    background-color: $pf-color-white;
+    background-color: var(--pf-global--Color--light-100);
   }
 }
 
