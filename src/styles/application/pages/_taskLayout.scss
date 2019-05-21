@@ -78,12 +78,11 @@
       }
 
       &_status {
-
         &.icon { /* stylelint-disable selector-class-pattern */
           color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
         }
 
-        .icon:first-child { /* stylelint-disable-line selector-class-pattern */
+        .icon:first-child {
           margin-left: 0;
         }
 

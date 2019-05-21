@@ -123,7 +123,7 @@ class TutorialPage extends React.Component {
                     <CardBody>
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
-                        <div className="pull-right integr8ly-task-dashboard-time-to-completion">
+                        <div className="pull-right pf-u-mr-lg integr8ly-task-dashboard-time-to-completion">
                           <ClockIcon className="pf-u-mr-xs" />
                           {parsedThread.time}
                           <span className="integr8ly-task-dashboard-time-to-completion_minutes">
@@ -131,7 +131,7 @@ class TutorialPage extends React.Component {
                           </span>
                         </div>
                       </h3>
-                      <DataList aria-label="task-breakdowns-by-time">
+                      <DataList className="pf-u-pl-0" aria-label="task-breakdowns-by-time">
                         {parsedThread.tasks.map((task, i) => (
                           <DataListItem key={i} aria-labelledby={`task-breakdown-by-time-${i}`}>
                             <DataListItemRow>

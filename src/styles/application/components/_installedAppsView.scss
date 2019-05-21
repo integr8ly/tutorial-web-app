@@ -26,14 +26,8 @@
     }
   }
 
-  &-list {
-    & li {
-      box-shadow: var(--pf-global--BoxShadow--sm);
-    }
-
-    &-item-enabled:hover {
-      cursor: pointer;
-    }
+  &-list-item-enabled:hover {
+    cursor: pointer;
   }
 }
 

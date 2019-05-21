@@ -29,8 +29,8 @@ const TutorialCard = props => (
           aria-label="Navigate to Walkthrough"
           className={
             props.progress === 100
-              ? 'pf-u-pl-0 integr8ly-c-card__status--complete-icon'
-              : 'pf-u-pl-0 integr8ly-c-card__status--in-progress-icon'
+              ? 'pf-u-pl-0 pf-u-pb-md integr8ly-c-card__status--complete-icon'
+              : 'pf-u-pl-0 pf-u-pb-md integr8ly-c-card__status--in-progress-icon'
           }
           href={props.getStartedLink}
         >
