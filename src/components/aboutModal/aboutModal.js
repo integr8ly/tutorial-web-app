@@ -5,8 +5,8 @@ import { AboutModal as PfAboutModal, TextContent, TextList, TextListItem } from 
 
 import { detect } from 'detect-browser';
 import solutionsExplorerLogo from '../../img/logo-alt.svg';
-import redHatLogo from '../../img/Logo_RH_RGB_Reverse.png';
-import pfBackgroundImage from '../../img/pfbg_992.jpg';
+import redHatLogo from '../../img/Logo-RedHat-Hat-Color-RGB.png';
+import pfBackgroundImage from '../../img/PF4DownstreamBG.svg';
 
 const pkgJson = require('../../../package.json');
 

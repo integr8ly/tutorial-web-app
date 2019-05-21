@@ -1,0 +1,25 @@
+/* stylelint-disable */
+.pf-c-about-modal-box {
+  background-image: url("../../img/PF4DownstreamBG.svg") !important;
+  --pf-c-about-modal-box__hero--sm--BackgroundImage: url("../../img/PF4DownstreamBG.svg") !important;
+  // background-repeat: no-repeat;
+  // background-position: center !important;
+  background-color: #151515 !important;
+  .pf-c-about-modal-box__brand,
+  .pf-c-about-modal-box__header,
+  .pf-c-about-modal-box__content {
+    background-color: #030303;
+  }
+  .pf-c-about-modal-box__content {
+    margin: 0;
+    padding: 48px 64px;
+  }
+}
+.pf-c-about-modal-box__hero {
+  visibility: hidden !important;
+  // background-image: url("../../img/PF4DownstreamBG.svg") !important;
+  // --pf-c-about-modal-box__hero--sm--BackgroundImage: url("../../img/PF4DownstreamBG.svg") !important;
+  // background-position: right !important;
+  // background-size: 65% !important;
+}
+/* stylelint-enable */

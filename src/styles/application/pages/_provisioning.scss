@@ -1,4 +1,12 @@
 .integr8ly-provisioning {
+  &-background {
+    background-image: url("../../img/PF4DownstreamBG.svg");
+    background-color: #151515 !important; /* stylelint-disable declaration-no-important */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   &-empty-state {
     margin: 0 auto;
   }
