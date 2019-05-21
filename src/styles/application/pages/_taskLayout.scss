@@ -78,17 +78,20 @@
       }
 
       &_status {
-        color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+
+        &.icon { /* stylelint-disable selector-class-pattern */
+          color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+        }
 
         .icon:first-child { /* stylelint-disable-line selector-class-pattern */
           margin-left: 0;
         }
 
-        &-checked {
+        &-checked.icon {
           color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
         }
 
-        &-unchecked {
+        &-unchecked.icon {
           color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
         }
       }
