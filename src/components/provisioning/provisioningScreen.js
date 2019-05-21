@@ -134,8 +134,8 @@ class ProvisioningScreen extends React.Component {
     return (
       <Page className="pf-u-h-100vh">
         <PageSection
-          variant={PageSectionVariants.default}
-          className="pf-u-display-flex pf-l-flex pf-u-justify-content-center"
+          variant={PageSectionVariants.darker}
+          className="integr8ly-provisioning-background pf-u-display-flex pf-l-flex pf-u-justify-content-center"
         >
           <div />
           <EmptyState variant={EmptyStateVariant.full} className="pf-m-align-self-center">
