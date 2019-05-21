@@ -14,10 +14,9 @@ import {
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
-import { AwardIcon } from '@patternfly/react-icons';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
-// import backgroundImage from '../../img/PF4DownstreamBG.svg';
+import congratulationsImage from '../../img/Congratulations.svg';
 
 class CongratulationsPage extends React.Component {
   exitTutorial = e => {
@@ -33,8 +32,8 @@ class CongratulationsPage extends React.Component {
           <RoutedConnectedMasthead />
           <PageSection variant={PageSectionVariants.darker} className="integr8ly-congratulations-background">
             <Bullseye>
-              <EmptyState variant={EmptyStateVariant.large}>
-                <EmptyStateIcon icon={AwardIcon} />
+              <EmptyState variant={EmptyStateVariant.full}>
+                <img src={congratulationsImage} alt="" className="integr8ly-congratulations-image pf-u-mb-2xl" />
                 <Title headingLevel="h5" size="lg">
                   Congratulations, you completed the walkthrough!
                 </Title>
@@ -43,7 +42,7 @@ class CongratulationsPage extends React.Component {
                   you just built!
                 </EmptyStateBody>
                 <Button id="congratulations-button" variant="primary" onClick={e => this.exitTutorial(e)}>
-                  Return to Home Page
+                  Return to home
                 </Button>{' '}
               </EmptyState>
             </Bullseye>

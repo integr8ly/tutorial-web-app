@@ -112,7 +112,7 @@ const TutorialDashboard = props => {
       htmlSnippet.push(
         <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
           {addCategory(filteredWalkthroughs)}
-          <div className="integr8ly-walkthrough-counter pf-u-mt-lg pf-u-mr-md pf-u-text-align-right pf-m-sm">
+          <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-mr-md pf-u-text-align-right pf-m-sm">
             {filteredWalkthroughs.length === 1 ? (
               <strong>{filteredWalkthroughs.length} walkthrough</strong>
             ) : (

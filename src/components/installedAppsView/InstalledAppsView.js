@@ -263,7 +263,7 @@ class InstalledAppsView extends React.Component {
         <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-mt-sm pf-u-box-shadow-md">
           <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
           <div className="pf-u-mt-md pf-u-pr-sm pf-m-sm pf-u-text-align-right">
-            <strong>{appList.props.children.length} applications</strong>
+            <Badge isRead>{appList.props.children.length}</Badge>
           </div>
         </div>
         {appList}
