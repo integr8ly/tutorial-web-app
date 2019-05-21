@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Brand,
+  Button,
   Dropdown,
   DropdownToggle,
   DropdownItem,
@@ -75,6 +76,12 @@ class Masthead extends React.Component {
     });
   };
 
+  onSettingsClick = () => {
+    const { history } = this.props;
+    history.push(`/settings`);
+    console.log('Settings was clicked!');
+  };
+
   render() {
     const { isUserDropdownOpen, showAboutModal } = this.state;
 
@@ -86,6 +93,16 @@ class Masthead extends React.Component {
       <React.Fragment>
         <Toolbar>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+              <Button
+                className="pf-c-button pf-m-plain"
+                aria-label="Settings"
+                variant="plain"
+                onClick={this.onSettingsClick}
+              >
+                <i className="fas fa-cog" aria-hidden="true" />
+              </Button>
+            </ToolbarItem>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
               <Dropdown
                 isPlain
