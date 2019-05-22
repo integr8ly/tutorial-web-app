@@ -96,7 +96,7 @@ class InstalledAppsView extends React.Component {
             <DataListItemCells
               dataListCells={[
                 <DataListCell key="primary content">
-                  <span id="{`openshift-console-datalistitem-${index}`}">Red Hat OpenShift</span>
+                  <span id="Red Hat OpenShift">Red Hat OpenShift</span>
                 </DataListCell>,
                 <DataListCell key="secondary content" className="pf-u-text-align-right">
                   <div className="integr8ly-state-ready">

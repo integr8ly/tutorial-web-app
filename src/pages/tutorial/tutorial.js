@@ -138,7 +138,7 @@ class TutorialPage extends React.Component {
                               <DataListItemCells
                                 dataListCells={[
                                   <DataListCell key="primary content">
-                                    <span id="task-breakdown-by-time-${i}">{`${task.title}`}</span>
+                                    <span id="task-breakdown-by-time">{`${task.title}`}</span>
                                   </DataListCell>,
                                   <DataListCell key="secondary content" className="pf-u-text-align-right">
                                     <div className="integr8ly-task-dashboard-estimated-time">

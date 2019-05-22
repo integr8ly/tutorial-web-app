@@ -18,29 +18,20 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
-  <BackgroundImage
-    className=""
-    src={
-      Object {
-        "filter": "/assets/images/background-filter.svg#image_overlay",
-        "lg": "/assets/images/pfbg_1200.jpg",
-        "sm": "/assets/images/pfbg_768.jpg",
-        "sm2x": "/assets/images/pfbg_768@2x.jpg",
-        "xs": "/assets/images/pfbg_576.jpg",
-        "xs2x": "/assets/images/pfbg_576@2x.jpg",
-      }
-    }
-  />
   <Page
+    breadcrumb={null}
     className="pf-u-h-100vh"
     header={null}
     isManagedSidebar={false}
     onPageResize={null}
     sidebar={null}
+    skipToContent={null}
   >
     <withRouter(Connect(Masthead)) />
     <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
+      noPadding={false}
+      noPaddingMobile={false}
       variant="default"
     >
       <Grid
@@ -73,10 +64,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
           <Card
             className="integr8ly-c-card--content pf-u-mb-xl"
             component="article"
+            isHoverable={false}
           >
             <CardBody
               className=""
               component="div"
+              isFilled={true}
             >
               <div
                 className="integr8ly-task-dashboard-header"
@@ -94,6 +87,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   isDisabled={false}
                   isFocus={false}
                   isHover={false}
+                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"
@@ -116,13 +110,14 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             <CardBody
               className=""
               component="div"
+              isFilled={true}
             >
               <h3
                 className="pf-u-mt-xl"
               >
                 tutorial.tasksToComplete
                 <div
-                  className="pull-right integr8ly-task-dashboard-time-to-completion"
+                  className="pull-right pf-u-mr-lg integr8ly-task-dashboard-time-to-completion"
                 >
                   <ClockIcon
                     className="pf-u-mr-xs"
@@ -140,7 +135,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               </h3>
               <DataList
                 aria-label="task-breakdowns-by-time"
-                className=""
+                className="pf-u-pl-0"
               />
               <div
                 className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
@@ -155,6 +150,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   isDisabled={false}
                   isFocus={false}
                   isHover={false}
+                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"

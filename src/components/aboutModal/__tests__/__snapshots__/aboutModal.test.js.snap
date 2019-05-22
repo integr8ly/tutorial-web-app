@@ -15,13 +15,14 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
 >
   <AboutModal
     brandImageAlt="Red Hat logo"
-    brandImageSrc="Logo_RH_RGB_Reverse.png"
+    brandImageSrc="Logo-RedHat-Hat-Color-RGB.png"
     className=""
     heroimagealt="Red Hat Solutions Explorer background image"
-    heroimagesrc="pfbg_992.jpg"
+    heroimagesrc="PF4DownstreamBG.svg"
     isOpen={false}
     logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
+    noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
     trademark=""
@@ -33,13 +34,14 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
         brandImageAlt="Red Hat logo"
-        brandImageSrc="Logo_RH_RGB_Reverse.png"
+        brandImageSrc="Logo-RedHat-Hat-Color-RGB.png"
         className=""
         heroimagealt="Red Hat Solutions Explorer background image"
-        heroimagesrc="pfbg_992.jpg"
+        heroimagesrc="PF4DownstreamBG.svg"
         isOpen={false}
         logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
+        noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"
         trademark=""
@@ -64,13 +66,14 @@ exports[`AboutModal Component should render a non-connected component: show moda
 >
   <AboutModal
     brandImageAlt="Red Hat logo"
-    brandImageSrc="Logo_RH_RGB_Reverse.png"
+    brandImageSrc="Logo-RedHat-Hat-Color-RGB.png"
     className=""
     heroimagealt="Red Hat Solutions Explorer background image"
-    heroimagesrc="pfbg_992.jpg"
+    heroimagesrc="PF4DownstreamBG.svg"
     isOpen={false}
     logoImageAlt="Red Hat Solutions Explorer logo"
     logoImageSrc="logo-alt.svg"
+    noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
     trademark=""
@@ -82,13 +85,14 @@ exports[`AboutModal Component should render a non-connected component: show moda
         ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
         brandImageAlt="Red Hat logo"
-        brandImageSrc="Logo_RH_RGB_Reverse.png"
+        brandImageSrc="Logo-RedHat-Hat-Color-RGB.png"
         className=""
         heroimagealt="Red Hat Solutions Explorer background image"
-        heroimagesrc="pfbg_992.jpg"
+        heroimagesrc="PF4DownstreamBG.svg"
         isOpen={false}
         logoImageAlt="Red Hat Solutions Explorer logo"
         logoImageSrc="logo-alt.svg"
+        noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"
         trademark=""
