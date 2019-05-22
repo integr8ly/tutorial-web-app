@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 const TutorialCard = props => (
   <Card
+    isHoverable
     className={
       props.progress === 100
         ? 'integr8ly-c-card pf-u-h-100 integr8ly-c-card__status--complete'
