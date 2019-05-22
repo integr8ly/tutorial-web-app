@@ -19,6 +19,7 @@ import { withRouter } from 'react-router-dom';
 import { noop } from 'patternfly-react';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
+import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -43,11 +44,18 @@ class SettingsPage extends React.Component {
     history.push(`/`);
   };
 
+  saveSettings = (e, value) => {
+    localStorage.setItem('SEAppSettings', value);
+    e.preventDefault();
+    const { history } = this.props;
+    history.push(`/`);
+  };
+
   handleTextInputChange = value => {
-    this.setState({
-      value,
-      isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
-    });
+    // this.setState({
+    //   value,
+    //   isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
+    // });
     console.log('Changed!');
     // let repoArray = [];
     if (this.state.value.includes('\n')) {
@@ -79,9 +87,9 @@ class SettingsPage extends React.Component {
         isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
       });
     }
-    
-      //  console.log(`repoArray[0]: ${repoArray[0]} repoArray[1]: ${repoArray[1]} repoArray[2]: ${repoArray[2]}`);
-    
+
+    // console.log(`repoArray[0]: ${repoArray[0]} repoArray[1]: ${repoArray[1]} repoArray[2]: ${repoArray[2]}`);
+
     console.log(`value: ${this.state.value}`);
   };
 
@@ -103,10 +111,12 @@ class SettingsPage extends React.Component {
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
+
           <PageSection variant={PageSectionVariants.default}>
+            <Breadcrumb homeClickedCallback={() => {}} threadName="Application settings" />
             <Grid gutter="md">
               <GridItem mdOffset={4} md={12}>
-                <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Application Settings</h3>
+                <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Application settings</h3>
                 <Card className="pf-u-w-50 pf-u-my-xl">
                   <CardHeader>
                     <h4 className="pf-c-title pf-m-lg">Subscribed content</h4>
@@ -174,6 +184,7 @@ class SettingsPage extends React.Component {
                       variant="primary"
                       type="button"
                       onClick={e => this.exitTutorial(e)}
+                      isDisabled={!isValid}
                     >
                       Save
                     </Button>{' '}
