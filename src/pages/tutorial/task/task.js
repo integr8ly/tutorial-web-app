@@ -7,7 +7,6 @@ import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
 import {
   Button,
   Card,
-  CardBody,
   Grid,
   GridItem,
   Page,
@@ -401,18 +400,18 @@ class TaskPage extends React.Component {
               />
             </PageSection>
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
-              <Grid gutter="md" className="pf-c-content">
+              <Grid gutter="md">
                 <GridItem sm={12} md={9}>
-                  <Card className="integr8ly-c-card--content pf-u-mb-xl">
-                    <CardBody>
-                      <TextContent className="integr8ly-module-column pf-u-pb-sm">
+                  <Card className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl">
+                    <TextContent>
+                      <div className="integr8ly-module-column pf-u-pb-sm">
                         <h1 className="pf-u-screen-reader">{parsedThread.title}</h1>
                         <h2 className="pf-u-mt-0">{threadTask.title}</h2>
                         <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                           {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
                         </div>
-                      </TextContent>
-                    </CardBody>
+                      </div>
+                    </TextContent>
                   </Card>
                 </GridItem>
                 <GridItem
