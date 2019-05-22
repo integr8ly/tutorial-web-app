@@ -6,7 +6,6 @@ import { noop } from 'patternfly-react';
 import {
   Button,
   Card,
-  CardBody,
   DataList,
   DataListItem,
   DataListItemCells,
@@ -15,7 +14,8 @@ import {
   Grid,
   GridItem,
   Page,
-  PageSection
+  PageSection,
+  TextContent
 } from '@patternfly/react-core';
 import { ClockIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../redux';
@@ -102,10 +102,10 @@ class TutorialPage extends React.Component {
           <Page className="pf-u-h-100vh">
             <RoutedConnectedMasthead />
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
-              <Grid gutter="md" className="pf-c-content">
+              <Grid gutter="md">
                 <GridItem sm={12} md={9} className="integr8ly-task-container">
-                  <Card className="integr8ly-c-card--content pf-u-mb-xl">
-                    <CardBody>
+                  <Card className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl">
+                    <TextContent>
                       <div className="integr8ly-task-dashboard-header">
                         <h1>{parsedThread.title}</h1>
                         <Button
@@ -119,8 +119,6 @@ class TutorialPage extends React.Component {
                       </div>
                       {this.renderPrereqs(thread)}
                       <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
-                    </CardBody>
-                    <CardBody>
                       <h3 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
                         <div className="pull-right pf-u-mr-lg integr8ly-task-dashboard-time-to-completion">
@@ -155,7 +153,7 @@ class TutorialPage extends React.Component {
                           </DataListItem>
                         ))}
                       </DataList>
-                      <div className="pull-right integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
+                      <div className="integr8ly-task-dashboard-time-to-completion pf-u-mb-lg">
                         <Button
                           id="get-started-02"
                           variant="primary"
@@ -165,7 +163,7 @@ class TutorialPage extends React.Component {
                           {t('tutorial.getStarted')}
                         </Button>
                       </div>
-                    </CardBody>
+                    </TextContent>
                   </Card>
                 </GridItem>
                 <GridItem

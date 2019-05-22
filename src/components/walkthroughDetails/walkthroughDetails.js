@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Card, CardBody, TextContent } from '@patternfly/react-core';
+import { Card, TextContent } from '@patternfly/react-core';
 import { connect, reduxActions } from '../../redux';
 
 class WalkthroughDetails extends React.Component {
@@ -23,40 +23,38 @@ class WalkthroughDetails extends React.Component {
     const { walkthroughInfo } = this.props;
 
     return (
-      <Card>
-        <CardBody>
-          <TextContent className="integr8ly-walkthrough-resources pf-u-pl-md">
-            <h2>About this walkthrough</h2>
-            <h3>Details</h3>
-            <div className="pf-u-pb-sm">
-              <div className="pf-u-display-flex pf-u-justify-content-space-between">
-                <div>Source: </div>
-                <div>
-                  {walkthroughInfo.type === 'path' ||
-                  !WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate) ? (
-                    <div>---</div>
-                  ) : (
-                    <div>
-                      <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
-                        {walkthroughInfo.gitUrl.includes('https://github.com/integr8ly/') ? 'Red Hat' : 'Community'}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="pf-u-display-flex pf-u-justify-content-space-between">
-                <div>Last updated: </div>
-                <div>
-                  {walkthroughInfo.type === 'path' ? (
-                    <div>---</div>
-                  ) : (
-                    <div>{WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate)}</div>
-                  )}
-                </div>
+      <Card className="pf-u-p-lg">
+        <TextContent className="integr8ly-walkthrough-resources">
+          <h2>About this walkthrough</h2>
+          <h3>Details</h3>
+          <div className="pf-u-pb-sm">
+            <div className="pf-u-display-flex pf-u-justify-content-space-between">
+              <div>Source: </div>
+              <div>
+                {walkthroughInfo.type === 'path' ||
+                !WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate) ? (
+                  <div>---</div>
+                ) : (
+                  <div>
+                    <a href={walkthroughInfo.gitUrl} target="_blank" rel="noopener noreferrer">
+                      {walkthroughInfo.gitUrl.includes('https://github.com/integr8ly/') ? 'Red Hat' : 'Community'}
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
-          </TextContent>
-        </CardBody>
+            <div className="pf-u-display-flex pf-u-justify-content-space-between">
+              <div>Last updated: </div>
+              <div>
+                {walkthroughInfo.type === 'path' ? (
+                  <div>---</div>
+                ) : (
+                  <div>{WalkthroughDetails.validWalkthroughDate(walkthroughInfo.commitDate)}</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </TextContent>
       </Card>
     );
   }
