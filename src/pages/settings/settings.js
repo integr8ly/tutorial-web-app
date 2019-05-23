@@ -26,83 +26,87 @@ class SettingsPage extends React.Component {
     super(props);
 
     this.state = {
-      value: '',
+      value: localStorage.getItem('SEAppSettings') || '',
       isValid: true
     };
   }
 
-  // handleRepoTextInputChange = value => {
-  //   this.setState({ value, isValid: /^\d+$/.test(value) });
-  //   // this.setState({ value, isValid: () => this.validateGithubUrl(value) });
-  //   console.log(this.state.value);
-  //   console.log(this.state.isValid);
-  // };
-
-  exitTutorial = e => {
-    e.preventDefault();
-    const { history } = this.props;
-    history.push(`/`);
-  };
+  componentDidMount() {
+    this.loadSettings();
+  }
 
   saveSettings = (e, value) => {
-    localStorage.setItem('SEAppSettings', value);
     e.preventDefault();
+    localStorage.setItem('SEAppSettings', value);
     const { history } = this.props;
     history.push(`/`);
+    this.testSettingsSave();
   };
 
-  handleTextInputChange = value => {
-    // this.setState({
-    //   value,
-    //   isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
-    // });
-    console.log('Changed!');
-    // let repoArray = [];
-    if (this.state.value.includes('\n')) {
-      const repoArray = this.state.value.split('\n');
-      console.log(`repoArray: ${repoArray}`);
+  testSettingsSave = () => {
+    const settings = localStorage.getItem('SEAppSettings');
+    console.log(settings);
+  };
 
-      for (let i = 0; i < repoArray.length; i++) {
-        console.log(`repoArray${i}: ${repoArray[i]}`);
-        if (/^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
-          console.log(`${[i]}: passed regex test!`);
-          this.setState({
-            isValid: true
-          });
-        } else if (repoArray[i] === '\n' || repoArray[i] === '') {
-          console.log(`${[i]}: contains only a new line`);
-          this.setState({
-            isValid: true
-          });
+  loadSettings() {
+    const key = 'SEAppSettings';
+    if (localStorage.hasOwnProperty(key)) {
+      let value = localStorage.getItem(key);
+      try {
+        value = JSON.parse(value);
+        this.setState({ [key]: value });
+      } catch (e) {
+        this.setState({ [key]: value });
+      }
+    }
+  }
+
+  handleTextInputChange = value => {
+    this.setState(
+      {
+        value,
+        isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
+      },
+      () => {
+        console.log('Changed!');
+        console.log(`this.state.value: ${this.state.value}`);
+
+        if (this.state.value === '') {
+          this.setState({ isValid: true });
+        }
+
+        if (this.state.value.includes('\n')) {
+          const repoArray = this.state.value.split('\n');
+          console.log(`repoArray: ${repoArray}`);
+
+          for (let i = 0; i < repoArray.length; i++) {
+            console.log(`repoArray${i}: ${repoArray[i]}`);
+            if (/^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
+              console.log(`${[i]}: passed regex test!`);
+              this.setState({
+                isValid: true
+              });
+            } else if (repoArray[i] === '\n' || repoArray[i] === '') {
+              console.log(`${[i]}: contains only a new line`);
+              this.setState({
+                isValid: true
+              });
+            } else {
+              console.log(`${[i]}: failed regex test!`);
+              this.setState({
+                isValid: false
+              });
+            }
+          }
         } else {
-          console.log(`${[i]}: failed regex test!`);
           this.setState({
-            isValid: false
+            isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
           });
         }
       }
-    } else {
-      this.setState({
-        value,
-        isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
-      });
-    }
-
-    // console.log(`repoArray[0]: ${repoArray[0]} repoArray[1]: ${repoArray[1]} repoArray[2]: ${repoArray[2]}`);
-
+    );
     console.log(`value: ${this.state.value}`);
   };
-
-  // validateGithubUrl = value => {
-  //   // const urlChecker = "^(?:https:\/\/)+([\w\.-]+)+github.com\/[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
-  //   const tryThis = '/^d+$/';
-  //   if (value.match(tryThis)) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-  // tryThis.test(value);
-  // return true;
 
   render() {
     const { value, isValid } = this.state;
@@ -148,30 +152,12 @@ class SettingsPage extends React.Component {
                       >
                         <TextArea
                           isValid={isValid}
-                          value={value}
+                          value={this.state.value}
                           id="repo-textfield"
                           aria-describedby="repo-formgroup"
                           onChange={this.handleTextInputChange}
                         />
                       </FormGroup>
-                      {/* <FormGroup
-                        label="List URLs in the order you want them to appear on the Home page:"
-                        type="text"
-                        helperText="Enter one value per line. Example: https://github.com/integr8ly/tutorial-web-app-walkthroughs"
-                        helperTextInvalid="URL syntax is incorrect. Example: https://github.com/integr8ly/tutorial-web-app-walkthroughs"
-                        fieldId="repo-formgroup"
-                        // isValid={this.validateGithubUrl()}
-                        isValid={isValid}
-                      >
-                        <TextArea
-                          isValid={isValid}
-                          value={value}
-                          id="repo-textfield"
-                          aria-describedby="repo-formgroup"
-                          // onChange={() => this.handleRepoTextInputChange(value)}
-                          // onChange={this.state.value}
-                        />
-                      </FormGroup> */}
                     </Form>
                   </CardBody>
                   <CardBody>
@@ -183,7 +169,7 @@ class SettingsPage extends React.Component {
                       id="settings-save-button"
                       variant="primary"
                       type="button"
-                      onClick={e => this.exitTutorial(e)}
+                      onClick={e => this.saveSettings(e, value)}
                       isDisabled={!isValid}
                     >
                       Save
