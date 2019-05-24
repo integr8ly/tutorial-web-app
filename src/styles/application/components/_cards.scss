@@ -1,4 +1,8 @@
 .integr8ly-c-card {
+  &:hover {
+    cursor: pointer;
+  }
+
   &__info {
     display: contents;
   }
