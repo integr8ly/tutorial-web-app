@@ -1,12 +1,12 @@
 {
   "name": "integreatly-web-app",
-  "version": "2.10.3",
+  "version": "2.10.4",
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.2",
     "@patternfly/react-core": "3.16.10",
-    "@patternfly/patternfly": "2.6.16",
+    "@patternfly/patternfly": "2.8.1",
     "asciidoctor.js": "1.5.7",
     "axios": "0.18.0",
     "body-parser": "^1.18.3",
