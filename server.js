@@ -13,6 +13,7 @@ const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
 const querystring = require('querystring');
 const flattenDeep = require('lodash.flattendeep');
+const { sync, repository, newRepository } = require('./model');
 
 const app = express();
 
@@ -69,6 +70,44 @@ app.get('/customWalkthroughs', (req, res) => {
 app.get('/metrics', (req, res) => {
   res.set('Content-Type', Prometheus.register.contentType);
   res.end(Prometheus.register.metrics());
+});
+
+// Get all user defined walkthrough repositories
+app.get('/user_walkthroughs', (req, res) => {
+  return repository.findAll()
+    .then(result => res.json(result))
+    .catch(err => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+});
+
+// Insert new user defined walkthrough repositories
+app.post('/user_walkthroughs', (req, res) => {
+  const { url } = req.body;
+  return newRepository(url)
+    .then(repository => res.json(repository))
+    .catch(err => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+});
+
+// Delete user defined walkthrough repository by id
+app.delete('/user_walkthroughs/:id', (req, res) => {
+  const { id } = req.params;
+  return repository.findByPk(id)
+    .then(instance => {
+      return instance.destroy()
+        .then(() => res.sendStatus(200))
+        .catch(err => {
+          console.error(err);
+          return res.sendStatus(500);
+        });
+    }).catch(err => {
+      console.error(err);
+      return res.sendStatus(500);
+    })
 });
 
 // Init custom walkthroughs dependencies
@@ -555,7 +594,7 @@ function getConfigData(req) {
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
     ssoLogoutUri: 'https://${
-      process.env.SSO_ROUTE
+    process.env.SSO_ROUTE
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}'
   };`;
@@ -615,14 +654,16 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 function run() {
-  loadAllWalkthroughs(walkthroughLocations)
-    .then(() => {
-      app.listen(port, () => console.log(`Listening on port ${port}`));
-    })
-    .catch(err => {
-      console.error(err);
-      process.exit(1);
-    });
+  sync().then(() => {
+    loadAllWalkthroughs(walkthroughLocations)
+      .then(() => {
+        app.listen(port, () => console.log(`Listening on port ${port}`));
+      })
+      .catch(err => {
+        console.error(err);
+        process.exit(1);
+      });
+  });
 }
 
 run();
