@@ -1,10 +1,13 @@
 const { Sequelize } = require('sequelize');
 const { join } = require('path');
 
-exports.createDatabase = (dbPath, dbName) => {
-  return new Sequelize(`${dbName}`, null, null, {
-    storage: join(__dirname, dbPath, `${dbName}.db`),
+exports.createDatabase = (databaseName, databasePath) => {
+  const databaseFile = `${join(databasePath, databaseName)}.db`;
+  console.log(`user database is ${databaseFile}`);
+
+  return new Sequelize(`${databaseName}`, null, null, {
+    storage: databaseFile,
     dialect: 'sqlite',
-    logging: true
+    logging: false
   });
 };
