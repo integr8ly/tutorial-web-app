@@ -126,8 +126,8 @@ class SettingsPage extends React.Component {
                     <h4 className="pf-c-title pf-m-lg">Subscribed content</h4>
                   </CardHeader>
                   <CardBody>
-                    To display solution patterns on the Home page, add the URLs for git repositories here. Red Hat
-                    Integr8ly content is already included.{' '}
+                    To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
+                    Solutions Explorer default content is already included.{' '}
                     <a
                       href="/tutorial/tutorial-web-app-walkthroughs-walkthroughs-publishing-walkthroughs/"
                       rel="noopener noreferrer"
@@ -145,8 +145,8 @@ class SettingsPage extends React.Component {
                       <FormGroup
                         label="List URLs in the order you want them to appear on the Home page:"
                         type="text"
-                        helperText="Enter one value per line. Example: https://github.com/integr8ly/tutorial-web-app-walkthroughs"
-                        helperTextInvalid="URL syntax is incorrect. Example: https://github.com/integr8ly/tutorial-web-app-walkthroughs"
+                        helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs"
+                        helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs"
                         fieldId="repo-formgroup"
                         isValid={isValid}
                       >
