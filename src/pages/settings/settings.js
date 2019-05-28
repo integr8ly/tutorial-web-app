@@ -156,6 +156,7 @@ class SettingsPage extends React.Component {
                           id="repo-textfield"
                           aria-describedby="repo-formgroup"
                           onChange={this.handleTextInputChange}
+                          className="integr8ly-settings"
                         />
                       </FormGroup>
                     </Form>
