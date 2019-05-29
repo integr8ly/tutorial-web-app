@@ -236,7 +236,12 @@ function loadAllWalkthroughs(location) {
 function injectUserWalkthroughRepos(locations) {
   return new Promise((resolve, reject) => {
     return getUserWalkthroughs()
-      .then(({ value }) => {
+      .then(val => {
+        if (!val) {
+          return resolve(locations);
+        }
+
+        const { value } = val;
         if (!value || value == "") {
           return resolve(locations);
         }
