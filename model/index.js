@@ -27,7 +27,7 @@ const validUrl = url => {
   try {
     new URL(url);
     return true;
-  } catch {
+  } catch (err) {
     return false;
   }
 };
