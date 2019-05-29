@@ -35,10 +35,12 @@
     "redux-logger": "3.0.6",
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
-    "rimraf": "2.6.2",
     "rfs": "8.0.1",
+    "rimraf": "2.6.2",
+    "sequelize": "^5.8.6",
     "sha.js": "2.4.11",
-    "simple-git": "^1.107.0"
+    "simple-git": "^1.107.0",
+    "sqlite3": "^4.0.8"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",

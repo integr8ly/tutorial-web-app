@@ -36,3 +36,6 @@ yarn-error.log*
 
 # ignore package-lock file, as the webapp uses yarn
 package-lock.json
+
+# Ignore database files
+*.db

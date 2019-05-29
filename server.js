@@ -13,6 +13,7 @@ const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
 const querystring = require('querystring');
 const flattenDeep = require('lodash.flattendeep');
+const { sync, getUserWalkthroughs, setUserWalkthroughs, validUrl } = require('./model');
 
 const app = express();
 
@@ -69,6 +70,27 @@ app.get('/customWalkthroughs', (req, res) => {
 app.get('/metrics', (req, res) => {
   res.set('Content-Type', Prometheus.register.contentType);
   res.end(Prometheus.register.metrics());
+});
+
+// Get all user defined walkthrough repositories
+app.get('/user_walkthroughs', (req, res) => {
+  return getUserWalkthroughs()
+    .then(({ value }) => res.json(value))
+    .catch(err => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
+});
+
+// Insert new user defined walkthrough repositories
+app.post('/user_walkthroughs', (req, res) => {
+  const { data } = req.body;
+  return setUserWalkthroughs(data)
+    .then(({ value }) => res.json(value))
+    .catch(err => {
+      console.error(err);
+      return res.sendStatus(500);
+    })
 });
 
 // Init custom walkthroughs dependencies
@@ -178,9 +200,6 @@ app.get('/walkthroughs/:walkthroughId/files/*', (req, res) => {
 
 // Reload each walkthrough. This will clone any repo walkthroughs.
 app.post('/sync-walkthroughs', (_, res) => {
-  if (process.env.NODE_ENV === 'production') {
-    return res.json(walkthroughs);
-  }
   loadAllWalkthroughs(walkthroughLocations)
     .then(() => {
       res.json(walkthroughs);
@@ -206,11 +225,39 @@ function loadAllWalkthroughs(location) {
   }
 
   walkthroughs.length = 0;
-  return resolveWalkthroughLocations(locations)
+  return injectUserWalkthroughRepos(locations)
+    .then(l => resolveWalkthroughLocations(l))
     .then(l => Promise.all(l.map(lookupWalkthroughResources)))
     .then(l => l.reduce((a, b) => a.concat(b)), []) // flatten walkthrough arrays of all locations
     .then(l => l.map(importWalkthroughAdoc))
     .then(l => Promise.all(l));
+}
+
+function injectUserWalkthroughRepos(locations) {
+  return new Promise((resolve, reject) => {
+    return getUserWalkthroughs()
+      .then(val => {
+        if (!val) {
+          return resolve(locations);
+        }
+
+        const { value } = val;
+        if (!value || value == "") {
+          return resolve(locations);
+        }
+
+        const urls = value.trim().split("\n");
+        urls.filter(validUrl).forEach(url => {
+          if (locations.indexOf(url) >= 0) {
+            console.warn(`duplicate walkthrough repository ${url}`);
+            return;
+          }
+          locations.push(url);
+        });
+        return resolve(locations);
+      })
+      .catch(reject);
+  });
 }
 
 /**
@@ -412,7 +459,6 @@ function getCustomConfigData(configPath) {
     }
     fs.readFile(configPath, (err, data) => {
       if (err) {
-        console.error(`Failed to read extra configuration file: ${err}`);
         return resolve(DEFAULT_CUSTOM_CONFIG_DATA);
       }
       return resolve(JSON.parse(data));
@@ -555,7 +601,7 @@ function getConfigData(req) {
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
     ssoLogoutUri: 'https://${
-      process.env.SSO_ROUTE
+    process.env.SSO_ROUTE
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}'
   };`;
@@ -615,14 +661,16 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 function run() {
-  loadAllWalkthroughs(walkthroughLocations)
-    .then(() => {
-      app.listen(port, () => console.log(`Listening on port ${port}`));
-    })
-    .catch(err => {
-      console.error(err);
-      process.exit(1);
-    });
+  sync().then(() => {
+    loadAllWalkthroughs(walkthroughLocations)
+      .then(() => {
+        app.listen(port, () => console.log(`Listening on port ${port}`));
+      })
+      .catch(err => {
+        console.error(err);
+        process.exit(1);
+      });
+  });
 }
 
 run();
