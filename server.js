@@ -454,7 +454,6 @@ function getCustomConfigData(configPath) {
     }
     fs.readFile(configPath, (err, data) => {
       if (err) {
-        console.error(`Failed to read extra configuration file: ${err}`);
         return resolve(DEFAULT_CUSTOM_CONFIG_DATA);
       }
       return resolve(JSON.parse(data));
