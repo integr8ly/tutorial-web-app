@@ -127,7 +127,7 @@ class SettingsPage extends React.Component {
                   </CardHeader>
                   <CardBody>
                     To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                    Solutions Explorer default content is already included.{' '}
+                    Solution Explorer default content is already included.{' '}
                     <a
                       href="/tutorial/tutorial-web-app-walkthroughs-walkthroughs-publishing-walkthroughs/"
                       rel="noopener noreferrer"
