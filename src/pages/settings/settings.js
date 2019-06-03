@@ -115,7 +115,6 @@ class SettingsPage extends React.Component {
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
-
           <PageSection variant={PageSectionVariants.default}>
             <Breadcrumb homeClickedCallback={() => {}} threadName="Application settings" />
             <Grid gutter="md">

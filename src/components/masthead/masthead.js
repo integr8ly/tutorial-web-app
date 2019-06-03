@@ -79,7 +79,6 @@ class Masthead extends React.Component {
   onSettingsClick = () => {
     const { history } = this.props;
     history.push(`/settings`);
-    console.log('Settings was clicked!');
   };
 
   render() {
