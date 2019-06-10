@@ -110,7 +110,10 @@ const TutorialDashboard = props => {
         );
       });
       htmlSnippet.push(
-        <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm">
+        <div
+          className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-py-sm"
+          key={`category-${allRepos[i]}`}
+        >
           {addCategory(filteredWalkthroughs)}
           <div className="integr8ly-walkthrough-counter pf-u-mt-md pf-u-mr-md pf-u-text-align-right pf-m-sm">
             {filteredWalkthroughs.length === 1 ? (
@@ -121,7 +124,11 @@ const TutorialDashboard = props => {
           </div>
         </div>
       );
-      htmlSnippet.push(<Gallery gutter="md">{cards}</Gallery>);
+      htmlSnippet.push(
+        <Gallery gutter="md" key={`gallery-${allRepos[i]}`}>
+          {cards}
+        </Gallery>
+      );
     }
     return htmlSnippet;
   }
