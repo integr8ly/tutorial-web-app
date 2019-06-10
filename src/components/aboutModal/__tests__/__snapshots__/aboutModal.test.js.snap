@@ -20,8 +20,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     heroimagealt="Red Hat Solutions Explorer background image"
     heroimagesrc="PF4DownstreamBG.svg"
     isOpen={false}
-    logoImageAlt="Red Hat Solutions Explorer logo"
-    logoImageSrc="logo-alt.svg"
+    logoImageAlt=""
+    logoImageSrc=""
     noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
@@ -39,8 +39,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         heroimagealt="Red Hat Solutions Explorer background image"
         heroimagesrc="PF4DownstreamBG.svg"
         isOpen={false}
-        logoImageAlt="Red Hat Solutions Explorer logo"
-        logoImageSrc="logo-alt.svg"
+        logoImageAlt=""
+        logoImageSrc=""
         noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"
@@ -71,8 +71,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
     heroimagealt="Red Hat Solutions Explorer background image"
     heroimagesrc="PF4DownstreamBG.svg"
     isOpen={false}
-    logoImageAlt="Red Hat Solutions Explorer logo"
-    logoImageSrc="logo-alt.svg"
+    logoImageAlt=""
+    logoImageSrc=""
     noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
@@ -90,8 +90,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
         heroimagealt="Red Hat Solutions Explorer background image"
         heroimagesrc="PF4DownstreamBG.svg"
         isOpen={false}
-        logoImageAlt="Red Hat Solutions Explorer logo"
-        logoImageSrc="logo-alt.svg"
+        logoImageAlt=""
+        logoImageSrc=""
         noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"
