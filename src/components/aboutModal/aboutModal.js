@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { AboutModal as PfAboutModal, TextContent, TextList, TextListItem } from '@patternfly/react-core';
 
 import { detect } from 'detect-browser';
-import solutionsExplorerLogo from '../../img/logo-alt.svg';
 import redHatLogo from '../../img/Logo-RedHat-Hat-Color-RGB.png';
 import pfBackgroundImage from '../../img/PF4DownstreamBG.svg';
 
@@ -31,12 +30,14 @@ class AboutModal extends React.Component {
           heroimagealt="Red Hat Solutions Explorer background image"
           brandImageSrc={redHatLogo}
           brandImageAlt="Red Hat logo"
-          logoImageSrc={solutionsExplorerLogo}
-          logoImageAlt="Red Hat Solutions Explorer logo"
         >
           <TextContent>
             <TextList component="dl">
-              <TextListItem component="dt">Web App Version</TextListItem>
+              <TextListItem component="dt">Integreatly Version</TextListItem>
+              <TextListItem component="dd">
+                {window.OPENSHIFT_CONFIG ? window.OPENSHIFT_CONFIG.integreatlyVersion : ' '}
+              </TextListItem>
+              <TextListItem component="dt">Console Version</TextListItem>
               <TextListItem component="dd">{pkgJson.version}</TextListItem>
               <TextListItem component="dt">User Name</TextListItem>
               <TextListItem component="dd">{window.localStorage.getItem('currentUserName')}</TextListItem>
