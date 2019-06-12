@@ -489,6 +489,7 @@ function getWalkthroughHeader(basePath) {
 function getMockConfigData() {
   return `window.OPENSHIFT_CONFIG = {
     masterUri: 'mock-openshift-console-url',
+    integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     mockData: {
       serviceInstances: [
@@ -601,9 +602,10 @@ function getConfigData(req) {
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',
     wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
     ssoLogoutUri: 'https://${
-    process.env.SSO_ROUTE
+      process.env.SSO_ROUTE
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
-    threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}'
+    threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
+    integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}'
   };`;
 }
 
