@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProgressBar, noop } from 'patternfly-react';
-import { Button, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { Button, Card, CardHeader, CardFooter } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -21,7 +21,7 @@ const TutorialCard = props => (
     <CardHeader>
       <h4 className="pf-c-title pf-m-lg">{props.title}</h4>
     </CardHeader>
-    <CardBody>{props.children}</CardBody>
+    <div className="integr8ly-c-card__body">{props.children}</div>
     <CardFooter>
       <div className="integr8ly-c-card__info pf-u-w-100">
         <Button
