@@ -58,19 +58,6 @@ class ProvisioningScreen extends React.Component {
     return null;
   }
 
-  static renderServiceLoadingText(svc) {
-    if (isServiceProvisioned(svc)) {
-      return <div className="list-group-item-heading">Ready to use</div>;
-    }
-    if (isServiceProvisioning(svc)) {
-      return <div className="list-group-item-heading">Provisioning</div>;
-    }
-    if (isServiceProvisionFailed(svc)) {
-      return <div className="list-group-item-heading integr8ly-status-error">Error</div>;
-    }
-    return null;
-  }
-
   static renderServiceLoadingBar(svc) {
     if (isServiceProvisioned(svc)) {
       return (
@@ -115,10 +102,7 @@ class ProvisioningScreen extends React.Component {
                 {ProvisioningScreen.renderServiceLoadingIcon(svc)}
               </DataListCell>,
               <DataListCell key="secondary content" className="pf-u-py-md">
-                {ProvisioningScreen.renderServiceLoadingText(svc)}
-                <div className={` ${isProvisionFailed ? 'integr8ly-status-error' : null}`}>
-                  {getProductDetails(svc).prettyName}
-                </div>
+                {getProductDetails(svc).prettyName}
               </DataListCell>,
               <DataListCell key="tertiary content" className="pf-u-py-md">
                 {ProvisioningScreen.renderServiceLoadingBar(svc)}
