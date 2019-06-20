@@ -20,46 +20,42 @@ import { noop } from 'patternfly-react';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
+import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
+    const { userWalkthroughs } = this.props;
+
     this.state = {
-      value: localStorage.getItem('SEAppSettings') || '',
+      value: userWalkthroughs || 'default load',
       isValid: true
     };
-  }
 
-  componentDidMount() {
-    this.loadSettings();
+    getUserWalkthroughs().then(response => {
+      if (response.data) {
+        this.setState({
+          value: response.data,
+          isValid: true
+        });
+        // console.log(response);
+      } else {
+        this.setState({
+          value: '',
+          isValid: true
+        });
+      }
+    });
   }
 
   saveSettings = (e, value) => {
     e.preventDefault();
-    localStorage.setItem('SEAppSettings', value);
     const { history } = this.props;
+
+    setUserWalkthroughs(value);
     history.push(`/`);
-    this.testSettingsSave();
   };
-
-  testSettingsSave = () => {
-    const settings = localStorage.getItem('SEAppSettings');
-    console.log(settings);
-  };
-
-  loadSettings() {
-    const key = 'SEAppSettings';
-    if (localStorage.hasOwnProperty(key)) {
-      let value = localStorage.getItem(key);
-      try {
-        value = JSON.parse(value);
-        this.setState({ [key]: value });
-      } catch (e) {
-        this.setState({ [key]: value });
-      }
-    }
-  }
 
   handleTextInputChange = value => {
     this.setState(
@@ -68,8 +64,8 @@ class SettingsPage extends React.Component {
         isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
       },
       () => {
-        console.log('Changed!');
-        console.log(`this.state.value: ${this.state.value}`);
+        // console.log('Changed!');
+        // console.log(`this.state.value: ${this.state.value}`);
 
         if (this.state.value === '') {
           this.setState({ isValid: true });
@@ -77,27 +73,29 @@ class SettingsPage extends React.Component {
 
         if (this.state.value.includes('\n')) {
           const repoArray = this.state.value.split('\n');
-          console.log(`repoArray: ${repoArray}`);
+          // console.log(`repoArray: ${repoArray}`);
 
           for (let i = 0; i < repoArray.length; i++) {
-            console.log(`repoArray${i}: ${repoArray[i]}`);
+            // console.log(`repoArray${i}: ${repoArray[i]}`);
             if (/^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
-              console.log(`${[i]}: passed regex test!`);
+              // console.log(`${[i]}: passed regex test!`);
               this.setState({
                 isValid: true
               });
             } else if (repoArray[i] === '\n' || repoArray[i] === '') {
-              console.log(`${[i]}: contains only a new line`);
+              // console.log(`${[i]}: contains only a new line`);
               this.setState({
                 isValid: true
               });
             } else {
-              console.log(`${[i]}: failed regex test!`);
+              // console.log(`${[i]}: failed regex test!`);
               this.setState({
                 isValid: false
               });
             }
           }
+        } else if (this.state.value === '') {
+          this.setState({ isValid: true });
         } else {
           this.setState({
             isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
@@ -105,7 +103,7 @@ class SettingsPage extends React.Component {
         }
       }
     );
-    console.log(`value: ${this.state.value}`);
+    // console.log(`value: ${this.state.value}`);
   };
 
   render() {
@@ -152,6 +150,7 @@ class SettingsPage extends React.Component {
                         <TextArea
                           isValid={isValid}
                           value={this.state.value}
+                          // value={this.props.getUserWalkthroughs.data || 'not set'}
                           id="repo-textfield"
                           aria-describedby="repo-formgroup"
                           onChange={this.handleTextInputChange}
@@ -188,21 +187,24 @@ class SettingsPage extends React.Component {
 SettingsPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  })
+  }),
+  userWalkthroughs: PropTypes.string
 };
 
 SettingsPage.defaultProps = {
   history: {
     push: noop
-  }
+  },
+  userWalkthroughs: ''
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
+  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
 });
 
 const mapStateToProps = state => ({
-  ...state.threadReducers
+  ...state.walkthroughServiceReducers
 });
 
 const ConnectedSettingsPage = connect(

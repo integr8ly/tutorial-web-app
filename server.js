@@ -73,14 +73,14 @@ app.get('/metrics', (req, res) => {
 });
 
 // Get all user defined walkthrough repositories
-app.get('/user_walkthroughs', (req, res) => {
-  return getUserWalkthroughs()
+app.get('/user_walkthroughs', (req, res) =>
+  getUserWalkthroughs()
     .then(({ value }) => res.json(value))
     .catch(err => {
       console.error(err);
       return res.sendStatus(500);
-    });
-});
+    })
+);
 
 // Insert new user defined walkthrough repositories
 app.post('/user_walkthroughs', (req, res) => {
@@ -90,7 +90,7 @@ app.post('/user_walkthroughs', (req, res) => {
     .catch(err => {
       console.error(err);
       return res.sendStatus(500);
-    })
+    });
 });
 
 // Init custom walkthroughs dependencies
@@ -234,19 +234,19 @@ function loadAllWalkthroughs(location) {
 }
 
 function injectUserWalkthroughRepos(locations) {
-  return new Promise((resolve, reject) => {
-    return getUserWalkthroughs()
+  return new Promise((resolve, reject) =>
+    getUserWalkthroughs()
       .then(val => {
         if (!val) {
           return resolve(locations);
         }
 
         const { value } = val;
-        if (!value || value == "") {
+        if (!value || value === '') {
           return resolve(locations);
         }
 
-        const urls = value.trim().split("\n");
+        const urls = value.trim().split('\n');
         urls.filter(validUrl).forEach(url => {
           if (locations.indexOf(url) >= 0) {
             console.warn(`duplicate walkthrough repository ${url}`);
@@ -256,8 +256,8 @@ function injectUserWalkthroughRepos(locations) {
         });
         return resolve(locations);
       })
-      .catch(reject);
-  });
+      .catch(reject)
+  );
 }
 
 /**

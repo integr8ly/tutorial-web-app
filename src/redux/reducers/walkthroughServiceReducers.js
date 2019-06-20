@@ -125,6 +125,64 @@ const walkthroughServiceReducers = (state = initialState, action) => {
         }
       );
 
+    case REJECTED_ACTION(walkthroughTypes.GET_USER_WALKTHROUGHS):
+      return setStateProp(
+        'userWalkthroughs',
+        {
+          error: action.error,
+          errorMessage: action.payload.message
+        },
+        {
+          state,
+          initialState
+        }
+      );
+    case FULFILLED_ACTION(walkthroughTypes.GET_USER_WALKTHROUGHS):
+      if (!action.payload.data) {
+        return state;
+      }
+      return setStateProp(
+        'userWalkthroughs',
+        {
+          pending: false,
+          fulfilled: true,
+          data: action.payload.data
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
+    case REJECTED_ACTION(walkthroughTypes.SET_USER_WALKTHROUGHS):
+      return setStateProp(
+        'userWalkthroughs',
+        {
+          error: action.error,
+          errorMessage: action.payload.message
+        },
+        {
+          state,
+          initialState
+        }
+      );
+    case FULFILLED_ACTION(walkthroughTypes.SET_USER_WALKTHROUGHS):
+      if (!action.payload.data) {
+        return state;
+      }
+      return setStateProp(
+        'userWalkthroughs',
+        {
+          pending: false,
+          fulfilled: true,
+          data: action.payload.data
+        },
+        {
+          state,
+          initialState
+        }
+      );
+
     case FULFILLED_ACTION(walkthroughTypes.GET_WALKTHROUGH_SERVICE):
       createData = Object.assign({}, state.walkthroughServices.services);
       siName = buildNamespacedServiceInstanceName(action.payload.prefix, action.payload.data);

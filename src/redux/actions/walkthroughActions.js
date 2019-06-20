@@ -16,4 +16,14 @@ const getWalkthroughInfo = id => ({
   payload: walkthroughServices.getWalkthroughInfo(id)
 });
 
-export { getWalkthrough, getCustomWalkthroughs, getWalkthroughInfo };
+const getUserWalkthroughs = () => ({
+  type: walkthroughTypes.GET_USER_WALKTHROUGHS,
+  payload: walkthroughServices.getUserWalkthroughs()
+});
+
+const setUserWalkthroughs = data => ({
+  type: walkthroughTypes.SET_USER_WALKTHROUGHS,
+  payload: walkthroughServices.setUserWalkthroughs(data)
+});
+
+export { getWalkthrough, getCustomWalkthroughs, getWalkthroughInfo, getUserWalkthroughs, setUserWalkthroughs };
