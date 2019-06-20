@@ -65,7 +65,7 @@ const getUserWalkthroughs = () => {
 const setUserWalkthroughs = data => {
   return new Promise((resolve, reject) => {
     let newValue = '';
-    if (data && data != '') {
+    if (data && data !== '') {
       const lines = data.trim().split('\n');
       lines.forEach(line => {
         if (!validUrl(line)) {

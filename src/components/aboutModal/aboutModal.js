@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { AboutModal as PfAboutModal, TextContent, TextList, TextListItem } from '@patternfly/react-core';
 
 import { detect } from 'detect-browser';
-<<<<<<< HEAD
 import redHatLogo from '../../img/Logo-RedHat-A-Reverse-RGB.svg';
-=======
-import redHatLogo from '../../img/Logo-RedHat-Hat-Color-RGB.png';
->>>>>>> version name changes and delete obsolete props
 import pfBackgroundImage from '../../img/PF4DownstreamBG.svg';
 
 const pkgJson = require('../../../package.json');
