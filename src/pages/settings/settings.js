@@ -109,7 +109,7 @@ class SettingsPage extends React.Component {
                 <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Application settings</h3>
                 <Card className="pf-u-w-50 pf-u-my-xl">
                   <CardHeader>
-                    <h4 className="pf-c-title pf-m-lg">Subscribed content</h4>
+                    <h4 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h4>
                   </CardHeader>
                   <CardBody>
                     To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
@@ -122,10 +122,6 @@ class SettingsPage extends React.Component {
                       Learn more about subscribed content.
                     </a>
                   </CardBody>
-                  <CardHeader>
-                    <h4 className="pf-c-title pf-m-sm">Git URL(s) for subscribed content</h4>
-                  </CardHeader>
-                  <CardBody />
                   <CardBody>
                     <Form>
                       <FormGroup
@@ -147,7 +143,7 @@ class SettingsPage extends React.Component {
                       </FormGroup>
                     </Form>
                   </CardBody>
-                  <CardBody>
+                  <CardBody className="integr8ly-settings-important">
                     IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
                     using the cluster.
                   </CardBody>
