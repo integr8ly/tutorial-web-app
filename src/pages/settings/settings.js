@@ -29,7 +29,7 @@ class SettingsPage extends React.Component {
     const { userWalkthroughs } = this.props;
 
     this.state = {
-      value: userWalkthroughs || 'default load',
+      value: userWalkthroughs || '',
       isValid: true
     };
 
@@ -39,7 +39,6 @@ class SettingsPage extends React.Component {
           value: response.data,
           isValid: true
         });
-        // console.log(response);
       } else {
         this.setState({
           value: '',
@@ -52,7 +51,6 @@ class SettingsPage extends React.Component {
   saveSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
-
     setUserWalkthroughs(value);
     history.push(`/`);
   };
@@ -64,31 +62,23 @@ class SettingsPage extends React.Component {
         isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
       },
       () => {
-        // console.log('Changed!');
-        // console.log(`this.state.value: ${this.state.value}`);
-
         if (this.state.value === '') {
           this.setState({ isValid: true });
         }
 
         if (this.state.value.includes('\n')) {
           const repoArray = this.state.value.split('\n');
-          // console.log(`repoArray: ${repoArray}`);
 
           for (let i = 0; i < repoArray.length; i++) {
-            // console.log(`repoArray${i}: ${repoArray[i]}`);
             if (/^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
-              // console.log(`${[i]}: passed regex test!`);
               this.setState({
                 isValid: true
               });
             } else if (repoArray[i] === '\n' || repoArray[i] === '') {
-              // console.log(`${[i]}: contains only a new line`);
               this.setState({
                 isValid: true
               });
             } else {
-              // console.log(`${[i]}: failed regex test!`);
               this.setState({
                 isValid: false
               });
@@ -103,7 +93,6 @@ class SettingsPage extends React.Component {
         }
       }
     );
-    // console.log(`value: ${this.state.value}`);
   };
 
   render() {
@@ -150,7 +139,6 @@ class SettingsPage extends React.Component {
                         <TextArea
                           isValid={isValid}
                           value={this.state.value}
-                          // value={this.props.getUserWalkthroughs.data || 'not set'}
                           id="repo-textfield"
                           aria-describedby="repo-formgroup"
                           onChange={this.handleTextInputChange}

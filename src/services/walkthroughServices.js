@@ -240,14 +240,12 @@ const setUserWalkthroughs = (data = {}) =>
       false
     )
   ).then(success => {
-    if (success.data) {
-      axios(
-        serviceConfig({
-          method: 'post',
-          url: `/sync-walkthroughs`
-        })
-      );
-    }
+    serviceConfig(
+      axios({
+        method: 'post',
+        url: `/sync-walkthroughs`
+      })
+    );
   });
 
 export {
