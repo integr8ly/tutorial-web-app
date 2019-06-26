@@ -7,7 +7,6 @@ import {
   GridItem,
   Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Button,
   Page,
@@ -144,8 +143,8 @@ class SettingsPage extends React.Component {
                     </Form>
                   </div>
                   <div className="integr8ly-c-card__body integr8ly-settings-important">
-                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone using 
-                    the cluster. You must refresh the Home page to see the results from these changes.
+                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
+                    using the cluster. You must refresh the Home page to see the results from these changes.
                   </div>
                   <CardFooter>
                     <Button
