@@ -144,8 +144,8 @@ class SettingsPage extends React.Component {
                     </Form>
                   </CardBody>
                   <CardBody className="integr8ly-settings-important">
-                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
-                    using the cluster.
+                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone using 
+                    the cluster. You must refresh the Home page to see the results from these changes.
                   </CardBody>
                   <CardFooter>
                     <Button
