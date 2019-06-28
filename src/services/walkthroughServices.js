@@ -216,4 +216,43 @@ const getWalkthroughInfo = id =>
     })
   );
 
-export { getWalkthrough, getWalkthroughInfo, getCustomWalkthroughs, prepareCustomWalkthroughNamespace };
+/**
+ * Retrieves the user-defined GitHub repositories from the database.
+ */
+const getUserWalkthroughs = () =>
+  axios(
+    serviceConfig({
+      url: `/user_walkthroughs`
+    })
+  );
+
+/**
+ * Saves the user-defined GitHub repositories from the UI to the database.
+ */
+const setUserWalkthroughs = (data = {}) =>
+  axios(
+    serviceConfig(
+      {
+        method: 'post',
+        url: `/user_walkthroughs`,
+        data: { data }
+      },
+      false
+    )
+  ).then(success => {
+    serviceConfig(
+      axios({
+        method: 'post',
+        url: `/sync-walkthroughs`
+      })
+    );
+  });
+
+export {
+  getWalkthrough,
+  getWalkthroughInfo,
+  getCustomWalkthroughs,
+  prepareCustomWalkthroughNamespace,
+  setUserWalkthroughs,
+  getUserWalkthroughs
+};

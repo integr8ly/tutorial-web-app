@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Brand,
+  Button,
   Dropdown,
   DropdownToggle,
   DropdownItem,
@@ -10,6 +11,7 @@ import {
   ToolbarGroup,
   ToolbarItem
 } from '@patternfly/react-core';
+import { CogIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
@@ -75,6 +77,11 @@ class Masthead extends React.Component {
     });
   };
 
+  onSettingsClick = () => {
+    const { history } = this.props;
+    history.push(`/settings`);
+  };
+
   render() {
     const { isUserDropdownOpen, showAboutModal } = this.state;
 
@@ -87,6 +94,18 @@ class Masthead extends React.Component {
         <Toolbar>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+              <Button
+                className="pf-c-button pf-m-plain"
+                aria-label="Settings"
+                variant="plain"
+                onClick={this.onSettingsClick}
+              >
+                <CogIcon />
+              </Button>
+            </ToolbarItem>
+          </ToolbarGroup>
+          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
               <Dropdown
                 isPlain
                 position="right"

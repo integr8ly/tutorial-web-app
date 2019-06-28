@@ -18,6 +18,12 @@ exports[`Router Component should render a basic component 1`] = `
     <Route
       component={[Function]}
       exact={true}
+      key="/settings"
+      path="/settings"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
       key="/tutorial/:id"
       path="/tutorial/:id"
     />

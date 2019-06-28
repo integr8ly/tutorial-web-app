@@ -4,6 +4,7 @@ import LandingPage from './pages/landing/landingPage';
 import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
 import OAuthPage from './pages/oauth/oauth';
+import SettingsPage from './pages/settings/settings';
 
 /**
  * Return the application base directory.
@@ -29,6 +30,13 @@ const routes = () => [
     title: 'Help',
     to: '/help',
     component: HelpPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Settings',
+    to: '/settings',
+    component: SettingsPage,
     exact: true
   },
   {
