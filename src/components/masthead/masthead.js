@@ -103,7 +103,9 @@ class Masthead extends React.Component {
                 <CogIcon />
               </Button>
             </ToolbarItem>
-            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+          </ToolbarGroup>
+          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
               <Dropdown
                 isPlain
                 position="right"
