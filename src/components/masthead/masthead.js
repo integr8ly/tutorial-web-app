@@ -26,6 +26,7 @@ class Masthead extends React.Component {
     super(props);
 
     this.state = {
+      isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
       showAboutModal: false
     };
@@ -35,6 +36,9 @@ class Masthead extends React.Component {
 
     this.onUserDropdownToggle = this.onUserDropdownToggle.bind(this);
     this.onUserDropdownSelect = this.onUserDropdownSelect.bind(this);
+
+    this.onHelpDropdownToggle = this.onHelpDropdownToggle.bind(this);
+    this.onHelpDropdownSelect = this.onHelpDropdownSelect.bind(this);
 
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
@@ -82,8 +86,20 @@ class Masthead extends React.Component {
     history.push(`/settings`);
   };
 
+  onHelpDropdownToggle(isHelpDropdownOpen) {
+    this.setState({
+      isHelpDropdownOpen
+    });
+  }
+
+  onHelpDropdownSelect = () => {
+    this.setState({
+      isHelpDropdownOpen: !this.state.isHelpDropdownOpen
+    });
+  };
+
   render() {
-    const { isUserDropdownOpen, showAboutModal } = this.state;
+    const { isUserDropdownOpen, isHelpDropdownOpen, showAboutModal } = this.state;
 
     const logoProps = {
       onClick: () => this.onTitleClick()
@@ -103,6 +119,47 @@ class Masthead extends React.Component {
                 <CogIcon />
               </Button>
             </ToolbarItem>
+            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+              <Dropdown
+                isPlain
+                position="right"
+                onSelect={this.onHelpDropdownSelect}
+                isOpen={isHelpDropdownOpen}
+                toggle={
+                  <DropdownToggle onToggle={this.onHelpDropdownToggle}>
+                    <Button
+                      className="pf-c-button pf-m-plain"
+                      aria-label="Help"
+                      variant="plain"
+                      onClick={this.onSettingsClick}
+                    >
+                      <i className="fas fa-question-circle" aria-hidden="true" />
+                    </Button>
+                  </DropdownToggle>
+                }
+                dropdownItems={[
+                  <DropdownItem
+                    key="help-cmd-1"
+                    component="button"
+                    href="#helpcmd1"
+                    onClick={() => console.log('Help menu command 1 clicked!')}
+                  >
+                    Help Command 1
+                  </DropdownItem>,
+                  <DropdownItem
+                    key="help-cmd-2"
+                    component="button"
+                    href="#helpcmd2"
+                    onClick={() => console.log('Help menu command 2 clicked!')}
+                  >
+                    Help Command 2
+                  </DropdownItem>,
+                  <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
+                    About
+                  </DropdownItem>
+                ]}
+              />
+            </ToolbarItem>
           </ToolbarGroup>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
@@ -119,9 +176,6 @@ class Masthead extends React.Component {
                 dropdownItems={[
                   <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
                     Log out
-                  </DropdownItem>,
-                  <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
-                    About
                   </DropdownItem>
                 ]}
               />
