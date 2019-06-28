@@ -11,6 +11,7 @@ import {
   ToolbarGroup,
   ToolbarItem
 } from '@patternfly/react-core';
+import { CogIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
@@ -99,7 +100,7 @@ class Masthead extends React.Component {
                 variant="plain"
                 onClick={this.onSettingsClick}
               >
-                <i className="fas fa-cog" aria-hidden="true" />
+                <CogIcon />
               </Button>
             </ToolbarItem>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
