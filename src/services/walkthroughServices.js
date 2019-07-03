@@ -83,6 +83,7 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
           .then(additionalAttrs => {
             const mergedAttrs = Object.assign({}, attrs, ...additionalAttrs);
             if (!manifest || !manifest.dependencies || !manifest.dependencies.serviceInstances) {
+              dispatch(initCustomThreadSuccess(manifest));
               return Promise.resolve([]);
             }
             const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
