@@ -127,14 +127,7 @@ class Masthead extends React.Component {
                 isOpen={isHelpDropdownOpen}
                 toggle={
                   <DropdownToggle onToggle={this.onHelpDropdownToggle}>
-                    <Button
-                      className="pf-c-button pf-m-plain"
-                      aria-label="Help"
-                      variant="plain"
-                      onClick={this.onSettingsClick}
-                    >
-                      <i className="fas fa-question-circle" aria-hidden="true" />
-                    </Button>
+                    <i className="fas fa-question-circle" aria-hidden="true" />
                   </DropdownToggle>
                 }
                 dropdownItems={[
