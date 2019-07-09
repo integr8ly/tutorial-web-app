@@ -6,12 +6,13 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownItem,
+  DropdownSeparator,
   PageHeader,
   Toolbar,
   ToolbarGroup,
   ToolbarItem
 } from '@patternfly/react-core';
-import { CogIcon } from '@patternfly/react-icons';
+import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
 import { noop } from 'patternfly-react';
@@ -105,6 +106,12 @@ class Masthead extends React.Component {
       onClick: () => this.onTitleClick()
     };
 
+    const gsUrl =
+      'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/';
+    const riUrl =
+      'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
+    const csUrl = 'https://access.redhat.com/support/';
+
     const MastheadToolbar = (
       <React.Fragment>
         <Toolbar>
@@ -126,27 +133,21 @@ class Masthead extends React.Component {
                 onSelect={this.onHelpDropdownSelect}
                 isOpen={isHelpDropdownOpen}
                 toggle={
-                  <DropdownToggle onToggle={this.onHelpDropdownToggle}>
-                    <i className="fas fa-question-circle" aria-hidden="true" />
+                  <DropdownToggle iconComponent={null} onToggle={this.onHelpDropdownToggle}>
+                    <HelpIcon />
                   </DropdownToggle>
                 }
                 dropdownItems={[
-                  <DropdownItem
-                    key="help-cmd-1"
-                    component="button"
-                    href="#helpcmd1"
-                    onClick={() => console.log('Help menu command 1 clicked!')}
-                  >
-                    Help Command 1
+                  <DropdownItem key="help-getting-started" href={gsUrl} target="_blank">
+                    Getting started
                   </DropdownItem>,
-                  <DropdownItem
-                    key="help-cmd-2"
-                    component="button"
-                    href="#helpcmd2"
-                    onClick={() => console.log('Help menu command 2 clicked!')}
-                  >
-                    Help Command 2
+                  <DropdownItem key="help-release-info" href={riUrl} target="_blank">
+                    Release information
                   </DropdownItem>,
+                  <DropdownItem key="help-customer-support" href={csUrl} target="_blank">
+                    Customer support
+                  </DropdownItem>,
+                  <DropdownSeparator key="help-separator" />,
                   <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
                     About
                   </DropdownItem>
