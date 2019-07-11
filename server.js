@@ -13,7 +13,7 @@ const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
 const querystring = require('querystring');
 const flattenDeep = require('lodash.flattendeep');
-const { sync, getUserWalkthroughs, setUserWalkthroughs, validUrl } = require('./model');
+const { sync, closeConnection, getUserWalkthroughs, setUserWalkthroughs, validUrl } = require('./model');
 
 const app = express();
 
@@ -61,6 +61,7 @@ const WALKTHROUGH_LOCATION_DEFAULT = {
 };
 
 const walkthroughs = [];
+let server;
 
 app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
@@ -666,7 +667,7 @@ function run() {
   sync().then(() => {
     loadAllWalkthroughs(walkthroughLocations)
       .then(() => {
-        app.listen(port, () => console.log(`Listening on port ${port}`));
+        server = app.listen(port, () => console.log(`Listening on port ${port}`));
       })
       .catch(err => {
         console.error(err);
@@ -674,5 +675,19 @@ function run() {
       });
   });
 }
+
+// Close all connections before shutting down
+function stop() {
+  console.log("Webapp shutting down");
+  closeConnection().then(() => {
+    server && server.close();
+    console.log("Webapp shutdown complete");
+  });
+}
+
+process.on("SIGTERM", stop);
+process.on("SIGABRT", stop);
+process.on("SIGQUIT", stop);
+process.on("SIGINT", stop);
 
 run();
