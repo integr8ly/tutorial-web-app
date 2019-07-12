@@ -7,6 +7,7 @@ import {
   GridItem,
   Card,
   CardHeader,
+  CardBody,
   CardFooter,
   Button,
   Page,
@@ -109,7 +110,7 @@ class SettingsPage extends React.Component {
                 <CardHeader>
                   <h4 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h4>
                 </CardHeader>
-                <div className="integr8ly-c-card__body">
+                <CardBody>
                   To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
                   Solution Explorer default content is already included.{' '}
                   <a
@@ -119,8 +120,8 @@ class SettingsPage extends React.Component {
                   >
                     Learn more about subscribed content.
                   </a>
-                </div>
-                <div className="integr8ly-c-card__body">
+                </CardBody>
+                <CardBody>
                   <Form>
                     <FormGroup
                       label="List URLs in the order you want them to appear on the Home page:"
@@ -140,11 +141,11 @@ class SettingsPage extends React.Component {
                       />
                     </FormGroup>
                   </Form>
-                </div>
-                <div className="integr8ly-c-card__body integr8ly-settings-important">
+                </CardBody>
+                <CardBody className="integr8ly-settings-important">
                   IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
                   using the cluster. You must refresh the Home page to see the results from these changes.
-                </div>
+                </CardBody>
                 <CardFooter>
                   <Button
                     id="settings-save-button"
