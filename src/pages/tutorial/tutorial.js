@@ -113,6 +113,7 @@ class TutorialPage extends React.Component {
                           variant="primary"
                           type="button"
                           onClick={e => this.getStarted(e, id)}
+                          aria-label="Get Started"
                         >
                           {t('tutorial.getStarted')}
                         </Button>
@@ -159,6 +160,7 @@ class TutorialPage extends React.Component {
                           variant="primary"
                           type="button"
                           onClick={e => this.getStarted(e, id)}
+                          aria-label="Get Started"
                         >
                           {t('tutorial.getStarted')}
                         </Button>

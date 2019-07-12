@@ -26,10 +26,10 @@ class AboutModal extends React.Component {
           isOpen={isOpen}
           onClose={closeAboutModal}
           productName="Red Hat Solution Explorer"
-          heroimagesrc={pfBackgroundImage}
-          heroimagealt="Red Hat Solutions Explorer background image"
           brandImageSrc={redHatLogo}
           brandImageAlt="Red Hat logo"
+          backgroundImageSrc={pfBackgroundImage}
+          backgroundImageAlt="Red Hat Solutions Explorer background image"
         >
           <TextContent>
             <TextList component="dl">

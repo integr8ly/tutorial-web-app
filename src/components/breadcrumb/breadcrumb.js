@@ -15,7 +15,7 @@ class Breadcrumb extends React.Component {
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
     return (
-      <PfBreadcrumb>
+      <PfBreadcrumb aria-label="Breadcrumb">
         <BreadcrumbItem to="#" onClick={this.homeClicked} id="breadcrumb-home">
           Home
         </BreadcrumbItem>
