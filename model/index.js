@@ -20,6 +20,7 @@ const USER_WT_SETTINGS_KEY = 'walkthroughs.user';
  * and associations
  */
 const sync = () => database.sync({ force: false });
+const closeConnection = () => database.close();
 
 const validUrl = url => {
   try {
@@ -83,6 +84,7 @@ const setUserWalkthroughs = data => {
 module.exports = {
   setUserWalkthroughs,
   getUserWalkthroughs,
+  closeConnection,
   validUrl,
   database,
   sync
