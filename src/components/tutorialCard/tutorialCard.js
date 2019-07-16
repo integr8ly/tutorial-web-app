@@ -1,6 +1,14 @@
 import React from 'react';
-import { ProgressBar, noop } from 'patternfly-react';
-import { Button, Card, CardHeader, CardBody, CardFooter } from '@patternfly/react-core';
+import { noop } from 'patternfly-react';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Progress,
+  ProgressMeasureLocation
+} from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -45,8 +53,13 @@ const TutorialCard = props => (
           </div>
         ) : (
           <div className="progress-bar-table">
-            <ProgressBar now={props.progress} />
-            <span className="progress-label pf-u-ml-sm">{`${props.progress}%`} </span>
+            <Progress
+              value={props.progress}
+              measureLocation={ProgressMeasureLocation.outside}
+              min={0}
+              max={100}
+              size="lg"
+            />
           </div>
         )}
       </div>
