@@ -8,39 +8,8 @@
   }
 
   /* stylelint-disable selector-class-pattern */
-  .pf-c-card__footer {
-    .progress {
-      width: 70%;
-      margin-top: -2px;
-      margin-bottom: 0;
-      vertical-align: middle;
-      background-color: rgba(0, 102, 204, .2);
-
-      .progress-bar {
-        background-color: var(--pf-global--primary-color--100);
-      }
-
-      .progress-bar[aria-valuenow="100"] {
-        background-color: var(--pf-global--success-color--100);
-      }
-    }
-
-    .progress-label-completed {
-      color: var(--pf-global--success-color--100);
-    }
-
-    .progress-bar-table {
-      display: flex;
-      align-items: center;
-
-      .progress {
-        margin-bottom: 0;
-      }
-
-      .progress-label {
-        text-align: right;
-      }
-    }
+  .pf-c-progress__bar[aria-valuenow="100"] .pf-c-progress__indicator {
+    background-color: var(--pf-global--success-color--100);
   }
   /* stylelint-enable */
 }
