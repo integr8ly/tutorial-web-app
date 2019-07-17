@@ -13,6 +13,7 @@ import {
   Page,
   PageSection,
   PageSectionVariants,
+  SkipToContent,
   TextArea
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
@@ -100,15 +101,18 @@ class SettingsPage extends React.Component {
 
     return (
       <Page className="pf-u-h-100vh">
+        <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.default}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Application settings" />
           <Grid gutter="md">
             <GridItem mdOffset={4} md={12}>
-              <h3 className="pf-c-title pf-m-2xl pf-u-mt-sm">Application settings</h3>
+              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm">
+                Application settings
+              </h1>
               <Card className="pf-u-w-50 pf-u-my-xl">
                 <CardHeader>
-                  <h4 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h4>
+                  <h2 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h2>
                 </CardHeader>
                 <CardBody>
                   To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat

@@ -27,17 +27,8 @@ button,
   }
 }
 
-.btn,
-.form-control {
-  font-size: var(--pf-global--FontSize--md);
-}
-
 .form-control {
   height: 32px; // accounts for increase in base font size from 12px to 16px
-}
-
-.pf-c-dropdown__menu-item:hover {
-  color: var(--pf-c-dropdown__menu-item--hover--Color);
 }
 
 .pf-c-content {
@@ -83,17 +74,3 @@ button,
   }
 }
 /* stylelint-enable */
-
-.integr8ly-docs-header {
-  h5 {
-    font-size: $h3-font-size;
-    font-weight: var(--pf-global--FontWeight--semi-bold);
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-
-  .olist { /* stylelint-disable-line selector-class-pattern */
-    font-size: var(--pf-global--FontSize--md);
-    font-weight: var(--pf-global--FontWeight--normal);
-  }
-}

@@ -9,6 +9,7 @@ import {
   Page,
   PageSection,
   PageSectionVariants,
+  SkipToContent,
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
@@ -28,12 +29,13 @@ class CongratulationsPage extends React.Component {
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
+          <SkipToContent href="#main-content">Skip to content</SkipToContent>
           <RoutedConnectedMasthead />
           <PageSection variant={PageSectionVariants.darker} className="integr8ly-congratulations-background">
             <Bullseye>
               <EmptyState variant={EmptyStateVariant.full}>
                 <img src={congratulationsImage} alt="" className="integr8ly-congratulations-image pf-u-mb-2xl" />
-                <Title headingLevel="h5" size="lg">
+                <Title headingLevel="h1" size="lg" id="main-content">
                   Congratulations, you completed the walkthrough!
                 </Title>
                 <EmptyStateBody>
