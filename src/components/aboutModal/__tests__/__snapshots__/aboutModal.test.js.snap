@@ -20,6 +20,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
     className=""
     isOpen={false}
+    logoImageAlt=""
+    logoImageSrc=""
     noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
@@ -28,8 +30,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     <Portal
       containerInfo={<div />}
     >
-      <AboutModalContainer
-        ariaDescribedById="pf-about-modal-content-0"
+      <ModalContent
+        ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
         backgroundImageAlt="Red Hat Solutions Explorer background image"
         backgroundImageSrc="PF4DownstreamBG.svg"
@@ -37,6 +39,8 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
         className=""
         isOpen={false}
+        logoImageAlt=""
+        logoImageSrc=""
         noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"
@@ -67,6 +71,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
     brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
     className=""
     isOpen={false}
+    logoImageAlt=""
+    logoImageSrc=""
     noAboutModalBoxContentContainer={false}
     onClose={null}
     productName="Red Hat Solution Explorer"
@@ -75,8 +81,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
     <Portal
       containerInfo={<div />}
     >
-      <AboutModalContainer
-        ariaDescribedById="pf-about-modal-content-0"
+      <ModalContent
+        ariaDescribedById="pf-about-modal-content-1"
         ariaLabelledbyId="pf-about-modal-title-0"
         backgroundImageAlt="Red Hat Solutions Explorer background image"
         backgroundImageSrc="PF4DownstreamBG.svg"
@@ -84,6 +90,8 @@ exports[`AboutModal Component should render a non-connected component: show moda
         brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
         className=""
         isOpen={false}
+        logoImageAlt=""
+        logoImageSrc=""
         noAboutModalBoxContentContainer={false}
         onClose={null}
         productName="Red Hat Solution Explorer"

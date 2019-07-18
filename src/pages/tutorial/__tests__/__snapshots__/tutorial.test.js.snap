@@ -23,7 +23,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     className="pf-u-h-100vh"
     header={null}
     isManagedSidebar={false}
-    onPageResize={[Function]}
+    onPageResize={null}
     sidebar={null}
     skipToContent={null}
   >
@@ -38,6 +38,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     <withRouter(Connect(Masthead)) />
     <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
+      noPadding={false}
+      noPaddingMobile={false}
+      variant="default"
     >
       <Grid
         gutter="md"
@@ -49,8 +52,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         >
           <Card
             className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl"
+            component="article"
+            isHoverable={false}
           >
-            <TextContent>
+            <TextContent
+              className=""
+            >
               <div
                 className="integr8ly-task-dashboard-header"
               >
@@ -61,7 +68,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 </h1>
                 <Button
                   aria-label="Get Started"
+                  className=""
+                  component="button"
                   id="get-started-01"
+                  isActive={false}
+                  isBlock={false}
+                  isDisabled={false}
+                  isFocus={false}
+                  isHover={false}
+                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"
@@ -90,7 +105,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   <ClockIcon
                     className="pf-u-mr-xs"
                     color="currentColor"
-                    noVerticalAlign={false}
                     size="sm"
                     title={null}
                   />
@@ -111,7 +125,15 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               >
                 <Button
                   aria-label="Get Started"
+                  className=""
+                  component="button"
                   id="get-started-02"
+                  isActive={false}
+                  isBlock={false}
+                  isDisabled={false}
+                  isFocus={false}
+                  isHover={false}
+                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"

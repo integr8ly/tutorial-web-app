@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Asciidoctor from 'asciidoctor.js';
 import { translate } from 'react-i18next';
-
-// import CopyField from '../copyField/copyField';
 import { ClipboardCopy, ClipboardCopyVariant } from '@patternfly/react-core';
 
 class AsciiDocTemplate extends React.Component {
