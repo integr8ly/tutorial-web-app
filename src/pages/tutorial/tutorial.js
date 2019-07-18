@@ -15,6 +15,7 @@ import {
   GridItem,
   Page,
   PageSection,
+  SkipToContent,
   TextContent
 } from '@patternfly/react-core';
 import { ClockIcon } from '@patternfly/react-icons';
@@ -100,6 +101,7 @@ class TutorialPage extends React.Component {
       return (
         <React.Fragment>
           <Page className="pf-u-h-100vh">
+            <SkipToContent href="#main-content">Skip to content</SkipToContent>
             <RoutedConnectedMasthead />
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md">
@@ -107,7 +109,7 @@ class TutorialPage extends React.Component {
                   <Card className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl">
                     <TextContent>
                       <div className="integr8ly-task-dashboard-header">
-                        <h1>{parsedThread.title}</h1>
+                        <h1 id="main-content">{parsedThread.title}</h1>
                         <Button
                           id="get-started-01"
                           variant="primary"
@@ -120,7 +122,7 @@ class TutorialPage extends React.Component {
                       </div>
                       {this.renderPrereqs(thread)}
                       <div dangerouslySetInnerHTML={{ __html: parsedThread.preamble }} />
-                      <h3 className="pf-u-mt-xl">
+                      <h2 className="pf-u-mt-xl">
                         {t('tutorial.tasksToComplete')}
                         <div className="pull-right pf-u-mr-lg integr8ly-task-dashboard-time-to-completion">
                           <ClockIcon className="pf-u-mr-xs" />
@@ -129,7 +131,7 @@ class TutorialPage extends React.Component {
                             {t('tutorial.minutes')}
                           </span>
                         </div>
-                      </h3>
+                      </h2>
                       <DataList className="pf-u-pl-0" aria-label="task-breakdowns-by-time">
                         {parsedThread.tasks.map((task, i) => (
                           <DataListItem key={i} aria-labelledby={`task-breakdown-by-time-${i}`}>

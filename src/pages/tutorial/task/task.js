@@ -11,6 +11,7 @@ import {
   GridItem,
   Page,
   PageSection,
+  SkipToContent,
   TextContent,
   Text,
   TextVariants
@@ -344,7 +345,7 @@ class TaskPage extends React.Component {
     if (block instanceof WalkthroughStep) {
       return (
         <React.Fragment key={id}>
-          <h3>{block.title}</h3>
+          <h2 className="pf-c-title pf-m-lg">{block.title}</h2>
           {block.blocks.map((b, i) => (
             <React.Fragment key={`${id}-${i}`}>
               {b instanceof WalkthroughTextBlock && <div dangerouslySetInnerHTML={{ __html: b.html }} />}
@@ -390,6 +391,7 @@ class TaskPage extends React.Component {
       return (
         <React.Fragment>
           <Page className="pf-u-h-100vh">
+            <SkipToContent href="#main-content">Skip to content</SkipToContent>
             <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
@@ -405,8 +407,9 @@ class TaskPage extends React.Component {
                   <Card className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl">
                     <TextContent>
                       <div className="integr8ly-module-column pf-u-pb-sm">
-                        <h1 className="pf-u-screen-reader">{parsedThread.title}</h1>
-                        <h2 className="pf-u-mt-0">{threadTask.title}</h2>
+                        <h1 id="main-content" className="pf-c-title pf-m-xl pf-u-mt-0">
+                          {threadTask.title}
+                        </h1>
                         <div className="integr8ly-module-column--steps" ref={this.rootDiv}>
                           {threadTask.steps.map((step, i) => this.renderStepBlock(i, step))}
                         </div>

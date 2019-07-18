@@ -27,6 +27,14 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     sidebar={null}
     skipToContent={null}
   >
+    <SkipToContent
+      className=""
+      component="a"
+      href="#main-content"
+      show={false}
+    >
+      Skip to content
+    </SkipToContent>
     <withRouter(Connect(Masthead)) />
     <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
@@ -46,7 +54,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               <div
                 className="integr8ly-task-dashboard-header"
               >
-                <h1>
+                <h1
+                  id="main-content"
+                >
                   Example
                 </h1>
                 <Button
@@ -70,7 +80,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   }
                 }
               />
-              <h3
+              <h2
                 className="pf-u-mt-xl"
               >
                 tutorial.tasksToComplete
@@ -91,7 +101,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                     tutorial.minutes
                   </span>
                 </div>
-              </h3>
+              </h2>
               <DataList
                 aria-label="task-breakdowns-by-time"
                 className="pf-u-pl-0"
