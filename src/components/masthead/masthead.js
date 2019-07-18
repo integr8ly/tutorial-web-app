@@ -137,6 +137,7 @@ class Masthead extends React.Component {
                     <HelpIcon />
                   </DropdownToggle>
                 }
+                autoFocus={false}
                 dropdownItems={[
                   <DropdownItem key="help-getting-started" href={gsUrl} target="_blank">
                     Getting started
@@ -167,6 +168,7 @@ class Masthead extends React.Component {
                     {window.localStorage.getItem('currentUserName')}
                   </DropdownToggle>
                 }
+                autoFocus={false}
                 dropdownItems={[
                   <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
                     Log out

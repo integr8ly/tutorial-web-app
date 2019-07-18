@@ -40,35 +40,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       className="integr8ly-landing-page-tutorial-dashboard-section"
     >
       <Grid
-        className=""
         gutter="md"
-        lg={null}
-        md={null}
-        sm={null}
-        span={null}
-        xl={null}
-        xl2={null}
       >
         <GridItem
           className="integr8ly-task-container"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
           md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
           sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xl2={null}
-          xl2Offset={null}
-          xl2RowSpan={null}
-          xlOffset={null}
-          xlRowSpan={null}
         >
           <Card
             className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl"
@@ -147,24 +124,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         </GridItem>
         <GridItem
           className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
           md={3}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
           rowSpan={2}
-          sm={null}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xl2={null}
-          xl2Offset={null}
-          xl2RowSpan={null}
-          xlOffset={null}
-          xlRowSpan={null}
         >
           <Connect(WalkthroughDetails)
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
