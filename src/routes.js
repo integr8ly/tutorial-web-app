@@ -66,6 +66,13 @@ const routes = () => [
     to: '/congratulations/:id',
     component: CongratulationsPage,
     exact: false
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Page Not Found',
+    to: '*',
+    component: CongratulationsPage,
+    exact: false
   }
 ];
 
