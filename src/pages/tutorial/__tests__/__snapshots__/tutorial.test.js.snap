@@ -23,7 +23,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     className="pf-u-h-100vh"
     header={null}
     isManagedSidebar={false}
-    onPageResize={null}
+    onPageResize={[Function]}
     sidebar={null}
     skipToContent={null}
   >
@@ -38,45 +38,19 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     <withRouter(Connect(Masthead)) />
     <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
-      noPadding={false}
-      noPaddingMobile={false}
-      variant="default"
     >
       <Grid
-        className=""
         gutter="md"
-        lg={null}
-        md={null}
-        sm={null}
-        span={null}
-        xl={null}
       >
         <GridItem
           className="integr8ly-task-container"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
           md={9}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
-          rowSpan={null}
           sm={12}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
         >
           <Card
             className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl"
-            component="article"
-            isHoverable={false}
           >
-            <TextContent
-              className=""
-            >
+            <TextContent>
               <div
                 className="integr8ly-task-dashboard-header"
               >
@@ -87,15 +61,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 </h1>
                 <Button
                   aria-label="Get Started"
-                  className=""
-                  component="button"
                   id="get-started-01"
-                  isActive={false}
-                  isBlock={false}
-                  isDisabled={false}
-                  isFocus={false}
-                  isHover={false}
-                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"
@@ -124,6 +90,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   <ClockIcon
                     className="pf-u-mr-xs"
                     color="currentColor"
+                    noVerticalAlign={false}
                     size="sm"
                     title={null}
                   />
@@ -144,15 +111,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               >
                 <Button
                   aria-label="Get Started"
-                  className=""
-                  component="button"
                   id="get-started-02"
-                  isActive={false}
-                  isBlock={false}
-                  isDisabled={false}
-                  isFocus={false}
-                  isHover={false}
-                  isInline={false}
                   onClick={[Function]}
                   type="button"
                   variant="primary"
@@ -165,21 +124,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         </GridItem>
         <GridItem
           className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
-          lg={null}
-          lgOffset={null}
-          lgRowSpan={null}
           md={3}
-          mdOffset={null}
-          mdRowSpan={null}
-          offset={null}
           rowSpan={2}
-          sm={null}
-          smOffset={null}
-          smRowSpan={null}
-          span={null}
-          xl={null}
-          xlOffset={null}
-          xlRowSpan={null}
         >
           <Connect(WalkthroughDetails)
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
