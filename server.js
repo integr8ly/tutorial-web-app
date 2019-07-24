@@ -606,7 +606,8 @@ function getConfigData(req) {
       process.env.SSO_ROUTE
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
-    integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}'
+    integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
+    clusterType: '${process.env.CLUSTER_TYPE || ''}'
   };`;
 }
 
