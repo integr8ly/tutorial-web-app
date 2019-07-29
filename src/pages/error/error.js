@@ -34,13 +34,13 @@ class ErrorPage extends React.Component {
           <PageSection variant={PageSectionVariants.darker} className="integr8ly-error-background">
             <Bullseye>
               <EmptyState variant={EmptyStateVariant.full}>
-                <img src={errorImage} alt="" className="integr8ly-error-image pf-u-mb-sm" />
-                <Title id="main-content" className="error-title">
+                <img src={errorImage} alt="" className="integr8ly-error-image" />
+                <Title id="main-content" size="lg">
                   Error 404
                 </Title>
-                <EmptyStateBody className="error-message">Requested page not found:</EmptyStateBody>
-                <EmptyStateBody className="error-message"> {window.location.href} </EmptyStateBody>
-                <EmptyStateBody className="error-message">Contact your administrator.</EmptyStateBody>
+                <EmptyStateBody>Requested page not found:</EmptyStateBody>
+                <EmptyStateBody> {window.location.href} </EmptyStateBody>
+                <EmptyStateBody>Contact your administrator.</EmptyStateBody>
                 <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
                   Return to home
                 </Button>{' '}

@@ -28,6 +28,14 @@ const routes = () => [
   },
   {
     iconClass: 'pficon pficon-orders',
+    title: 'Landing',
+    to: '/home',
+    redirect: true,
+    component: LandingPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
     title: 'Help',
     to: '/help',
     component: HelpPage,
