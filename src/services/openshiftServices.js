@@ -60,6 +60,48 @@ class OpenShiftWatchEventListener {
   }
 }
 
+class OpenShiftPollEventListener {
+  _handler = () => {};
+  _errorHandler = () => {};
+
+  constructor(request) {
+    this._request = request;
+  }
+
+  init(interval) {
+    this._interval = setInterval(
+      () =>
+        axios(this._request)
+          .then(resp => {
+            if (!resp || !resp.data || !resp.data.items) {
+              this._errorHandler(new Error('could not get resource list from response'));
+              return;
+            }
+            resp.data.items.forEach(i => this._handler(i));
+          })
+          .catch(err => this._errorHandler(err)),
+      interval
+    );
+    return this;
+  }
+
+  onEvent(handler) {
+    this._handler = handler;
+    return this;
+  }
+
+  catch(handler) {
+    this._errorHandler = handler;
+    return this;
+  }
+
+  clear() {
+    if (this._interval) {
+      clearInterval(this._interval);
+    }
+  }
+}
+
 const getUser = () => {
   // Don't start the OAuth flow when in mock mode. Just resolve an empty user
   if (window.OPENSHIFT_CONFIG.mockData) {
@@ -268,6 +310,20 @@ const remove = (res, obj) =>
     }).then(response => response.data);
   });
 
+const poll = (res, interval) =>
+  getUser().then(user => {
+    const reqUrl = `${_buildRequestUrl(res)}?watch=true`;
+    return Promise.resolve(
+      new OpenShiftPollEventListener({
+        url: reqUrl,
+        method: 'GET',
+        headers: {
+          authorization: `Bearer ${user.access_token}`
+        }
+      }).init(interval || 1000)
+    );
+  });
+
 const watch = res =>
   getUser().then(user => {
     const walkthroughsUrl = _buildWatchUrl(res);
@@ -303,5 +359,6 @@ export {
   OpenShiftWatchEvents,
   logout,
   getUser,
+  poll,
   KIND_ROUTE
 };

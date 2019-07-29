@@ -45,6 +45,18 @@ const secretDef = namespace => ({
   version: 'v1',
   namespace
 });
+const addressSpaceDef = namespace => ({
+  name: 'addressspaces',
+  namespace,
+  version: 'v1beta1',
+  group: 'enmasse.io'
+});
+const messagingUserDef = namespace => ({
+  name: 'messagingusers',
+  namespace,
+  version: 'v1beta1',
+  group: 'user.enmasse.io'
+});
 
 export {
   namespaceRequestDef,
@@ -55,5 +67,7 @@ export {
   statefulSetDef,
   routeDef,
   serviceDef,
-  secretDef
+  secretDef,
+  addressSpaceDef,
+  messagingUserDef
 };

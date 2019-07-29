@@ -4,6 +4,7 @@ import { Badge, Card, TextContent } from '@patternfly/react-core';
 import { ChartPieIcon, ExclamationCircleIcon, OnRunningIcon } from '@patternfly/react-icons';
 import { getProductDetails } from '../../services/middlewareServices';
 import { connect } from '../../redux';
+import { SERVICE_TYPES, SERVICE_STATUSES } from '../../redux/constants/middlewareConstants';
 
 class WalkthroughResources extends React.Component {
   constructor(props) {
@@ -58,7 +59,23 @@ class WalkthroughResources extends React.Component {
     const readyStatus = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
     const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 
-    if (!app || !app.metadata || (app.metadata && app.metadata.deletionTimestamp)) {
+    if (!app) {
+      return unavailableStatus;
+    }
+
+    if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      if (!app.status || app.status === SERVICE_STATUSES.UNAVAILABLE) {
+        return unavailableStatus;
+      }
+      if (app.status === SERVICE_STATUSES.PROVISIONING) {
+        return provisioningStatus;
+      }
+      if (app.status === SERVICE_STATUSES.PROVISIONED) {
+        return readyStatus;
+      }
+    }
+
+    if (!app.metadata || (app.metadata && app.metadata.deletionTimestamp)) {
       return unavailableStatus;
     }
 

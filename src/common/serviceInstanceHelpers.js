@@ -2,6 +2,7 @@
 import get from 'lodash.get';
 import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
+import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
 
 class DefaultServiceInstanceTransform {
   isTransformable() {
@@ -113,8 +114,13 @@ const handleServiceInstancesProvision = (namespacePrefix, dispatch, event) => {
  * @param si Service Instance Object
  * @returns {string} Dashboard URL
  */
-const getDashboardUrl = si => {
-  const { status, metadata } = si;
+const getDashboardUrl = svc => {
+  // Allow for non-Service Instance services
+  if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+    return svc.url;
+  }
+
+  const { status, metadata } = svc;
   if (status.dashboardURL) {
     return status.dashboardURL;
   } else if (metadata.annotations && metadata.annotations['integreatly/dashboard-url']) {
@@ -127,7 +133,12 @@ const findService = (svcName, svcList) => {
   if (!svcName || !svcList) {
     return null;
   }
-  return svcList.find(svc => get(svc, 'spec.clusterServiceClassExternalName') === svcName);
+  return svcList.find(svc => {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return svc;
+    }
+    return get(svc, 'spec.clusterServiceClassExternalName') === svcName;
+  });
 };
 
 const findServices = (svcNames, svcList) => {

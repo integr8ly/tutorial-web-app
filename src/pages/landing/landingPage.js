@@ -94,7 +94,11 @@ const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
   getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
   getProgress: () => dispatch(reduxActions.userActions.getProgress()),
-  launchAMQOnline: (username, namespace) => provisionAMQOnline(dispatch, username, namespace)
+  launchAMQOnline: (username, namespace) =>
+    provisionAMQOnline(dispatch, username, namespace).then(a => {
+      console.log('a', a);
+      return a;
+    })
 });
 
 const mapStateToProps = state => ({

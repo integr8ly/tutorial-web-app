@@ -18,11 +18,12 @@ import {
   namespaceDef,
   namespaceRequestDef,
   serviceInstanceDef,
-  statefulSetDef,
-  secretDef
+  statefulSetDef
 } from '../common/openshiftResourceDefinitions';
 
 import productDetails from '../product-info';
+import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
+import { watchAMQOnline } from './amqOnlineServices';
 
 // The default services to watch.
 const WATCH_SERVICES = [
@@ -55,11 +56,19 @@ const PROVISION_SERVICES = [
  * service instance object
  * @param serviceInstance Service instance retrieved from Openshift
  */
-const getProductDetails = serviceInstance => {
-  if (!serviceInstance || !serviceInstance.spec) {
+const getProductDetails = svc => {
+  if (!svc) {
     return null;
   }
-  return getProductDetailsForServiceClass(serviceInstance.spec.clusterServiceClassExternalName);
+  if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+    return getProductDetailsForService(svc);
+  }
+  return getProductDetailsForServiceClass(svc.spec.clusterServiceClassExternalName);
+};
+
+const getProductDetailsForService = svc => {
+  const storedDetails = productDetails[svc.name];
+  return !storedDetails ? { prettyName: svc.name } : storedDetails;
 };
 
 const getProductDetailsForServiceClass = serviceClassName => {
@@ -150,11 +159,7 @@ const manageMiddlewareServices = (dispatch, user, config) => {
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
         );
       }
-      if (walkthroughServices.includes(DEFAULT_SERVICES.ENMASSE)) {
-        watch(secretDef(userNamespace)).then(watchListener =>
-          watchListener.onEvent(handleEnmasseCredentialsWatchEvents.bind(null, dispatch, userNamespace))
-        );
-      }
+      watchAMQOnline(dispatch, user.username, { name: userNamespace });
     });
 };
 
@@ -219,34 +224,6 @@ const handleAMQStatefulSetWatchEvents = (dispatch, namespace, event) => {
       url: `broker-amq-headless.${namespace}.svc`
     }
   });
-};
-
-/**
- * Handle an event that occurred while watching the Enmasse Secrets
- * @param {Object} dispatch Redux dispatcher.
- * @param {string} namespace The namespace to perform actions on, based on events.
- * @param {Object} event The event to handle.
- */
-const handleEnmasseCredentialsWatchEvents = (dispatch, namespace, event) => {
-  if (
-    event.type === OpenShiftWatchEvents.OPENED ||
-    event.type === OpenShiftWatchEvents.CLOSED ||
-    event.type === OpenShiftWatchEvents.DELETED
-  ) {
-    return;
-  }
-
-  const secret = event.payload;
-  if (secret.metadata.name.includes('amq-online-standard') && secret.metadata.name.includes('credentials')) {
-    const amqpHost = window.atob(secret.data.messagingHost);
-    const username = window.atob(secret.data.username);
-    const password = window.atob(secret.data.password);
-
-    dispatch({
-      type: FULFILLED_ACTION(middlewareTypes.GET_ENMASSE_CREDENTIALS),
-      payload: { url: amqpHost, username, password }
-    });
-  }
 };
 
 /**
