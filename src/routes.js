@@ -5,6 +5,7 @@ import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
 import OAuthPage from './pages/oauth/oauth';
 import SettingsPage from './pages/settings/settings';
+import ErrorPage from './pages/error/error';
 
 /**
  * Return the application base directory.
@@ -21,6 +22,14 @@ const routes = () => [
     iconClass: 'pficon pficon-orders',
     title: 'Landing',
     to: '/',
+    redirect: true,
+    component: LandingPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Landing',
+    to: '/home',
     redirect: true,
     component: LandingPage,
     exact: true
@@ -65,6 +74,13 @@ const routes = () => [
     title: 'Congratulations',
     to: '/congratulations/:id',
     component: CongratulationsPage,
+    exact: false
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Page Not Found',
+    to: '*',
+    component: ErrorPage,
     exact: false
   }
 ];
