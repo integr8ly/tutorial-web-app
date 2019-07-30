@@ -34,7 +34,7 @@ class ErrorPage extends React.Component {
           <PageSection variant={PageSectionVariants.darker} className="integr8ly-error-background">
             <Bullseye>
               <EmptyState variant={EmptyStateVariant.full}>
-                <img src={errorImage} alt="" className="integr8ly-error-image" />
+                <img src={errorImage} alt="" className="integr8ly-error-image pf-u-mb-2xl" />
                 <Title id="main-content" size="lg">
                   Error 404
                 </Title>
