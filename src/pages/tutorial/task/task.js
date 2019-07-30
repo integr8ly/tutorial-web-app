@@ -297,28 +297,26 @@ class TaskPage extends React.Component {
         {
           <React.Fragment>
             <Form>
-              <FormGroup controlId="radio" disabled={false} bsSize="small">
+              <FormGroup controlId="radio" disabled={false} bsSize="small" label="Check your work">
                 <Radio
                   id={`${blockId}verificationYes`}
-                  name={blockId}
+                  name={`${blockId}Yes`}
                   checked={isYesChecked}
                   onChange={e => {
                     this.handleVerificationInput(e, blockId, true);
                   }}
                   label="Yes"
-                  aria-label="Yes"
                 >
                   Yes
                 </Radio>
                 <Radio
                   id={`${blockId}verificationNo`}
-                  name={blockId}
+                  name={`${blockId}No`}
                   checked={isNoChecked}
                   onChange={e => {
                     this.handleVerificationInput(e, blockId, false);
                   }}
                   label="No"
-                  aria-label="No"
                 >
                   No
                 </Radio>
