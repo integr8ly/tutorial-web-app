@@ -36,11 +36,11 @@
 }
 
 .integr8ly-state-ready {
-  color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+  color: var(--pf-global--success-color--200) !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-state-unavailable {
-  color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+  color: var(--pf-global--danger-color--200) !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-panel-title {

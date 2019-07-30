@@ -110,13 +110,18 @@ class InstalledAppsView extends React.Component {
 
   static getOpenshiftConsole(index) {
     return (
-      <DataList aria-label="openshift-console-datalist" key="openshift_console">
+      <DataList
+        aria-label="OpenShift console datalist"
+        key="openshift_console"
+        id={`openshift-console-datalistitem-${index}`}
+      >
         <DataListItem
           className="integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
           aria-labelledby={`openshift-console-datalistitem-${index}`}
+          aria-label={`Installed application list item ${index}`}
         >
           <DataListItemRow>
             <DataListItemCells
@@ -139,13 +144,13 @@ class InstalledAppsView extends React.Component {
 
   static createCustomAppElem(i, customApp) {
     return (
-      <DataList aria-label="OpenShift service item">
+      <DataList aria-label="OpenShift service item" id={`openshift-service-item-${i}`}>
         <DataListItem
           className="integr8ly-installed-apps-view-list-item-enabled"
           onClick={() => window.open(`${customApp.url}`, '_blank')}
           key={`openshift_console_${i}`}
           value={i}
-          aria-labelledby="OpenShift-service"
+          aria-labelledby={`openshift-service-item-${i}`}
         >
           <DataListItemRow>
             <DataListItemCells
@@ -227,7 +232,11 @@ class InstalledAppsView extends React.Component {
         const { prettyName, gaStatus, hidden } = getProductDetails(app);
         const uniqKey = InstalledAppsView.genUniqueKeyForService(app);
         return hidden ? null : (
-          <DataList aria-label="cluster-services-datalist" key={`${uniqKey}`}>
+          <DataList
+            aria-label="Cluster service datalist"
+            key={`${app.spec.clusterServiceClassExternalName}`}
+            id={`cluster-service-datalist-item-${index}`}
+          >
             <DataListItem
               className={
                 InstalledAppsView.isServiceProvisioned(app)
@@ -244,13 +253,13 @@ class InstalledAppsView extends React.Component {
               }}
               key={`${uniqKey}_${index}`}
               value={index}
-              aria-labelledby={`cluster-service-datalistitem-${index}`}
+              aria-labelledby={`cluster-service-datalist-item-${index}`}
             >
               <DataListItemRow>
                 <DataListItemCells
                   dataListCells={[
                     <DataListCell key="primary content">
-                      <span id="appName">
+                      <span id={`appName-${prettyName}`}>
                         {' '}
                         {prettyName}{' '}
                         {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (

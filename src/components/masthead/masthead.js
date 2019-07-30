@@ -133,23 +133,48 @@ class Masthead extends React.Component {
                 onSelect={this.onHelpDropdownSelect}
                 isOpen={isHelpDropdownOpen}
                 toggle={
-                  <DropdownToggle iconComponent={null} onToggle={this.onHelpDropdownToggle}>
+                  <DropdownToggle
+                    iconComponent={null}
+                    onToggle={this.onHelpDropdownToggle}
+                    aria-label="Link to Help page"
+                  >
                     <HelpIcon />
                   </DropdownToggle>
                 }
                 autoFocus={false}
                 dropdownItems={[
-                  <DropdownItem key="help-getting-started" href={gsUrl} target="_blank">
+                  <DropdownItem
+                    key="help-getting-started"
+                    href={gsUrl}
+                    target="_blank"
+                    aria-label="Link to getting started page"
+                  >
                     Getting started
                   </DropdownItem>,
-                  <DropdownItem key="help-release-info" href={riUrl} target="_blank">
+                  <DropdownItem
+                    key="help-release-info"
+                    href={riUrl}
+                    target="_blank"
+                    aria-label="Link to release information page"
+                  >
                     Release information
                   </DropdownItem>,
-                  <DropdownItem key="help-customer-support" href={csUrl} target="_blank">
+                  <DropdownItem
+                    key="help-customer-support"
+                    href={csUrl}
+                    target="_blank"
+                    aria-label="Link to customer support page"
+                  >
                     Customer support
                   </DropdownItem>,
                   <DropdownSeparator key="help-separator" />,
-                  <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal}>
+                  <DropdownItem
+                    key="about"
+                    component="button"
+                    href="#about"
+                    onClick={this.onAboutModal}
+                    aria-label="About"
+                  >
                     About
                   </DropdownItem>
                 ]}
@@ -170,7 +195,13 @@ class Masthead extends React.Component {
                 }
                 autoFocus={false}
                 dropdownItems={[
-                  <DropdownItem key="logout" component="button" href="#logout" onClick={this.onLogoutUser}>
+                  <DropdownItem
+                    key="logout"
+                    component="button"
+                    href="#logout"
+                    onClick={this.onLogoutUser}
+                    aria-label="Log out of the system"
+                  >
                     Log out
                   </DropdownItem>
                 ]}

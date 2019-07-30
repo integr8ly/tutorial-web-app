@@ -103,8 +103,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 </div>
               </h2>
               <DataList
-                aria-label="task-breakdowns-by-time"
+                aria-label="Task to complete this walkthrough"
                 className="pf-u-pl-0"
+                id="tasks-to-complete-walkthrough"
               />
               <div
                 className="integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"

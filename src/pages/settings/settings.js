@@ -139,7 +139,7 @@ class SettingsPage extends React.Component {
                         isValid={isValid}
                         value={this.state.value}
                         id="repo-textfield"
-                        aria-describedby="repo-formgroup"
+                        aria-label="Add repository URLs"
                         onChange={this.handleTextInputChange}
                         className="integr8ly-settings"
                       />

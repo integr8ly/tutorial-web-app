@@ -132,14 +132,18 @@ class TutorialPage extends React.Component {
                           </span>
                         </div>
                       </h2>
-                      <DataList className="pf-u-pl-0" aria-label="task-breakdowns-by-time">
+                      <DataList
+                        className="pf-u-pl-0"
+                        aria-label="Task to complete this walkthrough"
+                        id="tasks-to-complete-walkthrough"
+                      >
                         {parsedThread.tasks.map((task, i) => (
-                          <DataListItem key={i} aria-labelledby={`task-breakdown-by-time-${i}`}>
+                          <DataListItem key={i} aria-labelledby={`tasks-to-complete-walkthrough-${i}`}>
                             <DataListItemRow>
                               <DataListItemCells
                                 dataListCells={[
                                   <DataListCell key="primary content">
-                                    <span id="task-breakdown-by-time">{`${task.title}`}</span>
+                                    <span id={`tasks-to-complete-walkthrough-${i}`}>{`${task.title}`}</span>
                                   </DataListCell>,
                                   <DataListCell key="secondary content" className="pf-u-text-align-right">
                                     <div className="integr8ly-task-dashboard-estimated-time">
