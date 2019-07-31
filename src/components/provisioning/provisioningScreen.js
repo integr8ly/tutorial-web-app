@@ -24,6 +24,7 @@ import {
   isServiceProvisionFailed
 } from '../../common/walkthroughServiceHelpers';
 import { getProductDetails } from '../../services/middlewareServices';
+import { SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
 
 class ProvisioningScreen extends React.Component {
   componentDidMount() {}
@@ -87,13 +88,20 @@ class ProvisioningScreen extends React.Component {
     return null;
   }
 
+  static buildUniqueServiceKey(svc) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return svc.name;
+    }
+    return svc.spec.clusterServiceClassExternalName;
+  }
+
   static renderServiceStatusBar(svc) {
     const isProvisionFailed = isServiceProvisionFailed(svc);
     return (
       <DataListItem
         className={`${isProvisionFailed ? 'list-group-error-item' : null}`}
-        key={svc.spec.clusterServiceClassExternalName}
-        aria-labelledby={`service-statusbar-datalistitem-${svc.spec.clusterServiceClassExternalName}`}
+        key={ProvisioningScreen.buildUniqueServiceKey(svc)}
+        aria-labelledby={`service-statusbar-datalistitem-${ProvisioningScreen.buildUniqueServiceKey(svc)}`}
       >
         <DataListItemRow>
           <DataListItemCells

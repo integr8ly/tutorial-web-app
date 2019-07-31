@@ -1,5 +1,6 @@
 import { middlewareTypes } from '../constants';
 import { FULFILLED_ACTION } from '../helpers';
+import { SERVICE_TYPES } from '../constants/middlewareConstants';
 
 const initialState = {
   middlewareServices: {
@@ -19,6 +20,27 @@ const initialState = {
 };
 
 const middlewareReducers = (state = initialState, action) => {
+  // Replacement for CREATE_WALKTHROUGH when services are not ServiceInstances,
+  // this is more generic.
+  if (action.type === FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE)) {
+    if (!action.payload || !action.payload.name || !action.payload.status) {
+      return state;
+    }
+    const currentSvcs = Object.assign({}, state.middlewareServices.data);
+    currentSvcs[action.payload.name] = {
+      type: SERVICE_TYPES.PROVISIONED_SERVICE,
+      name: action.payload.name,
+      url: action.payload.url,
+      status: action.payload.status,
+      extra: action.payload.extra || {}
+    };
+    return Object.assign({}, state, {
+      middlewareServices: {
+        ...state.middlewareServices,
+        data: currentSvcs
+      }
+    });
+  }
   if (action.type === FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH)) {
     const createData = Object.assign({}, state.middlewareServices.data);
     createData[action.payload.spec.clusterServiceClassExternalName] = action.payload;

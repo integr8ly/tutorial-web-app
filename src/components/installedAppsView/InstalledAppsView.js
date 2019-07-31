@@ -11,6 +11,7 @@ import {
 } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails } from '../../services/middlewareServices';
+import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -28,10 +29,17 @@ class InstalledAppsView extends React.Component {
   }
 
   static isServiceUnready(svc) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return !svc.status === SERVICE_STATUSES.PROVISIONED;
+    }
+
     return !svc.metadata;
   }
 
   static isServiceProvisioned(svc) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return svc.status === SERVICE_STATUSES.PROVISIONED;
+    }
     return (
       svc.status && svc.status.conditions && svc.status.conditions[0] && svc.status.conditions[0].status === 'True'
     );
@@ -58,6 +66,21 @@ class InstalledAppsView extends React.Component {
         <OffIcon /> &nbsp;Not ready
       </div>
     );
+    // Allow for non-Service Instance services
+    if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      if (!app.status || app.status === SERVICE_STATUSES.UNAVAILABLE) {
+        return unreadyStatus;
+      }
+      if (app.status === SERVICE_STATUSES.PROVISIONING) {
+        return provisioningStatus;
+      }
+      if (app.status === SERVICE_STATUSES.PROVISIONED) {
+        return readyStatus;
+      }
+      if (app.status === SERVICE_STATUSES.DELETING) {
+        return unavailableStatus;
+      }
+    }
 
     if (app.metadata && app.metadata.deletionTimestamp) {
       return unavailableStatus;
@@ -73,6 +96,9 @@ class InstalledAppsView extends React.Component {
   }
 
   static getRouteForApp(app) {
+    if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return app.url;
+    }
     if (app.status.dashboardURL) {
       return app.status.dashboardURL;
     }
@@ -147,6 +173,10 @@ class InstalledAppsView extends React.Component {
     this.props.handleLaunch(svc.spec.clusterServiceClassExternalName);
   }
 
+  static genUniqueKeyForService(svc) {
+    return svc.name || svc.spec.clusterServiceClassExternalName;
+  }
+
   static createMasterList(displayServices, apps, customApps, enableLaunch, launchHandler) {
     const completeSvcNames = apps
       .map(svc => {
@@ -159,7 +189,13 @@ class InstalledAppsView extends React.Component {
       .concat(displayServices);
 
     const completeSvcList = [...new Set(completeSvcNames)].map(svcName => {
-      const provisionedSvc = apps.find(svc => svc.spec.clusterServiceClassExternalName === svcName);
+      const provisionedSvc = apps.find(svc => {
+        // Allow for non-Service Instance services.
+        if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+          return svc.name === svcName;
+        }
+        return svc.spec.clusterServiceClassExternalName === svcName;
+      });
       if (!provisionedSvc) {
         return {
           spec: {
@@ -189,8 +225,9 @@ class InstalledAppsView extends React.Component {
       })
       .map((app, index) => {
         const { prettyName, gaStatus, hidden } = getProductDetails(app);
+        const uniqKey = InstalledAppsView.genUniqueKeyForService(app);
         return hidden ? null : (
-          <DataList aria-label="cluster-services-datalist" key={`${app.spec.clusterServiceClassExternalName}`}>
+          <DataList aria-label="cluster-services-datalist" key={`${uniqKey}`}>
             <DataListItem
               className={
                 InstalledAppsView.isServiceProvisioned(app)
@@ -205,7 +242,7 @@ class InstalledAppsView extends React.Component {
                   ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
                   : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
               }}
-              key={`${app.spec.clusterServiceClassExternalName}_${index}`}
+              key={`${uniqKey}_${index}`}
               value={index}
               aria-labelledby={`cluster-service-datalistitem-${index}`}
             >
