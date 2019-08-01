@@ -59,6 +59,7 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     'api-management-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE),
     'enmasse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.ENMASSE),
     'amq-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ),
+    'user-sso-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.USER_RHSSO),
     'enmasse-broker-url': middlewareServices.enmasseCredentials.url,
     'enmasse-credentials-username': middlewareServices.enmasseCredentials.username,
     'enmasse-credentials-password': middlewareServices.enmasseCredentials.password,

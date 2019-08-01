@@ -185,6 +185,9 @@ class InstalledAppsView extends React.Component {
   static createMasterList(displayServices, apps, customApps, enableLaunch, launchHandler) {
     const completeSvcNames = apps
       .map(svc => {
+        if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+          return svc.name;
+        }
         if (!svc.spec || !svc.spec.clusterServiceClassExternalName) {
           return null;
         }
@@ -234,7 +237,9 @@ class InstalledAppsView extends React.Component {
         return hidden ? null : (
           <DataList
             aria-label="Cluster service datalist"
-            key={`${app.spec.clusterServiceClassExternalName}`}
+            key={`${
+              app.type === SERVICE_TYPES.PROVISIONED_SERVICE ? app.name : app.spec.clusterServiceClassExternalName
+            }`}
             id={`cluster-service-datalist-item-${index}`}
           >
             <DataListItem

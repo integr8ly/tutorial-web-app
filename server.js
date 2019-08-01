@@ -574,6 +574,15 @@ function getMockConfigData() {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
             conditions: [{ status: 'True' }]
           }
+        },
+        {
+          spec: {
+            clusterServiceClassExternalName: 'user-rhsso'
+          },
+          status: {
+            dashboardURL: '${process.env.OPENSHIFT_URL}',
+            conditions: [{ status: 'True' }]
+          }
         }
       ]
     }

@@ -32,6 +32,10 @@ export default {
     gaStatus: 'GA'
   },
   rhsso: {
+    prettyName: 'Red Hat Single Sign-On (Cluster)',
+    gaStatus: 'GA'
+  },
+  'user-rhsso': {
     prettyName: 'Red Hat Single Sign-On',
     gaStatus: 'GA'
   }
