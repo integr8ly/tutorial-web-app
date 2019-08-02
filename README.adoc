@@ -44,6 +44,7 @@ First you need to clone the https://github.com/integr8ly/tutorial-web-app-walkth
 [source,shell]
 ----
 $ git clone https://github.com/integr8ly/tutorial-web-app-walkthroughs.git
+$ git clone https://github.com/integr8ly/tutorial-web-app.git
 ----
 
 === Install dependencies
