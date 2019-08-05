@@ -1,0 +1,33 @@
+.integr8ly-dev-resources {
+  &-empty-state {
+    margin: 0 auto;
+  }
+
+  &-title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 31.2px;
+    width: 401px;
+    text-align: left;
+  }
+
+  &-resource-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 31.2px;
+    width: 401px;
+    text-align: left;
+  }
+
+  &-icon {
+    color: #72767b;
+  }
+
+  &-link {
+    color: #0066cc;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+  }
+}

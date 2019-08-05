@@ -4,6 +4,7 @@ import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
 import OAuthPage from './pages/oauth/oauth';
 import SettingsPage from './pages/settings/settings';
+import DevResourcesPage from './pages/devResources/devResources';
 import ErrorPage from './pages/error/error';
 
 /**
@@ -38,6 +39,13 @@ const routes = () => [
     title: 'Settings',
     to: '/settings',
     component: SettingsPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
+    title: 'Developer Resources',
+    to: '/dev-resources',
+    component: DevResourcesPage,
     exact: true
   },
   {
