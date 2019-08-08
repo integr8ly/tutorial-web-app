@@ -602,11 +602,15 @@ function getConfigData(req) {
   } else {
     logoutRedirectUri = 'http://localhost:3006';
   }
+  if (!process.env.OPENSHIFT_OAUTH_HOST) {
+    console.warn('OPENSHIFT_OAUTH_HOST not set, using OPENSHIFT_HOST instead. This is okay on OCP 3.11, but will not work on 4.x, see INTLY-2791.');
+    process.env.OPENSHIFT_OAUTH_HOST = process.env.OPENSHIFT_HOST;
+  }
 
   return `window.OPENSHIFT_CONFIG = {
     clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
-    accessTokenUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/token',
-    authorizationUri: 'https://${process.env.OPENSHIFT_HOST}/oauth/authorize',
+    accessTokenUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/token',
+    authorizationUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/authorize',
     redirectUri: '${redirectHost}/oauth/callback',
     scopes: ['user:full'],
     masterUri: 'https://${process.env.OPENSHIFT_HOST}',

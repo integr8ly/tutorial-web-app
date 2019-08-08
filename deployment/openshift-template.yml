@@ -12,6 +12,10 @@ parameters:
     description: The OpenShift master/api host e.g. openshift.example.com:8443. If blank, mock data (and mock service URL params) will be used.
     displayName: OpenShift Host
     required: false
+  - name: OPENSHIFT_OAUTH_HOST
+    description: The OpenShift OAuth host. OpenShift 4 example - https://oauth-openshift.apps.openshift.example.com. On OpenShift it's the same as OPENSHIFT_HOST. If blank, mock data (and mock service URL params) will be used.
+    displayName: OpenShift Host
+    required: false
   - name: WEBAPP_IMAGE
     value: quay.io/integreatly/tutorial-web-app
     required: true
@@ -67,6 +71,8 @@ objects:
             value: ${OPENSHIFT_OAUTHCLIENT_ID}
           - name: OPENSHIFT_HOST
             value: ${OPENSHIFT_HOST}
+          - name: OPENSHIFT_OAUTH_HOST
+            value: ${OPENSHIFT_OAUTH_HOST}
           - name: NODE_ENV
             value: production
           - name: SSO_ROUTE
@@ -78,9 +84,6 @@ objects:
           - containerPort: 5001
             name: http
             protocol: TCP
-      metadata:
-        labels:
-          app: tutorial-web-app
     triggers:
       - type: ConfigChange
 - apiVersion: v1

@@ -174,7 +174,7 @@ This will start the Webapp in development mode and import your Walkthroughs. You
 
 [source,shell]
 ----
-OPENSHIFT_HOST=<openshift master url> WALKTHROUGH_LOCATIONS=<path/to/your/walkthrough/folder> yarn start:dev
+OPENSHIFT_HOST=<openshift master url> OPENSHIFT_OAUTH_HOST=<openshift oauth url> WALKTHROUGH_LOCATIONS=<path/to/your/walkthrough/folder> yarn start:dev
 ----
 
 After you've made changes to your walkthrough you can restart the webapp server by typing `rs` into the terminal where the Webapp process is running and hitting return. Refresh your browser and your changes should be reflected.
