@@ -92,15 +92,14 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
               const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
               return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
             });
-           
             // Process the template if one exists and create its objects
             if (manifest.dependencies.templates) {
               manifest.dependencies.templates.map(rawTemplate => {
-                const template = parseTemplate(rawTemplate, mergedAttrs)
-                return process(templateDef(userNamespace), template)
+                const template = parseTemplate(rawTemplate, mergedAttrs);
+                return process(templateDef(userNamespace), template);
               });
             }
-            
+
             return Promise.all(
               siObjs.map(siObj =>
                 findOrCreateOpenshiftResource(
@@ -183,7 +182,6 @@ const parseTemplate = (template, attrs) => {
   const rawTemplate = Mustache.render(JSON.stringify(template), attrs);
   return JSON.parse(rawTemplate);
 };
-
 
 /**
  * Default handle for a watch event on an OpenShift resource. If a resource is

@@ -290,9 +290,6 @@ const create = (res, obj) =>
 
 /**
  * Process and Openshift template and create the template objects
- * 
- * @param {string} res 
- * @param {string} obj 
  */
 const process = (res, obj) =>
   getUser().then(user => {
@@ -306,21 +303,21 @@ const process = (res, obj) =>
         authorization: `Bearer ${user.access_token}`
       }
     }).then(response => {
-      const objs = response.data.objects
-      let results = []
+      const items = response.data.objects;
+      const results = [];
 
       // Create the objects in the processed template
-      for (let obj of objs) {
+      for (const item of items) {
         axios({
-          url: _buildProcessUrl(res.namespace, obj),
+          url: _buildProcessUrl(res.namespace, item),
           method: 'POST',
-          data: obj,
+          data: item,
           headers: {
             authorization: `Bearer ${user.access_token}`
           }
-        }).then(res => results.push(res));
+        }).then(result => results.push(result));
       }
-      return results
+      return results;
     });
   });
 
@@ -371,13 +368,13 @@ const watch = res =>
 
 const _buildOpenshiftApiUrl = (baseUrl, res) => {
   if (res.api) {
-    return `${baseUrl}/${res.api}`
+    return `${baseUrl}/${res.api}`;
   }
   if (res.group) {
-    return `${baseUrl}/apis/${res.group}`
+    return `${baseUrl}/apis/${res.group}`;
   }
-  return `${baseUrl}/api`
-}
+  return `${baseUrl}/api`;
+};
 
 const _buildOpenShiftUrl = (baseUrl, res) => {
   const urlBegin = `${_buildOpenshiftApiUrl(baseUrl, res)}/${res.version}`;
@@ -392,9 +389,9 @@ const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.ma
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
 
 const _buildProcessUrl = (namespace, obj) => {
-  let api = obj.apiVersion.split("/").length === 1 ? `api/${obj.apiVersion}` : `apis/${obj.apiVersion}`;
+  const api = obj.apiVersion.split('/').length === 1 ? `api/${obj.apiVersion}` : `apis/${obj.apiVersion}`;
   return `${window.OPENSHIFT_CONFIG.masterUri}/${api}/namespaces/${namespace}/${obj.kind.toLowerCase()}s`;
-}
+};
 
 export {
   finishOAuth,
