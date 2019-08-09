@@ -51,7 +51,7 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
   }
 
-  return {
+  const output = {
     'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl,
     'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
@@ -67,9 +67,16 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     'amq-broker-amqp-url': middlewareServices.amqCredentials.url,
     'amq-credentials-username': middlewareServices.amqCredentials.username,
     'amq-credentials-password': middlewareServices.amqCredentials.password,
-    'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO),
-    'mdc-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.MDC)
+    'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO)
   };
+
+  if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalProvisionServices.length > 0) {
+    window.OPENSHIFT_CONFIG.optionalProvisionServices.forEach(v => {
+      output[`${v}-url`] = getUrlFromMiddlewareServices(middlewareServices, v);
+    });
+  }
+
+  return output;
 };
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {

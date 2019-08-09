@@ -620,8 +620,28 @@ function getConfigData(req) {
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
-    clusterType: '${process.env.CLUSTER_TYPE || ''}'
+    clusterType: '${process.env.CLUSTER_TYPE || ''}',
+    optionalWatchServices: ${arrayFromString(process.env.OPTIONAL_WATCH_SERVICES, ',')},
+    optionalProvisionServices: ${arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES, ',')}
   };`;
+}
+
+function arrayFromString(data, sep) {
+  if (!data) {
+    return '[]';
+  }
+
+  let parts = ['['];
+  data.split(sep).forEach(function(v, idx, arr) {
+    if (idx === arr.length -1) {
+        parts.push(`"${v}"`);    
+    } else {
+        parts.push(`"${v}",`);
+    }
+  });
+  parts.push(']');
+
+  return parts.join('');
 }
 
 function getWalkthroughInfoFromAdoc(parentId, id, dirName, doc) {
