@@ -29,36 +29,6 @@
       }
     }
 
-    &-column--steps_alert-blue {
-      background-color: $pf-color-blue-50;
-      border-color: $pf-color-blue-200;
-      color: $pf-color-black-1000;
-    }
-
-    &-column--steps_alert-blue i {
-      color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
-    }
-
-    &-column--steps_alert-red {
-      background-color: lighten($pf-color-red-100, 55%);
-      border-color: var(--pf-global--danger-color--100);
-      color: $pf-color-black-1000;
-    }
-
-    &-column--steps_alert-red i {
-      color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
-    }
-
-    &-column--steps_alert-green {
-      background-color: lighten($pf-color-green-100, 10%);
-      border-color: $pf-color-green-200;
-      color: $pf-color-black-1000;
-    }
-
-    &-column--steps_alert-green i {
-      color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
-    }
-
     &-column--footer {
       background-color: var(--pf-global--Color--light-100);
       border-top: var(--pf-global--BorderWidth--sm) solid;
@@ -79,7 +49,7 @@
 
       &_status {
         &.icon { /* stylelint-disable selector-class-pattern */
-          color: $pf-color-blue-400 !important; /* stylelint-disable-line declaration-no-important */
+          color: var(--pf-global--info-color--100) !important; /* stylelint-disable-line declaration-no-important */
         }
 
         .icon:first-child {
@@ -87,7 +57,7 @@
         }
 
         &-checked.icon {
-          color: $pf-color-green-400 !important; /* stylelint-disable-line declaration-no-important */
+          color: var(--pf-global--success-color--100) !important; /* stylelint-disable-line declaration-no-important */
         }
 
         &-unchecked.icon {
@@ -96,5 +66,16 @@
       }
       /* stylelint-enable */
     }
+  }
+}
+
+.integr8ly-m-alert {
+  .pf-c-alert__title { /* stylelint-disable selector-class-pattern */
+    margin-top: 0 !important; /* stylelint-disable-line declaration-no-important */
+    margin-bottom: 0 !important; /* stylelint-disable-line declaration-no-important */
+  }
+
+  .form-group {
+    margin-bottom: 0;
   }
 }

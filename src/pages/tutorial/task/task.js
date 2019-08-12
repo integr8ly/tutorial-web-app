@@ -285,55 +285,65 @@ class TaskPage extends React.Component {
     const isNoChecked = currentThreadProgress[blockId] !== undefined && !currentThreadProgress[blockId];
     const isYesChecked = currentThreadProgress[blockId] !== undefined && !!currentThreadProgress[blockId];
 
-    let verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-blue';
-    let verificationIcon = 'integr8ly-alert-icon far fa-circle fa-lg';
+    let verificationClasses = 'pf-c-alert pf-m-info pf-m-inline pf-u-mt-md integr8ly-m-alert';
+    let verificationLabel = 'Alert';
+    let verificationIcon = 'fa fa-circle-o';
     if (isYesChecked) {
-      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-green';
-      verificationIcon = 'integr8ly-alert-icon fa fa-check-circle fa-lg';
+      verificationClasses = 'pf-c-alert pf-m-success pf-m-inline pf-u-mt-md integr8ly-m-alert';
+      verificationIcon = 'fas fa-check-circle';
+      verificationLabel = 'Alert success';
     }
     if (isNoChecked) {
-      verificationClasses = 'alert integr8ly-alert pf-u-mt-md integr8ly-module-column--steps_alert-red';
-      verificationIcon = 'integr8ly-alert-icon fa fa-times-circle fa-lg';
+      verificationClasses = 'pf-c-alert pf-m-danger pf-m-inline pf-u-mt-md integr8ly-m-alert';
+      verificationIcon = 'fas fa-times-circle';
+      verificationLabel = 'Alert fail';
     }
     return (
-      <div className={verificationClasses} key={`verification-${blockId}`}>
-        <i className={verificationIcon} />
-        <strong>{t('task.verificationTitle')}</strong>
-        <span dangerouslySetInnerHTML={{ __html: block.html }} />
-        {
-          <React.Fragment>
-            <Form>
-              <FormGroup controlId="radio" disabled={false} bsSize="small" label="Check your work">
-                <Radio
-                  id={`${blockId}verificationYes`}
-                  name={`${blockId}Yes`}
-                  checked={isYesChecked}
-                  onChange={e => {
-                    this.handleVerificationInput(e, blockId, true);
-                  }}
-                  label="Yes"
-                >
-                  Yes
-                </Radio>
-                <Radio
-                  id={`${blockId}verificationNo`}
-                  name={`${blockId}No`}
-                  checked={isNoChecked}
-                  onChange={e => {
-                    this.handleVerificationInput(e, blockId, false);
-                  }}
-                  label="No"
-                >
-                  No
-                </Radio>
-                {isNoChecked &&
-                  block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
-                {isYesChecked &&
-                  block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
-              </FormGroup>
-            </Form>
-          </React.Fragment>
-        }
+      <div className={verificationClasses} key={`verification-${blockId}`} aria-label={verificationLabel}>
+        <div className="pf-c-alert__icon">
+          <i className={verificationIcon} aria-hidden="true" />
+        </div>
+        <h4 className="pf-c-alert__title">
+          <span className="pf-screen-reader">{t('task.verificationTitle')}</span>
+          {t('task.verificationTitle')}
+        </h4>
+        <div className="pf-c-alert__description">
+          <span dangerouslySetInnerHTML={{ __html: block.html }} />
+          {
+            <React.Fragment>
+              <Form>
+                <FormGroup controlId="radio" disabled={false} bsSize="small" label="Check your work">
+                  <Radio
+                    id={`${blockId}verificationYes`}
+                    name={`${blockId}Yes`}
+                    checked={isYesChecked}
+                    onChange={e => {
+                      this.handleVerificationInput(e, blockId, true);
+                    }}
+                    label="Yes"
+                  >
+                    Yes
+                  </Radio>
+                  <Radio
+                    id={`${blockId}verificationNo`}
+                    name={`${blockId}No`}
+                    checked={isNoChecked}
+                    onChange={e => {
+                      this.handleVerificationInput(e, blockId, false);
+                    }}
+                    label="No"
+                  >
+                    No
+                  </Radio>
+                  {isNoChecked &&
+                    block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
+                  {isYesChecked &&
+                    block.hasSuccessBlock && <div dangerouslySetInnerHTML={{ __html: block.successBlock.html }} />}
+                </FormGroup>
+              </Form>
+            </React.Fragment>
+          }
+        </div>
       </div>
     );
   }
