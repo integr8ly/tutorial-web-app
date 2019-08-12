@@ -621,28 +621,12 @@ function getConfigData(req) {
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
-    optionalWatchServices: ${arrayFromString(process.env.OPTIONAL_WATCH_SERVICES, ',')},
-    optionalProvisionServices: ${arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES, ',')}
+    optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
+    optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))}
   };`;
 }
 
-function arrayFromString(data, sep) {
-  if (!data) {
-    return '[]';
-  }
-
-  let parts = ['['];
-  data.split(sep).forEach(function(v, idx, arr) {
-    if (idx === arr.length -1) {
-        parts.push(`"${v}"`);    
-    } else {
-        parts.push(`"${v}",`);
-    }
-  });
-  parts.push(']');
-
-  return parts.join('');
-}
+const arrayFromString = (data, sep) => data.split(sep).filter(item => item !== '');
 
 function getWalkthroughInfoFromAdoc(parentId, id, dirName, doc) {
   // Retrieve the short description. There must be a gap between the document title and the short description.
