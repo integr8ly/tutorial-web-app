@@ -24,37 +24,71 @@ import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 // import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 
 class DevResourcesPage extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    const { userWalkthroughs } = this.props;
+  //   const { userWalkthroughs } = this.props;
 
-    this.state = {
-      value: userWalkthroughs || '',
-      isValid: true
-    };
-  }
+  //   // this.state = {
+  //   //   value: userWalkthroughs || '',
+  //   //   isValid: true
+  //   // };
+
+  //   if (userWalkthroughs) {
+  //     console.log('stop this error');
+  //   }
+  // }
+
+  parseClusterId = uriString => {
+    // let uriString = window.OPENSHIFT_CONFIG.masterUri || 'https://master.my-cluster-id.openshiftworkshop.com:443';
+    // let uriString = '';
+
+    // if (window.OPENSHIFT_CONFIG.mockData) {
+    //   uriString = 'my-cluster-id';
+    // } else {
+    //   uriString = uriString.replace('https://master.', '');
+    //   uriString = uriString.substring(0, uriString.indexOf('.'));
+    // }
+    // console.log(uriString);
+    // return uriString;
+
+    if (window.OPENSHIFT_CONFIG.mockData) {
+      // uriString = 'my-cluster-id';
+      uriString = new URL(uriString).host.split('.')[1];
+    } else {
+      uriString = new URL(uriString).host.split('.')[1];
+
+      // uriString = uriString.replace('https://master.', '');
+      // uriString = uriString.substring(0, uriString.indexOf('.'));
+    }
+    console.log(uriString);
+    return uriString;
+  };
 
   render() {
+    // this.parseClusterId();
     // const {} = this.state;
     const loggingTooltip = 'The URL for the aggregate logging Kibana interface.';
     const apiTooltip = 'The URL for the OpenShift and Kubernetes REST API.';
     const registryTooltip = 'The URL for the private image registry.';
 
-    const clusterId = 'uxddev-17f0'; // MF080519 - get this from the existing variable
+    const testUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
+
+    // const clusterId = 'uxddev-17f0'; // MF080519 - get this from the existing variable
+    const clusterId = this.parseClusterId(testUri); // MF080519 - get this from the existing variable
 
     // MF080519 - need to get this from env var and populate with the correct one
     const osdLoggingUrl = `https://logs.${clusterId}.openshift.com`;
-    const pocLoggingUrl = `https://kibana.apps.${clusterId}.rhmi.io`;
-    const pdsLoggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
+    // const pocLoggingUrl = `https://kibana.apps.${clusterId}.rhmi.io`;
+    // const pdsLoggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
 
     const osdApiUrl = `https://api.${clusterId}.openshift.com`;
-    const pocApiUrl = `https://master.${clusterId}.rhmi.io/api`;
-    const pdsApiUrl = `https://master.${clusterId}.openshiftworkshop.com/api`;
+    // const pocApiUrl = `https://master.${clusterId}.rhmi.io/api`;
+    // const pdsApiUrl = `https://master.${clusterId}.openshiftworkshop.com/api`;
 
     const osdRegistryUrl = `https://registry.${clusterId}.openshift.com`;
-    const pocRegistryUrl = `https://registry-console-default.apps.${clusterId}.rhmi.io`;
-    const pdsRegistryUrl = `https://registry-console-default.apps.${clusterId}.openshiftworkshop.com`;
+    // const pocRegistryUrl = `https://registry-console-default.apps.${clusterId}.rhmi.io`;
+    // const pdsRegistryUrl = `https://registry-console-default.apps.${clusterId}.openshiftworkshop.com`;
 
     return (
       <Page className="pf-u-h-100vh">

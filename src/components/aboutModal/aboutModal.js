@@ -33,10 +33,19 @@ class AboutModal extends React.Component {
         >
           <TextContent>
             <TextList component="dl">
+              {/* MF080519 - delete this after testing */}
+              <TextListItem component="dt">Client Id (test)</TextListItem>
+              <TextListItem component="dd">
+                {window.OPENSHIFT_CONFIG ? window.OPENSHIFT_CONFIG.clientId : ' '}
+              </TextListItem>
+              <TextListItem component="dt">Cluster Type (test)</TextListItem>
+              <TextListItem component="dd">{window.OPENSHIFT_CONFIG.clusterType}</TextListItem>
+
               <TextListItem component="dt">Integreatly Version</TextListItem>
               <TextListItem component="dd">
                 {window.OPENSHIFT_CONFIG ? window.OPENSHIFT_CONFIG.integreatlyVersion : ' '}
               </TextListItem>
+
               <TextListItem component="dt">Console Version</TextListItem>
               <TextListItem component="dd">{pkgJson.version}</TextListItem>
               <TextListItem component="dt">User Name</TextListItem>
