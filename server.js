@@ -492,6 +492,8 @@ function getMockConfigData() {
     masterUri: 'mock-openshift-console-url',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
+    optionalWatchServices: [],
+    optionalProvisionServices: [],
     mockData: {
       serviceInstances: [
         {
