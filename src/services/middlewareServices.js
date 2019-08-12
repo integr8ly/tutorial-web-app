@@ -26,7 +26,7 @@ import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
 import { watchAMQOnline } from './amqOnlineServices';
 
 // The default services to watch.
-const WATCH_SERVICES = [
+let defaultWatchServices = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE,
@@ -37,13 +37,17 @@ const WATCH_SERVICES = [
   DEFAULT_SERVICES.RHSSO,
   DEFAULT_SERVICES.USER_RHSSO
 ];
+if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalWatchServices.length > 0) {
+  defaultWatchServices = defaultWatchServices.concat(window.OPENSHIFT_CONFIG.optionalWatchServices);
+}
+const WATCH_SERVICES = defaultWatchServices;
 
 // The default services to show in any user-facing manner, even if they aren't
 // available. This is the opposite of the "hidden" flag in product info.
 const DISPLAY_SERVICES = [DEFAULT_SERVICES.ENMASSE];
 
 // The default services to provision.
-const PROVISION_SERVICES = [
+let provisionServices = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.APICURIO,
@@ -52,6 +56,10 @@ const PROVISION_SERVICES = [
   DEFAULT_SERVICES.RHSSO,
   DEFAULT_SERVICES.USER_RHSSO
 ];
+if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalProvisionServices.length > 0) {
+  provisionServices = provisionServices.concat(window.OPENSHIFT_CONFIG.optionalProvisionServices);
+}
+const PROVISION_SERVICES = provisionServices;
 
 /**
  * Lookup product details (name and GA status) and add them to the

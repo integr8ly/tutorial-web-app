@@ -620,9 +620,13 @@ function getConfigData(req) {
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
-    clusterType: '${process.env.CLUSTER_TYPE || ''}'
+    clusterType: '${process.env.CLUSTER_TYPE || ''}',
+    optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
+    optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))}
   };`;
 }
+
+const arrayFromString = (data, sep) => data.split(sep).filter(item => item !== '');
 
 function getWalkthroughInfoFromAdoc(parentId, id, dirName, doc) {
   // Retrieve the short description. There must be a gap between the document title and the short description.

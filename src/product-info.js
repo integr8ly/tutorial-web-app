@@ -31,6 +31,10 @@ export default {
     prettyName: 'Apicurito',
     gaStatus: 'GA'
   },
+  mdc: {
+    prettyName: 'Mobile Developer Console',
+    gaStatus: 'LA'
+  },
   rhsso: {
     prettyName: 'Red Hat Single Sign-On (Cluster)',
     gaStatus: 'GA'
