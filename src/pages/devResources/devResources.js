@@ -39,7 +39,7 @@ class DevResourcesPage extends React.Component {
   //   }
   // }
 
-  parseClusterId = uriString => {
+  parseClusterId = (url, clusterType) => {
     // let uriString = window.OPENSHIFT_CONFIG.masterUri || 'https://master.my-cluster-id.openshiftworkshop.com:443';
     // let uriString = '';
 
@@ -51,18 +51,42 @@ class DevResourcesPage extends React.Component {
     // }
     // console.log(uriString);
     // return uriString;
+    let clusterId = '';
+    let urlParts = [];
 
     if (window.OPENSHIFT_CONFIG.mockData) {
-      // uriString = 'my-cluster-id';
-      uriString = new URL(uriString).host.split('.')[1];
-    } else {
-      uriString = new URL(uriString).host.split('.')[1];
-
-      // uriString = uriString.replace('https://master.', '');
-      // uriString = uriString.substring(0, uriString.indexOf('.'));
+      clusterId = 'my-cluster-id';
+      console.log(`Running locally, the clusterId is: ${clusterId}`);
+      // return uriString;
+      // uriString = new URL(uriString).host.split('.')[0];
     }
-    console.log(uriString);
-    return uriString;
+    urlParts = new URL(url).host.split('.');
+    const [pocClusterId, , rhpdsClusterId] = urlParts;
+
+    switch (clusterType) {
+      case 'rhpds':
+        clusterId = rhpdsClusterId;
+        break;
+      case 'poc':
+        clusterId = pocClusterId;
+        break;
+      case 'osd':
+        clusterId = rhpdsClusterId;
+        break;
+      case 'dev':
+        clusterId = rhpdsClusterId;
+        break;
+      default:
+        clusterId = 'my-cluster-id';
+    }
+
+    // uriString = uriString.replace('https://master.', '');
+    // uriString = uriString.substring(0, uriString.indexOf('.'));
+
+    console.log(`Original Url: ${url}`);
+    console.log(`Cluster type: ${clusterType}`);
+    console.log(`Cluster ID: ${clusterId}`);
+    // return uriString;
   };
 
   render() {
@@ -72,10 +96,12 @@ class DevResourcesPage extends React.Component {
     const apiTooltip = 'The URL for the OpenShift and Kubernetes REST API.';
     const registryTooltip = 'The URL for the private image registry.';
 
-    const testUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
+    const rhpdsUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
+    const rhmiUri = 'https://puma.rhmi.io/';
+    const clusterType = 'rhpds';
 
     // const clusterId = 'uxddev-17f0'; // MF080519 - get this from the existing variable
-    const clusterId = this.parseClusterId(testUri); // MF080519 - get this from the existing variable
+    const clusterId = this.parseClusterId(rhmiUri, clusterType); // MF080519 - get this from the existing variable
 
     // MF080519 - need to get this from env var and populate with the correct one
     const osdLoggingUrl = `https://logs.${clusterId}.openshift.com`;
