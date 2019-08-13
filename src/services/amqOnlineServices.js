@@ -1,10 +1,23 @@
-import { addressSpaceDef, messagingUserDef } from '../common/openshiftResourceDefinitions';
-import { poll } from './openshiftServices';
+import {
+  addressSpaceDef,
+  messagingUserDef,
+  serviceInstanceDef,
+  secretDef
+} from '../common/openshiftResourceDefinitions';
+import { poll, watch, OpenShiftWatchEvents } from './openshiftServices';
 import { findOrCreateOpenshiftResource, cleanUsername } from '../common/openshiftHelpers';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
-import { DEFAULT_SERVICES } from '../common/serviceInstanceHelpers';
+import {
+  DEFAULT_SERVICES,
+  buildServiceInstanceResourceObj,
+  buildServiceInstanceCompareFn
+} from '../common/serviceInstanceHelpers';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../redux/constants/middlewareConstants';
+import { handleEnmasseServiceInstanceWatchEvents } from './middlewareServices';
+import { provisionOperator } from './operatorServices';
+
+const MANIFEST_NAME = 'integreatly-amq-online';
 
 const watchAMQOnline = (dispatch, username, namespace) =>
   poll(addressSpaceDef(namespace.name)).then(pollListener => {
@@ -20,23 +33,47 @@ const watchAMQOnline = (dispatch, username, namespace) =>
     });
   });
 
-const provisionAMQOnline = (dispatch, username, namespace) =>
-  new Promise((resolve, reject) =>
-    provisionAddressSpace(username, namespace.name)
-      .then(provisionMessagingUser(username, namespace.name))
+const getDefaultProvisionAMQOpts = () => ({
+  createSubscription: false
+});
+
+// OpenShift 4 equivalent of #provisionAMQOnline
+const provisionAMQOnlineV4 = (dispatch, username, namespace, opts = getDefaultProvisionAMQOpts()) =>
+  new Promise((resolve, reject) => {
+    console.log(
+      `dispatching PROVISION_SERVICE for service ${DEFAULT_SERVICES.ENMASSE} with status ${
+        SERVICE_STATUSES.PROVISIONING
+      }`
+    );
+    dispatch({
+      type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
+      payload: getBasePayload({ status: SERVICE_STATUSES.PROVISIONING })
+    });
+    let initialStep;
+    if (opts.createSubscription) {
+      initialStep = provisionOperator(MANIFEST_NAME, namespace).then(() => provisionAddressSpace(username, namespace));
+    } else {
+      initialStep = provisionAddressSpace(username, namespace);
+    }
+    initialStep
+      .then(provisionMessagingUser(username, namespace))
       .then(() =>
-        poll(addressSpaceDef(namespace.name)).then(pollListener => {
+        poll(addressSpaceDef(namespace)).then(pollListener => {
           pollListener.onEvent(
             handleAddressSpaceUpdateEvent.bind(null, username, dispatch, amqInfo => {
               pollListener.clear();
+              dispatch({
+                type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
+                payload: amqInfo
+              });
               resolve(amqInfo);
             })
           );
           pollListener.catch(err => console.error(err));
         })
       )
-      .catch(err => reject(err))
-  );
+      .catch(err => reject(err));
+  });
 
 const provisionMessagingUser = (username, namespace) => {
   const cleanUser = cleanUsername(username);
@@ -91,13 +128,11 @@ const handleAddressSpaceUpdateEvent = (username, dispatch, resolve, event) => {
     return;
   }
   const payload = getPayloadFromAddressSpace(event);
-  dispatch(payload);
-  resolve({
-    'enmasse-console-url': payload.url,
-    'enmasse-broker-url': messagingEndpointDef.serviceHost,
+  payload.additionalAttributes = Object.assign({}, payload.additionalAttributes, {
     'enmasse-credentials-username': cleanUsername(username),
     'enmasse-credentials-password': window.atob(genEvalPassword(username))
   });
+  resolve(payload);
 };
 
 const getPayloadFromAddressSpace = as => {
@@ -111,18 +146,79 @@ const getPayloadFromAddressSpace = as => {
   if (!as.status || !as.status.isReady) {
     return Object.assign({}, payload, { status: SERVICE_STATUSES.PROVISIONING });
   }
+  const messagingEndpointDef = as.status.endpointStatuses.find(e => e.name === 'messaging');
+  if (!messagingEndpointDef) {
+    return null;
+  }
   const consoleEndpointDef = as.status.endpointStatuses.find(e => e.name === 'console');
   if (!consoleEndpointDef) {
     return null;
   }
   return Object.assign({}, payload, {
     status: SERVICE_STATUSES.PROVISIONED,
-    url: `https://${consoleEndpointDef.externalHost}`
+    url: `https://${consoleEndpointDef.externalHost}`,
+    additionalAttributes: {
+      'enmasse-broker-url': messagingEndpointDef.serviceHost
+    }
   });
+};
+
+const getBasePayload = mergeWith =>
+  Object.assign(
+    {},
+    {
+      type: SERVICE_TYPES.PROVISIONED_SERVICE,
+      name: DEFAULT_SERVICES.ENMASSE,
+      status: SERVICE_STATUSES.UNAVAILABLE
+    },
+    mergeWith
+  );
+
+// Provision AMQ Online in an OpenShift 3 environment
+const provisionAMQOnline = (dispatch, username, namespace) =>
+  new Promise((resolve, reject) => {
+    provisionServiceInstance(username, namespace.name)
+      .then(() => {
+        watch(serviceInstanceDef(namespace.name)).then(watchListener => {
+          watchListener.onEvent(handleEnmasseServiceInstanceWatchEvents.bind(null, dispatch));
+        });
+        watch(secretDef(namespace.name)).then(watchListener => {
+          watchListener.onEvent(handleCredentialsSecretEvent.bind(null, resolve));
+        });
+      })
+      .catch(err => reject(err));
+  });
+
+const provisionServiceInstance = (username, namespace) => {
+  const siRes = buildServiceInstanceResourceObj({ namespace, name: DEFAULT_SERVICES.ENMASSE, username });
+  return findOrCreateOpenshiftResource(serviceInstanceDef(namespace), siRes, buildServiceInstanceCompareFn(siRes));
+};
+
+const handleCredentialsSecretEvent = (resolve, event) => {
+  if (
+    event.type === OpenShiftWatchEvents.OPENED ||
+    event.type === OpenShiftWatchEvents.CLOSED ||
+    event.type === OpenShiftWatchEvents.DELETED
+  ) {
+    return;
+  }
+
+  const secret = event.payload;
+  if (secret.metadata.name.includes('amq-online-standard') && secret.metadata.name.includes('credentials')) {
+    const amqpHost = window.atob(secret.data.messagingHost);
+    const username = window.atob(secret.data.username);
+    const password = window.atob(secret.data.password);
+
+    resolve({
+      'enmasse-broker-url': amqpHost,
+      'enmasse-credentials-username': username,
+      'enmasse-credentials-password': password
+    });
+  }
 };
 
 // Generate a deterministic password, to allow multiple runs of a walkthrough
 // with the same user.
 const genEvalPassword = username => window.btoa(cleanUsername(username));
 
-export { provisionAMQOnline, watchAMQOnline };
+export { provisionAMQOnline, provisionAMQOnlineV4, watchAMQOnline };

@@ -13,13 +13,22 @@ const promMid = require('express-prometheus-middleware');
 const Prometheus = require('prom-client');
 const querystring = require('querystring');
 const flattenDeep = require('lodash.flattendeep');
+const proxy = require('express-http-proxy');
 const { sync, closeConnection, getUserWalkthroughs, setUserWalkthroughs, validUrl } = require('./model');
+
+const OPENSHIFT_PROXY_PATH = '/proxy/openshift';
 
 const app = express();
 
 const adoc = asciidoctor();
 
 app.use(bodyParser.json());
+app.use(OPENSHIFT_PROXY_PATH, proxy(`https://${process.env.OPENSHIFT_API}`, {
+  proxyReqOptDecorator: function(proxyReqOpts, _) {
+    proxyReqOpts.rejectUnauthorized = false
+    return proxyReqOpts;
+  }
+}));
 
 // prometheus metrics endpoint
 app.use(
@@ -30,6 +39,7 @@ app.use(
   })
 );
 
+const openshiftVersion = process.env.OPENSHIFT_VERSION || '3';
 const port = process.env.PORT || 5001;
 const configPath = process.env.SERVER_EXTRA_CONFIG_FILE || '/etc/webapp/customServerConfig.json';
 
@@ -487,10 +497,15 @@ function getWalkthroughHeader(basePath) {
   });
 }
 
+function isOpenShift4() {
+  return `${process.env.OPENSHIFT_VERSION}` === '4';
+}
+
 function getMockConfigData() {
   return `window.OPENSHIFT_CONFIG = {
     masterUri: 'mock-openshift-console-url',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
+    openshiftVersion: ${openshiftVersion},
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     optionalWatchServices: [],
     optionalProvisionServices: [],
@@ -609,14 +624,17 @@ function getConfigData(req) {
     process.env.OPENSHIFT_OAUTH_HOST = process.env.OPENSHIFT_HOST;
   }
 
+  const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
+  const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
+
   return `window.OPENSHIFT_CONFIG = {
     clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
     accessTokenUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/token',
     authorizationUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/authorize',
     redirectUri: '${redirectHost}/oauth/callback',
     scopes: ['user:full'],
-    masterUri: 'https://${process.env.OPENSHIFT_HOST}',
-    wssMasterUri: 'wss://${process.env.OPENSHIFT_HOST}',
+    masterUri: '${masterUri}',
+    wssMasterUri: '${wssMasterUri}',
     ssoLogoutUri: 'https://${
       process.env.SSO_ROUTE
     }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
@@ -624,7 +642,8 @@ function getConfigData(req) {
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
     optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
-    optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))}
+    optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))},
+    openshiftVersion: ${openshiftVersion}
   };`;
 }
 

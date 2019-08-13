@@ -62,6 +62,43 @@ const messagingUserDef = namespace => ({
   version: 'v1beta1',
   group: 'user.enmasse.io'
 });
+const syndesisDef = namespace => ({
+  name: 'syndesises',
+  namespace,
+  version: 'v1alpha1',
+  group: 'syndesis.io'
+});
+const packageManifestDef = namespace => ({
+  name: 'packagemanifests',
+  namespace,
+  version: 'v1',
+  group: 'packages.operators.coreos.com'
+});
+const catalogSourceConfigDef = namespace => ({
+  kind: 'CatalogSourceConfig',
+  name: 'catalogsourceconfigs',
+  namespace,
+  version: 'v1',
+  group: 'operators.coreos.com'
+});
+const operatorGroupDef = namespace => ({
+  name: 'operatorgroups',
+  namespace,
+  version: 'v1',
+  group: 'operators.coreos.com'
+});
+const subscriptionDef = namespace => ({
+  name: 'subscriptions',
+  namespace,
+  version: 'v1alpha1',
+  group: 'operators.coreos.com'
+});
+const csvDef = namespace => ({
+  name: 'clusterserviceversions',
+  namespace,
+  version: 'v1alpha1',
+  group: 'operators.coreos.com'
+});
 
 export {
   namespaceRequestDef,
@@ -75,5 +112,11 @@ export {
   secretDef,
   templateDef,
   addressSpaceDef,
-  messagingUserDef
+  messagingUserDef,
+  syndesisDef,
+  packageManifestDef,
+  catalogSourceConfigDef,
+  operatorGroupDef,
+  subscriptionDef,
+  csvDef
 };

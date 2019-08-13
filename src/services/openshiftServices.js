@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
+import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';
 
 const KIND_ROUTE = 'Route';
 
@@ -44,7 +45,9 @@ class OpenShiftWatchEventListener {
       this._handler({ type: data.type, payload: data.object });
     };
     this._socket.oncreate = () => this._handler({ type: OpenShiftWatchEvents.OPENED });
-    this._socket.onclose = () => this._handler({ type: OpenShiftWatchEvents.CLOSED });
+    this._socket.onclose = () => {
+      this._handler({ type: OpenShiftWatchEvents.CLOSED });
+    };
     this._socket.onerror = err => this._errorHandler(err);
     return this;
   }
@@ -208,15 +211,19 @@ const getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
 
-const currentUser = () =>
-  getUser().then(user =>
+const currentUser = () => {
+  const url = isOpenShift4()
+    ? `${getMasterUri()}/apis/user.openshift.io/v1/users/~`
+    : `${getMasterUri()}/oapi/v1/users/~`;
+  return getUser().then(user =>
     axios({
-      url: `${window.OPENSHIFT_CONFIG.masterUri}/oapi/v1/users/~`,
+      url,
       headers: {
         authorization: `Bearer ${user.access_token}`
       }
     }).then(response => new OpenShiftUser(response.data))
   );
+};
 
 const get = (res, name) =>
   getUser().then(user =>
@@ -345,7 +352,7 @@ const remove = (res, obj) =>
 
 const poll = (res, interval) =>
   getUser().then(user => {
-    const reqUrl = `${_buildRequestUrl(res)}?watch=true`;
+    const reqUrl = `${_buildRequestUrl(res)}`;
     return Promise.resolve(
       new OpenShiftPollEventListener({
         url: reqUrl,
@@ -386,7 +393,15 @@ const _buildOpenShiftUrl = (baseUrl, res) => {
 
 const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`;
 
-const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
+const _buildWatchUrl = res => {
+  let baseUrl = getWSMasterUri();
+  if (isOpenShift4()) {
+    const protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+    baseUrl = `${protocol}${window.location.host}${getWSMasterUri()}`;
+  }
+
+  return `${_buildOpenShiftUrl(baseUrl, res)}?watch=true`;
+};
 
 const _buildProcessUrl = (namespace, obj) => {
   const api = obj.apiVersion.split('/').length === 1 ? `api/${obj.apiVersion}` : `apis/${obj.apiVersion}`;

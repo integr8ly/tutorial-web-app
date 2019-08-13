@@ -24,12 +24,15 @@ import {
   isServiceProvisionFailed
 } from '../../common/walkthroughServiceHelpers';
 import { getProductDetails } from '../../services/middlewareServices';
-import { SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
+import { SERVICE_TYPES, SERVICE_STATUSES } from '../../redux/constants/middlewareConstants';
 
 class ProvisioningScreen extends React.Component {
   componentDidMount() {}
 
   static isMiddlewareServiceProvisioned(svc) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      return svc.status === SERVICE_STATUSES.PROVISIONED;
+    }
     if (svc.status && svc.status.conditions && svc.status.conditions[0]) {
       return svc.status.conditions[0].status === 'True';
     }

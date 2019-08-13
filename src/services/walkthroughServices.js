@@ -26,8 +26,8 @@ import {
   initCustomThreadSuccess,
   initCustomThreadFailure
 } from '../redux/actions/threadActions';
-import { provisionAMQOnline } from '../services/amqOnlineServices';
-import { provisionFuseOnline } from '../services/fuseOnlineServices';
+import { provisionAMQOnline, provisionAMQOnlineV4 } from '../services/amqOnlineServices';
+import { provisionFuseOnlineV4, provisionFuseOnline } from '../services/fuseOnlineServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
 
@@ -37,6 +37,74 @@ const DEFAULT_SERVICE_INSTANCE = {
   spec: {
     clusterServicePlanExternalName: 'default'
   }
+};
+
+// OpenShift 4 equivalent of #prepareCustomWalkthroughNamespace
+const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
+  if (window.OPENSHIFT_CONFIG.mockData) {
+    dispatch(initCustomThreadSuccess({}));
+    return Promise.resolve([]);
+  }
+  dispatch(initCustomThreadPending());
+  return (
+    initCustomThread(walkthroughName)
+      .then(manifestResp => manifestResp.data)
+      .then(manifest => {
+        dispatch(initCustomThreadPending(manifest));
+        return currentUser().then(u => [u, manifest]);
+      })
+      // Handle walkthrough namespace actions.
+      .then(([user, manifest]) => {
+        console.log(`reconciling walkthrough namespace for walkthrough ${walkthroughName}`);
+        const namespaceName = buildValidProjectNamespaceName(user.username, walkthroughName);
+        const namespaceDisplay = buildValidNamespaceDisplayName(user.username, walkthroughName);
+        const namespace = namespaceResource({ name: namespaceName });
+        const namespaceReq = namespaceRequestResource(namespaceDisplay, { name: namespaceName });
+
+        const compareFn = n => n.metadata.name === namespaceName;
+        return findOrCreateOpenshiftResource(
+          namespaceDef,
+          namespace,
+          compareFn,
+          namespaceRequestDef,
+          namespaceReq
+        ).then(n => [user, manifest, n]);
+      })
+      // Handle shared namespace actions.
+      .then(([user, manifest, _]) => {
+        console.log(`reconciling shared namespace for walkthrough ${walkthroughName}`);
+        if (!manifest || !manifest.dependencies || !manifest.dependencies.managedServices) {
+          return Promise.resolve([]);
+        }
+
+        console.log(`using manifest for walkthrough ${walkthroughName}`, manifest);
+
+        const provisionNamespaceInfo = {
+          name: getUsersSharedNamespaceName(user.username),
+          displayName: getUsersSharedNamespaceDisplayName(user.username)
+        };
+        const provisionTasks = manifest.dependencies.managedServices.reduce((acc, svc) => {
+          acc.push(provisionOpenShift4Service(svc, provisionNamespaceInfo, user, dispatch));
+          return acc;
+        }, []);
+
+        return Promise.all(provisionTasks).then(svcsAttrs => {
+          if (!svcsAttrs) {
+            console.warn('service provision results are undefined');
+            return null;
+          }
+          console.log(`dispatching ${svcsAttrs.length} service provision results`, svcsAttrs);
+          svcsAttrs.forEach(svcAttrs =>
+            dispatch({
+              type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
+              payload: svcAttrs
+            })
+          );
+          dispatch(initCustomThreadSuccess(manifest));
+          return svcsAttrs;
+        });
+      })
+  );
 };
 
 /**
@@ -118,6 +186,30 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
       });
     })
     .catch(e => dispatch(initCustomThreadFailure(e)));
+};
+
+// OpenShift 4 equivalent of #provisionManagedServiceSlices that handles a
+// single service instead of a list of services.
+const provisionOpenShift4Service = (service, namespace, user, dispatch) => {
+  if (!service) {
+    return Promise.reject(new Error('service must be specified'));
+  }
+  if (!namespace) {
+    return Promise.reject(new Error('namespace must be provided'));
+  }
+  if (!user) {
+    return Promise.reject(new Error('user must be specified'));
+  }
+  if (!dispatch) {
+    return Promise.reject(new Error('dispatch function must be specified'));
+  }
+  if (service.name === DEFAULT_SERVICES.FUSE) {
+    return provisionFuseOnlineV4(dispatch, user.username, namespace.name);
+  }
+  if (service.name === DEFAULT_SERVICES.ENMASSE) {
+    return provisionAMQOnlineV4(dispatch, user.username, namespace.name);
+  }
+  return null;
 };
 
 const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
@@ -276,5 +368,6 @@ export {
   getCustomWalkthroughs,
   prepareCustomWalkthroughNamespace,
   setUserWalkthroughs,
-  getUserWalkthroughs
+  getUserWalkthroughs,
+  prepareWalkthroughV4
 };
