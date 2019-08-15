@@ -27,39 +27,37 @@ class DevResourcesPage extends React.Component {
   // constructor(props) {
   //   super(props);
 
+  //   const { clusterId, clusterType } = this.props;
+
   //   const { userWalkthroughs } = this.props;
 
-  //   // this.state = {
-  //   //   value: userWalkthroughs || '',
-  //   //   isValid: true
-  //   // };
+  // this.state = {
+  //   value: userWalkthroughs || '',
+  //   isValid: true
+  // };
 
-  //   if (userWalkthroughs) {
-  //     console.log('stop this error');
-  //   }
-  // }
+  // if mockdata, use localhost as the cluster type, otherwise get the type via window.OPENSHIFT_CONFIG
+  // which is itself derived from an env var in server.js
+  getClusterType = () => {
+    let clusterType = '';
 
-  parseClusterId = (url, clusterType) => {
-    // let uriString = window.OPENSHIFT_CONFIG.masterUri || 'https://master.my-cluster-id.openshiftworkshop.com:443';
-    // let uriString = '';
-
-    // if (window.OPENSHIFT_CONFIG.mockData) {
-    //   uriString = 'my-cluster-id';
-    // } else {
-    //   uriString = uriString.replace('https://master.', '');
-    //   uriString = uriString.substring(0, uriString.indexOf('.'));
-    // }
-    // console.log(uriString);
-    // return uriString;
-    let clusterId = '';
-    let urlParts = [];
-
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      clusterId = 'my-cluster-id';
-      console.log(`Running locally, the clusterId is: ${clusterId}`);
-      // return uriString;
-      // uriString = new URL(uriString).host.split('.')[0];
+    if (window.OPENSHIFT_CONFIG) {
+      if (window.OPENSHIFT_CONFIG.mockData) {
+        clusterType = 'localhost';
+        console.log(`Running locally, the clusterType is: ${clusterType}`);
+      } else {
+        clusterType = window.OPENSHIFT_CONFIG.clusterType;
+        console.log(`Running on server, the clusterType is: ${clusterType}`);
+      }
     }
+    return clusterType;
+  };
+
+  // method that retrieves the clusterId from a URL
+  getClusterId = url => {
+    let urlParts = [];
+    let clusterId = '';
+    const clusterType = this.getClusterType();
     urlParts = new URL(url).host.split('.');
     const [pocClusterId, , rhpdsClusterId] = urlParts;
 
@@ -86,7 +84,8 @@ class DevResourcesPage extends React.Component {
     console.log(`Original Url: ${url}`);
     console.log(`Cluster type: ${clusterType}`);
     console.log(`Cluster ID: ${clusterId}`);
-    // return uriString;
+
+    return clusterId;
   };
 
   render() {
@@ -96,12 +95,12 @@ class DevResourcesPage extends React.Component {
     const apiTooltip = 'The URL for the OpenShift and Kubernetes REST API.';
     const registryTooltip = 'The URL for the private image registry.';
 
-    const rhpdsUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
+    // const rhpdsUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
     const rhmiUri = 'https://puma.rhmi.io/';
-    const clusterType = 'rhpds';
+    // const clusterType = 'rhpds';
 
     // const clusterId = 'uxddev-17f0'; // MF080519 - get this from the existing variable
-    const clusterId = this.parseClusterId(rhmiUri, clusterType); // MF080519 - get this from the existing variable
+    const clusterId = this.getClusterId(rhmiUri); // MF080519 - get this from the existing variable
 
     // MF080519 - need to get this from env var and populate with the correct one
     const osdLoggingUrl = `https://logs.${clusterId}.openshift.com`;
@@ -183,20 +182,17 @@ class DevResourcesPage extends React.Component {
 DevResourcesPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }),
-  userWalkthroughs: PropTypes.string
+  })
 };
 
 DevResourcesPage.defaultProps = {
   history: {
     push: noop
-  },
-  userWalkthroughs: ''
+  }
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id))
-  // getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
 });
 
 const mapStateToProps = state => ({
