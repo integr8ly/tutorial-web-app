@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Mustache from 'mustache';
 import serviceConfig from './config';
-import { watch, currentUser, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, process, currentUser, OpenShiftWatchEvents } from './openshiftServices';
 import { initCustomThread } from './threadServices';
 import {
   buildValidProjectNamespaceName,
@@ -17,7 +17,8 @@ import {
   namespaceDef,
   namespaceRequestDef,
   serviceInstanceDef,
-  routeDef
+  routeDef,
+  templateDef
 } from '../common/openshiftResourceDefinitions';
 import { addWalkthroughService, removeWalkthroughService } from '../redux/actions/walkthroughServiceActions';
 import {
@@ -86,10 +87,19 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
               dispatch(initCustomThreadSuccess(manifest));
               return Promise.resolve([]);
             }
+
             const siObjs = manifest.dependencies.serviceInstances.map(siPartial => {
               const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
               return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
             });
+            // Process the template if one exists and create its objects
+            if (manifest.dependencies.templates) {
+              manifest.dependencies.templates.map(rawTemplate => {
+                const template = parseTemplate(rawTemplate, mergedAttrs);
+                return process(templateDef(userNamespace), template);
+              });
+            }
+
             return Promise.all(
               siObjs.map(siObj =>
                 findOrCreateOpenshiftResource(
@@ -160,6 +170,17 @@ const provisionManagedServiceSlices = (dispatch, svcList, user, namespace) => {
 const parseServiceInstanceTemplate = (siTemplate, attrs) => {
   const rawServiceInstance = Mustache.render(JSON.stringify(siTemplate), attrs);
   return JSON.parse(rawServiceInstance);
+};
+
+/**
+ * Replace template variables with provided attributes.
+ *
+ * @param {Object} template Openshift template object.
+ * @param {Object} attrs Key-value map of attribute names and values to replace them with.
+ */
+const parseTemplate = (template, attrs) => {
+  const rawTemplate = Mustache.render(JSON.stringify(template), attrs);
+  return JSON.parse(rawTemplate);
 };
 
 /**

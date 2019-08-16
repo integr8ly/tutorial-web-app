@@ -135,7 +135,7 @@ const findService = (svcName, svcList) => {
     return null;
   }
   return svcList.find(svc => {
-    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE && svc.name === svcName) {
       return svc;
     }
     return get(svc, 'spec.clusterServiceClassExternalName') === svcName;

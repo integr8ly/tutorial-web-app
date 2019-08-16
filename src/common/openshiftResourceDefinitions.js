@@ -45,6 +45,11 @@ const secretDef = namespace => ({
   version: 'v1',
   namespace
 });
+const templateDef = namespace => ({
+  version: 'v1',
+  namespace,
+  api: 'oapi'
+});
 const addressSpaceDef = namespace => ({
   name: 'addressspaces',
   namespace,
@@ -68,6 +73,7 @@ export {
   routeDef,
   serviceDef,
   secretDef,
+  templateDef,
   addressSpaceDef,
   messagingUserDef
 };

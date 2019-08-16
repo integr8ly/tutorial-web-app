@@ -288,6 +288,39 @@ const create = (res, obj) =>
     }).then(response => response.data);
   });
 
+/**
+ * Process and Openshift template and create the template objects
+ */
+const process = (res, obj) =>
+  getUser().then(user => {
+    const requestUrl = `${_buildRequestUrl(res)}/processedtemplates`;
+
+    return axios({
+      url: requestUrl,
+      method: 'POST',
+      data: obj,
+      headers: {
+        authorization: `Bearer ${user.access_token}`
+      }
+    }).then(response => {
+      const items = response.data.objects;
+      const results = [];
+
+      // Create the objects in the processed template
+      for (const item of items) {
+        axios({
+          url: _buildProcessUrl(res.namespace, item),
+          method: 'POST',
+          data: item,
+          headers: {
+            authorization: `Bearer ${user.access_token}`
+          }
+        }).then(result => results.push(result));
+      }
+      return results;
+    });
+  });
+
 const remove = (res, obj) =>
   getUser().then(user => {
     const requestUrl = _buildRequestUrl(res);
@@ -333,12 +366,20 @@ const watch = res =>
     return Promise.resolve(new OpenShiftWatchEventListener(socket).init());
   });
 
-const _buildOpenshiftApiUrl = (baseUrl, res) => (res.group ? `${baseUrl}/apis/${res.group}` : `${baseUrl}/api`);
+const _buildOpenshiftApiUrl = (baseUrl, res) => {
+  if (res.api) {
+    return `${baseUrl}/${res.api}`;
+  }
+  if (res.group) {
+    return `${baseUrl}/apis/${res.group}`;
+  }
+  return `${baseUrl}/api`;
+};
 
 const _buildOpenShiftUrl = (baseUrl, res) => {
   const urlBegin = `${_buildOpenshiftApiUrl(baseUrl, res)}/${res.version}`;
   if (res.namespace) {
-    return `${urlBegin}/namespaces/${res.namespace}/${res.name}`;
+    return res.name ? `${urlBegin}/namespaces/${res.namespace}/${res.name}` : `${urlBegin}/namespaces/${res.namespace}`;
   }
   return `${urlBegin}/${res.name}`;
 };
@@ -346,6 +387,11 @@ const _buildOpenShiftUrl = (baseUrl, res) => {
 const _buildRequestUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.masterUri, res)}`;
 
 const _buildWatchUrl = res => `${_buildOpenShiftUrl(window.OPENSHIFT_CONFIG.wssMasterUri, res)}?watch=true`;
+
+const _buildProcessUrl = (namespace, obj) => {
+  const api = obj.apiVersion.split('/').length === 1 ? `api/${obj.apiVersion}` : `apis/${obj.apiVersion}`;
+  return `${window.OPENSHIFT_CONFIG.masterUri}/${api}/namespaces/${namespace}/${obj.kind.toLowerCase()}s`;
+};
 
 export {
   finishOAuth,
@@ -360,5 +406,6 @@ export {
   logout,
   getUser,
   poll,
+  process,
   KIND_ROUTE
 };
