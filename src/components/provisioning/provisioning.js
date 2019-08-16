@@ -4,21 +4,29 @@ import { noop } from 'patternfly-react';
 import get from 'lodash.get';
 import { connect } from '../../redux';
 import {
-  PROVISION_SERVICES,
   getCustomConfig,
   manageMiddlewareServices,
-  mockMiddlewareServices
+  mockMiddlewareServices,
+  getServicesToProvision,
+  manageServicesV4
 } from '../../services/middlewareServices';
 import { currentUser } from '../../services/openshiftServices';
 import ProvisioningScreen from './provisioningScreen';
 import { findServices } from '../../common/serviceInstanceHelpers';
+import { isOpenShift4 } from '../../common/openshiftHelpers';
+import { SERVICE_STATUSES } from '../../redux/constants/middlewareConstants';
 
 function buildProvisioningScreen(WrappedComponent) {
   class Provisioning extends React.Component {
-    state = { servicesToProvision: PROVISION_SERVICES };
+    state = { servicesToProvision: getServicesToProvision() };
 
     componentDidMount() {
-      const { getCustomConfigForUser, manageWalkthroughServices, mockWalkthroughServices } = this.props;
+      const {
+        getCustomConfigForUser,
+        manageWalkthroughServices,
+        prepareServicesV4,
+        mockWalkthroughServices
+      } = this.props;
       if (window.OPENSHIFT_CONFIG.mockData) {
         getCustomConfigForUser({ username: 'mockUser' }).then(() =>
           mockWalkthroughServices(window.OPENSHIFT_CONFIG.mockData)
@@ -28,13 +36,26 @@ function buildProvisioningScreen(WrappedComponent) {
       currentUser().then(user => {
         getCustomConfigForUser(user).then(config => {
           this.setState({ servicesToProvision: config.servicesToProvision });
-          manageWalkthroughServices(user, config);
+          const manageFn = isOpenShift4() ? prepareServicesV4 : manageWalkthroughServices;
+          manageFn(user, config);
         });
       });
     }
 
+    // OpenShift 4 equivalent of #areMiddlewareServicesReady
+    static areServicesReadyV4(services, toProvision) {
+      const completeToProvision = toProvision || getServicesToProvision();
+      for (const svcName of completeToProvision) {
+        const svc = services.find(s => s.name === svcName);
+        if (!svc || svc.status !== SERVICE_STATUSES.PROVISIONED) {
+          return false;
+        }
+      }
+      return true;
+    }
+
     static areMiddlewareServicesReady(services, toProvision) {
-      const servicesToProvision = toProvision || PROVISION_SERVICES;
+      const servicesToProvision = toProvision || getServicesToProvision();
       for (const svcName of servicesToProvision) {
         const svc = Provisioning.getServiceInstanceByClassName(services, svcName);
         if (!svc || !Provisioning.isMiddlewareServiceProvisioned(svc)) {
@@ -57,11 +78,12 @@ function buildProvisioningScreen(WrappedComponent) {
 
     render() {
       const { middlewareServices } = this.props;
-      if (
-        !Provisioning.areMiddlewareServicesReady(Object.values(middlewareServices.data), this.state.servicesToProvision)
-      ) {
+      const readinessCheckFn = isOpenShift4()
+        ? Provisioning.areServicesReadyV4
+        : Provisioning.areMiddlewareServicesReady;
+      if (!readinessCheckFn(Object.values(middlewareServices.data), this.state.servicesToProvision)) {
         const svcToWatch = findServices(
-          this.state.servicesToProvision || PROVISION_SERVICES,
+          this.state.servicesToProvision || getServicesToProvision(),
           Object.values(middlewareServices.data)
         );
         return <ProvisioningScreen provisioningServices={svcToWatch || []} />;
@@ -72,6 +94,7 @@ function buildProvisioningScreen(WrappedComponent) {
 
   Provisioning.propTypes = {
     manageWalkthroughServices: PropTypes.func,
+    prepareServicesV4: PropTypes.func,
     mockWalkthroughServices: PropTypes.func,
     middlewareServices: PropTypes.object,
     getCustomConfigForUser: PropTypes.func
@@ -79,6 +102,7 @@ function buildProvisioningScreen(WrappedComponent) {
 
   Provisioning.defaultProps = {
     manageWalkthroughServices: noop,
+    prepareServicesV4: noop,
     mockWalkthroughServices: noop,
     getCustomConfigForUser: noop,
     middlewareServices: { data: {} }
@@ -86,6 +110,7 @@ function buildProvisioningScreen(WrappedComponent) {
 
   const mapDispatchToProps = dispatch => ({
     manageWalkthroughServices: (user, config) => manageMiddlewareServices(dispatch, user, config),
+    prepareServicesV4: (user, config) => manageServicesV4(dispatch, user, config),
     mockWalkthroughServices: mockData => mockMiddlewareServices(dispatch, mockData),
     getCustomConfigForUser: user => getCustomConfig(dispatch, user)
   });

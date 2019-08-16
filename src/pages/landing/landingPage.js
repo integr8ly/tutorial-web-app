@@ -6,10 +6,14 @@ import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashbo
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
-import { provisionAMQOnline } from '../../services/amqOnlineServices';
+import { provisionAMQOnline, provisionAMQOnlineV4 } from '../../services/amqOnlineServices';
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
-import { getUsersSharedNamespaceName, getUsersSharedNamespaceDisplayName } from '../../common/openshiftHelpers';
+import {
+  getUsersSharedNamespaceName,
+  getUsersSharedNamespaceDisplayName,
+  isOpenShift4
+} from '../../common/openshiftHelpers';
 import { DISPLAY_SERVICES } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
@@ -17,6 +21,17 @@ class LandingPage extends React.Component {
     const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
     getProgress();
+  }
+
+  handleServiceLaunchV4(svcName) {
+    const { launchAMQOnlineV4 } = this.props;
+
+    currentUser().then(user => {
+      const sharedNamespaceName = getUsersSharedNamespaceName(user.username);
+      if (svcName === DEFAULT_SERVICES.ENMASSE) {
+        launchAMQOnlineV4(user.username, sharedNamespaceName);
+      }
+    });
   }
 
   handleServiceLaunch(svcName) {
@@ -36,6 +51,7 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
+    const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
 
     return (
       <React.Fragment>
@@ -52,7 +68,7 @@ class LandingPage extends React.Component {
                   enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
                   showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
                   customApps={middlewareServices.customServices.services}
-                  handleLaunch={svcName => this.handleServiceLaunch(svcName)}
+                  handleLaunch={svcName => launchFn(svcName)}
                 />
               </GridItem>
             </Grid>
@@ -72,7 +88,8 @@ LandingPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }),
-  launchAMQOnline: PropTypes.func
+  launchAMQOnline: PropTypes.func,
+  launchAMQOnlineV4: PropTypes.func
 };
 
 LandingPage.defaultProps = {
@@ -87,18 +104,16 @@ LandingPage.defaultProps = {
   history: {
     push: noop
   },
-  launchAMQOnline: noop
+  launchAMQOnline: noop,
+  launchAMQOnlineV4: noop
 };
 
 const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
   getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
   getProgress: () => dispatch(reduxActions.userActions.getProgress()),
-  launchAMQOnline: (username, namespace) =>
-    provisionAMQOnline(dispatch, username, namespace).then(a => {
-      console.log('a', a);
-      return a;
-    })
+  launchAMQOnline: (username, namespace) => provisionAMQOnline(dispatch, username, namespace),
+  launchAMQOnlineV4: (username, namespace) => provisionAMQOnlineV4(dispatch, username, namespace)
 });
 
 const mapStateToProps = state => ({

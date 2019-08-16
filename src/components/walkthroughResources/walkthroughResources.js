@@ -7,17 +7,6 @@ import { connect } from '../../redux';
 import { SERVICE_TYPES, SERVICE_STATUSES } from '../../redux/constants/middlewareConstants';
 
 class WalkthroughResources extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      resourceList: null
-    };
-  }
-
-  componentDidMount() {
-    this.buildResourcesList();
-  }
-
   mapServiceLinks() {
     const { resources, middlewareServices } = this.props;
     if (resources.length !== 0) {
@@ -104,7 +93,7 @@ class WalkthroughResources extends React.Component {
         </div>
       ));
     }
-    this.setState({ resourceList });
+    return resourceList;
   }
 
   render() {
@@ -112,7 +101,7 @@ class WalkthroughResources extends React.Component {
       <Card className="pf-u-p-lg">
         <TextContent className="integr8ly-walkthrough-resources">
           <h3>Resources</h3>
-          {this.state.resourceList}
+          {this.buildResourcesList()}
           <div className={this.props.resources.length !== 0 ? 'hidden' : 'show'}>No resources available.</div>
         </TextContent>
       </Card>

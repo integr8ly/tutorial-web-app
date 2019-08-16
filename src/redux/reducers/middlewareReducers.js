@@ -32,7 +32,7 @@ const middlewareReducers = (state = initialState, action) => {
       name: action.payload.name,
       url: action.payload.url,
       status: action.payload.status,
-      extra: action.payload.extra || {}
+      additionalAttributes: action.payload.additionalAttributes || {}
     };
     return Object.assign({}, state, {
       middlewareServices: {

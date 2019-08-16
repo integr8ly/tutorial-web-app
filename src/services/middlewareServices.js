@@ -10,7 +10,8 @@ import {
   getUsersSharedNamespaceName,
   getUsersSharedNamespaceDisplayName,
   cleanUsername,
-  findOrCreateOpenshiftResource
+  findOrCreateOpenshiftResource,
+  isOpenShift4
 } from '../common/openshiftHelpers';
 import {
   namespaceResource,
@@ -24,6 +25,7 @@ import {
 import productDetails from '../product-info';
 import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
 import { watchAMQOnline } from './amqOnlineServices';
+import { provisionFuseOnlineV4 } from './fuseOnlineServices';
 
 // The default services to watch.
 let defaultWatchServices = [
@@ -47,7 +49,7 @@ const WATCH_SERVICES = defaultWatchServices;
 const DISPLAY_SERVICES = [DEFAULT_SERVICES.ENMASSE];
 
 // The default services to provision.
-let provisionServices = [
+const PROVISION_SERVICES_OPENSHIFT_3 = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.APICURIO,
@@ -56,10 +58,17 @@ let provisionServices = [
   DEFAULT_SERVICES.RHSSO,
   DEFAULT_SERVICES.USER_RHSSO
 ];
-if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalProvisionServices.length > 0) {
-  provisionServices = provisionServices.concat(window.OPENSHIFT_CONFIG.optionalProvisionServices);
-}
-const PROVISION_SERVICES = provisionServices;
+
+const PROVISION_SERVICES_OPENSHIFT_4 = [];
+
+const getServicesToProvision = () => {
+  const services = isOpenShift4() ? PROVISION_SERVICES_OPENSHIFT_4 : PROVISION_SERVICES_OPENSHIFT_3;
+  const additionalServices = [];
+  if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalProvisionServices) {
+    additionalServices.push(...window.OPENSHIFT_CONFIG.optionalProvisionServices);
+  }
+  return [].concat(services, additionalServices);
+};
 
 /**
  * Lookup product details (name and GA status) and add them to the
@@ -111,6 +120,65 @@ const mockMiddlewareServices = (dispatch, mockData) => {
 };
 
 /**
+ * Equivalent to #manageMiddlewareServices but for OpenShift 4.
+ */
+const manageServicesV4 = (dispatch, user, manifest) => {
+  const toProvision = manifest.servicesToProvision || getServicesToProvision();
+  // Ensure the app knows the current user if it doesn't already.
+  dispatch({
+    type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
+    payload: { provisioningUser: user.username }
+  });
+
+  const sharedNamespaceName = getUsersSharedNamespaceName(user.username);
+  const sharedNamespaceDisplay = getUsersSharedNamespaceDisplayName(user.username);
+  const namespaceRes = namespaceResource({ name: sharedNamespaceName });
+  const namespaceRequestRes = namespaceRequestResource(sharedNamespaceDisplay, { name: sharedNamespaceName });
+  const nsCompareFn = n => n.metadata.name === sharedNamespaceName;
+
+  return (
+    findOrCreateOpenshiftResource(namespaceDef, namespaceRes, nsCompareFn, namespaceRequestDef, namespaceRequestRes)
+      // Handle provisioning services
+      .then(ns => {
+        const nsName = ns.metadata.name;
+        console.log(`Shared namespace ${nsName} created`);
+        console.log(`Resolving the following services, ${toProvision.join(', ')}`);
+        const svcAttrs = toProvision.reduce((acc, svcName) => {
+          if (svcName === DEFAULT_SERVICES.FUSE) {
+            console.log(`Resolving fuse online with user ${user.username} in namespace ${nsName}`);
+            acc.push(provisionFuseOnlineV4(dispatch, user.username, nsName));
+          }
+          return acc;
+        }, []);
+        console.log(`completed service resolution with ${svcAttrs.length} services`);
+        return Promise.all(svcAttrs);
+      })
+      // Handle dispatching provision results
+      .then(svcAttrs => {
+        if (!svcAttrs) {
+          console.warn('service provision results are undefined');
+        }
+        console.log(`dispatching ${svcAttrs.length} service provision results`);
+        svcAttrs.forEach(attrs =>
+          dispatch({
+            type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
+            payload: attrs
+          })
+        );
+      })
+      // Handle watching services
+      .then(() => {
+        const nsName = getUsersSharedNamespaceName(user.username);
+        WATCH_SERVICES.forEach(svcName => {
+          if (svcName === DEFAULT_SERVICES.ENMASSE) {
+            watchAMQOnline(dispatch, user.username, nsName);
+          }
+        });
+      })
+  );
+};
+
+/**
  * Manage the current authenticated users walkthrough. This performs a number
  * of initialization tasks and then some long-running tasks.
  *
@@ -129,7 +197,7 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  * @param {Object} dispatch Redux dispatch.
  */
 const manageMiddlewareServices = (dispatch, user, config) => {
-  const walkthroughServices = config.servicesToProvision || PROVISION_SERVICES;
+  const walkthroughServices = config.servicesToProvision || getServicesToProvision();
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
     payload: { provisioningUser: user.username }
@@ -318,7 +386,6 @@ const handleEnmasseServiceInstanceWatchEvents = (dispatch, event) => {
 };
 
 export {
-  PROVISION_SERVICES,
   WATCH_SERVICES,
   DISPLAY_SERVICES,
   manageMiddlewareServices,
@@ -326,5 +393,7 @@ export {
   getCustomConfig,
   handleEnmasseServiceInstanceWatchEvents,
   getProductDetails,
-  getProductDetailsForServiceClass
+  getProductDetailsForServiceClass,
+  getServicesToProvision,
+  manageServicesV4
 };

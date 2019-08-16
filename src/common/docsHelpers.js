@@ -1,6 +1,7 @@
 import { DEFAULT_SERVICES, getDashboardUrl } from '../common/serviceInstanceHelpers';
 import { buildValidProjectNamespaceName, cleanUsername } from './openshiftHelpers';
 import { KIND_ROUTE } from '../services/openshiftServices';
+import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
 
 const getDocsForWalkthrough = (walkthroughId, middlewareServices, walkthroughResources) => {
   if (window.OPENSHIFT_CONFIG.mockData) {
@@ -17,16 +18,27 @@ const getDocsForWalkthrough = (walkthroughId, middlewareServices, walkthroughRes
   return Object.assign({}, middlewareAttrs, walkthroughAttrs, userAttrs, { 'walkthrough-id': walkthroughId });
 };
 
-const getUserAttrs = (walkthroughId, username) => ({
-  'openshift-host': window.OPENSHIFT_CONFIG.masterUri,
-  'project-namespace': buildValidProjectNamespaceName(username, 'shared'),
-  'walkthrough-namespace': buildValidProjectNamespaceName(
-    username,
-    walkthroughId || buildValidProjectNamespaceName(username, 'shared')
-  ),
-  'user-username': username,
-  'user-sanitized-username': cleanUsername(username)
-});
+const getUserAttrs = (walkthroughId, username) => {
+  let attrs = {
+    'openshift-host': window.OPENSHIFT_CONFIG.masterUri
+  };
+  if (username) {
+    attrs = Object.assign({}, attrs, {
+      'project-namespace': buildValidProjectNamespaceName(username, 'shared'),
+      'user-username': username,
+      'user-sanitized-username': cleanUsername(username)
+    });
+  }
+  if (!!username && !!walkthroughId) {
+    attrs = Object.assign({}, attrs, {
+      'walkthrough-namespace': buildValidProjectNamespaceName(
+        username,
+        walkthroughId || buildValidProjectNamespaceName(username, 'shared')
+      )
+    });
+  }
+  return attrs;
+};
 
 const getWalkthroughSpecificAttrs = (walkthroughId, walkthroughResources) =>
   Object.keys(walkthroughResources[walkthroughId] || {}).reduce((acc, resId) => {
@@ -76,7 +88,12 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     });
   }
 
-  return output;
+  // Allow OpenShift 4 service additionalAttributes to be exposed
+  const additionalAttrsList = Object.values(middlewareServices.data)
+    .filter(svc => svc.type === SERVICE_TYPES.PROVISIONED_SERVICE)
+    .map(svc => svc.additionalAttributes || {});
+
+  return Object.assign({}, output, ...additionalAttrsList);
 };
 
 const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {

@@ -175,6 +175,10 @@ class InstalledAppsView extends React.Component {
   }
 
   handleLaunchClicked(svc) {
+    if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
+      this.props.handleLaunch(svc.name);
+      return;
+    }
     this.props.handleLaunch(svc.spec.clusterServiceClassExternalName);
   }
 

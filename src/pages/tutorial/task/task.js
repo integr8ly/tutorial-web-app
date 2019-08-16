@@ -24,7 +24,7 @@ import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
 import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
-import { prepareCustomWalkthroughNamespace } from '../../../services/walkthroughServices';
+import { prepareCustomWalkthroughNamespace, prepareWalkthroughV4 } from '../../../services/walkthroughServices';
 import { getThreadProgress } from '../../../services/threadServices';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../../common/docsHelpers';
 import {
@@ -35,6 +35,7 @@ import {
 } from '../../../common/walkthroughHelpers';
 import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
 import { findServices } from '../../../common/serviceInstanceHelpers';
+import { isOpenShift4 } from '../../../common/openshiftHelpers';
 
 class TaskPage extends React.Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class TaskPage extends React.Component {
     const {
       getWalkthrough,
       prepareCustomWalkthrough,
+      provisionWalkthroughV4,
       updateWalkthroughProgress,
       match: {
         params: { id }
@@ -85,7 +87,11 @@ class TaskPage extends React.Component {
       return;
     }
     getWalkthrough(id);
-    prepareCustomWalkthrough(id, this.getDocsAttributes(id));
+    if (isOpenShift4()) {
+      provisionWalkthroughV4(id, this.getDocsAttributes(id));
+    } else {
+      prepareCustomWalkthrough(id, this.getDocsAttributes(id));
+    }
     const currentUsername = localStorage.getItem('currentUserName');
     const currentUserProgress = getThreadProgress(currentUsername);
     updateWalkthroughProgress(currentUsername, currentUserProgress);
@@ -556,6 +562,7 @@ TaskPage.propTypes = {
   // user: PropTypes.object,
   getWalkthrough: PropTypes.func,
   prepareCustomWalkthrough: PropTypes.func,
+  provisionWalkthroughV4: PropTypes.func,
   updateWalkthroughProgress: PropTypes.func,
   threadProgress: PropTypes.object,
   walkthroughResources: PropTypes.object
@@ -577,6 +584,7 @@ TaskPage.defaultProps = {
     enmasseCredentials: {}
   },
   prepareCustomWalkthrough: noop,
+  provisionWalkthroughV4: noop,
   thread: null,
   manifest: null,
   // user: null,
@@ -590,6 +598,7 @@ const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
   getProgress: () => dispatch(reduxActions.userActions.getProgress()),
   prepareCustomWalkthrough: (id, attrs) => prepareCustomWalkthroughNamespace(dispatch, id, attrs),
+  provisionWalkthroughV4: (id, attrs) => prepareWalkthroughV4(dispatch, id, attrs),
   setProgress: progress => dispatch(reduxActions.userActions.setProgress(progress)),
   getWalkthrough: id => dispatch(reduxActions.threadActions.getCustomThread(id)),
   updateWalkthroughProgress: (username, progress) =>

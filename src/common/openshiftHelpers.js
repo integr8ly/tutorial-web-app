@@ -8,6 +8,21 @@ const NAMESPACE_USERNAME_LENGTH = 10;
 // The length of the hash appended to the end of the namespace.
 const NAMESPACE_HASH_LENGTH = 4;
 
+// OpenShift versions
+const V4 = '4';
+const V3 = '3';
+
+/**
+ * Retrieve the OpenShift version that should be set on the window.
+ */
+const getOpenShiftVersion = (defaultTo = V3) => `${window.OPENSHIFT_CONFIG.openshiftVersion}` || defaultTo;
+
+const isOpenShift4 = () => getOpenShiftVersion() === V4;
+const isOpenShift3 = () => getOpenShiftVersion() === V3;
+
+const getMasterUri = () => window.OPENSHIFT_CONFIG.masterUri;
+const getWSMasterUri = () => window.OPENSHIFT_CONFIG.wssMasterUri;
+
 /**
  * Same as `buildValidProjectNamespaceName`, but with a hardcoded suffix
  */
@@ -45,11 +60,17 @@ const buildValidNamespaceDisplayName = (username, suffix) => `${username} - ${su
  * Get a sanitized version of a username, so it can be used to name OpenShift.
  * @param {string} username The username to sanitize.
  */
-const cleanUsername = username =>
-  username
+const cleanUsername = username => {
+  let sanitizedUsername = username
     .replace(/@/g, '-')
     .replace(/\./g, '-')
-    .replace(/\s/g, '-');
+    .replace(/\s/g, '-')
+    .replace(/:/g, '-');
+  if (sanitizedUsername.startsWith('kube-') || sanitizedUsername.startsWith('openshift-')) {
+    sanitizedUsername = `user-${sanitizedUsername}`;
+  }
+  return sanitizedUsername;
+};
 
 const trimmedHash = (namespace, length) =>
   shajs('sha256')
@@ -94,7 +115,7 @@ const findOrCreateOpenshiftResource = (
       if (resourceToCreateDef && resourceToCreateObj) {
         return create(resourceToCreateDef, resourceToCreateObj);
       }
-      create(resourceDef, resourceToFind);
+      return create(resourceDef, resourceToFind);
     }
     return Promise.resolve(foundResource);
   });
@@ -107,5 +128,12 @@ export {
   cleanUsername,
   buildValidNamespaceDisplayName,
   getUsersSharedNamespaceName,
-  getUsersSharedNamespaceDisplayName
+  getUsersSharedNamespaceDisplayName,
+  getOpenShiftVersion,
+  isOpenShift4,
+  isOpenShift3,
+  getMasterUri,
+  getWSMasterUri,
+  V3,
+  V4
 };
