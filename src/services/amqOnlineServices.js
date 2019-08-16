@@ -26,9 +26,14 @@ const watchAMQOnline = (dispatch, username, namespace) =>
         dispatch(getPayloadFromAddressSpace(event));
         return;
       }
+      const payload = getPayloadFromAddressSpace(event);
+      payload.additionalAttributes = Object.assign({}, payload.additionalAttributes, {
+        'enmasse-credentials-username': cleanUsername(username),
+        'enmasse-credentials-password': window.atob(genEvalPassword(username))
+      });
       dispatch({
         type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
-        payload: getPayloadFromAddressSpace(event)
+        payload
       });
     });
   });
