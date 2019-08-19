@@ -61,7 +61,23 @@ const provisionAMQOnlineV4 = (dispatch, username, namespace, opts = getDefaultPr
       initialStep = provisionAddressSpace(username, namespace);
     }
     initialStep
-      .then(provisionMessagingUser(username, namespace))
+      // wait for addressspace to be created
+      .then(() => {
+        console.log(`waiting for addressspace ${username} to exist`);
+        /* eslint-disable no-shadow */
+        return new Promise(resolve => {
+          poll(addressSpaceDef(namespace)).then(listener => {
+            listener.onEvent(as => {
+              if (!as.metadata.name === username) {
+                return;
+              }
+              resolve(as);
+            });
+          });
+        });
+        /* eslint-enable no-shadow */
+      })
+      .then(() => provisionMessagingUser(username, namespace))
       .then(() =>
         poll(addressSpaceDef(namespace)).then(pollListener => {
           pollListener.onEvent(

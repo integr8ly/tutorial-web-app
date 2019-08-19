@@ -98,7 +98,7 @@ const provisionSyndesis = (username, namespace) => {
         }
       },
       integration: {
-        limit: -1
+        limit: 0
       }
     }
   };

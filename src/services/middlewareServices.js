@@ -237,7 +237,6 @@ const manageMiddlewareServices = (dispatch, user, config) => {
           watchListener.onEvent(handleAMQStatefulSetWatchEvents.bind(null, dispatch, userNamespace))
         );
       }
-      watchAMQOnline(dispatch, user.username, { name: userNamespace });
     });
 };
 
