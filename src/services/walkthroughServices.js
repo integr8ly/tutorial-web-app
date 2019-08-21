@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Mustache from 'mustache';
 import serviceConfig from './config';
-import { watch, process, currentUser, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, process, currentUser, OpenShiftWatchEvents, processV4, poll, KIND_ROUTE } from './openshiftServices';
 import { initCustomThread } from './threadServices';
 import {
   buildValidProjectNamespaceName,
@@ -17,8 +17,7 @@ import {
   namespaceDef,
   namespaceRequestDef,
   serviceInstanceDef,
-  routeDef,
-  templateDef
+  routeDef
 } from '../common/openshiftResourceDefinitions';
 import { addWalkthroughService, removeWalkthroughService } from '../redux/actions/walkthroughServiceActions';
 import {
@@ -70,8 +69,19 @@ const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
           namespaceReq
         ).then(n => [user, manifest, n]);
       })
+      // Handle watching OpenShift routes.
+      .then(([user, manifest, walkthroughNS]) =>
+        poll(routeDef(walkthroughNS.metadata.name))
+          .then(listener => {
+            listener.onEvent(route => {
+              route.kind = KIND_ROUTE;
+              dispatch(addWalkthroughService(walkthroughName, route));
+            });
+          })
+          .then(() => [user, manifest, walkthroughNS])
+      )
       // Handle shared namespace actions.
-      .then(([user, manifest, _]) => {
+      .then(([user, manifest, walkthroughNs]) => {
         console.log(`reconciling shared namespace for walkthrough ${walkthroughName}`);
         if (!manifest || !manifest.dependencies || !manifest.dependencies.managedServices) {
           return Promise.resolve([]);
@@ -101,8 +111,23 @@ const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
             })
           );
           dispatch(initCustomThreadSuccess(manifest));
-          return svcsAttrs;
+          return [user, manifest, walkthroughNs, svcsAttrs];
         });
+      })
+      // Handle manifest templates
+      .then(([user, manifest, walkthroughNs, svcAttrs]) => {
+        const nsName = walkthroughNs.metadata.name;
+        const mergedAttrs = Object.assign({}, ...svcAttrs.map(a => a.additionalAttributes));
+
+        if (!manifest || !manifest.dependencies || !manifest.dependencies.templates) {
+          console.log(`no templates found for walkthrough ${walkthroughName}`);
+          return Promise.resolve([user, manifest]);
+        }
+        const templateTasks = manifest.dependencies.templates.map(rawTemplate => {
+          const template = parseTemplate(rawTemplate, mergedAttrs);
+          return processV4(nsName, template);
+        });
+        return Promise.all(templateTasks).then(() => svcAttrs);
       })
   );
 };
@@ -160,13 +185,6 @@ const prepareCustomWalkthroughNamespace = (dispatch, walkthoughName, attrs = {})
               const serviceInstance = Object.assign({}, DEFAULT_SERVICE_INSTANCE, siPartial);
               return parseServiceInstanceTemplate(serviceInstance, mergedAttrs);
             });
-            // Process the template if one exists and create its objects
-            if (manifest.dependencies.templates) {
-              manifest.dependencies.templates.map(rawTemplate => {
-                const template = parseTemplate(rawTemplate, mergedAttrs);
-                return process(templateDef(userNamespace), template);
-              });
-            }
 
             return Promise.all(
               siObjs.map(siObj =>

@@ -50,6 +50,12 @@ const templateDef = namespace => ({
   namespace,
   api: 'oapi'
 });
+const processedTemplateDefV4 = namespace => ({
+  name: 'processedtemplates',
+  namespace,
+  version: 'v1',
+  group: 'template.openshift.io'
+});
 const addressSpaceDef = namespace => ({
   name: 'addressspaces',
   namespace,
@@ -118,5 +124,6 @@ export {
   catalogSourceConfigDef,
   operatorGroupDef,
   subscriptionDef,
-  csvDef
+  csvDef,
+  processedTemplateDefV4
 };
