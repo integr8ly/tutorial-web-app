@@ -125,7 +125,7 @@ const TutorialDashboard = props => {
         </div>
       );
       htmlSnippet.push(
-        <Gallery gutter="md" key={`gallery-${allRepos[i]}`}>
+        <Gallery gutter="md" key={`gallery-${allRepos[i]}`} className="pf-u-mt-sm pf-u-mb-md">
           {cards}
         </Gallery>
       );
