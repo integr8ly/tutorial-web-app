@@ -116,22 +116,23 @@ class SettingsPage extends React.Component {
                 </CardHeader>
                 <CardBody>
                   To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                  Solution Explorer default content is already included.{' '}
+                  Solution Explorer default content is already included. See{' '}
                   <a
-                    href="/tutorial/tutorial-web-app-walkthroughs-walkthroughs-publishing-walkthroughs/"
+                    href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    Learn more about subscribed content.
-                  </a>
+                    Getting Started
+                  </a>{' '}
+                  for information about these settings.
                 </CardBody>
                 <CardBody>
                   <Form>
                     <FormGroup
                       label="List URLs in the order you want them to appear on the Home page:"
                       type="text"
-                      helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs"
-                      helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs"
+                      helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                      helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
                       fieldId="repo-formgroup"
                       isValid={isValid}
                     >
