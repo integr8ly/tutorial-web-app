@@ -28,7 +28,7 @@ export default {
     gaStatus: 'GA'
   },
   apicurio: {
-    prettyName: 'Apicurito',
+    prettyName: 'API Designer',
     gaStatus: 'GA'
   },
   mdc: {
