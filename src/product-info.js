@@ -33,7 +33,7 @@ export default {
   },
   mdc: {
     prettyName: 'Mobile Developer Console',
-    gaStatus: 'LA'
+    gaStatus: 'preview'
   },
   rhsso: {
     prettyName: 'Red Hat Single Sign-On (Cluster)',
