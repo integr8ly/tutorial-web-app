@@ -173,7 +173,7 @@ class Masthead extends React.Component {
                     Customer support
                   </DropdownItem>,
                   <DropdownSeparator key="help-separator-1" />,
-                  <DropdownItem key="help-dev-resources" href="#dev-resources" onClick={this.onDevResourcesClick}>
+                  <DropdownItem key="help-dev-resources" onClick={this.onDevResourcesClick}>
                     Developer resources
                   </DropdownItem>,
                   <DropdownSeparator key="help-separator-2" />,
