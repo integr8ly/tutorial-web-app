@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Asciidoctor from 'asciidoctor.js';
 import { translate } from 'react-i18next';
-import { ClipboardCopy, ClipboardCopyVariant } from '@patternfly/react-core';
+import CopyField from '../copyField/copyField';
 
 class AsciiDocTemplate extends React.Component {
   state = { loaded: false, docContent: null };
@@ -32,12 +32,7 @@ class AsciiDocTemplate extends React.Component {
     if (this.rootDiv.current) {
       const codeBlocks = this.rootDiv.current.querySelectorAll('pre');
       codeBlocks.forEach(block => {
-        ReactDOM.render(
-          <ClipboardCopy isReadOnly variant={block.clientHeight > 40 ? ClipboardCopyVariant.expansion : null}>
-            {block.innerText}
-          </ClipboardCopy>,
-          block.parentNode
-        );
+        ReactDOM.render(<CopyField value={block.innerText} multiline={block.clientHeight > 40} />, block.parentNode);
       });
     }
   }
