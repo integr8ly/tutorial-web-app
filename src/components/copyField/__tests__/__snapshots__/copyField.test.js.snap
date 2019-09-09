@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyField Component should default expanded on multiline and collapse on blur: expanded 1`] = `null`;
+
+exports[`CopyField Component should render a multi-line copy component: multi-line 1`] = `
+<div
+  aria-live="polite"
+  class="integr8ly-copy form-group"
+>
+  <span
+    class="pf-u-display-flex input-group"
+  >
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-hidden="true"
+        class="integr8ly-copy-display-button btn btn-default"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-angle-down"
+        />
+      </button>
+    </span>
+    <input
+      class="integr8ly-copy-input expanded form-control"
+      copyfieldid="copyField_null"
+      id="test"
+      readonly=""
+      type="text"
+      value="{\\"hello\\":\\"world\\"}"
+    />
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-label="Copy to Clipboard"
+        class="btn btn-default"
+        id="copyButton_null"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-paste"
+        />
+      </button>
+    </span>
+  </span>
+  <textarea
+    aria-hidden="true"
+    class="integr8ly-copy-display pf-u-p-md pf-u-w-100"
+    disabled=""
+    rows="5"
+  >
+    {"hello":"world"}
+  </textarea>
+</div>
+`;
+
+exports[`CopyField Component should render a single-line copy component: single-line 1`] = `
+<div
+  aria-live="polite"
+  class="integr8ly-copy form-group"
+>
+  <span
+    class="pf-u-display-flex input-group"
+  >
+    <input
+      class="integr8ly-copy-input false form-control"
+      copyfieldid="copyField_null"
+      id="test"
+      readonly=""
+      type="text"
+      value="{\\"hello\\":\\"world\\"}"
+    />
+    <span
+      class="input-group-btn"
+    >
+      <button
+        aria-label="Copy to Clipboard"
+        class="btn btn-default"
+        id="copyButton_null"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="fa fa-paste"
+        />
+      </button>
+    </span>
+  </span>
+</div>
+`;

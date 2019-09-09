@@ -7,8 +7,6 @@ import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
 import {
   Button,
   Card,
-  ClipboardCopy,
-  ClipboardCopyVariant,
   Grid,
   GridItem,
   Page,
@@ -34,6 +32,7 @@ import {
   WalkthroughStep
 } from '../../../common/walkthroughHelpers';
 import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
+import CopyField from '../../../components/copyField/copyField';
 import { findServices } from '../../../common/serviceInstanceHelpers';
 import { isOpenShift4 } from '../../../common/openshiftHelpers';
 
@@ -49,13 +48,11 @@ class TaskPage extends React.Component {
       let sequenceNumber = 1;
       codeBlocks.forEach(block => {
         ReactDOM.render(
-          <ClipboardCopy
-            id={sequenceNumber.toString()}
-            isReadOnly
-            variant={block.clientHeight > 40 ? ClipboardCopyVariant.expansion : null}
-          >
-            {block.innerText}
-          </ClipboardCopy>,
+          <CopyField
+            copySequenceId={sequenceNumber.toString()}
+            value={block.innerText}
+            multiline={block.clientHeight > 40}
+          />,
           block.parentNode
         );
         sequenceNumber++;
