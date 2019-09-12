@@ -25,7 +25,7 @@ class WalkthroughDetails extends React.Component {
     return (
       <Card className="pf-u-p-lg">
         <TextContent className="integr8ly-walkthrough-resources">
-          <h2>About this walkthrough</h2>
+          <h2>About this Solution Pattern</h2>
           <h3>Details</h3>
           <div className="pf-u-pb-sm">
             <div className="pf-u-display-flex pf-u-justify-content-space-between">
