@@ -366,10 +366,16 @@ function resolveWalkthroughLocations(locations) {
         }
 
         return reject(new Error(`${location} is neither a path nor a git repo`));
+      }).catch(err => {
+        console.error(err);
+        return undefined;
       })
   );
 
-  return Promise.all(mappedLocations).then(flattenDeep);
+  return Promise.all(mappedLocations).then(promises => {
+    // Ignore all locations that could not be resolved
+    return flattenDeep(promises.filter(p => !!p));
+  });
 }
 
 /**
