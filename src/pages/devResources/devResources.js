@@ -24,17 +24,19 @@ import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 // import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 
 class DevResourcesPage extends React.Component {
-  // constructor(props) {
-  //   super(props);
+  constructor(props) {
+    super(props);
 
-  //   const { clusterId, clusterType } = this.props;
+    this.state = {
+      clusterId: '',
+      loggingUrl: ''
+    };
+  }
 
-  //   const { userWalkthroughs } = this.props;
-
-  // this.state = {
-  //   value: userWalkthroughs || '',
-  //   isValid: true
-  // };
+  componentDidMount() {
+    const uri = window.location.href;
+    this.getClusterId(uri);
+  }
 
   // if mockdata, use localhost as the cluster type, otherwise get the type via window.OPENSHIFT_CONFIG
   // which is itself derived from an env var in server.js
@@ -56,36 +58,69 @@ class DevResourcesPage extends React.Component {
   // method that retrieves the clusterId from a URL
   getClusterId = url => {
     let urlParts = [];
-    let clusterId = '';
+    // let clusterId = '';
+    // let loggingUrl = '';
     const clusterType = this.getClusterType();
     urlParts = new URL(url).host.split('.');
     const [pocClusterId, , rhpdsClusterId] = urlParts;
 
     switch (clusterType) {
       case 'rhpds':
-        clusterId = rhpdsClusterId;
+        // 'https://tutorial-web-app-webapp.apps.puma.openshiftworkshop.com/'
+        // 'https://tutorial-web-app-webapp.apps.puma.open.redhat.com/'
+
+        this.setState = {
+          clusterId: rhpdsClusterId,
+          loggingUrl: `https://kibana.apps.${rhpdsClusterId}.openshiftworkshop.com`
+        };
+        console.log(this.state);
         break;
+      // clusterId = rhpdsClusterId;
+      //     loggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
+      //     break;
       case 'poc':
-        clusterId = pocClusterId;
+        this.setState = {
+          clusterId: pocClusterId,
+          loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
+        };
+        console.log(this.state);
         break;
+      // 'https://puma.rhmi.io/'
+      // clusterId = pocClusterId;
+      // break;
       case 'osd':
-        clusterId = rhpdsClusterId;
+        this.setState = {
+          clusterId: pocClusterId,
+          loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
+        };
+        console.log(this.state);
         break;
-      case 'dev':
-        clusterId = rhpdsClusterId;
-        break;
+      // `https://puma.openshift.com`
+      // clusterId = pocClusterId;
+      // break;
       default:
-        clusterId = 'my-cluster-id';
+        this.setState = {
+          clusterId: pocClusterId,
+          loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
+        };
+        console.log(this.state);
+      //   clusterId = 'localhost';
+      // loggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
     }
+
+    // question: is clusterId just the hostname? if so, can try using window.location.hostname
+    // see this: https://guide.freecodecamp.org/javascript/window-location/
 
     // uriString = uriString.replace('https://master.', '');
     // uriString = uriString.substring(0, uriString.indexOf('.'));
 
     console.log(`Original Url: ${url}`);
     console.log(`Cluster type: ${clusterType}`);
-    console.log(`Cluster ID: ${clusterId}`);
+    console.log(`Cluster ID: ${this.state.clusterId}`);
+    console.log(`Results of window.location.hostname: ${window.location.hostname}`);
+    console.log(`Results of window.location.host: ${window.location.host}`);
 
-    return clusterId;
+    // return clusterId;
   };
 
   render() {
@@ -95,12 +130,16 @@ class DevResourcesPage extends React.Component {
     const apiTooltip = 'The URL for the OpenShift and Kubernetes REST API.';
     const registryTooltip = 'The URL for the private image registry.';
 
+    const loggingUrl = this.state.loggingUrl;
+
     // const rhpdsUri = 'https://tutorial-web-app-webapp.apps.uxddev-b2b9.openshiftworkshop.com/';
-    const rhmiUri = 'https://puma.rhmi.io/';
+    // const rhmiUri = 'https://puma.rhmi.io/';
     // const clusterType = 'rhpds';
+    const uri = window.location.href;
 
     // const clusterId = 'uxddev-17f0'; // MF080519 - get this from the existing variable
-    const clusterId = this.getClusterId(rhmiUri); // MF080519 - get this from the existing variable
+    // const clusterId = this.getClusterId(uri); // MF080519 - get this from the existing variable
+    const clusterId = this.state.clusterId;
 
     // MF080519 - need to get this from env var and populate with the correct one
     const osdLoggingUrl = `https://logs.${clusterId}.openshift.com`;
@@ -140,7 +179,8 @@ class DevResourcesPage extends React.Component {
                     </Tooltip>
                   </h4>
                   <Button variant="link" icon={<ExternalLinkSquareAltIcon />}>
-                    {osdLoggingUrl}
+                    {/* {osdLoggingUrl} */}
+                    {loggingUrl}
                   </Button>{' '}
                 </CardBody>
                 <CardBody>
