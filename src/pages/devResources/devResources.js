@@ -29,30 +29,41 @@ class DevResourcesPage extends React.Component {
 
     this.state = {
       clusterId: '',
-      loggingUrl: ''
+      loggingUrl: '',
+      clusterType: ''
     };
   }
 
   componentDidMount() {
+    this.getClusterType();
+  }
+
+  componentDidUpdate(prevState) {
     const uri = window.location.href;
-    this.getClusterId(uri);
+    if (this.state.clusterType !== prevState.clusterType) {
+      this.getClusterId(uri);
+    }
   }
 
   // if mockdata, use localhost as the cluster type, otherwise get the type via window.OPENSHIFT_CONFIG
   // which is itself derived from an env var in server.js
   getClusterType = () => {
-    let clusterType = '';
+    let cType = '';
 
     if (window.OPENSHIFT_CONFIG) {
       if (window.OPENSHIFT_CONFIG.mockData) {
-        clusterType = 'localhost';
-        console.log(`Running locally, the clusterType is: ${clusterType}`);
+        cType = 'localhost';
+        console.log(`Running locally, the clusterType is: ${cType}`);
       } else {
-        clusterType = window.OPENSHIFT_CONFIG.clusterType;
-        console.log(`Running on server, the clusterType is: ${clusterType}`);
+        cType = window.OPENSHIFT_CONFIG.clusterType;
+        console.log(`Running on server, the clusterType is: ${cType}`);
       }
     }
-    return clusterType;
+    // this.setState({ clusterType: cType }, () => console.log(this.state.clusterType));
+
+    this.setState({ clusterType: cType }, () => console.log(this.state.clusterType));
+
+    // return clusterType;
   };
 
   // method that retrieves the clusterId from a URL
@@ -60,49 +71,61 @@ class DevResourcesPage extends React.Component {
     let urlParts = [];
     // let clusterId = '';
     // let loggingUrl = '';
-    const clusterType = this.getClusterType();
+    // const clusterType = this.getClusterType();
     urlParts = new URL(url).host.split('.');
     const [pocClusterId, , rhpdsClusterId] = urlParts;
 
-    switch (clusterType) {
+    switch (this.state.clusterType) {
       case 'rhpds':
         // 'https://tutorial-web-app-webapp.apps.puma.openshiftworkshop.com/'
         // 'https://tutorial-web-app-webapp.apps.puma.open.redhat.com/'
 
-        this.setState = {
+        this.setState = ({
           clusterId: rhpdsClusterId,
           loggingUrl: `https://kibana.apps.${rhpdsClusterId}.openshiftworkshop.com`
-        };
+        },
+        () => {
+          console.log('loggingUrl =', this.state.loggingUrl);
+        });
         console.log(this.state);
         break;
       // clusterId = rhpdsClusterId;
       //     loggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
       //     break;
       case 'poc':
-        this.setState = {
+        this.setState = ({
           clusterId: pocClusterId,
           loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
-        };
+        },
+        () => {
+          console.log('loggingUrl =', this.state.loggingUrl);
+        });
         console.log(this.state);
         break;
       // 'https://puma.rhmi.io/'
       // clusterId = pocClusterId;
       // break;
       case 'osd':
-        this.setState = {
+        this.setState = ({
           clusterId: pocClusterId,
           loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
-        };
+        },
+        () => {
+          console.log('loggingUrl =', this.state.loggingUrl);
+        });
         console.log(this.state);
         break;
       // `https://puma.openshift.com`
       // clusterId = pocClusterId;
       // break;
       default:
-        this.setState = {
+        this.setState = ({
           clusterId: pocClusterId,
           loggingUrl: `https://kibana.apps.${pocClusterId}.openshiftworkshop.com`
-        };
+        },
+        () => {
+          console.log('loggingUrl =', this.state.loggingUrl);
+        });
         console.log(this.state);
       //   clusterId = 'localhost';
       // loggingUrl = `https://kibana.apps.${clusterId}.openshiftworkshop.com`;
@@ -115,7 +138,7 @@ class DevResourcesPage extends React.Component {
     // uriString = uriString.substring(0, uriString.indexOf('.'));
 
     console.log(`Original Url: ${url}`);
-    console.log(`Cluster type: ${clusterType}`);
+    console.log(`Cluster type: ${this.state.clusterType}`);
     console.log(`Cluster ID: ${this.state.clusterId}`);
     console.log(`Results of window.location.hostname: ${window.location.hostname}`);
     console.log(`Results of window.location.host: ${window.location.host}`);
