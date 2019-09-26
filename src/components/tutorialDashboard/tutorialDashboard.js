@@ -117,9 +117,9 @@ const TutorialDashboard = props => {
           {addCategory(filteredWalkthroughs)}
           <div className="integr8ly-walkthrough-counter pf-u-mr-md pf-u-text-align-right pf-m-sm">
             {filteredWalkthroughs.length === 1 ? (
-              <strong>{filteredWalkthroughs.length} walkthrough</strong>
+              <strong>{filteredWalkthroughs.length} Solution Pattern</strong>
             ) : (
-              <strong>{filteredWalkthroughs.length} walkthroughs</strong>
+              <strong>{filteredWalkthroughs.length} Solution Patterns</strong>
             )}
           </div>
         </div>
