@@ -36,10 +36,10 @@ class CongratulationsPage extends React.Component {
               <EmptyState variant={EmptyStateVariant.full}>
                 <img src={congratulationsImage} alt="" className="integr8ly-congratulations-image pf-u-mb-2xl" />
                 <Title headingLevel="h1" size="lg" id="main-content">
-                  Congratulations, you completed the walkthrough!
+                  Congratulations, you completed the Solution Pattern!
                 </Title>
                 <EmptyStateBody>
-                  Return to your homepage to explore more walkthroughs or go to your OpenShift console to utilize what
+                  Return to your homepage to explore more Solution Patterns or go to your OpenShift console to utilize what
                   you just built!
                 </EmptyStateBody>
                 <Button id="congratulations-button" variant="primary" onClick={e => this.exitTutorial(e)}>
