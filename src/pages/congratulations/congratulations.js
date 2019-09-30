@@ -39,8 +39,8 @@ class CongratulationsPage extends React.Component {
                   Congratulations, you completed the Solution Pattern!
                 </Title>
                 <EmptyStateBody>
-                  Return to your homepage to explore more Solution Patterns or go to your OpenShift console to utilize what
-                  you just built!
+                  Return to your homepage to explore more Solution Patterns or go to your OpenShift console to utilize
+                  what you just built!
                 </EmptyStateBody>
                 <Button id="congratulations-button" variant="primary" onClick={e => this.exitTutorial(e)}>
                   Return to home
