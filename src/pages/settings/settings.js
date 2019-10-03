@@ -60,18 +60,17 @@ class SettingsPage extends React.Component {
     this.setState(
       {
         value,
-        isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
+        isValid: /^(?:https:\/\/)+(www.)?github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
       },
       () => {
         if (this.state.value === '') {
           this.setState({ isValid: true });
         }
-
         if (this.state.value.includes('\n')) {
           const repoArray = this.state.value.split('\n');
 
           for (let i = 0; i < repoArray.length; i++) {
-            if (/^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
+            if (/^(?:https:\/\/)+(www.)?github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(repoArray[i])) {
               this.setState({
                 isValid: true
               });
@@ -89,7 +88,7 @@ class SettingsPage extends React.Component {
           this.setState({ isValid: true });
         } else {
           this.setState({
-            isValid: /^(?:https:\/\/)+([w.-]+)+github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
+            isValid: /^(?:https:\/\/)+(www.)?github.com\/[\w\-._~:/?#[\]@!$&/'()*+,;=.]+$/.test(value)
           });
         }
       }
