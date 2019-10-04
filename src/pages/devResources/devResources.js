@@ -48,6 +48,14 @@ class DevResourcesPage extends React.Component {
         urls.registryUrl = `https://registry-console-default.apps.${pocClusterId}.rhmi.io`;
         break;
       case 'osd':
+        // this is detecting the cluster type correctly, aka its adding the .openshift.com to the end
+        // however, from the current url of:
+        // https://tutorial-web-app-openshift-webapp.f2d1.rhmi-qe1.openshiftapps.com/dev-resources
+        // it is pulling:
+        // tutorial-web-app-openshift-webapp
+        // for its servername, it should be:
+        // rhmi-qe1
+
         urls.loggingUrl = `https://logs.${pocClusterId}.openshift.com`;
         urls.apiUrl = `https://api.${pocClusterId}.openshift.com`;
         urls.registryUrl = `https://registry.${pocClusterId}.openshift.com`;
