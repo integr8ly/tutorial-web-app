@@ -7,6 +7,9 @@ module.exports = {
     'no-console': 'off',
     'import/no-named-as-default': 'off',
     'import/no-dynamic-require': 'off',
-    'global-require': 'off'
+    'global-require': 'off',
+    'react/jsx-curly-brace-presence': 'off',
+    'react/no-unused-prop-types': 'off'
+
   }
 };
