@@ -25,40 +25,32 @@ import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 class DevResourcesPage extends React.Component {
   getClusterUrls = () => {
     const uri = window.location.href;
+
     let clusterType = '';
     let urlParts = [];
     const urls = { loggingUrl: '', apiUrl: '', registryUrl: '' };
 
     urlParts = new URL(uri).host.split('.');
-    const [pocClusterId, , rhpdsClusterId] = urlParts;
+    const [, , clusterId] = urlParts;
 
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
     }
-
     switch (clusterType) {
       case 'rhpds':
-        urls.loggingUrl = `https://kibana.apps.${rhpdsClusterId}.open.redhat.com`;
-        urls.apiUrl = `https://master.${rhpdsClusterId}.open.redhat.com/api`;
-        urls.registryUrl = `https://registry-console-default.apps.${rhpdsClusterId}.open.redhat.com`;
+        urls.loggingUrl = `https://kibana.apps.${clusterId}.open.redhat.com`;
+        urls.apiUrl = `https://master.apps.${clusterId}.open.redhat.com`;
+        urls.registryUrl = `https://registry-console-default.apps.${clusterId}.open.redhat.com`;
         break;
       case 'poc':
-        urls.loggingUrl = `https://kibana.apps.${pocClusterId}.rhmi.io`;
-        urls.apiUrl = `https://master.${pocClusterId}.rhmi.io/api`;
-        urls.registryUrl = `https://registry-console-default.apps.${pocClusterId}.rhmi.io`;
+        urls.loggingUrl = `https://kibana.apps.${clusterId}.rhmi.io`;
+        urls.apiUrl = `https://master.apps.${clusterId}.rhmi.io/api`;
+        urls.registryUrl = `https://registry-console-default.apps.${clusterId}.rhmi.io`;
         break;
       case 'osd':
-        // this is detecting the cluster type correctly, aka its adding the .openshift.com to the end
-        // however, from the current url of:
-        // https://tutorial-web-app-openshift-webapp.f2d1.rhmi-qe1.openshiftapps.com/dev-resources
-        // it is pulling:
-        // tutorial-web-app-openshift-webapp
-        // for its servername, it should be:
-        // rhmi-qe1
-
-        urls.loggingUrl = `https://logs.${pocClusterId}.openshift.com`;
-        urls.apiUrl = `https://api.${pocClusterId}.openshift.com`;
-        urls.registryUrl = `https://registry.${pocClusterId}.openshift.com`;
+        urls.loggingUrl = `https://logs.${clusterId}.openshift.com`;
+        urls.apiUrl = `https://api.${clusterId}.openshift.com`;
+        urls.registryUrl = `https://registry.${clusterId}.openshift.com`;
         break;
       case 'localhost':
         urls.loggingUrl = `No logging URL when running locally`;
@@ -106,9 +98,10 @@ class DevResourcesPage extends React.Component {
                   </h4>
                   <Button
                     variant="link"
+                    target="_blank"
                     icon={<ExternalLinkSquareAltIcon />}
                     component="a"
-                    href={loggingUrl === `No logging URL when running locally` ? '#' : loggingUrl}
+                    href={loggingUrl === `No logging URL when running locally` ? ' ' : loggingUrl}
                   >
                     {loggingUrl}
                   </Button>{' '}
