@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutModal Component should render a non-connected component: hidden modal 1`] = `
+<AboutModal
+  closeAboutModal={null}
+  isOpen={false}
+  show={false}
+  userReducers={
+    Object {
+      "session": Object {
+        "username": "test",
+      },
+    }
+  }
+>
+  <AboutModal
+    backgroundImageSrc="PF4DownstreamBG.svg"
+    brandImageAlt="Red Hat logo"
+    brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+    className=""
+    isOpen={false}
+    noAboutModalBoxContentContainer={false}
+    onClose={null}
+    productName="Red Hat Solution Explorer"
+    trademark=""
+  >
+    <Portal
+      containerInfo={<div />}
+    >
+      <AboutModalContainer
+        ariaDescribedById="pf-about-modal-content-0"
+        ariaLabelledbyId="pf-about-modal-title-0"
+        backgroundImageSrc="PF4DownstreamBG.svg"
+        brandImageAlt="Red Hat logo"
+        brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+        className=""
+        isOpen={false}
+        noAboutModalBoxContentContainer={false}
+        onClose={null}
+        productName="Red Hat Solution Explorer"
+        trademark=""
+      />
+    </Portal>
+  </AboutModal>
+</AboutModal>
+`;
+
+exports[`AboutModal Component should render a non-connected component: show modal 1`] = `
+<AboutModal
+  closeAboutModal={null}
+  isOpen={false}
+  show={false}
+  userReducers={
+    Object {
+      "session": Object {
+        "username": "test",
+      },
+    }
+  }
+>
+  <AboutModal
+    backgroundImageSrc="PF4DownstreamBG.svg"
+    brandImageAlt="Red Hat logo"
+    brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+    className=""
+    isOpen={false}
+    noAboutModalBoxContentContainer={false}
+    onClose={null}
+    productName="Red Hat Solution Explorer"
+    trademark=""
+  >
+    <Portal
+      containerInfo={<div />}
+    >
+      <AboutModalContainer
+        ariaDescribedById="pf-about-modal-content-0"
+        ariaLabelledbyId="pf-about-modal-title-0"
+        backgroundImageSrc="PF4DownstreamBG.svg"
+        brandImageAlt="Red Hat logo"
+        brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+        className=""
+        isOpen={false}
+        noAboutModalBoxContentContainer={false}
+        onClose={null}
+        productName="Red Hat Solution Explorer"
+        trademark=""
+      />
+    </Portal>
+  </AboutModal>
+</AboutModal>
+`;
