@@ -1,5 +1,4 @@
 import React from 'react';
-import { noop } from 'patternfly-react';
 import {
   Button,
   Card,
@@ -11,6 +10,7 @@ import {
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { noop } from '../../common/helpers';
 
 const TutorialCard = props => (
   <Card

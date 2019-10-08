@@ -50,6 +50,7 @@
       &_status {
         &.icon { /* stylelint-disable selector-class-pattern */
           color: var(--pf-global--info-color--100) !important; /* stylelint-disable-line declaration-no-important */
+          width: 2em;
         }
 
         .icon:first-child {
@@ -58,10 +59,12 @@
 
         &-checked.icon {
           color: var(--pf-global--success-color--100) !important; /* stylelint-disable-line declaration-no-important */
+          width: 2em;
         }
 
         &-unchecked.icon {
           color: var(--pf-global--danger-color--100) !important; /* stylelint-disable-line declaration-no-important */
+          width: 2em;
         }
       }
       /* stylelint-enable */

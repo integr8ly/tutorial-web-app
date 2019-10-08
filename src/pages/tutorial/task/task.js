@@ -1,21 +1,27 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop, Icon, Form, FormGroup, Radio } from 'patternfly-react';
 import {
   Button,
   Card,
+  ClipboardCopy,
+  ClipboardCopyVariant,
+  Form,
+  FormGroup,
   Grid,
   GridItem,
   Page,
   PageSection,
+  Radio,
   SkipToContent,
   TextContent,
   Text,
   TextVariants
 } from '@patternfly/react-core';
+import { CheckCircleIcon, OutlinedCircleIcon, TimesCircleIcon } from '@patternfly/react-icons';
 import get from 'lodash.get';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
@@ -24,6 +30,7 @@ import PfMasthead from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareCustomWalkthroughNamespace, prepareWalkthroughV4 } from '../../../services/walkthroughServices';
 import { getThreadProgress } from '../../../services/threadServices';
+import { noop } from '../../../common/helpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../../common/docsHelpers';
 import {
   parseWalkthroughAdoc,
@@ -32,7 +39,6 @@ import {
   WalkthroughStep
 } from '../../../common/walkthroughHelpers';
 import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
-import CopyField from '../../../components/copyField/copyField';
 import { findServices } from '../../../common/serviceInstanceHelpers';
 import { isOpenShift4 } from '../../../common/openshiftHelpers';
 
@@ -48,11 +54,14 @@ class TaskPage extends React.Component {
       let sequenceNumber = 1;
       codeBlocks.forEach(block => {
         ReactDOM.render(
-          <CopyField
-            copySequenceId={sequenceNumber.toString()}
-            value={block.innerText}
-            multiline={block.clientHeight > 40}
-          />,
+          <ClipboardCopy
+            id={sequenceNumber.toString()}
+            isReadOnly
+            variant={block.clientHeight > 40 ? ClipboardCopyVariant.expansion : null}
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
+            {block.innerText}
+          </ClipboardCopy>,
           block.parentNode
         );
         sequenceNumber++;
@@ -309,29 +318,25 @@ class TaskPage extends React.Component {
           {
             <React.Fragment>
               <Form>
-                <FormGroup controlId="radio" disabled={false} bsSize="small" label="Check your work">
+                <FormGroup fieldId="radio" disabled={false} label="Check your work">
                   <Radio
                     id={`${blockId}verificationYes`}
                     name={`${blockId}Yes`}
-                    checked={isYesChecked}
+                    isChecked={isYesChecked}
                     onChange={e => {
                       this.handleVerificationInput(e, blockId, true);
                     }}
                     label="Yes"
-                  >
-                    Yes
-                  </Radio>
+                  />
                   <Radio
                     id={`${blockId}verificationNo`}
                     name={`${blockId}No`}
-                    checked={isNoChecked}
+                    isChecked={isNoChecked}
                     onChange={e => {
                       this.handleVerificationInput(e, blockId, false);
                     }}
                     label="No"
-                  >
-                    No
-                  </Radio>
+                  />
                   {isNoChecked &&
                     block.hasFailBlock && <div dangerouslySetInnerHTML={{ __html: block.failBlock.html }} />}
                   {isYesChecked &&
@@ -473,22 +478,27 @@ class TaskPage extends React.Component {
                         <React.Fragment key={i}>
                           {/* Bottom footer icon */}
                           {currentThreadProgress[verificationId] === undefined ? (
-                            <Icon
-                              type="fa"
+                            <OutlinedCircleIcon
                               className="integr8ly-module-column--footer_status icon pf-u-ml-md pf-u-pr-sm"
                               key={`verification-icon-${verificationId}`}
-                              name="circle-thin"
                             />
-                          ) : (
-                            <Icon
-                              type="fa"
+                          ) : currentThreadProgress[verificationId] ? (
+                            <CheckCircleIcon
                               className={
                                 currentThreadProgress[verificationId]
                                   ? 'integr8ly-module-column--footer_status-checked icon pf-u-ml-md pf-u-pr-sm'
                                   : 'integr8ly-module-column--footer_status-unchecked icon pf-u-ml-md pf-u-pr-sm'
                               }
                               key={`verification-icon-${verificationId}`}
-                              name={currentThreadProgress[verificationId] ? 'check-circle' : 'times-circle'}
+                            />
+                          ) : (
+                            <TimesCircleIcon
+                              className={
+                                currentThreadProgress[verificationId]
+                                  ? 'integr8ly-module-column--footer_status-checked icon pf-u-ml-md pf-u-pr-sm'
+                                  : 'integr8ly-module-column--footer_status-unchecked icon pf-u-ml-md pf-u-pr-sm'
+                              }
+                              key={`verification-icon-${verificationId}`}
                             />
                           )}
                           {/* Bottom footer number to the right of icon  */}

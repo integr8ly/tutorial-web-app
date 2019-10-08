@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { noop } from 'patternfly-react';
 import get from 'lodash.get';
+import { noop } from '../../common/helpers';
 import { connect } from '../../redux';
 import {
   getCustomConfig,

@@ -43,3 +43,5 @@ export const copyClipboard = text => {
 
   return successful;
 };
+
+export const noop = () => {};

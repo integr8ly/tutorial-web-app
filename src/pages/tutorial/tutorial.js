@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { translate } from 'react-i18next';
-import { noop } from 'patternfly-react';
 import {
   Button,
   Card,
@@ -22,6 +21,7 @@ import { ClockIcon } from '@patternfly/react-icons';
 import { connect, reduxActions } from '../../redux';
 import ConnectedWalkthroughDetails from '../../components/walkthroughDetails/walkthroughDetails';
 import WalkthroughResources from '../../components/walkthroughResources/walkthroughResources';
+import { noop } from '../../common/helpers';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
