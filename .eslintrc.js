@@ -10,6 +10,5 @@ module.exports = {
     'global-require': 'off',
     'react/jsx-curly-brace-presence': 'off',
     'react/no-unused-prop-types': 'off'
-
   }
 };

@@ -277,6 +277,7 @@ class TaskPage extends React.Component {
     if (!idsToVerify || idsToVerify.length === 0) {
       return true;
     }
+    // eslint-disable-next-line no-unused-vars
     for (const verificationId of idsToVerify) {
       if (!verifications[verificationId]) {
         return false;
