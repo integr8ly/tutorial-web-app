@@ -84,55 +84,57 @@ class DevResourcesPage extends React.Component {
                 Developer resources
               </h1>
               <Card className="pf-u-w-50 pf-u-my-xl">
-                <CardHeader>
-                  <h2 className="pf-m-lg integr8ly-dev-resources-title">Cluster URLs</h2>
-                </CardHeader>
-                <CardBody>
-                  <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
-                    Logging
-                    <Tooltip position="top" content={<div>{loggingTooltip}</div>}>
-                      <span>
-                        <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
-                      </span>
-                    </Tooltip>
-                  </h4>
-                  <Button
-                    variant="link"
-                    target="_blank"
-                    icon={<ExternalLinkSquareAltIcon />}
-                    component="a"
-                    href={loggingUrl === `No logging URL when running locally` ? ' ' : loggingUrl}
-                  >
-                    {loggingUrl}
-                  </Button>{' '}
-                </CardBody>
-                <CardBody>
-                  <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
-                    API
-                    <Tooltip position="top" content={<div>{apiTooltip}</div>}>
-                      <span>
-                        <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
-                      </span>
-                    </Tooltip>
-                  </h4>
-                  <ClipboardCopy id="api-cc" isReadOnly>
-                    {apiUrl}
-                  </ClipboardCopy>
-                </CardBody>
-                <CardBody>
-                  <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
-                    Registry
-                    <Tooltip position="top" content={<div>{registryTooltip}</div>}>
-                      <span>
-                        <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
-                      </span>
-                    </Tooltip>
-                  </h4>
-                  <ClipboardCopy id="registry-cc" isReadOnly>
-                    {registryUrl}
-                  </ClipboardCopy>
-                </CardBody>
-                <CardFooter />
+                <div className="integr8ly-dev-resources-content">
+                  <CardHeader>
+                    <h2 className="pf-m-lg integr8ly-dev-resources-title">Cluster URLs</h2>
+                  </CardHeader>
+                  <CardBody>
+                    <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
+                      Logging
+                      <Tooltip position="top" content={<div>{loggingTooltip}</div>}>
+                        <span>
+                          <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
+                        </span>
+                      </Tooltip>
+                    </h4>
+                    <Button
+                      variant="link"
+                      target="_blank"
+                      icon={<ExternalLinkSquareAltIcon />}
+                      component="a"
+                      href={loggingUrl === `No logging URL when running locally` ? ' ' : loggingUrl}
+                    >
+                      {loggingUrl}
+                    </Button>{' '}
+                  </CardBody>
+                  <CardBody>
+                    <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
+                      API
+                      <Tooltip position="top" content={<div>{apiTooltip}</div>}>
+                        <span>
+                          <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
+                        </span>
+                      </Tooltip>
+                    </h4>
+                    <ClipboardCopy id="api-cc" isReadOnly>
+                      {apiUrl}
+                    </ClipboardCopy>
+                  </CardBody>
+                  <CardBody>
+                    <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
+                      Registry
+                      <Tooltip position="top" content={<div>{registryTooltip}</div>}>
+                        <span>
+                          <HelpIcon className="pf-u-ml-sm integr8ly-dev-resources-icon" />
+                        </span>
+                      </Tooltip>
+                    </h4>
+                    <ClipboardCopy id="registry-cc" isReadOnly>
+                      {registryUrl}
+                    </ClipboardCopy>
+                  </CardBody>
+                  <CardFooter />
+                </div>
               </Card>
             </GridItem>
           </Grid>
