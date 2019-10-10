@@ -323,6 +323,7 @@ class TaskPage extends React.Component {
                   <Radio
                     id={`${blockId}verificationYes`}
                     name={`${blockId}Yes`}
+                    className="integr8ly-task-radio-btn"
                     isChecked={isYesChecked}
                     onChange={e => {
                       this.handleVerificationInput(e, blockId, true);
@@ -332,6 +333,7 @@ class TaskPage extends React.Component {
                   <Radio
                     id={`${blockId}verificationNo`}
                     name={`${blockId}No`}
+                    className="integr8ly-task-radio-btn"
                     isChecked={isNoChecked}
                     onChange={e => {
                       this.handleVerificationInput(e, blockId, false);

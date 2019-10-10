@@ -72,6 +72,11 @@
   }
 }
 
+.integr8ly-task-radio-btn {
+  .pf-c-radio__input {
+    margin: 0 0 4px;
+  }
+}
 .integr8ly-m-alert {
   .pf-c-alert__title { /* stylelint-disable selector-class-pattern */
     margin-top: 0 !important; /* stylelint-disable-line declaration-no-important */
