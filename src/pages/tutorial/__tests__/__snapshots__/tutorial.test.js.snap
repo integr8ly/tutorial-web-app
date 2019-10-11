@@ -21,10 +21,8 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
   <Page
     breadcrumb={null}
     className="pf-u-h-100vh"
-    defaultManagedSidebarIsOpen={true}
     header={null}
     isManagedSidebar={false}
-    mainContainerId={null}
     onPageResize={[Function]}
     sidebar={null}
     skipToContent={null}
@@ -61,7 +59,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 >
                   Example
                 </h1>
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-01"
                   onClick={[Function]}
@@ -69,7 +67,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
               <div
                 dangerouslySetInnerHTML={
@@ -112,7 +110,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               <div
                 className="integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
               >
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-02"
                   onClick={[Function]}
@@ -120,7 +118,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
             </TextContent>
           </Card>
