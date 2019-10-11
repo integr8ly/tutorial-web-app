@@ -10,7 +10,8 @@ export default {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA',
     primaryTask: 'Create integrations',
-    description: 'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.',
+    description:
+      'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.',
     // Don't show the fuse instance only intended for walkthroughs
     // in the installed apps list
     hidden: true
@@ -19,7 +20,8 @@ export default {
     prettyName: 'Red Hat Fuse Online (Shared)',
     gaStatus: 'GA',
     primaryTask: 'Create integrations',
-    description: 'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.'
+    description:
+      'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.'
   },
   codeready: {
     prettyName: 'Red Hat CodeReady Workspaces',
@@ -61,6 +63,7 @@ export default {
     prettyName: 'End-user Red Hat Single Sign-On',
     gaStatus: 'GA',
     primaryTask: 'Setup authentication',
-    description: 'Admins can use our single sign-on solution for managing cluster users. Contact your local customer admin if you do not have access to this console. '
+    description:
+      'Admins can use our single sign-on solution for managing cluster users. Contact your local customer admin if you do not have access to this console. '
   }
 };
