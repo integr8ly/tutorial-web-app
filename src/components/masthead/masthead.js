@@ -15,8 +15,8 @@ import {
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
-import { noop } from 'patternfly-react';
 import { withRouter } from 'react-router-dom';
+import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';

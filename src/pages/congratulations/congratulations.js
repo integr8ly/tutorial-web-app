@@ -13,7 +13,7 @@ import {
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
-import { noop } from 'patternfly-react';
+import { noop } from '../../common/helpers';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import congratulationsImage from '../../img/Congratulations.svg';

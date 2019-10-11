@@ -93,6 +93,7 @@ class WalkthroughVerificationSuccessBlock {
   }
 
   static findNextForVerification(blocks) {
+    // eslint-disable-next-line no-unused-vars
     for (const block of blocks) {
       if (WalkthroughVerificationBlock.canConvert(block)) {
         return null;
@@ -123,6 +124,7 @@ class WalkthroughVerificationFailBlock {
   }
 
   static findNextForVerification(blocks) {
+    // eslint-disable-next-line no-unused-vars
     for (const block of blocks) {
       if (WalkthroughVerificationBlock.canConvert(block)) {
         return null;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { noop } from 'patternfly-react';
 import get from 'lodash.get';
+import { noop } from '../../common/helpers';
 import { connect } from '../../redux';
 import {
   getCustomConfig,
@@ -45,6 +45,7 @@ function buildProvisioningScreen(WrappedComponent) {
     // OpenShift 4 equivalent of #areMiddlewareServicesReady
     static areServicesReadyV4(services, toProvision) {
       const completeToProvision = toProvision || getServicesToProvision();
+      // eslint-disable-next-line no-unused-vars
       for (const svcName of completeToProvision) {
         const svc = services.find(s => s.name === svcName);
         if (!svc || svc.status !== SERVICE_STATUSES.PROVISIONED) {
@@ -56,6 +57,7 @@ function buildProvisioningScreen(WrappedComponent) {
 
     static areMiddlewareServicesReady(services, toProvision) {
       const servicesToProvision = toProvision || getServicesToProvision();
+      // eslint-disable-next-line no-unused-vars
       for (const svcName of servicesToProvision) {
         const svc = Provisioning.getServiceInstanceByClassName(services, svcName);
         if (!svc || !Provisioning.isMiddlewareServiceProvisioned(svc)) {
