@@ -658,7 +658,8 @@ function getConfigData(req) {
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
     optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
     optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))},
-    openshiftVersion: ${openshiftVersion}
+    openshiftVersion: ${openshiftVersion}, 
+    provisionedServices: ${process.env.INSTALLED_SERVICES}
   };`;
 }
 
