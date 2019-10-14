@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'patternfly-react';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
-import { ClockIcon } from '@patternfly/react-icons';
+import { ArrowCircleRightIcon, CheckCircleIcon, ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
 const TutorialDashboard = props => {
@@ -91,14 +90,11 @@ const TutorialDashboard = props => {
               }
               getStartedText={startedText}
               getStartedIcon={
-                <Icon
-                  type="fa"
-                  name={
-                    currentProgress !== undefined && currentProgress.progress === 100
-                      ? 'check-circle pf-u-mr-xs integr8ly-c-card__status--complete-icon'
-                      : 'arrow-circle-right pf-u-mr-sm'
-                  }
-                />
+                currentProgress !== undefined && currentProgress.progress === 100 ? (
+                  <CheckCircleIcon className={'pf-u-mr-xs'} />
+                ) : (
+                  <ArrowCircleRightIcon className={'pf-u-mr-sm'} />
+                )
               }
               minsIcon={<ClockIcon className="pf-u-mr-sm" />}
               progress={currentProgress === undefined ? 0 : currentProgress.progress}

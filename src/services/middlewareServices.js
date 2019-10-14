@@ -23,7 +23,7 @@ import {
 } from '../common/openshiftResourceDefinitions';
 
 import productDetails from '../product-info';
-import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
+import { SERVICE_TYPES, SERVICE_STATUSES } from '../redux/constants/middlewareConstants';
 import { watchAMQOnline } from './amqOnlineServices';
 import { provisionFuseOnlineV4 } from './fuseOnlineServices';
 
@@ -124,6 +124,8 @@ const mockMiddlewareServices = (dispatch, mockData) => {
  */
 const manageServicesV4 = (dispatch, user, manifest) => {
   const toProvision = manifest.servicesToProvision || getServicesToProvision();
+  const { provisionedServices = {} } = window.OPENSHIFT_CONFIG || {};
+  toProvision.push(...Object.keys(provisionedServices));
   // Ensure the app knows the current user if it doesn't already.
   dispatch({
     type: FULFILLED_ACTION(middlewareTypes.GET_PROVISIONING_USER),
@@ -147,6 +149,19 @@ const manageServicesV4 = (dispatch, user, manifest) => {
           if (svcName === DEFAULT_SERVICES.FUSE) {
             console.log(`Resolving fuse online with user ${user.username} in namespace ${nsName}`);
             acc.push(provisionFuseOnlineV4(dispatch, user.username, nsName));
+          } else {
+            const { Host } = provisionedServices[svcName];
+            acc.push(
+              Object.assign(
+                {},
+                {
+                  name: svcName,
+                  status: SERVICE_STATUSES.PROVISIONED,
+                  type: SERVICE_TYPES.PROVISIONED_SERVICE,
+                  url: Host
+                }
+              )
+            );
           }
           return acc;
         }, []);

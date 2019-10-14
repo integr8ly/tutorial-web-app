@@ -35,29 +35,4 @@ describe('Authentication Component', () => {
 
     expect(component.render()).toMatchSnapshot('post-authorization');
   });
-
-  it('should have specific events defined', () => {
-    const checkUser = jest.fn();
-    const props = {
-      checkUser
-    };
-    const component = mount(
-      <Authentication {...props}>
-        <span className="test">lorem</span>
-      </Authentication>
-    );
-    const componentInstance = component.instance();
-
-    expect(componentInstance.onChangeEmail).toBeDefined();
-    expect(componentInstance.onChangePassword).toBeDefined();
-    expect(componentInstance.onChangeRemember).toBeDefined();
-    expect(componentInstance.onLogin).toBeDefined();
-
-    expect(checkUser).toHaveBeenCalled();
-
-    component.find('input[name="email"]').simulate('change', { target: { value: '' } });
-    component.find('input[name="password"]').simulate('change', { target: { value: '123' } });
-    component.find('input[name="remember"]').simulate('change', { target: { checked: true } });
-    expect(componentInstance.state).toMatchSnapshot('expected state');
-  });
 });

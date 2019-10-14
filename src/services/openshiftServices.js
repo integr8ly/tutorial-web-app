@@ -344,6 +344,7 @@ const process = (res, obj) =>
       const results = [];
 
       // Create the objects in the processed template
+      // eslint-disable-next-line no-unused-vars
       for (const item of items) {
         axios({
           url: _buildProcessUrl(res.namespace, item),

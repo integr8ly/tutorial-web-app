@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Authentication Component should have specific events defined: expected state 1`] = `
-Object {
-  "email": "",
-  "emailError": "Email must be valid",
-  "formTouched": true,
-  "formValid": false,
-  "password": "123",
-  "passwordError": "",
-  "remember": true,
-}
-`;
-
 exports[`Authentication Component should render a basic component with login form: connected 1`] = `
 <Authentication
   checkUser={[Function]}

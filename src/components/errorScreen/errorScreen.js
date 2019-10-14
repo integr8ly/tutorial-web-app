@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'patternfly-react';
+import { Button } from '@patternfly/react-core';
 
 class ErrorScreen extends React.Component {
   constructor(props) {

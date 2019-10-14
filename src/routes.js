@@ -1,5 +1,4 @@
 import CongratulationsPage from './pages/congratulations/congratulations';
-import HelpPage from './pages/help/help';
 import LandingPage from './pages/landing/landingPage';
 import TutorialPage from './pages/tutorial/tutorial';
 import TaskPage from './pages/tutorial/task/task';
@@ -32,13 +31,6 @@ const routes = () => [
     to: '/home',
     redirect: true,
     component: LandingPage,
-    exact: true
-  },
-  {
-    iconClass: 'pficon pficon-orders',
-    title: 'Help',
-    to: '/help',
-    component: HelpPage,
     exact: true
   },
   {
