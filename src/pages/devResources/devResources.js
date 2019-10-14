@@ -17,7 +17,7 @@ import {
 } from '@patternfly/react-core';
 import { ExternalLinkSquareAltIcon, HelpIcon } from '@patternfly/react-icons';
 import { withRouter } from 'react-router-dom';
-import { noop } from 'patternfly-react';
+import { noop } from '../../common/helpers';
 import RoutedConnectedMasthead from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
