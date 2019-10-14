@@ -12,6 +12,9 @@ const NAMESPACE_HASH_LENGTH = 4;
 const V4 = '4';
 const V3 = '3';
 
+// Label to prefix all namespaces created by the webapp
+const WEBAPP_LABEL = 'wa-';
+
 /**
  * Retrieve the OpenShift version that should be set on the window.
  */
@@ -42,7 +45,7 @@ const getUsersSharedNamespaceDisplayName = username => buildValidNamespaceDispla
  * @param {string} suffix A suffix to append to the end of the users namespace.
  */
 const buildValidProjectNamespaceName = (username, suffix) => {
-  const safeUsername = cleanUsername(username);
+  const safeUsername = WEBAPP_LABEL + cleanUsername(username);
 
   const shortHash = trimmedHash(`${safeUsername}-${suffix}`, NAMESPACE_HASH_LENGTH);
   const trimmedUsername = safeUsername.substring(0, NAMESPACE_USERNAME_LENGTH);
