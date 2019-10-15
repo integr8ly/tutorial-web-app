@@ -147,8 +147,7 @@ const manageServicesV4 = (dispatch, user, manifest) => {
         console.log(`Resolving the following services, ${toProvision.join(', ')}`);
         const svcAttrs = toProvision.reduce((acc, svcName) => {
           if (svcName === DEFAULT_SERVICES.FUSE) {
-            console.log(`Resolving fuse online with user ${user.username} in namespace ${nsName}`);
-            acc.push(provisionFuseOnlineV4(dispatch, user.username, nsName));
+            acc.push(provisionFuseOnlineV4(dispatch));
           } else {
             const { Host } = provisionedServices[svcName];
             acc.push(
