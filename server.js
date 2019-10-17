@@ -642,6 +642,7 @@ function getConfigData(req) {
   const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
   const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
 
+  const installedServices = process.env.INSTALLED_SERVICES || '{}';
   return `window.OPENSHIFT_CONFIG = {
     clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
     accessTokenUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/token',
@@ -658,8 +659,8 @@ function getConfigData(req) {
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
     optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
     optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))},
-    openshiftVersion: ${openshiftVersion}, 
-    provisionedServices: ${process.env.INSTALLED_SERVICES}
+    openshiftVersion: ${openshiftVersion},
+    provisionedServices: ${installedServices}
   };`;
 }
 
