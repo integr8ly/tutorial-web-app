@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
+import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -17,6 +17,24 @@ import {
 import { DISPLAY_SERVICES } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeTabKey: 0
+    };
+
+    this.contentRef1 = React.createRef();
+    this.contentRef2 = React.createRef();
+    this.contentRef3 = React.createRef();
+
+    // Toggle currently active tab
+    this.handleTabClick = (event, tabIndex) => {
+      this.setState({
+        activeTabKey: tabIndex
+      });
+    };
+  }
+
   componentDidMount() {
     const { getProgress, getCustomWalkthroughs, resetCurrentWalkthrough } = this.props;
     getCustomWalkthroughs();
@@ -58,21 +76,47 @@ class LandingPage extends React.Component {
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
+          <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+            <h1 className="pf-c-title pf-m-2xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
+            <p className="pf-c-landing__content">
+              Quickly access consoles for all your Red Hat managed and self-managed services, and learn how to easily
+              implement enterprise integrations with Solution Pattern examples.
+            </p>
+            <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
+              <Tab eventKey={0} title="All services" tabContentId="refTab1Section" tabContentRef={this.contentRef1} />
+              <Tab
+                eventKey={1}
+                title="All Solution Patterns"
+                tabContentId="refTab2Section"
+                tabContentRef={this.contentRef2}
+              />
+            </Tabs>
+          </PageSection>
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <Grid gutter="md">
-              <GridItem sm={12} md={9}>
-                <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
-              </GridItem>
-              <GridItem sm={12} md={3}>
-                <InstalledAppsView
-                  apps={Object.values(middlewareServices.data)}
-                  enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
-                  showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
-                  customApps={middlewareServices.customServices.services}
-                  handleLaunch={svcName => launchFn(svcName)}
-                />
-              </GridItem>
-            </Grid>
+            <div>
+              {/* <TutorialDashboard /> */}
+              <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
+                TBD
+              </TabContent>
+              <TabContent eventKey={1} id="refTab2Section" ref={this.contentRef2} aria-label="Tab item 2" hidden>
+                <Grid gutter="md">
+                  <GridItem sm={12} md={9}>
+                    <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+                  </GridItem>
+                  <GridItem sm={12} md={3}>
+                    <InstalledAppsView
+                      apps={Object.values(middlewareServices.data)}
+                      enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
+                      showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
+                      customApps={middlewareServices.customServices.services}
+                      handleLaunch={svcName => launchFn(svcName)}
+                    />
+                  </GridItem>
+                </Grid>
+              </TabContent>
+            </div>
+            {/* <DashboardTabs /> */}
+            {/* <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} /> */}
           </PageSection>
         </Page>
       </React.Fragment>
