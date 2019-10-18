@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Gallery, GalleryItem } from '@patternfly/react-core';
+import { Badge, Gallery, GalleryItem } from '@patternfly/react-core';
 import { ArrowCircleRightIcon, CheckCircleIcon, ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
 
@@ -107,6 +107,7 @@ const TutorialDashboard = props => {
           </GalleryItem>
         );
       });
+
       htmlSnippet.push(
         <div
           className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm"
@@ -119,6 +120,7 @@ const TutorialDashboard = props => {
             ) : (
               <strong>{filteredWalkthroughs.length} Solution Patterns</strong>
             )}
+            <Badge>{filteredWalkthroughs.length}</Badge>
           </div>
         </div>
       );
