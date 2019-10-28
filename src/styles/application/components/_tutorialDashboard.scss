@@ -15,6 +15,21 @@
   }
 }
 
+.integr8ly-dash-badge {
+  color: black !important;
+  background-color: white !important;  
+  margin-left: 2px;
+}
+
+.integr8ly-repository {
+  margin-left: 5px;
+  color: $pf-color-blue-400;
+}
+
+.integr8ly-authored {
+  margin-left: 15px;
+}
+
 .integr8ly-walkthrough {
   &-counter {
     flex-basis: 50%;

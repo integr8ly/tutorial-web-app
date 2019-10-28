@@ -3,18 +3,12 @@ import PropTypes from 'prop-types';
 import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
-import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { provisionAMQOnline, provisionAMQOnlineV4 } from '../../services/amqOnlineServices';
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
-import {
-  getUsersSharedNamespaceName,
-  getUsersSharedNamespaceDisplayName,
-  isOpenShift4
-} from '../../common/openshiftHelpers';
-import { DISPLAY_SERVICES } from '../../services/middlewareServices';
+import { getUsersSharedNamespaceName, getUsersSharedNamespaceDisplayName } from '../../common/openshiftHelpers';
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -68,8 +62,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { walkthroughServices, middlewareServices, user } = this.props;
-    const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
+    const { walkthroughServices, user } = this.props;
 
     return (
       <React.Fragment>
@@ -93,29 +86,17 @@ class LandingPage extends React.Component {
           </PageSection>
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <div>
-              {/* <TutorialDashboard /> */}
               <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
                 TBD
               </TabContent>
               <TabContent eventKey={1} id="refTab2Section" ref={this.contentRef2} aria-label="Tab item 2" hidden>
                 <Grid gutter="md">
-                  <GridItem sm={12} md={9}>
+                  <GridItem sm={12} md={12}>
                     <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
-                  </GridItem>
-                  <GridItem sm={12} md={3}>
-                    <InstalledAppsView
-                      apps={Object.values(middlewareServices.data)}
-                      enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
-                      showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
-                      customApps={middlewareServices.customServices.services}
-                      handleLaunch={svcName => launchFn(svcName)}
-                    />
                   </GridItem>
                 </Grid>
               </TabContent>
             </div>
-            {/* <DashboardTabs /> */}
-            {/* <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} /> */}
           </PageSection>
         </Page>
       </React.Fragment>
