@@ -99,7 +99,7 @@ class DevResourcesPage extends React.Component {
                     </h4>
                     <Button
                       variant="link"
-                      target="_blank"
+                      target={loggingUrl === `No logging URL when running locally` ? '_self' : '_blank'}
                       icon={<ExternalLinkSquareAltIcon />}
                       component="a"
                       href={loggingUrl === `No logging URL when running locally` ? ' ' : loggingUrl}
