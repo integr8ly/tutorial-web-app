@@ -19,7 +19,6 @@ class LandingPage extends React.Component {
 
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
-    this.contentRef3 = React.createRef();
 
     // Toggle currently active tab
     this.handleTabClick = (event, tabIndex) => {
@@ -76,21 +75,32 @@ class LandingPage extends React.Component {
               implement enterprise integrations with Solution Pattern examples.
             </p>
             <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-              <Tab eventKey={0} title="All services" tabContentId="refTab1Section" tabContentRef={this.contentRef1} />
+              <Tab
+                eventKey={0}
+                title="All services"
+                tabContentId="servicesTabSection"
+                tabContentRef={this.contentRef1}
+              />
               <Tab
                 eventKey={1}
                 title="All Solution Patterns"
-                tabContentId="refTab2Section"
+                tabContentId="solutionPatternsTabSection"
                 tabContentRef={this.contentRef2}
               />
             </Tabs>
           </PageSection>
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <div>
-              <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
+              <TabContent eventKey={0} id="servicesTabSection" ref={this.contentRef1} aria-label="Services tab content">
                 TBD
               </TabContent>
-              <TabContent eventKey={1} id="refTab2Section" ref={this.contentRef2} aria-label="Tab item 2" hidden>
+              <TabContent
+                eventKey={1}
+                id="solutionPatternsTabSection"
+                ref={this.contentRef2}
+                aria-label="Solution Patterns tab content"
+                hidden
+              >
                 <Grid gutter="md">
                   <GridItem sm={12} md={12}>
                     <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
