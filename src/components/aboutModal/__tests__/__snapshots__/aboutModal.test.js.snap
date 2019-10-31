@@ -14,7 +14,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
   }
 >
   <AboutModal
-    backgroundImageAlt="Red Hat Solutions Explorer background image"
     backgroundImageSrc="PF4DownstreamBG.svg"
     brandImageAlt="Red Hat logo"
     brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
@@ -31,7 +30,6 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
       <AboutModalContainer
         ariaDescribedById="pf-about-modal-content-0"
         ariaLabelledbyId="pf-about-modal-title-0"
-        backgroundImageAlt="Red Hat Solutions Explorer background image"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
         brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
@@ -61,7 +59,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
   }
 >
   <AboutModal
-    backgroundImageAlt="Red Hat Solutions Explorer background image"
     backgroundImageSrc="PF4DownstreamBG.svg"
     brandImageAlt="Red Hat logo"
     brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
@@ -78,7 +75,6 @@ exports[`AboutModal Component should render a non-connected component: show moda
       <AboutModalContainer
         ariaDescribedById="pf-about-modal-content-0"
         ariaLabelledbyId="pf-about-modal-title-0"
-        backgroundImageAlt="Red Hat Solutions Explorer background image"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
         brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"

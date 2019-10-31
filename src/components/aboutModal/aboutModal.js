@@ -29,7 +29,6 @@ class AboutModal extends React.Component {
           brandImageSrc={redHatLogo}
           brandImageAlt="Red Hat logo"
           backgroundImageSrc={pfBackgroundImage}
-          backgroundImageAlt="Red Hat Solutions Explorer background image"
         >
           <TextContent>
             <TextList component="dl">
