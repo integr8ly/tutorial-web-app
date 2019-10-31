@@ -1,6 +1,6 @@
 {
   "name": "integreatly-web-app",
-  "version": "2.18.11",
+  "version": "2.19.1",
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
@@ -37,7 +37,7 @@
     "redux-thunk": "2.3.0",
     "rfs": "8.0.1",
     "rimraf": "2.6.2",
-    "sequelize": "^5.8.6",
+    "sequelize": "^5.15.1",
     "sha.js": "2.4.11",
     "simple-git": "^1.107.0",
     "sqlite3": "^4.0.8"
