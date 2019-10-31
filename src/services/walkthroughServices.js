@@ -222,7 +222,7 @@ const provisionOpenShift4Service = (service, namespace, user, dispatch) => {
     return Promise.reject(new Error('dispatch function must be specified'));
   }
   if (service.name === DEFAULT_SERVICES.FUSE) {
-    return provisionFuseOnlineV4(dispatch, user.username, namespace.name);
+    return provisionFuseOnlineV4(dispatch);
   }
   if (service.name === DEFAULT_SERVICES.ENMASSE) {
     return provisionAMQOnlineV4(dispatch, user.username, namespace.name);
