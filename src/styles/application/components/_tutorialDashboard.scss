@@ -1,4 +1,3 @@
-/* stylelint-disable */
 .integr8ly-tutorial-dashboard {
   border: 0;
   box-shadow: none;
@@ -17,8 +16,8 @@
 }
 
 .integr8ly-dash-badge {
-  color: black !important;
-  background-color: white !important;  
+  color: #000 !important; /* stylelint-disable declaration-no-important */
+  background-color: #fff !important;
   margin-left: 2px;
 }
 
@@ -36,4 +35,3 @@
     flex-basis: 50%;
   }
 }
-/* stylelint-enable */
