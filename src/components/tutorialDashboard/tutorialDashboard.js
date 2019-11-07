@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Gallery, GalleryItem } from '@patternfly/react-core';
+import { Badge, Gallery, GalleryItem } from '@patternfly/react-core';
 import { ArrowCircleRightIcon, CheckCircleIcon, ClockIcon } from '@patternfly/react-icons';
 import TutorialCard from '../tutorialCard/tutorialCard';
+import WalkthroughDetails from '../walkthroughDetails/walkthroughDetails';
+
+import { connect, reduxActions } from '../../redux';
 
 const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
@@ -107,6 +110,7 @@ const TutorialDashboard = props => {
           </GalleryItem>
         );
       });
+
       htmlSnippet.push(
         <div
           className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm"
@@ -114,11 +118,28 @@ const TutorialDashboard = props => {
         >
           {addCategory(filteredWalkthroughs)}
           <div className="integr8ly-walkthrough-counter pf-u-mr-md pf-u-text-align-right pf-m-sm">
-            {filteredWalkthroughs.length === 1 ? (
-              <strong>{filteredWalkthroughs.length} Solution Pattern</strong>
-            ) : (
-              <strong>{filteredWalkthroughs.length} Solution Patterns</strong>
-            )}
+            <div>
+              {filteredWalkthroughs[0].walkthroughLocationInfo.type === 'path' ||
+              !WalkthroughDetails.validWalkthroughDate(filteredWalkthroughs[0].walkthroughLocationInfo.commitDate) ? (
+                <div>---</div>
+              ) : (
+                <div>
+                  <a
+                    href={filteredWalkthroughs[0].walkthroughLocationInfo.remote}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="fas fa-code-branch integr8ly-repository" />
+                    <span className="integr8ly-repository">Repository</span>
+                  </a>
+                  <span className="integr8ly-authored" />
+                  {filteredWalkthroughs[0].walkthroughLocationInfo.remote.includes('https://github.com/integr8ly/')
+                    ? 'Red Hat authored '
+                    : 'Community authored '}
+                  <Badge className="integr8ly-dash-badge">{filteredWalkthroughs.length}</Badge>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       );
@@ -135,12 +156,27 @@ const TutorialDashboard = props => {
 
 TutorialDashboard.propTypes = {
   userProgress: PropTypes.object,
-  walkthroughs: PropTypes.array
+  walkthroughs: PropTypes.array,
+  walkthroughInfo: PropTypes.object
 };
 
 TutorialDashboard.defaultProps = {
   userProgress: {},
-  walkthroughs: []
+  walkthroughs: [],
+  walkthroughInfo: { data: {} }
 };
 
-export { TutorialDashboard as default, TutorialDashboard };
+const mapDispatchToProps = dispatch => ({
+  getWalkthroughInfo: id => dispatch(reduxActions.walkthroughActions.getWalkthroughInfo(id))
+});
+
+const mapStateToProps = state => ({
+  ...state.walkthroughServiceReducers
+});
+
+const ConnectedTutorialDashboard = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TutorialDashboard);
+
+export { ConnectedTutorialDashboard as default, TutorialDashboard };

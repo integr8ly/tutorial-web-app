@@ -1,22 +1,33 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Page, PageSection } from '@patternfly/react-core';
+import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
-import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
 import { connect, reduxActions } from '../../redux';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { provisionAMQOnline, provisionAMQOnlineV4 } from '../../services/amqOnlineServices';
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
-import {
-  getUsersSharedNamespaceName,
-  getUsersSharedNamespaceDisplayName,
-  isOpenShift4
-} from '../../common/openshiftHelpers';
-import { DISPLAY_SERVICES } from '../../services/middlewareServices';
+import { getUsersSharedNamespaceName, getUsersSharedNamespaceDisplayName } from '../../common/openshiftHelpers';
 
 class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeTabKey: 0
+    };
+
+    this.contentRef1 = React.createRef();
+    this.contentRef2 = React.createRef();
+
+    // Toggle currently active tab
+    this.handleTabClick = (event, tabIndex) => {
+      this.setState({
+        activeTabKey: tabIndex
+      });
+    };
+  }
+
   componentDidMount() {
     const { getProgress, getCustomWalkthroughs } = this.props;
     getCustomWalkthroughs();
@@ -50,28 +61,52 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { walkthroughServices, middlewareServices, user } = this.props;
-    const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
+    const { walkthroughServices, user } = this.props;
 
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
+          <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+            <h1 className="pf-c-title pf-m-2xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
+            <p className="pf-c-landing__content">
+              Quickly access consoles for all your Red Hat managed and self-managed services, and learn how to easily
+              implement enterprise integrations with Solution Pattern examples.
+            </p>
+            <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
+              <Tab
+                eventKey={0}
+                title="All services"
+                tabContentId="servicesTabSection"
+                tabContentRef={this.contentRef1}
+              />
+              <Tab
+                eventKey={1}
+                title="All Solution Patterns"
+                tabContentId="solutionPatternsTabSection"
+                tabContentRef={this.contentRef2}
+              />
+            </Tabs>
+          </PageSection>
           <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <Grid gutter="md">
-              <GridItem sm={12} md={9}>
-                <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
-              </GridItem>
-              <GridItem sm={12} md={3}>
-                <InstalledAppsView
-                  apps={Object.values(middlewareServices.data)}
-                  enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
-                  showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
-                  customApps={middlewareServices.customServices.services}
-                  handleLaunch={svcName => launchFn(svcName)}
-                />
-              </GridItem>
-            </Grid>
+            <div>
+              <TabContent eventKey={0} id="servicesTabSection" ref={this.contentRef1} aria-label="Services tab content">
+                TBD
+              </TabContent>
+              <TabContent
+                eventKey={1}
+                id="solutionPatternsTabSection"
+                ref={this.contentRef2}
+                aria-label="Solution Patterns tab content"
+                hidden
+              >
+                <Grid gutter="md">
+                  <GridItem sm={12} md={12}>
+                    <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+                  </GridItem>
+                </Grid>
+              </TabContent>
+            </div>
           </PageSection>
         </Page>
       </React.Fragment>
