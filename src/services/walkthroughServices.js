@@ -116,19 +116,24 @@ const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
       })
       // Handle manifest templates
       .then(([user, manifest, walkthroughNs, svcAttrs]) => {
+        if (!manifest || !manifest.dependencies || !manifest.dependencies.templates) {
+          console.log(`no templates found for walkthrough ${walkthroughName}`);
+          dispatch(initCustomThreadSuccess(manifest));
+          return Promise.resolve([user, manifest]);
+        }
+
         const nsName = walkthroughNs.metadata.name;
         const mergedAttrs = Object.assign({}, ...svcAttrs.map(a => a.additionalAttributes));
 
-        if (!manifest || !manifest.dependencies || !manifest.dependencies.templates) {
-          console.log(`no templates found for walkthrough ${walkthroughName}`);
-          return Promise.resolve([user, manifest]);
-        }
         const templateTasks = manifest.dependencies.templates.map(rawTemplate => {
           const template = parseTemplate(rawTemplate, mergedAttrs);
           return processV4(nsName, template);
         });
-        return Promise.all(templateTasks).then(() => svcAttrs);
+        return Promise.all(templateTasks)
+          .then(() => svcAttrs)
+          .then(() => dispatch(initCustomThreadSuccess(manifest)));
       })
+      .catch(e => dispatch(initCustomThreadFailure(e)))
   );
 };
 
