@@ -609,7 +609,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'mdc'
+            clusterServiceClassExternalName: 'unifiedpush'
           },
           status: {
             dashboardURL: '${process.env.OPENSHIFT_URL}',
