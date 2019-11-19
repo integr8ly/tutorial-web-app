@@ -7,11 +7,13 @@ import {
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  DataListCell
+  DataListCell,
+  Expandable
 } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails } from '../../services/middlewareServices';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
+import { getMasterUri } from '../../common/openshiftHelpers';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -117,7 +119,7 @@ class InstalledAppsView extends React.Component {
       >
         <DataListItem
           className="integr8ly-installed-apps-view-list-item-enabled"
-          onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+          // onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
           aria-labelledby={`openshift-console-datalistitem-${index}`}
@@ -126,8 +128,29 @@ class InstalledAppsView extends React.Component {
           <DataListItemRow>
             <DataListItemCells
               dataListCells={[
+                <DataListCell key="manage cluster">
+                  {/* <span id="Red Hat OpenShift">Manage cluster</span> */}
+                  <Expandable toggleText="Manage cluster">
+                    A single-tenant, high-availability OpenShift cluster, managed by Red Hat.
+                  </Expandable>
+                </DataListCell>,
                 <DataListCell key="primary content">
                   <span id="Red Hat OpenShift">Red Hat OpenShift</span>
+                </DataListCell>,
+                <DataListCell
+                  key="cell one"
+                  onClick={() =>
+                    window.open(
+                      `${window.OPENSHIFT_CONFIG.masterUri}/console/project/webapp/browse/secrets/manifest`,
+                      '_blank'
+                    )
+                  }
+                >
+                  <span id="manifest">
+                    Using getMasterUri() function: <br />
+                    {getMasterUri()}
+                    /console/project/webapp/browse/secrets/manifest
+                  </span>
                 </DataListCell>,
                 <DataListCell key="secondary content" className="pf-u-text-align-right">
                   <div className="integr8ly-state-ready">
@@ -155,7 +178,7 @@ class InstalledAppsView extends React.Component {
           <DataListItemRow>
             <DataListItemCells
               dataListCells={[
-                <DataListCell key="primary content">
+                <DataListCell key={`primary content ${i}`}>
                   {customApp.name}
                   <Badge isRead className="pf-u-ml-lg">
                     custom
@@ -236,7 +259,7 @@ class InstalledAppsView extends React.Component {
         return 0;
       })
       .map((app, index) => {
-        const { prettyName, gaStatus, hidden } = getProductDetails(app);
+        const { description, gaStatus, hidden, prettyName, primaryTask } = getProductDetails(app);
         const uniqKey = InstalledAppsView.genUniqueKeyForService(app);
         return hidden ? null : (
           <DataList
@@ -252,14 +275,14 @@ class InstalledAppsView extends React.Component {
                   ? 'integr8ly-installed-apps-view-list-item-enabled'
                   : '&nbsp;'
               }
-              onClick={() => {
-                if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
-                  return;
-                }
-                prettyName === 'Red Hat AMQ'
-                  ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
-                  : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
-              }}
+              // onClick={() => {
+              //   if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
+              //     return;
+              //   }
+              //   prettyName === 'Red Hat AMQ'
+              //     ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
+              //     : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
+              // }}
               key={`${uniqKey}_${index}`}
               value={index}
               aria-labelledby={`cluster-service-datalist-item-${index}`}
@@ -267,6 +290,12 @@ class InstalledAppsView extends React.Component {
               <DataListItemRow>
                 <DataListItemCells
                   dataListCells={[
+                    <DataListCell key={`primary content ${index}`}>
+                      <span id={`appName-primary-task-${prettyName}`}>
+                        {' '}
+                        <Expandable toggleText={primaryTask}>{description}</Expandable>
+                      </span>
+                    </DataListCell>,
                     <DataListCell key="primary content">
                       <span id={`appName-${prettyName}`}>
                         {' '}
@@ -280,6 +309,22 @@ class InstalledAppsView extends React.Component {
                         )}
                       </span>
                     </DataListCell>,
+                    <DataListCell
+                      key="cell one"
+                      onClick={() =>
+                        window.open(
+                          `${window.OPENSHIFT_CONFIG.masterUri}/console/project/webapp/browse/secrets/manifest`,
+                          '_blank'
+                        )
+                      }
+                    >
+                      <span id="manifest">
+                        Using getMasterUri() function: <br />
+                        {getMasterUri()}
+                        /console/project/webapp/browse/secrets/manifest
+                      </span>
+                    </DataListCell>,
+
                     <DataListCell key="secondary content" className="pf-u-text-align-right">
                       <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
                     </DataListCell>
@@ -314,14 +359,19 @@ class InstalledAppsView extends React.Component {
       this.handleLaunchClicked.bind(this)
     );
     return (
-      <div className="integr8ly-installed-apps-view pf-u-mb-0">
-        <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md">
-          <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Applications</h2>
-          <div className="pf-u-my-sm pf-u-pr-sm pf-m-sm pf-u-text-align-right">
-            <Badge isRead>{appList.props.children.length}</Badge>
+      <div>
+        <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm">
+          <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed Services</h2>
+          <div className="integr8ly-walkthrough-badge pf-u-text-align-right">
+            <Badge className="integr8ly-dash-badge" isRead>
+              {appList.props.children.length}
+            </Badge>{' '}
           </div>
         </div>
-        {appList}
+        <div className="integr8ly-installed-apps-view pf-u-mb-0">
+          <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
+          {appList}
+        </div>
       </div>
     );
   }
