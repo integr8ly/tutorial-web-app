@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t quay.io/secondsun/tutorial-web-app:master .
+docker build -t quay.io/integreatly/tutorial-web-app:master .
