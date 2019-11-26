@@ -51,7 +51,7 @@ export default {
     prettyName: 'Push Notification Service',
     gaStatus: 'GA',
     primaryTask: 'Mobile Push Messaging',
-    description: 'Provides APNS and FCM messaging services for mobile applications.'
+    description: 'Provides messaging services for Android and iOS'
   },
   rhsso: {
     prettyName: 'Red Hat Single Sign-On',
