@@ -8,12 +8,12 @@ import {
   DataListItemCells,
   DataListItemRow,
   DataListCell,
-  Expandable
+  Expandable,
+  Tooltip
 } from '@patternfly/react-core';
-import { ChartPieIcon, ErrorCircleOIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
+import { ChartPieIcon, ErrorCircleOIcon, HelpIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails } from '../../services/middlewareServices';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
-import { getMasterUri } from '../../common/openshiftHelpers';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -47,7 +47,7 @@ class InstalledAppsView extends React.Component {
     );
   }
 
-  static getStatusForApp(app) {
+  static getStatusForApp(app, prettyName) {
     const provisioningStatus = (
       <div className="integr8ly-state-provisioining">
         <ChartPieIcon /> &nbsp;Provisioning
@@ -55,7 +55,19 @@ class InstalledAppsView extends React.Component {
     );
     const readyStatus = (
       <div className="integr8ly-state-ready">
-        <OnRunningIcon /> &nbsp;Ready for use
+        <Button
+          onClick={() => {
+            if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
+              return;
+            }
+            prettyName === 'Red Hat AMQ'
+              ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
+              : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
+          }}
+          variant="secondary"
+        >
+          Open console
+        </Button>
       </div>
     );
     const unavailableStatus = (
@@ -63,11 +75,8 @@ class InstalledAppsView extends React.Component {
         <ErrorCircleOIcon /> &nbsp;Unavailable
       </div>
     );
-    const unreadyStatus = (
-      <div className="integr8ly-state-provisioining">
-        <OffIcon /> &nbsp;Not ready
-      </div>
-    );
+    const unreadyStatus = <span />;
+
     // Allow for non-Service Instance services
     if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
       if (!app.status || app.status === SERVICE_STATUSES.UNAVAILABLE) {
@@ -119,7 +128,6 @@ class InstalledAppsView extends React.Component {
       >
         <DataListItem
           className="integr8ly-installed-apps-view-list-item-enabled"
-          // onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
           key={`openshift_console_${index}`}
           value={index}
           aria-labelledby={`openshift-console-datalistitem-${index}`}
@@ -129,7 +137,6 @@ class InstalledAppsView extends React.Component {
             <DataListItemCells
               dataListCells={[
                 <DataListCell key="manage cluster">
-                  {/* <span id="Red Hat OpenShift">Manage cluster</span> */}
                   <Expandable toggleText="Manage cluster">
                     A single-tenant, high-availability OpenShift cluster, managed by Red Hat.
                   </Expandable>
@@ -146,15 +153,16 @@ class InstalledAppsView extends React.Component {
                     )
                   }
                 >
-                  <span id="manifest">
-                    Using getMasterUri() function: <br />
-                    {getMasterUri()}
-                    /console/project/webapp/browse/secrets/manifest
-                  </span>
+                  <span id="manifest">3.11 (hardcoded)</span>
                 </DataListCell>,
                 <DataListCell key="secondary content" className="pf-u-text-align-right">
                   <div className="integr8ly-state-ready">
-                    <OnRunningIcon /> &nbsp;Ready for use
+                    <Button
+                      onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+                      variant="secondary"
+                    >
+                      Open console
+                    </Button>
                   </div>
                 </DataListCell>
               ]}
@@ -275,14 +283,6 @@ class InstalledAppsView extends React.Component {
                   ? 'integr8ly-installed-apps-view-list-item-enabled'
                   : '&nbsp;'
               }
-              // onClick={() => {
-              //   if (!InstalledAppsView.getRouteForApp(app) || !InstalledAppsView.isServiceProvisioned(app)) {
-              //     return;
-              //   }
-              //   prettyName === 'Red Hat AMQ'
-              //     ? window.open(InstalledAppsView.getRouteForApp(app).concat('/console'), '_blank')
-              //     : window.open(InstalledAppsView.getRouteForApp(app), '_blank');
-              // }}
               key={`${uniqKey}_${index}`}
               value={index}
               aria-labelledby={`cluster-service-datalist-item-${index}`}
@@ -319,25 +319,28 @@ class InstalledAppsView extends React.Component {
                       }
                     >
                       <span id="manifest">
-                        Using getMasterUri() function: <br />
+                        Version goes here
+                        {/* Using getMasterUri() function: <br />
                         {getMasterUri()}
-                        /console/project/webapp/browse/secrets/manifest
+                        /console/project/webapp/browse/secrets/manifest */}
                       </span>
                     </DataListCell>,
 
                     <DataListCell key="secondary content" className="pf-u-text-align-right">
-                      <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app)}</div>
+                      <div className="integr8ly-state-ready">{InstalledAppsView.getStatusForApp(app, prettyName)}</div>
+                      {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
+                        // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
+                        <div className="integr8ly-state-provisioining">
+                          <Button onClick={() => launchHandler(app)} variant="secondary">
+                            <OffIcon />
+                            &nbsp; Start service
+                          </Button>
+                        </div>
+                      ) : null}
                     </DataListCell>
                   ]}
                 />
               </DataListItemRow>
-              {enableLaunch && InstalledAppsView.isServiceUnready(app) ? (
-                <div className="pf-u-display-flex pf-u-justify-content-flex-end">
-                  <Button onClick={() => launchHandler(app)} variant="link">
-                    Start service
-                  </Button>
-                </div>
-              ) : null}
             </DataListItem>
           </DataList>
         );
@@ -358,17 +361,42 @@ class InstalledAppsView extends React.Component {
       this.props.enableLaunch,
       this.handleLaunchClicked.bind(this)
     );
+    const managedTooltip = 'Managed services are delivered as a hosted service and supported by Red Hat.';
+    const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
+
     return (
       <div>
         <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm">
-          <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed Services</h2>
+          <h2 className="pf-u-display-flex pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed services</h2>
+          <Tooltip position="top" content={<div>{managedTooltip}</div>}>
+            <span>
+              <HelpIcon className="pf-u-ml-sm pf-u-mb-sm integr8ly-dev-resources-icon" />
+            </span>
+          </Tooltip>
+          <div className="integr8ly-walkthrough-badge pf-u-text-align-right">
+            <Badge className="integr8ly-dash-badge pf-u-mr-lg" isRead>
+              {appList.props.children.length}
+            </Badge>{' '}
+          </div>
+        </div>
+        <div className="integr8ly-installed-apps-view pf-u-mb-0 pf-u-mr-lg">
+          <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
+          {appList}
+        </div>
+        <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm">
+          <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Self-managed services</h2>
+          <Tooltip position="top" content={<div>{selfManagedTooltip}</div>}>
+            <span>
+              <HelpIcon className="pf-u-ml-sm pf-u-mb-sm integr8ly-dev-resources-icon" />
+            </span>
+          </Tooltip>
           <div className="integr8ly-walkthrough-badge pf-u-text-align-right">
             <Badge className="integr8ly-dash-badge" isRead>
               {appList.props.children.length}
             </Badge>{' '}
           </div>
         </div>
-        <div className="integr8ly-installed-apps-view pf-u-mb-0">
+        <div className="integr8ly-installed-apps-view pf-u-mb-0 pf-u-mr-lg">
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
         </div>
