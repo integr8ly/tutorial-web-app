@@ -47,11 +47,11 @@ export default {
     primaryTask: 'Design APIs',
     description: 'The Apicurito RESTful API visual designer.'
   },
-  mdc: {
-    prettyName: 'Mobile Developer Console',
-    gaStatus: 'preview',
-    primaryTask: 'Create mobile apps',
-    description: 'Allows you register your mobile app and associate it with Mobile Developer Services.'
+  unifiedpush: {
+    prettyName: 'Push Notification Service',
+    gaStatus: 'GA',
+    primaryTask: 'Mobile Push Messaging',
+    description: 'Provides messaging services for Android and iOS'
   },
   rhsso: {
     prettyName: 'Red Hat Single Sign-On',
