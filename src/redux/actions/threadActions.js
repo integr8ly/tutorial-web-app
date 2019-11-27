@@ -7,6 +7,11 @@ const getThread = (language, id) => ({
   payload: threadServices.getThread(language, id)
 });
 
+const resetCustomThread = () => ({
+  type: threadTypes.CLEAR_THREAD,
+  payload: Promise.resolve({})
+});
+
 const getCustomThread = id => ({
   type: threadTypes.GET_THREAD,
   payload: threadServices.getCustomThread(id)
@@ -44,5 +49,6 @@ export {
   updateThreadProgress,
   initCustomThreadSuccess,
   initCustomThreadFailure,
-  initCustomThreadPending
+  initCustomThreadPending,
+  resetCustomThread
 };

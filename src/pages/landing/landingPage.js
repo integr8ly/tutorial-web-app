@@ -18,8 +18,9 @@ import { DISPLAY_SERVICES } from '../../services/middlewareServices';
 
 class LandingPage extends React.Component {
   componentDidMount() {
-    const { getProgress, getCustomWalkthroughs } = this.props;
+    const { getProgress, getCustomWalkthroughs, resetCurrentWalkthrough } = this.props;
     getCustomWalkthroughs();
+    resetCurrentWalkthrough();
     getProgress();
   }
 
@@ -82,6 +83,7 @@ class LandingPage extends React.Component {
 LandingPage.propTypes = {
   getProgress: PropTypes.func,
   getCustomWalkthroughs: PropTypes.func,
+  resetCurrentWalkthrough: PropTypes.func,
   middlewareServices: PropTypes.object,
   walkthroughServices: PropTypes.object,
   user: PropTypes.object,
@@ -95,6 +97,7 @@ LandingPage.propTypes = {
 LandingPage.defaultProps = {
   getProgress: noop,
   getCustomWalkthroughs: noop,
+  resetCurrentWalkthrough: noop,
   middlewareServices: {
     customServices: {},
     data: {}
@@ -111,6 +114,7 @@ LandingPage.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   getWalkthroughs: language => dispatch(reduxActions.walkthroughActions.getWalkthroughs(language)),
   getCustomWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getCustomWalkthroughs()),
+  resetCurrentWalkthrough: () => dispatch(reduxActions.threadActions.resetCustomThread()),
   getProgress: () => dispatch(reduxActions.userActions.getProgress()),
   launchAMQOnline: (username, namespace) => provisionAMQOnline(dispatch, username, namespace),
   launchAMQOnlineV4: (username, namespace) => provisionAMQOnlineV4(dispatch, username, namespace)
