@@ -366,14 +366,17 @@ class InstalledAppsView extends React.Component {
 
     return (
       <div>
-        <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm">
-          <h2 className="pf-u-display-flex pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed services</h2>
-          <Tooltip position="top" content={<div>{managedTooltip}</div>}>
-            <span>
-              <HelpIcon className="pf-u-ml-sm pf-u-mb-sm integr8ly-dev-resources-icon" />
-            </span>
-          </Tooltip>
-          <div className="integr8ly-walkthrough-badge pf-u-text-align-right">
+        <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
+          <span className="pf-l-flex pf-m-inline-flex">
+            <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed services</h2>
+            <Tooltip position="top" content={<div>{managedTooltip}</div>}>
+              <span>
+                <HelpIcon className="pf-u-mt-sm integr8ly-dev-resources-icon" />
+              </span>
+            </Tooltip>
+          </span>
+
+          <div className="pf-l-flex__item pf-m-align-right">
             <Badge className="integr8ly-dash-badge pf-u-mr-lg" isRead>
               {appList.props.children.length}
             </Badge>{' '}
@@ -383,15 +386,18 @@ class InstalledAppsView extends React.Component {
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
         </div>
-        <div className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm">
-          <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Self-managed services</h2>
-          <Tooltip position="top" content={<div>{selfManagedTooltip}</div>}>
-            <span>
-              <HelpIcon className="pf-u-ml-sm pf-u-mb-sm integr8ly-dev-resources-icon" />
-            </span>
-          </Tooltip>
-          <div className="integr8ly-walkthrough-badge pf-u-text-align-right">
-            <Badge className="integr8ly-dash-badge" isRead>
+        <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
+          <span className="pf-l-flex pf-m-inline-flex">
+            <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Self-managed services</h2>
+            <Tooltip position="top" content={<div>{selfManagedTooltip}</div>}>
+              <span>
+                <HelpIcon className="pf-u-mt-sm integr8ly-dev-resources-icon" />
+              </span>
+            </Tooltip>
+          </span>
+
+          <div className="pf-l-flex__item pf-m-align-right">
+            <Badge className="integr8ly-dash-badge pf-u-mr-lg" isRead>
               {appList.props.children.length}
             </Badge>{' '}
           </div>
