@@ -16,7 +16,7 @@
 }
 
 .integr8ly-gallery-override {
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important; /* stylelint-disable declaration-no-important */
 }
 
 .integr8ly-dash-badge {
