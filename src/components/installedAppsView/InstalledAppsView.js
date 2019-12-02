@@ -153,7 +153,12 @@ class InstalledAppsView extends React.Component {
                     )
                   }
                 >
-                  <span id="manifest">3.11 (hardcoded)</span>
+                  <span id="manifest">
+                    {/* TODO: OpenShift Version
+                        Using getMasterUri() function: <br />
+                        {getMasterUri()}
+                        /console/project/webapp/browse/secrets/manifest */}
+                  </span>
                 </DataListCell>,
                 <DataListCell key="secondary content" className="pf-u-text-align-right">
                   <div className="integr8ly-state-ready">
@@ -327,8 +332,8 @@ class InstalledAppsView extends React.Component {
                       }
                     >
                       <span id="manifest">
-                        Version goes here
-                        {/* Using getMasterUri() function: <br />
+                        {/* TODO: Version
+                        Using getMasterUri() function: <br />
                         {getMasterUri()}
                         /console/project/webapp/browse/secrets/manifest */}
                       </span>
@@ -370,7 +375,7 @@ class InstalledAppsView extends React.Component {
       this.handleLaunchClicked.bind(this)
     );
     const managedTooltip = 'Managed services are delivered as a hosted service and supported by Red Hat.';
-    const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
+    // const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
 
     // MF 120219 Testing begin
     console.log(appList);
@@ -399,6 +404,7 @@ class InstalledAppsView extends React.Component {
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
         </div>
+        {/* 
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
             <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Self-managed services</h2>
@@ -411,14 +417,15 @@ class InstalledAppsView extends React.Component {
 
           <div className="pf-l-flex__item pf-m-align-right">
             <Badge className="integr8ly-dash-badge" isRead>
-              {appList.props.children.length}
+              0
             </Badge>{' '}
           </div>
         </div>
         <div className="integr8ly-installed-apps-view pf-u-mb-0">
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
-        </div>
+        </div> 
+        */}
       </div>
     );
   }
