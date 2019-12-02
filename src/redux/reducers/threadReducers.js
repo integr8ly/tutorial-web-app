@@ -24,6 +24,9 @@ const initialState = {
 
 const threadReducers = (state = initialState, action) => {
   switch (action.type) {
+    case FULFILLED_ACTION(threadTypes.CLEAR_THREAD):
+      return Object.assign({}, initialState, { threadProgress: state.threadProgress });
+
     // Error/Rejected
     case REJECTED_ACTION(threadTypes.GET_THREAD):
       return setStateProp(
