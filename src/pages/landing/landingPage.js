@@ -96,7 +96,7 @@ class LandingPage extends React.Component {
               />
             </Tabs>
           </PageSection>
-          <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+          <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-lg">
             <div>
               <TabContent eventKey={0} id="servicesTabSection" ref={this.contentRef1} aria-label="Services tab content">
                 <Grid>

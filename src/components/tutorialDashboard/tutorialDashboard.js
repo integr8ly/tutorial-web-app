@@ -117,7 +117,7 @@ const TutorialDashboard = props => {
           key={`category-${allRepos[i]}`}
         >
           {addCategory(filteredWalkthroughs)}
-          <div className="integr8ly-walkthrough-counter pf-u-mr-md pf-u-text-align-right pf-m-sm">
+          <div className="integr8ly-walkthrough-counter pf-u-text-align-right pf-m-sm">
             <div>
               {filteredWalkthroughs[0].walkthroughLocationInfo.type === 'path' ||
               !WalkthroughDetails.validWalkthroughDate(filteredWalkthroughs[0].walkthroughLocationInfo.commitDate) ? (
@@ -144,7 +144,11 @@ const TutorialDashboard = props => {
         </div>
       );
       htmlSnippet.push(
-        <Gallery gutter="md" key={`gallery-${allRepos[i]}`} className="pf-u-mt-sm pf-u-mb-md">
+        <Gallery
+          gutter="md"
+          key={`gallery-${allRepos[i]}`}
+          className="pf-u-mt-sm pf-u-mb-md integr8ly-gallery-override"
+        >
           {cards}
         </Gallery>
       );

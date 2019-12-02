@@ -218,6 +218,9 @@ class InstalledAppsView extends React.Component {
   }
 
   static createMasterList(displayServices, apps, customApps, enableLaunch, launchHandler) {
+    // MF 120219 Testing begin
+    console.log(`Apps = ${JSON.stringify(apps)}`);
+    // Testing end
     const completeSvcNames = apps
       .map(svc => {
         if (svc.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
@@ -251,7 +254,9 @@ class InstalledAppsView extends React.Component {
       }
       return provisionedSvc;
     });
-
+    // MF 120219 Testing begin
+    console.log(`completeSvcList is: ${JSON.stringify(completeSvcList)}`);
+    // Testing end
     const masterList = completeSvcList
       .sort((cur, next) => {
         const curDetails = getProductDetails(cur);
@@ -267,6 +272,9 @@ class InstalledAppsView extends React.Component {
         return 0;
       })
       .map((app, index) => {
+        // MF 120219 Testing begin
+        console.log(`App is: ${JSON.stringify(app)}`);
+        // Testing end
         const { description, gaStatus, hidden, prettyName, primaryTask } = getProductDetails(app);
         const uniqKey = InstalledAppsView.genUniqueKeyForService(app);
         return hidden ? null : (
@@ -364,6 +372,11 @@ class InstalledAppsView extends React.Component {
     const managedTooltip = 'Managed services are delivered as a hosted service and supported by Red Hat.';
     const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
 
+    // MF 120219 Testing begin
+    console.log(appList);
+    console.log(this.props.apps);
+    // Testing end
+
     return (
       <div>
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
@@ -377,12 +390,12 @@ class InstalledAppsView extends React.Component {
           </span>
 
           <div className="pf-l-flex__item pf-m-align-right">
-            <Badge className="integr8ly-dash-badge pf-u-mr-lg" isRead>
+            <Badge className="integr8ly-dash-badge" isRead>
               {appList.props.children.length}
             </Badge>{' '}
           </div>
         </div>
-        <div className="integr8ly-installed-apps-view pf-u-mb-0 pf-u-mr-lg">
+        <div className="integr8ly-installed-apps-view pf-u-mb-0">
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
         </div>
@@ -397,12 +410,12 @@ class InstalledAppsView extends React.Component {
           </span>
 
           <div className="pf-l-flex__item pf-m-align-right">
-            <Badge className="integr8ly-dash-badge pf-u-mr-lg" isRead>
+            <Badge className="integr8ly-dash-badge" isRead>
               {appList.props.children.length}
             </Badge>{' '}
           </div>
         </div>
-        <div className="integr8ly-installed-apps-view pf-u-mb-0 pf-u-mr-lg">
+        <div className="integr8ly-installed-apps-view pf-u-mb-0">
           <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
           {appList}
         </div>
