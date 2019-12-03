@@ -20,6 +20,9 @@ class AboutModal extends React.Component {
     const { isOpen, closeAboutModal } = this.props;
     const browser = detect();
 
+    const urlParts = window.location.host.split('.');
+    const [, , clusterId] = urlParts;
+
     return (
       <React.Fragment>
         <PfAboutModal
@@ -38,6 +41,8 @@ class AboutModal extends React.Component {
               </TextListItem>
               <TextListItem component="dt">Console Version</TextListItem>
               <TextListItem component="dd">{pkgJson.version}</TextListItem>
+              <TextListItem component="dt">Cluster Name</TextListItem>
+              <TextListItem component="dd">{clusterId}</TextListItem>
               <TextListItem component="dt">User Name</TextListItem>
               <TextListItem component="dd">{window.localStorage.getItem('currentUserName')}</TextListItem>
               <TextListItem component="dt">Browser Version</TextListItem>
