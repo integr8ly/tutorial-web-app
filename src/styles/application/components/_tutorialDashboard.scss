@@ -16,11 +16,11 @@
 }
 
 .integr8ly-gallery-override {
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important; /* stylelint-disable declaration-no-important */
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .integr8ly-dash-badge {
-  color: #000 !important; /* stylelint-disable declaration-no-important */
+  color: #000 !important; /* stylelint-disable-line declaration-no-important */
   background-color: #fff !important;
   margin-left: 2px;
 }
