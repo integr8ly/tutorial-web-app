@@ -15,8 +15,33 @@
   }
 }
 
+.integr8ly-gallery-override {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.integr8ly-dash-badge {
+  color: #000 !important; /* stylelint-disable-line declaration-no-important */
+  background-color: #fff !important; /* stylelint-disable-line declaration-no-important */
+  margin-left: 2px;
+}
+
+.integr8ly-repository {
+  margin-left: 5px;
+  color: $pf-color-blue-400;
+}
+
+.integr8ly-authored {
+  margin-left: 15px;
+}
+
 .integr8ly-walkthrough {
   &-counter {
     flex-basis: 50%;
+  }
+
+  &-badge {
+    // flex-basis: 50%;
+    margin-left: 85%;
+    margin-bottom: 10px;
   }
 }
