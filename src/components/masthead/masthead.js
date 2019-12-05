@@ -255,4 +255,4 @@ const ConnectedMasthead = connect(
 
 const RoutedConnectedMasthead = withRouter(ConnectedMasthead);
 
-export { Masthead as default, ConnectedMasthead, RoutedConnectedMasthead, Masthead };
+export { RoutedConnectedMasthead as default, ConnectedMasthead, RoutedConnectedMasthead, Masthead };
