@@ -142,7 +142,9 @@ class InstalledAppsView extends React.Component {
                   </Expandable>
                 </DataListCell>,
                 <DataListCell key="primary content">
-                  <span className="integr8ly-pretty-name" id="Red Hat OpenShift">Red Hat OpenShift</span>
+                  <span className="integr8ly-pretty-name" id="Red Hat OpenShift">
+                    Red Hat OpenShift
+                  </span>
                 </DataListCell>,
                 <DataListCell
                   key="cell one"
