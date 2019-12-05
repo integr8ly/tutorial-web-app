@@ -32,25 +32,6 @@ const TutorialDashboard = props => {
     return repos;
   }
 
-  function wtSortByProgress(w1, w2) {
-    const a = [userProgress[w1.id], w1.title];
-    const b = [userProgress[w2.id], w2.title];
-
-    if (a[0] === undefined && b[0] === undefined) {
-      return a[1] < b[1] ? -1 : 1;
-    }
-    if (a[0] !== undefined && b[0] !== undefined) {
-      return a[0].progress > b[0].progress ? -1 : 1;
-    }
-    if (a[0] === undefined && b[0] !== undefined) {
-      return a > b ? -1 : 1;
-    }
-    if (a[0] !== undefined && b[0] === undefined) {
-      return a > b ? -1 : 1;
-    }
-    return a[1] < b[1] ? -1 : 1;
-  }
-
   function addCategory(walkthrus) {
     const repoInfo = walkthrus[0].walkthroughLocationInfo;
     let htmlCategory = '';
@@ -75,7 +56,7 @@ const TutorialDashboard = props => {
     for (let i = 0; i < allRepos.length; i++) {
       const filteredWalkthroughs = filterWalkthroughs(walkthrus, allRepos[i]);
 
-      const cards = filteredWalkthroughs.sort(wtSortByProgress).map(walkthrough => {
+      const cards = filteredWalkthroughs.map(walkthrough => {
         const currentProgress = userProgress[walkthrough.id];
         let startedText;
         if (currentProgress === undefined) startedText = 'Get Started';
