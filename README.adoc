@@ -29,10 +29,18 @@ This web application provides the front door into the Inetgreatly initiative. It
 |Requirement |Version
 
 |NodeJS
-|>= 8
+|>= 10
 |===
 
 TIP: Use https://github.com/creationix/nvm/blob/master/README.md[nvm] to manage NodeJS versions locally.
+
+[source,shell]
+----
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+$ . ~/.nvm/nvm.sh
+$ nvm install 10
+$ nvm use 10
+----
 
 == Basic setup
 
@@ -52,6 +60,8 @@ Then change to the webapp directory, install its dependencies and run the develo
 [source,shell]
 ----
 $ cd tutorial-web-app
+$ rm -rf node_modules
+$ npm install -g yarn react-scripts nodemon npm-run-all
 $ yarn install
 $ yarn start:dev
 ----
@@ -69,14 +79,7 @@ If you are running tutorial-web-app against your cluster, then you will need to 
 [source,shell]
 ----
 $ oc login <my-cluster>
-$ oc edit oauthclient tutorial-web-app
-----
-This will open the file in vim for editing. The line 'http://localhost:3006' should be added to the bottom of the oauthclient tutorial-web-app and the file saved
-----
-redirectURIs:
-- ...
-- http://localhost:3006
-
+$ oc patch oauthclient tutorial-web-app -p '{"redirectURIs":["http://localhost:3006"]}'
 ----
 
 
