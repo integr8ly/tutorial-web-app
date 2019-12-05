@@ -142,7 +142,7 @@ class InstalledAppsView extends React.Component {
                   </Expandable>
                 </DataListCell>,
                 <DataListCell key="primary content">
-                  <span id="Red Hat OpenShift">Red Hat OpenShift</span>
+                  <span className="integr8ly-pretty-name" id="Red Hat OpenShift">Red Hat OpenShift</span>
                 </DataListCell>,
                 <DataListCell
                   key="cell one"
@@ -310,7 +310,7 @@ class InstalledAppsView extends React.Component {
                       </span>
                     </DataListCell>,
                     <DataListCell key="primary content">
-                      <span id={`appName-${prettyName}`}>
+                      <span className="integr8ly-pretty-name" id={`appName-${prettyName}`}>
                         {' '}
                         {prettyName}{' '}
                         {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
