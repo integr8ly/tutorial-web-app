@@ -19,6 +19,10 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; /* stylelint-disable-line declaration-no-important */
 }
 
+.integr8ly-title-override {
+  flex-basis: 50%;
+}
+
 .integr8ly-dash-badge {
   color: #000 !important; /* stylelint-disable-line declaration-no-important */
   background-color: #fff !important; /* stylelint-disable-line declaration-no-important */
