@@ -180,7 +180,7 @@ class InstalledAppsView extends React.Component {
                         {getMasterUri()}
                         /console/project/webapp/browse/secrets/manifest }
                 </span>
-              </DataListCell> </DataListItem>*/
+              </DataListCell> </DataListItem> */
             ]}
           />
           <DataListAction
@@ -351,7 +351,7 @@ class InstalledAppsView extends React.Component {
                         )}
                       </span>
                     </DataListCell>
-                    /* <DataListCell /* TODO: Version
+                    /* <DataListCell TODO: Version
                       key="cell one"
                       onClick={() =>
                         window.open(
@@ -366,7 +366,7 @@ class InstalledAppsView extends React.Component {
                         {getMasterUri()}
                         /console/project/webapp/browse/secrets/manifest}
                       </span>
-                        </DataListCell>,*/
+                        </DataListCell>, */
                   ]}
                 />
                 <DataListAction
