@@ -162,10 +162,10 @@ class InstalledAppsView extends React.Component {
                   Manage cluster
                 </Button>
               </DataListCell>,
-              <DataListCell key="primary content">
+              <DataListCell className="integr8ly-pretty-name" key="primary content">
                 <span id="Red Hat OpenShift">Red Hat OpenShift</span>
-              </DataListCell>,
-              <DataListCell
+              </DataListCell>
+              /* <DataListCell TODO: OpenShift Version
                 key="cell one"
                 onClick={() =>
                   window.open(
@@ -175,29 +175,29 @@ class InstalledAppsView extends React.Component {
                 }
               >
                 <span id="manifest">
-                  {/* TODO: OpenShift Version
+                  { 
                         Using getMasterUri() function: <br />
                         {getMasterUri()}
-                        /console/project/webapp/browse/secrets/manifest */}
+                        /console/project/webapp/browse/secrets/manifest }
                 </span>
-              </DataListCell>,
-              <DataListAction
-                id={`openshift_console_${index}_actions`}
-                key="secondary content"
-                aria-label={`Openshift Actions ${index}`}
-                aria-labelledby={`Openshift Actions ${index}`}
-              >
-                <div className="integr8ly-state-ready">
-                  <Button
-                    onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
-                    variant="secondary"
-                  >
-                    Open console
-                  </Button>
-                </div>
-              </DataListAction>
+              </DataListCell> </DataListItem>*/
             ]}
           />
+          <DataListAction
+            id={`openshift_console_${index}_actions`}
+            key="secondary content"
+            aria-label={`Openshift Actions ${index}`}
+            aria-labelledby={`Openshift Actions ${index}`}
+          >
+            <div className="integr8ly-state-ready">
+              <Button
+                onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+                variant="secondary"
+              >
+                Open console
+              </Button>
+            </div>
+          </DataListAction>
         </DataListItemRow>
         <DataListContent
           aria-label={`Openshit Content Details ${index}`}
@@ -350,8 +350,8 @@ class InstalledAppsView extends React.Component {
                           <span />
                         )}
                       </span>
-                    </DataListCell>,
-                    <DataListCell
+                    </DataListCell>
+                    /* <DataListCell /* TODO: Version
                       key="cell one"
                       onClick={() =>
                         window.open(
@@ -361,32 +361,31 @@ class InstalledAppsView extends React.Component {
                       }
                     >
                       <span id="manifest">
-                        {/* TODO: Version
+                        {
                         Using getMasterUri() function: <br />
                         {getMasterUri()}
-                        /console/project/webapp/browse/secrets/manifest */}
+                        /console/project/webapp/browse/secrets/manifest}
                       </span>
-                    </DataListCell>,
-
-                    <DataListAction
-                      id={`integration_app_${index}_actions`}
-                      key="secondary content"
-                      aria-label={`App Actions ${index}`}
-                      aria-labelledby={`App Actions ${index}`}
-                    >
-                      <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
-                      {enableLaunch && this.isServiceUnready(app) ? (
-                        // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
-                        <div className="integr8ly-state-provisioining">
-                          <Button onClick={() => launchHandler(app)} variant="secondary">
-                            <OffIcon />
-                            &nbsp; Start service
-                          </Button>
-                        </div>
-                      ) : null}
-                    </DataListAction>
+                        </DataListCell>,*/
                   ]}
                 />
+                <DataListAction
+                  id={`integration_app_${index}_actions`}
+                  key="secondary content"
+                  aria-label={`App Actions ${index}`}
+                  aria-labelledby={`App Actions ${index}`}
+                >
+                  <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
+                  {enableLaunch && this.isServiceUnready(app) ? (
+                    // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
+                    <div className="integr8ly-state-provisioining">
+                      <Button onClick={() => launchHandler(app)} variant="secondary">
+                        <OffIcon />
+                        &nbsp; Start service
+                      </Button>
+                    </div>
+                  ) : null}
+                </DataListAction>
               </DataListItemRow>
               <DataListContent
                 aria-label={`App Content Details ${index}`}
