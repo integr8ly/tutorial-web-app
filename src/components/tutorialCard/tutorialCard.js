@@ -26,7 +26,7 @@ const TutorialCard = props => (
     }}
   >
     <CardHeader>
-      <h2 className="pf-c-title pf-m-xl">{props.title}</h2>
+      <h3 className="pf-c-title pf-m-xl">{props.title}</h3>
     </CardHeader>
     <CardBody>{props.children}</CardBody>
     <CardFooter>
