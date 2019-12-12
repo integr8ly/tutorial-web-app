@@ -181,7 +181,12 @@ class InstalledAppsView extends React.Component {
                         /console/project/webapp/browse/secrets/manifest */}
                 </span>
               </DataListCell>,
-              <DataListAction key="secondary content" aria-label={`Openshift Actions ${index}`}>
+              <DataListAction
+                id={`openshift_console_${index}_actions`}
+                key="secondary content"
+                aria-label={`Openshift Actions ${index}`}
+                aria-labelledby={`Openshift Actions ${index}`}
+              >
                 <div className="integr8ly-state-ready">
                   <Button
                     onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
@@ -195,7 +200,7 @@ class InstalledAppsView extends React.Component {
           />
         </DataListItemRow>
         <DataListContent
-          aria-label="Primary Content Details"
+          aria-label={`Openshit Content Details ${index}`}
           className="integr8ly-app-detail-content"
           id={`openshift-expand-${index}`}
           isHidden={!this.state.expanded.includes(`openshift-toggle-${index}`)}
@@ -363,7 +368,12 @@ class InstalledAppsView extends React.Component {
                       </span>
                     </DataListCell>,
 
-                    <DataListAction key="secondary content" aria-label={`App Actions ${index}`}>
+                    <DataListAction
+                      id={`integration_app_${index}_actions`}
+                      key="secondary content"
+                      aria-label={`App Actions ${index}`}
+                      aria-labelledby={`App Actions ${index}`}
+                    >
                       <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
                       {enableLaunch && this.isServiceUnready(app) ? (
                         // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
@@ -379,6 +389,7 @@ class InstalledAppsView extends React.Component {
                 />
               </DataListItemRow>
               <DataListContent
+                aria-label={`App Content Details ${index}`}
                 className="integr8ly-app-detail-content"
                 id={`app-expand-${index}`}
                 isHidden={!this.state.expanded.includes(`app-toggle-${index}`)}
