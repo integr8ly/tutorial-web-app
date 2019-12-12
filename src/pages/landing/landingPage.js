@@ -76,7 +76,7 @@ class LandingPage extends React.Component {
         <Page className="pf-u-h-100vh">
           <RoutedConnectedMasthead />
           <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <h1 className="pf-c-title pf-m-2xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
+            <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
             <p className="pf-c-landing__content">
               Quickly access consoles for all your Red Hat managed and self-managed services, and learn how to easily
               implement enterprise integrations with Solution Pattern examples.

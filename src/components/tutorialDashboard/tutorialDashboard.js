@@ -36,15 +36,15 @@ const TutorialDashboard = props => {
     const repoInfo = walkthrus[0].walkthroughLocationInfo;
     let htmlCategory = '';
     if (repoInfo.type === 'path') {
-      htmlCategory = <h1 className="pf-c-title pf-m-2xl">Locally Installed Solution Patterns</h1>;
+      htmlCategory = <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Locally Installed Solution Patterns</h2>;
     } else if (repoInfo.header === null) {
       const repo = walkthrus[0].walkthroughLocationInfo.remote;
       const repoParts = repo.split('/');
       const repoLastPart = repoParts.length - 1;
       const repoCategory = repoParts[repoLastPart];
-      htmlCategory = <h1 className="pf-c-title pf-m-2xl">{repoCategory} Solution Patterns</h1>;
+      htmlCategory = <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">{repoCategory} Solution Patterns</h2>;
     } else {
-      htmlCategory = <h1 className="pf-c-title pf-m-2xl">{repoInfo.header}</h1>;
+      htmlCategory = <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">{repoInfo.header}</h2>;
     }
     return htmlCategory;
   }
@@ -93,12 +93,9 @@ const TutorialDashboard = props => {
       });
 
       htmlSnippet.push(
-        <div
-          className="integr8ly-tutorial-dashboard-title pf-u-display-flex pf-u-align-items-flex-end pf-u-py-sm"
-          key={`category-${allRepos[i]}`}
-        >
+        <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm" key={`category-${allRepos[i]}`}>
           {addCategory(filteredWalkthroughs)}
-          <div className="integr8ly-walkthrough-counter pf-u-text-align-right pf-m-sm">
+          <div className="pf-l-flex__item pf-m-align-right">
             <div>
               {filteredWalkthroughs[0].walkthroughLocationInfo.type === 'path' ||
               !WalkthroughDetails.validWalkthroughDate(filteredWalkthroughs[0].walkthroughLocationInfo.commitDate) ? (

@@ -37,7 +37,7 @@ class DevResourcesPage extends React.Component {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
     }
     switch (clusterType) {
-      case 'rhpds':
+      case 'pds':
         urls.loggingUrl = `https://kibana.apps.${clusterId}.open.redhat.com`;
         urls.apiUrl = `https://master.apps.${clusterId}.open.redhat.com`;
         urls.registryUrl = `https://registry-console-default.apps.${clusterId}.open.redhat.com`;
