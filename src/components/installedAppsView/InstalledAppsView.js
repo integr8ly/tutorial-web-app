@@ -374,10 +374,10 @@ class InstalledAppsView extends React.Component {
       <div>
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
-            <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Managed services</h2>
+            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Managed services</h2>
             <Tooltip position="top" content={<div>{managedTooltip}</div>}>
               <span>
-                <HelpIcon className="pf-u-mt-sm integr8ly-dev-resources-icon" />
+                <HelpIcon className="integr8ly-dev-resources-icon" />
               </span>
             </Tooltip>
           </span>
@@ -395,7 +395,7 @@ class InstalledAppsView extends React.Component {
         {/* 
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
-            <h2 className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-sm pf-u-ml-md">Self-managed services</h2>
+            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Self-managed services</h2>
             <Tooltip position="top" content={<div>{selfManagedTooltip}</div>}>
               <span>
                 <HelpIcon className="pf-u-mt-sm integr8ly-dev-resources-icon" />
