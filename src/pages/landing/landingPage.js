@@ -83,12 +83,14 @@ class LandingPage extends React.Component {
             </p>
             <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
               <Tab
+                id="servicesTabSection"
                 eventKey={0}
                 title="All services"
                 tabContentId="servicesTabSection"
                 tabContentRef={this.contentRef1}
               />
               <Tab
+                id="solutionPatternsTabSection"
                 eventKey={1}
                 title="All Solution Patterns"
                 tabContentId="solutionPatternsTabSection"
