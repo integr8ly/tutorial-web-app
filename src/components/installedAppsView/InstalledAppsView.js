@@ -315,7 +315,7 @@ class InstalledAppsView extends React.Component {
               aria-controls={`app-expand-${index}`}
               aria-labelledby={`cluster-service-datalist-item-${index}`}
             >
-              <DataListItemRow className='integr8ly-installed-apps-row'>
+              <DataListItemRow className="integr8ly-installed-apps-row">
                 <DataListToggle
                   onClick={() => this.toggle(`app-toggle-${index}`)}
                   isExpanded={this.state.expanded.includes(`app-toggle-${index}`)}
