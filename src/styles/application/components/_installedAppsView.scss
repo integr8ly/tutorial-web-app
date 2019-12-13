@@ -26,6 +26,10 @@
     }
   }
 
+  & .pf-c-data-list__item-control { /* stylelint-disable-line selector-class-pattern */
+    margin-right: 1px;
+  }
+
   &-list-item-enabled:hover {
     cursor: pointer;
   }
@@ -49,4 +53,21 @@
 
 .integr8ly-pretty-name {
   color: var(--pf-global--Color--200);
+}
+
+.integr8ly-installed-apps div {
+  padding-bottom: 1px;
+}
+
+.integr8ly-app-name-pretty {
+  padding: 1px !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.integr8ly-app-detail-content {
+  border: none !important; /* stylelint-disable-line declaration-no-important */
+  padding-left: 42px;
+
+  & .pf-c-data-list__expandable-content-body { /* stylelint-disable-line selector-class-pattern */
+    padding-top: 1px !important; /* stylelint-disable-line declaration-no-important */
+  }
 }
