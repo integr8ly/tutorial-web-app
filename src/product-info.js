@@ -55,7 +55,7 @@ export default {
       'Admins can use our single sign-on solution for managing cluster users. Contact your local customer admin if you do not have access to this console. '
   },
   rhsso: {
-    prettyName: 'Red Hat Single Sign-On',
+    prettyName: 'Managed Integration Red Hat Single Sign-On',
     gaStatus: 'GA',
     primaryTask: 'Manage users (Admins only)',
     description: 'A single sign-on solution for web apps, mobile apps, and RESTful web services.'
