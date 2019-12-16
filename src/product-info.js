@@ -48,17 +48,17 @@ export default {
     description: 'Provides messaging services for Android and iOS'
   },
   'user-rhsso': {
-    prettyName: 'End-user Red Hat Single Sign-On',
+    prettyName: 'Customer Application SSO',
     gaStatus: 'GA',
-    primaryTask: 'Setup authentication',
-    description:
-      'Admins can use our single sign-on solution for managing cluster users. Contact your local customer admin if you do not have access to this console. '
+    primaryTask: 'Protect your end-user applications',
+    description: "A single sign-on solution for your end-users' web apps, mobile apps, and RESTful web services."
   },
   rhsso: {
-    prettyName: 'Red Hat Single Sign-On',
+    prettyName: 'Managed Integration SSO',
     gaStatus: 'GA',
-    primaryTask: 'Manage users (Admins only)',
-    description: 'A single sign-on solution for web apps, mobile apps, and RESTful web services.'
+    primaryTask: 'Manage your cluster users (Admins only)',
+    description:
+      'Administrators can use this single sign-on solution for managing user permissions and access to the cluster. If you do not have access to this console, contact your local admin.'
   },
   launcher: {
     prettyName: 'Red Hat Developer Launcher',
