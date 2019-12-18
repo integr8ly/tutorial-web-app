@@ -20,7 +20,9 @@ import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
-import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
+//import brandImg from '../../img/Logo_RH_SolutionExplorer_White.png';
+import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg'
+import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg'
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -96,6 +98,19 @@ class Masthead extends React.Component {
     this.setState({
       isHelpDropdownOpen
     });
+  }
+
+  getLogo = () => {
+    let clusterType = '';
+    if (window.OPENSHIFT_CONFIG) {
+      clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
+      // test clusterType = 'pds';
+      if(clusterType === 'poc' || 'osd') {
+        return managedIntegrationSolutionExplorerImg
+      }
+      else if(clusterType === 'pds')
+        return solutionExplorerImg
+    }
   }
 
   onHelpDropdownSelect = () => {
@@ -224,7 +239,7 @@ class Masthead extends React.Component {
 
     return (
       <PageHeader
-        logo={<Brand src={brandImg} alt="Red Hat Solution Explorer" />}
+        logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
         logoProps={logoProps}
         toolbar={MastheadToolbar}
       />

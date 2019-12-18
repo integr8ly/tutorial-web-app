@@ -166,7 +166,7 @@ const mapStateToProps = state => ({
 
 const ConnectedDevResourcesPage = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DevResourcesPage);
 
 const RouterDevResourcesPage = withRouter(DevResourcesPage);
