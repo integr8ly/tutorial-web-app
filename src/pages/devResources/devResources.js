@@ -166,9 +166,9 @@ const mapStateToProps = state => ({
 
 const ConnectedDevResourcesPage = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(DevResourcesPage);
 
 const RouterDevResourcesPage = withRouter(DevResourcesPage);
 
-export { RouterDevResourcesPage as default, ConnectedDevResourcesPage, DevResourcesPage, };
+export { RouterDevResourcesPage as default, ConnectedDevResourcesPage, DevResourcesPage };
