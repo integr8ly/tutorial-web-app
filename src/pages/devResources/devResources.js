@@ -171,4 +171,4 @@ const ConnectedDevResourcesPage = connect(
 
 const RouterDevResourcesPage = withRouter(DevResourcesPage);
 
-export { RouterDevResourcesPage as default, ConnectedDevResourcesPage, DevResourcesPage };
+export { RouterDevResourcesPage as default, ConnectedDevResourcesPage, DevResourcesPage, };
