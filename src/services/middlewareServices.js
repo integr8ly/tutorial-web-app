@@ -100,6 +100,14 @@ const getProductDetailsForServiceClass = serviceClassName => {
   return storedDetails;
 };
 
+const getServiceSortOrder = svc => {
+  const serviceClassName = svc.spec.clusterServiceClassExternalName;
+  const keys = Object.keys(productDetails);
+  const serviceOrder = keys.indexOf(serviceClassName);
+
+  return serviceOrder;
+};
+
 /**
  * Dispatch a mock set of user services.
  * @param {Object} dispatch Redux dispatch.
@@ -406,6 +414,7 @@ export {
   getCustomConfig,
   handleEnmasseServiceInstanceWatchEvents,
   getProductDetails,
+  getServiceSortOrder,
   getProductDetailsForServiceClass,
   getServicesToProvision,
   manageServicesV4
