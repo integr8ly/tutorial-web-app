@@ -44,7 +44,7 @@ class WalkthroughResources extends React.Component {
   }
 
   static assignSerivceIcon(app) {
-    const provisioningStatus = <ChartPieIcon className="pf-u-mr-xs integr8ly-state-provisioining" />;
+    const provisioningStatus = <ChartPieIcon className="pf-u-mr-xs integr8ly-state-provisioning" />;
     const readyStatus = <OnRunningIcon className="pf-u-mr-xs integr8ly-state-ready" />;
     const unavailableStatus = <ExclamationCircleIcon className="pf-u-mr-xs integr8ly-state-unavailable" />;
 

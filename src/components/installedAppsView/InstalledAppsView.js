@@ -14,7 +14,7 @@ import {
   Tooltip
 } from '@patternfly/react-core';
 import { ChartPieIcon, ErrorCircleOIcon, HelpIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
-import { getProductDetails } from '../../services/middlewareServices';
+import { getProductDetails, getServiceSortOrder } from '../../services/middlewareServices';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
 
 class InstalledAppsView extends React.Component {
@@ -52,7 +52,7 @@ class InstalledAppsView extends React.Component {
 
   getStatusForApp = (app, prettyName) => {
     const provisioningStatus = (
-      <div className="integr8ly-state-provisioining">
+      <div className="integr8ly-state-provisioning">
         <ChartPieIcon /> &nbsp;Provisioning
       </div>
     );
@@ -200,7 +200,7 @@ class InstalledAppsView extends React.Component {
           </DataListAction>
         </DataListItemRow>
         <DataListContent
-          aria-label={`Openshit Content Details ${index}`}
+          aria-label={`Openshift Content Details ${index}`}
           className="integr8ly-app-detail-content"
           id={`openshift-expand-${index}`}
           isHidden={!this.state.expanded.includes(`openshift-toggle-${index}`)}
@@ -285,17 +285,15 @@ class InstalledAppsView extends React.Component {
       }
       return provisionedSvc;
     });
-
+    // Sort by order of products in json file
     const masterList = completeSvcList
       .sort((cur, next) => {
-        const curDetails = getProductDetails(cur);
-        const nextDetails = getProductDetails(next);
-        // Try to push any non-pretty names to the bottom. Although, all names
-        // should be pretty in this section.
-        if (!curDetails || nextDetails.prettyName > curDetails.prettyName) {
+        const curOrder = getServiceSortOrder(cur);
+        const nextOrder = getServiceSortOrder(next);
+        if (!curOrder || nextOrder > curOrder) {
           return -1;
         }
-        if (!nextDetails || curDetails.prettyName > nextDetails.prettyName) {
+        if (!nextOrder || curOrder > nextOrder) {
           return 1;
         }
         return 0;
@@ -378,7 +376,7 @@ class InstalledAppsView extends React.Component {
                   <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
                   {enableLaunch && this.isServiceUnready(app) ? (
                     // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
-                    <div className="integr8ly-state-provisioining">
+                    <div className="integr8ly-state-provisioning">
                       <Button onClick={() => launchHandler(app)} variant="secondary">
                         <OffIcon />
                         &nbsp; Start service
