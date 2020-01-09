@@ -193,7 +193,10 @@ const finishOAuth = () => {
  * logout state change in your App by navigating elsewhere
  * or reloading your App.
  */
-const logout = () => deleteCurrentSessionAuthToken().then(() => setUser(null));
+const logout = () =>
+  deleteCurrentSessionAuthToken().then(response => {
+    setUser(null);
+  });
 
 /**
  * Retrieve a single parameter value from a URL that contains a query string
