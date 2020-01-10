@@ -21,17 +21,14 @@ class AboutModal extends React.Component {
     let clusterType = '';
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
-      if(clusterType === 'poc') {
+      if (clusterType === 'poc') {
+        return managedIntegrationLogo;
+      } else if (clusterType === 'osd') {
         return managedIntegrationLogo;
       }
-      else if(clusterType === 'osd') {
-        return managedIntegrationLogo;
-      }
-      else {
-        return redHatLogo;
-      }
+      return redHatLogo;
     }
-  }
+  };
 
   render() {
     const { isOpen, closeAboutModal } = this.props;

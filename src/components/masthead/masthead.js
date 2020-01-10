@@ -20,8 +20,8 @@ import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
-import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg'
-import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg'
+import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg';
+import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -103,17 +103,14 @@ class Masthead extends React.Component {
     let clusterType = '';
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
-      if(clusterType === 'poc') {
+      if (clusterType === 'poc') {
+        return managedIntegrationSolutionExplorerImg;
+      } else if (clusterType === 'osd') {
         return managedIntegrationSolutionExplorerImg;
       }
-      else if(clusterType === 'osd') {
-        return managedIntegrationSolutionExplorerImg;
-      }
-      else {
-        return solutionExplorerImg;
-      }
+      return solutionExplorerImg;
     }
-  }
+  };
 
   onHelpDropdownSelect = () => {
     this.setState({
