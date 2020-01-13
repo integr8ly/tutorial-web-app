@@ -131,41 +131,42 @@ class InstalledAppsView extends React.Component {
   };
 
   getOpenshiftConsole = index => (
-    <DataList
-      aria-label="OpenShift console datalist"
-      key="openshift_console"
-      id={`openshift-console-datalistitem-${index}`}
-    >
-      <DataListItem
-        className="integr8ly-installed-apps-view-list-item-enabled"
-        isExpanded={this.state.expanded.includes(`openshift-toggle-${index}`)}
-        key={`openshift_console_${index}`}
-        value={index}
-        aria-labelledby={`openshift-console-datalistitem-${index}`}
-        aria-label={`Installed application list item ${index}`}
+    <li>
+      <DataList
+        aria-label="OpenShift console datalist"
+        key="openshift_console"
+        id={`openshift-console-datalistitem-${index}`}
       >
-        <DataListItemRow>
-          <DataListToggle
-            onClick={() => this.toggle(`openshift-toggle-${index}`)}
-            isExpanded={this.state.expanded.includes(`openshift-toggle-${index}`)}
-            id={`openshift-toggle-${index}`}
-            aria-controls={`openshift-expand-${index}`}
-          />
-          <DataListItemCells
-            dataListCells={[
-              <DataListCell key="manage cluster">
-                <Button
-                  className="integr8ly-app-name-pretty"
-                  variant="link"
-                  onClick={() => this.toggle(`openshift-toggle-${index}`)}
-                >
-                  Manage cluster
-                </Button>
-              </DataListCell>,
-              <DataListCell className="integr8ly-pretty-name" key="primary content">
-                <span id="Red Hat OpenShift">Red Hat OpenShift</span>
-              </DataListCell>
-              /* <DataListCell TODO: OpenShift Version
+        <DataListItem
+          className="integr8ly-installed-apps-view-list-item-enabled"
+          isExpanded={this.state.expanded.includes(`openshift-toggle-${index}`)}
+          key={`openshift_console_${index}`}
+          value={index}
+          aria-labelledby={`openshift-console-datalistitem-${index}`}
+          aria-label={`Installed application list item ${index}`}
+        >
+          <DataListItemRow>
+            <DataListToggle
+              onClick={() => this.toggle(`openshift-toggle-${index}`)}
+              isExpanded={this.state.expanded.includes(`openshift-toggle-${index}`)}
+              id={`openshift-toggle-${index}`}
+              aria-controls={`openshift-expand-${index}`}
+            />
+            <DataListItemCells
+              dataListCells={[
+                <DataListCell key="manage cluster">
+                  <Button
+                    className="integr8ly-app-name-pretty"
+                    variant="link"
+                    onClick={() => this.toggle(`openshift-toggle-${index}`)}
+                  >
+                    Manage cluster
+                  </Button>
+                </DataListCell>,
+                <DataListCell className="integr8ly-pretty-name" key="primary content">
+                  <span id="Red Hat OpenShift">Red Hat OpenShift</span>
+                </DataListCell>
+                /* <DataListCell TODO: OpenShift Version
                 key="cell one"
                 onClick={() =>
                   window.open(
@@ -181,34 +182,35 @@ class InstalledAppsView extends React.Component {
                         /console/project/webapp/browse/secrets/manifest }
                 </span>
               </DataListCell> </DataListItem> */
-            ]}
-          />
-          <DataListAction
-            id={`openshift_console_${index}_actions`}
-            key="secondary content"
-            aria-label={`Openshift Actions ${index}`}
-            aria-labelledby={`Openshift Actions ${index}`}
+              ]}
+            />
+            <DataListAction
+              id={`openshift_console_${index}_actions`}
+              key="secondary content"
+              aria-label={`Openshift Actions ${index}`}
+              aria-labelledby={`Openshift Actions ${index}`}
+            >
+              <div className="integr8ly-state-ready">
+                <Button
+                  onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+                  variant="secondary"
+                >
+                  Open console
+                </Button>
+              </div>
+            </DataListAction>
+          </DataListItemRow>
+          <DataListContent
+            aria-label={`Openshift Content Details ${index}`}
+            className="integr8ly-app-detail-content"
+            id={`openshift-expand-${index}`}
+            isHidden={!this.state.expanded.includes(`openshift-toggle-${index}`)}
           >
-            <div className="integr8ly-state-ready">
-              <Button
-                onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
-                variant="secondary"
-              >
-                Open console
-              </Button>
-            </div>
-          </DataListAction>
-        </DataListItemRow>
-        <DataListContent
-          aria-label={`Openshift Content Details ${index}`}
-          className="integr8ly-app-detail-content"
-          id={`openshift-expand-${index}`}
-          isHidden={!this.state.expanded.includes(`openshift-toggle-${index}`)}
-        >
-          <p>A single-tenant, high-availability OpenShift cluster, managed by Red Hat.</p>
-        </DataListContent>
-      </DataListItem>
-    </DataList>
+            <p>A single-tenant, high-availability OpenShift cluster, managed by Red Hat.</p>
+          </DataListContent>
+        </DataListItem>
+      </DataList>
+    </li>
   );
 
   createCustomAppElem = (i, customApp) => (
@@ -302,54 +304,57 @@ class InstalledAppsView extends React.Component {
         const { description, gaStatus, hidden, prettyName, primaryTask } = getProductDetails(app);
         const uniqKey = this.genUniqueKeyForService(app);
         return hidden ? null : (
-          <DataList
-            aria-label="Cluster service datalist"
-            key={`${
-              app.type === SERVICE_TYPES.PROVISIONED_SERVICE ? app.name : app.spec.clusterServiceClassExternalName
-            }`}
-            id={`cluster-service-datalist-item-${index}`}
-          >
-            <DataListItem
-              className={this.isServiceProvisioned(app) ? 'integr8ly-installed-apps-view-list-item-enabled' : '&nbsp;'}
-              isExpanded={this.state.expanded.includes(`app-toggle-${index}`)}
-              key={`${uniqKey}_${index}`}
-              value={index}
-              id={`app-toggle-${index}`}
-              aria-controls={`app-expand-${index}`}
-              aria-labelledby={`cluster-service-datalist-item-${index}`}
+          <li>
+            <DataList
+              aria-label="Cluster service datalist"
+              key={`${
+                app.type === SERVICE_TYPES.PROVISIONED_SERVICE ? app.name : app.spec.clusterServiceClassExternalName
+              }`}
+              id={`cluster-service-datalist-item-${index}`}
             >
-              <DataListItemRow className="integr8ly-installed-apps-row">
-                <DataListToggle
-                  onClick={() => this.toggle(`app-toggle-${index}`)}
-                  isExpanded={this.state.expanded.includes(`app-toggle-${index}`)}
-                  id={`app-toggle-${index}`}
-                  aria-controls={`app-expand-${index}`}
-                />
-                <DataListItemCells
-                  dataListCells={[
-                    <DataListCell key={`primary content ${index}`}>
-                      <Button
-                        className="integr8ly-app-name-pretty"
-                        variant="link"
-                        onClick={() => this.toggle(`app-toggle-${index}`)}
-                      >
-                        {primaryTask}
-                      </Button>
-                    </DataListCell>,
-                    <DataListCell key="primary content">
-                      <span className="integr8ly-pretty-name" id={`appName-${prettyName}`}>
-                        {' '}
-                        {prettyName}{' '}
-                        {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
-                          <Badge isRead className="pf-u-ml-lg">
-                            {gaStatus}
-                          </Badge>
-                        ) : (
-                          <span />
-                        )}
-                      </span>
-                    </DataListCell>
-                    /* <DataListCell TODO: Version
+              <DataListItem
+                className={
+                  this.isServiceProvisioned(app) ? 'integr8ly-installed-apps-view-list-item-enabled' : '&nbsp;'
+                }
+                isExpanded={this.state.expanded.includes(`list-item-${index}`)}
+                key={`${uniqKey}_${index}`}
+                value={index}
+                id={`list-item-${index}`}
+                aria-controls={`app-expand-${index}`}
+                aria-labelledby={`cluster-service-datalist-item-${index}`}
+              >
+                <DataListItemRow className="integr8ly-installed-apps-row">
+                  <DataListToggle
+                    onClick={() => this.toggle(`app-toggle-${index}`)}
+                    isExpanded={this.state.expanded.includes(`app-toggle-${index}`)}
+                    id={`app-toggle-${index}`}
+                    aria-controls={`app-expand-${index}`}
+                  />
+                  <DataListItemCells
+                    dataListCells={[
+                      <DataListCell key={`primary content ${index}`}>
+                        <Button
+                          className="integr8ly-app-name-pretty"
+                          variant="link"
+                          onClick={() => this.toggle(`app-toggle-${index}`)}
+                        >
+                          {primaryTask}
+                        </Button>
+                      </DataListCell>,
+                      <DataListCell key="primary content">
+                        <span className="integr8ly-pretty-name" id={`appName-${prettyName}`}>
+                          {' '}
+                          {prettyName}{' '}
+                          {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
+                            <Badge isRead className="pf-u-ml-lg">
+                              {gaStatus}
+                            </Badge>
+                          ) : (
+                            <span />
+                          )}
+                        </span>
+                      </DataListCell>
+                      /* <DataListCell TODO: Version
                       key="cell one"
                       onClick={() =>
                         window.open(
@@ -365,36 +370,37 @@ class InstalledAppsView extends React.Component {
                         /console/project/webapp/browse/secrets/manifest}
                       </span>
                         </DataListCell>, */
-                  ]}
-                />
-                <DataListAction
-                  id={`integration_app_${index}_actions`}
-                  key="secondary content"
-                  aria-label={`App Actions ${index}`}
-                  aria-labelledby={`App Actions ${index}`}
+                    ]}
+                  />
+                  <DataListAction
+                    id={`integration_app_${index}_actions`}
+                    key="secondary content"
+                    aria-label={`App Actions ${index}`}
+                    aria-labelledby={`App Actions ${index}`}
+                  >
+                    <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
+                    {enableLaunch && this.isServiceUnready(app) ? (
+                      // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
+                      <div className="integr8ly-state-provisioining">
+                        <Button onClick={() => launchHandler(app)} variant="secondary">
+                          <OffIcon />
+                          &nbsp; Start service
+                        </Button>
+                      </div>
+                    ) : null}
+                  </DataListAction>
+                </DataListItemRow>
+                <DataListContent
+                  aria-label={`App Content Details ${index}`}
+                  className="integr8ly-app-detail-content"
+                  id={`app-expand-${index}`}
+                  isHidden={!this.state.expanded.includes(`app-toggle-${index}`)}
                 >
-                  <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
-                  {enableLaunch && this.isServiceUnready(app) ? (
-                    // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
-                    <div className="integr8ly-state-provisioning">
-                      <Button onClick={() => launchHandler(app)} variant="secondary">
-                        <OffIcon />
-                        &nbsp; Start service
-                      </Button>
-                    </div>
-                  ) : null}
-                </DataListAction>
-              </DataListItemRow>
-              <DataListContent
-                aria-label={`App Content Details ${index}`}
-                className="integr8ly-app-detail-content"
-                id={`app-expand-${index}`}
-                isHidden={!this.state.expanded.includes(`app-toggle-${index}`)}
-              >
-                {description}
-              </DataListContent>
-            </DataListItem>
-          </DataList>
+                  {description}
+                </DataListContent>
+              </DataListItem>
+            </DataList>
+          </li>
         );
       })
       .filter(app => app != null);
