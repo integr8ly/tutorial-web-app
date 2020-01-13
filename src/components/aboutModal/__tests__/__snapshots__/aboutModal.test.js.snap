@@ -17,7 +17,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     appendTo={null}
     backgroundImageSrc="PF4DownstreamBG.svg"
     brandImageAlt="Red Hat logo"
-    brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+    brandImageSrc=""
     className=""
     isOpen={false}
     noAboutModalBoxContentContainer={false}
@@ -33,7 +33,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
         ariaLabelledbyId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
-        brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+        brandImageSrc=""
         className=""
         isOpen={false}
         noAboutModalBoxContentContainer={false}
@@ -63,7 +63,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
     appendTo={null}
     backgroundImageSrc="PF4DownstreamBG.svg"
     brandImageAlt="Red Hat logo"
-    brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+    brandImageSrc=""
     className=""
     isOpen={false}
     noAboutModalBoxContentContainer={false}
@@ -79,7 +79,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
         ariaLabelledbyId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
-        brandImageSrc="Logo-RedHat-A-Reverse-RGB.svg"
+        brandImageSrc=""
         className=""
         isOpen={false}
         noAboutModalBoxContentContainer={false}
