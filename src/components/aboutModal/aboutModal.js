@@ -19,15 +19,18 @@ class AboutModal extends React.Component {
 
   getLogo = () => {
     let clusterType = '';
+    let logoName = '';
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
-        return managedIntegrationLogo;
+        logoName = managedIntegrationLogo;
       } else if (clusterType === 'osd') {
-        return managedIntegrationLogo;
+        logoName = managedIntegrationLogo;
+      } else {
+        logoName = redHatLogo;
       }
-      return redHatLogo;
     }
+    return logoName;
   };
 
   render() {

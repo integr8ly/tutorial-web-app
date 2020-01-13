@@ -101,15 +101,18 @@ class Masthead extends React.Component {
 
   getLogo = () => {
     let clusterType = '';
+    let logoName = '';
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
-        return managedIntegrationSolutionExplorerImg;
+        logoName = managedIntegrationSolutionExplorerImg;
       } else if (clusterType === 'osd') {
-        return managedIntegrationSolutionExplorerImg;
+        logoName = managedIntegrationSolutionExplorerImg;
+      } else {
+        logoName = solutionExplorerImg;
       }
-      return solutionExplorerImg;
     }
+    return logoName;
   };
 
   onHelpDropdownSelect = () => {
