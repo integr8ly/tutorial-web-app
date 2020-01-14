@@ -641,6 +641,7 @@ function getConfigData(req) {
 
   const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
   const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
+  const ssoLogoutUri = isOpenShift4() ? '/' : `https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}`;
 
   const installedServices = process.env.INSTALLED_SERVICES || '{}';
   return `window.OPENSHIFT_CONFIG = {
@@ -651,9 +652,7 @@ function getConfigData(req) {
     scopes: ['user:full'],
     masterUri: '${masterUri}',
     wssMasterUri: '${wssMasterUri}',
-    ssoLogoutUri: 'https://${
-      process.env.SSO_ROUTE
-    }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}',
+    ssoLogoutUri: '${ssoLogoutUri}',
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
