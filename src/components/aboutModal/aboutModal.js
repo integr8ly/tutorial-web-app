@@ -5,6 +5,7 @@ import { AboutModal as PfAboutModal, TextContent, TextList, TextListItem } from 
 
 import { detect } from 'detect-browser';
 import redHatLogo from '../../img/Logo-RedHat-A-Reverse-RGB.svg';
+import managedIntegrationLogo from '../../img/Logo-Red_Hat-Managed_Integration-A-Reverse-RGB.svg';
 import pfBackgroundImage from '../../img/PF4DownstreamBG.svg';
 
 const pkgJson = require('../../../package.json');
@@ -15,6 +16,22 @@ class AboutModal extends React.Component {
 
     this.state = {};
   }
+
+  getLogo = () => {
+    let clusterType = '';
+    let logoName = '';
+    if (window.OPENSHIFT_CONFIG) {
+      clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
+      if (clusterType === 'poc') {
+        logoName = managedIntegrationLogo;
+      } else if (clusterType === 'osd') {
+        logoName = managedIntegrationLogo;
+      } else {
+        logoName = redHatLogo;
+      }
+    }
+    return logoName;
+  };
 
   render() {
     const { isOpen, closeAboutModal } = this.props;
@@ -29,7 +46,7 @@ class AboutModal extends React.Component {
           isOpen={isOpen}
           onClose={closeAboutModal}
           productName="Red Hat Solution Explorer"
-          brandImageSrc={redHatLogo}
+          brandImageSrc={this.getLogo()}
           brandImageAlt="Red Hat logo"
           backgroundImageSrc={pfBackgroundImage}
         >
