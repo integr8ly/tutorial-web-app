@@ -101,7 +101,7 @@ const getProductDetailsForServiceClass = serviceClassName => {
 };
 
 const getServiceSortOrder = svc => {
-  const serviceClassName = svc.spec.clusterServiceClassExternalName;
+  const serviceClassName = isOpenShift4() ? svc.name : svc.spec.clusterServiceClassExternalName;
   const keys = Object.keys(productDetails);
   const serviceOrder = keys.indexOf(serviceClassName);
 
