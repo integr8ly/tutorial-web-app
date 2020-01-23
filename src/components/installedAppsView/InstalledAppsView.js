@@ -131,7 +131,7 @@ class InstalledAppsView extends React.Component {
   };
 
   getOpenshiftConsole = index => (
-    <li>
+    <li key="openshift_console_list">
       <DataList
         aria-label="OpenShift console datalist"
         key="openshift_console"
@@ -304,7 +304,7 @@ class InstalledAppsView extends React.Component {
         const { description, gaStatus, hidden, prettyName, primaryTask } = getProductDetails(app);
         const uniqKey = this.genUniqueKeyForService(app);
         return hidden ? null : (
-          <li>
+          <li key={uniqKey}>
             <DataList
               aria-label="Cluster service datalist"
               key={`${
