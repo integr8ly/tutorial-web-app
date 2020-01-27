@@ -51,7 +51,9 @@ class TutorialPage extends React.Component {
     if (userProgress[id] && userProgress[id].task) {
       currentTask = userProgress[id].task;
     }
-    history.push(`/tutorial/${id}/task/${currentTask}`);
+    const task = `/tutorial/${id}/task/${currentTask}`;
+    window.open(task, '_blank', 'height=667, width=375, modal=yes, alwaysRaised=yes');
+    history.push(task);
   }
 
   renderPrereqs(thread) {
