@@ -72,8 +72,8 @@
   }
 }
 
-.pf-c-data-list__item-action {
-  display: block !important;
+.pf-c-data-list__item-action { /* stylelint-disable-line selector-class-pattern */
+  display: block !important; /* stylelint-disable-line declaration-no-important */
   min-width: 30%;
 
   > * {
