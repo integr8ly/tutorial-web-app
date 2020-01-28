@@ -71,3 +71,16 @@
     padding-top: 1px !important; /* stylelint-disable-line declaration-no-important */
   }
 }
+
+.pf-c-data-list__item-action {
+  display: block !important;
+  min-width: 30%;
+
+  > * {
+    text-align: right;
+  }
+
+  @media (max-width: 600px) {
+    min-width: initial;
+  }
+}
