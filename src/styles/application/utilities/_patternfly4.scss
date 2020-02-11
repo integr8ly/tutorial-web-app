@@ -39,7 +39,11 @@ button,
     }
   }
 
-  .admonitionblock.note {
+  .admonitionblock.note,
+  .admonitionblock.tip,
+  .admonitionblock.caution,
+  .admonitionblock.important,
+  .admonitionblock.warning {
     margin-bottom: var(--pf-c-content--MarginBottom);
     padding: var(--pf-global--spacer--md);
     font-weight: var(--pf-c-content--blockquote--FontWeight);
