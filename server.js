@@ -25,7 +25,7 @@ const adoc = asciidoctor();
 app.use(bodyParser.json());
 app.use(OPENSHIFT_PROXY_PATH, proxy(`https://${process.env.OPENSHIFT_API}`, {
   proxyReqOptDecorator: function(proxyReqOpts, _) {
-    proxyReqOpts.rejectUnauthorized = false
+    proxyReqOpts.rejectUnauthorized = false;
     return proxyReqOpts;
   }
 }));
@@ -639,7 +639,7 @@ function getConfigData(req) {
     process.env.OPENSHIFT_OAUTH_HOST = process.env.OPENSHIFT_HOST;
   }
 
-  const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
+  const masterUri = `https://${process.env.OPENSHIFT_HOST}`;
   const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
   const ssoLogoutUri = isOpenShift4() ? '/' : `https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}`;
 
@@ -733,16 +733,16 @@ function run() {
 
 // Close all connections before shutting down
 function stop() {
-  console.log("Webapp shutting down");
+  console.log('Webapp shutting down');
   closeConnection().then(() => {
     server && server.close();
-    console.log("Webapp shutdown complete");
+    console.log('Webapp shutdown complete');
   });
 }
 
-process.on("SIGTERM", stop);
-process.on("SIGABRT", stop);
-process.on("SIGQUIT", stop);
-process.on("SIGINT", stop);
+process.on('SIGTERM', stop);
+process.on('SIGABRT', stop);
+process.on('SIGQUIT', stop);
+process.on('SIGINT', stop);
 
 run();

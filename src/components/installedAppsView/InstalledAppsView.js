@@ -192,7 +192,10 @@ class InstalledAppsView extends React.Component {
             >
               <div className="integr8ly-state-ready">
                 <Button
-                  onClick={() => window.open(`${window.OPENSHIFT_CONFIG.masterUri}/console`, '_blank')}
+                  onClick={() => {
+                    const suffix = window.OPENSHIFT_CONFIG.openshiftVersion === '4' ? 'dashboards' : 'console';
+                    window.open(`${window.OPENSHIFT_CONFIG.masterUri}/${suffix}`, '_blank');
+                  }}
                   variant="secondary"
                 >
                   Open console
