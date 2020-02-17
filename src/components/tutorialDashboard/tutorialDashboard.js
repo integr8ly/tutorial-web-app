@@ -10,6 +10,12 @@ import { connect, reduxActions } from '../../redux';
 const TutorialDashboard = props => {
   const { walkthroughs, userProgress } = props;
 
+  function walkthroughSorter(w1, w2) {
+    const a = `${w1.id} ${w1.title}`;
+    const b = `${w2.id} ${w2.title}`;
+    return a < b ? -1 : 1;
+  }
+
   function filterWalkthroughs(walkthrus, filter) {
     let result = [];
     if (walkthrus[0]) {
@@ -56,7 +62,7 @@ const TutorialDashboard = props => {
     for (let i = 0; i < allRepos.length; i++) {
       const filteredWalkthroughs = filterWalkthroughs(walkthrus, allRepos[i]);
 
-      const cards = filteredWalkthroughs.map(walkthrough => {
+      const cards = filteredWalkthroughs.sort(walkthroughSorter).map(walkthrough => {
         const currentProgress = userProgress[walkthrough.id];
         let startedText;
         if (currentProgress === undefined) startedText = 'Get Started';
