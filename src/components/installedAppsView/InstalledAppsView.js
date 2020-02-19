@@ -323,7 +323,6 @@ class InstalledAppsView extends React.Component {
                 key={`${uniqKey}_${index}`}
                 value={index}
                 id={`list-item-${index}`}
-                // aria-controls={`app-expand-${index}`}
                 aria-labelledby={`cluster-service-datalist-item-${index}`}
                 aria-label={`Installed application list item ${index}`}
               >
@@ -384,7 +383,6 @@ class InstalledAppsView extends React.Component {
                   >
                     <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
                     {enableLaunch && this.isServiceUnready(app) ? (
-                      // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
                       <div className="integr8ly-state-provisioining">
                         <Button onClick={() => launchHandler(app)} variant="secondary">
                           <OffIcon />
