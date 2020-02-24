@@ -58,7 +58,7 @@ const DEFAULT_SERVICES = {
   CHE: 'codeready',
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
-  APICURIO: 'apicurio',
+  APICURIO: 'apicurito',
   FUSE_MANAGED: 'fuse-managed',
   RHSSO: 'rhsso',
   USER_RHSSO: 'user-rhsso'

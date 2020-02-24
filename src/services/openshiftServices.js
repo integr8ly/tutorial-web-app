@@ -1,7 +1,6 @@
 import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
 import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';
-import { processedTemplateDefV4 } from '../common/openshiftResourceDefinitions';
 
 const KIND_ROUTE = 'Route';
 
@@ -301,30 +300,18 @@ const create = (res, obj) =>
 
 const processV4 = (namespace, template) => {
   getUser().then(user => {
-    const requestUrl = `${_buildRequestUrl(processedTemplateDefV4(namespace))}`;
-
-    return axios({
-      url: requestUrl,
-      method: 'POST',
-      data: template,
-      headers: {
-        authorization: `Bearer ${user.access_token}`
-      }
-    }).then(resp => {
-      const items = resp.data.objects;
-
-      const processTasks = items.map(i =>
-        axios({
-          url: _buildProcessUrl(namespace, i),
-          method: 'POST',
-          data: i,
-          headers: {
-            authorization: `Bearer ${user.access_token}`
-          }
-        })
-      );
-      return Promise.all(processTasks);
-    });
+    const items = template.objects;
+    const processTasks = items.map(i =>
+      axios({
+        url: _buildProcessUrl(namespace, i),
+        method: 'POST',
+        data: i,
+        headers: {
+          authorization: `Bearer ${user.access_token}`
+        }
+      })
+    );
+    return Promise.all(processTasks);
   });
 };
 

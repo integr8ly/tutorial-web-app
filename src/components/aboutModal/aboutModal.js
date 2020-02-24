@@ -52,7 +52,7 @@ class AboutModal extends React.Component {
         >
           <TextContent>
             <TextList component="dl">
-              <TextListItem component="dt">Integreatly Version</TextListItem>
+              <TextListItem component="dt">RHMI Version</TextListItem>
               <TextListItem component="dd">
                 {window.OPENSHIFT_CONFIG ? window.OPENSHIFT_CONFIG.integreatlyVersion : ' '}
               </TextListItem>
