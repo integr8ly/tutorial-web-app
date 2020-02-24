@@ -143,7 +143,7 @@ class InstalledAppsView extends React.Component {
           key={`openshift_console_${index}`}
           value={index}
           aria-labelledby={`openshift-console-datalistitem-${index}`}
-          aria-label={`Installed application list item ${index}`}
+          aria-label={`Openshift application list item ${index}`}
         >
           <DataListItemRow>
             <DataListToggle
@@ -319,12 +319,12 @@ class InstalledAppsView extends React.Component {
                 className={
                   this.isServiceProvisioned(app) ? 'integr8ly-installed-apps-view-list-item-enabled' : '&nbsp;'
                 }
-                isExpanded={this.state.expanded.includes(`list-item-${index}`)}
+                isExpanded={this.state.expanded.includes(`app-toggle-${index}`)}
                 key={`${uniqKey}_${index}`}
                 value={index}
                 id={`list-item-${index}`}
-                aria-controls={`app-expand-${index}`}
                 aria-labelledby={`cluster-service-datalist-item-${index}`}
+                aria-label={`Installed application list item ${index}`}
               >
                 <DataListItemRow className="integr8ly-installed-apps-row">
                   <DataListToggle
@@ -383,7 +383,6 @@ class InstalledAppsView extends React.Component {
                   >
                     <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
                     {enableLaunch && this.isServiceUnready(app) ? (
-                      // <div className="pf-u-display-flex pf-u-justify-content-flex-end">
                       <div className="integr8ly-state-provisioining">
                         <Button onClick={() => launchHandler(app)} variant="secondary">
                           <OffIcon />
