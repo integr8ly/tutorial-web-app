@@ -53,7 +53,8 @@ class EnMasseServiceInstanceTransform {
 }
 
 const DEFAULT_SERVICES = {
-  ENMASSE: 'amq-online-standard',
+  ENMASSE:
+    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4 ? 'amqonline' : 'amq-online-standard',
   FUSE: 'fuse',
   CHE: 'codeready',
   LAUNCHER: 'launcher',
