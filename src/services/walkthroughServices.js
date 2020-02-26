@@ -123,7 +123,13 @@ const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
         }
 
         const nsName = walkthroughNs.metadata.name;
-        const mergedAttrs = Object.assign({}, ...svcAttrs.map(a => a.additionalAttributes));
+
+        const mergedAttrs = Object.assign(
+          {
+            'user-username': user.username
+          },
+          ...svcAttrs.map(a => a.additionalAttributes)
+        );
 
         const templateTasks = manifest.dependencies.templates.map(rawTemplate => {
           const template = parseTemplate(rawTemplate, mergedAttrs);

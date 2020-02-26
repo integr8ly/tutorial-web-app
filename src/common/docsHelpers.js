@@ -20,7 +20,10 @@ const getDocsForWalkthrough = (walkthroughId, middlewareServices, walkthroughRes
 
 const getUserAttrs = (walkthroughId, username) => {
   let attrs = {
-    'openshift-host': window.OPENSHIFT_CONFIG.masterUri
+    'openshift-host':
+      window.OPENSHIFT_CONFIG.openshiftVersion === 4
+        ? window.OPENSHIFT_CONFIG.openshiftHost
+        : window.OPENSHIFT_CONFIG.masterUri
   };
   if (username) {
     attrs = Object.assign({}, attrs, {

@@ -639,12 +639,13 @@ function getConfigData(req) {
     process.env.OPENSHIFT_OAUTH_HOST = process.env.OPENSHIFT_HOST;
   }
 
-  const masterUri = `https://${process.env.OPENSHIFT_HOST}`;
+  const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
   const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
   const ssoLogoutUri = isOpenShift4() ? '/' : `https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}`;
 
   const installedServices = process.env.INSTALLED_SERVICES || '{}';
   return `window.OPENSHIFT_CONFIG = {
+    openshiftHost: 'https://${process.env.OPENSHIFT_HOST}',
     clientId: '${process.env.OPENSHIFT_OAUTHCLIENT_ID}',
     accessTokenUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/token',
     authorizationUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/authorize',
