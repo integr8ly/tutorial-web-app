@@ -41,7 +41,21 @@ export default {
     primaryTask: 'Provision messaging',
     description: 'Fast, lightweight, and secure messaging for Internet-scale applications.'
   },
+  amqonline: {
+    // This is used on OS4 instead of `amq-online-standard`
+    prettyName: 'Red Hat AMQ Online',
+    gaStatus: 'GA',
+    primaryTask: 'Provision messaging',
+    description: 'Fast, lightweight, and secure messaging for Internet-scale applications.'
+  },
   unifiedpush: {
+    prettyName: 'Push Notification Service',
+    gaStatus: 'GA',
+    primaryTask: 'Mobile Push Messaging',
+    description: 'Provides messaging services for Android and iOS'
+  },
+  ups: {
+    // This is used on OS4 instead of `unifiedpush`
     prettyName: 'Push Notification Service',
     gaStatus: 'GA',
     primaryTask: 'Mobile Push Messaging',
