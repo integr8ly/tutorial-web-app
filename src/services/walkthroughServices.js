@@ -126,7 +126,8 @@ const prepareWalkthroughV4 = (dispatch, walkthroughName, attrs = {}) => {
 
         const mergedAttrs = Object.assign(
           {
-            'user-username': user.username
+            'user-username': user.username,
+            'walkthrough-namespace': walkthroughNs.metadata.name
           },
           ...svcAttrs.map(a => a.additionalAttributes)
         );
