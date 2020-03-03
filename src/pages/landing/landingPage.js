@@ -20,7 +20,8 @@ class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTabKey: 0
+      activeTabKey: 0,
+      currentUserName: null
     };
 
     this.contentRef1 = React.createRef();
@@ -39,6 +40,11 @@ class LandingPage extends React.Component {
     getCustomWalkthroughs();
     resetCurrentWalkthrough();
     getProgress();
+    currentUser().then(user => {
+      if (user) {
+        this.setState({ currentUserName: user.fullName ? user.fullName : user.username });
+      }
+    });
   }
 
   handleServiceLaunchV4(svcName) {
@@ -74,7 +80,7 @@ class LandingPage extends React.Component {
     return (
       <React.Fragment>
         <Page className="pf-u-h-100vh">
-          <RoutedConnectedMasthead />
+          <RoutedConnectedMasthead currentUserName={this.state.currentUserName} />
           <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
             <p className="pf-c-landing__content">
