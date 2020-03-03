@@ -86,7 +86,14 @@ app.get('/metrics', (req, res) => {
 // Get all user defined walkthrough repositories
 app.get('/user_walkthroughs', (req, res) =>
   getUserWalkthroughs()
-    .then(({ value }) => res.json(value))
+    .then(data => {
+      if (data) {
+        const { value } = data;
+        return res.json(value);
+      } else {
+        return res.end();
+      }
+    })
     .catch(err => {
       console.error(err);
       return res.sendStatus(500);
