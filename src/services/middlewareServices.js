@@ -32,7 +32,7 @@ let defaultWatchServices = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
   DEFAULT_SERVICES.THREESCALE,
-  DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.APICURITO,
   DEFAULT_SERVICES.FUSE_MANAGED,
   DEFAULT_SERVICES.FUSE,
   DEFAULT_SERVICES.ENMASSE,
@@ -52,7 +52,7 @@ const DISPLAY_SERVICES = [DEFAULT_SERVICES.ENMASSE];
 const PROVISION_SERVICES_OPENSHIFT_3 = [
   DEFAULT_SERVICES.CHE,
   DEFAULT_SERVICES.LAUNCHER,
-  DEFAULT_SERVICES.APICURIO,
+  DEFAULT_SERVICES.APICURITO,
   DEFAULT_SERVICES.THREESCALE,
   DEFAULT_SERVICES.FUSE_MANAGED,
   DEFAULT_SERVICES.RHSSO,
@@ -117,8 +117,6 @@ const mockMiddlewareServices = (dispatch, mockData) => {
   if (!mockData || !mockData.serviceInstances) {
     return;
   }
-  const mockUsername = 'mockuser';
-  window.localStorage.setItem('currentUserName', mockUsername);
   mockData.serviceInstances.forEach(si => {
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),

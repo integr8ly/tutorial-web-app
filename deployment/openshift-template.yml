@@ -31,8 +31,8 @@ parameters:
   - name: CHE_URL
     description: Mock URL for Che. Only used if OPENSHIFT_HOST is empty
     required: false
-  - name: APICURIO_URL
-    description: Mock URL for Apicurio. Only used if OPENSHIFT_HOST is empty
+  - name: APICURITO_URL
+    description: Mock URL for Apicurito. Only used if OPENSHIFT_HOST is empty
     required: false
   - name: ENMASSE_URL
     description: Mock URL for EnMasse. Only used if OPENSHIFT_HOST is empty
