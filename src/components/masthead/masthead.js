@@ -216,7 +216,7 @@ class Masthead extends React.Component {
                 isOpen={isUserDropdownOpen}
                 toggle={
                   <DropdownToggle onToggle={this.onUserDropdownToggle}>
-                    {window.localStorage.getItem('currentUserName')}
+                    {this.props.currentUserName || window.localStorage.getItem('currentUserName')}
                   </DropdownToggle>
                 }
                 autoFocus={false}
@@ -250,12 +250,14 @@ class Masthead extends React.Component {
 }
 
 Masthead.propTypes = {
+  currentUserName: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   })
 };
 
 Masthead.defaultProps = {
+  currentUserName: null,
   history: {
     push: noop
   }
