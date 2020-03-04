@@ -53,7 +53,7 @@ class InstalledAppsView extends React.Component {
   getStatusForApp = (app, prettyName) => {
     const provisioningStatus = (
       <div className="integr8ly-state-provisioning">
-        <ChartPieIcon /> &nbsp;Provisioning
+        <ChartPieIcon/> &nbsp;Provisioning
       </div>
     );
     const readyStatus = (
@@ -75,10 +75,10 @@ class InstalledAppsView extends React.Component {
     );
     const unavailableStatus = (
       <div className="integr8ly-state-unavailable">
-        <ErrorCircleOIcon /> &nbsp;Unavailable
+        <ErrorCircleOIcon/> &nbsp;Unavailable
       </div>
     );
-    const unreadyStatus = <span />;
+    const unreadyStatus = <span/>;
 
     // Allow for non-Service Instance services
     if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
@@ -225,7 +225,7 @@ class InstalledAppsView extends React.Component {
               </DataListCell>,
               <DataListCell key="secondary content" className="pf-u-text-align-right">
                 <div className="integr8ly-state-ready">
-                  <OnRunningIcon /> &nbsp;Ready for use
+                  <OnRunningIcon/> &nbsp;Ready for use
                 </div>
               </DataListCell>
             ]}
@@ -247,9 +247,17 @@ class InstalledAppsView extends React.Component {
 
   getAppVersion = app => {
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4) {
-      return ` (version ${
-        window.OPENSHIFT_CONFIG.provisionedServices[app.spec.clusterServiceClassExternalName].Version
-      })`;
+      const key = (app.spec && app.spec.clusterServiceClassExternalName) || app.name;
+      const service = window.OPENSHIFT_CONFIG.provisionedServices[key];
+      if (!service) {
+        return '';
+      }
+
+      const version = service.Version;
+      if (!version) {
+        return '';
+      }
+      return ` (version ${version})`;
     }
     return '';
   };
@@ -353,7 +361,7 @@ class InstalledAppsView extends React.Component {
                               {gaStatus}
                             </Badge>
                           ) : (
-                            <span />
+                            <span/>
                           )}
                         </span>
                       </DataListCell>
@@ -369,7 +377,7 @@ class InstalledAppsView extends React.Component {
                     {enableLaunch && this.isServiceUnready(app) ? (
                       <div className="integr8ly-state-provisioning">
                         <Button onClick={() => launchHandler(app)} variant="secondary">
-                          <OffIcon />
+                          <OffIcon/>
                           &nbsp; Start service
                         </Button>
                       </div>
@@ -415,7 +423,7 @@ class InstalledAppsView extends React.Component {
             <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Managed services</h2>
             <Tooltip position="top" content={<div>{managedTooltip}</div>}>
               <span>
-                <HelpIcon className="integr8ly-dev-resources-icon" />
+                <HelpIcon className="integr8ly-dev-resources-icon"/>
               </span>
             </Tooltip>
           </span>
@@ -427,7 +435,8 @@ class InstalledAppsView extends React.Component {
           </div>
         </div>
         <div className="integr8ly-installed-apps-view pf-u-mb-0">
-          <div className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md" />
+          <div
+            className="integr8ly-installed-apps-view-panel-title pf-u-display-flex pf-u-align-items-center pf-u-mt-sm pf-u-box-shadow-md"/>
           {appList}
         </div>
         {/* 
