@@ -128,11 +128,20 @@ class Masthead extends React.Component {
       onClick: () => this.onTitleClick()
     };
 
-    const gsUrl =
-      'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/';
-    const riUrl =
-      'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
+    let gsUrl = '';
+    let riUrl = '';
     const csUrl = 'https://access.redhat.com/support/';
+
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+      gsUrl =
+        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/';
+      riUrl = 'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
+    } else {
+      gsUrl =
+        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2.0/html-single/getting_started_with_red_hat_managed_integration_2.0/';
+      riUrl =
+        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2.0/html-single/release_notes_for_red_hat_managed_integration_2.0/';
+    }
 
     const MastheadToolbar = (
       <React.Fragment>
