@@ -48,9 +48,9 @@ parameters:
     displayName: Che URL (used when mocking the services list)
     value: http://localhost:3006
     required: false
-  - name: REACT_APP_APICURITO_URL
-    description: Apicurito URL (used when mocking the services list)
-    displayName: Apicurito URL (used when mocking the services list)
+  - name: REACT_APP_APICURIO_URL
+    description: Apicurio URL (used when mocking the services list)
+    displayName: Apicurio URL (used when mocking the services list)
     value: http://localhost:3006
     required: false
   - name: REACT_APP_ENMASSE_URL
@@ -119,8 +119,8 @@ objects:
             value: ${REACT_APP_CHE_URL}
           - name: REACT_APP_ENMASSE_URL
             value: ${REACT_APP_ENMASSE_URL}
-          - name: REACT_APP_APICURITO_URL
-            value: ${REACT_APP_APICURITO_URL}
+          - name: REACT_APP_APICURIO_URL
+            value: ${REACT_APP_APICURIO_URL}
           - name: OUTPUT_DIR
             value: ${OUTPUT_DIR}
           - name: YARN_ENABLED
