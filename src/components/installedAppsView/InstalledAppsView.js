@@ -164,24 +164,13 @@ class InstalledAppsView extends React.Component {
                   </Button>
                 </DataListCell>,
                 <DataListCell className="integr8ly-pretty-name" key="primary content">
-                  <span id="Red Hat OpenShift">Red Hat OpenShift</span>
+                  <span id="Red Hat OpenShift">
+                    Red Hat OpenShift
+                    {window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4
+                      ? ` (version ${window.OPENSHIFT_CONFIG.openshiftVersion})`
+                      : ''}
+                  </span>
                 </DataListCell>
-                /* <DataListCell TODO: OpenShift Version
-                key="cell one"
-                onClick={() =>
-                  window.open(
-                    `${window.OPENSHIFT_CONFIG.masterUri}/console/project/webapp/browse/secrets/manifest`,
-                    '_blank'
-                  )
-                }
-              >
-                <span id="manifest">
-                  { 
-                        Using getMasterUri() function: <br />
-                        {getMasterUri()}
-                        /console/project/webapp/browse/secrets/manifest }
-                </span>
-              </DataListCell> </DataListItem> */
               ]}
             />
             <DataListAction
@@ -209,7 +198,7 @@ class InstalledAppsView extends React.Component {
             id={`openshift-expand-${index}`}
             isHidden={!this.state.expanded.includes(`openshift-toggle-${index}`)}
           >
-            <p>A single-tenant, high-availability OpenShift cluster, managed by Red Hat.</p>
+            <span>A single-tenant, high-availability OpenShift cluster, managed by Red Hat.</span>
           </DataListContent>
         </DataListItem>
       </DataList>
@@ -255,6 +244,13 @@ class InstalledAppsView extends React.Component {
   };
 
   genUniqueKeyForService = svc => svc.name || svc.spec.clusterServiceClassExternalName;
+
+  getAppVersion = app => {
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4) {
+      return ` (version ${window.OPENSHIFT_CONFIG.provisionedServices[app].Version})`;
+    }
+    return '';
+  };
 
   createMasterList = (displayServices, apps, customApps, enableLaunch, launchHandler) => {
     const completeSvcNames = apps
@@ -305,7 +301,9 @@ class InstalledAppsView extends React.Component {
       })
       .map((app, index) => {
         const { description, gaStatus, hidden, prettyName, primaryTask } = getProductDetails(app);
+        const appVersion = this.getAppVersion(app);
         const uniqKey = this.genUniqueKeyForService(app);
+
         return hidden ? null : (
           <li key={uniqKey}>
             <DataList
@@ -347,7 +345,7 @@ class InstalledAppsView extends React.Component {
                       <DataListCell key="primary content">
                         <span className="integr8ly-pretty-name" id={`appName-${prettyName}`}>
                           {' '}
-                          {prettyName}{' '}
+                          {prettyName} {appVersion}
                           {gaStatus && (gaStatus === 'preview' || gaStatus === 'community') ? (
                             <Badge isRead className="pf-u-ml-lg">
                               {gaStatus}
@@ -357,22 +355,6 @@ class InstalledAppsView extends React.Component {
                           )}
                         </span>
                       </DataListCell>
-                      /* <DataListCell TODO: Version
-                      key="cell one"
-                      onClick={() =>
-                        window.open(
-                          `${window.OPENSHIFT_CONFIG.masterUri}/console/project/webapp/browse/secrets/manifest`,
-                          '_blank'
-                        )
-                      }
-                    >
-                      <span id="manifest">
-                        {
-                        Using getMasterUri() function: <br />
-                        {getMasterUri()}
-                        /console/project/webapp/browse/secrets/manifest}
-                      </span>
-                        </DataListCell>, */
                     ]}
                   />
                   <DataListAction
@@ -383,7 +365,7 @@ class InstalledAppsView extends React.Component {
                   >
                     <div className="integr8ly-state-ready">{this.getStatusForApp(app, prettyName)}</div>
                     {enableLaunch && this.isServiceUnready(app) ? (
-                      <div className="integr8ly-state-provisioining">
+                      <div className="integr8ly-state-provisioning">
                         <Button onClick={() => launchHandler(app)} variant="secondary">
                           <OffIcon />
                           &nbsp; Start service
