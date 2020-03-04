@@ -247,7 +247,9 @@ class InstalledAppsView extends React.Component {
 
   getAppVersion = app => {
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4) {
-      return ` (version ${window.OPENSHIFT_CONFIG.provisionedServices[app].Version})`;
+      return ` (version ${
+        window.OPENSHIFT_CONFIG.provisionedServices[app.spec.clusterServiceClassExternalName].Version
+      })`;
     }
     return '';
   };
