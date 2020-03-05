@@ -523,6 +523,13 @@ function getMockConfigData() {
     optionalWatchServices: [],
     optionalProvisionServices: [],
     mockData: {
+      mockUser: {
+        metadata: {
+          uid: '_mock_usr_1',
+          name: 'mockUser'
+        },
+        fullName: 'Mock User'
+      },
       serviceInstances: [
         {
           spec: {
@@ -598,7 +605,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'apicurio'
+            clusterServiceClassExternalName: 'apicurito'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
