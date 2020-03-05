@@ -108,7 +108,6 @@ class OpenShiftPollEventListener {
 const getUser = () => {
   // Don't start the OAuth flow when in mock mode. Just resolve an empty user
   if (window.OPENSHIFT_CONFIG.mockData) {
-    // return new Promise(resolve => resolve({}));
     return new Promise(resolve => resolve(window.OPENSHIFT_CONFIG.mockData.mockUser));
   }
   let user;
