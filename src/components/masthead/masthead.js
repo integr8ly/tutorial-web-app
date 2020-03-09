@@ -115,6 +115,43 @@ class Masthead extends React.Component {
     return logoName;
   };
 
+  getDeveloperResources(gsUrl, riUrl, csUrl) {
+    const items = [];
+    items.push(
+      <DropdownItem key="help-getting-started" href={gsUrl} target="_blank" aria-label="Link to getting started page">
+        Getting started
+      </DropdownItem>
+    );
+
+    items.push(
+      <DropdownItem key="help-release-info" href={riUrl} target="_blank" aria-label="Link to release information page">
+        Release information
+      </DropdownItem>
+    );
+
+    items.push(
+      <DropdownItem key="help-customer-support" href={csUrl} target="_blank" aria-label="Link to customer support page">
+        Customer support
+      </DropdownItem>
+    );
+
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+      items.push(
+        <DropdownItem key="help-dev-resources" onClick={this.onDevResourcesClick}>
+          Developer resources
+        </DropdownItem>
+      );
+    }
+
+    items.push(<DropdownSeparator key="help-separator-2" />);
+    items.push(
+      <DropdownItem key="about" component="button" href="#about" onClick={this.onAboutModal} aria-label="About">
+        About
+      </DropdownItem>
+    );
+    return items;
+  }
+
   onHelpDropdownSelect = () => {
     this.setState({
       isHelpDropdownOpen: !this.state.isHelpDropdownOpen
@@ -173,46 +210,7 @@ class Masthead extends React.Component {
                   </DropdownToggle>
                 }
                 autoFocus={false}
-                dropdownItems={[
-                  <DropdownItem
-                    key="help-getting-started"
-                    href={gsUrl}
-                    target="_blank"
-                    aria-label="Link to getting started page"
-                  >
-                    Getting started
-                  </DropdownItem>,
-                  <DropdownItem
-                    key="help-release-info"
-                    href={riUrl}
-                    target="_blank"
-                    aria-label="Link to release information page"
-                  >
-                    Release information
-                  </DropdownItem>,
-                  <DropdownItem
-                    key="help-customer-support"
-                    href={csUrl}
-                    target="_blank"
-                    aria-label="Link to customer support page"
-                  >
-                    Customer support
-                  </DropdownItem>,
-                  <DropdownSeparator key="help-separator-1" />,
-                  <DropdownItem key="help-dev-resources" onClick={this.onDevResourcesClick}>
-                    Developer resources
-                  </DropdownItem>,
-                  <DropdownSeparator key="help-separator-2" />,
-                  <DropdownItem
-                    key="about"
-                    component="button"
-                    href="#about"
-                    onClick={this.onAboutModal}
-                    aria-label="About"
-                  >
-                    About
-                  </DropdownItem>
-                ]}
+                dropdownItems={this.getDeveloperResources(gsUrl, riUrl, csUrl)}
               />
             </ToolbarItem>
           </ToolbarGroup>
