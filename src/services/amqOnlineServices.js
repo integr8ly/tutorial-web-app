@@ -20,7 +20,7 @@ import { provisionOperator } from './operatorServices';
 const MANIFEST_NAME = 'integreatly-amq-online';
 
 const watchAMQOnline = (dispatch, username, namespace) =>
-  poll(addressSpaceDef(namespace)).then(pollListener => {
+  poll(addressSpaceDef(namespace), 5000, 2000).then(pollListener => {
     pollListener.onEvent(event => {
       if (!event || !event.metadata || !event.metadata.name === cleanUsername(username)) {
         dispatch(getPayloadFromAddressSpace(event));

@@ -375,17 +375,18 @@ const remove = (res, obj) =>
     }).then(response => response.data);
   });
 
-const poll = (res, interval) =>
+const poll = (res, interval, timeout) =>
   getUser().then(user => {
     const reqUrl = `${_buildRequestUrl(res)}`;
     return Promise.resolve(
       new OpenShiftPollEventListener({
         url: reqUrl,
         method: 'GET',
+        timeout: timeout || 2000,
         headers: {
           authorization: `Bearer ${user.access_token}`
         }
-      }).init(interval || 1000)
+      }).init(interval || 2000)
     );
   });
 
