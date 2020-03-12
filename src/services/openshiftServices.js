@@ -108,7 +108,7 @@ class OpenShiftPollEventListener {
 const getUser = () => {
   // Don't start the OAuth flow when in mock mode. Just resolve an empty user
   if (window.OPENSHIFT_CONFIG.mockData) {
-    return new Promise(resolve => resolve(window.OPENSHIFT_CONFIG.mockData.mockUser));
+    return new Promise(resolve => resolve({}));
   }
   let user;
   try {
@@ -218,18 +218,14 @@ const currentUser = () => {
   const url = isOpenShift4()
     ? `${getMasterUri()}/apis/user.openshift.io/v1/users/~`
     : `${getMasterUri()}/oapi/v1/users/~`;
-  return getUser().then(user => {
-    if (window.OPENSHIFT_CONFIG.mockData) {
-      Promise.resolve(new OpenShiftUser(user));
-    } else {
-      axios({
-        url,
-        headers: {
-          authorization: `Bearer ${user.access_token}`
-        }
-      }).then(response => new OpenShiftUser(response.data));
-    }
-  });
+  return getUser().then(user =>
+    axios({
+      url,
+      headers: {
+        authorization: `Bearer ${user.access_token}`
+      }
+    }).then(response => new OpenShiftUser(response.data))
+  );
 };
 
 const get = (res, name) =>
@@ -375,17 +371,18 @@ const remove = (res, obj) =>
     }).then(response => response.data);
   });
 
-const poll = (res, interval) =>
+const poll = (res, interval, timeout) =>
   getUser().then(user => {
     const reqUrl = `${_buildRequestUrl(res)}`;
     return Promise.resolve(
       new OpenShiftPollEventListener({
         url: reqUrl,
         method: 'GET',
+        timeout: timeout || 2000,
         headers: {
           authorization: `Bearer ${user.access_token}`
         }
-      }).init(interval || 1000)
+      }).init(interval || 2000)
     );
   });
 
