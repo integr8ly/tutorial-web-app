@@ -29,7 +29,7 @@ export default {
     hidden: true
   },
   'fuse-managed': {
-    prettyName: 'Red Hat Fuse Online (Shared)',
+    prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA',
     primaryTask: 'Create integrations',
     description:
