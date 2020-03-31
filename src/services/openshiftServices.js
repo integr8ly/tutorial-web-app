@@ -16,10 +16,12 @@ axios.interceptors.response.use(
 
 class OpenShiftUser {
   constructor(userRes) {
-    this.uid = userRes.metadata.uid;
-    this.username = userRes.metadata.name;
-    this.fullName = userRes.fullName;
-    window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
+    if (userRes !== undefined) {
+      this.uid = userRes.metadata.uid;
+      this.username = userRes.metadata.name;
+      this.fullName = userRes.fullName;
+      window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
+    }
   }
 }
 
