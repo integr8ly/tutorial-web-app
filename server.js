@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const express = require('express');
 const path = require('path');
 const url = require('url');
@@ -21,14 +22,47 @@ const OPENSHIFT_PROXY_PATH = '/proxy/openshift';
 const app = express();
 
 const adoc = asciidoctor();
+const DEMO_INSTALLED_SERVICES = {
+  '3scale': {
+    Host: 'https://3scale-admin.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '2.7'
+  },
+  amqonline: {
+    Host: 'https://console-redhat-rhmi-amq-online.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '1.3.1'
+  },
+  apicurito: {
+    Host: 'https://apicurito-redhat-rhmi-apicurito.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '1.0.1'
+  },
+  codeready: {
+    Host: 'https://codeready-redhat-rhmi-codeready-workspaces.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '2.0.0'
+  },
+  'fuse-managed': {
+    Host: 'https://syndesis-redhat-rhmi-fuse.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '7.5'
+  },
+  ups: {
+    Host: 'https://ups-unifiedpush-proxy-redhat-rhmi-ups.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '2.3.2'
+  },
+  'user-rhsso': {
+    Host: 'https://keycloak-edge-redhat-rhmi-user-sso.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Version: '8.0.1'
+  }
+};
 
 app.use(bodyParser.json());
-app.use(OPENSHIFT_PROXY_PATH, proxy(`https://${process.env.OPENSHIFT_API}`, {
-  proxyReqOptDecorator: function(proxyReqOpts, _) {
-    proxyReqOpts.rejectUnauthorized = false;
-    return proxyReqOpts;
-  }
-}));
+app.use(
+  OPENSHIFT_PROXY_PATH,
+  proxy(`https://${process.env.OPENSHIFT_API}`, {
+    proxyReqOptDecorator(proxyReqOpts, _) {
+      proxyReqOpts.rejectUnauthorized = false;
+      return proxyReqOpts;
+    }
+  })
+);
 
 // prometheus metrics endpoint
 app.use(
@@ -73,6 +107,15 @@ const WALKTHROUGH_LOCATION_DEFAULT = {
 const walkthroughs = [];
 let server;
 
+app.get('/services', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  if (process.env.INSTALLED_SERVICES) {
+    res.send(process.env.INSTALLED_SERVICES);
+  } else {
+    res.send(JSON.stringify(DEMO_INSTALLED_SERVICES));
+  }
+});
+
 app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
 });
@@ -90,9 +133,8 @@ app.get('/user_walkthroughs', (req, res) =>
       if (data) {
         const { value } = data;
         return res.json(value);
-      } else {
-        return res.end();
       }
+      return res.end();
     })
     .catch(err => {
       console.error(err);
@@ -300,89 +342,88 @@ function resolveWalkthroughLocations(locations) {
   }
 
   const tmpDirPrefix = uuid.v4();
-  const mappedLocations = locations.map(
-    location =>
-      new Promise((resolve, reject) => {
-        const locationResultTemplate = { origin: location };
-        if (!location) {
-          return reject(new Error(`Invalid location ${location}`));
-        } else if (isPath(location)) {
-          console.log(`Importing walkthrough from path ${location}`);
-          const locationResult = Object.assign(
-            {
-              parentId: path.basename(location),
-              walkthroughLocationInfo: Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
-                type: WALKTHROUGH_LOCATION_TYPE_PATH,
-                directory: path.basename(location)
-              })
-            },
-            locationResultTemplate,
-            { local: location }
-          );
-          return resolve(locationResult);
-        } else if (isGitRepo(location)) {
-          const clonePath = path.join(TMP_DIR, tmpDirPrefix);
-
-          // Need to parse out query params for walkthroughs, e.g custom directory
-          const cloneUrl = generateCloneUrlFromLocation(location);
-          const repoName = getWalkthroughRepoNameFromLocation(location);
-          const walkthroughParams = querystring.parse(url.parse(location).query);
-
-          console.log(`Importing walkthrough from git ${cloneUrl}`);
-          return gitClient
-            .cloneRepo(cloneUrl, clonePath)
-            .then(cloned => {
-              gitClient.latestLog(cloned.localDir).then(log => {
-                getWalkthroughHeader(cloned.localDir)
-                  .then(head => {
-                    let wtHeader;
-                    if (head === null) {
-                      wtHeader = null;
-                    } else {
-                      wtHeader = head.prettyName;
-                    }
-                    const walkthroughFolders = [];
-                    if (!Array.isArray(walkthroughParams.walkthroughsFolder)) {
-                      walkthroughFolders.push(walkthroughParams.walkthroughsFolder || 'walkthroughs');
-                    } else {
-                      walkthroughFolders.push(...walkthroughParams.walkthroughsFolder);
-                    }
-                    // Get the folders to import in the repository.
-                    const walkthroughInfos = walkthroughFolders.map(folder => {
-                      const walkthroughLocationInfo = Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
-                        type: WALKTHROUGH_LOCATION_TYPE_GIT,
-                        commitHash: log.latest.hash,
-                        commitDate: log.latest.date,
-                        remote: cloned.repoName,
-                        directory: folder,
-                        header: wtHeader
-                      });
-
-                      return Object.assign({}, locationResultTemplate, {
-                        parentId: `${repoName}-${path.basename(folder)}`,
-                        walkthroughLocationInfo,
-                        local: path.join(cloned.localDir, folder)
-                      });
-                    });
-                    resolve(walkthroughInfos);
-                  })
-                  .catch(reject);
-              });
+  const mappedLocations = locations.map(location =>
+    new Promise((resolve, reject) => {
+      const locationResultTemplate = { origin: location };
+      if (!location) {
+        return reject(new Error(`Invalid location ${location}`));
+      } else if (isPath(location)) {
+        console.log(`Importing walkthrough from path ${location}`);
+        const locationResult = Object.assign(
+          {
+            parentId: path.basename(location),
+            walkthroughLocationInfo: Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
+              type: WALKTHROUGH_LOCATION_TYPE_PATH,
+              directory: path.basename(location)
             })
-            .catch(reject);
-        }
+          },
+          locationResultTemplate,
+          { local: location }
+        );
+        return resolve(locationResult);
+      } else if (isGitRepo(location)) {
+        const clonePath = path.join(TMP_DIR, tmpDirPrefix);
 
-        return reject(new Error(`${location} is neither a path nor a git repo`));
-      }).catch(err => {
-        console.error(err);
-        return undefined;
-      })
+        // Need to parse out query params for walkthroughs, e.g custom directory
+        const cloneUrl = generateCloneUrlFromLocation(location);
+        const repoName = getWalkthroughRepoNameFromLocation(location);
+        const walkthroughParams = querystring.parse(url.parse(location).query);
+
+        console.log(`Importing walkthrough from git ${cloneUrl}`);
+        return gitClient
+          .cloneRepo(cloneUrl, clonePath)
+          .then(cloned => {
+            gitClient.latestLog(cloned.localDir).then(log => {
+              getWalkthroughHeader(cloned.localDir)
+                .then(head => {
+                  let wtHeader;
+                  if (head === null) {
+                    wtHeader = null;
+                  } else {
+                    wtHeader = head.prettyName;
+                  }
+                  const walkthroughFolders = [];
+                  if (!Array.isArray(walkthroughParams.walkthroughsFolder)) {
+                    walkthroughFolders.push(walkthroughParams.walkthroughsFolder || 'walkthroughs');
+                  } else {
+                    walkthroughFolders.push(...walkthroughParams.walkthroughsFolder);
+                  }
+                  // Get the folders to import in the repository.
+                  const walkthroughInfos = walkthroughFolders.map(folder => {
+                    const walkthroughLocationInfo = Object.assign({}, WALKTHROUGH_LOCATION_DEFAULT, {
+                      type: WALKTHROUGH_LOCATION_TYPE_GIT,
+                      commitHash: log.latest.hash,
+                      commitDate: log.latest.date,
+                      remote: cloned.repoName,
+                      directory: folder,
+                      header: wtHeader
+                    });
+
+                    return Object.assign({}, locationResultTemplate, {
+                      parentId: `${repoName}-${path.basename(folder)}`,
+                      walkthroughLocationInfo,
+                      local: path.join(cloned.localDir, folder)
+                    });
+                  });
+                  resolve(walkthroughInfos);
+                })
+                .catch(reject);
+            });
+          })
+          .catch(reject);
+      }
+
+      return reject(new Error(`${location} is neither a path nor a git repo`));
+    }).catch(err => {
+      console.error(err);
+      return undefined;
+    })
   );
 
-  return Promise.all(mappedLocations).then(promises => {
+  return Promise.all(mappedLocations).then(promises =>
     // Ignore all locations that could not be resolved
-    return flattenDeep(promises.filter(p => !!p));
-  });
+    flattenDeep(promises.filter(p => !!p))
+  );
 }
 
 /**
@@ -642,13 +683,19 @@ function getConfigData(req) {
     logoutRedirectUri = 'http://localhost:3006';
   }
   if (!process.env.OPENSHIFT_OAUTH_HOST) {
-    console.warn('OPENSHIFT_OAUTH_HOST not set, using OPENSHIFT_HOST instead. This is okay on OCP 3.11, but will not work on 4.x, see INTLY-2791.');
+    console.warn(
+      'OPENSHIFT_OAUTH_HOST not set, using OPENSHIFT_HOST instead. This is okay on OCP 3.11, but will not work on 4.x, see INTLY-2791.'
+    );
     process.env.OPENSHIFT_OAUTH_HOST = process.env.OPENSHIFT_HOST;
   }
 
   const masterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `https://${process.env.OPENSHIFT_HOST}`;
   const wssMasterUri = isOpenShift4() ? OPENSHIFT_PROXY_PATH : `wss://${process.env.OPENSHIFT_HOST}`;
-  const ssoLogoutUri = isOpenShift4() ? '/' : `https://${process.env.SSO_ROUTE}/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}`;
+  const ssoLogoutUri = isOpenShift4()
+    ? '/'
+    : `https://${
+        process.env.SSO_ROUTE
+      }/auth/realms/openshift/protocol/openid-connect/logout?redirect_uri=${logoutRedirectUri}`;
 
   const installedServices = process.env.INSTALLED_SERVICES || '{}';
   return `window.OPENSHIFT_CONFIG = {
