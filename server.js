@@ -598,7 +598,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'apicurio'
+            clusterServiceClassExternalName: 'apicurito'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',
