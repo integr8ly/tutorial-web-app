@@ -175,9 +175,9 @@ class Masthead extends React.Component {
       riUrl = 'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
     } else {
       gsUrl =
-        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2.0/html-single/getting_started_with_red_hat_managed_integration_2.0/';
+        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/getting_started_with_red_hat_managed_integration_2/';
       riUrl =
-        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2.0/html-single/release_notes_for_red_hat_managed_integration_2.0/';
+        'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/release_notes_for_red_hat_managed_integration_2/';
     }
 
     const MastheadToolbar = (
