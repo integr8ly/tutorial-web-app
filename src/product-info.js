@@ -3,8 +3,8 @@ export default {
   codeready: {
     prettyName: 'Red Hat CodeReady Workspaces',
     gaStatus: 'GA',
-    primaryTask: 'Online IDE',
-    description: 'A developer workspace server and cloud IDE.'
+    primaryTask: 'Write code',
+    description: 'Rapidly code, build, and test your cloud applications with a Kubernetes-native IDE.'
   },
   apicurito: {
     prettyName: 'API Designer',
@@ -13,17 +13,17 @@ export default {
     description: 'Quickly design your own REST APIs without writing any code.'
   },
   '3scale': {
-    prettyName: 'Red Hat 3scale API Management Platform',
+    prettyName: 'Red Hat 3scale API Management',
     gaStatus: 'GA',
     primaryTask: 'Manage APIs',
-    description: 'A platform that provides RESTful API Management.'
+    description: 'Securely distribute, control, and monetize shared APIs for your internal or external users.'
   },
   fuse: {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA',
-    primaryTask: 'Create integrations',
+    primaryTask: 'Integrate applications and services',
     description:
-      'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.',
+      'Easily create integrations so that you can connect your applications, services, date, processes, and devices.',
     // Don't show the fuse instance only intended for walkthroughs
     // in the installed apps list
     hidden: true
@@ -31,41 +31,41 @@ export default {
   'fuse-managed': {
     prettyName: 'Red Hat Fuse Online',
     gaStatus: 'GA',
-    primaryTask: 'Create integrations',
+    primaryTask: 'Integrate applications and services',
     description:
-      'A facility to obtain data from an application or service, operate on that data, and then send the data to another application or service without writing code.'
+      'Easily create integrations so that you can connect your applications, services, date, processes, and devices.'
   },
   'amq-online-standard': {
     prettyName: 'Red Hat AMQ Online',
     gaStatus: 'GA',
     primaryTask: 'Provision messaging',
-    description: 'Fast, lightweight, and secure messaging for Internet-scale applications.'
+    description: ' Quickly provision and secure message brokers and queues across your applications and services.'
   },
   amqonline: {
     // This is used on OS4 instead of `amq-online-standard`
     prettyName: 'Red Hat AMQ Online',
     gaStatus: 'GA',
     primaryTask: 'Provision messaging',
-    description: 'Fast, lightweight, and secure messaging for Internet-scale applications.'
+    description: 'Quickly provision and secure message brokers and queues across your applications and services.'
   },
   unifiedpush: {
     prettyName: 'Push Notification Service',
     gaStatus: 'GA',
     primaryTask: 'Mobile Push Messaging',
-    description: 'Provides messaging services for Android and iOS'
+    description: 'Provides messaging services for Android and iOS.'
   },
   ups: {
     // This is used on OS4 instead of `unifiedpush`
     prettyName: 'Push Notification Service',
     gaStatus: 'GA',
     primaryTask: 'Mobile Push Messaging',
-    description: 'Provides messaging services for Android and iOS'
+    description: 'Provides messaging services for Android and iOS.'
   },
   'user-rhsso': {
-    prettyName: 'Customer Application SSO',
+    prettyName: 'Single sign-on',
     gaStatus: 'GA',
-    primaryTask: 'Protect your end-user applications',
-    description: "A single sign-on solution for your end-users' web apps, mobile apps, and RESTful web services."
+    primaryTask: 'Protect customer applications',
+    description: "Easily add identity and authentication to protect your customers’ applications and services."
   },
   rhsso: {
     prettyName: 'Managed Integration SSO',
