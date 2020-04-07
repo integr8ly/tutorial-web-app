@@ -23,10 +23,10 @@ const watchAMQOnline = (dispatch, username, namespace) =>
   poll(addressSpaceDef(namespace), 5000, 2000).then(pollListener => {
     pollListener.onEvent(event => {
       if (!event || !event.metadata || !event.metadata.name === cleanUsername(username)) {
-        dispatch(getPayloadFromAddressSpace(event));
+        dispatch(getPayloadFromAddressSpace(event, username, namespace));
         return;
       }
-      const payload = getPayloadFromAddressSpace(event);
+      const payload = getPayloadFromAddressSpace(event, username, namespace);
       payload.additionalAttributes = Object.assign({}, payload.additionalAttributes, {
         'enmasse-credentials-username': cleanUsername(username),
         'enmasse-credentials-password': window.atob(genEvalPassword(username))
@@ -81,7 +81,7 @@ const provisionAMQOnlineV4 = (dispatch, username, namespace, opts = getDefaultPr
       .then(() =>
         poll(addressSpaceDef(namespace)).then(pollListener => {
           pollListener.onEvent(
-            handleAddressSpaceUpdateEvent.bind(null, username, dispatch, amqInfo => {
+            handleAddressSpaceUpdateEvent.bind(null, username, namespace, dispatch, amqInfo => {
               pollListener.clear();
               dispatch({
                 type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
@@ -139,16 +139,16 @@ const provisionAddressSpace = (username, namespace) => {
   return findOrCreateOpenshiftResource(addressSpaceDef(namespace), asRes);
 };
 
-const handleAddressSpaceUpdateEvent = (username, dispatch, resolve, event) => {
+const handleAddressSpaceUpdateEvent = (username, namespace, dispatch, resolve, event) => {
   if (!event || !event.status || !event.status.isReady) {
-    dispatch(getPayloadFromAddressSpace(event));
+    dispatch(getPayloadFromAddressSpace(event, username, namespace));
     return;
   }
   const messagingEndpointDef = event.status.endpointStatuses.find(e => e.name === 'messaging');
   if (!messagingEndpointDef) {
     return;
   }
-  const payload = getPayloadFromAddressSpace(event);
+  const payload = getPayloadFromAddressSpace(event, username, namespace);
   payload.additionalAttributes = Object.assign({}, payload.additionalAttributes, {
     'enmasse-credentials-username': cleanUsername(username),
     'enmasse-credentials-password': window.atob(genEvalPassword(username))
@@ -156,7 +156,15 @@ const handleAddressSpaceUpdateEvent = (username, dispatch, resolve, event) => {
   resolve(payload);
 };
 
-const getPayloadFromAddressSpace = as => {
+const buildAMQOnlineConcoleUrl = (username, namespace, type) => {
+  if (!window.OPENSHIFT_CONFIG.provisionedServices.amqonline) {
+    return null;
+  }
+  const baseUrl = `${window.OPENSHIFT_CONFIG.provisionedServices.amqonline.Host}`;
+  return `${baseUrl}/#/address-spaces/${namespace}/${username}/${type}/addresses`;
+};
+
+const getPayloadFromAddressSpace = (as, username, namespace) => {
   const payload = {
     type: SERVICE_TYPES.PROVISIONED_SERVICE,
     name: DEFAULT_SERVICES.ENMASSE
@@ -171,13 +179,24 @@ const getPayloadFromAddressSpace = as => {
   if (!messagingEndpointDef) {
     return null;
   }
-  const consoleEndpointDef = as.status.endpointStatuses.find(e => e.name === 'console');
+  let consoleEndpointDef = as.status.endpointStatuses.find(e => e.name === 'console');
   if (!consoleEndpointDef) {
-    return null;
+    // If the host endpoint is not in the status, we can generate the URL from the
+    // username and namespace
+    const type = as.spec.type || 'standard';
+    consoleEndpointDef = {
+      externalHost: buildAMQOnlineConcoleUrl(username, namespace, type)
+    };
   }
+
+  const addressSpaceUrl =
+    consoleEndpointDef.externalHost.indexOf('https://') === 0
+      ? `${consoleEndpointDef.externalHost}`
+      : `https://${consoleEndpointDef.externalHost}`;
+
   return Object.assign({}, payload, {
     status: SERVICE_STATUSES.PROVISIONED,
-    url: `https://${consoleEndpointDef.externalHost}`,
+    url: addressSpaceUrl,
     additionalAttributes: {
       'enmasse-broker-url': messagingEndpointDef.serviceHost
     }
