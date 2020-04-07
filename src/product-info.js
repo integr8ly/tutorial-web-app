@@ -39,7 +39,7 @@ export default {
     prettyName: 'Red Hat AMQ Online',
     gaStatus: 'GA',
     primaryTask: 'Provision messaging',
-    description: ' Quickly provision and secure message brokers and queues across your applications and services.'
+    description: 'Quickly provision and secure message brokers and queues across your applications and services.'
   },
   amqonline: {
     // This is used on OS4 instead of `amq-online-standard`
@@ -65,7 +65,7 @@ export default {
     prettyName: 'Single sign-on',
     gaStatus: 'GA',
     primaryTask: 'Protect customer applications',
-    description: "Easily add identity and authentication to protect your customers’ applications and services."
+    description: "Easily add identity and authentication to protect your customers' applications and services."
   },
   rhsso: {
     prettyName: 'Managed Integration SSO',
