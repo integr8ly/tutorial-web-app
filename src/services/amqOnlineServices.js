@@ -180,7 +180,7 @@ const getPayloadFromAddressSpace = (as, username, namespace) => {
     return null;
   }
   let consoleEndpointDef = as.status.endpointStatuses.find(e => e.name === 'console');
-  if (!consoleEndpointDef || !consoleEndpointDef.externalHost) {
+  if (!consoleEndpointDef) {
     // If the host endpoint is not in the status, we can generate the URL from the
     // username and namespace
     const type = as.spec.type || 'standard';
@@ -188,7 +188,6 @@ const getPayloadFromAddressSpace = (as, username, namespace) => {
       externalHost: buildAMQOnlineConsoleUrl(username, namespace, type)
     };
   }
-
   const addressSpaceUrl =
     consoleEndpointDef.externalHost.indexOf('https://') === 0
       ? `${consoleEndpointDef.externalHost}`
