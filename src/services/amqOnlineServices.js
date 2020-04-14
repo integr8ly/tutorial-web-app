@@ -156,7 +156,7 @@ const handleAddressSpaceUpdateEvent = (username, namespace, dispatch, resolve, e
   resolve(payload);
 };
 
-const buildAMQOnlineConcoleUrl = (username, namespace, type) => {
+const buildAMQOnlineConsoleUrl = (username, namespace, type) => {
   if (!window.OPENSHIFT_CONFIG.provisionedServices.amqonline) {
     return null;
   }
@@ -180,12 +180,12 @@ const getPayloadFromAddressSpace = (as, username, namespace) => {
     return null;
   }
   let consoleEndpointDef = as.status.endpointStatuses.find(e => e.name === 'console');
-  if (!consoleEndpointDef) {
+  if (!consoleEndpointDef || !consoleEndpointDef.externalHost) {
     // If the host endpoint is not in the status, we can generate the URL from the
     // username and namespace
     const type = as.spec.type || 'standard';
     consoleEndpointDef = {
-      externalHost: buildAMQOnlineConcoleUrl(username, namespace, type)
+      externalHost: buildAMQOnlineConsoleUrl(username, namespace, type)
     };
   }
 

@@ -4,7 +4,7 @@ import {
   buildServiceInstanceCompareFn,
   buildServiceInstanceResourceObj
 } from '../common/serviceInstanceHelpers';
-import { watch, OpenShiftWatchEvents } from './openshiftServices';
+import { watch, OpenShiftWatchEvents, getUser, currentUser } from './openshiftServices';
 import { findOrCreateOpenshiftResource } from '../common/openshiftHelpers';
 import { SERVICE_TYPES, SERVICE_STATUSES } from '../redux/constants/middlewareConstants';
 import { FULFILLED_ACTION } from '../redux/helpers';
@@ -15,22 +15,26 @@ const provisionFuseOnlineV4 = dispatch =>
     const { provisionedServices = {} } = window.OPENSHIFT_CONFIG || {};
     const { Host } = provisionedServices[DEFAULT_SERVICES.FUSE_MANAGED] || {};
     if (Host) {
-      const synInfo = Object.assign(
-        {},
-        {
-          name: DEFAULT_SERVICES.FUSE,
-          status: SERVICE_STATUSES.PROVISIONED,
-          type: SERVICE_TYPES.PROVISIONED_SERVICE,
-          url: Host
-        }
-      );
+      currentUser().then(user => {
+        const perUserHost = Host.replace('redhat-rhmi-fuse', user.username);
 
-      dispatch({
-        type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
-        payload: synInfo
+        const synInfo = Object.assign(
+          {},
+          {
+            name: DEFAULT_SERVICES.FUSE,
+            status: SERVICE_STATUSES.PROVISIONED,
+            type: SERVICE_TYPES.PROVISIONED_SERVICE,
+            url: perUserHost
+          }
+        );
+
+        dispatch({
+          type: FULFILLED_ACTION(middlewareTypes.PROVISION_SERVICE),
+          payload: synInfo
+        });
+
+        resolve(synInfo);
       });
-
-      resolve(synInfo);
     } else {
       console.error(new Error(`Host is unavailable for ${DEFAULT_SERVICES.FUSE_MANAGED}`));
       dispatch({
