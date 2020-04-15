@@ -41,6 +41,7 @@ import {
 import ProvisioningScreen from '../../../components/provisioning/provisioningScreen';
 import { findServices } from '../../../common/serviceInstanceHelpers';
 import { isOpenShift4 } from '../../../common/openshiftHelpers';
+import { RoutedConnectedMasthead } from '../../../components/masthead/masthead';
 
 class TaskPage extends React.Component {
   constructor(props) {
@@ -414,6 +415,7 @@ class TaskPage extends React.Component {
         <React.Fragment>
           <Page className="pf-u-h-100vh">
             <SkipToContent href="#main-content">Skip to content</SkipToContent>
+            <RoutedConnectedMasthead/>
             <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
