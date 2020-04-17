@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
 import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';
+import serviceConfig from './config';
 
 const KIND_ROUTE = 'Route';
 
@@ -195,6 +196,17 @@ const finishOAuth = () => {
     };
   });
 };
+
+/**
+ * Retrieves the list of applications currently installed on openshift.
+ * If no services are installed then null will be returned.
+ */
+const getAppsList = () =>
+  axios(
+    serviceConfig({
+      url: `/services`
+    })
+  );
 
 /**
  * Removes the user session from local storage.
@@ -451,6 +463,7 @@ export {
   update,
   remove,
   OpenShiftWatchEvents,
+  getAppsList,
   logout,
   getUser,
   poll,
