@@ -39,6 +39,14 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     </SkipToContent>
     <withRouter(Connect(Masthead)) />
     <PageSection
+      variant="light"
+    >
+      <withRouter()
+        homeClickedCallback={[Function]}
+        threadName="Example"
+      />
+    </PageSection>
+    <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
     >
       <Grid
