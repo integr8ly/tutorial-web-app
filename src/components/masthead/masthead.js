@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CrossNavHeader } from '@rh-uxd/integration-react';
 import {
   Brand,
   Button,
@@ -21,7 +22,7 @@ import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
-import { logout } from '../../services/openshiftServices';
+import { logout, getAppsList } from '../../services/openshiftServices';
 import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg';
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
 import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
@@ -34,7 +35,8 @@ class Masthead extends React.Component {
     this.state = {
       isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
-      showAboutModal: false
+      showAboutModal: false,
+      appList: null
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -210,6 +212,35 @@ class Masthead extends React.Component {
     });
   };
 
+  getCrossNavApps = () => {
+    if (this.state.appList === null) {
+      getAppsList().then(resp => {
+        const appEntries = [];
+        Object.entries(resp.data).forEach(app => {
+          switch (app[0]) {
+            case '3scale':
+              appEntries.push({ id: app[0], name: '3 Scale', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              break;
+            case 'amqonline':
+              appEntries.push({ id: app[0], name: 'AMQ Online', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              break;
+            case 'apicurito':
+              appEntries.push({ id: app[0], name: 'Apicurito', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              break;
+            case 'fuse-managed':
+              appEntries.push({ id: app[0], name: 'Fuse', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              break;
+            default:
+              break;
+          }
+        });
+        this.setState({ appList: appEntries });
+      });
+      return [];
+    }
+    return this.state.appList;
+  };
+
   render() {
     const { isUserDropdownOpen, isHelpDropdownOpen, showAboutModal } = this.state;
 
@@ -308,7 +339,9 @@ class Masthead extends React.Component {
     );
 
     return (
-      <PageHeader
+      <CrossNavHeader
+        apps={this.getCrossNavApps()}
+        currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: 'localhost:3000' }}
         logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
         logoProps={logoProps}
         headerTools={MastheadToolbar}
