@@ -26,7 +26,7 @@ import get from 'lodash.get';
 import { connect, reduxActions } from '../../../redux';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import ErrorScreen from '../../../components/errorScreen/errorScreen';
-import PfMasthead from '../../../components/masthead/masthead';
+import { RoutedConnectedMasthead } from '../../../components/masthead/masthead';
 import WalkthroughResources from '../../../components/walkthroughResources/walkthroughResources';
 import { prepareCustomWalkthroughNamespace, prepareWalkthroughV4 } from '../../../services/walkthroughServices';
 import { getThreadProgress } from '../../../services/threadServices';
@@ -392,7 +392,7 @@ class TaskPage extends React.Component {
     if (thread.error || manifest.error) {
       return (
         <div>
-          <PfMasthead />
+          <RoutedConnectedMasthead />
           <ErrorScreen errorText={thread.errorMessage || manifest.errorMessage} />
         </div>
       );
@@ -414,6 +414,7 @@ class TaskPage extends React.Component {
         <React.Fragment>
           <Page className="pf-u-h-100vh">
             <SkipToContent href="#main-content">Skip to content</SkipToContent>
+            <RoutedConnectedMasthead />
             <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
