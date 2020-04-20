@@ -43,6 +43,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
     >
       <withRouter()
         homeClickedCallback={[Function]}
+        isAllSolutionPattern="true"
         threadName="Example"
       />
     </PageSection>

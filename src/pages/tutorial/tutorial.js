@@ -105,7 +105,12 @@ class TutorialPage extends React.Component {
             <SkipToContent href="#main-content">Skip to content</SkipToContent>
             <RoutedConnectedMasthead />
             <PageSection variant="light">
-              <Breadcrumb threadName={parsedThread.title} isAllSolutionPattern="true" threadId={id} homeClickedCallback={() => {}} />
+              <Breadcrumb
+                threadName={parsedThread.title}
+                isAllSolutionPattern="true"
+                threadId={id}
+                homeClickedCallback={() => {}}
+              />
             </PageSection>
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md">
