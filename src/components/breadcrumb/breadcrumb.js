@@ -13,12 +13,13 @@ class Breadcrumb extends React.Component {
     }
   };
   render() {
-    const { t, threadName, threadId, totalTasks, taskPosition } = this.props;
+    const { t, threadName, threadId, totalTasks, taskPosition, isAllSolutionPattern } = this.props;
     return (
       <PfBreadcrumb aria-label="Breadcrumb">
         <BreadcrumbItem to="#" onClick={this.homeClicked} id="breadcrumb-home">
           Home
         </BreadcrumbItem>
+        {isAllSolutionPattern && <BreadcrumbItem>Solution Patterns</BreadcrumbItem>}
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&
           taskPosition && (
@@ -48,7 +49,9 @@ Breadcrumb.propTypes = {
   /** The total number of tasks for this walkthrough */
   totalTasks: PropTypes.number,
   /** Called when the home button is clicked */
-  homeClickedCallback: PropTypes.func
+  homeClickedCallback: PropTypes.func,
+  /** Checks to see if all solutions pattern is in path */
+  isAllSolutionPattern: PropTypes.bool
 };
 
 Breadcrumb.defaultProps = {
@@ -57,7 +60,8 @@ Breadcrumb.defaultProps = {
   threadId: null,
   taskPosition: null,
   totalTasks: null,
-  homeClickedCallback: undefined
+  homeClickedCallback: undefined,
+  isAllSolutionPattern: false
 };
 
 const RoutedBreadcrumb = withRouter(translate()(Breadcrumb));

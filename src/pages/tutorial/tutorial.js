@@ -25,6 +25,7 @@ import { noop } from '../../common/helpers';
 import { parseWalkthroughAdoc } from '../../common/walkthroughHelpers';
 import { getDocsForWalkthrough, getDefaultAdocAttrs } from '../../common/docsHelpers';
 import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
+import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 
 class TutorialPage extends React.Component {
   componentDidMount() {
@@ -103,6 +104,14 @@ class TutorialPage extends React.Component {
           <Page className="pf-u-h-100vh">
             <SkipToContent href="#main-content">Skip to content</SkipToContent>
             <RoutedConnectedMasthead />
+            <PageSection variant="light">
+              <Breadcrumb
+                threadName={parsedThread.title}
+                isAllSolutionPattern
+                threadId={id}
+                homeClickedCallback={() => {}}
+              />
+            </PageSection>
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
               <Grid gutter="md">
                 <GridItem sm={12} md={9} className="integr8ly-task-container">
