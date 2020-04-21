@@ -109,10 +109,15 @@ let server;
 
 app.get('/services', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  if (process.env.INSTALLED_SERVICES) {
-    res.send(process.env.INSTALLED_SERVICES);
+  console.log(process.env.DEMO_MODE);
+  if (isOpenShift4() || process.env.DEMO_MODE === 'true') {
+    if (process.env.INSTALLED_SERVICES) {
+      res.send(process.env.INSTALLED_SERVICES);
+    } else {
+      res.send(JSON.stringify(DEMO_INSTALLED_SERVICES));
+    }
   } else {
-    res.send(JSON.stringify(DEMO_INSTALLED_SERVICES));
+    res.send(JSON.stringify({}));
   }
 });
 
