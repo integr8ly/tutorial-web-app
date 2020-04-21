@@ -422,7 +422,7 @@ class TaskPage extends React.Component {
                 taskPosition={taskNum + 1}
                 totalTasks={totalTasks}
                 homeClickedCallback={() => {}}
-                isAllSolutionPattern="true"
+                isAllSolutionPattern
               />
             </PageSection>
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">

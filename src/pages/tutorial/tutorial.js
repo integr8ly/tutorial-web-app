@@ -107,7 +107,7 @@ class TutorialPage extends React.Component {
             <PageSection variant="light">
               <Breadcrumb
                 threadName={parsedThread.title}
-                isAllSolutionPattern="true"
+                isAllSolutionPattern
                 threadId={id}
                 homeClickedCallback={() => {}}
               />
