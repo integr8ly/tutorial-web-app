@@ -17,6 +17,7 @@ import {
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
+import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Integration-A-Reverse-RGB.png';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
@@ -111,9 +112,11 @@ class Masthead extends React.Component {
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
-        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
+        logoName =
+          this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else if (clusterType === 'osd') {
-        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
+        logoName =
+          this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else {
         logoName = solutionExplorerImg;
       }
