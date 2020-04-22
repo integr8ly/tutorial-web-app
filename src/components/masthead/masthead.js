@@ -27,6 +27,7 @@ import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.sv
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
 import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
 import devIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Dev.svg';
+import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Integration-A-Reverse-RGB.png'
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -111,9 +112,9 @@ class Masthead extends React.Component {
     if (window.OPENSHIFT_CONFIG) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
-        logoName = managedIntegrationSolutionExplorerImg;
+        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else if (clusterType === 'osd') {
-        logoName = managedIntegrationSolutionExplorerImg;
+        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else {
         logoName = solutionExplorerImg;
       }

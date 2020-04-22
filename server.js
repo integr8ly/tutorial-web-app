@@ -115,7 +115,6 @@ let server;
 
 app.get('/services', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  console.log(process.env.DEMO_MODE);
   if (isOpenShift4() || process.env.DEMO_MODE === 'true') {
     if (process.env.INSTALLED_SERVICES) {
       res.send(process.env.INSTALLED_SERVICES);
