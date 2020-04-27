@@ -12,6 +12,12 @@ export default {
     primaryTask: 'Design APIs',
     description: 'Quickly design your own REST APIs without writing any code.'
   },
+  'apicurito-rhmi': {
+    prettyName: 'API Designer',
+    gaStatus: 'GA',
+    primaryTask: 'Design APIs',
+    description: 'Quickly design your own REST APIs without writing any code.'
+  },
   '3scale': {
     prettyName: 'Red Hat 3scale API Management',
     gaStatus: 'GA',
