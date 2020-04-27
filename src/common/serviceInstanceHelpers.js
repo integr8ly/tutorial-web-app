@@ -59,8 +59,7 @@ const DEFAULT_SERVICES = {
   CHE: 'codeready',
   LAUNCHER: 'launcher',
   THREESCALE: '3scale',
-  APICURIO:
-    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4 ? 'apicurito' : 'apicurito-rhmi',
+  APICURIO: window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4 ? 'apicurito' : 'apicurito-rhmi',
   FUSE_MANAGED: 'fuse-managed',
   RHSSO: 'rhsso',
   USER_RHSSO: 'user-rhsso'
