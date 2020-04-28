@@ -221,17 +221,27 @@ class Masthead extends React.Component {
         const appEntries = [];
         Object.entries(resp.data).forEach(app => {
           switch (app[0]) {
-            case '3scale':
-              appEntries.push({ id: app[0], name: '3 Scale', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
-              break;
-            case 'amqonline':
-              appEntries.push({ id: app[0], name: 'AMQ Online', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
-              break;
+            // case '3scale':
+            //   appEntries.push({ id: app[0], name: '3 Scale', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+            //   break;
+            // case 'amqonline':
+            //   appEntries.push({ id: app[0], name: 'AMQ Online', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+            //   break;
             case 'apicurito':
-              appEntries.push({ id: app[0], name: 'Apicurito', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              appEntries.push({
+                id: app[0],
+                name: 'API Designer',
+                rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, ''),
+                isHttp: true
+              });
               break;
             case 'fuse-managed':
-              appEntries.push({ id: app[0], name: 'Fuse', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
+              appEntries.push({
+                id: app[0],
+                name: 'Red Hat Fuse Online',
+                rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, ''),
+                isHttp: true
+              });
               break;
             default:
               break;
