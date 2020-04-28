@@ -1,4 +1,3 @@
-import { productDetails } from '@rh-uxd/integration-core';
 import { watch, OpenShiftWatchEvents } from './openshiftServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
@@ -23,7 +22,7 @@ import {
   statefulSetDef
 } from '../common/openshiftResourceDefinitions';
 
-// import productDetails from '../product-info';
+import productDetails from '../product-info';
 import { SERVICE_TYPES, SERVICE_STATUSES } from '../redux/constants/middlewareConstants';
 import { watchAMQOnline } from './amqOnlineServices';
 import { provisionFuseOnlineV4 } from './fuseOnlineServices';
