@@ -1480,10 +1480,12 @@
   resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-0.1.1.tgz#59d98d0ea169e955fa09a2027759e0c96bf33ea7"
   integrity sha512-IAOgEBtSq+lrzOY9AeC2pISAt6Car+4Qjw9LPGhs90OlvsyGxGeafJLfR/gSfImUEuSlLoOLbo/sUi8tpMFXOg==
 
-"@rh-uxd/integration-core@0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-0.1.3.tgz#3f176ace98f27228673e1766c980a66dafb2c06b"
-  integrity sha512-FCsi1GjmdHRqJE2gUIGI9z/D2n9YoId1TGPCzkqIpg3cAa14o5vVh4H+cGrQkT4XZhInafHmWZiJ+CPHFeQsJA==
+"@rh-uxd/integration-core@0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-0.1.5.tgz#59d085231a01618e138dc9db6ad0731d34c5181d"
+  integrity sha512-hNy/2OJrfJJI7BNexAeFinsevmJHUhI20648eTMswqUDRgDCokREd/1DxOqtiBU1Epwf056G0/Lw46DpD6W67A==
+  dependencies:
+    axios "0.19.2"
 
 "@rh-uxd/integration-react@0.1.2":
   version "0.1.2"
@@ -2401,7 +2403,7 @@ axe-core@^3.5.4:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.5.5.tgz#84315073b53fa3c0c51676c588d59da09a192227"
   integrity sha512-5P0QZ6J5xGikH780pghEdbEKijCTrruK9KxtPZCFWUpef0f6GipO+xEZ5GKCb020mmqgbiNO6TcA55CriL784Q==
 
-axios@^0.19.0:
+axios@0.19.2, axios@^0.19.0:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==

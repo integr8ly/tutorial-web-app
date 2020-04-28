@@ -32,7 +32,7 @@ const DEMO_INSTALLED_SERVICES = {
     Version: '1.3.1'
   },
   apicurito: {
-    Host: 'https://apicurito-redhat-rhmi-apicurito.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'http://localhost:4200',
     Version: '1.0.1'
   },
   codeready: {
@@ -40,7 +40,7 @@ const DEMO_INSTALLED_SERVICES = {
     Version: '2.0.0'
   },
   'fuse-managed': {
-    Host: 'https://syndesis-redhat-rhmi-fuse.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'http://localhost:3000',
     Version: '7.5'
   },
   ups: {
@@ -115,6 +115,8 @@ let server;
 
 app.get('/services', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   if (isOpenShift4() || process.env.DEMO_MODE === 'true') {
     if (process.env.INSTALLED_SERVICES) {
       res.send(process.env.INSTALLED_SERVICES);
