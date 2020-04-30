@@ -59,16 +59,9 @@ const retrieveRouteAttributes = (resourceId, route) => {
 };
 
 const getMiddlewareServiceAttrs = middlewareServices => {
-  let threescaleUrl;
-  if (window.OPENSHIFT_CONFIG.threescaleWildcardDomain && window.OPENSHIFT_CONFIG.threescaleWildcardDomain.length > 0) {
-    threescaleUrl = window.OPENSHIFT_CONFIG.threescaleWildcardDomain;
-  } else {
-    threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
-  }
-
   const output = {
-    'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl,
-    'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
+    'openshift-app-host': window.OPENSHIFT_CONFIG.appHost,
+    'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE_MANAGED),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
     'api-management-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE),
@@ -103,9 +96,27 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   if (!middlewareServices || !middlewareServices.data || !middlewareServices.data[serviceName]) {
     return null;
   }
+
+  if (isWorkshopInstallation) {
+    const username = middlewareServices.provisioningUser
+    const openshiftHost = window.OPENSHIFT_CONFIG.appHost
+
+    // per-user fuse
+    if (serviceName === DEFAULT_SERVICES.FUSE_MANAGED) {
+      return `https://syndesis-${username}-fuse.${openshiftHost}`
+    }
+
+    // per-user threescale
+    if (serviceName === DEFAULT_SERVICES.THREESCALE) {
+      return `https://${username}-tenant-admin.${openshiftHost}`
+    }
+  }
+
   const service = middlewareServices.data[serviceName];
   return getDashboardUrl(service);
 };
+
+const isWorkshopInstallation = window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop'
 
 const getDefaultAdocAttrs = walkthroughId => ({
   imagesdir: `/walkthroughs/${walkthroughId}/files/`

@@ -414,14 +414,16 @@ class InstalledAppsView extends React.Component {
       this.handleLaunchClicked.bind(this)
     );
     const managedTooltip = 'Managed services are delivered as a hosted service and supported by Red Hat.';
-    // const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
+    const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
 
     return (
       <div>
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
-            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Managed services</h2>
-            <Tooltip position="top" content={<div>{managedTooltip}</div>}>
+            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">
+              {window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop' ? 'Self Managed services': 'Managed services'}
+            </h2>
+            <Tooltip position="top" content={<div>{window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop' ? selfManagedTooltip: managedTooltip}</div>}>
               <span>
                 <HelpIcon className="integr8ly-dev-resources-icon" />
               </span>
