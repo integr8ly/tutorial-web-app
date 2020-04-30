@@ -16,11 +16,20 @@ axios.interceptors.response.use(
 
 class OpenShiftUser {
   constructor(userRes) {
+    this.isAdmin = false;
+    console.log(`isAdmin initialized as false - isAdmin: ${this.isAdmin}`);
     if (userRes !== undefined) {
+      this.groups = userRes.groups;
       this.uid = userRes.metadata.uid;
       this.username = userRes.metadata.name;
       this.fullName = userRes.fullName;
+      this.isAdmin = this.groups.includes('cluster-admins' || 'dedicated-admins');
+      console.log(`isAdmin after check for admin group - isAdmin: ${this.isAdmin}`);
+
       window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
+      window.localStorage.setItem('currentUserIsAdmin', this.isAdmin);
+      console.log(`isAdmin after setting to local storage - isAdmin: ${this.isAdmin}`);
+      console.log(`window.localStorage.currentUserIsAdmin value: ${window.localStorage.currentUserIsAdmin}`);
     }
   }
 }
