@@ -81,7 +81,12 @@ If you are running tutorial-web-app against your cluster, then you will need to 
 $ oc login <my-cluster>
 $ oc patch oauthclient tutorial-web-app -p '{"redirectURIs":["http://localhost:3006"]}'
 ----
-
+The Integreatly operator will reset this redirect url so you should stop the operator while testing. 
+If you are developing againtst an openshift 4 cluster you need to use the command below, be sure to update the urls to the ones on your cluster. 
+[source,shell]
+----
+OPENSHIFT_OAUTHCLIENT_ID=integreatly-solution-explorer OPENSHIFT_OAUTH_HOST=<openshift oauth url> OPENSHIFT_API=<openshift api url> OPENSHIFT_HOST=<openshift console url> SSO_ROUTE=<rhsso url> OPENSHIFT_VERSION='4' INSTALLED_SERVICES='{  "3scale": {    "Host": "<3scale url>",    "Version": "2.6"  },  "codeready": {    "Host": "<codeready url",    "Version": "1.2.0.GA"  },  "fuse-managed": {    "Host": "<fuse url>",    "Version": "1.4"  },  "user-rhsso": {    "Host": "<user sso url>",    "Version": "v7.3.2.GA"  }}' yarn start:dev
+----
 
 === Setup Local Development of Walkthroughs
 
