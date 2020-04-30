@@ -421,9 +421,20 @@ class InstalledAppsView extends React.Component {
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
             <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">
-              {window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop' ? 'Self Managed services': 'Managed services'}
+              {window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop'
+                ? 'Self Managed services'
+                : 'Managed services'}
             </h2>
-            <Tooltip position="top" content={<div>{window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop' ? selfManagedTooltip: managedTooltip}</div>}>
+            <Tooltip
+              position="top"
+              content={
+                <div>
+                  {window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop'
+                    ? selfManagedTooltip
+                    : managedTooltip}
+                </div>
+              }
+            >
               <span>
                 <HelpIcon className="integr8ly-dev-resources-icon" />
               </span>

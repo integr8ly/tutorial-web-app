@@ -98,17 +98,17 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   }
 
   if (isWorkshopInstallation) {
-    const username = middlewareServices.provisioningUser
-    const openshiftHost = window.OPENSHIFT_CONFIG.appHost
+    const username = middlewareServices.provisioningUser;
+    const openshiftHost = window.OPENSHIFT_CONFIG.appHost;
 
     // per-user fuse
     if (serviceName === DEFAULT_SERVICES.FUSE_MANAGED) {
-      return `https://syndesis-${username}-fuse.${openshiftHost}`
+      return `https://syndesis-${username}-fuse.${openshiftHost}`;
     }
 
     // per-user threescale
     if (serviceName === DEFAULT_SERVICES.THREESCALE) {
-      return `https://${username}-tenant-admin.${openshiftHost}`
+      return `https://${username}-tenant-admin.${openshiftHost}`;
     }
   }
 
@@ -116,7 +116,7 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   return getDashboardUrl(service);
 };
 
-const isWorkshopInstallation = window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop'
+const isWorkshopInstallation = window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop';
 
 const getDefaultAdocAttrs = walkthroughId => ({
   imagesdir: `/walkthroughs/${walkthroughId}/files/`
