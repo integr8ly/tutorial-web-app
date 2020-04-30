@@ -10,7 +10,9 @@ import {
   PageHeader,
   Toolbar,
   ToolbarGroup,
-  ToolbarItem
+  ToolbarItem,
+  Tooltip,
+  TooltipPosition
 } from '@patternfly/react-core';
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
@@ -168,6 +170,11 @@ class Masthead extends React.Component {
     let gsUrl = '';
     let riUrl = '';
     const csUrl = 'https://access.redhat.com/support/';
+    const settingsTooltip =
+      'Permissions needed. You must be logged in as an administrator to access the Settings page.';
+
+    // MF043020 TODO - local testing purposes only, remove when complete
+    window.OPENSHIFT_CONFIG.currentUserIsAdmin = true;
 
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       gsUrl =
@@ -185,14 +192,22 @@ class Masthead extends React.Component {
         <Toolbar>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-              <Button
-                className="pf-c-button pf-m-plain"
-                aria-label="Settings"
-                variant="plain"
-                onClick={this.onSettingsClick}
-              >
-                <CogIcon />
-              </Button>
+              {window.OPENSHIFT_CONFIG.currentUserIsAdmin ? (
+                <Button
+                  className="pf-c-button pf-m-plain"
+                  aria-label="Settings"
+                  variant="plain"
+                  onClick={this.onSettingsClick}
+                >
+                  <CogIcon />
+                </Button>
+              ) : (
+                <Tooltip position={TooltipPosition.bottom} content={<div>{settingsTooltip}</div>}>
+                  <Button isActive="false" className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
+                    <CogIcon className="integr8ly-settings-button-disabled" />
+                  </Button>
+                </Tooltip>
+              )}
             </ToolbarItem>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
               <Dropdown
