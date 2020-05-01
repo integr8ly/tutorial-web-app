@@ -170,16 +170,16 @@ class Masthead extends React.Component {
     let gsUrl = '';
     let riUrl = '';
     const csUrl = 'https://access.redhat.com/support/';
+    let isAdmin = window.OPENSHIFT_CONFIG.currentUserIsAdmin;
     const settingsTooltip =
       'Permissions needed. You must be logged in as an administrator to access the Settings page.';
-
-    // MF043020 TODO - local testing purposes only, remove when complete
-    window.OPENSHIFT_CONFIG.currentUserIsAdmin = true;
 
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       gsUrl =
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/';
       riUrl = 'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
+      // no admin protection for openshift 3 or for running demo/locally
+      isAdmin = true;
     } else {
       gsUrl =
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/getting_started_with_red_hat_managed_integration_2/';
@@ -192,7 +192,7 @@ class Masthead extends React.Component {
         <Toolbar>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-              {window.OPENSHIFT_CONFIG.currentUserIsAdmin ? (
+              {isAdmin ? (
                 <Button
                   className="pf-c-button pf-m-plain"
                   aria-label="Settings"
