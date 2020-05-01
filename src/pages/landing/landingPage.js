@@ -10,6 +10,7 @@ import { provisionAMQOnline, provisionAMQOnlineV4 } from '../../services/amqOnli
 import { currentUser } from '../../services/openshiftServices';
 import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
 import { DISPLAY_SERVICES } from '../../services/middlewareServices';
+import { getOpenshiftHost } from '../../common/docsHelpers';
 import {
   getUsersSharedNamespaceName,
   getUsersSharedNamespaceDisplayName,
@@ -76,6 +77,7 @@ class LandingPage extends React.Component {
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
     const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
+    const openshiftHost = getOpenshiftHost(middlewareServices);
 
     return (
       <React.Fragment>
@@ -111,6 +113,8 @@ class LandingPage extends React.Component {
                   <GridItem sm={12} md={12}>
                     <InstalledAppsView
                       apps={Object.values(middlewareServices.data)}
+                      username={this.state.currentUserName}
+                      openshiftHost={openshiftHost}
                       enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
                       showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
                       customApps={middlewareServices.customServices.services}

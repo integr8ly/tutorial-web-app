@@ -657,7 +657,6 @@ function getConfigData(req) {
     accessTokenUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/token',
     authorizationUri: 'https://${process.env.OPENSHIFT_OAUTH_HOST}/oauth/authorize',
     redirectUri: '${redirectHost}/oauth/callback',
-    appHost: '${process.env.ROUTING_SUBDOMAIN}',
     scopes: ['user:full'],
     masterUri: '${masterUri}',
     wssMasterUri: '${wssMasterUri}',
