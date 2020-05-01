@@ -598,7 +598,7 @@ function getMockConfigData() {
         },
         {
           spec: {
-            clusterServiceClassExternalName: 'apicurito'
+            clusterServiceClassExternalName: 'apicurito-rhmi'
           },
           status: {
             dashboardURL:'${process.env.OPENSHIFT_URL}',

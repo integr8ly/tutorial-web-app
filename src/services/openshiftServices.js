@@ -16,11 +16,16 @@ axios.interceptors.response.use(
 
 class OpenShiftUser {
   constructor(userRes) {
+    this.isAdmin = false;
     if (userRes !== undefined) {
+      this.groups = userRes.groups;
       this.uid = userRes.metadata.uid;
       this.username = userRes.metadata.name;
       this.fullName = userRes.fullName;
+      this.isAdmin = this.groups.includes('system:cluster-admins' || 'system:dedicated-admins');
+
       window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
+      window.localStorage.setItem('currentUserIsAdmin', this.isAdmin);
     }
   }
 }
