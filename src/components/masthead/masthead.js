@@ -170,7 +170,7 @@ class Masthead extends React.Component {
     let gsUrl = '';
     let riUrl = '';
     const csUrl = 'https://access.redhat.com/support/';
-    let isAdmin = window.OPENSHIFT_CONFIG.currentUserIsAdmin;
+    let isAdmin = window.localStorage.currentUserIsAdmin;
     const settingsTooltip =
       'Permissions needed. You must be logged in as an administrator to access the Settings page.';
 
