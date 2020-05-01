@@ -13,6 +13,16 @@ const namespaceDef = {
   version: 'v1',
   group: 'project.openshift.io'
 };
+const rhmiConfigDef = namespace => ({
+  name: 'rhmiconfigs',
+  version: 'v1alpha1',
+  group: 'integreatly.org',
+  namespace
+});
+const rhmiConfigResource = metadata => ({
+  kind: 'RHMIConfig',
+  metadata
+});
 const namespaceResource = metadata => ({
   kind: 'projects',
   metadata
@@ -125,5 +135,7 @@ export {
   operatorGroupDef,
   subscriptionDef,
   csvDef,
-  processedTemplateDefV4
+  processedTemplateDefV4,
+  rhmiConfigDef,
+  rhmiConfigResource
 };
