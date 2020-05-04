@@ -202,7 +202,12 @@ class Masthead extends React.Component {
                   <CogIcon />
                 </Button>
               ) : (
-                <Tooltip position={TooltipPosition.bottom} distance="30" content={<div>{settingsTooltip}</div>}>
+                <Tooltip
+                  position={TooltipPosition.bottom}
+                  distance={30}
+                  entryDelay={0}
+                  content={<div>{settingsTooltip}</div>}
+                >
                   <Button isActive="false" className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
                     <CogIcon className="integr8ly-settings-button-disabled" />
                   </Button>
