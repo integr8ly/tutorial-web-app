@@ -22,7 +22,10 @@ class OpenShiftUser {
       this.uid = userRes.metadata.uid;
       this.username = userRes.metadata.name;
       this.fullName = userRes.fullName;
-      this.isAdmin = this.groups.includes('system:cluster-admins' || 'system:dedicated-admins' || 'dedicated-admins');
+      this.isAdmin =
+        this.groups.includes('system:cluster-admins') ||
+        this.groups.includes('system:dedicated-admins') ||
+        this.groups.includes('dedicated-admins');
 
       window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
       window.localStorage.setItem('currentUserIsAdmin', this.isAdmin);
