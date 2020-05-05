@@ -58,20 +58,34 @@ const retrieveRouteAttributes = (resourceId, route) => {
   return routeAttrs;
 };
 
-const getMiddlewareServiceAttrs = middlewareServices => {
+const getOpenshiftHost = middlewareServices => {
   let threescaleUrl;
   if (window.OPENSHIFT_CONFIG.threescaleWildcardDomain && window.OPENSHIFT_CONFIG.threescaleWildcardDomain.length > 0) {
     threescaleUrl = window.OPENSHIFT_CONFIG.threescaleWildcardDomain;
   } else {
     threescaleUrl = getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE);
   }
+  return threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl;
+};
+
+const getMiddlewareServiceAttrs = middlewareServices => {
+  const openshiftHost = getOpenshiftHost(middlewareServices);
+  const username = middlewareServices.provisioningUser;
+  const fuseName =
+    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4
+      ? DEFAULT_SERVICES.FUSE_MANAGED
+      : DEFAULT_SERVICES.FUSE;
 
   const output = {
-    'openshift-app-host': threescaleUrl ? threescaleUrl.replace('https://3scale-admin.', '') : threescaleUrl,
-    'fuse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE),
+    'openshift-app-host': openshiftHost,
+    'fuse-url': isWorkshopInstallation
+      ? getWorkshopUrl(DEFAULT_SERVICES.FUSE_MANAGED, username, openshiftHost)
+      : getUrlFromMiddlewareServices(middlewareServices, fuseName),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
-    'api-management-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE),
+    'api-management-url': isWorkshopInstallation
+      ? getWorkshopUrl(DEFAULT_SERVICES.THREESCALE, username, openshiftHost)
+      : getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.THREESCALE),
     'enmasse-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.ENMASSE),
     'amq-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.AMQ),
     'user-sso-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.USER_RHSSO),
@@ -107,8 +121,26 @@ const getUrlFromMiddlewareServices = (middlewareServices, serviceName) => {
   return getDashboardUrl(service);
 };
 
+const getWorkshopUrl = (serviceName, user, openshiftHost) => {
+  const username = cleanUsername(user);
+
+  // per-user fuse
+  if (serviceName === DEFAULT_SERVICES.FUSE_MANAGED) {
+    return `https://syndesis-${username}-fuse.${openshiftHost}`;
+  }
+
+  // per-user threescale
+  if (serviceName === DEFAULT_SERVICES.THREESCALE) {
+    return `https://${username}-tenant-admin.${openshiftHost}`;
+  }
+
+  return '';
+};
+
+const isWorkshopInstallation = window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.installationType === 'workshop';
+
 const getDefaultAdocAttrs = walkthroughId => ({
   imagesdir: `/walkthroughs/${walkthroughId}/files/`
 });
 
-export { getDocsForWalkthrough, getDefaultAdocAttrs };
+export { getDocsForWalkthrough, getDefaultAdocAttrs, getWorkshopUrl, getOpenshiftHost, isWorkshopInstallation };

@@ -16,6 +16,8 @@ import {
 import { ChartPieIcon, ErrorCircleOIcon, HelpIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails, getServiceSortOrder } from '../../services/middlewareServices';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
+import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
+import { getWorkshopUrl, isWorkshopInstallation } from '../../common/docsHelpers';
 
 class InstalledAppsView extends React.Component {
   state = {
@@ -110,6 +112,12 @@ class InstalledAppsView extends React.Component {
   };
 
   getRouteForApp = app => {
+    if (
+      isWorkshopInstallation &&
+      (app.name === DEFAULT_SERVICES.FUSE_MANAGED || app.name === DEFAULT_SERVICES.THREESCALE)
+    ) {
+      return getWorkshopUrl(app.name, this.props.username, this.props.openshiftHost);
+    }
     if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
       return app.url;
     }
@@ -414,14 +422,33 @@ class InstalledAppsView extends React.Component {
       this.handleLaunchClicked.bind(this)
     );
     const managedTooltip = 'Managed services are delivered as a hosted service and supported by Red Hat.';
-    // const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
+    const selfManagedTooltip = 'Self-managed services are available for use, but not managed by Red Hat.';
 
     return (
       <div>
         <div className="integr8ly-tutorial-dashboard-title pf-l-flex pf-u-py-sm">
           <span className="pf-l-flex pf-m-inline-flex">
-            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">Managed services</h2>
-            <Tooltip position="top" content={<div>{managedTooltip}</div>}>
+            <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">
+              {window.OPENSHIFT_CONFIG &&
+              (window.OPENSHIFT_CONFIG.openshiftVersion === 3 ||
+                (window.OPENSHIFT_CONFIG.installationType === 'workshop' ||
+                  window.OPENSHIFT_CONFIG.installationType === 'managed'))
+                ? 'Managed services'
+                : 'Self-managed services'}
+            </h2>
+            <Tooltip
+              position="top"
+              content={
+                <div>
+                  {window.OPENSHIFT_CONFIG &&
+                  (window.OPENSHIFT_CONFIG.openshiftVersion === 3 ||
+                    (window.OPENSHIFT_CONFIG.installationType === 'workshop' ||
+                      window.OPENSHIFT_CONFIG.installationType === 'managed'))
+                    ? managedTooltip
+                    : selfManagedTooltip}
+                </div>
+              }
+            >
               <span>
                 <HelpIcon className="integr8ly-dev-resources-icon" />
               </span>
@@ -480,12 +507,16 @@ InstalledAppsView.propTypes = {
   ).isRequired,
   showUnready: PropTypes.array,
   handleLaunch: PropTypes.func.isRequired,
-  enableLaunch: PropTypes.bool
+  enableLaunch: PropTypes.bool,
+  username: PropTypes.string,
+  openshiftHost: PropTypes.string
 };
 
 InstalledAppsView.defaultProps = {
   showUnready: [],
-  enableLaunch: true
+  enableLaunch: true,
+  username: '',
+  openshiftHost: ''
 };
 
 export default InstalledAppsView;

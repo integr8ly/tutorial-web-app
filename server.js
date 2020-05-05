@@ -664,6 +664,7 @@ function getConfigData(req) {
     threescaleWildcardDomain: '${process.env.THREESCALE_WILDCARD_DOMAIN || ''}',
     integreatlyVersion: '${process.env.INTEGREATLY_VERSION || ''}',
     clusterType: '${process.env.CLUSTER_TYPE || ''}',
+    installationType: '${process.env.INSTALLATION_TYPE || ''}',
     optionalWatchServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_WATCH_SERVICES || '', ','))},
     optionalProvisionServices: ${JSON.stringify(arrayFromString(process.env.OPTIONAL_PROVISION_SERVICES || '', ','))},
     openshiftVersion: ${openshiftVersion},
