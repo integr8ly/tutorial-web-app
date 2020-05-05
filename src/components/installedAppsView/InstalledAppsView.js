@@ -430,7 +430,7 @@ class InstalledAppsView extends React.Component {
           <span className="pf-l-flex pf-m-inline-flex">
             <h2 className="pf-c-title pf-m-3xl pf-u-mt-sm pf-u-mb-sm">
               {window.OPENSHIFT_CONFIG &&
-              (window.OPENSHIFT_CONFIG.openshiftVersion === '3' ||
+              (window.OPENSHIFT_CONFIG.openshiftVersion === 3 ||
                 (window.OPENSHIFT_CONFIG.installationType === 'workshop' ||
                   window.OPENSHIFT_CONFIG.installationType === 'managed'))
                 ? 'Managed services'
@@ -441,7 +441,7 @@ class InstalledAppsView extends React.Component {
               content={
                 <div>
                   {window.OPENSHIFT_CONFIG &&
-                  (window.OPENSHIFT_CONFIG.openshiftVersion === '3' ||
+                  (window.OPENSHIFT_CONFIG.openshiftVersion === 3 ||
                     (window.OPENSHIFT_CONFIG.installationType === 'workshop' ||
                       window.OPENSHIFT_CONFIG.installationType === 'managed'))
                     ? managedTooltip

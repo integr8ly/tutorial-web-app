@@ -71,11 +71,16 @@ const getOpenshiftHost = middlewareServices => {
 const getMiddlewareServiceAttrs = middlewareServices => {
   const openshiftHost = getOpenshiftHost(middlewareServices);
   const username = middlewareServices.provisioningUser;
+  const fuseName =
+    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 4
+      ? DEFAULT_SERVICES.FUSE_MANAGED
+      : DEFAULT_SERVICES.FUSE;
+
   const output = {
     'openshift-app-host': openshiftHost,
     'fuse-url': isWorkshopInstallation
-      ? getWorkshopUrl(DEFAULT_SERVICES.THREESCALE, username, openshiftHost)
-      : getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.FUSE_MANAGED),
+      ? getWorkshopUrl(DEFAULT_SERVICES.FUSE_MANAGED, username, openshiftHost)
+      : getUrlFromMiddlewareServices(middlewareServices, fuseName),
     'launcher-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.LAUNCHER),
     'che-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.CHE),
     'api-management-url': isWorkshopInstallation
