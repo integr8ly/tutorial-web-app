@@ -276,7 +276,7 @@ class Masthead extends React.Component {
                   </DropdownToggle>
                 }
                 autoFocus={false}
-                dropdownItems={this.getFancyUserStuff()}
+                dropdownItems={this.getUserMenuResources()}
               />
             </ToolbarItem>
           </ToolbarGroup>
