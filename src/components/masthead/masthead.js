@@ -10,7 +10,9 @@ import {
   PageHeader,
   Toolbar,
   ToolbarGroup,
-  ToolbarItem
+  ToolbarItem,
+  Tooltip,
+  TooltipPosition
 } from '@patternfly/react-core';
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
@@ -168,11 +170,16 @@ class Masthead extends React.Component {
     let gsUrl = '';
     let riUrl = '';
     const csUrl = 'https://access.redhat.com/support/';
+    let isAdmin = window.localStorage.currentUserIsAdmin === 'true';
+    const settingsTooltip =
+      'Permissions needed. You must be logged in as an administrator to access the Settings page.';
 
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       gsUrl =
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/';
       riUrl = 'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/release_notes/';
+      // no admin protection for openshift 3 or for running demo/locally
+      isAdmin = true;
     } else {
       gsUrl =
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/getting_started_with_red_hat_managed_integration_2/';
@@ -185,14 +192,27 @@ class Masthead extends React.Component {
         <Toolbar>
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
-              <Button
-                className="pf-c-button pf-m-plain"
-                aria-label="Settings"
-                variant="plain"
-                onClick={this.onSettingsClick}
-              >
-                <CogIcon />
-              </Button>
+              {isAdmin ? (
+                <Button
+                  className="pf-c-button pf-m-plain"
+                  aria-label="Settings"
+                  variant="plain"
+                  onClick={this.onSettingsClick}
+                >
+                  <CogIcon />
+                </Button>
+              ) : (
+                <Tooltip
+                  position={TooltipPosition.bottom}
+                  distance={30}
+                  entryDelay={0}
+                  content={<div>{settingsTooltip}</div>}
+                >
+                  <Button isActive="false" className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
+                    <CogIcon className="integr8ly-settings-button-disabled" />
+                  </Button>
+                </Tooltip>
+              )}
             </ToolbarItem>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
               <Dropdown
