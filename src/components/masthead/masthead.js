@@ -24,6 +24,8 @@ import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
 import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg';
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
+import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
+import devIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Dev.svg';
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -117,8 +119,9 @@ class Masthead extends React.Component {
     return logoName;
   };
 
-  getUserMenuResources = () => {
+  getUserMenuResources = isAdmin => {
     const userMenuItems = [];
+    const loginName = window.localStorage.getItem('loginName');
     userMenuItems.push(
       <DropdownItem
         key="user-menu-item-placeholder"
@@ -126,9 +129,25 @@ class Masthead extends React.Component {
         target="_blank"
         aria-label="Link to user menu item placeholder"
       >
-        <CogIcon />
-        <p>short user name placeholder</p>
-        <p>Admin or Dev placeholder</p>
+        <div className="user-menu">
+          <div className="user-menu-icon">
+            {isAdmin ? (
+              <img src={adminIcon} alt="administrator icon" className="user-menu-icon-img" />
+            ) : (
+              <img src={devIcon} alt="developer icon" className="user-menu-icon-img" />
+            )}
+          </div>
+          <div>
+            <p>{loginName}</p>
+          </div>
+          <div>
+            {isAdmin ? (
+              <span className="pf-c-label pf-c-label--admin pf-m-compact">Administrator</span>
+            ) : (
+              <span className="pf-c-label pf-m-compact">Developer</span>
+            )}
+          </div>
+        </div>
       </DropdownItem>
     );
     userMenuItems.push(<DropdownSeparator key="user-separator-1" />);
@@ -237,7 +256,7 @@ class Masthead extends React.Component {
                   entryDelay={0}
                   content={<div>{settingsTooltip}</div>}
                 >
-                  <Button isActive="false" className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
+                  <Button isActive={false} className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
                     <CogIcon className="integr8ly-settings-button-disabled" />
                   </Button>
                 </Tooltip>
@@ -276,7 +295,7 @@ class Masthead extends React.Component {
                   </DropdownToggle>
                 }
                 autoFocus={false}
-                dropdownItems={this.getUserMenuResources()}
+                dropdownItems={this.getUserMenuResources(isAdmin)}
               />
             </ToolbarItem>
           </ToolbarGroup>

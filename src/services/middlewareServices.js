@@ -118,7 +118,9 @@ const mockMiddlewareServices = (dispatch, mockData) => {
     return;
   }
   const mockUsername = 'mockuser';
+  const mockLoginName = 'mockuser';
   window.localStorage.setItem('currentUserName', mockUsername);
+  window.localStorage.setItem('loginName', mockLoginName);
   mockData.serviceInstances.forEach(si => {
     dispatch({
       type: FULFILLED_ACTION(middlewareTypes.CREATE_WALKTHROUGH),

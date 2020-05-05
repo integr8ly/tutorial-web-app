@@ -1,3 +1,30 @@
 .integr8ly-settings-button-disabled {
   color: var(--pf-global--disabled-color--100);
 }
+
+.user-menu > div {
+  padding: 2px;
+}
+
+.user-menu {
+  display: grid;
+  grid-template-columns: minmax(75px, auto) 1fr;
+}
+
+.user-menu-icon {
+  margin-top: 10px;
+  grid-row: 1 / span 2;
+}
+
+.user-menu-icon-img {
+  height: 50px;
+  width: auto;
+}
+
+.pf-c-label {
+  color: black !important;
+}
+
+.pf-c-label--admin {
+  background-color:#F9E0A2 !important;
+}

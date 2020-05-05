@@ -28,6 +28,7 @@ class OpenShiftUser {
         this.groups.includes('dedicated-admins');
 
       window.localStorage.setItem('currentUserName', this.fullName ? this.fullName : this.username);
+      window.localStorage.setItem('loginName', this.username);
       window.localStorage.setItem('currentUserIsAdmin', this.isAdmin);
     }
   }
