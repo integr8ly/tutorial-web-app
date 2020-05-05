@@ -117,6 +117,35 @@ class Masthead extends React.Component {
     return logoName;
   };
 
+  getUserMenuResources = () => {
+    const userMenuItems = [];
+    userMenuItems.push(
+      <DropdownItem
+        key="user-menu-item-placeholder"
+        href="https://www.google.com"
+        target="_blank"
+        aria-label="Link to user menu item placeholder"
+      >
+        <CogIcon />
+        <p>short user name placeholder</p>
+        <p>Admin or Dev placeholder</p>
+      </DropdownItem>
+    );
+    userMenuItems.push(<DropdownSeparator key="user-separator-1" />);
+    userMenuItems.push(
+      <DropdownItem
+        key="logout"
+        component="button"
+        href="#logout"
+        onClick={this.onLogoutUser}
+        aria-label="Log out of the system"
+      >
+        Log out
+      </DropdownItem>
+    );
+    return userMenuItems;
+  };
+
   getDeveloperResources(gsUrl, riUrl, csUrl) {
     const items = [];
     items.push(
@@ -247,17 +276,7 @@ class Masthead extends React.Component {
                   </DropdownToggle>
                 }
                 autoFocus={false}
-                dropdownItems={[
-                  <DropdownItem
-                    key="logout"
-                    component="button"
-                    href="#logout"
-                    onClick={this.onLogoutUser}
-                    aria-label="Log out of the system"
-                  >
-                    Log out
-                  </DropdownItem>
-                ]}
+                dropdownItems={this.getFancyUserStuff()}
               />
             </ToolbarItem>
           </ToolbarGroup>
