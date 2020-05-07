@@ -146,7 +146,7 @@ class Masthead extends React.Component {
             {isAdmin ? (
               <span className="pf-c-label pf-c-label--admin pf-m-compact">Administrator</span>
             ) : (
-              <span className="pf-c-label pf-m-compact">Developer</span>
+              <span className="pf-c-label pf-c-label--dev pf-m-compact">Developer</span>
             )}
           </div>
         </div>
