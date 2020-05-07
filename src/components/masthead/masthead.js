@@ -128,6 +128,8 @@ class Masthead extends React.Component {
         href="https://www.google.com"
         target="_blank"
         aria-label="Link to user menu item placeholder"
+        isDisabled
+        className="pf-c-dropdown__menu-item pf-c-dropdown__menu-item--user"
       >
         <div className="user-menu">
           <div className="user-menu-icon">
@@ -150,7 +152,7 @@ class Masthead extends React.Component {
         </div>
       </DropdownItem>
     );
-    userMenuItems.push(<DropdownSeparator key="user-separator-1" />);
+    userMenuItems.push(<DropdownSeparator key="user-separator-1" className="pf-c-dropdown__separator--user" />);
     userMenuItems.push(
       <DropdownItem
         key="logout"
@@ -285,6 +287,7 @@ class Masthead extends React.Component {
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
               <Dropdown
+                className="pf-c-dropdown pf-c-dropdown--user"
                 isPlain
                 position="right"
                 onSelect={this.onUserDropdownSelect}
