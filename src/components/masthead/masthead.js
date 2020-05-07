@@ -24,6 +24,8 @@ import { AboutModal } from '../aboutModal/aboutModal';
 import { logout } from '../../services/openshiftServices';
 import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg';
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
+import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
+import devIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Dev.svg';
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -117,6 +119,54 @@ class Masthead extends React.Component {
     return logoName;
   };
 
+  getUserMenuResources = isAdmin => {
+    const userMenuItems = [];
+    const loginName = window.localStorage.getItem('loginName');
+    userMenuItems.push(
+      <DropdownItem
+        key="user-menu-item-placeholder"
+        href="https://www.google.com"
+        target="_blank"
+        aria-label="Link to user menu item placeholder"
+        isDisabled
+        className="pf-c-dropdown__menu-item pf-c-dropdown__menu-item--user"
+      >
+        <div className="user-menu">
+          <div className="user-menu-icon">
+            {isAdmin ? (
+              <img src={adminIcon} alt="administrator icon" className="user-menu-icon-img" />
+            ) : (
+              <img src={devIcon} alt="developer icon" className="user-menu-icon-img" />
+            )}
+          </div>
+          <div>
+            <p>{loginName}</p>
+          </div>
+          <div>
+            {isAdmin ? (
+              <span className="pf-c-label pf-c-label--admin pf-m-compact">Administrator</span>
+            ) : (
+              <span className="pf-c-label pf-c-label--dev pf-m-compact">Developer</span>
+            )}
+          </div>
+        </div>
+      </DropdownItem>
+    );
+    userMenuItems.push(<DropdownSeparator key="user-separator-1" className="pf-c-dropdown__separator--user" />);
+    userMenuItems.push(
+      <DropdownItem
+        key="logout"
+        component="button"
+        href="#logout"
+        onClick={this.onLogoutUser}
+        aria-label="Log out of the system"
+      >
+        Log out
+      </DropdownItem>
+    );
+    return userMenuItems;
+  };
+
   getDeveloperResources(gsUrl, riUrl, csUrl) {
     const items = [];
     items.push(
@@ -208,7 +258,7 @@ class Masthead extends React.Component {
                   entryDelay={0}
                   content={<div>{settingsTooltip}</div>}
                 >
-                  <Button isActive="false" className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
+                  <Button isActive={false} className="pf-c-button pf-m-plain" aria-label="Settings" variant="plain">
                     <CogIcon className="integr8ly-settings-button-disabled" />
                   </Button>
                 </Tooltip>
@@ -237,6 +287,7 @@ class Masthead extends React.Component {
           <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
             <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
               <Dropdown
+                className="pf-c-dropdown pf-c-dropdown--user"
                 isPlain
                 position="right"
                 onSelect={this.onUserDropdownSelect}
@@ -247,17 +298,7 @@ class Masthead extends React.Component {
                   </DropdownToggle>
                 }
                 autoFocus={false}
-                dropdownItems={[
-                  <DropdownItem
-                    key="logout"
-                    component="button"
-                    href="#logout"
-                    onClick={this.onLogoutUser}
-                    aria-label="Log out of the system"
-                  >
-                    Log out
-                  </DropdownItem>
-                ]}
+                dropdownItems={this.getUserMenuResources(isAdmin)}
               />
             </ToolbarItem>
           </ToolbarGroup>

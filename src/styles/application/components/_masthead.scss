@@ -1,3 +1,54 @@
+/* stylelint-disable selector-class-pattern, declaration-no-important */
+
 .integr8ly-settings-button-disabled {
   color: var(--pf-global--disabled-color--100);
 }
+
+.user-menu > div {
+  padding: 2px;
+}
+
+.user-menu {
+  display: grid;
+  grid-template-columns: minmax(75px, auto) 1fr;
+  margin-top: 0;
+}
+
+.user-menu-icon {
+  margin-top: 10px;
+  grid-row: 1 / span 2;
+}
+
+.user-menu-icon-img {
+  height: 50px;
+  width: auto;
+}
+
+.pf-c-label {
+  color: #000 !important;
+}
+
+.pf-c-label--admin {
+  background-color: #f9e0a2 !important;
+}
+
+.pf-c-label--dev {
+  background-color: #a2d9d9 !important;
+}
+
+.pf-c-dropdown__menu-item--user {
+  background-color: #f5f5f5 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 20px !important;
+}
+
+.pf-c-dropdown__separator--user {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.pf-c-dropdown--user > ul {
+  padding-top: 0 !important;
+}
+
+/* stylelint-enable selector-class-pattern, declaration-no-important */
