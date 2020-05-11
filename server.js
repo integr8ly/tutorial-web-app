@@ -22,7 +22,7 @@ const OPENSHIFT_PROXY_PATH = '/proxy/openshift';
 const app = express();
 
 const adoc = asciidoctor();
-const DEMO_INSTALLED_SERVICES = {
+const LOCAL_DEV_INSTALLED_SERVICES = {
   '3scale': {
     Host: 'https://3scale-admin.apps.demo.com',
     Version: '2.7'
@@ -121,7 +121,7 @@ app.get('/services', (req, res) => {
     if (process.env.INSTALLED_SERVICES) {
       res.send(process.env.INSTALLED_SERVICES);
     } else {
-      res.send(JSON.stringify(DEMO_INSTALLED_SERVICES));
+      res.send(JSON.stringify(LOCAL_DEV_INSTALLED_SERVICES));
     }
   } else {
     res.send(JSON.stringify({}));
