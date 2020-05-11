@@ -23,7 +23,7 @@ import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
 import { AboutModal } from '../aboutModal/aboutModal';
-import { logout, getAppsList } from '../../services/openshiftServices';
+import { logout } from '../../services/openshiftServices';
 import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.svg';
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
 import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
@@ -52,7 +52,9 @@ class Masthead extends React.Component {
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
 
-    getAvailableApps(process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : '').then((apps) => {this.setState({appList: apps})});
+    getAvailableApps(process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : '').then(apps => {
+      this.setState({ appList: apps });
+    });
   }
 
   onLogoutUser = () => {
@@ -313,7 +315,6 @@ class Masthead extends React.Component {
         {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
-   
     return (
       <CrossNavHeader
         apps={this.state.appList}
