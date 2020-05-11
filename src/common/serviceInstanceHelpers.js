@@ -123,7 +123,13 @@ const getDashboardUrl = svc => {
   }
 
   const { status, metadata } = svc;
-  if (status.dashboardURL) {
+  // Ensure AMQ online console link points to the 'parent' amq console and not to an address space. This should only be applied for OS3
+  if (
+    window.OPENSHIFT_CONFIG.openshiftVersion === 3 &&
+    svc.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.ENMASSE
+  ) {
+    return window.OPENSHIFT_CONFIG.provisionedServices[DEFAULT_SERVICES.ENMASSE].Host;
+  } else if (status.dashboardURL) {
     return status.dashboardURL;
   } else if (metadata.annotations && metadata.annotations['integreatly/dashboard-url']) {
     return metadata.annotations['integreatly/dashboard-url'];

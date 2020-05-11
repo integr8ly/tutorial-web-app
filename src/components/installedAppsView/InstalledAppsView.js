@@ -16,7 +16,7 @@ import {
 import { ChartPieIcon, ErrorCircleOIcon, HelpIcon, OnRunningIcon, OffIcon } from '@patternfly/react-icons';
 import { getProductDetails, getServiceSortOrder } from '../../services/middlewareServices';
 import { SERVICE_STATUSES, SERVICE_TYPES } from '../../redux/constants/middlewareConstants';
-import { DEFAULT_SERVICES } from '../../common/serviceInstanceHelpers';
+import { DEFAULT_SERVICES, getDashboardUrl } from '../../common/serviceInstanceHelpers';
 import { getWorkshopUrl, isWorkshopInstallation } from '../../common/docsHelpers';
 
 class InstalledAppsView extends React.Component {
@@ -120,6 +120,14 @@ class InstalledAppsView extends React.Component {
     }
     if (app.type === SERVICE_TYPES.PROVISIONED_SERVICE) {
       return app.url;
+    }
+    // Ensure AMQ online console link points to the 'parent' amq console and not to an address space. This should only be applied for OS3
+    if (
+      window.OPENSHIFT_CONFIG.openshiftVersion === 3 &&
+      app.spec &&
+      app.spec.clusterServiceClassExternalName === DEFAULT_SERVICES.ENMASSE
+    ) {
+      return getDashboardUrl(app);
     }
     if (app.status.dashboardURL) {
       return app.status.dashboardURL;
