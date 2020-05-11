@@ -1,6 +1,6 @@
 import axios from 'axios';
 import ClientOAuth2 from 'client-oauth2';
-import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';q
+import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';
 
 const KIND_ROUTE = 'Route';
 
