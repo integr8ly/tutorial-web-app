@@ -24,11 +24,11 @@ const app = express();
 const adoc = asciidoctor();
 const DEMO_INSTALLED_SERVICES = {
   '3scale': {
-    Host: 'https://3scale-admin.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'https://3scale-admin.apps.demo.com',
     Version: '2.7'
   },
   amqonline: {
-    Host: 'https://console-redhat-rhmi-amq-online.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'https://console-redhat-rhmi-amq-online.apps.demo.com',
     Version: '1.3.1'
   },
   apicurito: {
@@ -36,7 +36,7 @@ const DEMO_INSTALLED_SERVICES = {
     Version: '1.0.1'
   },
   codeready: {
-    Host: 'https://codeready-redhat-rhmi-codeready-workspaces.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'https://codeready-redhat-rhmi-codeready-workspaces.apps.demo.com',
     Version: '2.0.0'
   },
   'fuse-managed': {
@@ -44,11 +44,11 @@ const DEMO_INSTALLED_SERVICES = {
     Version: '7.5'
   },
   ups: {
-    Host: 'https://ups-unifiedpush-proxy-redhat-rhmi-ups.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'https://ups-unifiedpush-proxy-redhat-rhmi-ups.apps.demo.com',
     Version: '2.3.2'
   },
   'user-rhsso': {
-    Host: 'https://keycloak-edge-redhat-rhmi-user-sso.apps.cluster-boston-aa22.boston-aa22.example.opentlc.com',
+    Host: 'https://keycloak-edge-redhat-rhmi-user-sso.apps.demo.com',
     Version: '8.0.1'
   }
 };
