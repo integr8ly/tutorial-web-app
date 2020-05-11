@@ -117,7 +117,7 @@ app.get('/services', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  if (isOpenShift4() || process.env.DEMO_MODE === 'true') {
+  if (isOpenShift4() || process.env.CROSS_CONSOLE_LOCAL_DEV_MODE === 'true') {
     if (process.env.INSTALLED_SERVICES) {
       res.send(process.env.INSTALLED_SERVICES);
     } else {
