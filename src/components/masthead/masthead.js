@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getAvailableApps } from '@rh-uxd/integration-core';
 import { CrossNavHeader } from '@rh-uxd/integration-react';
 import {
   Brand,
@@ -27,7 +28,6 @@ import solutionExplorerImg from '../../img/Logo-Solution-Explorer-Reverse-RGB.sv
 import managedIntegrationSolutionExplorerImg from '../../img/Logo-Red-Hat-Managed-Integration-Solution-Explorer-Reverse-RGB.svg';
 import adminIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Admin.svg';
 import devIcon from '../../img/Icon-Red_Hat-People_and_Audiences-User-A-Black-RGB-Dev.svg';
-import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Integration-A-Reverse-RGB.png'
 
 class Masthead extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class Masthead extends React.Component {
       isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
       showAboutModal: false,
-      appList: null
+      appList: []
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -51,6 +51,8 @@ class Masthead extends React.Component {
 
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
+
+    getAvailableApps(process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : '').then((apps) => {this.setState({appList: apps})});
   }
 
   onLogoutUser = () => {
@@ -215,45 +217,6 @@ class Masthead extends React.Component {
     });
   };
 
-  getCrossNavApps = () => {
-    if (this.state.appList === null) {
-      getAppsList().then(resp => {
-        const appEntries = [];
-        Object.entries(resp.data).forEach(app => {
-          switch (app[0]) {
-            // case '3scale':
-            //   appEntries.push({ id: app[0], name: '3 Scale', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
-            //   break;
-            // case 'amqonline':
-            //   appEntries.push({ id: app[0], name: 'AMQ Online', rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, '') });
-            //   break;
-            case 'apicurito':
-              appEntries.push({
-                id: app[0],
-                name: 'API Designer',
-                rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, ''),
-                isHttp: true
-              });
-              break;
-            case 'fuse-managed':
-              appEntries.push({
-                id: app[0],
-                name: 'Red Hat Fuse Online',
-                rootUrl: app[1].Host.replace(/(^\w+:|^)\/\//, ''),
-                isHttp: true
-              });
-              break;
-            default:
-              break;
-          }
-        });
-        this.setState({ appList: appEntries });
-      });
-      return [];
-    }
-    return this.state.appList;
-  };
-
   render() {
     const { isUserDropdownOpen, isHelpDropdownOpen, showAboutModal } = this.state;
 
@@ -350,10 +313,10 @@ class Masthead extends React.Component {
         {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
-
+   
     return (
       <CrossNavHeader
-        apps={this.getCrossNavApps()}
+        apps={this.state.appList}
         currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: 'localhost:3000' }}
         logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
         logoProps={logoProps}
