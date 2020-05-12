@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Bullseye,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateVariant,
   Form,
   FormGroup,
   Grid,
@@ -14,7 +18,8 @@ import {
   PageSection,
   PageSectionVariants,
   SkipToContent,
-  TextArea
+  TextArea,
+  Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
@@ -48,6 +53,12 @@ class SettingsPage extends React.Component {
       }
     });
   }
+
+  exitTutorial = e => {
+    e.preventDefault();
+    const { history } = this.props;
+    history.push(`/`);
+  };
 
   saveSettings = (e, value) => {
     e.preventDefault();
@@ -97,71 +108,98 @@ class SettingsPage extends React.Component {
 
   render() {
     const { value, isValid } = this.state;
+    let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    // no admin protection for openshift 3 or for running demo/locally
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+      isAdmin = true;
+    }
 
     return (
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.default}>
-          <Breadcrumb homeClickedCallback={() => {}} threadName="Application settings" />
+          <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
           <Grid gutter="md">
             <GridItem mdOffset={4} md={12}>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm">
-                Application settings
+                Settings
               </h1>
-              <Card className="pf-u-w-50 pf-u-my-xl">
-                <CardHeader>
-                  <h2 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h2>
-                </CardHeader>
-                <CardBody>
-                  To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                  Solution Explorer default content is already included. See{' '}
-                  <a
-                    href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Getting Started
-                  </a>{' '}
-                  for information about these settings.
-                </CardBody>
-                <CardBody>
-                  <Form>
-                    <FormGroup
-                      label="List URLs in the order you want them to appear on the Home page:"
-                      type="text"
-                      helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                      helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                      fieldId="repo-formgroup"
-                      isValid={isValid}
+              {isAdmin ? (
+                <Card className="pf-u-w-50 pf-u-my-xl">
+                  <CardHeader>
+                    <h2 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h2>
+                  </CardHeader>
+                  <CardBody>
+                    To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
+                    Solution Explorer default content is already included. See{' '}
+                    <a
+                      href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      <TextArea
+                      Getting Started
+                    </a>{' '}
+                    for information about these settings.
+                  </CardBody>
+                  <CardBody>
+                    <Form>
+                      <FormGroup
+                        label="List URLs in the order you want them to appear on the Home page:"
+                        type="text"
+                        helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                        helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                        fieldId="repo-formgroup"
                         isValid={isValid}
-                        value={this.state.value}
-                        id="repo-textfield"
-                        aria-label="Add repository URLs"
-                        onChange={this.handleTextInputChange}
-                        className="integr8ly-settings"
-                      />
-                    </FormGroup>
-                  </Form>
-                </CardBody>
-                <CardBody className="integr8ly-settings-important">
-                  IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
-                  using the cluster. You must refresh the Home page to see the results from these changes.
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    id="settings-save-button"
-                    variant="primary"
-                    type="button"
-                    onClick={e => this.saveSettings(e, value)}
-                    isDisabled={!isValid}
-                  >
-                    Save
-                  </Button>{' '}
-                </CardFooter>
-              </Card>
+                      >
+                        <TextArea
+                          isValid={isValid}
+                          value={this.state.value}
+                          id="repo-textfield"
+                          aria-label="Add repository URLs"
+                          onChange={this.handleTextInputChange}
+                          className="integr8ly-settings"
+                        />
+                      </FormGroup>
+                    </Form>
+                  </CardBody>
+                  <CardBody className="integr8ly-settings-important">
+                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
+                    using the cluster. You must refresh the Home page to see the results from these changes.
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      id="settings-save-button"
+                      variant="primary"
+                      type="button"
+                      onClick={e => this.saveSettings(e, value)}
+                      isDisabled={!isValid}
+                    >
+                      Save
+                    </Button>{' '}
+                  </CardFooter>
+                </Card>
+              ) : (
+                <Card className="pf-u-w-50 pf-u-my-xl">
+                  <CardBody>
+                    <Bullseye>
+                      <EmptyState variant={EmptyStateVariant.small}>
+                        <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
+                        <Title id="main-content" size="lg">
+                          Permissions needed
+                        </Title>
+                        <EmptyStateBody>
+                          You need additional permissions to view this page or resource. Contact your administrator for
+                          more information.
+                        </EmptyStateBody>
+                        <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
+                          Back to home
+                        </Button>{' '}
+                      </EmptyState>
+                    </Bullseye>
+                  </CardBody>
+                </Card>
+              )}
             </GridItem>
           </Grid>
         </PageSection>
