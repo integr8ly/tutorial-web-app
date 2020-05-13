@@ -193,7 +193,7 @@ class SettingsPage extends React.Component {
                           more information.
                         </EmptyStateBody>
                         <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
-                          Back to home
+                          Go to home
                         </Button>{' '}
                       </EmptyState>
                     </Bullseye>
