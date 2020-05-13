@@ -43,7 +43,7 @@ class CongratulationsPage extends React.Component {
                   what you just built!
                 </EmptyStateBody>
                 <Button id="congratulations-button" variant="primary" onClick={e => this.exitTutorial(e)}>
-                  Return to home
+                  Go to home
                 </Button>{' '}
               </EmptyState>
             </Bullseye>

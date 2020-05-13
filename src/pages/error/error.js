@@ -42,7 +42,7 @@ class ErrorPage extends React.Component {
                 <EmptyStateBody> {window.location.href} </EmptyStateBody>
                 <EmptyStateBody>Contact your administrator.</EmptyStateBody>
                 <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
-                  Return to home
+                  Go to home
                 </Button>{' '}
               </EmptyState>
             </Bullseye>

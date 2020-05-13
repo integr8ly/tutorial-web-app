@@ -226,6 +226,10 @@ const getParameterByName = (name, url) => {
 };
 
 const currentUser = () => {
+  // Return empty promise when in mock mode to keep console clean
+  if (window.OPENSHIFT_CONFIG.mockData) {
+    return new Promise(resolve => resolve({}));
+  }
   const url = isOpenShift4()
     ? `${getMasterUri()}/apis/user.openshift.io/v1/users/~`
     : `${getMasterUri()}/oapi/v1/users/~`;
