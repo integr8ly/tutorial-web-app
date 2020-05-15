@@ -12,6 +12,15 @@ class Breadcrumb extends React.Component {
       homeClickedCallback();
     }
   };
+
+  solutionPatternsClicked = () => {
+    const { solutionPatternsClickedCallback } = this.props;
+    this.props.history.push('/home/solution-patterns');
+    if (solutionPatternsClickedCallback) {
+      solutionPatternsClickedCallback();
+    }
+  };
+
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition, isAllSolutionPattern } = this.props;
     return (
@@ -19,7 +28,7 @@ class Breadcrumb extends React.Component {
         <BreadcrumbItem to="#" onClick={this.homeClicked} id="breadcrumb-home">
           Home
         </BreadcrumbItem>
-        {isAllSolutionPattern && <BreadcrumbItem>Solution Patterns</BreadcrumbItem>}
+        {isAllSolutionPattern && <BreadcrumbItem to="/solution-patterns">Solution Patterns</BreadcrumbItem>}
         {threadName && !taskPosition && <BreadcrumbItem isActive>{threadName}</BreadcrumbItem>}
         {threadName &&
           taskPosition && (
@@ -48,8 +57,10 @@ Breadcrumb.propTypes = {
   taskPosition: PropTypes.number,
   /** The total number of tasks for this walkthrough */
   totalTasks: PropTypes.number,
-  /** Called when the home button is clicked */
+  /** Called when the 'home' button is clicked */
   homeClickedCallback: PropTypes.func,
+  /** Called when the 'solution patterns' button is clicked */
+  solutionPatternsClickedCallback: PropTypes.func,
   /** Checks to see if all solutions pattern is in path */
   isAllSolutionPattern: PropTypes.bool
 };
@@ -61,6 +72,7 @@ Breadcrumb.defaultProps = {
   taskPosition: null,
   totalTasks: null,
   homeClickedCallback: undefined,
+  solutionPatternsClickedCallback: undefined,
   isAllSolutionPattern: false
 };
 
