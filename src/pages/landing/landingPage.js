@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
+import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
