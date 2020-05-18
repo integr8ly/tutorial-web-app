@@ -28,8 +28,6 @@ class LandingPage extends React.Component {
 
     // Toggle currently active tab
     this.handleTabClick = (event, tabIndex) => {
-      console.log("dsfsdfsf");
-      // window.location.reload();
       event.preventDefault();
       this.setState({
         activeTabKey: tabIndex
