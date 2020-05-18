@@ -1475,21 +1475,21 @@
   resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.8.8.tgz#25edde60501708b8fe821f69ab1f284ac1b81814"
   integrity sha512-W3Kx2zlbfFtcjL9mYpjWNU9RfNrFpfXI6zC8qQTuaDwhV3IHCWt5HCkcf9oIW2aCtEjC0EkI67Wbz0BcmdYGJA==
 
-"@rh-uxd/integration-core@0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-0.1.7.tgz#7d45a3c886e07e64280db2c423c3ede289e0af29"
-  integrity sha512-vQE2t0lPmyjBMuk2FJmZl8R6XxdAnTbFWFqQvSfQt0UWax70C1tE89553Xm58OyPYy+Q4dhOjpZ68Qx83tXUmA==
+"@rh-uxd/integration-core@0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-0.1.8.tgz#3e99c2d87fbd542f317eba02e9e199f9dacd3454"
+  integrity sha512-VyjAwY5/duhxGWFgpx2SCYyUsxwAQuykmNq6HnxAHjBUqyerwqsg3msjYE8NlzrGi9J3RtvvbV1QNcOzDBN6HA==
   dependencies:
     axios "0.19.2"
 
-"@rh-uxd/integration-react@0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-react/-/integration-react-0.1.4.tgz#3830c14267ec97bf490d5ec9dc1f3bc3c429486d"
-  integrity sha512-YtEcP+3LL+ZoJgetBfKbpSOSXQFgP7K4pAE4YwTbR3+ysRlPECLWYWWVr9H8iDnUSTEIqRWgT6RctEnlyVqkMw==
+"@rh-uxd/integration-react@0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-react/-/integration-react-0.1.5.tgz#7dfca10eb0f807af1dd295fc16c84ba9ad9c6f48"
+  integrity sha512-u7XmNfnHs2jLLXpCK8g4FxH17UehEe1zJJp6cn0NvyiLy8fLI+rToWCpAGG+bjyU+uxv4Fyy/3LXloF0LwgNvQ==
   dependencies:
     "@patternfly/react-core" "3.129.3"
     "@patternfly/react-icons" "3.14.30"
-    "@rh-uxd/integration-core" "0.1.7"
+    "@rh-uxd/integration-core" "0.1.8"
     react "16.13.0"
     react-dom "16.13.0"
 
