@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getAvailableApps } from '@rh-uxd/integration-core';
+import { getAvailableApps, getSolutionExplorerServer } from '@rh-uxd/integration-core';
 import { CrossNavHeader } from '@rh-uxd/integration-react';
 import {
   Brand,
@@ -52,7 +52,9 @@ class Masthead extends React.Component {
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
 
-    getAvailableApps(process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : '').then(apps => {
+    getAvailableApps(
+      process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer()
+    ).then(apps => {
       this.setState({ appList: apps });
     });
   }
