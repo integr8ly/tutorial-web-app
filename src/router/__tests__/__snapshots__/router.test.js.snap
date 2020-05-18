@@ -18,6 +18,12 @@ exports[`Router Component should render a basic component 1`] = `
     <Route
       component={[Function]}
       exact={true}
+      key="/solution-patterns"
+      path="/solution-patterns"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
       key="/settings"
       path="/settings"
     />
@@ -60,7 +66,7 @@ exports[`Router Component should render a basic component 1`] = `
     <Redirect
       from="/"
       push={false}
-      to="/home"
+      to="/solution-patterns"
     />
   </Switch>
 </div>
