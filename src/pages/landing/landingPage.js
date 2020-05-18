@@ -28,6 +28,8 @@ class LandingPage extends React.Component {
 
     // Toggle currently active tab
     this.handleTabClick = (event, tabIndex) => {
+      console.log("dsfsdfsf");
+      // window.location.reload();
       event.preventDefault();
       this.setState({
         activeTabKey: tabIndex
@@ -75,9 +77,9 @@ class LandingPage extends React.Component {
   }
 
   handleLoad(event) {
-    if (window.location.href.indexOf('solution-patterns') > -1) {
-      this.handleTabClick(event, 1);
+    if (window.location.href.indexOf('solution') > -1) {
       this.setState({ activeTabKey: 1 });
+      document.getElementById('pf-tab-1-solutionPatternsTab').click();
     }
   }
 
@@ -88,7 +90,7 @@ class LandingPage extends React.Component {
 
     return (
       <React.Fragment>
-        <Page className="pf-u-h-100vh">
+        <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>
           <RoutedConnectedMasthead currentUserName={this.state.currentUserName} />
           <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
             <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>

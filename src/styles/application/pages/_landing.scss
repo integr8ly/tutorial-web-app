@@ -20,14 +20,15 @@
 }
 
 .pf-c-tab-content {
-  padding-right: var(--pf-c-page__main-breadcrumb--md--PaddingRight)
+  padding-right: var(--pf-c-page__main-breadcrumb--md--PaddingRight);
 }
-/* stylelint-enable */
 
 .pf-c-page__header {
-    background: var(--pf-global--BackgroundColor--dark-100);
+  background: var(--pf-global--BackgroundColor--dark-100);
 }
 
 .pf-c-page__main {
   background: var(--pf-global--BackgroundColor--300);
 }
+
+/* stylelint-enable */
