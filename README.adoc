@@ -61,7 +61,7 @@ Then change to the webapp directory, install its dependencies and run the develo
 ----
 $ cd tutorial-web-app
 $ rm -rf node_modules
-$ npm install -g yarn react-scripts nodemon npm-run-all
+$ npm install -g yarn
 $ yarn install
 $ yarn start:dev
 ----
