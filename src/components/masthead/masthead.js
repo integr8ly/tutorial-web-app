@@ -19,7 +19,7 @@ import {
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
-import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Integration-A-Reverse-RGB.png';
+import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Managed_Integration-A-Reverse-RGB.png';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
@@ -38,6 +38,7 @@ class Masthead extends React.Component {
       isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
       showAboutModal: false,
+      showLogo: false,
       appList: []
     };
 
@@ -54,9 +55,12 @@ class Masthead extends React.Component {
     this.closeAboutModal = this.closeAboutModal.bind(this);
 
     getAvailableApps(
-      process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer()
+      process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer(),
+      undefined,
+      undefined,
+      ['3scale', 'solution-explorer']
     ).then(apps => {
-      this.setState({ appList: apps });
+      this.setState({ appList: apps, showLogo: true });
     });
   }
 
@@ -116,7 +120,7 @@ class Masthead extends React.Component {
   getLogo = () => {
     let clusterType = '';
     let logoName = '';
-    if (window.OPENSHIFT_CONFIG) {
+    if (window.OPENSHIFT_CONFIG && this.state.showLogo) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
         logoName =
@@ -125,7 +129,7 @@ class Masthead extends React.Component {
         logoName =
           this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else {
-        logoName = solutionExplorerImg;
+        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : solutionExplorerImg;
       }
     }
     return logoName;
@@ -225,9 +229,11 @@ class Masthead extends React.Component {
   render() {
     const { isUserDropdownOpen, isHelpDropdownOpen, showAboutModal } = this.state;
 
-    const logoProps = {
-      onClick: () => this.onTitleClick()
-    };
+    const logoProps = this.state.appList
+      ? {}
+      : {
+          onClick: () => this.onTitleClick()
+        };
 
     let gsUrl = '';
     let riUrl = '';
@@ -322,7 +328,7 @@ class Masthead extends React.Component {
       <CrossNavHeader
         apps={this.state.appList}
         currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: 'localhost:3000' }}
-        logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
+        logo={this.state.showLogo ? <Brand src={this.getLogo()} alt="Red Hat Solution Explorer" /> : null}
         logoProps={logoProps}
         headerTools={MastheadToolbar}
       />
