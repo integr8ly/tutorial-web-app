@@ -38,7 +38,7 @@ class Masthead extends React.Component {
       isUserDropdownOpen: false,
       showAboutModal: false,
       showLogo: false,
-      appList: []
+      appList: null
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -53,14 +53,16 @@ class Masthead extends React.Component {
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
 
-    getAvailableApps(
-      process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer(),
-      undefined,
-      undefined,
-      ['3scale', 'solution-explorer']
-    ).then(apps => {
-      this.setState({ appList: apps, showLogo: true });
-    });
+    if (!this.state.appList) {
+      getAvailableApps(
+        process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer(),
+        undefined,
+        undefined,
+        ['3scale', 'solution-explorer']
+      ).then(apps => {
+        this.setState({ appList: apps, showLogo: true });
+      });
+    }
   }
 
   onLogoutUser = () => {
