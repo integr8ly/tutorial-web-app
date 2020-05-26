@@ -36,6 +36,14 @@ const routes = () => [
   },
   {
     iconClass: 'pficon pficon-orders',
+    title: 'Solution Patterns',
+    to: '/solution-patterns',
+    redirect: true,
+    component: LandingPage,
+    exact: true
+  },
+  {
+    iconClass: 'pficon pficon-orders',
     title: 'Settings',
     to: '/settings',
     component: SettingsPage,

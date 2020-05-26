@@ -9,4 +9,26 @@
   margin: 0;
   padding: 0 0 20px;
 }
+
+.pf-c-tabs {
+  background: var(--pf-global--BackgroundColor--100);
+  padding-left: var(--pf-global--spacer--lg);
+}
+
+.pf-c-tabs-list {
+  background: var(--pf-global--BackgroundColor--100);
+}
+
+.pf-c-tab-content {
+  padding-right: var(--pf-c-page__main-breadcrumb--md--PaddingRight);
+}
+
+.pf-c-page__header {
+  background: var(--pf-global--BackgroundColor--dark-100);
+}
+
+.pf-c-page__main {
+  background: var(--pf-global--BackgroundColor--300);
+}
+
 /* stylelint-enable */
