@@ -329,7 +329,7 @@ class Masthead extends React.Component {
     return (
       <CrossNavHeader
         apps={this.state.appList}
-        currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: 'localhost:3000' }}
+        currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: window.location.href }}
         logo={this.state.showLogo ? <Brand src={this.getLogo()} alt="Red Hat Solution Explorer" /> : null}
         logoProps={logoProps}
         toolbar={MastheadToolbar}
