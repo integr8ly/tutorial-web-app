@@ -75,7 +75,7 @@ class LandingPage extends React.Component {
   }
 
   handleLoad(event) {
-    if (window.location.href.indexOf('solution') > -1) {
+    if (window.location.href.indexOf('/solution-patterns') > -1) {
       this.setState({ activeTabKey: 1 });
       document.getElementById('pf-tab-1-solutionPatternsTab').click();
     }
