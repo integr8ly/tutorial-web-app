@@ -59,7 +59,8 @@ class Masthead extends React.Component {
         process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer(),
         undefined,
         undefined,
-        ['3scale', 'solution-explorer']
+        ['3scale', 'solution-explorer'],
+        !!process.env.REACT_APP_RHMI_SERVER_URL
       ).then(apps => {
         this.setState({ appList: apps, showLogo: true });
       });
