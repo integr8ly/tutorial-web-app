@@ -13,14 +13,6 @@ class Breadcrumb extends React.Component {
     }
   };
 
-  solutionPatternsClicked = () => {
-    const { solutionPatternsClickedCallback } = this.props;
-    this.props.history.push('/home/solution-patterns');
-    if (solutionPatternsClickedCallback) {
-      solutionPatternsClickedCallback();
-    }
-  };
-
   render() {
     const { t, threadName, threadId, totalTasks, taskPosition, isAllSolutionPattern } = this.props;
     return (
