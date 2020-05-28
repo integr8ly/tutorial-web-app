@@ -28,7 +28,7 @@ const LOCAL_DEV_INSTALLED_SERVICES = {
     Version: '2.7'
   },
   amqonline: {
-    Host: 'https://console-redhat-rhmi-amq-online.apps.demo.com',
+    Host: 'http://localhost:3003',
     Version: '1.3.1'
   },
   apicurito: {
