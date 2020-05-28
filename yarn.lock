@@ -1307,14 +1307,14 @@
     focus-trap-react "^4.0.1"
     tippy.js "3.4.1"
 
-"@patternfly/react-core@3.129.3":
-  version "3.129.3"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-3.129.3.tgz#e54e135af9b15a3286ef17acd35997b8fdcf32b8"
-  integrity sha512-QiTTUqA0y55YbDtzjlzKmZ6pGQqxyCF14TBQFH3rXI2RV8Z4C6HyyILm09BD/D/ITQIhT82dp+6nRY/mQOqlkw==
+"@patternfly/react-core@3.131.4":
+  version "3.131.4"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-3.131.4.tgz#05119e15b45f8ecb3b17f756674211ad710d1105"
+  integrity sha512-hiVyIHE7t9fKPBOJC2WkYF/nJK3CTiW2UIF4tDQSp+lTXKTHpociXs2IPtrF3or5HZ4tnEK9idS6Y683m3/zIw==
   dependencies:
-    "@patternfly/react-icons" "^3.14.28"
-    "@patternfly/react-styles" "^3.6.15"
-    "@patternfly/react-tokens" "^2.7.14"
+    "@patternfly/react-icons" "^3.14.34"
+    "@patternfly/react-styles" "^3.6.21"
+    "@patternfly/react-tokens" "^2.7.20"
     emotion "^9.2.9"
     exenv "^1.2.2"
     focus-trap-react "^4.0.1"
@@ -1334,14 +1334,14 @@
   dependencies:
     "@fortawesome/free-brands-svg-icons" "^5.8.1"
 
-"@patternfly/react-icons@^3.14.28":
-  version "3.15.13"
-  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.15.13.tgz#845f9f98684b718810b115fcc32983ae94cc5201"
-  integrity sha512-uEzKC9NwpZamCW00mZIxZ5AslFPXVZ+4ThBUOTYSliZUS1DwOKe0549qrAP1vCpz9vCeTR4jyOXBe/kS9IoXpg==
+"@patternfly/react-icons@^3.14.34":
+  version "3.15.17"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-icons/-/react-icons-3.15.17.tgz#97a71fd6469a3f6c08dc46575a340b82cfc7e1db"
+  integrity sha512-Q0JAlxEvSAl5kcMSUMItLiKi9fweO941g5+lS45t3o/Rv4Eg91Ig7AyK1YWw6m1ah+/eHslLfox0Uqw7m7usLg==
   dependencies:
     "@fortawesome/free-brands-svg-icons" "^5.8.1"
 
-"@patternfly/react-styles@^3.6.11", "@patternfly/react-styles@^3.6.15":
+"@patternfly/react-styles@^3.6.11":
   version "3.7.8"
   resolved "https://registry.yarnpkg.com/@patternfly/react-styles/-/react-styles-3.7.8.tgz#6cfac5a7e7c8c49520f0f9276734036ceece9b85"
   integrity sha512-9LxcVVQdYEN7SJz3nwvrK4W9rci2c74DDyCbMJb2rC3VAOKKHb7We9iDn+2vxHV43Oskc2vfRoKjPEdVJcXYAA==
@@ -1352,26 +1352,42 @@
     emotion "^9.2.9"
     emotion-server "^9.2.9"
 
-"@patternfly/react-tokens@^2.7.10", "@patternfly/react-tokens@^2.7.14":
+"@patternfly/react-styles@^3.6.21":
+  version "3.7.14"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-styles/-/react-styles-3.7.14.tgz#66a3b6c1cca34d37112485fc0492b12d71a4379e"
+  integrity sha512-NVwbPP9JroulfQgj0LOLWKP4DumArW8RrP1FB1lLOCuw13KkuAcFbLN9MSF8ZBwJ8syxGEdux5mDC3jPjsrQiw==
+  dependencies:
+    camel-case "^3.0.0"
+    css "^2.2.3"
+    cssstyle "^0.3.1"
+    emotion "^9.2.9"
+    emotion-server "^9.2.9"
+
+"@patternfly/react-tokens@^2.7.10":
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.8.8.tgz#25edde60501708b8fe821f69ab1f284ac1b81814"
   integrity sha512-W3Kx2zlbfFtcjL9mYpjWNU9RfNrFpfXI6zC8qQTuaDwhV3IHCWt5HCkcf9oIW2aCtEjC0EkI67Wbz0BcmdYGJA==
 
-"@rh-uxd/integration-core@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-1.0.1.tgz#85275b29a08bdbc6396822ed33634ba1169454c8"
-  integrity sha512-XeUvTZYfyplIlG1X03Kcyu1AuLvX8wpH6a13gM4Y0Az7UC2Dt8gnUGBAc4xq2hkNTHrKr2v+GqVoFZzWLaRT7g==
+"@patternfly/react-tokens@^2.7.20":
+  version "2.8.14"
+  resolved "https://registry.yarnpkg.com/@patternfly/react-tokens/-/react-tokens-2.8.14.tgz#30b8bd90763fd2a443a875dee4d1d948928f32a1"
+  integrity sha512-pha0XyZ3ZiXuQoKstuFsiEHARFQKUFsS6WxVuRSEyNbGTToRNJkKR9cW5swzHgXK6Fuw5EA2XFHLuu8osj52KA==
+
+"@rh-uxd/integration-core@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-core/-/integration-core-1.0.2.tgz#e16beb678d6cbfb401a97ecc311d1a9941566180"
+  integrity sha512-K3tyX24W6lST+HA1Vnj+/KemvhVoYhbbfKRMV/WspIXImEvI580cj0mY41GE57rb++Nm2zYuLbayNWiM2FXk8g==
   dependencies:
     axios "0.19.2"
 
-"@rh-uxd/integration-react@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-react/-/integration-react-1.0.1.tgz#468b6df167d2060d8122fc980b27148ddc5a67b2"
-  integrity sha512-fzV8p10kQ8jcepc1VTT3K1nN7BkzeLAfje7upgV20tR/cMh7dHIPDsGExXp6ovf5Er7HjhirMoQsFlhvXEAo4w==
+"@rh-uxd/integration-react@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@rh-uxd/integration-react/-/integration-react-1.0.2.tgz#968b2d38f1d5f0a507c9115406aac954695c98fa"
+  integrity sha512-hhtemC9uZGNsCxnV6Q9029k9yYhM6PdpHQSWM/LUz3yTOZqh6yg5rHtWJRULz2nnreT7u+PhONEuUqDtaqM2Gw==
   dependencies:
-    "@patternfly/react-core" "3.129.3"
+    "@patternfly/react-core" "3.131.4"
     "@patternfly/react-icons" "3.14.30"
-    "@rh-uxd/integration-core" "1.0.1"
+    "@rh-uxd/integration-core" "1.0.2"
     react "16.13.0"
     react-dom "16.13.0"
 
