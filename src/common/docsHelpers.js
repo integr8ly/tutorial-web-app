@@ -96,7 +96,8 @@ const getMiddlewareServiceAttrs = middlewareServices => {
     'amq-broker-amqp-url': middlewareServices.amqCredentials.url,
     'amq-credentials-username': middlewareServices.amqCredentials.username,
     'amq-credentials-password': middlewareServices.amqCredentials.password,
-    'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO)
+    'apicurio-url': getUrlFromMiddlewareServices(middlewareServices, DEFAULT_SERVICES.APICURIO),
+    'fuse-namespace': getFuseNamespace(username)
   };
 
   if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.optionalProvisionServices.length > 0) {
@@ -142,5 +143,13 @@ const isWorkshopInstallation = window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFI
 const getDefaultAdocAttrs = walkthroughId => ({
   imagesdir: `/walkthroughs/${walkthroughId}/files/`
 });
+
+const getFuseNamespace = userName => {
+  if (isWorkshopInstallation) {
+    return `${userName}-fuse`;
+  }
+
+  return 'redhat-rhmi-fuse';
+};
 
 export { getDocsForWalkthrough, getDefaultAdocAttrs, getWorkshopUrl, getOpenshiftHost, isWorkshopInstallation };
