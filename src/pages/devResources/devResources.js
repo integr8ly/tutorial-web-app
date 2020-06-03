@@ -13,7 +13,7 @@ import {
   PageSection,
   PageSectionVariants,
   SkipToContent,
-  Tooltip
+  Tooltip, CardTitle, CardHeaderMain
 } from '@patternfly/react-core';
 import { ExternalLinkSquareAltIcon, HelpIcon } from '@patternfly/react-icons';
 import { withRouter } from 'react-router-dom';
@@ -78,16 +78,16 @@ class DevResourcesPage extends React.Component {
         <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.default}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Developer resources" />
-          <Grid gutter="md">
+          <Grid hasGutter>
             <GridItem mdOffset={4} md={12}>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm">
                 Developer resources
               </h1>
               <Card className="pf-u-w-50 pf-u-my-xl">
                 <div className="integr8ly-dev-resources-content">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-m-lg integr8ly-dev-resources-title">Cluster URLs</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     <h4 className="pf-m-lg integr8ly-dev-resources-resource-title">
                       Logging

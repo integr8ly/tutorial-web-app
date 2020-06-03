@@ -19,7 +19,7 @@ import {
   PageSectionVariants,
   SkipToContent,
   TextArea,
-  Title
+  Title, CardTitle, CardHeaderMain
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
@@ -120,16 +120,16 @@ class SettingsPage extends React.Component {
         <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.default}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
-          <Grid gutter="md">
+          <Grid hasGutter>
             <GridItem mdOffset={4} md={12}>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm">
                 Settings
               </h1>
               {isAdmin ? (
                 <Card className="pf-u-w-50 pf-u-my-xl">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
                     Solution Explorer default content is already included. See{' '}
@@ -150,10 +150,10 @@ class SettingsPage extends React.Component {
                         helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
                         helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
                         fieldId="repo-formgroup"
-                        isValid={isValid}
+                        validated={(isValid) ? 'default' : 'error'}
                       >
                         <TextArea
-                          isValid={isValid}
+                          validated={(isValid) ? 'default' : 'error'}
                           value={this.state.value}
                           id="repo-textfield"
                           aria-label="Add repository URLs"
@@ -185,7 +185,7 @@ class SettingsPage extends React.Component {
                     <Bullseye>
                       <EmptyState variant={EmptyStateVariant.small}>
                         <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
-                        <Title id="main-content" size="lg">
+                        <Title headingLevel="h2" id="main-content" size="lg">
                           Permissions needed
                         </Title>
                         <EmptyStateBody>
