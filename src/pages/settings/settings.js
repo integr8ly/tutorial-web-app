@@ -10,7 +10,6 @@ import {
   Grid,
   GridItem,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   Button,
@@ -19,7 +18,7 @@ import {
   PageSectionVariants,
   SkipToContent,
   TextArea,
-  Title, CardTitle, CardHeaderMain
+  Title, CardTitle
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';

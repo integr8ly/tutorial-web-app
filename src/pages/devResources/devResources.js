@@ -5,7 +5,6 @@ import {
   Grid,
   GridItem,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   ClipboardCopy,
@@ -13,7 +12,7 @@ import {
   PageSection,
   PageSectionVariants,
   SkipToContent,
-  Tooltip, CardTitle, CardHeaderMain
+  Tooltip, CardTitle
 } from '@patternfly/react-core';
 import { ExternalLinkSquareAltIcon, HelpIcon } from '@patternfly/react-icons';
 import { withRouter } from 'react-router-dom';
