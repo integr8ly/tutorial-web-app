@@ -6,7 +6,7 @@ import {
   CardBody,
   CardFooter,
   Progress,
-  ProgressMeasureLocation
+  ProgressMeasureLocation, CardTitle, CardHeaderMain
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -25,9 +25,9 @@ const TutorialCard = props => (
       props.history.push(props.getStartedLink);
     }}
   >
-    <CardHeader>
+    <CardTitle>
       <h3 className="pf-c-title pf-m-xl">{props.title}</h3>
-    </CardHeader>
+    </CardTitle>
     <CardBody>{props.children}</CardBody>
     <CardFooter>
       <div className="integr8ly-c-card__info pf-u-w-100">
