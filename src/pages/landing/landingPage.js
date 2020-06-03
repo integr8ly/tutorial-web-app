@@ -1,6 +1,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabTitleText } from '@patternfly/react-core';
+import {
+  Grid,
+  GridItem,
+  Page,
+  PageSection,
+  PageSectionVariants,
+  Tabs,
+  Tab,
+  TabTitleText
+} from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -98,7 +107,12 @@ class LandingPage extends React.Component {
             </p>
           </PageSection>
           <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-            <Tab id="servicesTab" eventKey={0} title={<TabTitleText>All services</TabTitleText>} tabContentId="servicesTabSection">
+            <Tab
+              id="servicesTab"
+              eventKey={0}
+              title={<TabTitleText>All services</TabTitleText>}
+              tabContentId="servicesTabSection"
+            >
               <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
                 <div>
                   <Grid>

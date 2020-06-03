@@ -18,7 +18,8 @@ import {
   PageSectionVariants,
   SkipToContent,
   TextArea,
-  Title, CardTitle
+  Title,
+  CardTitle
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
@@ -149,10 +150,10 @@ class SettingsPage extends React.Component {
                         helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
                         helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
                         fieldId="repo-formgroup"
-                        validated={(isValid) ? 'default' : 'error'}
+                        validated={isValid ? 'default' : 'error'}
                       >
                         <TextArea
-                          validated={(isValid) ? 'default' : 'error'}
+                          validated={isValid ? 'default' : 'error'}
                           value={this.state.value}
                           id="repo-textfield"
                           aria-label="Add repository URLs"

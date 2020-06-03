@@ -5,7 +5,8 @@ import {
   CardBody,
   CardFooter,
   Progress,
-  ProgressMeasureLocation, CardTitle
+  ProgressMeasureLocation,
+  CardTitle
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';

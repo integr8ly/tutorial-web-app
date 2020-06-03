@@ -12,7 +12,8 @@ import {
   PageSection,
   PageSectionVariants,
   SkipToContent,
-  Tooltip, CardTitle
+  Tooltip,
+  CardTitle
 } from '@patternfly/react-core';
 import { ExternalLinkSquareAltIcon, HelpIcon } from '@patternfly/react-icons';
 import { withRouter } from 'react-router-dom';
