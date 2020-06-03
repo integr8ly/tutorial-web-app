@@ -4,24 +4,24 @@ exports[`Breadcrumb component should handle home clicked 1`] = `
 <Component
   aria-label="Breadcrumb"
 >
-  <BreadcrumbItem
+  <Component
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </BreadcrumbItem>
-  <BreadcrumbItem
+  </Component>
+  <Component
     to="/tutorial/1"
   >
     Unit Test Walkthrough
-  </BreadcrumbItem>
-  <BreadcrumbItem
+  </Component>
+  <Component
     aria-current="page"
     isActive={true}
   >
     Task 1 of 3
-  </BreadcrumbItem>
+  </Component>
 </Component>
 `;
 
@@ -29,24 +29,24 @@ exports[`Breadcrumb component should render breadcrumb with props 1`] = `
 <Component
   aria-label="Breadcrumb"
 >
-  <BreadcrumbItem
+  <Component
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </BreadcrumbItem>
-  <BreadcrumbItem
+  </Component>
+  <Component
     to="/tutorial/1"
   >
     Unit Test Walkthrough
-  </BreadcrumbItem>
-  <BreadcrumbItem
+  </Component>
+  <Component
     aria-current="page"
     isActive={true}
   >
     Task 1 of 3
-  </BreadcrumbItem>
+  </Component>
 </Component>
 `;
 
@@ -54,12 +54,12 @@ exports[`Breadcrumb component should render default breadcrumb 1`] = `
 <Component
   aria-label="Breadcrumb"
 >
-  <BreadcrumbItem
+  <Component
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </BreadcrumbItem>
+  </Component>
 </Component>
 `;

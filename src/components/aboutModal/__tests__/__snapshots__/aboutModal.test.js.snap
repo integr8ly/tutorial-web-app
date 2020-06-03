@@ -28,9 +28,9 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     <Portal
       containerInfo={<div />}
     >
-      <AboutModalContainer
-        ariaDescribedById="pf-about-modal-content-0"
-        ariaLabelledbyId="pf-about-modal-title-0"
+      <Component
+        aboutModalBoxContentId="pf-about-modal-content-0"
+        aboutModalBoxHeaderId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
         brandImageSrc=""
@@ -74,9 +74,9 @@ exports[`AboutModal Component should render a non-connected component: show moda
     <Portal
       containerInfo={<div />}
     >
-      <AboutModalContainer
-        ariaDescribedById="pf-about-modal-content-0"
-        ariaLabelledbyId="pf-about-modal-title-0"
+      <Component
+        aboutModalBoxContentId="pf-about-modal-content-0"
+        aboutModalBoxHeaderId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
         brandImageAlt="Red Hat logo"
         brandImageSrc=""
