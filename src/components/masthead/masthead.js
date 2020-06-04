@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getAvailableApps, getSolutionExplorerServer } from '@rh-uxd/integration-core';
+import { CrossNavHeader } from '@rh-uxd/integration-react';
 import {
   Brand,
   Button,
@@ -7,7 +9,6 @@ import {
   DropdownToggle,
   DropdownItem,
   DropdownSeparator,
-  PageHeader,
   Toolbar,
   ToolbarGroup,
   ToolbarItem,
@@ -17,6 +18,7 @@ import {
 import { CogIcon, HelpIcon } from '@patternfly/react-icons';
 import accessibleStyles from '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { css } from '@patternfly/react-styles';
+import rhiImage from '@rh-uxd/integration-core/styles/assets/Logo-Red_Hat-Managed_Integration-A-Reverse-RGB.png';
 import { withRouter } from 'react-router-dom';
 import { noop } from '../../common/helpers';
 import { connect, reduxActions } from '../../redux';
@@ -34,7 +36,9 @@ class Masthead extends React.Component {
     this.state = {
       isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
-      showAboutModal: false
+      showAboutModal: false,
+      showLogo: false,
+      appList: null
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
@@ -48,6 +52,18 @@ class Masthead extends React.Component {
 
     this.onAboutModal = this.onAboutModal.bind(this);
     this.closeAboutModal = this.closeAboutModal.bind(this);
+
+    if (!this.state.appList) {
+      getAvailableApps(
+        process.env.REACT_APP_RHMI_SERVER_URL ? process.env.REACT_APP_RHMI_SERVER_URL : getSolutionExplorerServer(),
+        undefined,
+        undefined,
+        ['3scale', 'solution-explorer'],
+        !!process.env.REACT_APP_RHMI_SERVER_URL
+      ).then(apps => {
+        this.setState({ appList: apps, showLogo: true });
+      });
+    }
   }
 
   onLogoutUser = () => {
@@ -106,14 +122,16 @@ class Masthead extends React.Component {
   getLogo = () => {
     let clusterType = '';
     let logoName = '';
-    if (window.OPENSHIFT_CONFIG) {
+    if (window.OPENSHIFT_CONFIG && this.state.showLogo) {
       clusterType = window.OPENSHIFT_CONFIG.mockData ? 'localhost' : window.OPENSHIFT_CONFIG.clusterType;
       if (clusterType === 'poc') {
-        logoName = managedIntegrationSolutionExplorerImg;
+        logoName =
+          this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else if (clusterType === 'osd') {
-        logoName = managedIntegrationSolutionExplorerImg;
+        logoName =
+          this.state.appList && this.state.appList.length > 0 ? rhiImage : managedIntegrationSolutionExplorerImg;
       } else {
-        logoName = solutionExplorerImg;
+        logoName = this.state.appList && this.state.appList.length > 0 ? rhiImage : solutionExplorerImg;
       }
     }
     return logoName;
@@ -213,9 +231,11 @@ class Masthead extends React.Component {
   render() {
     const { isUserDropdownOpen, isHelpDropdownOpen, showAboutModal } = this.state;
 
-    const logoProps = {
-      onClick: () => this.onTitleClick()
-    };
+    const logoProps = this.state.appList
+      ? {}
+      : {
+          onClick: () => this.onTitleClick()
+        };
 
     let gsUrl = '';
     let riUrl = '';
@@ -306,10 +326,11 @@ class Masthead extends React.Component {
         {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
-
     return (
-      <PageHeader
-        logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
+      <CrossNavHeader
+        apps={this.state.appList}
+        currentApp={{ id: 'solution-explorer', name: 'Solution Explorer', rootUrl: window.location.href }}
+        logo={this.state.showLogo ? <Brand src={this.getLogo()} alt="Red Hat Solution Explorer" /> : null}
         logoProps={logoProps}
         toolbar={MastheadToolbar}
       />
