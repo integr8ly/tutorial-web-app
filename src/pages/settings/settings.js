@@ -18,6 +18,8 @@ import {
   PageSection,
   PageSectionVariants,
   SkipToContent,
+  Tabs,
+  Tab,
   TextArea,
   Title
 } from '@patternfly/react-core';
@@ -36,7 +38,8 @@ class SettingsPage extends React.Component {
 
     this.state = {
       value: userWalkthroughs || '',
-      isValid: true
+      isValid: true,
+      activeTabKey: 0
     };
 
     getUserWalkthroughs().then(response => {
@@ -52,6 +55,14 @@ class SettingsPage extends React.Component {
         });
       }
     });
+
+    // Toggle currently active tab
+    this.handleTabClick = (event, tabIndex) => {
+      event.preventDefault();
+      this.setState({
+        activeTabKey: tabIndex
+      });
+    };
   }
 
   exitTutorial = e => {
@@ -121,64 +132,164 @@ class SettingsPage extends React.Component {
         <PageSection variant={PageSectionVariants.default}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
           <Grid gutter="md">
-            <GridItem mdOffset={4} md={12}>
-              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm">
+            <GridItem>
+              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-lg">
                 Settings
               </h1>
               {isAdmin ? (
-                <Card className="pf-u-w-50 pf-u-my-xl">
-                  <CardHeader>
-                    <h2 className="pf-c-title pf-m-lg">Git URL(s) for subscribed content</h2>
-                  </CardHeader>
-                  <CardBody>
-                    To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                    Solution Explorer default content is already included. See{' '}
-                    <a
-                      href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                      rel="noopener noreferrer"
-                      target="_blank"
+                <React.Fragment>
+                  <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
+                    <Tab
+                      id="scheduleTab"
+                      eventKey={0}
+                      title="Managed Integration schedule"
+                      tabContentId="scheduleTabSection"
                     >
-                      Getting Started
-                    </a>{' '}
-                    for information about these settings.
-                  </CardBody>
-                  <CardBody>
-                    <Form>
-                      <FormGroup
-                        label="List URLs in the order you want them to appear on the Home page:"
-                        type="text"
-                        helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                        helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                        fieldId="repo-formgroup"
-                        isValid={isValid}
-                      >
-                        <TextArea
-                          isValid={isValid}
-                          value={this.state.value}
-                          id="repo-textfield"
-                          aria-label="Add repository URLs"
-                          onChange={this.handleTextInputChange}
-                          className="integr8ly-settings"
-                        />
-                      </FormGroup>
-                    </Form>
-                  </CardBody>
-                  <CardBody className="integr8ly-settings-important">
-                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
-                    using the cluster. You must refresh the Home page to see the results from these changes.
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      id="settings-save-button"
-                      variant="primary"
-                      type="button"
-                      onClick={e => this.saveSettings(e, value)}
-                      isDisabled={!isValid}
+                      <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+                        <div>
+                          <Grid>
+                            <GridItem sm={12} md={12} />
+                          </Grid>
+                        </div>
+                      </PageSection>
+                      <Card className="pf-u-w-100 pf-u-my-xl">
+                        <CardHeader>
+                          <h2 className="pf-c-title pf-m-lg">Backups</h2>
+                        </CardHeader>
+                        <CardBody>
+                          The backup process will not impact the availability of your cluster. Backups may not be scheduled during the first hour of your maintenance window.{' '}
+                          <a
+                            href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            Learn more
+                          </a>
+                        </CardBody>
+                        <CardBody>
+                          <Form>
+                            <FormGroup
+                              label="List URLs in the order you want them to appear on the Home page:"
+                              type="text"
+                              helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              fieldId="repo-formgroup"
+                              isValid={isValid}
+                            >
+                              <TextArea
+                                isValid={isValid}
+                                value={this.state.value}
+                                id="repo-textfield"
+                                aria-label="Add repository URLs"
+                                onChange={this.handleTextInputChange}
+                                className="integr8ly-settings"
+                              />
+                            </FormGroup>
+                          </Form>
+                        </CardBody>
+                        <CardBody className="integr8ly-settings-important">
+                          IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to
+                          everyone using the cluster. You must refresh the Home page to see the results from these
+                          changes.
+                        </CardBody>
+                        <CardFooter>
+                          <Button
+                            id="settings-save-button"
+                            variant="primary"
+                            type="button"
+                            onClick={e => this.saveSettings(e, value)}
+                            isDisabled={!isValid}
+                          >
+                            Save
+                          </Button>{' '}
+                          <Button
+                            id="settings-cancel-button"
+                            variant="secondary"
+                            type="button"
+                            onClick={e => this.exitTutorial(e)}
+                          >
+                            Cancel
+                          </Button>{' '}
+                        </CardFooter>
+                      </Card>
+                    </Tab>
+                    <Tab
+                      id="solutionPatternsTab"
+                      eventKey={1}
+                      title="Solution Pattern content"
+                      tabContentId="solutionPatternsTabSection"
                     >
-                      Save
-                    </Button>{' '}
-                  </CardFooter>
-                </Card>
+                      <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+                        <Grid gutter="md">
+                          <GridItem sm={12} md={12} />
+                        </Grid>
+                      </PageSection>
+
+                      <Card className="pf-u-w-100 pf-u-my-xl">
+                        <CardHeader>
+                          <h2 className="pf-c-title pf-m-lg">Solution patterns and subscribed content</h2>
+                        </CardHeader>
+                        <CardBody>
+                          To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
+                          Solution Explorer default content is already included. See{' '}
+                          <a
+                            href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            Getting Started
+                          </a>{' '}
+                          for information about these settings.
+                        </CardBody>
+                        <CardBody>
+                          <Form>
+                            <FormGroup
+                              label="List URLs in the order you want them to appear on the Home page:"
+                              type="text"
+                              helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              fieldId="repo-formgroup"
+                              isValid={isValid}
+                            >
+                              <TextArea
+                                isValid={isValid}
+                                value={this.state.value}
+                                id="repo-textfield"
+                                aria-label="Add repository URLs"
+                                onChange={this.handleTextInputChange}
+                                className="integr8ly-settings"
+                              />
+                            </FormGroup>
+                          </Form>
+                        </CardBody>
+                        <CardBody className="integr8ly-settings-important">
+                          IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to
+                          everyone using the cluster. You must refresh the Home page to see the results from these
+                          changes.
+                        </CardBody>
+                        <CardFooter>
+                          <Button
+                            id="settings-save-button"
+                            variant="primary"
+                            type="button"
+                            onClick={e => this.saveSettings(e, value)}
+                            isDisabled={!isValid}
+                          >
+                            Save
+                          </Button>{' '}
+                          <Button
+                            id="settings-cancel-button"
+                            variant="secondary"
+                            type="button"
+                            onClick={e => this.exitTutorial(e)}
+                          >
+                            Cancel
+                          </Button>{' '}
+                        </CardFooter>
+                      </Card>
+                    </Tab>
+                  </Tabs>
+                </React.Fragment>
               ) : (
                 <Card className="pf-u-w-50 pf-u-my-xl">
                   <CardBody>
