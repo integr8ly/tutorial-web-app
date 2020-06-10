@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CaretDownIcon } from '@patternfly/react-icons';
 import {
   Bullseye,
   EmptyState,
@@ -13,6 +14,9 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
   Button,
   Page,
   PageSection,
@@ -20,6 +24,7 @@ import {
   SkipToContent,
   Tabs,
   Tab,
+  Text,
   TextArea,
   Title
 } from '@patternfly/react-core';
@@ -39,7 +44,24 @@ class SettingsPage extends React.Component {
     this.state = {
       value: userWalkthroughs || '',
       isValid: true,
+      isOpen: false,
       activeTabKey: 0
+    };
+
+    this.onToggle = isOpen => {
+      this.setState({
+        isOpen
+      });
+    };
+    this.onSelect = event => {
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+      this.onFocus();
+    };
+    this.onFocus = () => {
+      const element = document.getElementById('toggle-id');
+      element.focus();
     };
 
     getUserWalkthroughs().then(response => {
@@ -124,18 +146,96 @@ class SettingsPage extends React.Component {
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       isAdmin = true;
     }
+    const dropdownItems = [
+      <DropdownItem key="action" component="button">
+        12:00 am (04:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        1:00 am (05:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        2:00 am (06:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        3:00 am (07:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        4:00 am (08:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        5:00 am (09:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        6:00 am (10:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        7:00 am (11:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        8:00 am (12:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        9:00 am (13:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        10:00 am (14:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        11:00 am (15:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        12:00 pm (16:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        1:00 pm (17:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        2:00 pm (18:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        3:00 pm (19:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        4:00 pm (20:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        5:00 pm (21:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        6:00 pm (22:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        7:00 pm (23:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        8:00 pm (00:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        9:00 pm (01:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        10:00 pm (02:00 UTC)
+      </DropdownItem>,
+      <DropdownItem key="action" component="button">
+        11:00 pm (03:00 UTC)
+      </DropdownItem>
+    ];
 
     return (
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <RoutedConnectedMasthead />
-        <PageSection variant={PageSectionVariants.default}>
+        <PageSection variant={PageSectionVariants.light}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
           <Grid gutter="md">
             <GridItem>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-lg">
                 Settings
-              </h1>
+              </h1></GridItem></Grid>
+              </PageSection>
+              <PageSection>
+                <Grid>
+                <GridItem>
               {isAdmin ? (
                 <React.Fragment>
                   <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
@@ -145,19 +245,16 @@ class SettingsPage extends React.Component {
                       title="Managed Integration schedule"
                       tabContentId="scheduleTabSection"
                     >
-                      <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-                        <div>
-                          <Grid>
-                            <GridItem sm={12} md={12} />
-                          </Grid>
-                        </div>
-                      </PageSection>
+                      <Text className="pf-u-mt-lg">
+                        The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
+                      </Text>
                       <Card className="pf-u-w-100 pf-u-my-xl">
                         <CardHeader>
                           <h2 className="pf-c-title pf-m-lg">Backups</h2>
                         </CardHeader>
                         <CardBody>
-                          The backup process will not impact the availability of your cluster. Backups may not be scheduled during the first hour of your maintenance window.{' '}
+                          The backup process will not impact the availability of your cluster. Backups may not be
+                          scheduled during the first hour of your maintenance window.{' '}
                           <a
                             href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
                             rel="noopener noreferrer"
@@ -169,28 +266,55 @@ class SettingsPage extends React.Component {
                         <CardBody>
                           <Form>
                             <FormGroup
-                              label="List URLs in the order you want them to appear on the Home page:"
-                              type="text"
-                              helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              fieldId="repo-formgroup"
-                              isValid={isValid}
+                            // label="Start time for your backups"
+                            // // type="text"
+                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // fieldId="backup-start-time-form"
+                            // isValid={isValid}
                             >
-                              <TextArea
-                                isValid={isValid}
-                                value={this.state.value}
-                                id="repo-textfield"
-                                aria-label="Add repository URLs"
-                                onChange={this.handleTextInputChange}
-                                className="integr8ly-settings"
+                              <Text>Start time for your backups</Text>
+                              <Dropdown
+                                onSelect={this.onSelect}
+                                toggle={
+                                  <DropdownToggle
+                                    id="toggle-id"
+                                    onToggle={this.onToggle}
+                                    toggleIndicator={CaretDownIcon}
+                                  >
+                                    12:00 am (04:00 UTC)
+                                  </DropdownToggle>
+                                }
+                                isOpen={this.state.isOpen}
+                                dropdownItems={dropdownItems}
                               />
                             </FormGroup>
                           </Form>
                         </CardBody>
-                        <CardBody className="integr8ly-settings-important">
-                          IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to
-                          everyone using the cluster. You must refresh the Home page to see the results from these
-                          changes.
+                        <CardHeader>
+                          <h2 className="pf-c-title pf-m-lg">Maintenance window</h2>
+                        </CardHeader>
+                        <CardBody>
+                          <Form>
+                            <FormGroup
+                            // label="Next maintenance window:"
+                            // type="text"
+                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // fieldId="repo-formgroup"
+                            // isValid={isValid}
+                            >
+                              <Text>
+                                Next maintenance window: <Text>17 June 2020; 01:00 am (05:00 UTC)</Text>
+
+
+
+
+
+                                
+                              </Text>
+                            </FormGroup>
+                          </Form>
                         </CardBody>
                         <CardFooter>
                           <Button
