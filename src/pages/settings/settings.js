@@ -5,6 +5,8 @@ import {
   EmptyState,
   EmptyStateBody,
   EmptyStateVariant,
+  Flex,
+  FlexItem,
   Form,
   FormGroup,
   Grid,
@@ -23,6 +25,7 @@ import {
   SkipToContent,
   Tabs,
   Tab,
+  TabContent,
   Text,
   TextArea,
   Title
@@ -220,17 +223,103 @@ class SettingsPage extends React.Component {
   // getUTCOffset = time => {
   //   return time + 4;
   // }
-  populateHours = utcOffset => {
-    const timeArray = [];
-    for (let time = 0; time < 24; time++) {
-      let ampm = time > 11 ? 'pm ' : 'am ';
-      let utc = (time + utcOffset) + ' UTC';
-      let hour = ((time + 11) % 12) + 1;
-      let hourFormatted = hour + ':00 ' + ampm + utc;
+  // populateHours = utcOffset => {
+  //   const timeArray = [];
+  //   for (let time = 0; time < 24; time++) {
+  //     let ampm = time > 11 ? 'pm ' : 'am ';
+  //     let utc = time + utcOffset + ' UTC';
+  //     let hour = ((time + 11) % 12) + 1;
+  //     let hourFormatted = hour + ':00 ' + ampm + utc;
 
-      timeArray.push(hourFormatted);
+  //     timeArray.push(hourFormatted);
+  //   }
+  //   // console.log(timeArray);
+  // };
+
+  // 17 June 2020; 01:00 am (05:00 UTC)
+  formatMaintDate = (date, time, timezone) => {
+    const dateArray = date.toDateString().split(' ');
+    const timeArray = time.split(':');
+    let ampm = timeArray[0] >= 12 ? 'pm' : 'am';
+    const formattedDate = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}; ${time} ${ampm} (${timezone} UTC)`;
+
+    console.log(formattedDate);
+    // console.log(timeArray);
+    return formattedDate;
+  };
+
+  getTimeZone = date => {
+    const timeZone = date
+      .toString()
+      .split(' ')[5]
+      .split('GMT')[1];
+    // console.log(timeZone);
+    return timeZone;
+  };
+
+  getMaintenanceWindow = () => {
+    const rhmiConfig = this.state.config;
+    const currentDate = new Date(); // this is replaced by don's server.js method
+    const nextWeekDate = new Date();
+    const timeZone = this.getTimeZone(currentDate);
+    nextWeekDate.setDate(currentDate.getDate() + 7);
+
+    const rawMaintDate = rhmiConfig.spec.maintenance.applyFrom;
+    let formattedMaintDate = '';
+
+    // console.log(`currentDate: ${currentDate}`);
+    // this.getTimeZone(currentDate);
+
+    // console.log(`next weeks date: ${nextWeekDate}`);
+    // console.log(`rawMaintDate: ${rawMaintDate}`);
+
+    const rawMaintDay = rawMaintDate.split(' ')[0];
+    const rawMaintTime = rawMaintDate.split(' ')[1];
+    const rawMaintHour = rawMaintTime.split(':'[0]);
+    const curDay = currentDate.getDay();
+    // const curTime = currentDate.getTime();
+    const curHour = currentDate.getHours();
+
+    // console.log(`rawMaintDay: ${rawMaintDate.split(' ')[0]}`);
+    // console.log(`rawMaintTime: ${rawMaintDate.split(' ')[1]}`);
+    // console.log(`rawMaintHour: ${rawMaintTime.split(':')[0]}`);
+
+    // console.log(`current day: ${currentDate.getDay()}`);
+    // // console.log(`current time: ${currentDate.getTime()}`);
+    // console.log(`current hour: ${currentDate.getHours()}`);
+
+    const dayOfWeek = new Array(7);
+    dayOfWeek[0] = 'Sun';
+    dayOfWeek[1] = 'Mon';
+    dayOfWeek[2] = 'Tue';
+    dayOfWeek[3] = 'Wed';
+    dayOfWeek[4] = 'Thu';
+    dayOfWeek[5] = 'Fri';
+    dayOfWeek[6] = 'Sat';
+
+    let goodMaintDate = new Date();
+
+    if (dayOfWeek[curDay] === rawMaintDay) {
+      // console.log('maintenance day is the same day as today');
+      if (curHour >= rawMaintHour) {
+        // console.log('maintenance window not hit yet, keep todays date');
+        // display date should be currentDate
+        goodMaintDate = currentDate;
+      } else {
+        // console.log('maintenance window already passed for today, use next weeks date');
+        goodMaintDate = nextWeekDate; // display date should be currentDate + 7
+        // formattedMaintDate = nextWeekDate
+      }
+    } else {
+      // TODO: Need to figure out the date of the next following day of the week
+      // console.log('different days');
     }
-    console.log(timeArray);
+    // console.log(goodMaintDate.toDateString());
+    // console.log(goodMaintDate.toTimeString());
+    // console.log(goodMaintDate.toString());
+
+    // return goodMaintDate.toString();
+    return this.formatMaintDate(goodMaintDate, rawMaintTime, timeZone);
   };
 
   calcTime = (city, offset) => {
@@ -252,7 +341,10 @@ class SettingsPage extends React.Component {
   render() {
     const { value, isValid } = this.state;
     const rhmiConfig = this.state.config;
-    console.log(rhmiConfig);
+    // console.log(rhmiConfig);
+
+    this.contentRef1 = React.createRef();
+    this.contentRef2 = React.createRef();
 
     // MF 061020 - disabling for testing purposes
     console.log('SECURITY IS DISABLED! Add code back to settings.js when testing is complete.');
@@ -263,13 +355,15 @@ class SettingsPage extends React.Component {
     //   isAdmin = true;
     // }
 
-    this.calcTime('London', '+1');
+    // this.calcTime('London', '+1');
+
+    // this.getMaintenanceWindow();
 
     // this.populateHours(-4);
 
     // let hour = new Date().getHours(); // get the hour in 24 hour format
     // let ampm = hour > 11 ? "pm" : "am"; /// get AM or PM
-    // var hour = ((d + 11) % 12 + 1); // Convert 24 hours to 12 
+    // var hour = ((d + 11) % 12 + 1); // Convert 24 hours to 12
     // selectList.val(hour + ':00 ' + ampm); // Set the dropdowns selected value
 
     const dropdownItems = [
@@ -355,56 +449,84 @@ class SettingsPage extends React.Component {
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
           <Grid gutter="md">
             <GridItem>
-              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-lg">
+              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-xs">
                 Settings
               </h1>
             </GridItem>
           </Grid>
         </PageSection>
+        <PageSection variant={PageSectionVariants.light} noPadding={true}>
+          <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
+            <Tab
+              id="scheduleTab"
+              eventKey={0}
+              title="Managed Integration schedule"
+              tabContentId="scheduleTabSection"
+              tabContentRef={this.contentRef1}
+            />
+            <Tab
+              id="solutionPatternsTab"
+              eventKey={1}
+              title="Solution Pattern content"
+              tabContentId="solutionPatternsTabSection"
+              tabContentRef={this.contentRef2}
+            />
+          </Tabs>
+        </PageSection>
         <PageSection>
-          <Grid>
-            <GridItem>
-              {isAdmin ? (
-                <React.Fragment>
-                  <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-                    <Tab
-                      id="scheduleTab"
-                      eventKey={0}
-                      title="Managed Integration schedule"
-                      tabContentId="scheduleTabSection"
-                    >
-                      <Text className="pf-u-mt-lg">
-                        The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
-                      </Text>
-                      <Card className="pf-u-w-100 pf-u-my-xl">
-                        <CardHeader>
-                          <h2 className="pf-c-title pf-m-lg">Backups</h2>
-                        </CardHeader>
-                        <CardBody>
+          {isAdmin ? (
+            <React.Fragment>
+              <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
+                <Text className="pf-u-mt-lg">
+                  The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
+                </Text>
+                <Card className="pf-u-w-100 pf-u-my-xl">
+                  <CardHeader>
+                    <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
+                  </CardHeader>
+                  <CardBody>
+                    <Flex className="pf-m-column">
+                      <FlexItem className="pf-m-spacer-sm">
+                        <Text className="integr8ly__text-small--m-secondary">
                           The backup process will not impact the availability of your cluster. Backups may not be
                           scheduled during the first hour of your maintenance window.{' '}
-                          <a
+                          <Button
+                            variant="link"
+                            isInline
+                            component="a"
                             href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                            rel="noopener noreferrer"
                             target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Learn more
-                          </a>
-                        </CardBody>
-                        <CardBody>
-                          <Form>
-                            <FormGroup
-                              // label="Start time for your backups"
-                              // // type="text"
-                              // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              fieldId="backup-start-time-form"
-                              // isValid={isValid}
-                            >
-                              <Text>Next daily backup:  {rhmiConfig.spec.backup.applyOn}</Text>
-                              <Text>Should be in this format: 14 June 2020; 02:00 am (06:00 UTC)</Text>
-
-                              <Text>Start time for your backups</Text>
+                          </Button>
+                        </Text>
+                      </FlexItem>
+                      <FlexItem className="pf-m-spacer-md">
+                        <Flex>
+                          <FlexItem className="pf-m-spacer-lg">
+                            <Text>Next daily backup:</Text>
+                          </FlexItem>
+                          <FlexItem>
+                            <Text>{rhmiConfig.spec.backup.applyOn}</Text>
+                            <Text>Should be in this format: 14 June 2020; 02:00 am (06:00 UTC)</Text>
+                          </FlexItem>
+                        </Flex>
+                      </FlexItem>
+                      <FlexItem>
+                        <Form>
+                          <FormGroup
+                            // label="Start time for your backups"
+                            // // type="text"
+                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            fieldId="backup-start-time-form"
+                            // isValid={isValid}
+                          >
+                            <Flex className="pf-m-column">
+                              <Text className="pf-m-spacer-sm integr8ly__text-small">
+                                <b>Start time for your backups</b>
+                              </Text>
                               <Dropdown
                                 onSelect={this.onSelect}
                                 toggle={
@@ -415,149 +537,162 @@ class SettingsPage extends React.Component {
                                 isOpen={this.state.isOpen}
                                 dropdownItems={dropdownItems}
                               />
-                            </FormGroup>
-                          </Form>
-                        </CardBody>
-                        <CardHeader>
-                          <h2 className="pf-c-title pf-m-lg">Maintenance window</h2>
-                        </CardHeader>
-                        <CardBody>
-                          <Form>
-                            <FormGroup
-                              // label="Next maintenance window:"
-                              // type="text"
-                              // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              fieldId="maintenance-window-form"
-                              // isValid={isValid}
-                            >
-                              <Text>Next maintenance window:</Text>
-                              <Text>{rhmiConfig.spec.maintenance.applyFrom}</Text>
-                              <Text>Should be in this format: 17 June 2020; 01:00 am (05:00 UTC)</Text>
-                            </FormGroup>
-                          </Form>
-                        </CardBody>
-                        <CardFooter>
-                          <Button
-                            id="settings-save-button"
-                            variant="primary"
-                            type="button"
-                            onClick={e => this.saveSettings(e, value)}
-                            isDisabled={!isValid}
-                          >
-                            Save
-                          </Button>{' '}
-                          <Button
-                            id="settings-cancel-button"
-                            variant="secondary"
-                            type="button"
-                            onClick={e => this.exitTutorial(e)}
-                          >
-                            Cancel
-                          </Button>{' '}
-                        </CardFooter>
-                      </Card>
-                    </Tab>
-                    <Tab
-                      id="solutionPatternsTab"
-                      eventKey={1}
-                      title="Solution Pattern content"
-                      tabContentId="solutionPatternsTabSection"
-                    >
-                      <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-                        <Grid gutter="md">
-                          <GridItem sm={12} md={12} />
-                        </Grid>
-                      </PageSection>
-
-                      <Card className="pf-u-w-100 pf-u-my-xl">
-                        <CardHeader>
-                          <h2 className="pf-c-title pf-m-lg">Solution patterns and subscribed content</h2>
-                        </CardHeader>
-                        <CardBody>
-                          To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                          Solution Explorer default content is already included. See{' '}
-                          <a
-                            href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                          >
-                            Getting Started
-                          </a>{' '}
-                          for information about these settings.
-                        </CardBody>
-                        <CardBody>
-                          <Form>
-                            <FormGroup
-                              label="List URLs in the order you want them to appear on the Home page:"
-                              type="text"
-                              helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                              fieldId="repo-formgroup"
-                              isValid={isValid}
-                            >
-                              <TextArea
-                                isValid={isValid}
-                                value={this.state.value}
-                                id="repo-textfield"
-                                aria-label="Add repository URLs"
-                                onChange={this.handleTextInputChange}
-                                className="integr8ly-settings"
-                              />
-                            </FormGroup>
-                          </Form>
-                        </CardBody>
-                        <CardBody className="integr8ly-settings-important">
-                          IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to
-                          everyone using the cluster. You must refresh the Home page to see the results from these
-                          changes.
-                        </CardBody>
-                        <CardFooter>
-                          <Button
-                            id="settings-save-button"
-                            variant="primary"
-                            type="button"
-                            onClick={e => this.saveSettings(e, value)}
-                            isDisabled={!isValid}
-                          >
-                            Save
-                          </Button>{' '}
-                          <Button
-                            id="settings-cancel-button"
-                            variant="secondary"
-                            type="button"
-                            onClick={e => this.exitTutorial(e)}
-                          >
-                            Cancel
-                          </Button>{' '}
-                        </CardFooter>
-                      </Card>
-                    </Tab>
-                  </Tabs>
-                </React.Fragment>
-              ) : (
-                <Card className="pf-u-w-50 pf-u-my-xl">
-                  <CardBody>
-                    <Bullseye>
-                      <EmptyState variant={EmptyStateVariant.small}>
-                        <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
-                        <Title id="main-content" size="lg">
-                          Permissions needed
+                            </Flex>
+                          </FormGroup>
+                        </Form>
+                        <Text className="integr8ly__text-small--m-secondary">
+                          Backups may not be scheduled during the first hour of your maintenance window.{' '}
+                        </Text>
+                      </FlexItem>
+                      <FlexItem>
+                        <Title headingLevel="h5" size="lg">
+                          Maintenance window
                         </Title>
-                        <EmptyStateBody>
-                          You need additional permissions to view this page or resource. Contact your administrator for
-                          more information.
-                        </EmptyStateBody>
-                        <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
-                          Go to home
-                        </Button>{' '}
-                      </EmptyState>
-                    </Bullseye>
+                      </FlexItem>
+                      <FlexItem>
+                        <Form>
+                          <FormGroup
+                            // label="Next maintenance window:"
+                            // type="text"
+                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                            fieldId="maintenance-window-form"
+                            // isValid={isValid}
+                          >
+                            <Flex>
+                              <FlexItem className="pf-m-spacer-lg">
+                                <Text>Next maintenance window:</Text>
+                              </FlexItem>
+                              <FlexItem>
+                                <Text>{this.getMaintenanceWindow()}</Text>
+                              </FlexItem>
+                            </Flex>
+                          </FormGroup>
+                        </Form>
+                      </FlexItem>
+                    </Flex>
                   </CardBody>
+                  <CardFooter>
+                    <Button
+                      id="settings-save-button"
+                      variant="primary"
+                      type="button"
+                      onClick={e => this.saveSettings(e, value)}
+                      isDisabled={!isValid}
+                    >
+                      Save
+                    </Button>{' '}
+                    <Button
+                      id="settings-cancel-button"
+                      variant="secondary"
+                      type="button"
+                      onClick={e => this.exitTutorial(e)}
+                    >
+                      Cancel
+                    </Button>{' '}
+                  </CardFooter>
                 </Card>
-              )}
-            </GridItem>
-          </Grid>
+              </TabContent>
+
+              <TabContent
+                eventKey={1}
+                title="Solution Pattern content"
+                tabContentId="solutionPatternsTabSection"
+                id="refTab2Section"
+                ref={this.contentRef2}
+                aria-label="Tab item 2"
+                hidden
+              >
+                <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+                  <Grid gutter="md">
+                    <GridItem sm={12} md={12} />
+                  </Grid>
+                </PageSection>
+
+                <Card className="pf-u-w-100 pf-u-my-xl">
+                  <CardHeader>
+                    <h2 className="pf-c-title pf-m-lg">Solution patterns and subscribed content</h2>
+                  </CardHeader>
+                  <CardBody>
+                    To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
+                    Solution Explorer default content is already included. See{' '}
+                    <a
+                      href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Getting Started
+                    </a>{' '}
+                    for information about these settings.
+                  </CardBody>
+                  <CardBody>
+                    <Form>
+                      <FormGroup
+                        label="List URLs in the order you want them to appear on the Home page:"
+                        type="text"
+                        helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                        helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                        fieldId="repo-formgroup"
+                        isValid={isValid}
+                      >
+                        <TextArea
+                          isValid={isValid}
+                          value={this.state.value}
+                          id="repo-textfield"
+                          aria-label="Add repository URLs"
+                          onChange={this.handleTextInputChange}
+                          className="integr8ly-settings"
+                        />
+                      </FormGroup>
+                    </Form>
+                  </CardBody>
+                  <CardBody className="integr8ly-settings-important">
+                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
+                    using the cluster. You must refresh the Home page to see the results from these changes.
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      id="settings-save-button"
+                      variant="primary"
+                      type="button"
+                      onClick={e => this.saveSettings(e, value)}
+                      isDisabled={!isValid}
+                    >
+                      Save
+                    </Button>{' '}
+                    <Button
+                      id="settings-cancel-button"
+                      variant="secondary"
+                      type="button"
+                      onClick={e => this.exitTutorial(e)}
+                    >
+                      Cancel
+                    </Button>{' '}
+                  </CardFooter>
+                </Card>
+              </TabContent>
+            </React.Fragment>
+          ) : (
+            <Card className="pf-u-w-50 pf-u-my-xl">
+              <CardBody>
+                <Bullseye>
+                  <EmptyState variant={EmptyStateVariant.small}>
+                    <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
+                    <Title id="main-content" size="lg">
+                      Permissions needed
+                    </Title>
+                    <EmptyStateBody>
+                      You need additional permissions to view this page or resource. Contact your administrator for more
+                      information.
+                    </EmptyStateBody>
+                    <Button id="error-button" variant="primary" onClick={e => this.exitTutorial(e)}>
+                      Go to home
+                    </Button>{' '}
+                  </EmptyState>
+                </Bullseye>
+              </CardBody>
+            </Card>
+          )}
         </PageSection>
       </Page>
     );

@@ -5,3 +5,16 @@
     color: $pf-color-red-200;
   }
 }
+
+.integr8ly__text-small--m-secondary {
+  color: var(--pf-global--Color--200);
+  font-size: var(--pf-global--FontSize--sm);
+
+  .pf-c-button {
+    font-size: inherit;
+  }
+}
+
+.integr8ly__text-small {
+  font-size: var(--pf-global--FontSize--sm);
+}
