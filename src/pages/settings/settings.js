@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CaretDownIcon } from '@patternfly/react-icons';
 import {
   Bullseye,
   EmptyState,
@@ -34,6 +33,7 @@ import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
+import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -47,6 +47,72 @@ class SettingsPage extends React.Component {
       isOpen: false,
       activeTabKey: 0
     };
+
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+      this.state = {
+        value: userWalkthroughs || '',
+        isValid: true,
+        isOpen: false,
+        activeTabKey: 0,
+        config: {
+          apiVersion: 'integreatly.org/v1alpha1',
+          kind: 'RHMIConfig',
+          metadata: {
+            creationTimestamp: '2020-05-18T20:45:36Z',
+            generation: 1,
+            name: 'rhmi-config',
+            namespace: 'redhat-rhmi-operator',
+            resourceVersion: '37138',
+            selfLink: '/apis/integreatly.org/v1alpha1/namespaces/redhat-rhmi-operator/rhmiconfigs/rhmi-config',
+            uid: 'b6063850-6598-483e-9e91-5dfde651b581'
+          },
+          spec: {
+            backup: {
+              applyOn: '03:01'
+            },
+            maintenance: {
+              applyFrom: 'Thu 02:00'
+            },
+            upgrade: {
+              alwaysImmediately: false,
+              duringNextMaintenance: false
+            }
+          }
+        }
+      };
+    } else {
+      this.state = {
+        value: userWalkthroughs || '',
+        isValid: true,
+        isOpen: false,
+        activeTabKey: 0,
+        config: {
+          apiVersion: '',
+          kind: '',
+          metadata: {
+            creationTimestamp: '',
+            generation: '',
+            name: '',
+            namespace: '',
+            resourceVersion: '',
+            selfLink: '',
+            uid: ''
+          },
+          spec: {
+            backup: {
+              applyOn: ''
+            },
+            maintenance: {
+              applyFrom: ''
+            },
+            upgrade: {
+              alwaysImmediately: false,
+              duringNextMaintenance: false
+            }
+          }
+        }
+      };
+    }
 
     this.onToggle = isOpen => {
       this.setState({
@@ -85,6 +151,18 @@ class SettingsPage extends React.Component {
         activeTabKey: tabIndex
       });
     };
+  }
+
+  componentDidMount() {
+    getCurrentRhmiConfig()
+      .then(response => {
+        if (response) {
+          this.setState({
+            config: response
+          });
+        }
+      })
+      .catch(error => console.log(`ERROR: The error is: ${error}`));
   }
 
   exitTutorial = e => {
@@ -139,84 +217,132 @@ class SettingsPage extends React.Component {
     );
   };
 
+  // getUTCOffset = time => {
+  //   return time + 4;
+  // }
+  populateHours = utcOffset => {
+    const timeArray = [];
+    for (let time = 0; time < 24; time++) {
+      let ampm = time > 11 ? 'pm ' : 'am ';
+      let utc = (time + utcOffset) + ' UTC';
+      let hour = ((time + 11) % 12) + 1;
+      let hourFormatted = hour + ':00 ' + ampm + utc;
+
+      timeArray.push(hourFormatted);
+    }
+    console.log(timeArray);
+  };
+
+  calcTime = (city, offset) => {
+    // create Date object for current location
+    const date = new Date();
+
+    // convert to ms
+    // add local time zone offset
+    // get UTC time in ms
+    const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+
+    // create new Date object for different city using supplied offset
+    const newDate = new Date(utc + 3600000 * offset);
+
+    // return time as string
+    console.log(`The local time in ${city} is ${newDate.toLocaleString()}`);
+  };
+
   render() {
     const { value, isValid } = this.state;
-    let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
-    // no admin protection for openshift 3 or for running demo/locally
-    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
-      isAdmin = true;
-    }
+    const rhmiConfig = this.state.config;
+    console.log(rhmiConfig);
+
+    // MF 061020 - disabling for testing purposes
+    console.log('SECURITY IS DISABLED! Add code back to settings.js when testing is complete.');
+    const isAdmin = true;
+    // let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    // // no admin protection for openshift 3 or for running demo/locally
+    // if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+    //   isAdmin = true;
+    // }
+
+    this.calcTime('London', '+1');
+
+    // this.populateHours(-4);
+
+    // let hour = new Date().getHours(); // get the hour in 24 hour format
+    // let ampm = hour > 11 ? "pm" : "am"; /// get AM or PM
+    // var hour = ((d + 11) % 12 + 1); // Convert 24 hours to 12 
+    // selectList.val(hour + ':00 ' + ampm); // Set the dropdowns selected value
+
     const dropdownItems = [
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="00-time" component="button">
         12:00 am (04:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="01-time" component="button">
         1:00 am (05:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="02-time" component="button">
         2:00 am (06:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="03-time" component="button">
         3:00 am (07:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="04-time" component="button">
         4:00 am (08:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="05-time" component="button">
         5:00 am (09:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="06-time" component="button">
         6:00 am (10:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="07-time" component="button">
         7:00 am (11:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="08-time" component="button">
         8:00 am (12:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="09-time" component="button">
         9:00 am (13:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="10-time" component="button">
         10:00 am (14:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="11-time" component="button">
         11:00 am (15:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="12-time" component="button">
         12:00 pm (16:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="13-time" component="button">
         1:00 pm (17:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="14-time" component="button">
         2:00 pm (18:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="15-time" component="button">
         3:00 pm (19:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="16-time" component="button">
         4:00 pm (20:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="17-time" component="button">
         5:00 pm (21:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="18-time" component="button">
         6:00 pm (22:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="19-time" component="button">
         7:00 pm (23:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="20-time" component="button">
         8:00 pm (00:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="21-time" component="button">
         9:00 pm (01:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="22-time" component="button">
         10:00 pm (02:00 UTC)
       </DropdownItem>,
-      <DropdownItem key="action" component="button">
+      <DropdownItem key="23-time" component="button">
         11:00 pm (03:00 UTC)
       </DropdownItem>
     ];
@@ -231,11 +357,13 @@ class SettingsPage extends React.Component {
             <GridItem>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-lg">
                 Settings
-              </h1></GridItem></Grid>
-              </PageSection>
-              <PageSection>
-                <Grid>
-                <GridItem>
+              </h1>
+            </GridItem>
+          </Grid>
+        </PageSection>
+        <PageSection>
+          <Grid>
+            <GridItem>
               {isAdmin ? (
                 <React.Fragment>
                   <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
@@ -266,22 +394,21 @@ class SettingsPage extends React.Component {
                         <CardBody>
                           <Form>
                             <FormGroup
-                            // label="Start time for your backups"
-                            // // type="text"
-                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // fieldId="backup-start-time-form"
-                            // isValid={isValid}
+                              // label="Start time for your backups"
+                              // // type="text"
+                              // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              fieldId="backup-start-time-form"
+                              // isValid={isValid}
                             >
+                              <Text>Next daily backup:  {rhmiConfig.spec.backup.applyOn}</Text>
+                              <Text>Should be in this format: 14 June 2020; 02:00 am (06:00 UTC)</Text>
+
                               <Text>Start time for your backups</Text>
                               <Dropdown
                                 onSelect={this.onSelect}
                                 toggle={
-                                  <DropdownToggle
-                                    id="toggle-id"
-                                    onToggle={this.onToggle}
-                                    toggleIndicator={CaretDownIcon}
-                                  >
+                                  <DropdownToggle id="toggle-id" onToggle={this.onToggle}>
                                     12:00 am (04:00 UTC)
                                   </DropdownToggle>
                                 }
@@ -297,22 +424,16 @@ class SettingsPage extends React.Component {
                         <CardBody>
                           <Form>
                             <FormGroup
-                            // label="Next maintenance window:"
-                            // type="text"
-                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // fieldId="repo-formgroup"
-                            // isValid={isValid}
+                              // label="Next maintenance window:"
+                              // type="text"
+                              // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                              fieldId="maintenance-window-form"
+                              // isValid={isValid}
                             >
-                              <Text>
-                                Next maintenance window: <Text>17 June 2020; 01:00 am (05:00 UTC)</Text>
-
-
-
-
-
-                                
-                              </Text>
+                              <Text>Next maintenance window:</Text>
+                              <Text>{rhmiConfig.spec.maintenance.applyFrom}</Text>
+                              <Text>Should be in this format: 17 June 2020; 01:00 am (05:00 UTC)</Text>
                             </FormGroup>
                           </Form>
                         </CardBody>
