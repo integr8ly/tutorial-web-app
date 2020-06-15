@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { findOpenshiftResource } from '../common/openshiftHelpers';
 import { update } from '../services/openshiftServices';
 import { rhmiConfigDef, rhmiConfigResource } from '../common/openshiftResourceDefinitions';
+import { serviceConfig } from './config';
 
 const configName = 'rhmi-config';
 const configNamespace = 'redhat-rhmi-operator';
@@ -40,4 +42,14 @@ const getCurrentRhmiConfig = () => {
  */
 const updateRhmiConfig = config => update(rhmiConfigDef(configNamespace), config);
 
-export { getCurrentRhmiConfig, updateRhmiConfig };
+/**
+ * Client side netowrk call to retrieve the current time in UTC from the server.
+ */
+const getCurrentServerTime = () =>
+  axios(
+    serviceConfig({
+      url: `/currentTime`
+    })
+  );
+
+export { getCurrentRhmiConfig, updateRhmiConfig, getCurrentServerTime };
