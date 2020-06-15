@@ -174,12 +174,22 @@ class SettingsPage extends React.Component {
     history.push(`/`);
   };
 
-  saveSettings = (e, value) => {
+  saveSolutionPatternSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
     setUserWalkthroughs(value);
     history.push(`/`);
   };
+
+  saveBackupSettings = (e, value) => {
+    e.preventDefault();
+    const { history } = this.props;
+    updateRhmiConfig(value);
+    history.push(`/`);
+  };
+
+
+  
 
   handleTextInputChange = value => {
     this.setState(
@@ -220,14 +230,14 @@ class SettingsPage extends React.Component {
     );
   };
 
-  // Format the date like so: 17 June 2020; 01:00 am (05:00 UTC)
-  formatMaintDate = (date, time, timezone) => {
+  // Format the date like so: 17 June 2020; 01:00 am (+/-05:00 UTC)
+  formatDate = (date, time, timezone) => {
     const dateArray = date.toDateString().split(' ');
     const timeArray = time.split(':');
     let ampm = timeArray[0] >= 12 ? 'pm' : 'am';
-    const formattedDate = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}; ${time} ${ampm} (${timezone} UTC)`;
+    const formattedTimezone = `${timezone.slice(0, 3)}:${timezone.slice(3, 5)}`;
+    const formattedDate = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}; ${time} ${ampm} (${formattedTimezone} UTC)`;
 
-    // console.log(formattedDate);
     return formattedDate;
   };
 
@@ -236,95 +246,88 @@ class SettingsPage extends React.Component {
       .toString()
       .split(' ')[5]
       .split('GMT')[1];
-    // console.log(timeZone);
     return timeZone;
+  };
+
+  getDailyBackup = () => {
+    const rhmiConfig = this.state.config;
+    const currentDate = new Date(); // this will be replaced by don's server.js method
+    const nextDayDate = new Date();
+    const timeZone = this.getTimeZone(currentDate);
+    nextDayDate.setDate(currentDate.getDate() + 1);
+
+    let rawBackupTime = rhmiConfig.spec.backup.applyOn;
+    const rawBackupHour = rawBackupTime.split(':'[0]);
+    rawBackupTime = `${rawBackupHour[0]}:00`;
+
+    const curHour = currentDate.getHours();
+
+    let goodBackupDate = new Date();
+
+    if (curHour < rawBackupHour) {
+      // if hour has not occurred yet today, display date should be currentDate
+      goodBackupDate = currentDate;
+    } else {
+      // otherwise, maintenance window already passed for today, use next weeks date
+      goodBackupDate = nextDayDate; // display date should be currentDate + 7
+    }
+    return this.formatDate(goodBackupDate, rawBackupTime, timeZone);
   };
 
   getMaintenanceWindow = () => {
     const rhmiConfig = this.state.config;
     const currentDate = new Date(); // this will be replaced by don's server.js method
     const nextWeekDate = new Date();
+    const nextMaintDate = new Date();
     const timeZone = this.getTimeZone(currentDate);
+
     nextWeekDate.setDate(currentDate.getDate() + 7);
 
     const rawMaintDate = rhmiConfig.spec.maintenance.applyFrom;
-    let formattedMaintDate = '';
-
-    // console.log(`currentDate: ${currentDate}`);
-    // this.getTimeZone(currentDate);
-
-    // console.log(`next weeks date: ${nextWeekDate}`);
-    // console.log(`rawMaintDate: ${rawMaintDate}`);
-
     const rawMaintDay = rawMaintDate.split(' ')[0];
     const rawMaintTime = rawMaintDate.split(' ')[1];
     const rawMaintHour = rawMaintTime.split(':'[0]);
     const curDay = currentDate.getDay();
-    // const curTime = currentDate.getTime();
     const curHour = currentDate.getHours();
 
-    // console.log(`rawMaintDay: ${rawMaintDate.split(' ')[0]}`);
-    // console.log(`rawMaintTime: ${rawMaintDate.split(' ')[1]}`);
-    // console.log(`rawMaintHour: ${rawMaintTime.split(':')[0]}`);
+    const daysOfWeek = new Array(7);
+    daysOfWeek[0] = 'Sun';
+    daysOfWeek[1] = 'Mon';
+    daysOfWeek[2] = 'Tue';
+    daysOfWeek[3] = 'Wed';
+    daysOfWeek[4] = 'Thu';
+    daysOfWeek[5] = 'Fri';
+    daysOfWeek[6] = 'Sat';
 
-    // console.log(`current day: ${currentDate.getDay()}`);
-    // console.log(`current time: ${currentDate.getTime()}`);
-    // console.log(`current hour: ${currentDate.getHours()}`);
-
-    const dayOfWeek = new Array(7);
-    dayOfWeek[0] = 'Sun';
-    dayOfWeek[1] = 'Mon';
-    dayOfWeek[2] = 'Tue';
-    dayOfWeek[3] = 'Wed';
-    dayOfWeek[4] = 'Thu';
-    dayOfWeek[5] = 'Fri';
-    dayOfWeek[6] = 'Sat';
+    const today = daysOfWeek[curDay];
+    console.log(daysOfWeek.findIndex(dayOfWeek => dayOfWeek === 'Thu'));
+    const maintDay = daysOfWeek.findIndex(dayOfWeek => dayOfWeek === rawMaintDay);
 
     let goodMaintDate = new Date();
 
-    if (dayOfWeek[curDay] === rawMaintDay) {
-      // console.log('maintenance day is the same day as today');
+    if (today === rawMaintDay) {
+      // check if maintenance day is the same day as today
       if (curHour >= rawMaintHour) {
-        // console.log('maintenance window not hit yet, keep todays date');
-        // display date should be currentDate
+        // if the hour has not happened yet, maintenance window is todays date
         goodMaintDate = currentDate;
       } else {
-        // console.log('maintenance window already passed for today, use next weeks date');
-        goodMaintDate = nextWeekDate; // display date should be currentDate + 7
-        // formattedMaintDate = nextWeekDate
+        // otherwise, maintenance window already occurred today, use next weeks date
+        goodMaintDate = nextWeekDate;
       }
     } else {
-      // TODO: Need to figure out the date of the next following day of the week
-      // console.log('different days');
+      if (maintDay < curDay) {
+        nextMaintDate.setDate(nextMaintDate.getDate() + curDay + 7 - maintDay);
+      } else {
+        nextMaintDate.setDate(nextMaintDate.getDate() + maintDay - curDay);
+      }
+      goodMaintDate = nextMaintDate;
     }
-    // console.log(goodMaintDate.toDateString());
-    // console.log(goodMaintDate.toTimeString());
-    // console.log(goodMaintDate.toString());
-
-    // return goodMaintDate.toString();
-    return this.formatMaintDate(goodMaintDate, rawMaintTime, timeZone);
-  };
-
-  calcTime = (city, offset) => {
-    // create Date object for current location
-    const date = new Date();
-
-    // convert to ms
-    // add local time zone offset
-    // get UTC time in ms
-    const utc = date.getTime() + date.getTimezoneOffset() * 60000;
-
-    // create new Date object for different city using supplied offset
-    const newDate = new Date(utc + 3600000 * offset);
-
-    // return time as string
-    console.log(`The local time in ${city} is ${newDate.toLocaleString()}`);
+    return this.formatDate(goodMaintDate, rawMaintTime, timeZone);
   };
 
   render() {
     const { value, isValid } = this.state;
     const rhmiConfig = this.state.config;
-    // console.log(rhmiConfig);
 
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
@@ -337,18 +340,6 @@ class SettingsPage extends React.Component {
     // if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
     //   isAdmin = true;
     // }
-
-
-    // this.calcTime('London', '+1');
-
-    // this.getMaintenanceWindow();
-
-    // this.populateHours(-4);
-
-    // let hour = new Date().getHours(); // get the hour in 24 hour format
-    // let ampm = hour > 11 ? "pm" : "am"; /// get AM or PM
-    // var hour = ((d + 11) % 12 + 1); // Convert 24 hours to 12
-    // selectList.val(hour + ':00 ' + ampm); // Set the dropdowns selected value
 
     const dropdownItems = [
       <DropdownItem key="00-time" component="button">
@@ -461,9 +452,9 @@ class SettingsPage extends React.Component {
           {isAdmin ? (
             <React.Fragment>
               <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
-                <Text className="pf-u-mt-lg">
+                {/* <Text className="pf-u-mt-lg">
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
-                </Text>
+                </Text> */}
                 <Card className="pf-u-w-100 pf-u-my-xl">
                   <CardHeader>
                     <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
@@ -492,8 +483,7 @@ class SettingsPage extends React.Component {
                             <Text>Next daily backup:</Text>
                           </FlexItem>
                           <FlexItem>
-                            <Text>{rhmiConfig.spec.backup.applyOn}</Text>
-                            <Text>Should be in this format: 14 June 2020; 02:00 am (06:00 UTC)</Text>
+                            <Text>{this.getDailyBackup()}</Text>
                           </FlexItem>
                         </Flex>
                       </FlexItem>
@@ -517,9 +507,9 @@ class SettingsPage extends React.Component {
                             </Flex>
                           </FormGroup>
                         </Form>
-                        <Text className="integr8ly__text-small--m-secondary">
+                        {/* <Text className="integr8ly__text-small--m-secondary">
                           Backups may not be scheduled during the first hour of your maintenance window.{' '}
-                        </Text>
+                        </Text> */}
                       </FlexItem>
                       <FlexItem>
                         <Title headingLevel="h5" size="lg">
@@ -544,7 +534,7 @@ class SettingsPage extends React.Component {
                   </CardBody>
                   <CardFooter>
                     <Button
-                      id="settings-save-button"
+                      id="backup-settings-save-button"
                       variant="primary"
                       type="button"
                       onClick={e => this.saveSettings(e, value)}
@@ -622,10 +612,10 @@ class SettingsPage extends React.Component {
                   </CardBody>
                   <CardFooter>
                     <Button
-                      id="settings-save-button"
+                      id="solution-pattern-settings-save-button"
                       variant="primary"
                       type="button"
-                      onClick={e => this.saveSettings(e, value)}
+                      onClick={e => this.saveSolutionPatternSettings(e, value)}
                       isDisabled={!isValid}
                     >
                       Save
