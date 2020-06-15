@@ -220,31 +220,14 @@ class SettingsPage extends React.Component {
     );
   };
 
-  // getUTCOffset = time => {
-  //   return time + 4;
-  // }
-  // populateHours = utcOffset => {
-  //   const timeArray = [];
-  //   for (let time = 0; time < 24; time++) {
-  //     let ampm = time > 11 ? 'pm ' : 'am ';
-  //     let utc = time + utcOffset + ' UTC';
-  //     let hour = ((time + 11) % 12) + 1;
-  //     let hourFormatted = hour + ':00 ' + ampm + utc;
-
-  //     timeArray.push(hourFormatted);
-  //   }
-  //   // console.log(timeArray);
-  // };
-
-  // 17 June 2020; 01:00 am (05:00 UTC)
+  // Format the date like so: 17 June 2020; 01:00 am (05:00 UTC)
   formatMaintDate = (date, time, timezone) => {
     const dateArray = date.toDateString().split(' ');
     const timeArray = time.split(':');
     let ampm = timeArray[0] >= 12 ? 'pm' : 'am';
     const formattedDate = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}; ${time} ${ampm} (${timezone} UTC)`;
 
-    console.log(formattedDate);
-    // console.log(timeArray);
+    // console.log(formattedDate);
     return formattedDate;
   };
 
@@ -259,7 +242,7 @@ class SettingsPage extends React.Component {
 
   getMaintenanceWindow = () => {
     const rhmiConfig = this.state.config;
-    const currentDate = new Date(); // this is replaced by don's server.js method
+    const currentDate = new Date(); // this will be replaced by don's server.js method
     const nextWeekDate = new Date();
     const timeZone = this.getTimeZone(currentDate);
     nextWeekDate.setDate(currentDate.getDate() + 7);
@@ -285,7 +268,7 @@ class SettingsPage extends React.Component {
     // console.log(`rawMaintHour: ${rawMaintTime.split(':')[0]}`);
 
     // console.log(`current day: ${currentDate.getDay()}`);
-    // // console.log(`current time: ${currentDate.getTime()}`);
+    // console.log(`current time: ${currentDate.getTime()}`);
     // console.log(`current hour: ${currentDate.getHours()}`);
 
     const dayOfWeek = new Array(7);
@@ -354,6 +337,7 @@ class SettingsPage extends React.Component {
     // if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
     //   isAdmin = true;
     // }
+
 
     // this.calcTime('London', '+1');
 
@@ -455,7 +439,7 @@ class SettingsPage extends React.Component {
             </GridItem>
           </Grid>
         </PageSection>
-        <PageSection variant={PageSectionVariants.light} noPadding={true}>
+        <PageSection variant={PageSectionVariants.light} noPadding>
           <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
             <Tab
               id="scheduleTab"
@@ -515,14 +499,7 @@ class SettingsPage extends React.Component {
                       </FlexItem>
                       <FlexItem>
                         <Form>
-                          <FormGroup
-                            // label="Start time for your backups"
-                            // // type="text"
-                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            fieldId="backup-start-time-form"
-                            // isValid={isValid}
-                          >
+                          <FormGroup fieldId="backup-start-time-form">
                             <Flex className="pf-m-column">
                               <Text className="pf-m-spacer-sm integr8ly__text-small">
                                 <b>Start time for your backups</b>
@@ -551,14 +528,7 @@ class SettingsPage extends React.Component {
                       </FlexItem>
                       <FlexItem>
                         <Form>
-                          <FormGroup
-                            // label="Next maintenance window:"
-                            // type="text"
-                            // // helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            // // helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                            fieldId="maintenance-window-form"
-                            // isValid={isValid}
-                          >
+                          <FormGroup fieldId="maintenance-window-form">
                             <Flex>
                               <FlexItem className="pf-m-spacer-lg">
                                 <Text>Next maintenance window:</Text>
