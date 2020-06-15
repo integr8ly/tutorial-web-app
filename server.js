@@ -77,6 +77,14 @@ app.get('/customWalkthroughs', (req, res) => {
   res.status(200).json(walkthroughs);
 });
 
+app.get('/currentTime', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const time = new Date(new Date().toUTCString());
+  res.status(200).json({
+    date: time
+  });
+});
+
 // metric endpoint
 app.get('/metrics', (req, res) => {
   res.set('Content-Type', Prometheus.register.contentType);
