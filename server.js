@@ -83,6 +83,14 @@ app.get('/metrics', (req, res) => {
   res.end(Prometheus.register.metrics());
 });
 
+app.get('/currentTime', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const time = new Date(new Date().toUTCString());
+  res.status(200).json({
+    date: time
+  });
+});
+
 // Get all user defined walkthrough repositories
 app.get('/user_walkthroughs', (req, res) =>
   getUserWalkthroughs()
