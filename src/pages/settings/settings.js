@@ -38,6 +38,8 @@ import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
 
+const moment = require('moment');
+
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -48,90 +50,53 @@ class SettingsPage extends React.Component {
       value: userWalkthroughs || '',
       isValid: true,
       isOpen: false,
-      activeTabKey: 0
+      activeTabKey: 0,
+      canSave: false,
+      buStartTimeDisplay: '',
+      config: {
+        apiVersion: 'integreatly.org/v1alpha1',
+        kind: 'RHMIConfig',
+        metadata: {
+          creationTimestamp: '2020-05-18T20:45:36Z',
+          generation: 1,
+          name: 'rhmi-config',
+          namespace: 'redhat-rhmi-operator',
+          resourceVersion: '37138',
+          selfLink: '/apis/integreatly.org/v1alpha1/namespaces/redhat-rhmi-operator/rhmiconfigs/rhmi-config',
+          uid: 'b6063850-6598-483e-9e91-5dfde651b581'
+        },
+        spec: {
+          backup: {
+            applyOn: '00:00'
+          },
+          maintenance: {
+            applyFrom: 'Wed 00:00'
+          },
+          upgrade: {
+            alwaysImmediately: false,
+            duringNextMaintenance: false
+          }
+        }
+      }
     };
 
-    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
-      this.state = {
-        value: userWalkthroughs || '',
-        isValid: true,
-        isOpen: false,
-        activeTabKey: 0,
-        config: {
-          apiVersion: 'integreatly.org/v1alpha1',
-          kind: 'RHMIConfig',
-          metadata: {
-            creationTimestamp: '2020-05-18T20:45:36Z',
-            generation: 1,
-            name: 'rhmi-config',
-            namespace: 'redhat-rhmi-operator',
-            resourceVersion: '37138',
-            selfLink: '/apis/integreatly.org/v1alpha1/namespaces/redhat-rhmi-operator/rhmiconfigs/rhmi-config',
-            uid: 'b6063850-6598-483e-9e91-5dfde651b581'
-          },
-          spec: {
-            backup: {
-              applyOn: '03:01'
-            },
-            maintenance: {
-              applyFrom: 'Thu 02:00'
-            },
-            upgrade: {
-              alwaysImmediately: false,
-              duringNextMaintenance: false
-            }
-          }
-        }
-      };
-    } else {
-      this.state = {
-        value: userWalkthroughs || '',
-        isValid: true,
-        isOpen: false,
-        activeTabKey: 0,
-        config: {
-          apiVersion: '',
-          kind: '',
-          metadata: {
-            creationTimestamp: '',
-            generation: '',
-            name: '',
-            namespace: '',
-            resourceVersion: '',
-            selfLink: '',
-            uid: ''
-          },
-          spec: {
-            backup: {
-              applyOn: ''
-            },
-            maintenance: {
-              applyFrom: ''
-            },
-            upgrade: {
-              alwaysImmediately: false,
-              duringNextMaintenance: false
-            }
-          }
-        }
-      };
-    }
-
-    this.onToggle = isOpen => {
+    this.onBackupToggle = isOpen => {
       this.setState({
         isOpen
       });
     };
-    this.onSelect = event => {
+    this.onBackupSelect = event => {
       this.setState({
-        isOpen: !this.state.isOpen
+        isOpen: !this.state.isOpen,
+        buStartTimeDisplay: event.target.innerText,
+        canSave: true
       });
-      this.onFocus();
+      // this.onFocus();
     };
-    this.onFocus = () => {
-      const element = document.getElementById('toggle-id');
-      element.focus();
-    };
+    // this.onFocus = () => {
+    //   const element = document.getElementById('toggle-id');
+    //   element.focus();
+    // };
 
     getUserWalkthroughs().then(response => {
       if (response.data) {
@@ -181,15 +146,88 @@ class SettingsPage extends React.Component {
     history.push(`/`);
   };
 
+  saveMockBackupSettings = (e, value) => {
+    e.preventDefault();
+    const { history } = this.props;
+
+    value = this.convertTimeTo24Hr(value);
+
+    // this.setState(prevState => Object.assign({}, prevState, { applyOn: value }));
+
+    this.setState({ canSave: false });
+
+    this.setState(
+      {
+        config: {
+          ...this.state.config,
+          spec: {
+            ...this.state.config.spec,
+            backup: {
+              ...this.state.config.spec.backup,
+              applyOn: value
+            }
+          }
+        }
+      }
+      // history.push(`/`)
+      // console.log(this.state.config.spec.backup.applyOn)
+    );
+  };
+
+  convertTimeTo24Hr = time12h => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+
+    if (hours === '12') {
+      hours = '00';
+    }
+
+    if (modifier === 'PM' || modifier === 'pm') {
+      hours = parseInt(hours, 10) + 12;
+    }
+    return `${hours}:${minutes}`;
+  };
+
+  testStateCallback = () => {
+    console.log(this.state.config);
+    updateRhmiConfig(this.state.config);
+    console.log(this.state.config);
+  };
+
   saveBackupSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
-    updateRhmiConfig(value);
-    history.push(`/`);
+
+    value = this.convertTimeTo24Hr(value);
+
+    // MF 061720 - where i am with this
+    // old setState below IS working to set state on the server
+    // the only issue is with the updateRhmiConfig write to the YAML
+    // try just writing to the YAML without state, just write a whole new object set of values
+
+    // this.setState(prevState => Object.assign({}, prevState, { applyOn: value }, this.testStateCallback()));
+
+    this.setState({ canSave: false });
+    // };
+
+    this.setState(
+      {
+        config: {
+          ...this.state.config,
+          spec: {
+            ...this.state.config.spec,
+            backup: {
+              ...this.state.config.spec.backup,
+              applyOn: value
+            }
+          }
+        }
+      },
+      this.testStateCallback()
+      // () => updateRhmiConfig(this.state.config)
+    );
+    // history.push(`/`);
   };
-
-
-  
 
   handleTextInputChange = value => {
     this.setState(
@@ -230,39 +268,37 @@ class SettingsPage extends React.Component {
     );
   };
 
-  // Format the date like so: 17 June 2020; 01:00 am (+/-05:00 UTC)
-  formatDate = (date, time, timezone) => {
-    const dateArray = date.toDateString().split(' ');
-    const timeArray = time.split(':');
-    let ampm = timeArray[0] >= 12 ? 'pm' : 'am';
-    const formattedTimezone = `${timezone.slice(0, 3)}:${timezone.slice(3, 5)}`;
-    const formattedDate = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}; ${time} ${ampm} (${formattedTimezone} UTC)`;
+  formatDate = (configDate, rawHour, rawMin) => {
+    let date = new Date();
+    let dateFmt = new Date();
+    let dateUtc = new Date();
+    let dateUtcFmt = new Date();
+    let formattedDate = '';
 
+    date = moment(configDate).set({ hour: rawHour, minutes: rawMin, seconds: '00' });
+    dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
+
+    dateUtc = moment.utc(date);
+    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; hh:mm UTC)');
+
+    formattedDate = `${dateFmt} ${dateUtcFmt}`;
     return formattedDate;
-  };
-
-  getTimeZone = date => {
-    const timeZone = date
-      .toString()
-      .split(' ')[5]
-      .split('GMT')[1];
-    return timeZone;
   };
 
   getDailyBackup = () => {
     const rhmiConfig = this.state.config;
-    const currentDate = new Date(); // this will be replaced by don's server.js method
+    const currentDate = new Date();
     const nextDayDate = new Date();
-    const timeZone = this.getTimeZone(currentDate);
+    let goodBackupDate = new Date();
+    let rawBackupTime = rhmiConfig.spec.backup.applyOn;
+    const rawBackupHour = rawBackupTime.split(':')[0];
+    const rawBackupMin = rawBackupTime.split(':')[1];
+    const curHour = currentDate.getHours();
+    let backupDate = '';
+
     nextDayDate.setDate(currentDate.getDate() + 1);
 
-    let rawBackupTime = rhmiConfig.spec.backup.applyOn;
-    const rawBackupHour = rawBackupTime.split(':'[0]);
     rawBackupTime = `${rawBackupHour[0]}:00`;
-
-    const curHour = currentDate.getHours();
-
-    let goodBackupDate = new Date();
 
     if (curHour < rawBackupHour) {
       // if hour has not occurred yet today, display date should be currentDate
@@ -271,22 +307,26 @@ class SettingsPage extends React.Component {
       // otherwise, maintenance window already passed for today, use next weeks date
       goodBackupDate = nextDayDate; // display date should be currentDate + 7
     }
-    return this.formatDate(goodBackupDate, rawBackupTime, timeZone);
+
+    backupDate = this.formatDate(goodBackupDate, rawBackupHour, rawBackupMin);
+
+    return backupDate;
   };
 
   getMaintenanceWindow = () => {
     const rhmiConfig = this.state.config;
-    const currentDate = new Date(); // this will be replaced by don's server.js method
+    const currentDate = new Date();
     const nextWeekDate = new Date();
     const nextMaintDate = new Date();
-    const timeZone = this.getTimeZone(currentDate);
 
     nextWeekDate.setDate(currentDate.getDate() + 7);
 
-    const rawMaintDate = rhmiConfig.spec.maintenance.applyFrom;
-    const rawMaintDay = rawMaintDate.split(' ')[0];
-    const rawMaintTime = rawMaintDate.split(' ')[1];
-    const rawMaintHour = rawMaintTime.split(':'[0]);
+    const rawMaintDate = rhmiConfig.spec.maintenance.applyFrom; // Sun 10:00
+    const rawMaintDay = rawMaintDate.split(' ')[0]; // Sun
+    const rawMaintTime = rawMaintDate.split(' ')[1]; // 10:00
+    const rawMaintHour = rawMaintTime.split(':')[0]; // 10
+    const rawMaintMin = rawMaintTime.split(':')[1]; // 00
+
     const curDay = currentDate.getDay();
     const curHour = currentDate.getHours();
 
@@ -300,10 +340,9 @@ class SettingsPage extends React.Component {
     daysOfWeek[6] = 'Sat';
 
     const today = daysOfWeek[curDay];
-    console.log(daysOfWeek.findIndex(dayOfWeek => dayOfWeek === 'Thu'));
     const maintDay = daysOfWeek.findIndex(dayOfWeek => dayOfWeek === rawMaintDay);
-
     let goodMaintDate = new Date();
+    let maintDate = '';
 
     if (today === rawMaintDay) {
       // check if maintenance day is the same day as today
@@ -314,15 +353,54 @@ class SettingsPage extends React.Component {
         // otherwise, maintenance window already occurred today, use next weeks date
         goodMaintDate = nextWeekDate;
       }
-    } else {
-      if (maintDay < curDay) {
-        nextMaintDate.setDate(nextMaintDate.getDate() + curDay + 7 - maintDay);
-      } else {
-        nextMaintDate.setDate(nextMaintDate.getDate() + maintDay - curDay);
-      }
-      goodMaintDate = nextMaintDate;
     }
-    return this.formatDate(goodMaintDate, rawMaintTime, timeZone);
+    if (maintDay < curDay) {
+      goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay + 7));
+      console.log(`Maintenance day has passed this week, going to next week`);
+    } else {
+      goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay));
+      console.log(`Maintenance day is this week`);
+    }
+
+    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
+
+    return maintDate;
+  };
+
+  populateBackupsDropdown = () => {
+    const dailyBackupTime = this.getDailyBackup();
+    const dailyBackupTimeArray = dailyBackupTime.split('(');
+    const backupLocalTime = dailyBackupTimeArray[0];
+    const backupUtcTime = dailyBackupTimeArray[1].split(' UTC')[0];
+
+    const firstTimeHoursOnly = moment(backupLocalTime).format('h:mm a');
+    const firstTimeUtcHoursOnly = moment(backupUtcTime).format('h:mm a');
+
+    const dropDownItems = [];
+    let backupTime = Date();
+    let utcBackupTime = Date();
+
+    dropDownItems.push(
+      <DropdownItem key="0" component="button">
+        {firstTimeHoursOnly} ({firstTimeUtcHoursOnly} UTC)
+      </DropdownItem>
+    );
+
+    for (let i = 1; i < 24; i++) {
+      backupTime = moment(backupLocalTime)
+        .add(i, 'hours')
+        .format('h:mm a');
+      utcBackupTime = moment(backupUtcTime)
+        .add(i, 'hours')
+        .format('h:mm a');
+
+      dropDownItems.push(
+        <DropdownItem key={i} component="button">
+          {backupTime} ({utcBackupTime} UTC)
+        </DropdownItem>
+      );
+    }
+    return dropDownItems;
   };
 
   render() {
@@ -340,81 +418,6 @@ class SettingsPage extends React.Component {
     // if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
     //   isAdmin = true;
     // }
-
-    const dropdownItems = [
-      <DropdownItem key="00-time" component="button">
-        12:00 am (04:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="01-time" component="button">
-        1:00 am (05:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="02-time" component="button">
-        2:00 am (06:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="03-time" component="button">
-        3:00 am (07:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="04-time" component="button">
-        4:00 am (08:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="05-time" component="button">
-        5:00 am (09:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="06-time" component="button">
-        6:00 am (10:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="07-time" component="button">
-        7:00 am (11:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="08-time" component="button">
-        8:00 am (12:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="09-time" component="button">
-        9:00 am (13:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="10-time" component="button">
-        10:00 am (14:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="11-time" component="button">
-        11:00 am (15:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="12-time" component="button">
-        12:00 pm (16:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="13-time" component="button">
-        1:00 pm (17:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="14-time" component="button">
-        2:00 pm (18:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="15-time" component="button">
-        3:00 pm (19:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="16-time" component="button">
-        4:00 pm (20:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="17-time" component="button">
-        5:00 pm (21:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="18-time" component="button">
-        6:00 pm (22:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="19-time" component="button">
-        7:00 pm (23:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="20-time" component="button">
-        8:00 pm (00:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="21-time" component="button">
-        9:00 pm (01:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="22-time" component="button">
-        10:00 pm (02:00 UTC)
-      </DropdownItem>,
-      <DropdownItem key="23-time" component="button">
-        11:00 pm (03:00 UTC)
-      </DropdownItem>
-    ];
 
     return (
       <Page className="pf-u-h-100vh">
@@ -463,18 +466,7 @@ class SettingsPage extends React.Component {
                     <Flex className="pf-m-column">
                       <FlexItem className="pf-m-spacer-sm">
                         <Text className="integr8ly__text-small--m-secondary">
-                          The backup process will not impact the availability of your cluster. Backups may not be
-                          scheduled during the first hour of your maintenance window.{' '}
-                          <Button
-                            variant="link"
-                            isInline
-                            component="a"
-                            href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Learn more
-                          </Button>
+                          The backup process will not impact the availability of your cluster.
                         </Text>
                       </FlexItem>
                       <FlexItem className="pf-m-spacer-md">
@@ -495,25 +487,25 @@ class SettingsPage extends React.Component {
                                 <b>Start time for your backups</b>
                               </Text>
                               <Dropdown
-                                onSelect={this.onSelect}
+                                onSelect={this.onBackupSelect}
                                 toggle={
-                                  <DropdownToggle id="toggle-id" onToggle={this.onToggle}>
-                                    12:00 am (04:00 UTC)
+                                  <DropdownToggle id="toggle-id" onToggle={this.onBackupToggle}>
+                                    {this.state.buStartTimeDisplay}
                                   </DropdownToggle>
                                 }
                                 isOpen={this.state.isOpen}
-                                dropdownItems={dropdownItems}
+                                dropdownItems={this.populateBackupsDropdown()}
                               />
                             </Flex>
                           </FormGroup>
                         </Form>
-                        {/* <Text className="integr8ly__text-small--m-secondary">
+                        <Text className="integr8ly__text-small--m-secondary">
                           Backups may not be scheduled during the first hour of your maintenance window.{' '}
-                        </Text> */}
+                        </Text>
                       </FlexItem>
                       <FlexItem>
                         <Title headingLevel="h5" size="lg">
-                          Maintenance window
+                          Weekly maintenance window
                         </Title>
                       </FlexItem>
                       <FlexItem>
@@ -537,8 +529,12 @@ class SettingsPage extends React.Component {
                       id="backup-settings-save-button"
                       variant="primary"
                       type="button"
-                      onClick={e => this.saveSettings(e, value)}
-                      isDisabled={!isValid}
+                      onClick={
+                        window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                          ? e => this.saveMockBackupSettings(e, this.state.buStartTimeDisplay)
+                          : e => this.saveBackupSettings(e, this.state.buStartTimeDisplay)
+                      }
+                      isDisabled={!this.state.canSave}
                     >
                       Save
                     </Button>{' '}
