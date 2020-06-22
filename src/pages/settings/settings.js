@@ -91,12 +91,7 @@ class SettingsPage extends React.Component {
         buStartTimeDisplay: event.target.innerText,
         canSave: true
       });
-      // this.onFocus();
     };
-    // this.onFocus = () => {
-    //   const element = document.getElementById('toggle-id');
-    //   element.focus();
-    // };
 
     getUserWalkthroughs().then(response => {
       if (response.data) {
@@ -152,26 +147,21 @@ class SettingsPage extends React.Component {
 
     value = this.convertTimeTo24Hr(value);
 
-    // this.setState(prevState => Object.assign({}, prevState, { applyOn: value }));
-
     this.setState({ canSave: false });
 
-    this.setState(
-      {
-        config: {
-          ...this.state.config,
-          spec: {
-            ...this.state.config.spec,
-            backup: {
-              ...this.state.config.spec.backup,
-              applyOn: value
-            }
+    this.setState({
+      config: {
+        ...this.state.config,
+        spec: {
+          ...this.state.config.spec,
+          backup: {
+            ...this.state.config.spec.backup,
+            applyOn: value
           }
         }
       }
-      // history.push(`/`)
-      // console.log(this.state.config.spec.backup.applyOn)
-    );
+    });
+    history.push(`/`);
   };
 
   convertTimeTo24Hr = time12h => {
@@ -188,27 +178,13 @@ class SettingsPage extends React.Component {
     return `${hours}:${minutes}`;
   };
 
-  testStateCallback = () => {
-    console.log(this.state.config);
-    updateRhmiConfig(this.state.config);
-    console.log(this.state.config);
-  };
-
   saveBackupSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
 
     value = this.convertTimeTo24Hr(value);
 
-    // MF 061720 - where i am with this
-    // old setState below IS working to set state on the server
-    // the only issue is with the updateRhmiConfig write to the YAML
-    // try just writing to the YAML without state, just write a whole new object set of values
-
-    // this.setState(prevState => Object.assign({}, prevState, { applyOn: value }, this.testStateCallback()));
-
     this.setState({ canSave: false });
-    // };
 
     this.setState(
       {
@@ -223,10 +199,8 @@ class SettingsPage extends React.Component {
           }
         }
       },
-      this.testStateCallback()
-      // () => updateRhmiConfig(this.state.config)
+      () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
     );
-    // history.push(`/`);
   };
 
   handleTextInputChange = value => {
@@ -356,10 +330,8 @@ class SettingsPage extends React.Component {
     }
     if (maintDay < curDay) {
       goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay + 7));
-      console.log(`Maintenance day has passed this week, going to next week`);
     } else {
       goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay));
-      console.log(`Maintenance day is this week`);
     }
 
     maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
