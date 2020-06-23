@@ -53,6 +53,7 @@ class SettingsPage extends React.Component {
       activeTabKey: 0,
       canSave: false,
       buStartTimeDisplay: '',
+      dropDownItems: [],
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
         kind: 'RHMIConfig',
@@ -121,9 +122,15 @@ class SettingsPage extends React.Component {
     getCurrentRhmiConfig()
       .then(response => {
         if (response) {
-          this.setState({
-            config: response
-          });
+          this.setState(
+            {
+              config: response
+            },
+            () =>
+              this.setState({
+                dropDownItems: this.populateBackupsDropdown()
+              })
+          );
         }
       })
       .catch(error => console.log(`ERROR: The error is: ${error}`));
@@ -168,6 +175,7 @@ class SettingsPage extends React.Component {
   convertTimeTo24Hr = time12h => {
     const [time, modifier] = time12h.split(' ');
     let [hours, minutes] = time.split(':');
+    let pad = '';
 
     if (hours === '12') {
       hours = '00';
@@ -176,7 +184,12 @@ class SettingsPage extends React.Component {
     if (modifier === 'PM' || modifier === 'pm') {
       hours = parseInt(hours, 10) + 12;
     }
-    return `${hours}:${minutes}`;
+
+    if (parseInt(hours, 10) < 10 && (modifier === 'AM' || 'am')) {
+      pad = '0';
+    }
+
+    return `${pad}${hours}:${minutes}`;
   };
 
   saveBackupSettings = (e, value) => {
@@ -484,7 +497,11 @@ class SettingsPage extends React.Component {
                                   </DropdownToggle>
                                 }
                                 isOpen={this.state.isOpen}
-                                dropdownItems={this.populateBackupsDropdown()}
+                                dropdownItems={
+                                  window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                                    ? this.populateBackupsDropdown()
+                                    : this.state.dropDownItems
+                                }
                               />
                             </Flex>
                           </FormGroup>
