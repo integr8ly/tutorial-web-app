@@ -70,7 +70,7 @@ class SettingsPage extends React.Component {
             applyOn: '00:00'
           },
           maintenance: {
-            applyFrom: 'Wed 00:00'
+            applyFrom: 'Wed 13:00'
           },
           upgrade: {
             alwaysImmediately: false,
@@ -85,6 +85,7 @@ class SettingsPage extends React.Component {
         isOpen
       });
     };
+
     this.onBackupSelect = event => {
       this.setState({
         isOpen: !this.state.isOpen,
@@ -340,6 +341,8 @@ class SettingsPage extends React.Component {
   };
 
   populateBackupsDropdown = () => {
+    const rhmiConfig = this.state.config;
+
     const dailyBackupTime = this.getDailyBackup();
     const dailyBackupTimeArray = dailyBackupTime.split('(');
     const backupLocalTime = dailyBackupTimeArray[0];
@@ -352,13 +355,24 @@ class SettingsPage extends React.Component {
     let backupTime = Date();
     let utcBackupTime = Date();
 
+    const cfgMaintDate = rhmiConfig.spec.maintenance.applyFrom;
+    const cfgMaintTime = cfgMaintDate.split(' ')[1]; // 10:00
+    let sameTime;
+
     dropDownItems.push(
-      <DropdownItem key="0" component="button">
+      <DropdownItem key="0" component="button" isDisabled={sameTime}>
         {firstTimeHoursOnly} ({firstTimeUtcHoursOnly} UTC)
       </DropdownItem>
     );
 
+    if (this.state.buStartTimeDisplay === '') {
+      this.setState({
+        buStartTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
+      });
+    }
+
     for (let i = 1; i < 24; i++) {
+      sameTime = false;
       backupTime = moment(backupLocalTime)
         .add(i, 'hours')
         .format('h:mm a');
@@ -366,8 +380,12 @@ class SettingsPage extends React.Component {
         .add(i, 'hours')
         .format('h:mm a');
 
+      if (this.convertTimeTo24Hr(backupTime) === cfgMaintTime) {
+        sameTime = true;
+      }
+
       dropDownItems.push(
-        <DropdownItem key={i} component="button">
+        <DropdownItem key={i} component="button" isDisabled={sameTime}>
           {backupTime} ({utcBackupTime} UTC)
         </DropdownItem>
       );
@@ -539,27 +557,24 @@ class SettingsPage extends React.Component {
 
                 <Card className="pf-u-w-100 pf-u-my-xl">
                   <CardHeader>
-                    <h2 className="pf-c-title pf-m-lg">Solution patterns and subscribed content</h2>
+                    <h2 className="pf-c-title pf-m-lg">Manage Solution Patterns</h2>
                   </CardHeader>
                   <CardBody>
-                    To display solution patterns on the Home page, add the URLs for Git repositories here. Red Hat
-                    Solution Explorer default content is already included. See{' '}
-                    <a
-                      href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/1/html-single/getting_started/index"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      Getting Started
-                    </a>{' '}
-                    for information about these settings.
+                    All of the default Managed Integration Solution Patterns are visible on the Solution Patterns tab on
+                    the home page.
+                  </CardBody>
+                  <CardBody>
+                    Add other Solution Patterns by subscribing to their Git or GitHub repositories. Put the URL for each
+                    repository on a new line in the order you want the Solution Patterns to appear. You can also remove
+                    repositories from the list. Any changes you make are visible to all cluster users.
                   </CardBody>
                   <CardBody>
                     <Form>
                       <FormGroup
-                        label="List URLs in the order you want them to appear on the Home page:"
+                        label="Solution Pattern repositories"
                         type="text"
-                        helperText="Enter one value per line. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
-                        helperTextInvalid="URL syntax is incorrect. Example: https://www.github.com/integr8ly/tutorial-web-app-walkthroughs.git"
+                        helperText="Example: https://github.com/integr8ly/solution-pattern-template.git"
+                        helperTextInvalid="URL syntax is incorrect. Example: https://github.com/integr8ly/solution-pattern-template.git"
                         fieldId="repo-formgroup"
                         isValid={isValid}
                       >
@@ -574,9 +589,14 @@ class SettingsPage extends React.Component {
                       </FormGroup>
                     </Form>
                   </CardBody>
-                  <CardBody className="integr8ly-settings-important">
-                    IMPORTANT: Adding or removing Git URLs changes the list of solution patterns available to everyone
-                    using the cluster. You must refresh the Home page to see the results from these changes.
+                  <CardBody>
+                    <a
+                      href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/administering_red_hat_managed_integration_2/index#subscribing-solution-pattern-conent"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Learn more about managing Solution Pattern content
+                    </a>
                   </CardBody>
                   <CardFooter>
                     <Button
