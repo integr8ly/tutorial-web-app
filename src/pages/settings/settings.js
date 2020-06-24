@@ -174,7 +174,8 @@ class SettingsPage extends React.Component {
 
   convertTimeTo24Hr = time12h => {
     const [time, modifier] = time12h.split(' ');
-    let [hours, minutes] = time.split(':');
+    let hours = time.split(':')[0];
+    const minutes = time.split(':')[1];
     let pad = '';
 
     if (hours === '12') {
@@ -408,8 +409,6 @@ class SettingsPage extends React.Component {
 
   render() {
     const { value, isValid } = this.state;
-    const rhmiConfig = this.state.config;
-
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
