@@ -412,14 +412,11 @@ class SettingsPage extends React.Component {
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
-    // MF 061020 - disabling for testing purposes
-    console.log('SECURITY IS DISABLED! Add code back to settings.js when testing is complete.');
-    const isAdmin = true;
-    // let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
-    // // no admin protection for openshift 3 or for running demo/locally
-    // if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
-    //   isAdmin = true;
-    // }
+    let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    // no admin protection for openshift 3 or for running demo/locally
+    if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
+      isAdmin = true;
+    }
 
     return (
       <Page className="pf-u-h-100vh">

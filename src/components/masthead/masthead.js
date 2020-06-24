@@ -235,10 +235,6 @@ class Masthead extends React.Component {
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/getting_started_with_red_hat_managed_integration_2/';
       riUrl =
         'https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html-single/release_notes_for_red_hat_managed_integration_2/';
-
-      // MF 061020 - forcing admin for testing purposes - next two lines
-      console.log('SECURITY IS DISABLED! Remove isAdmin code line from masthead.js when testing is complete.');
-      isAdmin = true;
     }
 
     const MastheadToolbar = (
