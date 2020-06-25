@@ -358,10 +358,13 @@ class SettingsPage extends React.Component {
     const rhmiConfig = this.state.config;
 
     const dailyBackupTime = this.getDailyBackup();
-    const dailyBackupTimeArray = dailyBackupTime.split('(');
-    const backupLocalTime = dailyBackupTimeArray[0];
-    const backupUtcTime = dailyBackupTimeArray[1].split(' UTC')[0];
+    const dailyBackupTimeArray = dailyBackupTime.split(' (');
 
+    const backupLocalTime = dailyBackupTimeArray[0].replace(';', '').trim();
+    const backupUtcTime = dailyBackupTimeArray[1]
+      .replace(';', '')
+      .substring(0, dailyBackupTimeArray[1].indexOf(' UTC)'))
+      .trim();
     const firstTimeHoursOnly = moment(backupLocalTime).format('h:mm a');
     const firstTimeUtcHoursOnly = moment(backupUtcTime).format('h:mm a');
 
