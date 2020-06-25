@@ -460,7 +460,7 @@ class SettingsPage extends React.Component {
                 {/* <Text className="pf-u-mt-lg">
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
-                <Card className="pf-u-w-100 pf-u-my-xl">
+                <Card className="pf-u-w-100">
                   <CardHeader>
                     <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
                   </CardHeader>
@@ -570,7 +570,7 @@ class SettingsPage extends React.Component {
                   </Grid>
                 </PageSection>
 
-                <Card className="pf-u-w-100 pf-u-my-xl">
+                <Card className="pf-u-w-100">
                   <CardHeader>
                     <h2 className="pf-c-title pf-m-lg">Manage Solution Patterns</h2>
                   </CardHeader>
@@ -636,7 +636,7 @@ class SettingsPage extends React.Component {
               </TabContent>
             </React.Fragment>
           ) : (
-            <Card className="pf-u-w-50 pf-u-my-xl">
+            <Card className="pf-u-w-100">
               <CardBody>
                 <Bullseye>
                   <EmptyState variant={EmptyStateVariant.small}>
