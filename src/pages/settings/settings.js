@@ -456,7 +456,13 @@ class SettingsPage extends React.Component {
         <PageSection>
           {isAdmin ? (
             <React.Fragment>
-              <TabContent eventKey={0} id="refTab1Section" ref={this.contentRef1} aria-label="Tab item 1">
+              <TabContent
+                className="integr8ly__tab-content"
+                eventKey={0}
+                id="refTab1Section"
+                ref={this.contentRef1}
+                aria-label="Tab item 1"
+              >
                 {/* <Text className="pf-u-mt-lg">
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
@@ -489,6 +495,7 @@ class SettingsPage extends React.Component {
                                 <b>Start time for your backups</b>
                               </Text>
                               <Dropdown
+                                className="integr8ly__dropdown-menu"
                                 onSelect={this.onBackupSelect}
                                 toggle={
                                   <DropdownToggle id="toggle-id" onToggle={this.onBackupToggle}>
@@ -557,6 +564,7 @@ class SettingsPage extends React.Component {
               </TabContent>
 
               <TabContent
+                className="integr8ly__tab-content"
                 eventKey={1}
                 tabContentId="solutionPatternsTabSection"
                 id="refTab2Section"

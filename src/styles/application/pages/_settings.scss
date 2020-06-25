@@ -17,6 +17,17 @@
   }
 }
 
+.integr8ly__tab-content {
+  outline: none;
+}
+
+.integr8ly__dropdown-menu {
+
+  .pf-c-dropdown__menu {
+    min-width: var(--pf-c-dropdown__toggle--MinWidth);
+  }
+}
+
 .integr8ly__text-small {
   font-size: var(--pf-global--FontSize--sm);
 }
