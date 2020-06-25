@@ -555,7 +555,6 @@ class SettingsPage extends React.Component {
 
               <TabContent
                 eventKey={1}
-                title="Solution Pattern content"
                 tabContentId="solutionPatternsTabSection"
                 id="refTab2Section"
                 ref={this.contentRef2}
