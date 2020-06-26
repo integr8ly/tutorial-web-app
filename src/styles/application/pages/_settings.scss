@@ -5,3 +5,31 @@
     color: $pf-color-red-200;
   }
 }
+
+/* stylelint-disable */
+
+.integr8ly__text-small--m-secondary {
+  color: var(--pf-global--Color--200);
+  font-size: var(--pf-global--FontSize--sm);
+
+  .pf-c-button {
+    font-size: inherit;
+  }
+}
+
+.integr8ly__tab-content {
+  outline: none;
+}
+
+.integr8ly__dropdown-menu {
+
+  .pf-c-dropdown__menu {
+    min-width: var(--pf-c-dropdown__toggle--MinWidth);
+  }
+}
+
+.integr8ly__text-small {
+  font-size: var(--pf-global--FontSize--sm);
+}
+/* stylelint-enable */
+
