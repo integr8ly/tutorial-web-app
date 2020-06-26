@@ -12,9 +12,9 @@ import {
   Grid,
   GridItem,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardTitle,
   Dropdown,
   DropdownItem,
   DropdownToggle,
@@ -431,7 +431,7 @@ class SettingsPage extends React.Component {
         <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.light}>
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
-          <Grid gutter="md">
+          <Grid hasGutter>
             <GridItem>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-xs">
                 Settings
@@ -439,7 +439,7 @@ class SettingsPage extends React.Component {
             </GridItem>
           </Grid>
         </PageSection>
-        <PageSection variant={PageSectionVariants.light} noPadding>
+        <PageSection variant={PageSectionVariants.light} padding="false">
           <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
             <Tab
               id="scheduleTab"
@@ -471,9 +471,9 @@ class SettingsPage extends React.Component {
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
                 <Card className="pf-u-w-100">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     <Flex className="pf-m-column">
                       <FlexItem className="pf-m-spacer-sm">
@@ -570,7 +570,6 @@ class SettingsPage extends React.Component {
               <TabContent
                 className="integr8ly__tab-content"
                 eventKey={1}
-                tabContentId="solutionPatternsTabSection"
                 id="refTab2Section"
                 ref={this.contentRef2}
                 aria-label="Tab item 2"
@@ -583,9 +582,9 @@ class SettingsPage extends React.Component {
                 </PageSection>
 
                 <Card className="pf-u-w-100">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-c-title pf-m-lg">Manage Solution Patterns</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     All of the default Managed Integration Solution Patterns are visible on the Solution Patterns tab on
                     the home page.
@@ -603,10 +602,10 @@ class SettingsPage extends React.Component {
                         helperText="Example: https://github.com/integr8ly/solution-pattern-template.git"
                         helperTextInvalid="URL syntax is incorrect. Example: https://github.com/integr8ly/solution-pattern-template.git"
                         fieldId="repo-formgroup"
-                        isValid={isValid}
+                        validated={isValid ? 'default' : 'error'}
                       >
                         <TextArea
-                          isValid={isValid}
+                          validated={isValid ? 'default' : 'error'}
                           value={this.state.value}
                           id="repo-textfield"
                           aria-label="Add repository URLs"
@@ -653,7 +652,7 @@ class SettingsPage extends React.Component {
                 <Bullseye>
                   <EmptyState variant={EmptyStateVariant.small}>
                     <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
-                    <Title id="main-content" size="lg">
+                    <Title headingLevel="h2" id="main-content" size="lg">
                       Permissions needed
                     </Title>
                     <EmptyStateBody>

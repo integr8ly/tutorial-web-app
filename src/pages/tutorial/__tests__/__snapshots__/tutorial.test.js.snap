@@ -19,26 +19,20 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
   <Page
-    breadcrumb={null}
     className="pf-u-h-100vh"
     defaultManagedSidebarIsOpen={true}
-    header={null}
     isManagedSidebar={false}
-    mainContainerId={null}
+    mainTabIndex={-1}
     onPageResize={[Function]}
-    sidebar={null}
-    skipToContent={null}
   >
     <SkipToContent
-      className=""
-      component="a"
       href="#main-content"
       show={false}
     >
       Skip to content
     </SkipToContent>
     <withRouter(Connect(Masthead)) />
-    <PageSection
+    <Component
       variant="light"
     >
       <withRouter()
@@ -46,22 +40,22 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         isAllSolutionPattern={true}
         threadName="Example"
       />
-    </PageSection>
-    <PageSection
+    </Component>
+    <Component
       className="integr8ly-landing-page-tutorial-dashboard-section"
     >
-      <Grid
-        gutter="md"
+      <Component
+        hasGutter={true}
       >
-        <GridItem
+        <Component
           className="integr8ly-task-container"
           md={9}
           sm={12}
         >
-          <Card
+          <Component
             className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl"
           >
-            <TextContent>
+            <Component>
               <div
                 className="integr8ly-task-dashboard-header"
               >
@@ -103,7 +97,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                     color="currentColor"
                     noVerticalAlign={false}
                     size="sm"
-                    title={null}
                   />
                   0
                   <span
@@ -113,7 +106,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   </span>
                 </div>
               </h2>
-              <DataList
+              <Component
                 aria-label="Task to complete this walkthrough"
                 className="pf-u-pl-0"
                 id="tasks-to-complete-walkthrough"
@@ -131,10 +124,10 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   tutorial.getStarted
                 </Component>
               </div>
-            </TextContent>
-          </Card>
-        </GridItem>
-        <GridItem
+            </Component>
+          </Component>
+        </Component>
+        <Component
           className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
           md={3}
           rowSpan={2}
@@ -146,9 +139,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
             resources={Array []}
           />
-        </GridItem>
-      </Grid>
-    </PageSection>
+        </Component>
+      </Component>
+    </Component>
   </Page>
 </Fragment>
 `;

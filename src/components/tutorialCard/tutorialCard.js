@@ -2,9 +2,9 @@ import React from 'react';
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardTitle,
   Progress,
   ProgressMeasureLocation
 } from '@patternfly/react-core';
@@ -25,9 +25,9 @@ const TutorialCard = props => (
       props.history.push(props.getStartedLink);
     }}
   >
-    <CardHeader>
+    <CardTitle>
       <h3 className="pf-c-title pf-m-xl">{props.title}</h3>
-    </CardHeader>
+    </CardTitle>
     <CardBody>{props.children}</CardBody>
     <CardFooter>
       <div className="integr8ly-c-card__info pf-u-w-100">

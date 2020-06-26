@@ -8,9 +8,9 @@ import {
   DropdownItem,
   DropdownSeparator,
   PageHeader,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem,
+  PageHeaderTools,
+  PageHeaderToolsGroup,
+  PageHeaderToolsItem,
   Tooltip,
   TooltipPosition
 } from '@patternfly/react-core';
@@ -239,9 +239,9 @@ class Masthead extends React.Component {
 
     const MastheadToolbar = (
       <React.Fragment>
-        <Toolbar>
-          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
-            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+        <PageHeaderTools>
+          <PageHeaderToolsGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnLg)}>
+            <PageHeaderToolsItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
               {isAdmin ? (
                 <Button
                   className="pf-c-button pf-m-plain"
@@ -263,8 +263,8 @@ class Masthead extends React.Component {
                   </Button>
                 </Tooltip>
               )}
-            </ToolbarItem>
-            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
+            </PageHeaderToolsItem>
+            <PageHeaderToolsItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnMd)}>
               <Dropdown
                 isPlain
                 position="right"
@@ -272,7 +272,7 @@ class Masthead extends React.Component {
                 isOpen={isHelpDropdownOpen}
                 toggle={
                   <DropdownToggle
-                    iconComponent={null}
+                    toggleIndicator={null}
                     onToggle={this.onHelpDropdownToggle}
                     aria-label="Link to Help page"
                   >
@@ -282,10 +282,10 @@ class Masthead extends React.Component {
                 autoFocus={false}
                 dropdownItems={this.getDeveloperResources(gsUrl, riUrl, csUrl)}
               />
-            </ToolbarItem>
-          </ToolbarGroup>
-          <ToolbarGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
-            <ToolbarItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
+            </PageHeaderToolsItem>
+          </PageHeaderToolsGroup>
+          <PageHeaderToolsGroup className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
+            <PageHeaderToolsItem className={css(accessibleStyles.screenReader, accessibleStyles.visibleOnSm)}>
               <Dropdown
                 className="pf-c-dropdown pf-c-dropdown--user"
                 isPlain
@@ -300,9 +300,9 @@ class Masthead extends React.Component {
                 autoFocus={false}
                 dropdownItems={this.getUserMenuResources(isAdmin)}
               />
-            </ToolbarItem>
-          </ToolbarGroup>
-        </Toolbar>
+            </PageHeaderToolsItem>
+          </PageHeaderToolsGroup>
+        </PageHeaderTools>
         {showAboutModal && <AboutModal isOpen={showAboutModal} closeAboutModal={this.closeAboutModal} />}
       </React.Fragment>
     );
@@ -311,7 +311,7 @@ class Masthead extends React.Component {
       <PageHeader
         logo={<Brand src={this.getLogo()} alt="Red Hat Solution Explorer" />}
         logoProps={logoProps}
-        toolbar={MastheadToolbar}
+        headerTools={MastheadToolbar}
       />
     );
   }

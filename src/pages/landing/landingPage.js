@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab } from '@patternfly/react-core';
+import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -85,55 +85,78 @@ class LandingPage extends React.Component {
     const { walkthroughServices, middlewareServices, user } = this.props;
     const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
     const openshiftHost = getOpenshiftHost(middlewareServices);
+    this.contentRef1 = React.createRef();
+    this.contentRef2 = React.createRef();
 
     return (
-      <React.Fragment>
-        <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>
-          <RoutedConnectedMasthead currentUserName={this.state.currentUserName} />
-          <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-            <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
-            <p className="pf-c-landing__content">
-              Quickly access consoles for all your Red Hat managed services, and learn how to easily implement
-              integrations with Solution Pattern examples.
-            </p>
-          </PageSection>
+      <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>
+        <RoutedConnectedMasthead currentUserName={this.state.currentUserName} />
+        <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+          <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
+          <p className="pf-c-landing__content">
+            Quickly access consoles for all your Red Hat managed services, and learn how to easily implement
+            integrations with Solution Pattern examples.
+          </p>
+        </PageSection>
+        <PageSection variant={PageSectionVariants.light} padding="false">
           <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-            <Tab id="servicesTab" eventKey={0} title="All services" tabContentId="servicesTabSection">
-              <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-                <div>
-                  <Grid>
-                    <GridItem sm={12} md={12}>
-                      <InstalledAppsView
-                        apps={Object.values(middlewareServices.data)}
-                        username={this.state.currentUserName}
-                        openshiftHost={openshiftHost}
-                        enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
-                        showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
-                        customApps={middlewareServices.customServices.services}
-                        handleLaunch={svcName => launchFn(svcName)}
-                      />
-                    </GridItem>
-                  </Grid>
-                </div>
-              </PageSection>
-            </Tab>
+            <Tab
+              id="servicesTab"
+              eventKey={0}
+              title="All services"
+              tabContentId="servicesTabSection"
+              tabContentRef={this.contentRef1}
+            />
             <Tab
               id="solutionPatternsTab"
               eventKey={1}
               title="All Solution Patterns"
               tabContentId="solutionPatternsTabSection"
-            >
-              <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-                <Grid gutter="md">
-                  <GridItem sm={12} md={12}>
-                    <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
-                  </GridItem>
-                </Grid>
-              </PageSection>
-            </Tab>
+              tabContentRef={this.contentRef2}
+            />
           </Tabs>
-        </Page>
-      </React.Fragment>
+        </PageSection>
+        <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
+          <React.Fragment>
+            <TabContent
+              className="integr8ly__tab-content"
+              eventKey={0}
+              id="refTab1Section"
+              ref={this.contentRef1}
+              aria-label="Tab item 1"
+            >
+              <Grid>
+                <GridItem sm={12} md={12}>
+                  <InstalledAppsView
+                    apps={Object.values(middlewareServices.data)}
+                    username={this.state.currentUserName}
+                    openshiftHost={openshiftHost}
+                    enableLaunch={!window.OPENSHIFT_CONFIG.mockData}
+                    showUnready={middlewareServices.customServices.showUnreadyServices || DISPLAY_SERVICES}
+                    customApps={middlewareServices.customServices.services}
+                    handleLaunch={svcName => launchFn(svcName)}
+                  />
+                </GridItem>
+              </Grid>
+            </TabContent>
+
+            <TabContent
+              className="integr8ly__tab-content"
+              eventKey={1}
+              id="refTab2Section"
+              ref={this.contentRef2}
+              aria-label="Tab item 2"
+              hidden
+            >
+              <Grid hasGutter>
+                <GridItem sm={12} md={12}>
+                  <TutorialDashboard userProgress={user.userProgress} walkthroughs={walkthroughServices.data} />
+                </GridItem>
+              </Grid>
+            </TabContent>
+          </React.Fragment>
+        </PageSection>
+      </Page>
     );
   }
 }

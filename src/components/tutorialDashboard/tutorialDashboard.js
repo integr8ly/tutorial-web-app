@@ -128,11 +128,7 @@ const TutorialDashboard = props => {
         </div>
       );
       htmlSnippet.push(
-        <Gallery
-          gutter="md"
-          key={`gallery-${allRepos[i]}`}
-          className="pf-u-mt-sm pf-u-mb-md integr8ly-gallery-override"
-        >
+        <Gallery hasGutter key={`gallery-${allRepos[i]}`} className="pf-u-mt-sm pf-u-mb-md integr8ly-gallery-override">
           {cards}
         </Gallery>
       );
