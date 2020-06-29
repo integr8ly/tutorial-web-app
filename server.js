@@ -4,7 +4,7 @@ const url = require('url');
 const fs = require('fs');
 const asciidoctor = require('asciidoctor.js');
 const Mustache = require('mustache');
-const { fetchOpenshiftUser } = require('./server_middleware');
+const { requireRoles } = require('./server_middleware');
 const giteaClient = require('./gitea_client');
 const gitClient = require('./git_client');
 const bodyParser = require('body-parser');
@@ -70,6 +70,12 @@ const WALKTHROUGH_LOCATION_DEFAULT = {
   header: null
 };
 
+const backendRequiredRoles = [
+  'system:cluster-admins',
+  'system:dedicated-admins',
+  'dedicated-admins'
+];
+
 const walkthroughs = [];
 let server;
 
@@ -82,6 +88,7 @@ app.get('/metrics', (req, res) => {
   res.set('Content-Type', Prometheus.register.contentType);
   res.end(Prometheus.register.metrics());
 });
+
 
 // Get all user defined walkthrough repositories
 app.get('/user_walkthroughs', (req, res) =>
@@ -101,46 +108,14 @@ app.get('/user_walkthroughs', (req, res) =>
 );
 
 // Insert new user defined walkthrough repositories
-app.post('/user_walkthroughs', (req, res) => {
+// This requires cluster- or dedicated admin permissions
+app.post('/user_walkthroughs', requireRoles(backendRequiredRoles), (req, res) => {
   const { data } = req.body;
   return setUserWalkthroughs(data)
     .then(({ value }) => res.json(value))
     .catch(err => {
       console.error(err);
       return res.sendStatus(500);
-    });
-});
-
-// Init custom walkthroughs dependencies
-app.post('/initThread', fetchOpenshiftUser, (req, res) => {
-  if (!req.body || !req.body.dependencies) {
-    console.warn('Dependencies not provided in request body. Skipping thread initialization.');
-    res.sendStatus(200);
-    return;
-  }
-  const {
-    dependencies: { repos },
-    openshiftUser
-  } = req.body;
-
-  // Return success in mock mode without actually creating any repositories
-  if (!process.env.OPENSHIFT_HOST) {
-    console.warn('OPENSHIFT_HOST not set. Skipping thread initialization.');
-    res.sendStatus(200);
-    return;
-  }
-
-  if (!repos || repos.length === 0) {
-    res.sendStatus(200);
-    return;
-  }
-
-  // eslint-disable-next-line consistent-return
-  return Promise.all(repos.map(repo => giteaClient.createRepoForUser(openshiftUser, repo)))
-    .then(() => res.sendStatus(200))
-    .catch(err => {
-      console.error(`Error creating repositories: ${err}`);
-      return res.status(500).json({ error: err.message });
     });
 });
 

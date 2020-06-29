@@ -373,13 +373,16 @@ const getUserWalkthroughs = () =>
 /**
  * Saves the user-defined GitHub repositories from the UI to the database.
  */
-const setUserWalkthroughs = (data = {}) =>
+const setUserWalkthroughs = (data = {}, token) =>
   axios(
     serviceConfig(
       {
         method: 'post',
         url: `/user_walkthroughs`,
-        data: { data }
+        data: { data },
+        headers: {
+          'X-Forwarded-Access-Token': token
+        }
       },
       false
     )
