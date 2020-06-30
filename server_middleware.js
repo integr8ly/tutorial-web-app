@@ -46,7 +46,7 @@ exports.requireRoles = config => {
 
     const token = req.get('X-Forwarded-Access-Token');
     if (!token) {
-      return res.sendStatus(403);
+      return res.sendStatus(401);
     }
 
     return axios({
@@ -71,6 +71,9 @@ exports.requireRoles = config => {
         }
         return res.sendStatus(403);
       })
-      .catch(err => next(err));
+      .catch(err => {
+        console.error(err);
+        return res.sendStatus(401);
+      });
   };
 };

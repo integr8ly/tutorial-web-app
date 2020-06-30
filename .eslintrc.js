@@ -9,6 +9,7 @@ module.exports = {
     'import/no-dynamic-require': 'off',
     'global-require': 'off',
     'react/jsx-curly-brace-presence': 'off',
-    'react/no-unused-prop-types': 'off'
+    'react/no-unused-prop-types': 'off',
+    'camelcase': ['error', { 'allow': ['access_token', 'auth_token'] }]
   }
 };

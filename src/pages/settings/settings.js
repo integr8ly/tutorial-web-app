@@ -146,13 +146,11 @@ class SettingsPage extends React.Component {
   saveSolutionPatternSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
-    /* stylelint-disable */
     getUser().then(({ access_token }) => {
       setUserWalkthroughs(value, access_token).then(() => {
         history.push(`/`);
       });
     });
-    /* stylelint-enable */
   };
 
   saveMockBackupSettings = (e, value) => {
