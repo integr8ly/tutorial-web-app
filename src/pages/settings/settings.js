@@ -37,6 +37,7 @@ import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
+import { getUser } from '../../services/openshiftServices';
 
 const moment = require('moment');
 
@@ -145,8 +146,11 @@ class SettingsPage extends React.Component {
   saveSolutionPatternSettings = (e, value) => {
     e.preventDefault();
     const { history } = this.props;
-    setUserWalkthroughs(value);
-    history.push(`/`);
+    getUser().then(({ access_token }) => {
+      setUserWalkthroughs(value, access_token).then(() => {
+        history.push(`/`);
+      });
+    });
   };
 
   saveMockBackupSettings = (e, value) => {
