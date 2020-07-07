@@ -19,19 +19,13 @@ exports[`TutorialPage Component should render the TutorialPage component error s
 exports[`TutorialPage Component should render the TutorialPage component fulfilled state 1`] = `
 <Fragment>
   <Page
-    breadcrumb={null}
     className="pf-u-h-100vh"
     defaultManagedSidebarIsOpen={true}
-    header={null}
     isManagedSidebar={false}
-    mainContainerId={null}
+    mainTabIndex={-1}
     onPageResize={[Function]}
-    sidebar={null}
-    skipToContent={null}
   >
     <SkipToContent
-      className=""
-      component="a"
       href="#main-content"
       show={false}
     >
@@ -51,7 +45,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       className="integr8ly-landing-page-tutorial-dashboard-section"
     >
       <Grid
-        gutter="md"
+        hasGutter={true}
       >
         <GridItem
           className="integr8ly-task-container"
@@ -70,7 +64,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 >
                   Example
                 </h1>
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-01"
                   onClick={[Function]}
@@ -78,7 +72,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
               <div
                 dangerouslySetInnerHTML={
@@ -103,7 +97,6 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                     color="currentColor"
                     noVerticalAlign={false}
                     size="sm"
-                    title={null}
                   />
                   0
                   <span
@@ -121,7 +114,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               <div
                 className="integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
               >
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-02"
                   onClick={[Function]}
@@ -129,7 +122,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
             </TextContent>
           </Card>

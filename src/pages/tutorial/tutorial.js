@@ -113,7 +113,7 @@ class TutorialPage extends React.Component {
               />
             </PageSection>
             <PageSection className="integr8ly-landing-page-tutorial-dashboard-section">
-              <Grid gutter="md">
+              <Grid hasGutter>
                 <GridItem sm={12} md={9} className="integr8ly-task-container">
                   <Card className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl">
                     <TextContent>

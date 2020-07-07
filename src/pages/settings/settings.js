@@ -12,9 +12,9 @@ import {
   Grid,
   GridItem,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardTitle,
   Dropdown,
   DropdownItem,
   DropdownToggle,
@@ -429,33 +429,31 @@ class SettingsPage extends React.Component {
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <RoutedConnectedMasthead />
-        <PageSection variant={PageSectionVariants.light}>
+        <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
           <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
-          <Grid gutter="md">
+          <Grid hasGutter>
             <GridItem>
-              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-sm pf-u-mb-xs">
+              <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-lg pf-u-mb-lg">
                 Settings
               </h1>
+              <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
+                <Tab
+                  id="scheduleTab"
+                  eventKey={0}
+                  title="Managed Integration schedule"
+                  tabContentId="scheduleTabSection"
+                  tabContentRef={this.contentRef1}
+                />
+                <Tab
+                  id="solutionPatternsTab"
+                  eventKey={1}
+                  title="Solution Pattern content"
+                  tabContentId="solutionPatternsTabSection"
+                  tabContentRef={this.contentRef2}
+                />
+              </Tabs>
             </GridItem>
           </Grid>
-        </PageSection>
-        <PageSection variant={PageSectionVariants.light} noPadding>
-          <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-            <Tab
-              id="scheduleTab"
-              eventKey={0}
-              title="Managed Integration schedule"
-              tabContentId="scheduleTabSection"
-              tabContentRef={this.contentRef1}
-            />
-            <Tab
-              id="solutionPatternsTab"
-              eventKey={1}
-              title="Solution Pattern content"
-              tabContentId="solutionPatternsTabSection"
-              tabContentRef={this.contentRef2}
-            />
-          </Tabs>
         </PageSection>
         <PageSection>
           {isAdmin ? (
@@ -471,9 +469,9 @@ class SettingsPage extends React.Component {
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
                 <Card className="pf-u-w-100">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     <Flex className="pf-m-column">
                       <FlexItem className="pf-m-spacer-sm">
@@ -570,7 +568,6 @@ class SettingsPage extends React.Component {
               <TabContent
                 className="integr8ly__tab-content"
                 eventKey={1}
-                tabContentId="solutionPatternsTabSection"
                 id="refTab2Section"
                 ref={this.contentRef2}
                 aria-label="Tab item 2"
@@ -583,9 +580,9 @@ class SettingsPage extends React.Component {
                 </PageSection>
 
                 <Card className="pf-u-w-100">
-                  <CardHeader>
+                  <CardTitle>
                     <h2 className="pf-c-title pf-m-lg">Manage Solution Patterns</h2>
-                  </CardHeader>
+                  </CardTitle>
                   <CardBody>
                     All of the default Managed Integration Solution Patterns are visible on the Solution Patterns tab on
                     the home page.
@@ -603,10 +600,10 @@ class SettingsPage extends React.Component {
                         helperText="Example: https://github.com/integr8ly/solution-pattern-template.git"
                         helperTextInvalid="URL syntax is incorrect. Example: https://github.com/integr8ly/solution-pattern-template.git"
                         fieldId="repo-formgroup"
-                        isValid={isValid}
+                        validated={isValid ? 'default' : 'error'}
                       >
                         <TextArea
-                          isValid={isValid}
+                          validated={isValid ? 'default' : 'error'}
                           value={this.state.value}
                           id="repo-textfield"
                           aria-label="Add repository URLs"
@@ -653,7 +650,7 @@ class SettingsPage extends React.Component {
                 <Bullseye>
                   <EmptyState variant={EmptyStateVariant.small}>
                     <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
-                    <Title id="main-content" size="lg">
+                    <Title headingLevel="h2" id="main-content" size="lg">
                       Permissions needed
                     </Title>
                     <EmptyStateBody>
