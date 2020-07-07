@@ -1,65 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Breadcrumb component should handle home clicked 1`] = `
-<Component
+<Breadcrumb
   aria-label="Breadcrumb"
 >
-  <Component
+  <BreadcrumbItem
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </Component>
-  <Component
+  </BreadcrumbItem>
+  <BreadcrumbItem
     to="/tutorial/1"
   >
     Unit Test Walkthrough
-  </Component>
-  <Component
+  </BreadcrumbItem>
+  <BreadcrumbItem
     aria-current="page"
     isActive={true}
   >
     Task 1 of 3
-  </Component>
-</Component>
+  </BreadcrumbItem>
+</Breadcrumb>
 `;
 
 exports[`Breadcrumb component should render breadcrumb with props 1`] = `
-<Component
+<Breadcrumb
   aria-label="Breadcrumb"
 >
-  <Component
+  <BreadcrumbItem
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </Component>
-  <Component
+  </BreadcrumbItem>
+  <BreadcrumbItem
     to="/tutorial/1"
   >
     Unit Test Walkthrough
-  </Component>
-  <Component
+  </BreadcrumbItem>
+  <BreadcrumbItem
     aria-current="page"
     isActive={true}
   >
     Task 1 of 3
-  </Component>
-</Component>
+  </BreadcrumbItem>
+</Breadcrumb>
 `;
 
 exports[`Breadcrumb component should render default breadcrumb 1`] = `
-<Component
+<Breadcrumb
   aria-label="Breadcrumb"
 >
-  <Component
+  <BreadcrumbItem
     id="breadcrumb-home"
     onClick={[Function]}
     to="#"
   >
     Home
-  </Component>
-</Component>
+  </BreadcrumbItem>
+</Breadcrumb>
 `;

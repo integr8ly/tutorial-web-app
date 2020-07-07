@@ -32,7 +32,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
       Skip to content
     </SkipToContent>
     <withRouter(Connect(Masthead)) />
-    <Component
+    <PageSection
       variant="light"
     >
       <withRouter()
@@ -40,22 +40,22 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
         isAllSolutionPattern={true}
         threadName="Example"
       />
-    </Component>
-    <Component
+    </PageSection>
+    <PageSection
       className="integr8ly-landing-page-tutorial-dashboard-section"
     >
-      <Component
+      <Grid
         hasGutter={true}
       >
-        <Component
+        <GridItem
           className="integr8ly-task-container"
           md={9}
           sm={12}
         >
-          <Component
+          <Card
             className="integr8ly-c-card--content pf-u-p-lg pf-u-mb-xl"
           >
-            <Component>
+            <TextContent>
               <div
                 className="integr8ly-task-dashboard-header"
               >
@@ -64,7 +64,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                 >
                   Example
                 </h1>
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-01"
                   onClick={[Function]}
@@ -72,7 +72,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
               <div
                 dangerouslySetInnerHTML={
@@ -106,7 +106,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   </span>
                 </div>
               </h2>
-              <Component
+              <DataList
                 aria-label="Task to complete this walkthrough"
                 className="pf-u-pl-0"
                 id="tasks-to-complete-walkthrough"
@@ -114,7 +114,7 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
               <div
                 className="integr8ly-task-dashboard-time-to-completion pf-u-mb-lg"
               >
-                <Component
+                <Button
                   aria-label="Get Started"
                   id="get-started-02"
                   onClick={[Function]}
@@ -122,12 +122,12 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
                   variant="primary"
                 >
                   tutorial.getStarted
-                </Component>
+                </Button>
               </div>
-            </Component>
-          </Component>
-        </Component>
-        <Component
+            </TextContent>
+          </Card>
+        </GridItem>
+        <GridItem
           className="integr8ly-module-frame pf-u-display-none pf-u-display-block-on-md"
           md={3}
           rowSpan={2}
@@ -139,9 +139,9 @@ exports[`TutorialPage Component should render the TutorialPage component fulfill
             className="integr8ly-landing-page-tutorial-dashboard-section-right"
             resources={Array []}
           />
-        </Component>
-      </Component>
-    </Component>
+        </GridItem>
+      </Grid>
+    </PageSection>
   </Page>
 </Fragment>
 `;

@@ -28,7 +28,7 @@ exports[`AboutModal Component should render a non-connected component: hidden mo
     <Portal
       containerInfo={<div />}
     >
-      <Component
+      <AboutModalContainer
         aboutModalBoxContentId="pf-about-modal-content-0"
         aboutModalBoxHeaderId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
@@ -74,7 +74,7 @@ exports[`AboutModal Component should render a non-connected component: show moda
     <Portal
       containerInfo={<div />}
     >
-      <Component
+      <AboutModalContainer
         aboutModalBoxContentId="pf-about-modal-content-0"
         aboutModalBoxHeaderId="pf-about-modal-title-0"
         backgroundImageSrc="PF4DownstreamBG.svg"
