@@ -283,15 +283,13 @@ class SettingsPage extends React.Component {
     const currentDate = new Date();
     const nextDayDate = new Date();
     let goodBackupDate = new Date();
-    let rawBackupTime = rhmiConfig.spec.backup.applyOn;
+    const rawBackupTime = rhmiConfig.spec.backup.applyOn;
     const rawBackupHour = rawBackupTime.split(':')[0];
-    const rawBackupMin = rawBackupTime.split(':')[1];
+    const rawBackupMin = '00';
     const curHour = currentDate.getHours();
     let backupDate = '';
 
     nextDayDate.setDate(currentDate.getDate() + 1);
-
-    rawBackupTime = `${rawBackupHour[0]}:00`;
 
     if (curHour < rawBackupHour) {
       // if hour has not occurred yet today, display date should be currentDate
@@ -318,7 +316,7 @@ class SettingsPage extends React.Component {
     const rawMaintDay = rawMaintDate.split(' ')[0]; // Sun
     const rawMaintTime = rawMaintDate.split(' ')[1]; // 10:00
     const rawMaintHour = rawMaintTime.split(':')[0]; // 10
-    const rawMaintMin = rawMaintTime.split(':')[1]; // 00
+    const rawMaintMin = '00';
 
     const curDay = currentDate.getDay();
     const curHour = currentDate.getHours();
@@ -377,7 +375,8 @@ class SettingsPage extends React.Component {
     let utcBackupTime = Date();
 
     const cfgMaintDate = rhmiConfig.spec.maintenance.applyFrom;
-    const cfgMaintTime = cfgMaintDate.split(' ')[1]; // 10:00
+    const cfgMaintHours = cfgMaintDate.split(' ')[1].split(':')[0];
+    const cfgMaintTime = `${cfgMaintHours}:00`;
     let sameTime;
 
     dropDownItems.push(
@@ -427,7 +426,7 @@ class SettingsPage extends React.Component {
       isOSv4 = false;
     }
 
-    // testing purposes only - toggle true for simulating OS3, false for OS4
+    // local testing purposes only - toggle true for simulating OS3, false for OS4
     // isOSv4 = true;
 
     return (
