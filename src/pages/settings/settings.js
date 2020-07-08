@@ -283,15 +283,13 @@ class SettingsPage extends React.Component {
     const currentDate = new Date();
     const nextDayDate = new Date();
     let goodBackupDate = new Date();
-    let rawBackupTime = rhmiConfig.spec.backup.applyOn;
+    const rawBackupTime = rhmiConfig.spec.backup.applyOn;
     const rawBackupHour = rawBackupTime.split(':')[0];
-    const rawBackupMin = rawBackupTime.split(':')[1];
+    const rawBackupMin = '00';
     const curHour = currentDate.getHours();
     let backupDate = '';
 
     nextDayDate.setDate(currentDate.getDate() + 1);
-
-    rawBackupTime = `${rawBackupHour[0]}:00`;
 
     if (curHour < rawBackupHour) {
       // if hour has not occurred yet today, display date should be currentDate
@@ -318,7 +316,7 @@ class SettingsPage extends React.Component {
     const rawMaintDay = rawMaintDate.split(' ')[0]; // Sun
     const rawMaintTime = rawMaintDate.split(' ')[1]; // 10:00
     const rawMaintHour = rawMaintTime.split(':')[0]; // 10
-    const rawMaintMin = rawMaintTime.split(':')[1]; // 00
+    const rawMaintMin = '00';
 
     const curDay = currentDate.getDay();
     const curHour = currentDate.getHours();
@@ -377,7 +375,8 @@ class SettingsPage extends React.Component {
     let utcBackupTime = Date();
 
     const cfgMaintDate = rhmiConfig.spec.maintenance.applyFrom;
-    const cfgMaintTime = cfgMaintDate.split(' ')[1]; // 10:00
+    const cfgMaintHours = cfgMaintDate.split(' ')[1].split(':')[0];
+    const cfgMaintTime = `${cfgMaintHours}:00`;
     let sameTime;
 
     dropDownItems.push(
@@ -420,10 +419,15 @@ class SettingsPage extends React.Component {
     this.contentRef2 = React.createRef();
 
     let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    let isOSv4 = true;
     // no admin protection for openshift 3 or for running demo/locally
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       isAdmin = true;
+      isOSv4 = false;
     }
+
+    // local testing purposes only - toggle true for simulating OS3, false for OS4
+    // isOSv4 = true;
 
     return (
       <Page className="pf-u-h-100vh">
@@ -437,16 +441,18 @@ class SettingsPage extends React.Component {
                 Settings
               </h1>
               <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-                <Tab
-                  id="scheduleTab"
-                  eventKey={0}
-                  title="Managed Integration schedule"
-                  tabContentId="scheduleTabSection"
-                  tabContentRef={this.contentRef1}
-                />
+                {isOSv4 && (
+                  <Tab
+                    id="scheduleTab"
+                    eventKey={0}
+                    title="Managed Integration schedule"
+                    tabContentId="scheduleTabSection"
+                    tabContentRef={this.contentRef1}
+                  />
+                )}
                 <Tab
                   id="solutionPatternsTab"
-                  eventKey={1}
+                  eventKey={isOSv4 ? 1 : 0}
                   title="Solution Pattern content"
                   tabContentId="solutionPatternsTabSection"
                   tabContentRef={this.contentRef2}
@@ -458,120 +464,121 @@ class SettingsPage extends React.Component {
         <PageSection>
           {isAdmin ? (
             <React.Fragment>
-              <TabContent
-                className="integr8ly__tab-content"
-                eventKey={0}
-                id="refTab1Section"
-                ref={this.contentRef1}
-                aria-label="Tab item 1"
-              >
-                {/* <Text className="pf-u-mt-lg">
+              {isOSv4 && (
+                <TabContent
+                  className="integr8ly__tab-content"
+                  eventKey={0}
+                  id="refTab1Section"
+                  ref={this.contentRef1}
+                  aria-label="Tab item 1"
+                >
+                  {/* <Text className="pf-u-mt-lg">
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
-                <Card className="pf-u-w-100">
-                  <CardTitle>
-                    <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
-                  </CardTitle>
-                  <CardBody>
-                    <Flex className="pf-m-column">
-                      <FlexItem className="pf-m-spacer-sm">
-                        <Text className="integr8ly__text-small--m-secondary">
-                          The backup process will not impact the availability of your cluster.
-                        </Text>
-                      </FlexItem>
-                      <FlexItem className="pf-m-spacer-md">
-                        <Flex>
-                          <FlexItem className="pf-m-spacer-lg">
-                            <Text>Next daily backup:</Text>
-                          </FlexItem>
-                          <FlexItem>
-                            <Text>{this.getDailyBackup()}</Text>
-                          </FlexItem>
-                        </Flex>
-                      </FlexItem>
-                      <FlexItem>
-                        <Form>
-                          <FormGroup fieldId="backup-start-time-form">
-                            <Flex className="pf-m-column">
-                              <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                <b>Start time for your backups</b>
-                              </Text>
-                              <Dropdown
-                                className="integr8ly__dropdown-menu"
-                                onSelect={this.onBackupSelect}
-                                toggle={
-                                  <DropdownToggle id="toggle-id" onToggle={this.onBackupToggle}>
-                                    {this.state.buStartTimeDisplay}
-                                  </DropdownToggle>
-                                }
-                                isOpen={this.state.isOpen}
-                                dropdownItems={
-                                  window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                                    ? this.populateBackupsDropdown()
-                                    : this.state.dropDownItems
-                                }
-                              />
-                            </Flex>
-                          </FormGroup>
-                        </Form>
-                        <Text className="integr8ly__text-small--m-secondary">
-                          Backups may not be scheduled during the first hour of your maintenance window.{' '}
-                        </Text>
-                      </FlexItem>
-                      <FlexItem>
-                        <Title headingLevel="h5" size="lg">
-                          Weekly maintenance window
-                        </Title>
-                      </FlexItem>
-                      <FlexItem>
-                        <Form>
-                          <FormGroup fieldId="maintenance-window-form">
-                            <Flex>
-                              <FlexItem className="pf-m-spacer-lg">
-                                <Text>Next maintenance window:</Text>
-                              </FlexItem>
-                              <FlexItem>
-                                <Text>{this.getMaintenanceWindow()}</Text>
-                              </FlexItem>
-                            </Flex>
-                          </FormGroup>
-                        </Form>
-                      </FlexItem>
-                    </Flex>
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      id="backup-settings-save-button"
-                      variant="primary"
-                      type="button"
-                      onClick={
-                        window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                          ? e => this.saveMockBackupSettings(e, this.state.buStartTimeDisplay)
-                          : e => this.saveBackupSettings(e, this.state.buStartTimeDisplay)
-                      }
-                      isDisabled={!this.state.canSave}
-                    >
-                      Save
-                    </Button>{' '}
-                    <Button
-                      id="settings-cancel-button"
-                      variant="secondary"
-                      type="button"
-                      onClick={e => this.exitTutorial(e)}
-                    >
-                      Cancel
-                    </Button>{' '}
-                  </CardFooter>
-                </Card>
-              </TabContent>
-
+                  <Card className="pf-u-w-100">
+                    <CardTitle>
+                      <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
+                    </CardTitle>
+                    <CardBody>
+                      <Flex className="pf-m-column">
+                        <FlexItem className="pf-m-spacer-sm">
+                          <Text className="integr8ly__text-small--m-secondary">
+                            The backup process will not impact the availability of your cluster.
+                          </Text>
+                        </FlexItem>
+                        <FlexItem className="pf-m-spacer-md">
+                          <Flex>
+                            <FlexItem className="pf-m-spacer-lg">
+                              <Text>Next daily backup:</Text>
+                            </FlexItem>
+                            <FlexItem>
+                              <Text>{this.getDailyBackup()}</Text>
+                            </FlexItem>
+                          </Flex>
+                        </FlexItem>
+                        <FlexItem>
+                          <Form>
+                            <FormGroup fieldId="backup-start-time-form">
+                              <Flex className="pf-m-column">
+                                <Text className="pf-m-spacer-sm integr8ly__text-small">
+                                  <b>Start time for your backups</b>
+                                </Text>
+                                <Dropdown
+                                  className="integr8ly__dropdown-menu"
+                                  onSelect={this.onBackupSelect}
+                                  toggle={
+                                    <DropdownToggle id="toggle-id" onToggle={this.onBackupToggle}>
+                                      {this.state.buStartTimeDisplay}
+                                    </DropdownToggle>
+                                  }
+                                  isOpen={this.state.isOpen}
+                                  dropdownItems={
+                                    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                                      ? this.populateBackupsDropdown()
+                                      : this.state.dropDownItems
+                                  }
+                                />
+                              </Flex>
+                            </FormGroup>
+                          </Form>
+                          <Text className="integr8ly__text-small--m-secondary">
+                            Backups may not be scheduled during the first hour of your maintenance window.{' '}
+                          </Text>
+                        </FlexItem>
+                        <FlexItem>
+                          <Title headingLevel="h5" size="lg">
+                            Weekly maintenance window
+                          </Title>
+                        </FlexItem>
+                        <FlexItem>
+                          <Form>
+                            <FormGroup fieldId="maintenance-window-form">
+                              <Flex>
+                                <FlexItem className="pf-m-spacer-lg">
+                                  <Text>Next maintenance window:</Text>
+                                </FlexItem>
+                                <FlexItem>
+                                  <Text>{this.getMaintenanceWindow()}</Text>
+                                </FlexItem>
+                              </Flex>
+                            </FormGroup>
+                          </Form>
+                        </FlexItem>
+                      </Flex>
+                    </CardBody>
+                    <CardFooter>
+                      <Button
+                        id="backup-settings-save-button"
+                        variant="primary"
+                        type="button"
+                        onClick={
+                          window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                            ? e => this.saveMockBackupSettings(e, this.state.buStartTimeDisplay)
+                            : e => this.saveBackupSettings(e, this.state.buStartTimeDisplay)
+                        }
+                        isDisabled={!this.state.canSave}
+                      >
+                        Save
+                      </Button>{' '}
+                      <Button
+                        id="settings-cancel-button"
+                        variant="secondary"
+                        type="button"
+                        onClick={e => this.exitTutorial(e)}
+                      >
+                        Cancel
+                      </Button>{' '}
+                    </CardFooter>
+                  </Card>
+                </TabContent>
+              )}
               <TabContent
                 className="integr8ly__tab-content"
-                eventKey={1}
+                eventKey={isOSv4 ? 1 : 0}
                 id="refTab2Section"
                 ref={this.contentRef2}
                 aria-label="Tab item 2"
-                hidden
+                hidden={isOSv4}
               >
                 <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
                   <Grid gutter="md">
