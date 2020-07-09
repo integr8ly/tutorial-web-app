@@ -190,7 +190,7 @@ class SettingsPage extends React.Component {
       hours = parseInt(hours, 10) + 12;
     }
 
-    if (parseInt(hours, 10) < 10 && (modifier === 'AM' || 'am')) {
+    if (parseInt(hours, 10) < 10 && parseInt(hours, 10) > 0 && (modifier === 'AM' || 'am')) {
       pad = '0';
     }
 
