@@ -24,7 +24,7 @@ This web application provides the front door into the Inetgreatly initiative. It
 
 == Local Development
 
-IMPORTANT: The webapp will automatically open (http://localhost:3006) in your browser, however you must hard refresh the page before any content is rendered
+IMPORTANT: After startup, the webapp automatically opens in your browser (http://localhost:3006). However, you must hard refresh the page before any content is rendered.
 
 .Prerequisites
 |===
