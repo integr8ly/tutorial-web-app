@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Alert,
+  AlertActionCloseButton,
   Bullseye,
   EmptyState,
   EmptyStateBody,
@@ -55,6 +57,7 @@ class SettingsPage extends React.Component {
       canSave: false,
       buStartTimeDisplay: '',
       dropDownItems: [],
+      showSettingsAlert: true,
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
         kind: 'RHMIConfig',
@@ -414,11 +417,13 @@ class SettingsPage extends React.Component {
   };
 
   render() {
-    const { value, isValid } = this.state;
+    const { value, isValid, showSettingsAlert } = this.state;
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
-    let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    // let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
+    let isAdmin = true;
+    console.log(isAdmin);
     let isOSv4 = true;
     // no admin protection for openshift 3 or for running demo/locally
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
@@ -427,7 +432,7 @@ class SettingsPage extends React.Component {
     }
 
     // local testing purposes only - toggle true for simulating OS3, false for OS4
-    // isOSv4 = true;
+    isOSv4 = true;
 
     return (
       <Page className="pf-u-h-100vh">
@@ -476,6 +481,22 @@ class SettingsPage extends React.Component {
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
                   <Card className="pf-u-w-100">
+                    {showSettingsAlert && (
+                      <Alert
+                        id="settings-alert"
+                        variant="info"
+                        isInline
+                        title="Managed Integration Schedule Settings"
+                        actionClose={
+                          <AlertActionCloseButton onClose={() => this.setState({ showSettingsAlert: false })} />
+                        }
+                      >
+                        <p>
+                          Schedule backups, maintenance windows, and upgrades to minimize disruptions to your cluster
+                          and services.
+                        </p>
+                      </Alert>
+                    )}
                     <CardTitle>
                       <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
                     </CardTitle>
