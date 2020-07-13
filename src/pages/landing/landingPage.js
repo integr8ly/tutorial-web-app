@@ -107,7 +107,7 @@ class LandingPage extends React.Component {
         <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
           {showInfoAlert && (
             <Alert
-              id="info-alert"
+              className="info-alert"
               variant="info"
               isInline
               title="Managed Integration Schedule Available"

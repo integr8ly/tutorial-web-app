@@ -483,7 +483,7 @@ class SettingsPage extends React.Component {
                   <Card className="pf-u-w-100">
                     {showSettingsAlert && (
                       <Alert
-                        id="settings-alert"
+                        className="settings-alert"
                         variant="info"
                         isInline
                         title="Managed Integration Schedule Settings"
