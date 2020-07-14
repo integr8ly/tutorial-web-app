@@ -1,6 +1,6 @@
 {
   "name": "integreatly-web-app",
-  "version": "2.26.3",
+  "version": "2.26.4",
   "private": true,
   "proxy": "http://localhost:5001/",
   "dependencies": {
@@ -24,8 +24,8 @@
     "lodash.get": "4.4.2",
     "mustache": "^3.0.0",
     "prop-types": "15.6.2",
-    "react": "16.6.3",
-    "react-dom": "16.6.3",
+    "react": "16.8.0",
+    "react-dom": "16.8.0",
     "react-i18next": "8.3.8",
     "react-redux": "5.0.6",
     "react-router": "4.3.1",
