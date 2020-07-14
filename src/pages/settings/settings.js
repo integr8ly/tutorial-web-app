@@ -421,10 +421,9 @@ class SettingsPage extends React.Component {
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
-    // let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
-    let isAdmin = true;
-    console.log(isAdmin);
+    let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
     let isOSv4 = true;
+
     // no admin protection for openshift 3 or for running demo/locally
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       isAdmin = true;
@@ -432,7 +431,7 @@ class SettingsPage extends React.Component {
     }
 
     // local testing purposes only - toggle true for simulating OS3, false for OS4
-    isOSv4 = true;
+    // isOSv4 = true;
 
     return (
       <Page className="pf-u-h-100vh">
