@@ -429,7 +429,7 @@ class SettingsPage extends React.Component {
     dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
 
     dateUtc = moment.utc(date);
-    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; hh:mm UTC)');
+    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
 
     formattedDate = `${dateFmt} ${dateUtcFmt}`;
     return formattedDate;
