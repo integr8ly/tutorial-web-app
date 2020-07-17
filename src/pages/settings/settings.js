@@ -99,6 +99,11 @@ class SettingsPage extends React.Component {
       });
     };
 
+    this.onAlertClose = () => {
+      window.localStorage.setItem('showSettingsAlert', 'false');
+      this.setState({ showSettingsAlert: false });
+    };
+
     getUserWalkthroughs().then(response => {
       if (response.data) {
         this.setState({
@@ -433,6 +438,12 @@ class SettingsPage extends React.Component {
     // local testing purposes only - toggle true for simulating OS3, false for OS4
     // isOSv4 = true;
 
+    // show settings alert on first render
+    if (window.localStorage.getItem('showSettingsAlert') === null)
+      window.localStorage.setItem('showSettingsAlert', true);
+
+    const isAlertOpen = window.localStorage.getItem('showSettingsAlert') === 'true';
+
     return (
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
@@ -480,22 +491,21 @@ class SettingsPage extends React.Component {
                   The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
                 </Text> */}
                   <Card className="pf-u-w-100">
-                    {showSettingsAlert && (
-                      <Alert
-                        className="settings-alert"
-                        variant="info"
-                        isInline
-                        title="Managed Integration Schedule Settings"
-                        actionClose={
-                          <AlertActionCloseButton onClose={() => this.setState({ showSettingsAlert: false })} />
-                        }
-                      >
-                        <p>
-                          Schedule backups, maintenance windows, and upgrades to minimize disruptions to your cluster
-                          and services.
-                        </p>
-                      </Alert>
-                    )}
+                    {showSettingsAlert &&
+                      isAlertOpen && (
+                        <Alert
+                          className="settings-alert"
+                          variant="info"
+                          isInline
+                          title="Managed Integration Schedule Settings"
+                          actionClose={<AlertActionCloseButton onClose={this.onAlertClose} />}
+                        >
+                          <p>
+                            Schedule backups, maintenance windows, and upgrades to minimize disruptions to your cluster
+                            and services.
+                          </p>
+                        </Alert>
+                      )}
                     <CardTitle>
                       <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
                     </CardTitle>
