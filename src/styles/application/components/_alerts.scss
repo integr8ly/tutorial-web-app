@@ -5,3 +5,17 @@
     top: 14px;
   }
 }
+
+/* stylelint-disable */
+
+.pf-c-alert.settings-alert {
+  margin: var(--pf-global--spacer--lg);
+}
+
+.pf-c-alert.info-alert {
+  margin-top: var(--pf-global--spacer--lg);
+  margin-right: var(--pf-global--spacer--lg);
+}
+
+/* stylelint-enable */
+
