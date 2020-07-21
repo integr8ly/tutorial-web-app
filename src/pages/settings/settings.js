@@ -142,8 +142,9 @@ class SettingsPage extends React.Component {
     this.onAlertClose = () => {
       window.localStorage.setItem('showSettingsAlert', 'false');
       this.setState({ showSettingsAlert: false });
+    };
 
-      this.onMaintDaySelect = event => {
+    this.onMaintDaySelect = event => {
       this.setState({
         isOpen: !this.state.isMaintDayOpen,
         maintDayDisplay: event.target.innerText,
@@ -383,17 +384,11 @@ class SettingsPage extends React.Component {
     );
   };
 
-  // handleEmailTextInputChange = emailValue => {
-  //   this.setState({
-  //     emailValue
-  //   });
-  // };
-
   handleEmailTextInputChange = emailValue => {
     this.setState(
       {
         emailValue,
-        isEmailValid: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+        isEmailValid: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
       },
       () => {
         if (this.state.emailValue === '') {
@@ -403,7 +398,7 @@ class SettingsPage extends React.Component {
           const emailArray = this.state.emailValue.split('\n');
 
           for (let i = 0; i < emailArray.length; i++) {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailArray[i])) {
+            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailArray[i])) {
               this.setState({
                 isEmailValid: true
               });
@@ -421,7 +416,7 @@ class SettingsPage extends React.Component {
           this.setState({ isEmailValid: true });
         } else {
           this.setState({
-            isEmailValid: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+            isEmailValid: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
           });
         }
       }
