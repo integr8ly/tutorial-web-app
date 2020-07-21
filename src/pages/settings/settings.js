@@ -265,29 +265,6 @@ class SettingsPage extends React.Component {
     });
   };
 
-  saveMockBackupSettings = (e, value) => {
-    e.preventDefault();
-    const { history } = this.props;
-
-    value = this.convertTimeTo24Hr(value);
-
-    this.setState({ canSave: false });
-
-    this.setState({
-      config: {
-        ...this.state.config,
-        spec: {
-          ...this.state.config.spec,
-          backup: {
-            ...this.state.config.spec.backup,
-            applyOn: value
-          }
-        }
-      }
-    });
-    history.push(`/`);
-  };
-
   convertTimeTo24Hr = time12h => {
     const [time, modifier] = time12h.split(' ');
     let hours = time.split(':')[0];
@@ -309,11 +286,40 @@ class SettingsPage extends React.Component {
     return `${pad}${hours}:${minutes}`;
   };
 
-  saveBackupSettings = (e, value) => {
+  saveMockConfigSettings = (e, buTime, maintDay, maintTime) => {
     e.preventDefault();
     const { history } = this.props;
 
-    value = this.convertTimeTo24Hr(value);
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
+
+    this.setState({ canSave: false });
+
+    this.setState({
+      config: {
+        ...this.state.config,
+        spec: {
+          ...this.state.config.spec,
+          backup: {
+            ...this.state.config.spec.backup,
+            applyOn: buTime
+          },
+          maintenance: {
+            ...this.state.config.spec.maintenance,
+            applyFrom: `${maintDay} ${maintTime}`
+          }
+        }
+      }
+    });
+    history.push(`/`);
+  };
+
+  saveConfigSettings = (e, buTime, maintDay, maintTime) => {
+    e.preventDefault();
+    const { history } = this.props;
+
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
 
     this.setState({ canSave: false });
 
@@ -325,7 +331,11 @@ class SettingsPage extends React.Component {
             ...this.state.config.spec,
             backup: {
               ...this.state.config.spec.backup,
-              applyOn: value
+              applyOn: buTime
+            },
+            maintenance: {
+              ...this.state.config.spec.maintenance,
+              applyFrom: `${maintDay} ${maintTime}`
             }
           }
         }
@@ -917,8 +927,20 @@ class SettingsPage extends React.Component {
                         type="button"
                         onClick={
                           window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                            ? e => this.saveMockBackupSettings(e, this.state.buStartTimeDisplay)
-                            : e => this.saveBackupSettings(e, this.state.buStartTimeDisplay)
+                            ? e =>
+                                this.saveMockConfigSettings(
+                                  e,
+                                  this.state.buStartTimeDisplay,
+                                  this.state.maintDayDisplay,
+                                  this.state.maintTimeDisplay
+                                )
+                            : e =>
+                                this.saveConfigSettings(
+                                  e,
+                                  this.state.buStartTimeDisplay,
+                                  this.state.maintDayDisplay,
+                                  this.state.maintTimeDisplay
+                                )
                         }
                         isDisabled={!this.state.canSave}
                       >
