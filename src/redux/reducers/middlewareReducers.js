@@ -15,7 +15,8 @@ const initialState = {
     data: {},
     customServices: {
       services: []
-    }
+    },
+    rhmiConfig: {}
   }
 };
 
@@ -96,6 +97,15 @@ const middlewareReducers = (state = initialState, action) => {
       middlewareServices: {
         ...state.middlewareServices,
         customServices: action.payload
+      }
+    });
+  }
+
+  if (action.type === FULFILLED_ACTION(middlewareTypes.GET_RHMICONFIG_CR)) {
+    return Object.assign({}, state, {
+      middlewareServices: {
+        ...state.middlewareServices,
+        rhmiConfig: action.payload
       }
     });
   }

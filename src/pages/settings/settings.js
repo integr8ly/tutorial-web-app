@@ -36,16 +36,15 @@ import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
-import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
+import { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig } from '../../services/rhmiConfigServices';
 import { getUser } from '../../services/openshiftServices';
-
 const moment = require('moment');
 
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { userWalkthroughs } = this.props;
+    const { userWalkthroughs, watchRhmiConfig } = this.props;
 
     this.state = {
       value: userWalkthroughs || '',
@@ -116,25 +115,48 @@ class SettingsPage extends React.Component {
       this.setState({
         activeTabKey: tabIndex
       });
+
+      watchRhmiConfig(this.state.config, tabIndex == 0)
     };
   }
 
+  componentWillUnmount() {
+    const { watchRhmiConfig } = this.props;
+
+    watchRhmiConfig(this.state.config, false)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let config = nextProps.middlewareServices.rhmiConfig
+      if (Object.keys(config).length > 0) {
+        this.updateConfigStates(config)
+      }
+  }
+
   componentDidMount() {
-    getCurrentRhmiConfig()
-      .then(response => {
-        if (response) {
-          this.setState(
-            {
-              config: response
-            },
-            () =>
-              this.setState({
-                dropDownItems: this.populateBackupsDropdown()
-              })
-          );
-        }
-      })
-      .catch(error => console.log(`ERROR: The error is: ${error}`));
+    const { watchRhmiConfig } = this.props;
+    const { config, activeTabKey } = this.state;
+
+      getCurrentRhmiConfig()
+        .then(response => this.updateConfigStates(response))
+        .then(() => watchRhmiConfig(config, activeTabKey == 0))
+        .catch(error => console.log(`ERROR: The error is: ${error}`));
+  }
+
+  updateConfigStates(config) {
+    if (config) {
+      this.setState(
+        {
+          config: config
+        },
+        () =>
+          this.setState({
+            dropDownItems: this.populateBackupsDropdown()
+          })
+      );
+      this.getDailyBackup()
+      this.getMaintenanceWindow()
+    }
   }
 
   exitTutorial = e => {
@@ -385,11 +407,11 @@ class SettingsPage extends React.Component {
       </DropdownItem>
     );
 
-    if (this.state.buStartTimeDisplay === '') {
+    // if (this.state.buStartTimeDisplay === '') {
       this.setState({
         buStartTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
       });
-    }
+    // }
 
     for (let i = 1; i < 24; i++) {
       sameTime = false;
@@ -682,22 +704,26 @@ SettingsPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }),
-  userWalkthroughs: PropTypes.string
+  userWalkthroughs: PropTypes.string,
+  watchRhmiConfig: PropTypes.func
 };
 
 SettingsPage.defaultProps = {
   history: {
     push: noop
   },
-  userWalkthroughs: ''
+  userWalkthroughs: '',
+  watchRhmiConfig: noop
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
+  getThread: (language, id) => console.log("dispatch"),
+  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs()),
+  watchRhmiConfig: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch),
 });
 
 const mapStateToProps = state => ({
+  ...state.middlewareReducers,
   ...state.walkthroughServiceReducers
 });
 
@@ -706,6 +732,7 @@ const ConnectedSettingsPage = connect(
   mapDispatchToProps
 )(SettingsPage);
 
+
 const RouterSettingsPage = withRouter(SettingsPage);
 
-export { RouterSettingsPage as default, ConnectedSettingsPage, SettingsPage };
+export { RouterSettingsPage, ConnectedSettingsPage as default , SettingsPage };
