@@ -38,13 +38,14 @@ import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
 import { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig } from '../../services/rhmiConfigServices';
 import { getUser } from '../../services/openshiftServices';
+
 const moment = require('moment');
 
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { userWalkthroughs, watchRhmiConfig } = this.props;
+    const { userWalkthroughs, rhmiConfigWatcher } = this.props;
 
     this.state = {
       value: userWalkthroughs || '',
@@ -116,47 +117,72 @@ class SettingsPage extends React.Component {
         activeTabKey: tabIndex
       });
 
-      watchRhmiConfig(this.state.config, tabIndex == 0)
+      rhmiConfigWatcher(this.state.config, tabIndex === 0);
     };
   }
 
   componentWillUnmount() {
-    const { watchRhmiConfig } = this.props;
+    const { rhmiConfigWatcher } = this.props;
 
-    watchRhmiConfig(this.state.config, false)
+    rhmiConfigWatcher(this.state.config, false);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let config = nextProps.middlewareServices.rhmiConfig
-      if (Object.keys(config).length > 0) {
-        this.updateConfigStates(config)
-      }
+  static getDerivedStateFromProps(nextProps) {
+    const config = nextProps.middlewareServices.rhmiConfig;
+    if (Object.keys(config).length > 0) {
+      return {
+        middlewareServices: {
+          rhmiConfig: config
+        }
+      };
+    }
+    return null;
   }
 
-  componentDidMount() {
-    const { watchRhmiConfig } = this.props;
-    const { config, activeTabKey } = this.state;
-
-      getCurrentRhmiConfig()
-        .then(response => this.updateConfigStates(response))
-        .then(() => watchRhmiConfig(config, activeTabKey == 0))
-        .catch(error => console.log(`ERROR: The error is: ${error}`));
+  componentDidUpdate(prevProps) {
+    this.updateScheduleIfRhmiConfigIsChanged(prevProps);
   }
 
-  updateConfigStates(config) {
-    if (config) {
+  updateScheduleIfRhmiConfigIsChanged(prevProps) {
+    const { middlewareServices } = this.props;
+    if (JSON.stringify(prevProps.middlewareServices.rhmiConfig) !== JSON.stringify(middlewareServices.rhmiConfig)) {
+      this.getDailyBackup();
+      this.getMaintenanceWindow();
       this.setState(
         {
-          config: config
+          buStartTimeDisplay: '',
+          config: middlewareServices.rhmiConfig
         },
         () =>
           this.setState({
             dropDownItems: this.populateBackupsDropdown()
           })
       );
-      this.getDailyBackup()
-      this.getMaintenanceWindow()
     }
+  }
+
+  componentDidMount() {
+    const { rhmiConfigWatcher } = this.props;
+    const { config, activeTabKey } = this.state;
+
+    getCurrentRhmiConfig()
+      .then(response => {
+        if (response) {
+          this.setState(
+            {
+              config: response
+            },
+            () =>
+              this.setState({
+                dropDownItems: this.populateBackupsDropdown()
+              })
+          );
+          this.getDailyBackup();
+          this.getMaintenanceWindow();
+        }
+      })
+      .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
+      .catch(error => console.log(`ERROR: The error is: ${error}`));
   }
 
   exitTutorial = e => {
@@ -407,11 +433,11 @@ class SettingsPage extends React.Component {
       </DropdownItem>
     );
 
-    // if (this.state.buStartTimeDisplay === '') {
+    if (this.state.buStartTimeDisplay === '') {
       this.setState({
         buStartTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
       });
-    // }
+    }
 
     for (let i = 1; i < 24; i++) {
       sameTime = false;
@@ -705,7 +731,8 @@ SettingsPage.propTypes = {
     push: PropTypes.func.isRequired
   }),
   userWalkthroughs: PropTypes.string,
-  watchRhmiConfig: PropTypes.func
+  middlewareServices: PropTypes.object.isRequired,
+  rhmiConfigWatcher: PropTypes.func
 };
 
 SettingsPage.defaultProps = {
@@ -713,13 +740,13 @@ SettingsPage.defaultProps = {
     push: noop
   },
   userWalkthroughs: '',
-  watchRhmiConfig: noop
+  rhmiConfigWatcher: noop
 };
 
 const mapDispatchToProps = dispatch => ({
-  getThread: (language, id) => console.log("dispatch"),
+  getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
   getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs()),
-  watchRhmiConfig: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch),
+  rhmiConfigWatcher: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch)
 });
 
 const mapStateToProps = state => ({
@@ -732,7 +759,6 @@ const ConnectedSettingsPage = connect(
   mapDispatchToProps
 )(SettingsPage);
 
-
 const RouterSettingsPage = withRouter(SettingsPage);
 
-export { RouterSettingsPage, ConnectedSettingsPage as default , SettingsPage };
+export { RouterSettingsPage, ConnectedSettingsPage as default, SettingsPage };

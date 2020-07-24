@@ -1,7 +1,6 @@
 import { findOpenshiftResource } from '../common/openshiftHelpers';
-import { update } from '../services/openshiftServices';
 import { rhmiConfigDef, rhmiConfigResource } from '../common/openshiftResourceDefinitions';
-import { poll } from './openshiftServices';
+import { poll, update } from './openshiftServices';
 import { FULFILLED_ACTION } from '../redux/helpers';
 import { middlewareTypes } from '../redux/constants';
 
@@ -44,40 +43,39 @@ const getCurrentRhmiConfig = () => {
 const updateRhmiConfig = config => update(rhmiConfigDef(configNamespace), config);
 
 /**
- * 
+ * Watches for modification in the rhmiconfig resource
+ * watchRhmiConfig(dispatch, rhmiConfig, watch)
+ * @param dispatch
+ * @param rhmiConfig
+ * @param watch
+ * @returns void
  */
 let rhmiCrPoolLister = null;
 const watchRhmiConfig = (dispatch, rhmiConfig, watch) => {
-
-  if (rhmiCrPoolLister){
-    rhmiCrPoolLister.clear()
+  if (rhmiCrPoolLister) {
+    rhmiCrPoolLister.clear();
   }
 
   if (!watch) {
-    console.log(
-      "Stopped watching rhmiconfig customer resource"
-    )
+    console.log('Stopped watching rhmiconfig customer resource');
     return;
   }
-    
-  poll(rhmiConfigDef(configNamespace))
-    .then(pollListener => {
-      rhmiCrPoolLister = pollListener;
-      console.log(
-        "Started watching rhmiconfig customer resource"
-      )
-      pollListener.onEvent(data => {
-        if (JSON.stringify(data) === JSON.stringify(rhmiConfig)) {
-          return;
-        }
 
-        rhmiConfig = data
-        dispatch({
-          type: FULFILLED_ACTION(middlewareTypes.GET_RHMICONFIG_CR),
-          payload: data
-        })
-      })
-    })
-}
+  poll(rhmiConfigDef(configNamespace)).then(pollListener => {
+    rhmiCrPoolLister = pollListener;
+    console.log('Started watching rhmiconfig customer resource');
+    pollListener.onEvent(data => {
+      if (JSON.stringify(data) === JSON.stringify(rhmiConfig)) {
+        return;
+      }
 
-export { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig};
+      rhmiConfig = data;
+      dispatch({
+        type: FULFILLED_ACTION(middlewareTypes.GET_RHMICONFIG_CR),
+        payload: data
+      });
+    });
+  });
+};
+
+export { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig };
