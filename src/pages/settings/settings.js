@@ -63,8 +63,10 @@ class SettingsPage extends React.Component {
     this.state = {
       value: userWalkthroughs || '',
       selectedRadio: 'nextRadio',
-      adminEmails: ['admin_1@redhat.com', ' admin_2@redhat.com'],
-      emailValue: '',
+      // adminEmails: ['admin_1@redhat.com', ' admin_2@redhat.com'],
+      emailContacts: '',
+      maintWait: true,
+      maintWaitDays: 0,
       isValid: true,
       isEmailValid: true,
       isBackupOpen: false,
@@ -98,8 +100,9 @@ class SettingsPage extends React.Component {
             applyFrom: 'Wed 13:00'
           },
           upgrade: {
-            alwaysImmediately: false,
-            duringNextMaintenance: false
+            contacts: '',
+            waitForMaintenance: true,
+            notBeforeDays: 7
           }
         }
       }
@@ -107,8 +110,20 @@ class SettingsPage extends React.Component {
 
     this.handleChange = (_, event) => {
       this.setState({
-        selectedRadio: event.target.value
+        selectedRadio: event.target.value,
+        canSave: true
       });
+      if (event.target.value === 'nextRadio') {
+        this.setState({
+          maintWait: true,
+          maintWaitDays: 0
+        });
+      } else {
+        this.setState({
+          maintWait: true,
+          maintWaitDays: 7
+        });
+      }
     };
 
     this.onBackupToggle = isBackupOpen => {
@@ -119,15 +134,13 @@ class SettingsPage extends React.Component {
 
     this.onMaintDayToggle = isMaintDayOpen => {
       this.setState({
-        isMaintDayOpen,
-        canSave: true
+        isMaintDayOpen
       });
     };
 
     this.onMaintTimeToggle = isMaintTimeOpen => {
       this.setState({
-        isMaintTimeOpen,
-        canSave: true
+        isMaintTimeOpen
       });
     };
 
@@ -287,7 +300,7 @@ class SettingsPage extends React.Component {
     return `${pad}${hours}:${minutes}`;
   };
 
-  saveMockConfigSettings = (e, buTime, maintDay, maintTime) => {
+  saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
 
@@ -308,6 +321,12 @@ class SettingsPage extends React.Component {
           maintenance: {
             ...this.state.config.spec.maintenance,
             applyFrom: `${maintDay} ${maintTime}`
+          },
+          upgrade: {
+            ...this.state.config.spec.upgrade,
+            contacts: emailContacts,
+            waitForMaintenance: maintWait,
+            notBeforeDays: maintWaitDays
           }
         }
       }
@@ -315,7 +334,7 @@ class SettingsPage extends React.Component {
     history.push(`/`);
   };
 
-  saveConfigSettings = (e, buTime, maintDay, maintTime) => {
+  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
 
@@ -337,6 +356,12 @@ class SettingsPage extends React.Component {
             maintenance: {
               ...this.state.config.spec.maintenance,
               applyFrom: `${maintDay} ${maintTime}`
+            },
+            upgrade: {
+              ...this.state.config.spec.upgrade,
+              contacts: emailContacts,
+              waitForMaintenance: maintWait,
+              notBeforeDays: maintWaitDays
             }
           }
         }
@@ -384,21 +409,29 @@ class SettingsPage extends React.Component {
     );
   };
 
-  handleEmailTextInputChange = emailValue => {
+  handleEmailTextInputChange = emailContacts => {
     this.setState(
       {
-        emailValue,
-        isEmailValid: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+        emailContacts,
+        isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+          emailContacts
+        )
       },
       () => {
-        if (this.state.emailValue === '') {
-          this.setState({ isEmailValid: true });
+        if (this.state.emailContacts === '') {
+          this.setState({
+            isEmailValid: true
+          });
         }
-        if (this.state.emailValue.includes('\n')) {
-          const emailArray = this.state.emailValue.split('\n');
+        if (this.state.emailContacts.includes('\n')) {
+          const emailArray = this.state.emailContacts.split('\n');
 
           for (let i = 0; i < emailArray.length; i++) {
-            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailArray[i])) {
+            if (
+              /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+                emailArray[i]
+              )
+            ) {
               this.setState({
                 isEmailValid: true
               });
@@ -412,18 +445,20 @@ class SettingsPage extends React.Component {
               });
             }
           }
-        } else if (this.state.emailValue === '') {
+        } else if (this.state.emailContacts === '') {
           this.setState({ isEmailValid: true });
         } else {
           this.setState({
-            isEmailValid: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+            isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+              emailContacts
+            )
           });
         }
       }
     );
   };
 
-  formatDate = (configDate, rawHour, rawMin) => {
+  formatDate = (configDate, rawHour, rawMin, offset, offsetType) => {
     let date = new Date();
     let dateFmt = new Date();
     let dateUtc = new Date();
@@ -431,6 +466,23 @@ class SettingsPage extends React.Component {
     let formattedDate = '';
 
     date = moment(configDate).set({ hour: rawHour, minutes: rawMin, seconds: '00' });
+    dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
+
+    dateUtc = moment.utc(date);
+    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
+
+    formattedDate = `${dateFmt} ${dateUtcFmt}`;
+    return formattedDate;
+  };
+
+  getLongMaintWindow = unformattedDate => {
+    let date = new Date();
+    let dateFmt = new Date();
+    let dateUtc = new Date();
+    let dateUtcFmt = new Date();
+    let formattedDate = '';
+
+    date = moment(unformattedDate);
     dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
 
     dateUtc = moment.utc(date);
@@ -466,7 +518,7 @@ class SettingsPage extends React.Component {
     return backupDate;
   };
 
-  getMaintenanceWindow = () => {
+  getMaintenanceWindows = () => {
     const rhmiConfig = this.state.config;
     const currentDate = new Date();
     const nextWeekDate = new Date();
@@ -486,7 +538,10 @@ class SettingsPage extends React.Component {
     const today = daysOfWeek[curDay];
     const maintDay = daysOfWeek.findIndex(dayOfWeek => dayOfWeek === rawMaintDay);
     let goodMaintDate = new Date();
+    const goodFollowingMaintDate = new Date();
     let maintDate = '';
+    let followingMaintDate = '';
+    let maintDates = [];
 
     if (today === rawMaintDay) {
       // check if maintenance day is the same day as today
@@ -504,9 +559,14 @@ class SettingsPage extends React.Component {
       goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay));
     }
 
-    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
+    goodFollowingMaintDate.setDate(goodMaintDate.getDate() + 7);
 
-    return maintDate;
+    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
+    followingMaintDate = this.formatDate(goodFollowingMaintDate, rawMaintHour, rawMaintMin);
+
+    maintDates = [maintDate, followingMaintDate];
+
+    return maintDates;
   };
 
   populateBackupsDropdown = () => {
@@ -569,7 +629,7 @@ class SettingsPage extends React.Component {
   populateMaintDropdown = () => {
     const rhmiConfig = this.state.config;
 
-    const rawMaintTime = this.getMaintenanceWindow();
+    const rawMaintTime = this.getMaintenanceWindows()[0];
     const rawMaintTimeArray = rawMaintTime.split(' (');
 
     const maintLocalTime = rawMaintTimeArray[0].replace(';', '').trim();
@@ -782,7 +842,7 @@ class SettingsPage extends React.Component {
                                   <Text>Next maintenance window:</Text>
                                 </FlexItem>
                                 <FlexItem>
-                                  <Text>{this.getMaintenanceWindow()}</Text>
+                                  <Text>{this.getMaintenanceWindows()[0]}</Text>
                                 </FlexItem>
                               </Flex>
                               <Flex className="pf-m-column pf-u-mt-lg">
@@ -839,7 +899,7 @@ class SettingsPage extends React.Component {
                                   <Text>New upgrade available as of:</Text>
                                 </FlexItem>
                                 <FlexItem>
-                                  <Text>{this.getMaintenanceWindow()}</Text>
+                                  <Text>[TBD]</Text>
                                 </FlexItem>
                               </Flex>
                               <Flex className="pf-m-column pf-u-mt-lg">
@@ -850,7 +910,7 @@ class SettingsPage extends React.Component {
                                   isChecked={this.state.selectedRadio === 'nextRadio'}
                                   name="apply-upgrades-radio"
                                   onChange={this.handleChange}
-                                  label="During the next maintenance window - [DATE]"
+                                  label={`During the next maintenance window - ${this.getMaintenanceWindows()[0]}`}
                                   id="nextRadio"
                                   value="nextRadio"
                                 />
@@ -858,7 +918,7 @@ class SettingsPage extends React.Component {
                                   isChecked={this.state.selectedRadio === 'followingRadio'}
                                   name="apply-upgrades-radio"
                                   onChange={this.handleChange}
-                                  label="During the following maintenance window - [DATE]"
+                                  label={`During the following maintenance window - ${this.getMaintenanceWindows()[1]}`}
                                   id="followingRadio"
                                   value="followingRadio"
                                 />
@@ -873,7 +933,7 @@ class SettingsPage extends React.Component {
                                     be notified, add their email addresses.
                                   </Text>
                                 </FlexItem>
-                                <Text className="pf-m-spacer-sm integr8ly__text-small">
+                                {/* <Text className="pf-m-spacer-sm integr8ly__text-small">
                                   <b>Default administrator email addresses</b>
                                 </Text>
                                 <TextInput
@@ -882,7 +942,7 @@ class SettingsPage extends React.Component {
                                   value={this.state.adminEmails}
                                   type="text"
                                   aria-label="default administrator email addresses"
-                                />
+                                /> */}
                                 <FormGroup
                                   label="Additional email addresses"
                                   type="text"
@@ -895,7 +955,7 @@ class SettingsPage extends React.Component {
                                     validated={isEmailValid ? 'default' : 'error'}
                                     // value={this.state.value}
                                     style={{ width: '50%' }}
-                                    value={this.state.emailValue}
+                                    value={this.state.emailContacts}
                                     type="text"
                                     onChange={this.handleEmailTextInputChange}
                                     aria-label="additional email addresses"
@@ -927,17 +987,23 @@ class SettingsPage extends React.Component {
                                   e,
                                   this.state.buStartTimeDisplay,
                                   this.state.maintDayDisplay,
-                                  this.state.maintTimeDisplay
+                                  this.state.maintTimeDisplay,
+                                  this.state.emailContacts,
+                                  this.state.maintWait,
+                                  this.state.maintWaitDays
                                 )
                             : e =>
                                 this.saveConfigSettings(
                                   e,
                                   this.state.buStartTimeDisplay,
                                   this.state.maintDayDisplay,
-                                  this.state.maintTimeDisplay
+                                  this.state.maintTimeDisplay,
+                                  this.state.emailContacts,
+                                  this.state.maintWait,
+                                  this.state.maintWaitDays
                                 )
                         }
-                        isDisabled={!this.state.canSave}
+                        isDisabled={!this.state.canSave || !this.state.isEmailValid}
                       >
                         Save
                       </Button>{' '}
