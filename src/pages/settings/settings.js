@@ -63,7 +63,6 @@ class SettingsPage extends React.Component {
     this.state = {
       value: userWalkthroughs || '',
       selectedRadio: 'nextRadio',
-      // adminEmails: ['admin_1@redhat.com', ' admin_2@redhat.com'],
       emailContacts: '',
       maintWait: true,
       maintWaitDays: 0,
@@ -255,7 +254,8 @@ class SettingsPage extends React.Component {
                 backupDropdownItems: this.populateBackupsDropdown(),
                 maintDropdownItems: this.populateMaintDropdown(),
                 maintDayDropdownItems: this.populateMaintDayDropdown(),
-                emailContacts: this.populateEmailField()
+                emailContacts: this.populateEmailField(),
+                selectedRadio: this.populateUpgradeRadio()
               })
           );
           this.getDailyBackup();
@@ -264,7 +264,6 @@ class SettingsPage extends React.Component {
       })
       .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
       .catch(error => console.log(`ERROR: The error is: ${error}`));
-    this.populateUpgradeRadio();
   }
 
   exitTutorial = e => {
@@ -715,16 +714,20 @@ class SettingsPage extends React.Component {
     const rhmiConfig = this.state.config;
     const wait = rhmiConfig.spec.upgrade.waitForMaintenance;
     const days = rhmiConfig.spec.upgrade.notBeforeDays;
+    let radio = '';
 
     if (wait === true && days === 0) {
       this.setState({
         selectedRadio: 'nextRadio'
       });
+      radio = 'nextRadio';
     } else {
       this.setState({
         selectedRadio: 'followingRadio'
       });
+      radio = 'followingRadio';
     }
+    return radio;
   };
 
   populateEmailField = () => {
