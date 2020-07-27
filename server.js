@@ -144,6 +144,12 @@ app.get('/about', (_, res) => {
   });
 });
 
+app.get('/upgrade_data', (_, res) => {
+  res.json({
+    upgradeData: JSON.parse(process.env.UPGRADE_DATA)
+  });
+});
+
 app.get('/about/walkthrough/:walkthroughId', (req, res) => {
   const { walkthroughId } = req.params;
   const walkthrough = walkthroughs.find(w => w.id === walkthroughId);
