@@ -75,10 +75,11 @@ class SettingsPage extends React.Component {
       activeTabKey: 0,
       canSave: false,
       buStartTimeDisplay: '',
-      maintDayDisplay: 'Select day',
+      maintDayDisplay: '',
       maintTimeDisplay: '',
       backupDropdownItems: [],
       maintDropdownItems: [],
+      maintDayDropdownItems: [],
       showSettingsAlert: true,
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
@@ -97,7 +98,7 @@ class SettingsPage extends React.Component {
             applyOn: '00:00'
           },
           maintenance: {
-            applyFrom: 'Wed 13:00'
+            applyFrom: 'Thu 13:00'
           },
           upgrade: {
             contacts: '',
@@ -252,7 +253,9 @@ class SettingsPage extends React.Component {
             () =>
               this.setState({
                 backupDropdownItems: this.populateBackupsDropdown(),
-                maintDropdownItems: this.populateMaintDropdown()
+                maintDropdownItems: this.populateMaintDropdown(),
+                maintDayDropdownItems: this.populateMaintDayDropdown(),
+                emailContacts: this.populateEmailField()
               })
           );
           this.getDailyBackup();
@@ -261,6 +264,7 @@ class SettingsPage extends React.Component {
       })
       .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
       .catch(error => console.log(`ERROR: The error is: ${error}`));
+    this.populateUpgradeRadio();
   }
 
   exitTutorial = e => {
@@ -420,7 +424,8 @@ class SettingsPage extends React.Component {
       () => {
         if (this.state.emailContacts === '') {
           this.setState({
-            isEmailValid: true
+            isEmailValid: true,
+            canSave: true
           });
         }
         if (this.state.emailContacts.includes('\n')) {
@@ -433,25 +438,29 @@ class SettingsPage extends React.Component {
               )
             ) {
               this.setState({
-                isEmailValid: true
+                isEmailValid: true,
+                canSave: true
               });
             } else if (emailArray[i] === '\n' || emailArray[i] === '') {
               this.setState({
-                isEmailValid: true
+                isEmailValid: true,
+                canSave: true
               });
             } else {
               this.setState({
-                isEmailValid: false
+                isEmailValid: false,
+                canSave: false
               });
             }
           }
         } else if (this.state.emailContacts === '') {
-          this.setState({ isEmailValid: true });
+          this.setState({ isEmailValid: true, canSave: true });
         } else {
           this.setState({
             isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
               emailContacts
-            )
+            ),
+            canSave: true
           });
         }
       }
@@ -684,12 +693,50 @@ class SettingsPage extends React.Component {
   };
 
   populateMaintDayDropdown = () => {
+    const rhmiConfig = this.state.config;
+    const maint = rhmiConfig.spec.maintenance.applyFrom;
+    const maintDay = maint.split(' ')[0];
+
+    if (this.state.maintDayDisplay === '') {
+      this.setState({
+        maintDayDisplay: maintDay
+      });
+    }
+
     const dropdownItems = daysOfWeek.map((day, key) => (
       <DropdownItem key={key} component="button">
         {day}
       </DropdownItem>
     ));
     return dropdownItems;
+  };
+
+  populateUpgradeRadio = () => {
+    const rhmiConfig = this.state.config;
+    const wait = rhmiConfig.spec.upgrade.waitForMaintenance;
+    const days = rhmiConfig.spec.upgrade.notBeforeDays;
+
+    if (wait === true && days === 0) {
+      this.setState({
+        selectedRadio: 'nextRadio'
+      });
+    } else {
+      this.setState({
+        selectedRadio: 'followingRadio'
+      });
+    }
+  };
+
+  populateEmailField = () => {
+    const rhmiConfig = this.state.config;
+    const emails = rhmiConfig.spec.upgrade.contacts;
+
+    if (this.state.emailContacts === '') {
+      this.setState({
+        emailContacts: emails
+      });
+    }
+    return emails;
   };
 
   render() {
@@ -758,9 +805,6 @@ class SettingsPage extends React.Component {
                   ref={this.contentRef1}
                   aria-label="Tab item 1"
                 >
-                  {/* <Text className="pf-u-mt-lg">
-                  The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
-                </Text> */}
                   <Card className="pf-u-w-100">
                     {showSettingsAlert &&
                       isAlertOpen && (
@@ -821,8 +865,8 @@ class SettingsPage extends React.Component {
                                 />
                               </Flex>
                             </FormGroup>
-                            <Text className="integr8ly__text-small--m-secondary">
-                              Backups may not be scheduled during the first hour of your maintenance window.{' '}
+                            <Text className="integr8ly__text-small--m-secondary pf-u-mt-sm">
+                              Backups cannot be scheduled during the first hour of your maintenance window.{' '}
                             </Text>
                           </FlexItem>
                           <FlexItem>
@@ -859,7 +903,11 @@ class SettingsPage extends React.Component {
                                       </DropdownToggle>
                                     }
                                     isOpen={this.state.isMaintDayOpen}
-                                    dropdownItems={this.populateMaintDayDropdown()}
+                                    dropdownItems={
+                                      window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                                        ? this.populateMaintDayDropdown()
+                                        : this.state.maintDayDropdownItems
+                                    }
                                   />
                                   <Dropdown
                                     className="integr8ly__dropdown-menu"
@@ -887,30 +935,21 @@ class SettingsPage extends React.Component {
                           </FlexItem>
                           <FlexItem className="pf-m-spacer-sm">
                             <Text className="integr8ly__text-small--m-secondary">
-                              By default, upgrades are performed during the maintenance window that follows the next
-                              one. However, you can choose the next maintenance window instead. During an upgrade, the
-                              cluster or services might be unavailable.
+                              Available upgrades are applied during the selected maintenance window and can temporarily
+                              disrupt access to your cluster or services.
                             </Text>
                           </FlexItem>
                           <FlexItem>
                             <FormGroup fieldId="maintenance-window-form">
-                              <Flex>
-                                <FlexItem className="pf-m-spacer-lg">
-                                  <Text>New upgrade available as of:</Text>
-                                </FlexItem>
-                                <FlexItem>
-                                  <Text>[TBD]</Text>
-                                </FlexItem>
-                              </Flex>
-                              <Flex className="pf-m-column pf-u-mt-lg">
+                              <Flex className="pf-m-column pf-u-mt-sm">
                                 <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                  <b>Apply upgrades</b>
+                                  <b>Maintenance window to apply your upgrades</b>
                                 </Text>
                                 <Radio
                                   isChecked={this.state.selectedRadio === 'nextRadio'}
                                   name="apply-upgrades-radio"
                                   onChange={this.handleChange}
-                                  label={`During the next maintenance window - ${this.getMaintenanceWindows()[0]}`}
+                                  label={`First available - ${this.getMaintenanceWindows()[0]}`}
                                   id="nextRadio"
                                   value="nextRadio"
                                 />
@@ -918,7 +957,7 @@ class SettingsPage extends React.Component {
                                   isChecked={this.state.selectedRadio === 'followingRadio'}
                                   name="apply-upgrades-radio"
                                   onChange={this.handleChange}
-                                  label={`During the following maintenance window - ${this.getMaintenanceWindows()[1]}`}
+                                  label={`Second available - ${this.getMaintenanceWindows()[1]}`}
                                   id="followingRadio"
                                   value="followingRadio"
                                 />
@@ -933,27 +972,15 @@ class SettingsPage extends React.Component {
                                     be notified, add their email addresses.
                                   </Text>
                                 </FlexItem>
-                                {/* <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                  <b>Default administrator email addresses</b>
-                                </Text>
-                                <TextInput
-                                  style={{ width: '50%' }}
-                                  isDisabled
-                                  value={this.state.adminEmails}
-                                  type="text"
-                                  aria-label="default administrator email addresses"
-                                /> */}
                                 <FormGroup
                                   label="Additional email addresses"
                                   type="text"
-                                  // helperText="Example: https://github.com/integr8ly/solution-pattern-template.git"
                                   helperTextInvalid="Email syntax is incorrect. Example: myemail@myaddress.com"
                                   fieldId="email-formgroup"
                                   validated={isEmailValid ? 'default' : 'error'}
                                 >
                                   <TextInput
                                     validated={isEmailValid ? 'default' : 'error'}
-                                    // value={this.state.value}
                                     style={{ width: '50%' }}
                                     value={this.state.emailContacts}
                                     type="text"
