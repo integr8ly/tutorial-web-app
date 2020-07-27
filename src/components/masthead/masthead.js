@@ -39,9 +39,9 @@ class Masthead extends React.Component {
     this.state = {
       isHelpDropdownOpen: false,
       isUserDropdownOpen: false,
-      showAboutModal: false,
-      showLogo: false,
-      appList: null
+      showAboutModal: false
+      // showLogo: false,
+      // appList: null
     };
 
     this.onTitleClick = this.onTitleClick.bind(this);
