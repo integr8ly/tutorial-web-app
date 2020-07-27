@@ -232,7 +232,11 @@ class SettingsPage extends React.Component {
         },
         () =>
           this.setState({
-            dropDownItems: this.populateBackupsDropdown()
+            backupDropdownItems: this.populateBackupsDropdown(),
+            maintDropdownItems: this.populateMaintDropdown(),
+            maintDayDropdownItems: this.populateMaintDayDropdown(),
+            emailContacts: this.populateEmailField(),
+            selectedRadio: this.populateUpgradeRadio()
           })
       );
     }
