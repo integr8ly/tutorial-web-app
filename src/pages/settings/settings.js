@@ -24,12 +24,14 @@ import {
   Page,
   PageSection,
   PageSectionVariants,
+  Radio,
   SkipToContent,
   Tabs,
   Tab,
   TabContent,
   Text,
   TextArea,
+  TextInput,
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
@@ -43,6 +45,15 @@ import { getUser } from '../../services/openshiftServices';
 
 const moment = require('moment');
 
+const daysOfWeek = new Array(7);
+daysOfWeek[0] = 'Sun';
+daysOfWeek[1] = 'Mon';
+daysOfWeek[2] = 'Tue';
+daysOfWeek[3] = 'Wed';
+daysOfWeek[4] = 'Thu';
+daysOfWeek[5] = 'Fri';
+daysOfWeek[6] = 'Sat';
+
 class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -51,12 +62,23 @@ class SettingsPage extends React.Component {
 
     this.state = {
       value: userWalkthroughs || '',
+      selectedRadio: 'nextRadio',
+      emailContacts: '',
+      maintWait: true,
+      maintWaitDays: 0,
       isValid: true,
-      isOpen: false,
+      isEmailValid: true,
+      isBackupOpen: false,
+      isMaintDayOpen: false,
+      isMaintTimeOpen: false,
       activeTabKey: 0,
       canSave: false,
       buStartTimeDisplay: '',
-      dropDownItems: [],
+      maintDayDisplay: '',
+      maintTimeDisplay: '',
+      backupDropdownItems: [],
+      maintDropdownItems: [],
+      maintDayDropdownItems: [],
       showSettingsAlert: true,
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
@@ -75,19 +97,50 @@ class SettingsPage extends React.Component {
             applyOn: '00:00'
           },
           maintenance: {
-            applyFrom: 'Wed 13:00'
+            applyFrom: 'Thu 13:00'
           },
           upgrade: {
-            alwaysImmediately: false,
-            duringNextMaintenance: false
+            contacts: '',
+            waitForMaintenance: true,
+            notBeforeDays: 7
           }
         }
       }
     };
 
-    this.onBackupToggle = isOpen => {
+    this.handleChange = (_, event) => {
       this.setState({
-        isOpen
+        selectedRadio: event.target.value,
+        canSave: true
+      });
+      if (event.target.value === 'nextRadio') {
+        this.setState({
+          maintWait: true,
+          maintWaitDays: 0
+        });
+      } else {
+        this.setState({
+          maintWait: true,
+          maintWaitDays: 7
+        });
+      }
+    };
+
+    this.onBackupToggle = isBackupOpen => {
+      this.setState({
+        isBackupOpen
+      });
+    };
+
+    this.onMaintDayToggle = isMaintDayOpen => {
+      this.setState({
+        isMaintDayOpen
+      });
+    };
+
+    this.onMaintTimeToggle = isMaintTimeOpen => {
+      this.setState({
+        isMaintTimeOpen
       });
     };
 
@@ -102,6 +155,22 @@ class SettingsPage extends React.Component {
     this.onAlertClose = () => {
       window.localStorage.setItem('showSettingsAlert', 'false');
       this.setState({ showSettingsAlert: false });
+    };
+
+    this.onMaintDaySelect = event => {
+      this.setState({
+        isOpen: !this.state.isMaintDayOpen,
+        maintDayDisplay: event.target.innerText,
+        canSave: true
+      });
+    };
+
+    this.onMaintTimeSelect = event => {
+      this.setState({
+        isOpen: !this.state.isMaintTimeOpen,
+        maintTimeDisplay: event.target.innerText,
+        canSave: true
+      });
     };
 
     getUserWalkthroughs().then(response => {
@@ -163,7 +232,11 @@ class SettingsPage extends React.Component {
         },
         () =>
           this.setState({
-            dropDownItems: this.populateBackupsDropdown()
+            backupDropdownItems: this.populateBackupsDropdown(),
+            maintDropdownItems: this.populateMaintDropdown(),
+            maintDayDropdownItems: this.populateMaintDayDropdown(),
+            emailContacts: this.populateEmailField(),
+            selectedRadio: this.populateUpgradeRadio()
           })
       );
     }
@@ -182,7 +255,11 @@ class SettingsPage extends React.Component {
             },
             () =>
               this.setState({
-                dropDownItems: this.populateBackupsDropdown()
+                backupDropdownItems: this.populateBackupsDropdown(),
+                maintDropdownItems: this.populateMaintDropdown(),
+                maintDayDropdownItems: this.populateMaintDayDropdown(),
+                emailContacts: this.populateEmailField(),
+                selectedRadio: this.populateUpgradeRadio()
               })
           );
           this.getDailyBackup();
@@ -209,29 +286,6 @@ class SettingsPage extends React.Component {
     });
   };
 
-  saveMockBackupSettings = (e, value) => {
-    e.preventDefault();
-    const { history } = this.props;
-
-    value = this.convertTimeTo24Hr(value);
-
-    this.setState({ canSave: false });
-
-    this.setState({
-      config: {
-        ...this.state.config,
-        spec: {
-          ...this.state.config.spec,
-          backup: {
-            ...this.state.config.spec.backup,
-            applyOn: value
-          }
-        }
-      }
-    });
-    history.push(`/`);
-  };
-
   convertTimeTo24Hr = time12h => {
     const [time, modifier] = time12h.split(' ');
     let hours = time.split(':')[0];
@@ -253,11 +307,46 @@ class SettingsPage extends React.Component {
     return `${pad}${hours}:${minutes}`;
   };
 
-  saveBackupSettings = (e, value) => {
+  saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
 
-    value = this.convertTimeTo24Hr(value);
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
+
+    this.setState({ canSave: false });
+
+    this.setState({
+      config: {
+        ...this.state.config,
+        spec: {
+          ...this.state.config.spec,
+          backup: {
+            ...this.state.config.spec.backup,
+            applyOn: buTime
+          },
+          maintenance: {
+            ...this.state.config.spec.maintenance,
+            applyFrom: `${maintDay} ${maintTime}`
+          },
+          upgrade: {
+            ...this.state.config.spec.upgrade,
+            contacts: emailContacts,
+            waitForMaintenance: maintWait,
+            notBeforeDays: maintWaitDays
+          }
+        }
+      }
+    });
+    history.push(`/`);
+  };
+
+  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
+    e.preventDefault();
+    const { history } = this.props;
+
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
 
     this.setState({ canSave: false });
 
@@ -269,7 +358,17 @@ class SettingsPage extends React.Component {
             ...this.state.config.spec,
             backup: {
               ...this.state.config.spec.backup,
-              applyOn: value
+              applyOn: buTime
+            },
+            maintenance: {
+              ...this.state.config.spec.maintenance,
+              applyFrom: `${maintDay} ${maintTime}`
+            },
+            upgrade: {
+              ...this.state.config.spec.upgrade,
+              contacts: emailContacts,
+              waitForMaintenance: maintWait,
+              notBeforeDays: maintWaitDays
             }
           }
         }
@@ -317,7 +416,61 @@ class SettingsPage extends React.Component {
     );
   };
 
-  formatDate = (configDate, rawHour, rawMin) => {
+  handleEmailTextInputChange = emailContacts => {
+    this.setState(
+      {
+        emailContacts,
+        isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+          emailContacts
+        )
+      },
+      () => {
+        if (this.state.emailContacts === '') {
+          this.setState({
+            isEmailValid: true,
+            canSave: true
+          });
+        }
+        if (this.state.emailContacts.includes('\n')) {
+          const emailArray = this.state.emailContacts.split('\n');
+
+          for (let i = 0; i < emailArray.length; i++) {
+            if (
+              /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+                emailArray[i]
+              )
+            ) {
+              this.setState({
+                isEmailValid: true,
+                canSave: true
+              });
+            } else if (emailArray[i] === '\n' || emailArray[i] === '') {
+              this.setState({
+                isEmailValid: true,
+                canSave: true
+              });
+            } else {
+              this.setState({
+                isEmailValid: false,
+                canSave: false
+              });
+            }
+          }
+        } else if (this.state.emailContacts === '') {
+          this.setState({ isEmailValid: true, canSave: true });
+        } else {
+          this.setState({
+            isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
+              emailContacts
+            ),
+            canSave: true
+          });
+        }
+      }
+    );
+  };
+
+  formatDate = (configDate, rawHour, rawMin, offset, offsetType) => {
     let date = new Date();
     let dateFmt = new Date();
     let dateUtc = new Date();
@@ -328,7 +481,24 @@ class SettingsPage extends React.Component {
     dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
 
     dateUtc = moment.utc(date);
-    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; hh:mm UTC)');
+    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
+
+    formattedDate = `${dateFmt} ${dateUtcFmt}`;
+    return formattedDate;
+  };
+
+  getLongMaintWindow = unformattedDate => {
+    let date = new Date();
+    let dateFmt = new Date();
+    let dateUtc = new Date();
+    let dateUtcFmt = new Date();
+    let formattedDate = '';
+
+    date = moment(unformattedDate);
+    dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
+
+    dateUtc = moment.utc(date);
+    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
 
     formattedDate = `${dateFmt} ${dateUtcFmt}`;
     return formattedDate;
@@ -360,7 +530,7 @@ class SettingsPage extends React.Component {
     return backupDate;
   };
 
-  getMaintenanceWindow = () => {
+  getMaintenanceWindows = () => {
     const rhmiConfig = this.state.config;
     const currentDate = new Date();
     const nextWeekDate = new Date();
@@ -377,19 +547,13 @@ class SettingsPage extends React.Component {
     const curDay = currentDate.getDay();
     const curHour = currentDate.getHours();
 
-    const daysOfWeek = new Array(7);
-    daysOfWeek[0] = 'Sun';
-    daysOfWeek[1] = 'Mon';
-    daysOfWeek[2] = 'Tue';
-    daysOfWeek[3] = 'Wed';
-    daysOfWeek[4] = 'Thu';
-    daysOfWeek[5] = 'Fri';
-    daysOfWeek[6] = 'Sat';
-
     const today = daysOfWeek[curDay];
     const maintDay = daysOfWeek.findIndex(dayOfWeek => dayOfWeek === rawMaintDay);
     let goodMaintDate = new Date();
+    const goodFollowingMaintDate = new Date();
     let maintDate = '';
+    let followingMaintDate = '';
+    let maintDates = [];
 
     if (today === rawMaintDay) {
       // check if maintenance day is the same day as today
@@ -407,9 +571,14 @@ class SettingsPage extends React.Component {
       goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay));
     }
 
-    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
+    goodFollowingMaintDate.setDate(goodMaintDate.getDate() + 7);
 
-    return maintDate;
+    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
+    followingMaintDate = this.formatDate(goodFollowingMaintDate, rawMaintHour, rawMaintMin);
+
+    maintDates = [maintDate, followingMaintDate];
+
+    return maintDates;
   };
 
   populateBackupsDropdown = () => {
@@ -469,8 +638,116 @@ class SettingsPage extends React.Component {
     return dropDownItems;
   };
 
+  populateMaintDropdown = () => {
+    const rhmiConfig = this.state.config;
+
+    const rawMaintTime = this.getMaintenanceWindows()[0];
+    const rawMaintTimeArray = rawMaintTime.split(' (');
+
+    const maintLocalTime = rawMaintTimeArray[0].replace(';', '').trim();
+    const maintUtcTime = rawMaintTimeArray[1]
+      .replace(';', '')
+      .substring(0, rawMaintTimeArray[1].indexOf(' UTC)'))
+      .trim();
+    const firstTimeHoursOnly = moment(maintLocalTime).format('h:mm a');
+    const firstTimeUtcHoursOnly = moment(maintUtcTime).format('h:mm a');
+
+    const dropDownItems = [];
+    let maintTime = Date();
+    let utcMaintTime = Date();
+
+    const cfgDailyBackupTime = rhmiConfig.spec.backup.applyOn;
+    const cfgDailyBackupHours = cfgDailyBackupTime.split(':')[0];
+    const cfgBackupTime = `${cfgDailyBackupHours}:00`;
+    let sameTime;
+
+    dropDownItems.push(
+      <DropdownItem key="0" component="button" isDisabled={sameTime}>
+        {firstTimeHoursOnly} ({firstTimeUtcHoursOnly} UTC)
+      </DropdownItem>
+    );
+
+    if (this.state.maintTimeDisplay === '') {
+      this.setState({
+        maintTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
+      });
+    }
+
+    for (let i = 1; i < 24; i++) {
+      sameTime = false;
+      maintTime = moment(maintLocalTime)
+        .add(i, 'hours')
+        .format('h:mm a');
+      utcMaintTime = moment(maintUtcTime)
+        .add(i, 'hours')
+        .format('h:mm a');
+
+      if (this.convertTimeTo24Hr(maintTime) === cfgBackupTime) {
+        sameTime = true;
+      }
+
+      dropDownItems.push(
+        <DropdownItem key={i} component="button" isDisabled={sameTime}>
+          {maintTime} ({utcMaintTime} UTC)
+        </DropdownItem>
+      );
+    }
+    return dropDownItems;
+  };
+
+  populateMaintDayDropdown = () => {
+    const rhmiConfig = this.state.config;
+    const maint = rhmiConfig.spec.maintenance.applyFrom;
+    const maintDay = maint.split(' ')[0];
+
+    if (this.state.maintDayDisplay === '') {
+      this.setState({
+        maintDayDisplay: maintDay
+      });
+    }
+
+    const dropdownItems = daysOfWeek.map((day, key) => (
+      <DropdownItem key={key} component="button">
+        {day}
+      </DropdownItem>
+    ));
+    return dropdownItems;
+  };
+
+  populateUpgradeRadio = () => {
+    const rhmiConfig = this.state.config;
+    const wait = rhmiConfig.spec.upgrade.waitForMaintenance;
+    const days = rhmiConfig.spec.upgrade.notBeforeDays;
+    let radio = '';
+
+    if (wait === true && days === 0) {
+      this.setState({
+        selectedRadio: 'nextRadio'
+      });
+      radio = 'nextRadio';
+    } else {
+      this.setState({
+        selectedRadio: 'followingRadio'
+      });
+      radio = 'followingRadio';
+    }
+    return radio;
+  };
+
+  populateEmailField = () => {
+    const rhmiConfig = this.state.config;
+    const emails = rhmiConfig.spec.upgrade.contacts;
+
+    if (this.state.emailContacts === '') {
+      this.setState({
+        emailContacts: emails
+      });
+    }
+    return emails;
+  };
+
   render() {
-    const { value, isValid, showSettingsAlert } = this.state;
+    const { value, isValid, isEmailValid, showSettingsAlert } = this.state;
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
@@ -483,8 +760,8 @@ class SettingsPage extends React.Component {
       isOSv4 = false;
     }
 
-    // local testing purposes only - toggle true for simulating OS3, false for OS4
-    // isOSv4 = true;
+    // local testing purposes only - uncomment to test config tab (simulate OS4)
+    isOSv4 = true;
 
     // show settings alert on first render
     if (window.localStorage.getItem('showSettingsAlert') === null)
@@ -535,9 +812,6 @@ class SettingsPage extends React.Component {
                   ref={this.contentRef1}
                   aria-label="Tab item 1"
                 >
-                  {/* <Text className="pf-u-mt-lg">
-                  The schedule for this cluster - [cluster ID] - was last updated by [user] on [date].
-                </Text> */}
                   <Card className="pf-u-w-100">
                     {showSettingsAlert &&
                       isAlertOpen && (
@@ -559,23 +833,23 @@ class SettingsPage extends React.Component {
                     </CardTitle>
                     <CardBody>
                       <Flex className="pf-m-column">
-                        <FlexItem className="pf-m-spacer-sm">
-                          <Text className="integr8ly__text-small--m-secondary">
-                            The backup process will not impact the availability of your cluster.
-                          </Text>
-                        </FlexItem>
-                        <FlexItem className="pf-m-spacer-md">
-                          <Flex>
-                            <FlexItem className="pf-m-spacer-lg">
-                              <Text>Next daily backup:</Text>
-                            </FlexItem>
-                            <FlexItem>
-                              <Text>{this.getDailyBackup()}</Text>
-                            </FlexItem>
-                          </Flex>
-                        </FlexItem>
-                        <FlexItem>
-                          <Form>
+                        <Form>
+                          <FlexItem className="pf-m-spacer-sm">
+                            <Text className="integr8ly__text-small--m-secondary">
+                              The backup process will not impact the availability of your cluster.
+                            </Text>
+                          </FlexItem>
+                          <FlexItem className="pf-m-spacer-md">
+                            <Flex>
+                              <FlexItem className="pf-m-spacer-lg">
+                                <Text>Next daily backup:</Text>
+                              </FlexItem>
+                              <FlexItem>
+                                <Text>{this.getDailyBackup()}</Text>
+                              </FlexItem>
+                            </Flex>
+                          </FlexItem>
+                          <FlexItem>
                             <FormGroup fieldId="backup-start-time-form">
                               <Flex className="pf-m-column">
                                 <Text className="pf-m-spacer-sm integr8ly__text-small">
@@ -589,39 +863,150 @@ class SettingsPage extends React.Component {
                                       {this.state.buStartTimeDisplay}
                                     </DropdownToggle>
                                   }
-                                  isOpen={this.state.isOpen}
+                                  isOpen={this.state.isBackupOpen}
                                   dropdownItems={
                                     window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
                                       ? this.populateBackupsDropdown()
-                                      : this.state.dropDownItems
+                                      : this.state.backupDropdownItems
                                   }
                                 />
                               </Flex>
                             </FormGroup>
-                          </Form>
-                          <Text className="integr8ly__text-small--m-secondary">
-                            Backups may not be scheduled during the first hour of your maintenance window.{' '}
-                          </Text>
-                        </FlexItem>
-                        <FlexItem>
-                          <Title headingLevel="h5" size="lg">
-                            Weekly maintenance window
-                          </Title>
-                        </FlexItem>
-                        <FlexItem>
-                          <Form>
+                            <Text className="integr8ly__text-small--m-secondary pf-u-mt-sm">
+                              Backups cannot be scheduled during the first hour of your maintenance window.{' '}
+                            </Text>
+                          </FlexItem>
+                          <FlexItem>
+                            <Title headingLevel="h5" size="lg" className="pf-u-mt-lg">
+                              Weekly maintenance window
+                            </Title>
+                          </FlexItem>
+                          <FlexItem className="pf-m-spacer-sm">
+                            <Text className="integr8ly__text-small--m-secondary">
+                              Set the start time of your 6-hour maintenance window.
+                            </Text>
+                          </FlexItem>
+                          <FlexItem>
                             <FormGroup fieldId="maintenance-window-form">
                               <Flex>
                                 <FlexItem className="pf-m-spacer-lg">
                                   <Text>Next maintenance window:</Text>
                                 </FlexItem>
                                 <FlexItem>
-                                  <Text>{this.getMaintenanceWindow()}</Text>
+                                  <Text>{this.getMaintenanceWindows()[0]}</Text>
                                 </FlexItem>
                               </Flex>
+                              <Flex className="pf-m-column pf-u-mt-lg">
+                                <Text className="pf-m-spacer-sm integr8ly__text-small">
+                                  <b>Day and start time for your maintenance</b>
+                                </Text>
+                                <Flex>
+                                  <Dropdown
+                                    className="integr8ly__dropdown-menu"
+                                    onSelect={this.onMaintDaySelect}
+                                    toggle={
+                                      <DropdownToggle id="toggle-day" onToggle={this.onMaintDayToggle}>
+                                        {this.state.maintDayDisplay}
+                                      </DropdownToggle>
+                                    }
+                                    isOpen={this.state.isMaintDayOpen}
+                                    dropdownItems={
+                                      window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                                        ? this.populateMaintDayDropdown()
+                                        : this.state.maintDayDropdownItems
+                                    }
+                                  />
+                                  <Dropdown
+                                    className="integr8ly__dropdown-menu"
+                                    onSelect={this.onMaintTimeSelect}
+                                    toggle={
+                                      <DropdownToggle id="toggle-maint-time" onToggle={this.onMaintTimeToggle}>
+                                        {this.state.maintTimeDisplay}
+                                      </DropdownToggle>
+                                    }
+                                    isOpen={this.state.isMaintTimeOpen}
+                                    dropdownItems={
+                                      window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
+                                        ? this.populateMaintDropdown()
+                                        : this.state.maintDropdownItems
+                                    }
+                                  />
+                                </Flex>
+                              </Flex>
                             </FormGroup>
-                          </Form>
-                        </FlexItem>
+                          </FlexItem>
+                          <FlexItem>
+                            <Title headingLevel="h5" size="lg" className="pf-u-mt-lg">
+                              Managed Integration upgrades
+                            </Title>
+                          </FlexItem>
+                          <FlexItem className="pf-m-spacer-sm">
+                            <Text className="integr8ly__text-small--m-secondary">
+                              Available upgrades are applied during the selected maintenance window and can temporarily
+                              disrupt access to your cluster or services.
+                            </Text>
+                          </FlexItem>
+                          <FlexItem>
+                            <FormGroup fieldId="maintenance-window-form">
+                              <Flex className="pf-m-column pf-u-mt-sm">
+                                <Text className="pf-m-spacer-sm integr8ly__text-small">
+                                  <b>Maintenance window to apply your upgrades</b>
+                                </Text>
+                                <Radio
+                                  isChecked={this.state.selectedRadio === 'nextRadio'}
+                                  name="apply-upgrades-radio"
+                                  onChange={this.handleChange}
+                                  label={`First available - ${this.getMaintenanceWindows()[0]}`}
+                                  id="nextRadio"
+                                  value="nextRadio"
+                                />
+                                <Radio
+                                  isChecked={this.state.selectedRadio === 'followingRadio'}
+                                  name="apply-upgrades-radio"
+                                  onChange={this.handleChange}
+                                  label={`Second available - ${this.getMaintenanceWindows()[1]}`}
+                                  id="followingRadio"
+                                  value="followingRadio"
+                                />
+                                <FlexItem>
+                                  <Title headingLevel="h6" size="sm" className="pf-u-mt-md">
+                                    Upgrade notifications
+                                  </Title>
+                                </FlexItem>
+                                <FlexItem className="pf-m-spacer-sm">
+                                  <Text className="integr8ly__text-small--m-secondary">
+                                    All administrators are notified when an upgrade is available. If other users should
+                                    be notified, add their email addresses.
+                                  </Text>
+                                </FlexItem>
+                                <FormGroup
+                                  label="Additional email addresses"
+                                  type="text"
+                                  helperTextInvalid="Email syntax is incorrect. Example: myemail@myaddress.com"
+                                  fieldId="email-formgroup"
+                                  validated={isEmailValid ? 'default' : 'error'}
+                                >
+                                  <TextInput
+                                    validated={isEmailValid ? 'default' : 'error'}
+                                    style={{ width: '50%' }}
+                                    value={this.state.emailContacts}
+                                    type="text"
+                                    onChange={this.handleEmailTextInputChange}
+                                    aria-label="additional email addresses"
+                                  />
+                                </FormGroup>
+                                <a
+                                  href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html/administering_red_hat_managed_integration_2/index#as_customizing-rhmi-cluster_admin-guide"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
+                                  className="pf-u-mt-sm"
+                                >
+                                  Learn more about Managed Integration scheduling
+                                </a>
+                              </Flex>
+                            </FormGroup>
+                          </FlexItem>
+                        </Form>
                       </Flex>
                     </CardBody>
                     <CardFooter>
@@ -631,10 +1016,28 @@ class SettingsPage extends React.Component {
                         type="button"
                         onClick={
                           window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                            ? e => this.saveMockBackupSettings(e, this.state.buStartTimeDisplay)
-                            : e => this.saveBackupSettings(e, this.state.buStartTimeDisplay)
+                            ? e =>
+                                this.saveMockConfigSettings(
+                                  e,
+                                  this.state.buStartTimeDisplay,
+                                  this.state.maintDayDisplay,
+                                  this.state.maintTimeDisplay,
+                                  this.state.emailContacts,
+                                  this.state.maintWait,
+                                  this.state.maintWaitDays
+                                )
+                            : e =>
+                                this.saveConfigSettings(
+                                  e,
+                                  this.state.buStartTimeDisplay,
+                                  this.state.maintDayDisplay,
+                                  this.state.maintTimeDisplay,
+                                  this.state.emailContacts,
+                                  this.state.maintWait,
+                                  this.state.maintWaitDays
+                                )
                         }
-                        isDisabled={!this.state.canSave}
+                        isDisabled={!this.state.canSave || !this.state.isEmailValid}
                       >
                         Save
                       </Button>{' '}
