@@ -52,6 +52,7 @@ const LOCAL_DEV_INSTALLED_SERVICES = {
     Version: '8.0.1'
   }
 };
+const CROSS_CONSOLE_ENABLED = false;
 
 app.use(bodyParser.json());
 app.use(
@@ -117,7 +118,7 @@ app.get('/services', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  if (isOpenShift4() || process.env.CROSS_CONSOLE_LOCAL_DEV_MODE === 'true') {
+  if ((isOpenShift4() || process.env.CROSS_CONSOLE_LOCAL_DEV_MODE === 'true') && CROSS_CONSOLE_ENABLED) {
     if (process.env.INSTALLED_SERVICES) {
       res.send(process.env.INSTALLED_SERVICES);
     } else {
