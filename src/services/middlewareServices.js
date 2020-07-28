@@ -1,3 +1,4 @@
+import { ServicesInfo } from '@rh-uxd/appservices-patternfly-core';
 import { watch, OpenShiftWatchEvents } from './openshiftServices';
 import { middlewareTypes } from '../redux/constants';
 import { FULFILLED_ACTION } from '../redux/helpers';
@@ -21,8 +22,6 @@ import {
   serviceInstanceDef,
   statefulSetDef
 } from '../common/openshiftResourceDefinitions';
-
-import productDetails from '../product-info';
 import { SERVICE_TYPES, SERVICE_STATUSES } from '../redux/constants/middlewareConstants';
 import { watchAMQOnline } from './amqOnlineServices';
 import { provisionFuseOnlineV4 } from './fuseOnlineServices';
@@ -86,12 +85,12 @@ const getProductDetails = svc => {
 };
 
 const getProductDetailsForService = svc => {
-  const storedDetails = productDetails[svc.name];
+  const storedDetails = ServicesInfo[svc.name];
   return !storedDetails ? { prettyName: svc.name } : storedDetails;
 };
 
 const getProductDetailsForServiceClass = serviceClassName => {
-  const storedDetails = productDetails[serviceClassName];
+  const storedDetails = ServicesInfo[serviceClassName];
   if (!storedDetails) {
     return {
       prettyName: serviceClassName
@@ -102,7 +101,7 @@ const getProductDetailsForServiceClass = serviceClassName => {
 
 const getServiceSortOrder = svc => {
   const serviceClassName = isOpenShift4() ? svc.name : svc.spec.clusterServiceClassExternalName;
-  const keys = Object.keys(productDetails);
+  const keys = Object.keys(ServicesInfo);
   const serviceOrder = keys.indexOf(serviceClassName);
 
   return serviceOrder;
