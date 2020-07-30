@@ -40,7 +40,7 @@ import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
-import { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig } from '../../services/rhmiConfigServices';
+import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
 import { getUser } from '../../services/openshiftServices';
 
 const moment = require('moment');
@@ -58,7 +58,7 @@ class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { userWalkthroughs, rhmiConfigWatcher } = this.props;
+    const { userWalkthroughs } = this.props;
 
     this.state = {
       value: userWalkthroughs || '',
@@ -193,59 +193,10 @@ class SettingsPage extends React.Component {
       this.setState({
         activeTabKey: tabIndex
       });
-
-      rhmiConfigWatcher(this.state.config, tabIndex === 0);
     };
   }
 
-  componentWillUnmount() {
-    const { rhmiConfigWatcher } = this.props;
-
-    rhmiConfigWatcher(this.state.config, false);
-  }
-
-  static getDerivedStateFromProps(nextProps) {
-    const config = nextProps.middlewareServices.rhmiConfig;
-    if (Object.keys(config).length > 0) {
-      return {
-        middlewareServices: {
-          rhmiConfig: config
-        }
-      };
-    }
-    return null;
-  }
-
-  componentDidUpdate(prevProps) {
-    this.updateScheduleIfRhmiConfigIsChanged(prevProps);
-  }
-
-  updateScheduleIfRhmiConfigIsChanged(prevProps) {
-    const { middlewareServices } = this.props;
-    if (JSON.stringify(prevProps.middlewareServices.rhmiConfig) !== JSON.stringify(middlewareServices.rhmiConfig)) {
-      this.getDailyBackup();
-      this.getMaintenanceWindow();
-      this.setState(
-        {
-          buStartTimeDisplay: '',
-          config: middlewareServices.rhmiConfig
-        },
-        () =>
-          this.setState({
-            backupDropdownItems: this.populateBackupsDropdown(),
-            maintDropdownItems: this.populateMaintDropdown(),
-            maintDayDropdownItems: this.populateMaintDayDropdown(),
-            emailContacts: this.populateEmailField(),
-            selectedRadio: this.populateUpgradeRadio()
-          })
-      );
-    }
-  }
-
   componentDidMount() {
-    const { rhmiConfigWatcher } = this.props;
-    const { config, activeTabKey } = this.state;
-
     getCurrentRhmiConfig()
       .then(response => {
         if (response) {
@@ -266,7 +217,6 @@ class SettingsPage extends React.Component {
           this.getMaintenanceWindow();
         }
       })
-      .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
       .catch(error => console.log(`ERROR: The error is: ${error}`));
   }
 
@@ -761,7 +711,7 @@ class SettingsPage extends React.Component {
     }
 
     // local testing purposes only - uncomment to test config tab (simulate OS4)
-    isOSv4 = true;
+    // isOSv4 = true;
 
     // show settings alert on first render
     if (window.localStorage.getItem('showSettingsAlert') === null)
@@ -1163,27 +1113,22 @@ SettingsPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }),
-  userWalkthroughs: PropTypes.string,
-  middlewareServices: PropTypes.object.isRequired,
-  rhmiConfigWatcher: PropTypes.func
+  userWalkthroughs: PropTypes.string
 };
 
 SettingsPage.defaultProps = {
   history: {
     push: noop
   },
-  userWalkthroughs: '',
-  rhmiConfigWatcher: noop
+  userWalkthroughs: ''
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs()),
-  rhmiConfigWatcher: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch)
+  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
 });
 
 const mapStateToProps = state => ({
-  ...state.middlewareReducers,
   ...state.walkthroughServiceReducers
 });
 
@@ -1194,4 +1139,4 @@ const ConnectedSettingsPage = connect(
 
 const RouterSettingsPage = withRouter(SettingsPage);
 
-export { RouterSettingsPage, ConnectedSettingsPage as default, SettingsPage };
+export { RouterSettingsPage as default, ConnectedSettingsPage, SettingsPage };
