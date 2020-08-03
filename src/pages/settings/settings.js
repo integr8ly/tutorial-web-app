@@ -918,6 +918,10 @@ class SettingsPage extends React.Component {
                                   id="followingRadio"
                                   value="followingRadio"
                                 />
+                                <Text className="integr8ly__text-small--m-secondary">
+                                  Upgrading during the first available maintenance window is only recommended for
+                                  development environments.{' '}
+                                </Text>
                                 <FlexItem>
                                   <Title headingLevel="h6" size="sm" className="pf-u-mt-md">
                                     Upgrade notifications
