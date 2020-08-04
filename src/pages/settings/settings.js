@@ -146,7 +146,7 @@ class SettingsPage extends React.Component {
 
     this.onBackupSelect = event => {
       this.setState({
-        isOpen: !this.state.isOpen,
+        isBackupOpen: !this.state.isBackupOpen,
         buStartTimeDisplay: event.target.innerText,
         canSave: true
       });
@@ -159,7 +159,7 @@ class SettingsPage extends React.Component {
 
     this.onMaintDaySelect = event => {
       this.setState({
-        isOpen: !this.state.isMaintDayOpen,
+        isMaintDayOpen: !this.state.isMaintDayOpen,
         maintDayDisplay: event.target.innerText,
         canSave: true
       });
@@ -167,7 +167,7 @@ class SettingsPage extends React.Component {
 
     this.onMaintTimeSelect = event => {
       this.setState({
-        isOpen: !this.state.isMaintTimeOpen,
+        isMaintTimeOpen: !this.state.isMaintTimeOpen,
         maintTimeDisplay: event.target.innerText,
         canSave: true
       });
@@ -738,7 +738,7 @@ class SettingsPage extends React.Component {
     }
 
     // local testing purposes only - uncomment to test config tab (simulate OS4)
-    // isOSv4 = true;
+    isOSv4 = true;
 
     // show settings alert on first render
     if (window.localStorage.getItem('showSettingsAlert') === null)
