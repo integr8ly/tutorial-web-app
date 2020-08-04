@@ -46,13 +46,13 @@ import { getUser } from '../../services/openshiftServices';
 const moment = require('moment');
 
 const daysOfWeek = new Array(7);
-daysOfWeek[0] = 'Sun';
-daysOfWeek[1] = 'Mon';
-daysOfWeek[2] = 'Tue';
-daysOfWeek[3] = 'Wed';
-daysOfWeek[4] = 'Thu';
-daysOfWeek[5] = 'Fri';
-daysOfWeek[6] = 'Sat';
+daysOfWeek[0] = 'Sunday';
+daysOfWeek[1] = 'Monday';
+daysOfWeek[2] = 'Tuesday';
+daysOfWeek[3] = 'Wednesday';
+daysOfWeek[4] = 'Thursday';
+daysOfWeek[5] = 'Friday';
+daysOfWeek[6] = 'Saturday';
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class SettingsPage extends React.Component {
 
     this.state = {
       value: userWalkthroughs || '',
-      selectedRadio: 'nextRadio',
+      selectedRadio: 'followingRadio',
       emailContacts: '',
       maintWait: true,
       maintWaitDays: 0,
@@ -146,7 +146,7 @@ class SettingsPage extends React.Component {
 
     this.onBackupSelect = event => {
       this.setState({
-        isOpen: !this.state.isOpen,
+        isBackupOpen: !this.state.isBackupOpen,
         buStartTimeDisplay: event.target.innerText,
         canSave: true
       });
@@ -159,7 +159,7 @@ class SettingsPage extends React.Component {
 
     this.onMaintDaySelect = event => {
       this.setState({
-        isOpen: !this.state.isMaintDayOpen,
+        isMaintDayOpen: !this.state.isMaintDayOpen,
         maintDayDisplay: event.target.innerText,
         canSave: true
       });
@@ -167,7 +167,7 @@ class SettingsPage extends React.Component {
 
     this.onMaintTimeSelect = event => {
       this.setState({
-        isOpen: !this.state.isMaintTimeOpen,
+        isMaintTimeOpen: !this.state.isMaintTimeOpen,
         maintTimeDisplay: event.target.innerText,
         canSave: true
       });
@@ -649,10 +649,37 @@ class SettingsPage extends React.Component {
     const rhmiConfig = this.state.config;
     const maint = rhmiConfig.spec.maintenance.applyFrom;
     const maintDay = maint.split(' ')[0];
+    let maintDisplay = '';
+
+    switch (maintDay) {
+      case 'Sun':
+        maintDisplay = 'Sunday';
+        break;
+      case 'Mon':
+        maintDisplay = 'Monday';
+        break;
+      case 'Tue':
+        maintDisplay = 'Tuesday';
+        break;
+      case 'Wed':
+        maintDisplay = 'Wednesday';
+        break;
+      case 'Thu':
+        maintDisplay = 'Thursday';
+        break;
+      case 'Fri':
+        maintDisplay = 'Friday';
+        break;
+      case 'Sat':
+        maintDisplay = 'Saturday';
+        break;
+      default:
+        maintDisplay = '';
+    }
 
     if (this.state.maintDayDisplay === '') {
       this.setState({
-        maintDayDisplay: maintDay
+        maintDayDisplay: maintDisplay
       });
     }
 
@@ -974,7 +1001,7 @@ class SettingsPage extends React.Component {
                                 this.saveMockConfigSettings(
                                   e,
                                   this.state.buStartTimeDisplay,
-                                  this.state.maintDayDisplay,
+                                  this.state.maintDayDisplay.substr(0, 3),
                                   this.state.maintTimeDisplay,
                                   this.state.emailContacts,
                                   this.state.maintWait,
@@ -984,7 +1011,7 @@ class SettingsPage extends React.Component {
                                 this.saveConfigSettings(
                                   e,
                                   this.state.buStartTimeDisplay,
-                                  this.state.maintDayDisplay,
+                                  this.state.maintDayDisplay.substr(0, 3),
                                   this.state.maintTimeDisplay,
                                   this.state.emailContacts,
                                   this.state.maintWait,
