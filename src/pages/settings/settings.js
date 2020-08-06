@@ -310,33 +310,39 @@ class SettingsPage extends React.Component {
     buTime = this.convertTimeTo24Hr(buTime);
     maintTime = this.convertTimeTo24Hr(maintTime);
 
-    this.setState({ canSave: false });
+    if (buTime === maintTime) {
+      window.localStorage.setItem('showSettingsConflictAlert', 'true');
+      this.setState({ showSettingsConflictAlert: true });
+      this.setState({ canSave: false });
+    } else {
+      this.setState({ canSave: false });
 
-    this.setState(
-      {
-        config: {
-          ...this.state.config,
-          spec: {
-            ...this.state.config.spec,
-            backup: {
-              ...this.state.config.spec.backup,
-              applyOn: buTime
-            },
-            maintenance: {
-              ...this.state.config.spec.maintenance,
-              applyFrom: `${maintDay} ${maintTime}`
-            },
-            upgrade: {
-              ...this.state.config.spec.upgrade,
-              contacts: emailContacts,
-              waitForMaintenance: maintWait,
-              notBeforeDays: maintWaitDays
+      this.setState(
+        {
+          config: {
+            ...this.state.config,
+            spec: {
+              ...this.state.config.spec,
+              backup: {
+                ...this.state.config.spec.backup,
+                applyOn: buTime
+              },
+              maintenance: {
+                ...this.state.config.spec.maintenance,
+                applyFrom: `${maintDay} ${maintTime}`
+              },
+              upgrade: {
+                ...this.state.config.spec.upgrade,
+                contacts: emailContacts,
+                waitForMaintenance: maintWait,
+                notBeforeDays: maintWaitDays
+              }
             }
           }
-        }
-      },
-      () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
-    );
+        },
+        () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
+      );
+    }
   };
 
   handleTextInputChange = value => {
@@ -750,7 +756,7 @@ class SettingsPage extends React.Component {
     }
 
     // local testing purposes only - uncomment to test config tab (simulate OS4)
-    isOSv4 = true;
+    // isOSv4 = true;
 
     // show settings alert on first render
     if (window.localStorage.getItem('showSettingsAlert') === null)
