@@ -271,14 +271,8 @@ class SettingsPage extends React.Component {
     maintTime = this.convertTimeTo24Hr(maintTime);
 
     if (buTime === maintTime) {
-      console.log('Backup time cannot be the same as maintenance time.');
-      window.localStorage.setItem('showSettingsConflictAlert', 'false');
-      this.setState({ showSettingsAlert: false });
-
-
-
-
-
+      window.localStorage.setItem('showSettingsConflictAlert', 'true');
+      this.setState({ showSettingsConflictAlert: true });
       this.setState({ canSave: false });
     } else {
       this.setState({ canSave: false });
@@ -763,7 +757,6 @@ class SettingsPage extends React.Component {
       window.localStorage.setItem('showSettingsAlert', true);
 
     const isAlertOpen = window.localStorage.getItem('showSettingsAlert') === 'true';
-    // const isConflictAlertOpen = window.localStorage.getItem('showSettingsConflictAlert') === 'true';
 
     return (
       <Page className="pf-u-h-100vh">
