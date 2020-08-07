@@ -80,6 +80,7 @@ class SettingsPage extends React.Component {
       maintDropdownItems: [],
       maintDayDropdownItems: [],
       showSettingsAlert: true,
+      showSettingsConflictAlert: false,
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
         kind: 'RHMIConfig',
@@ -155,6 +156,11 @@ class SettingsPage extends React.Component {
     this.onAlertClose = () => {
       window.localStorage.setItem('showSettingsAlert', 'false');
       this.setState({ showSettingsAlert: false });
+    };
+
+    this.onConflictAlertClose = () => {
+      window.localStorage.setItem('showSettingsConflictAlert', 'false');
+      this.setState({ showSettingsConflictAlert: false });
     };
 
     this.onMaintDaySelect = event => {
@@ -260,48 +266,20 @@ class SettingsPage extends React.Component {
   saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
+    const alertId = document.getElementById('refTab1Section');
 
     buTime = this.convertTimeTo24Hr(buTime);
     maintTime = this.convertTimeTo24Hr(maintTime);
 
-    this.setState({ canSave: false });
+    if (buTime === maintTime) {
+      window.localStorage.setItem('showSettingsConflictAlert', 'true');
+      this.setState({ showSettingsConflictAlert: true });
+      this.setState({ canSave: false });
+      alertId.scrollIntoView();
+    } else {
+      this.setState({ canSave: false });
 
-    this.setState({
-      config: {
-        ...this.state.config,
-        spec: {
-          ...this.state.config.spec,
-          backup: {
-            ...this.state.config.spec.backup,
-            applyOn: buTime
-          },
-          maintenance: {
-            ...this.state.config.spec.maintenance,
-            applyFrom: `${maintDay} ${maintTime}`
-          },
-          upgrade: {
-            ...this.state.config.spec.upgrade,
-            contacts: emailContacts,
-            waitForMaintenance: maintWait,
-            notBeforeDays: maintWaitDays
-          }
-        }
-      }
-    });
-    history.push(`/`);
-  };
-
-  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
-    e.preventDefault();
-    const { history } = this.props;
-
-    buTime = this.convertTimeTo24Hr(buTime);
-    maintTime = this.convertTimeTo24Hr(maintTime);
-
-    this.setState({ canSave: false });
-
-    this.setState(
-      {
+      this.setState({
         config: {
           ...this.state.config,
           spec: {
@@ -322,9 +300,53 @@ class SettingsPage extends React.Component {
             }
           }
         }
-      },
-      () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
-    );
+      });
+      history.push(`/`);
+    }
+  };
+
+  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
+    e.preventDefault();
+    const { history } = this.props;
+    const alertId = document.getElementById('refTab1Section');
+
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
+
+    if (buTime === maintTime) {
+      window.localStorage.setItem('showSettingsConflictAlert', 'true');
+      this.setState({ showSettingsConflictAlert: true });
+      this.setState({ canSave: false });
+      alertId.scrollIntoView();
+    } else {
+      this.setState({ canSave: false });
+
+      this.setState(
+        {
+          config: {
+            ...this.state.config,
+            spec: {
+              ...this.state.config.spec,
+              backup: {
+                ...this.state.config.spec.backup,
+                applyOn: buTime
+              },
+              maintenance: {
+                ...this.state.config.spec.maintenance,
+                applyFrom: `${maintDay} ${maintTime}`
+              },
+              upgrade: {
+                ...this.state.config.spec.upgrade,
+                contacts: emailContacts,
+                waitForMaintenance: maintWait,
+                notBeforeDays: maintWaitDays
+              }
+            }
+          }
+        },
+        () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
+      );
+    }
   };
 
   handleTextInputChange = value => {
@@ -724,7 +746,7 @@ class SettingsPage extends React.Component {
   };
 
   render() {
-    const { value, isValid, isEmailValid, showSettingsAlert } = this.state;
+    const { value, isValid, isEmailValid, showSettingsAlert, showSettingsConflictAlert } = this.state;
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
@@ -805,6 +827,20 @@ class SettingsPage extends React.Component {
                           </p>
                         </Alert>
                       )}
+                    {showSettingsConflictAlert && (
+                      <Alert
+                        className="settings-alert"
+                        variant="danger"
+                        isInline
+                        title="Backups and maintenance window conflict"
+                        actionClose={<AlertActionCloseButton onClose={this.onConflictAlertClose} />}
+                      >
+                        <p>
+                          Backups cannot be scheduled during the first hour of a weekly maintenance window. Review your
+                          backup and maintenance window schedules, then choose a new start time for the event.
+                        </p>
+                      </Alert>
+                    )}
                     <CardTitle>
                       <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
                     </CardTitle>
