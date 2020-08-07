@@ -266,6 +266,7 @@ class SettingsPage extends React.Component {
   saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
+    const alertId = document.getElementById('refTab1Section');
 
     buTime = this.convertTimeTo24Hr(buTime);
     maintTime = this.convertTimeTo24Hr(maintTime);
@@ -274,6 +275,7 @@ class SettingsPage extends React.Component {
       window.localStorage.setItem('showSettingsConflictAlert', 'true');
       this.setState({ showSettingsConflictAlert: true });
       this.setState({ canSave: false });
+      alertId.scrollIntoView();
     } else {
       this.setState({ canSave: false });
 
@@ -306,6 +308,7 @@ class SettingsPage extends React.Component {
   saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
+    const alertId = document.getElementById('refTab1Section');
 
     buTime = this.convertTimeTo24Hr(buTime);
     maintTime = this.convertTimeTo24Hr(maintTime);
@@ -314,6 +317,7 @@ class SettingsPage extends React.Component {
       window.localStorage.setItem('showSettingsConflictAlert', 'true');
       this.setState({ showSettingsConflictAlert: true });
       this.setState({ canSave: false });
+      alertId.scrollIntoView();
     } else {
       this.setState({ canSave: false });
 
