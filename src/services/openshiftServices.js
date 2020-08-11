@@ -3,6 +3,7 @@ import ClientOAuth2 from 'client-oauth2';
 import { isOpenShift4, getMasterUri, getWSMasterUri } from '../common/openshiftHelpers';
 
 const KIND_ROUTE = 'Route';
+let openShiftUser;
 
 axios.interceptors.response.use(
   response => response,
@@ -123,13 +124,13 @@ const getUser = () => {
   }
   let user;
   try {
-    const userRaw = window.localStorage.getItem('OpenShiftUser');
+    const userRaw = openShiftUser;
     if (userRaw) {
       user = JSON.parse(userRaw);
     }
   } catch (e) {
     console.error(e);
-    window.localStorage.removeItem('OpenShiftUser');
+    openShiftUser = null;
   }
   if (!user) {
     return startOAuth();
@@ -143,11 +144,11 @@ const getUser = () => {
  */
 const setUser = user => {
   if (!user) {
-    window.localStorage.setItem('OpenShiftUser', null);
+    openShiftUser = null;
     window.localStorage.removeItem('currentUserName');
     return;
   }
-  window.localStorage.setItem('OpenShiftUser', JSON.stringify(user));
+  openShiftUser = JSON.stringify(user);
   window.localStorage.setItem('currentUserName', user.fullName ? user.fullName : user.username);
 };
 
