@@ -57,10 +57,10 @@ class LandingPage extends React.Component {
     window.addEventListener('load', this.handleLoad);
     getCustomWalkthroughs();
     resetCurrentWalkthrough();
-    getProgress();
     currentUser().then(user => {
       if (user) {
         this.setState({ currentUserName: user.fullName ? user.fullName : user.username });
+        getProgress();
       }
     });
   }
