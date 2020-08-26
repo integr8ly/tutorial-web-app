@@ -40,7 +40,7 @@ import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
-import { getCurrentRhmiConfig, updateRhmiConfig } from '../../services/rhmiConfigServices';
+import { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig } from '../../services/rhmiConfigServices';
 import { getUser } from '../../services/openshiftServices';
 
 const moment = require('moment');
@@ -58,7 +58,7 @@ class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { userWalkthroughs } = this.props;
+    const { userWalkthroughs, rhmiConfigWatcher } = this.props;
 
     this.state = {
       value: userWalkthroughs || '',
@@ -80,7 +80,6 @@ class SettingsPage extends React.Component {
       maintDropdownItems: [],
       maintDayDropdownItems: [],
       showSettingsAlert: true,
-      showSettingsConflictAlert: false,
       config: {
         apiVersion: 'integreatly.org/v1alpha1',
         kind: 'RHMIConfig',
@@ -158,11 +157,6 @@ class SettingsPage extends React.Component {
       this.setState({ showSettingsAlert: false });
     };
 
-    this.onConflictAlertClose = () => {
-      window.localStorage.setItem('showSettingsConflictAlert', 'false');
-      this.setState({ showSettingsConflictAlert: false });
-    };
-
     this.onMaintDaySelect = event => {
       this.setState({
         isMaintDayOpen: !this.state.isMaintDayOpen,
@@ -199,10 +193,63 @@ class SettingsPage extends React.Component {
       this.setState({
         activeTabKey: tabIndex
       });
+
+      rhmiConfigWatcher(this.state.config, tabIndex === 0);
     };
   }
 
+  componentWillUnmount() {
+    const { rhmiConfigWatcher } = this.props;
+
+    rhmiConfigWatcher(this.state.config, false);
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    const config = nextProps.middlewareServices.rhmiConfig;
+    if (Object.keys(config).length > 0) {
+      return {
+        middlewareServices: {
+          rhmiConfig: config
+        }
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps) {
+    this.updateScheduleIfRhmiConfigIsChanged(prevProps);
+  }
+
+  updateScheduleIfRhmiConfigIsChanged(prevProps) {
+    const { middlewareServices } = this.props;
+    if (JSON.stringify(prevProps.middlewareServices.rhmiConfig) !== JSON.stringify(middlewareServices.rhmiConfig)) {
+      this.getDailyBackup();
+      this.getMaintenanceWindows();
+      this.setState(
+        {
+          buStartTimeDisplay: '',
+          maintDayDisplay: '',
+          maintTimeDisplay: '',
+          selectedRadio: 'followingRadio',
+          emailContacts: '',
+          config: middlewareServices.rhmiConfig
+        },
+        () =>
+          this.setState({
+            backupDropdownItems: this.populateBackupsDropdown(),
+            maintDropdownItems: this.populateMaintDropdown(),
+            maintDayDropdownItems: this.populateMaintDayDropdown(),
+            emailContacts: this.populateEmailField(),
+            selectedRadio: this.populateUpgradeRadio()
+          })
+      );
+    }
+  }
+
   componentDidMount() {
+    const { rhmiConfigWatcher } = this.props;
+    const { config, activeTabKey } = this.state;
+
     getCurrentRhmiConfig()
       .then(response => {
         if (response) {
@@ -220,9 +267,10 @@ class SettingsPage extends React.Component {
               })
           );
           this.getDailyBackup();
-          this.getMaintenanceWindow();
+          this.getMaintenanceWindows();
         }
       })
+      .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
       .catch(error => console.log(`ERROR: The error is: ${error}`));
   }
 
@@ -266,20 +314,48 @@ class SettingsPage extends React.Component {
   saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
     e.preventDefault();
     const { history } = this.props;
-    const alertId = document.getElementById('refTab1Section');
 
     buTime = this.convertTimeTo24Hr(buTime);
     maintTime = this.convertTimeTo24Hr(maintTime);
 
-    if (buTime === maintTime) {
-      window.localStorage.setItem('showSettingsConflictAlert', 'true');
-      this.setState({ showSettingsConflictAlert: true });
-      this.setState({ canSave: false });
-      alertId.scrollIntoView();
-    } else {
-      this.setState({ canSave: false });
+    this.setState({ canSave: false });
 
-      this.setState({
+    this.setState({
+      config: {
+        ...this.state.config,
+        spec: {
+          ...this.state.config.spec,
+          backup: {
+            ...this.state.config.spec.backup,
+            applyOn: buTime
+          },
+          maintenance: {
+            ...this.state.config.spec.maintenance,
+            applyFrom: `${maintDay} ${maintTime}`
+          },
+          upgrade: {
+            ...this.state.config.spec.upgrade,
+            contacts: emailContacts,
+            waitForMaintenance: maintWait,
+            notBeforeDays: maintWaitDays
+          }
+        }
+      }
+    });
+    history.push(`/`);
+  };
+
+  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
+    e.preventDefault();
+    const { history } = this.props;
+
+    buTime = this.convertTimeTo24Hr(buTime);
+    maintTime = this.convertTimeTo24Hr(maintTime);
+
+    this.setState({ canSave: false });
+
+    this.setState(
+      {
         config: {
           ...this.state.config,
           spec: {
@@ -300,53 +376,12 @@ class SettingsPage extends React.Component {
             }
           }
         }
-      });
-      history.push(`/`);
-    }
-  };
-
-  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
-    e.preventDefault();
-    const { history } = this.props;
-    const alertId = document.getElementById('refTab1Section');
-
-    buTime = this.convertTimeTo24Hr(buTime);
-    maintTime = this.convertTimeTo24Hr(maintTime);
-
-    if (buTime === maintTime) {
-      window.localStorage.setItem('showSettingsConflictAlert', 'true');
-      this.setState({ showSettingsConflictAlert: true });
-      this.setState({ canSave: false });
-      alertId.scrollIntoView();
-    } else {
-      this.setState({ canSave: false });
-
-      this.setState(
-        {
-          config: {
-            ...this.state.config,
-            spec: {
-              ...this.state.config.spec,
-              backup: {
-                ...this.state.config.spec.backup,
-                applyOn: buTime
-              },
-              maintenance: {
-                ...this.state.config.spec.maintenance,
-                applyFrom: `${maintDay} ${maintTime}`
-              },
-              upgrade: {
-                ...this.state.config.spec.upgrade,
-                contacts: emailContacts,
-                waitForMaintenance: maintWait,
-                notBeforeDays: maintWaitDays
-              }
-            }
-          }
-        },
-        () => updateRhmiConfig(this.state.config).then(() => history.push('/'))
-      );
-    }
+      },
+      () =>
+        updateRhmiConfig(this.state.config)
+          .then(() => history.push('/'))
+          .catch(error => console.log(`ERROR: The error is: ${error}`))
+    );
   };
 
   handleTextInputChange = value => {
@@ -746,7 +781,7 @@ class SettingsPage extends React.Component {
   };
 
   render() {
-    const { value, isValid, isEmailValid, showSettingsAlert, showSettingsConflictAlert } = this.state;
+    const { value, isValid, isEmailValid, showSettingsAlert } = this.state;
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
@@ -827,20 +862,6 @@ class SettingsPage extends React.Component {
                           </p>
                         </Alert>
                       )}
-                    {showSettingsConflictAlert && (
-                      <Alert
-                        className="settings-alert"
-                        variant="danger"
-                        isInline
-                        title="Backups and maintenance window conflict"
-                        actionClose={<AlertActionCloseButton onClose={this.onConflictAlertClose} />}
-                      >
-                        <p>
-                          Backups cannot be scheduled during the first hour of a weekly maintenance window. Review your
-                          backup and maintenance window schedules, then choose a new start time for the event.
-                        </p>
-                      </Alert>
-                    )}
                     <CardTitle>
                       <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
                     </CardTitle>
@@ -1180,23 +1201,28 @@ SettingsPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }),
-  userWalkthroughs: PropTypes.string
+  userWalkthroughs: PropTypes.string,
+  rhmiConfigWatcher: PropTypes.func,
+  middlewareServices: PropTypes.object.isRequired
 };
 
 SettingsPage.defaultProps = {
   history: {
     push: noop
   },
-  userWalkthroughs: ''
+  userWalkthroughs: '',
+  rhmiConfigWatcher: noop
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
+  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs()),
+  rhmiConfigWatcher: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch)
 });
 
 const mapStateToProps = state => ({
-  ...state.walkthroughServiceReducers
+  ...state.walkthroughServiceReducers,
+  ...state.middlewareReducers
 });
 
 const ConnectedSettingsPage = connect(
@@ -1206,4 +1232,4 @@ const ConnectedSettingsPage = connect(
 
 const RouterSettingsPage = withRouter(SettingsPage);
 
-export { RouterSettingsPage as default, ConnectedSettingsPage, SettingsPage };
+export { RouterSettingsPage, ConnectedSettingsPage as default, SettingsPage };
