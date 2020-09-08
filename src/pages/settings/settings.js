@@ -13,7 +13,6 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
-  DropdownItem,
   Button,
   Page,
   PageSection,
@@ -31,10 +30,7 @@ import { RoutedConnectedMasthead } from '../../components/masthead/masthead';
 import { connect, reduxActions } from '../../redux';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import { setUserWalkthroughs, getUserWalkthroughs } from '../../services/walkthroughServices';
-import { getCurrentRhmiConfig, updateRhmiConfig, watchRhmiConfig } from '../../services/rhmiConfigServices';
 import { getUser } from '../../services/openshiftServices';
-
-const moment = require('moment');
 
 const daysOfWeek = new Array(7);
 daysOfWeek[0] = 'Sunday';
@@ -49,119 +45,12 @@ class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { userWalkthroughs, rhmiConfigWatcher } = this.props;
+    const { userWalkthroughs } = this.props;
 
     this.state = {
       value: userWalkthroughs || '',
-      selectedRadio: 'followingRadio',
-      emailContacts: '',
-      maintWait: true,
-      maintWaitDays: 0,
       isValid: true,
-      isEmailValid: true,
-      isBackupOpen: false,
-      isMaintDayOpen: false,
-      isMaintTimeOpen: false,
-      activeTabKey: 0,
-      canSave: false,
-      buStartTimeDisplay: '',
-      maintDayDisplay: '',
-      maintTimeDisplay: '',
-      backupDropdownItems: [],
-      maintDropdownItems: [],
-      maintDayDropdownItems: [],
-      showSettingsAlert: true,
-      config: {
-        apiVersion: 'integreatly.org/v1alpha1',
-        kind: 'RHMIConfig',
-        metadata: {
-          creationTimestamp: '2020-05-18T20:45:36Z',
-          generation: 1,
-          name: 'rhmi-config',
-          namespace: 'redhat-rhmi-operator',
-          resourceVersion: '37138',
-          selfLink: '/apis/integreatly.org/v1alpha1/namespaces/redhat-rhmi-operator/rhmiconfigs/rhmi-config',
-          uid: 'b6063850-6598-483e-9e91-5dfde651b581'
-        },
-        spec: {
-          backup: {
-            applyOn: '00:00'
-          },
-          maintenance: {
-            applyFrom: 'Thu 13:00'
-          },
-          upgrade: {
-            contacts: '',
-            waitForMaintenance: true,
-            notBeforeDays: 7
-          }
-        }
-      }
-    };
-
-    this.handleChange = (_, event) => {
-      this.setState({
-        selectedRadio: event.target.value,
-        canSave: true
-      });
-      if (event.target.value === 'nextRadio') {
-        this.setState({
-          maintWait: true,
-          maintWaitDays: 0
-        });
-      } else {
-        this.setState({
-          maintWait: true,
-          maintWaitDays: 7
-        });
-      }
-    };
-
-    this.onBackupToggle = isBackupOpen => {
-      this.setState({
-        isBackupOpen
-      });
-    };
-
-    this.onMaintDayToggle = isMaintDayOpen => {
-      this.setState({
-        isMaintDayOpen
-      });
-    };
-
-    this.onMaintTimeToggle = isMaintTimeOpen => {
-      this.setState({
-        isMaintTimeOpen
-      });
-    };
-
-    this.onBackupSelect = event => {
-      this.setState({
-        isBackupOpen: !this.state.isBackupOpen,
-        buStartTimeDisplay: event.target.innerText,
-        canSave: true
-      });
-    };
-
-    this.onAlertClose = () => {
-      window.localStorage.setItem('showSettingsAlert', 'false');
-      this.setState({ showSettingsAlert: false });
-    };
-
-    this.onMaintDaySelect = event => {
-      this.setState({
-        isMaintDayOpen: !this.state.isMaintDayOpen,
-        maintDayDisplay: event.target.innerText,
-        canSave: true
-      });
-    };
-
-    this.onMaintTimeSelect = event => {
-      this.setState({
-        isMaintTimeOpen: !this.state.isMaintTimeOpen,
-        maintTimeDisplay: event.target.innerText,
-        canSave: true
-      });
+      activeTabKey: 0
     };
 
     getUserWalkthroughs().then(response => {
@@ -184,15 +73,7 @@ class SettingsPage extends React.Component {
       this.setState({
         activeTabKey: tabIndex
       });
-
-      rhmiConfigWatcher(this.state.config, tabIndex === 0);
     };
-  }
-
-  componentWillUnmount() {
-    const { rhmiConfigWatcher } = this.props;
-
-    rhmiConfigWatcher(this.state.config, false);
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -205,64 +86,6 @@ class SettingsPage extends React.Component {
       };
     }
     return null;
-  }
-
-  componentDidUpdate(prevProps) {
-    this.updateScheduleIfRhmiConfigIsChanged(prevProps);
-  }
-
-  updateScheduleIfRhmiConfigIsChanged(prevProps) {
-    const { middlewareServices } = this.props;
-    if (JSON.stringify(prevProps.middlewareServices.rhmiConfig) !== JSON.stringify(middlewareServices.rhmiConfig)) {
-      this.getDailyBackup();
-      this.getMaintenanceWindows();
-      this.setState(
-        {
-          buStartTimeDisplay: '',
-          maintDayDisplay: '',
-          maintTimeDisplay: '',
-          selectedRadio: 'followingRadio',
-          emailContacts: '',
-          config: middlewareServices.rhmiConfig
-        },
-        () =>
-          this.setState({
-            backupDropdownItems: this.populateBackupsDropdown(),
-            maintDropdownItems: this.populateMaintDropdown(),
-            maintDayDropdownItems: this.populateMaintDayDropdown(),
-            emailContacts: this.populateEmailField(),
-            selectedRadio: this.populateUpgradeRadio()
-          })
-      );
-    }
-  }
-
-  componentDidMount() {
-    const { rhmiConfigWatcher } = this.props;
-    const { config, activeTabKey } = this.state;
-
-    getCurrentRhmiConfig()
-      .then(response => {
-        if (response) {
-          this.setState(
-            {
-              config: response
-            },
-            () =>
-              this.setState({
-                backupDropdownItems: this.populateBackupsDropdown(),
-                maintDropdownItems: this.populateMaintDropdown(),
-                maintDayDropdownItems: this.populateMaintDayDropdown(),
-                emailContacts: this.populateEmailField(),
-                selectedRadio: this.populateUpgradeRadio()
-              })
-          );
-          this.getDailyBackup();
-          this.getMaintenanceWindows();
-        }
-      })
-      .then(() => rhmiConfigWatcher(config, activeTabKey === 0))
-      .catch(error => console.log(`ERROR: The error is: ${error}`));
   }
 
   exitTutorial = e => {
@@ -279,100 +102,6 @@ class SettingsPage extends React.Component {
         history.push(`/`);
       });
     });
-  };
-
-  convertTimeTo24Hr = time12h => {
-    const [time, modifier] = time12h.split(' ');
-    let hours = time.split(':')[0];
-    const minutes = time.split(':')[1];
-    let pad = '';
-
-    if (hours === '12') {
-      hours = '00';
-    }
-
-    if (modifier === 'PM' || modifier === 'pm') {
-      hours = parseInt(hours, 10) + 12;
-    }
-
-    if (parseInt(hours, 10) < 10 && parseInt(hours, 10) > 0 && (modifier === 'AM' || 'am')) {
-      pad = '0';
-    }
-
-    return `${pad}${hours}:${minutes}`;
-  };
-
-  saveMockConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
-    e.preventDefault();
-    const { history } = this.props;
-
-    buTime = this.convertTimeTo24Hr(buTime);
-    maintTime = this.convertTimeTo24Hr(maintTime);
-
-    this.setState({ canSave: false });
-
-    this.setState({
-      config: {
-        ...this.state.config,
-        spec: {
-          ...this.state.config.spec,
-          backup: {
-            ...this.state.config.spec.backup,
-            applyOn: buTime
-          },
-          maintenance: {
-            ...this.state.config.spec.maintenance,
-            applyFrom: `${maintDay} ${maintTime}`
-          },
-          upgrade: {
-            ...this.state.config.spec.upgrade,
-            contacts: emailContacts,
-            waitForMaintenance: maintWait,
-            notBeforeDays: maintWaitDays
-          }
-        }
-      }
-    });
-    history.push(`/`);
-  };
-
-  saveConfigSettings = (e, buTime, maintDay, maintTime, emailContacts, maintWait, maintWaitDays) => {
-    e.preventDefault();
-    const { history } = this.props;
-
-    buTime = this.convertTimeTo24Hr(buTime);
-    maintTime = this.convertTimeTo24Hr(maintTime);
-
-    this.setState({ canSave: false });
-
-    this.setState(
-      {
-        config: {
-          ...this.state.config,
-          spec: {
-            ...this.state.config.spec,
-            backup: {
-              ...this.state.config.spec.backup,
-              applyOn: buTime
-            },
-            maintenance: {
-              ...this.state.config.spec.maintenance,
-              applyFrom: `${maintDay} ${maintTime}`
-            },
-            upgrade: {
-              ...this.state.config.spec.upgrade,
-              contacts: emailContacts,
-              waitForMaintenance: maintWait,
-              notBeforeDays: maintWaitDays
-            }
-          }
-        }
-      },
-      () =>
-        updateRhmiConfig(this.state.config)
-          .then(() => history.push('/'))
-          .catch(error => console.log(`ERROR: The error is: ${error}`))
-    );
   };
 
   handleTextInputChange = value => {
@@ -412,363 +141,6 @@ class SettingsPage extends React.Component {
         }
       }
     );
-  };
-
-  handleEmailTextInputChange = emailContacts => {
-    this.setState(
-      {
-        emailContacts,
-        isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
-          emailContacts
-        )
-      },
-      () => {
-        if (this.state.emailContacts === '') {
-          this.setState({
-            isEmailValid: true,
-            canSave: true
-          });
-        }
-        if (this.state.emailContacts.includes('\n')) {
-          const emailArray = this.state.emailContacts.split('\n');
-
-          for (let i = 0; i < emailArray.length; i++) {
-            if (
-              /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
-                emailArray[i]
-              )
-            ) {
-              this.setState({
-                isEmailValid: true,
-                canSave: true
-              });
-            } else if (emailArray[i] === '\n' || emailArray[i] === '') {
-              this.setState({
-                isEmailValid: true,
-                canSave: true
-              });
-            } else {
-              this.setState({
-                isEmailValid: false,
-                canSave: false
-              });
-            }
-          }
-        } else if (this.state.emailContacts === '') {
-          this.setState({ isEmailValid: true, canSave: true });
-        } else {
-          this.setState({
-            isEmailValid: /^[\W]*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4}[\W]*,{1}[\W]*)*([\w+\-.%]+@[\w\-.]+\.[A-Za-z]{2,4})[\W]*$/.test(
-              emailContacts
-            ),
-            canSave: true
-          });
-        }
-      }
-    );
-  };
-
-  formatDate = (configDate, rawHour, rawMin, offset, offsetType) => {
-    let date = new Date();
-    let dateFmt = new Date();
-    let dateUtc = new Date();
-    let dateUtcFmt = new Date();
-    let formattedDate = '';
-
-    date = moment(configDate).set({ hour: rawHour, minutes: rawMin, seconds: '00' });
-    dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
-
-    dateUtc = moment.utc(date);
-    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
-
-    formattedDate = `${dateFmt} ${dateUtcFmt}`;
-    return formattedDate;
-  };
-
-  getLongMaintWindow = unformattedDate => {
-    let date = new Date();
-    let dateFmt = new Date();
-    let dateUtc = new Date();
-    let dateUtcFmt = new Date();
-    let formattedDate = '';
-
-    date = moment(unformattedDate);
-    dateFmt = moment(date).format('D MMMM YYYY; hh:mm a');
-
-    dateUtc = moment.utc(date);
-    dateUtcFmt = moment(dateUtc).format('(D MMMM YYYY; HH:mm UTC)');
-
-    formattedDate = `${dateFmt} ${dateUtcFmt}`;
-    return formattedDate;
-  };
-
-  getDailyBackup = () => {
-    const rhmiConfig = this.state.config;
-    const currentDate = new Date();
-    const nextDayDate = new Date();
-    let goodBackupDate = new Date();
-    const rawBackupTime = rhmiConfig.spec.backup.applyOn;
-    const rawBackupHour = rawBackupTime.split(':')[0];
-    const rawBackupMin = '00';
-    const curHour = currentDate.getHours();
-    let backupDate = '';
-
-    nextDayDate.setDate(currentDate.getDate() + 1);
-
-    if (curHour < rawBackupHour) {
-      // if hour has not occurred yet today, display date should be currentDate
-      goodBackupDate = currentDate;
-    } else {
-      // otherwise, maintenance window already passed for today, use next weeks date
-      goodBackupDate = nextDayDate; // display date should be currentDate + 7
-    }
-
-    backupDate = this.formatDate(goodBackupDate, rawBackupHour, rawBackupMin);
-
-    return backupDate;
-  };
-
-  getMaintenanceWindows = () => {
-    const rhmiConfig = this.state.config;
-    const currentDate = new Date();
-    const nextWeekDate = new Date();
-    const nextMaintDate = new Date();
-
-    nextWeekDate.setDate(currentDate.getDate() + 7);
-
-    const rawMaintDate = rhmiConfig.spec.maintenance.applyFrom; // Sun 10:00
-    const rawMaintDay = rawMaintDate.split(' ')[0]; // Sun
-    const rawMaintTime = rawMaintDate.split(' ')[1]; // 10:00
-    const rawMaintHour = rawMaintTime.split(':')[0]; // 10
-    const rawMaintMin = '00';
-
-    const curDay = currentDate.getDay();
-    const curHour = currentDate.getHours();
-
-    const today = daysOfWeek[curDay];
-    const maintDay = daysOfWeek.findIndex(dayOfWeek => dayOfWeek === rawMaintDay);
-    let goodMaintDate = new Date();
-    const goodFollowingMaintDate = new Date();
-    let maintDate = '';
-    let followingMaintDate = '';
-    let maintDates = [];
-
-    if (today === rawMaintDay) {
-      // check if maintenance day is the same day as today
-      if (curHour >= rawMaintHour) {
-        // if the hour has not happened yet, maintenance window is todays date
-        goodMaintDate = currentDate;
-      } else {
-        // otherwise, maintenance window already occurred today, use next weeks date
-        goodMaintDate = nextWeekDate;
-      }
-    }
-    if (maintDay < curDay) {
-      goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay + 7));
-    } else {
-      goodMaintDate.setDate(nextMaintDate.getDate() + (maintDay - curDay));
-    }
-
-    goodFollowingMaintDate.setDate(goodMaintDate.getDate() + 7);
-
-    maintDate = this.formatDate(goodMaintDate, rawMaintHour, rawMaintMin);
-    followingMaintDate = this.formatDate(goodFollowingMaintDate, rawMaintHour, rawMaintMin);
-
-    maintDates = [maintDate, followingMaintDate];
-
-    return maintDates;
-  };
-
-  populateBackupsDropdown = () => {
-    const rhmiConfig = this.state.config;
-
-    const dailyBackupTime = this.getDailyBackup();
-    const dailyBackupTimeArray = dailyBackupTime.split(' (');
-
-    const backupLocalTime = dailyBackupTimeArray[0].replace(';', '').trim();
-    const backupUtcTime = dailyBackupTimeArray[1]
-      .replace(';', '')
-      .substring(0, dailyBackupTimeArray[1].indexOf(' UTC)'))
-      .trim();
-    const firstTimeHoursOnly = moment(backupLocalTime).format('h:mm a');
-    const firstTimeUtcHoursOnly = moment(backupUtcTime).format('h:mm a');
-
-    const dropDownItems = [];
-    let backupTime = Date();
-    let utcBackupTime = Date();
-
-    const cfgMaintDate = rhmiConfig.spec.maintenance.applyFrom;
-    const cfgMaintHours = cfgMaintDate.split(' ')[1].split(':')[0];
-    const cfgMaintTime = `${cfgMaintHours}:00`;
-    let sameTime;
-
-    dropDownItems.push(
-      <DropdownItem key="0" component="button" isDisabled={sameTime}>
-        {firstTimeHoursOnly} ({firstTimeUtcHoursOnly} UTC)
-      </DropdownItem>
-    );
-
-    if (this.state.buStartTimeDisplay === '') {
-      this.setState({
-        buStartTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
-      });
-    }
-
-    for (let i = 1; i < 24; i++) {
-      sameTime = false;
-      backupTime = moment(backupLocalTime)
-        .add(i, 'hours')
-        .format('h:mm a');
-      utcBackupTime = moment(backupUtcTime)
-        .add(i, 'hours')
-        .format('h:mm a');
-
-      if (this.convertTimeTo24Hr(backupTime) === cfgMaintTime) {
-        sameTime = true;
-      }
-
-      dropDownItems.push(
-        <DropdownItem key={i} component="button" isDisabled={sameTime}>
-          {backupTime} ({utcBackupTime} UTC)
-        </DropdownItem>
-      );
-    }
-    return dropDownItems;
-  };
-
-  populateMaintDropdown = () => {
-    const rhmiConfig = this.state.config;
-
-    const rawMaintTime = this.getMaintenanceWindows()[0];
-    const rawMaintTimeArray = rawMaintTime.split(' (');
-
-    const maintLocalTime = rawMaintTimeArray[0].replace(';', '').trim();
-    const maintUtcTime = rawMaintTimeArray[1]
-      .replace(';', '')
-      .substring(0, rawMaintTimeArray[1].indexOf(' UTC)'))
-      .trim();
-    const firstTimeHoursOnly = moment(maintLocalTime).format('h:mm a');
-    const firstTimeUtcHoursOnly = moment(maintUtcTime).format('h:mm a');
-
-    const dropDownItems = [];
-    let maintTime = Date();
-    let utcMaintTime = Date();
-
-    const cfgDailyBackupTime = rhmiConfig.spec.backup.applyOn;
-    const cfgDailyBackupHours = cfgDailyBackupTime.split(':')[0];
-    const cfgBackupTime = `${cfgDailyBackupHours}:00`;
-    let sameTime;
-
-    dropDownItems.push(
-      <DropdownItem key="0" component="button" isDisabled={sameTime}>
-        {firstTimeHoursOnly} ({firstTimeUtcHoursOnly} UTC)
-      </DropdownItem>
-    );
-
-    if (this.state.maintTimeDisplay === '') {
-      this.setState({
-        maintTimeDisplay: `${firstTimeHoursOnly} (${firstTimeUtcHoursOnly} UTC)`
-      });
-    }
-
-    for (let i = 1; i < 24; i++) {
-      sameTime = false;
-      maintTime = moment(maintLocalTime)
-        .add(i, 'hours')
-        .format('h:mm a');
-      utcMaintTime = moment(maintUtcTime)
-        .add(i, 'hours')
-        .format('h:mm a');
-
-      if (this.convertTimeTo24Hr(maintTime) === cfgBackupTime) {
-        sameTime = true;
-      }
-
-      dropDownItems.push(
-        <DropdownItem key={i} component="button" isDisabled={sameTime}>
-          {maintTime} ({utcMaintTime} UTC)
-        </DropdownItem>
-      );
-    }
-    return dropDownItems;
-  };
-
-  populateMaintDayDropdown = () => {
-    const rhmiConfig = this.state.config;
-    const maint = rhmiConfig.spec.maintenance.applyFrom;
-    const maintDay = maint.split(' ')[0];
-    let maintDisplay = '';
-
-    switch (maintDay) {
-      case 'Sun':
-        maintDisplay = 'Sunday';
-        break;
-      case 'Mon':
-        maintDisplay = 'Monday';
-        break;
-      case 'Tue':
-        maintDisplay = 'Tuesday';
-        break;
-      case 'Wed':
-        maintDisplay = 'Wednesday';
-        break;
-      case 'Thu':
-        maintDisplay = 'Thursday';
-        break;
-      case 'Fri':
-        maintDisplay = 'Friday';
-        break;
-      case 'Sat':
-        maintDisplay = 'Saturday';
-        break;
-      default:
-        maintDisplay = '';
-    }
-
-    if (this.state.maintDayDisplay === '') {
-      this.setState({
-        maintDayDisplay: maintDisplay
-      });
-    }
-
-    const dropdownItems = daysOfWeek.map((day, key) => (
-      <DropdownItem key={key} component="button">
-        {day}
-      </DropdownItem>
-    ));
-    return dropdownItems;
-  };
-
-  populateUpgradeRadio = () => {
-    const rhmiConfig = this.state.config;
-    const wait = rhmiConfig.spec.upgrade.waitForMaintenance;
-    const days = rhmiConfig.spec.upgrade.notBeforeDays;
-    let radio = '';
-
-    if (wait === true && days === 0) {
-      this.setState({
-        selectedRadio: 'nextRadio'
-      });
-      radio = 'nextRadio';
-    } else {
-      this.setState({
-        selectedRadio: 'followingRadio'
-      });
-      radio = 'followingRadio';
-    }
-    return radio;
-  };
-
-  populateEmailField = () => {
-    const rhmiConfig = this.state.config;
-    const emails = rhmiConfig.spec.upgrade.contacts;
-
-    if (this.state.emailContacts === '') {
-      this.setState({
-        emailContacts: emails
-      });
-    }
-    return emails;
   };
 
   render() {
@@ -924,7 +296,6 @@ SettingsPage.propTypes = {
     push: PropTypes.func.isRequired
   }),
   userWalkthroughs: PropTypes.string,
-  rhmiConfigWatcher: PropTypes.func,
   middlewareServices: PropTypes.object.isRequired
 };
 
@@ -932,14 +303,12 @@ SettingsPage.defaultProps = {
   history: {
     push: noop
   },
-  userWalkthroughs: '',
-  rhmiConfigWatcher: noop
+  userWalkthroughs: ''
 };
 
 const mapDispatchToProps = dispatch => ({
   getThread: (language, id) => dispatch(reduxActions.threadActions.getThread(language, id)),
-  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs()),
-  rhmiConfigWatcher: (rhmiconfig, watch) => watchRhmiConfig(dispatch, rhmiconfig, watch)
+  getUserWalkthroughs: () => dispatch(reduxActions.walkthroughActions.getUserWalkthroughs())
 });
 
 const mapStateToProps = state => ({

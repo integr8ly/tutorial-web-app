@@ -23,8 +23,7 @@ class LandingPage extends React.Component {
     this.handleLoad = this.handleLoad.bind(this);
     this.state = {
       activeTabKey: 0,
-      currentUserName: null,
-      showInfoAlert: true
+      currentUserName: null
     };
 
     // Toggle currently active tab
@@ -33,11 +32,6 @@ class LandingPage extends React.Component {
       this.setState({
         activeTabKey: tabIndex
       });
-    };
-
-    this.onAlertClose = () => {
-      window.localStorage.setItem('showInfoAlert', 'false');
-      this.setState({ showInfoAlert: false });
     };
   }
 
@@ -93,9 +87,6 @@ class LandingPage extends React.Component {
     const openshiftHost = getOpenshiftHost(middlewareServices);
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
-
-    // show settings alert on first render
-    if (window.localStorage.getItem('showInfoAlert') === null) window.localStorage.setItem('showInfoAlert', true);
 
     return (
       <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>
