@@ -115,23 +115,6 @@ class LandingPage extends React.Component {
       <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>
         <RoutedConnectedMasthead currentUserName={this.state.currentUserName} />
         <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-          {showInfoAlert &&
-            isAlertOpen && (
-              <Alert
-                className="info-alert"
-                variant="info"
-                isInline
-                title="Managed Integration Schedule Available"
-                actionClose={<AlertActionCloseButton onClose={this.onAlertClose} />}
-              >
-                <p>
-                  You can now schedule your daily backups, weekly maintenance window, and Managed Integration upgrades
-                  from the Settings page. Review the default settings to ensure they are appropriate for your cluster.
-                </p>
-                <br />
-                <a href="/settings">Go to settings</a>
-              </Alert>
-            )}
           <h1 className="pf-c-title pf-m-4xl pf-c-landing__heading">Welcome to the Solution Explorer</h1>
           <p className="pf-c-landing__content">
             Quickly access consoles for all your Red Hat managed services, and learn how to easily implement

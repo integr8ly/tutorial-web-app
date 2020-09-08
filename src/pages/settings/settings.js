@@ -791,7 +791,7 @@ class SettingsPage extends React.Component {
     // no admin protection for openshift 3 or for running demo/locally
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       isAdmin = true;
-      isOSv4 = false;
+      // isOSv4 = false;
     }
 
     // local testing purposes only - uncomment to test config tab (simulate OS4)
@@ -806,27 +806,19 @@ class SettingsPage extends React.Component {
     return (
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
-        <RoutedConnectedMasthead />
+        <RoutedConnectedMasthead/>
         <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-          <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
+          <Breadcrumb homeClickedCallback={() => {
+          }} threadName="Settings"/>
           <Grid hasGutter>
             <GridItem>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-lg pf-u-mb-lg">
                 Settings
               </h1>
               <Tabs activeKey={this.state.activeTabKey} onSelect={this.handleTabClick}>
-                {isOSv4 && (
-                  <Tab
-                    id="scheduleTab"
-                    eventKey={0}
-                    title="Managed Integration schedule"
-                    tabContentId="scheduleTabSection"
-                    tabContentRef={this.contentRef1}
-                  />
-                )}
                 <Tab
                   id="solutionPatternsTab"
-                  eventKey={isOSv4 ? 1 : 0}
+                  eventKey={0}
                   title="Solution Pattern content"
                   tabContentId="solutionPatternsTabSection"
                   tabContentRef={this.contentRef2}
@@ -838,270 +830,17 @@ class SettingsPage extends React.Component {
         <PageSection>
           {isAdmin ? (
             <React.Fragment>
-              {isOSv4 && (
-                <TabContent
-                  className="integr8ly__tab-content"
-                  eventKey={0}
-                  id="refTab1Section"
-                  ref={this.contentRef1}
-                  aria-label="Tab item 1"
-                >
-                  <Card className="pf-u-w-100">
-                    {showSettingsAlert &&
-                      isAlertOpen && (
-                        <Alert
-                          className="settings-alert"
-                          variant="info"
-                          isInline
-                          title="Managed Integration Schedule Settings"
-                          actionClose={<AlertActionCloseButton onClose={this.onAlertClose} />}
-                        >
-                          <p>
-                            Schedule backups, maintenance windows, and upgrades to minimize disruptions to your cluster
-                            and services.
-                          </p>
-                        </Alert>
-                      )}
-                    <CardTitle>
-                      <h2 className="pf-c-title pf-m-lg">Daily Backups</h2>
-                    </CardTitle>
-                    <CardBody>
-                      <Flex className="pf-m-column">
-                        <Form>
-                          <FlexItem className="pf-m-spacer-sm">
-                            <Text className="integr8ly__text-small--m-secondary">
-                              The backup process will not impact the availability of your cluster.
-                            </Text>
-                          </FlexItem>
-                          <FlexItem className="pf-m-spacer-md">
-                            <Flex>
-                              <FlexItem className="pf-m-spacer-lg">
-                                <Text>Next daily backup:</Text>
-                              </FlexItem>
-                              <FlexItem>
-                                <Text>{this.getDailyBackup()}</Text>
-                              </FlexItem>
-                            </Flex>
-                          </FlexItem>
-                          <FlexItem>
-                            <FormGroup fieldId="backup-start-time-form">
-                              <Flex className="pf-m-column">
-                                <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                  <b>Start time for your backups</b>
-                                </Text>
-                                <Dropdown
-                                  className="integr8ly__dropdown-menu"
-                                  onSelect={this.onBackupSelect}
-                                  toggle={
-                                    <DropdownToggle id="toggle-id" onToggle={this.onBackupToggle}>
-                                      {this.state.buStartTimeDisplay}
-                                    </DropdownToggle>
-                                  }
-                                  isOpen={this.state.isBackupOpen}
-                                  dropdownItems={
-                                    window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                                      ? this.populateBackupsDropdown()
-                                      : this.state.backupDropdownItems
-                                  }
-                                />
-                              </Flex>
-                            </FormGroup>
-                            <Text className="integr8ly__text-small--m-secondary pf-u-mt-sm">
-                              Backups cannot be scheduled during the first hour of your maintenance window.{' '}
-                            </Text>
-                          </FlexItem>
-                          <FlexItem>
-                            <Title headingLevel="h5" size="lg" className="pf-u-mt-lg">
-                              Weekly maintenance window
-                            </Title>
-                          </FlexItem>
-                          <FlexItem className="pf-m-spacer-sm">
-                            <Text className="integr8ly__text-small--m-secondary">
-                              Set the start time of your 6-hour maintenance window.
-                            </Text>
-                          </FlexItem>
-                          <FlexItem>
-                            <FormGroup fieldId="maintenance-window-form">
-                              <Flex>
-                                <FlexItem className="pf-m-spacer-lg">
-                                  <Text>Next maintenance window:</Text>
-                                </FlexItem>
-                                <FlexItem>
-                                  <Text>{this.getMaintenanceWindows()[0]}</Text>
-                                </FlexItem>
-                              </Flex>
-                              <Flex className="pf-m-column pf-u-mt-lg">
-                                <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                  <b>Day and start time for your maintenance</b>
-                                </Text>
-                                <Flex>
-                                  <Dropdown
-                                    className="integr8ly__dropdown-menu"
-                                    onSelect={this.onMaintDaySelect}
-                                    toggle={
-                                      <DropdownToggle id="toggle-day" onToggle={this.onMaintDayToggle}>
-                                        {this.state.maintDayDisplay}
-                                      </DropdownToggle>
-                                    }
-                                    isOpen={this.state.isMaintDayOpen}
-                                    dropdownItems={
-                                      window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                                        ? this.populateMaintDayDropdown()
-                                        : this.state.maintDayDropdownItems
-                                    }
-                                  />
-                                  <Dropdown
-                                    className="integr8ly__dropdown-menu"
-                                    onSelect={this.onMaintTimeSelect}
-                                    toggle={
-                                      <DropdownToggle id="toggle-maint-time" onToggle={this.onMaintTimeToggle}>
-                                        {this.state.maintTimeDisplay}
-                                      </DropdownToggle>
-                                    }
-                                    isOpen={this.state.isMaintTimeOpen}
-                                    dropdownItems={
-                                      window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                                        ? this.populateMaintDropdown()
-                                        : this.state.maintDropdownItems
-                                    }
-                                  />
-                                </Flex>
-                              </Flex>
-                            </FormGroup>
-                          </FlexItem>
-                          <FlexItem>
-                            <Title headingLevel="h5" size="lg" className="pf-u-mt-lg">
-                              Managed Integration upgrades
-                            </Title>
-                          </FlexItem>
-                          <FlexItem className="pf-m-spacer-sm">
-                            <Text className="integr8ly__text-small--m-secondary">
-                              Available upgrades are applied during the selected maintenance window and can temporarily
-                              disrupt access to your cluster or services.
-                            </Text>
-                          </FlexItem>
-                          <FlexItem>
-                            <FormGroup fieldId="maintenance-window-form">
-                              <Flex className="pf-m-column pf-u-mt-sm">
-                                <Text className="pf-m-spacer-sm integr8ly__text-small">
-                                  <b>Maintenance window to apply your upgrades</b>
-                                </Text>
-                                <Radio
-                                  isChecked={this.state.selectedRadio === 'nextRadio'}
-                                  name="apply-upgrades-radio"
-                                  onChange={this.handleChange}
-                                  label={`First available - ${this.getMaintenanceWindows()[0]}`}
-                                  id="nextRadio"
-                                  value="nextRadio"
-                                />
-                                <Radio
-                                  isChecked={this.state.selectedRadio === 'followingRadio'}
-                                  name="apply-upgrades-radio"
-                                  onChange={this.handleChange}
-                                  label={`Second available - ${this.getMaintenanceWindows()[1]}`}
-                                  id="followingRadio"
-                                  value="followingRadio"
-                                />
-                                <Text className="integr8ly__text-small--m-secondary">
-                                  Upgrading during the first available maintenance window is only recommended for
-                                  development environments.{' '}
-                                </Text>
-                                <FlexItem>
-                                  <Title headingLevel="h6" size="sm" className="pf-u-mt-md">
-                                    Upgrade notifications
-                                  </Title>
-                                </FlexItem>
-                                <FlexItem className="pf-m-spacer-sm">
-                                  <Text className="integr8ly__text-small--m-secondary">
-                                    All administrators are notified when an upgrade is available. If other users should
-                                    be notified, add their email addresses.
-                                  </Text>
-                                </FlexItem>
-                                <FormGroup
-                                  label="Additional email addresses"
-                                  type="text"
-                                  helperTextInvalid="Email syntax is incorrect. Example: myemail@myaddress.com"
-                                  fieldId="email-formgroup"
-                                  validated={isEmailValid ? 'default' : 'error'}
-                                >
-                                  <TextInput
-                                    validated={isEmailValid ? 'default' : 'error'}
-                                    style={{ width: '50%' }}
-                                    value={this.state.emailContacts}
-                                    type="text"
-                                    onChange={this.handleEmailTextInputChange}
-                                    aria-label="additional email addresses"
-                                  />
-                                </FormGroup>
-                                <a
-                                  href="https://access.redhat.com/documentation/en-us/red_hat_managed_integration/2/html/administering_red_hat_managed_integration_2/index#as_customizing-rhmi-cluster_admin-guide"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                  className="pf-u-mt-sm"
-                                >
-                                  Learn more about Managed Integration scheduling
-                                </a>
-                              </Flex>
-                            </FormGroup>
-                          </FlexItem>
-                        </Form>
-                      </Flex>
-                    </CardBody>
-                    <CardFooter>
-                      <Button
-                        id="backup-settings-save-button"
-                        variant="primary"
-                        type="button"
-                        onClick={
-                          window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3
-                            ? e =>
-                                this.saveMockConfigSettings(
-                                  e,
-                                  this.state.buStartTimeDisplay,
-                                  this.state.maintDayDisplay.substr(0, 3),
-                                  this.state.maintTimeDisplay,
-                                  this.state.emailContacts,
-                                  this.state.maintWait,
-                                  this.state.maintWaitDays
-                                )
-                            : e =>
-                                this.saveConfigSettings(
-                                  e,
-                                  this.state.buStartTimeDisplay,
-                                  this.state.maintDayDisplay.substr(0, 3),
-                                  this.state.maintTimeDisplay,
-                                  this.state.emailContacts,
-                                  this.state.maintWait,
-                                  this.state.maintWaitDays
-                                )
-                        }
-                        isDisabled={!this.state.canSave || !this.state.isEmailValid}
-                      >
-                        Save
-                      </Button>{' '}
-                      <Button
-                        id="settings-cancel-button"
-                        variant="secondary"
-                        type="button"
-                        onClick={e => this.exitTutorial(e)}
-                      >
-                        Cancel
-                      </Button>{' '}
-                    </CardFooter>
-                  </Card>
-                </TabContent>
-              )}
               <TabContent
                 className="integr8ly__tab-content"
-                eventKey={isOSv4 ? 1 : 0}
+                eventKey={0}
                 id="refTab2Section"
                 ref={this.contentRef2}
                 aria-label="Tab item 2"
-                hidden={isOSv4}
+                hidden={false}
               >
                 <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
                   <Grid gutter="md">
-                    <GridItem sm={12} md={12} />
+                    <GridItem sm={12} md={12}/>
                   </Grid>
                 </PageSection>
 
@@ -1175,7 +914,7 @@ class SettingsPage extends React.Component {
               <CardBody>
                 <Bullseye>
                   <EmptyState variant={EmptyStateVariant.small}>
-                    <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
+                    <i className="fas fa-lock pf-c-empty-state__icon" alt=""/>
                     <Title headingLevel="h2" id="main-content" size="lg">
                       Permissions needed
                     </Title>
