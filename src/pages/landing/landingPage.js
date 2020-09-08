@@ -1,17 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Alert,
-  AlertActionCloseButton,
-  Grid,
-  GridItem,
-  Page,
-  PageSection,
-  PageSectionVariants,
-  Tabs,
-  Tab,
-  TabContent
-} from '@patternfly/react-core';
+import { Grid, GridItem, Page, PageSection, PageSectionVariants, Tabs, Tab, TabContent } from '@patternfly/react-core';
 import { noop } from '../../common/helpers';
 import TutorialDashboard from '../../components/tutorialDashboard/tutorialDashboard';
 import InstalledAppsView from '../../components/installedAppsView/InstalledAppsView';
@@ -100,7 +89,6 @@ class LandingPage extends React.Component {
 
   render() {
     const { walkthroughServices, middlewareServices, user } = this.props;
-    const { showInfoAlert } = this.state;
     const launchFn = isOpenShift4() ? this.handleServiceLaunchV4.bind(this) : this.handleServiceLaunch.bind(this);
     const openshiftHost = getOpenshiftHost(middlewareServices);
     this.contentRef1 = React.createRef();
@@ -108,8 +96,6 @@ class LandingPage extends React.Component {
 
     // show settings alert on first render
     if (window.localStorage.getItem('showInfoAlert') === null) window.localStorage.setItem('showInfoAlert', true);
-
-    const isAlertOpen = window.localStorage.getItem('showInfoAlert') === 'true';
 
     return (
       <Page className="pf-u-h-100vh" onLoad={this.handleLoad}>

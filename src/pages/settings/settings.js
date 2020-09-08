@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Alert,
-  AlertActionCloseButton,
   Bullseye,
   EmptyState,
   EmptyStateBody,
   EmptyStateVariant,
-  Flex,
-  FlexItem,
   Form,
   FormGroup,
   Grid,
@@ -17,21 +13,16 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
-  Dropdown,
   DropdownItem,
-  DropdownToggle,
   Button,
   Page,
   PageSection,
   PageSectionVariants,
-  Radio,
   SkipToContent,
   Tabs,
   Tab,
   TabContent,
-  Text,
   TextArea,
-  TextInput,
   Title
 } from '@patternfly/react-core';
 import { withRouter } from 'react-router-dom';
@@ -781,35 +772,27 @@ class SettingsPage extends React.Component {
   };
 
   render() {
-    const { value, isValid, isEmailValid, showSettingsAlert } = this.state;
+    const { value, isValid } = this.state;
     this.contentRef1 = React.createRef();
     this.contentRef2 = React.createRef();
 
     let isAdmin = window.localStorage.getItem('currentUserIsAdmin') === 'true';
-    let isOSv4 = true;
 
     // no admin protection for openshift 3 or for running demo/locally
     if (window.OPENSHIFT_CONFIG && window.OPENSHIFT_CONFIG.openshiftVersion === 3) {
       isAdmin = true;
-      // isOSv4 = false;
     }
-
-    // local testing purposes only - uncomment to test config tab (simulate OS4)
-    // isOSv4 = true;
 
     // show settings alert on first render
     if (window.localStorage.getItem('showSettingsAlert') === null)
       window.localStorage.setItem('showSettingsAlert', true);
 
-    const isAlertOpen = window.localStorage.getItem('showSettingsAlert') === 'true';
-
     return (
       <Page className="pf-u-h-100vh">
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
-        <RoutedConnectedMasthead/>
+        <RoutedConnectedMasthead />
         <PageSection variant={PageSectionVariants.light} className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
-          <Breadcrumb homeClickedCallback={() => {
-          }} threadName="Settings"/>
+          <Breadcrumb homeClickedCallback={() => {}} threadName="Settings" />
           <Grid hasGutter>
             <GridItem>
               <h1 id="main-content" className="pf-c-title pf-m-2xl pf-u-mt-lg pf-u-mb-lg">
@@ -840,7 +823,7 @@ class SettingsPage extends React.Component {
               >
                 <PageSection className="pf-u-py-0 pf-u-pl-lg pf-u-pr-0">
                   <Grid gutter="md">
-                    <GridItem sm={12} md={12}/>
+                    <GridItem sm={12} md={12} />
                   </Grid>
                 </PageSection>
 
@@ -914,7 +897,7 @@ class SettingsPage extends React.Component {
               <CardBody>
                 <Bullseye>
                   <EmptyState variant={EmptyStateVariant.small}>
-                    <i className="fas fa-lock pf-c-empty-state__icon" alt=""/>
+                    <i className="fas fa-lock pf-c-empty-state__icon" alt="" />
                     <Title headingLevel="h2" id="main-content" size="lg">
                       Permissions needed
                     </Title>
