@@ -3,6 +3,7 @@ import get from 'lodash.get';
 import { REJECTED_ACTION } from '../redux/helpers';
 import { GET_THREAD } from '../redux/constants/threadConstants';
 import { SERVICE_TYPES } from '../redux/constants/middlewareConstants';
+import { cleanUsername } from './openshiftHelpers';
 
 class DefaultServiceInstanceTransform {
   isTransformable() {
@@ -43,8 +44,9 @@ class EnMasseServiceInstanceTransform {
 
   transform(siInfo) {
     const defaultTransform = new DefaultServiceInstanceTransform().transform(siInfo);
+    const safeUsername = cleanUsername(siInfo.username);
     defaultTransform.spec.parameters = {
-      name: siInfo.username,
+      name: safeUsername,
       namespace: siInfo.namespace
     };
     defaultTransform.spec.clusterServicePlanExternalName = 'standard-unlimited';
