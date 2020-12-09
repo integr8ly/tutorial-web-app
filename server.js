@@ -16,6 +16,7 @@ const querystring = require('querystring');
 const flattenDeep = require('lodash.flattendeep');
 const proxy = require('express-http-proxy');
 const { sync, closeConnection, getUserWalkthroughs, setUserWalkthroughs, validUrl } = require('./model');
+const helmet = require('helmet');
 
 const OPENSHIFT_PROXY_PATH = '/proxy/openshift';
 
@@ -55,6 +56,8 @@ const LOCAL_DEV_INSTALLED_SERVICES = {
 const CROSS_CONSOLE_ENABLED = false;
 
 app.use(bodyParser.json());
+app.use(helmet());
+
 app.use(
   OPENSHIFT_PROXY_PATH,
   proxy(`https://${process.env.OPENSHIFT_API}`, {
