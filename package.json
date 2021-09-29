@@ -19,7 +19,7 @@
     "express": "4.16.3",
     "express-http-proxy": "^1.5.1",
     "express-prometheus-middleware": "^0.6.1",
-    "i": "0.3.6",
+    "i": "0.3.7",
     "i18next": "11.6.0",
     "i18next-xhr-backend": "1.5.1",
     "js-cookie": "2.2.0",
