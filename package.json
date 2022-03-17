@@ -41,7 +41,7 @@
     "rimraf": "2.6.2",
     "sequelize": "^5.15.1",
     "sha.js": "2.4.11",
-    "simple-git": "^1.107.0",
+    "simple-git": "^3.3.0",
     "sqlite3": "^4.0.8"
   },
   "devDependencies": {
